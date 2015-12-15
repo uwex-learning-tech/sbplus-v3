@@ -26,4 +26,4 @@ _coming soon_
 
 ---
 ###License
-Storybook Plus (SB+) is licensed under [GNU v3](https://github.com/oel-mediateam/sbplus/blob/master/LICENSE) license. Copyright (c) 2013-2015 Ethan S. Lin, [University of Wisconsin-Extension, Division of Continuing Education, Outreach & E-Learning](http://ce.uwex.edu/)
+Storybook Plus (SB+) is licensed under [GNU v3](https://github.com/oel-mediateam/sbplus_v3/blob/master/LICENSE) license. Copyright (c) 2013-2015 Ethan S. Lin, [University of Wisconsin-Extension, Division of Continuing Education, Outreach & E-Learning](http://ce.uwex.edu/)
