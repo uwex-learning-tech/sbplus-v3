@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<storybook accent="#0000ff" slideFormat="jpg" analytics="off" xmlVersion="3">
+    
+    <setup>
+        
+        <title>ABC</title>
+        <subtitle>DEFG</subtitle>
+        <length>~10 Minutes</length>
+        <author name="John Doe">
+            <!-- author descripion, bio, profile, whatever -->
+        </author>
+        <generalInfo>
+            <!-- general information about the presentation -->
+        </generalInfo>
+        
+    </setup>
+    
+    <!--
+        table of contents
+        section title attribute defaults to "section #"
+        image default to jpg unless file extension (i.e., .png) is specified
+    -->
+
+    <section title="Section 1">
+        
+        <!-- image -->
+        <page type="image" src="filename" title="">
+            
+            <note />
+            
+        </page>
+        
+        <!-- audio with assumption of image -->
+        <page type="image-audio" src="filename" title="">
+            
+            <note />
+            
+        </page>
+        
+        <!-- video -->
+        <page type="video" src="filename" title="">
+            
+            <note />
+            
+        </page>
+        
+        <!-- html -->
+        <page type="html" src="foldername" title="" icon="">
+            
+            <note />
+            
+        </page>
+        
+        <!-- kaltura -->
+        <page type="kaltura" src="id" title="">
+            
+            <note />
+            
+        </page>
+        
+        <!-- youtube -->
+        <page type="youtube" src="id" title="">
+            
+            <note />
+            
+        </page>
+        
+        <!-- vimeo -->
+        <page type="vimeo" src="id" title="">
+            
+            <note />
+            
+        </page>
+        
+        <!-- bundle -->
+        <page type="bundle" src="filename" title="">
+            
+            <frame start="00:00"></frame>
+            <frame start="00:30"></frame>
+            <frame start="00:50"></frame>
+            <frame start="00:55"></frame>
+            
+            <note />
+            
+        </page>
+        
+        <!-- quiz: multiple choice single -->
+        <page type="quiz" title="">
+            
+            <mulitpleChoiceSingle>
+                
+                <question image="" audio="">Lorem lorem</question>
+                <choices>
+                    
+                    <answer image="" audio="" correct="yes">
+                        <value></value>
+                        <feedback image="" audio=""></feedback>
+                    </answer>
+                    
+                    <answer image="" audio="">
+                        <value></value>
+                        <feedback image="" audio=""></feedback>
+                    </answer>
+                    
+                    <answer image="" audio="">
+                        <value></value>
+                        <feedback image="" audio=""></feedback>
+                    </answer>
+                    
+                    <answer image="" audio="">
+                        <value></value>
+                        <feedback image="" audio=""></feedback>
+                    </answer>
+                    
+                </choices>
+                
+            </mulitpleChoiceSingle>
+            
+        </page>
+        
+        <!-- quiz: multiple choice multiple -->
+        <page type="quiz" title="">
+            
+            <mulitpleChoiceMultiple>
+                
+                <question image="" audio="">Lorem lorem</question>
+                <choices>
+                    
+                    <answer image="" audio="" correct="yes">
+                        <value></value>
+                    </answer>
+                    
+                    <answer image="" audio="">
+                        <value></value>
+                    </answer>
+                    
+                    <answer image="" audio="" correct="yes">
+                        <value></value>
+                    </answer>
+                    
+                    <answer image="" audio="">
+                        <value></value>
+                    </answer>
+                    
+                </choices>
+                
+                <correctFeedback image="" audio=""></correctFeedback>
+                <incorrectFeedback image="" audio=""></incorrectFeedback>
+                
+            </mulitpleChoiceMultiple>
+            
+        </page>
+        
+        <!-- quiz: true or false -->
+        <page type="quiz" title="">
+            
+            <trueFlase>
+                
+                <question>Lorem lorem</question>
+
+                <true image="" audio="" correct="yes">
+                    <feedback image="" audio=""></feedback>
+                </true>
+                
+                <false image="" audio="">
+                    <feedback image="" audio=""></feedback>
+                </false>
+                
+            </trueFlase>
+            
+        </page>
+        
+        <!-- quiz: short answer -->
+        <page type="quiz" title="">
+            
+            <shortAnswer>
+                
+                <question>Lorem lorem</question>
+                <feedback></feedback>
+                
+            </shortAnswer>
+            
+        </page>
+        
+        <!-- quiz: fill in the blank -->
+        <page type="quiz" title="">
+            
+            <fillInTheBlank>
+                
+                <question>Lorem lorem</question>
+                <answer></answer>
+                <correctFeedback></correctFeedback>
+                <incorrectFeedback></incorrectFeedback>
+                
+            </fillInTheBlank>
+            
+        </page>
+        
+    </section>
+    
+</storybook>
