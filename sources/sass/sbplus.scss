@@ -1,2 +1,483 @@
+$default-font-size: 16px;
+$font-color: #333;
+$border-color: #ccc;
+$link-hover-color: #18b8f7;
+$gutter: 16px;
+
 @import "compass/reset";
+@import "compass/css3/box-sizing";
+@import "compass/utilities/general/clearfix";
+@import "compass/css3/flexbox";
 @import "../fonts/sbplus_fonts.css";
+
+//mixins
+
+@mixin aspect-ratio( $width, $height ) {
+    
+    position: relative;
+    
+    &:before {
+        
+        display: block;
+        content: "";
+        width: 100%;
+        padding-top: ( $height / $width ) * 100%;
+        
+    }
+    
+    > .sbplus {
+        
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        
+    }
+    
+}
+
+// functions
+
+@function rem( $px, $base: $default-font-size ) {
+    
+    @return ( $px / $base ) * 1rem;
+    
+}
+
+// general rules
+
+* {
+    
+    @include box-sizing( border-box );
+    
+}
+
+html {
+    
+    font-size: $default-font-size;
+    margin: 0;
+    padding: 0;
+    
+}
+
+body {
+    
+    @extend html;
+    
+    font-family: Arial, Helvetica, sans-serif;
+	line-height: rem( 16px );
+	color: $font-color;
+
+}
+
+h1, h2, h3, h4, h5, h6, p, blockquote, ol, ul, li {
+    
+    margin: rem( $gutter ) 0;
+    
+}
+
+a, a:visited {
+                        
+    color: #fff;
+    text-decoration: none;
+    
+}
+
+a:hover {
+    
+    color: $link-hover-color; 
+    
+}
+
+button {
+    
+    cursor: pointer;
+    
+}
+
+// storybook plus rules
+
+.sbplus_wrapper {
+            
+    .sbplus {
+        
+        position: relative;
+        margin: 0 auto;
+        overflow: hidden;
+        
+        .title_bar {
+            
+            height: rem( 30px );
+            color: #fff;
+            background-color: $font-color;
+            
+            .title {
+                
+                line-height: rem( 30px );
+                padding: 0 0 0 rem( 15px );
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                
+            }
+            
+            .author {
+                
+                @extend .title;
+                
+                border-right: rem( 1px ) solid $border-color;
+                
+            }
+            
+            .menu {
+                
+                @extend .title;
+
+                height: rem( 30px );
+                text-align: center;
+                border: none;
+                color: #fff;
+                padding: 0;
+                background-color: transparent;
+                
+                [class^="icon-"] {
+                    
+                    font-size: rem( 16px );
+                    line-height: rem( 30px );
+                    
+                }
+                
+            }
+            
+            .menu:hover {
+                
+                [class^="icon-"] {
+                    
+                    color: $link-hover-color;
+                    
+                }
+                
+            }
+            
+            .menu:focus {
+                
+                outline: none;
+                
+            }
+            
+        } // end title bar
+        
+        .main_content_wrapper {
+            
+            border: rem( 1px ) solid $border-color;
+            
+            .main_content {
+                
+                .notes {
+                
+                    border-top: rem( 1px ) solid $border-color;
+                
+                } // end note
+                
+                .control_bar_wrapper {
+                
+                    border-top: rem( 1px ) solid $border-color;
+                
+                } // end control bar wrapper
+                
+            } // end main content
+            
+            .toc {
+                
+                border-left: rem( 1px ) solid $border-color;
+                
+            } // end table of content
+            
+        } // end main content wrapper
+        
+        .splashscreen {
+            
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: teal;
+            z-index: 0;
+            
+        }
+        
+        .errorscreen {
+            
+            @extend .splashscreen;
+            background-color: rgba(255, 255, 255, 0.85);
+            z-index: 1;
+            
+            .content {
+                
+                text-align: center;
+                
+                .title {
+                    
+                    font-size: rem( 24px );
+                    line-height: rem( 24px );
+                    margin-bottom: rem( $gutter );
+                }
+                
+                .msg {
+                    
+                    line-height: rem( $default-font-size + 4 );
+                    
+                }
+                
+            }
+            
+        }
+        
+    } // end sbplus
+    
+} // end sbplus wrapper
+
+// misc
+*[hidden] {
+    
+    display: none;
+    
+}
+
+// device width over 900 pixels
+@media only screen
+and (min-width: 900px) {
+    
+    // if device does support flexbox
+    .flexbox {
+        
+        > * {
+            
+            @include flex( 1 100% );
+            
+        }
+        
+        .sbplus_wrapper {
+            
+            .sbplus {
+                
+                width: rem( 900px );
+                height: rem( 590px );
+                
+                @include display-flex( flex );
+                @include flex-direction( column );
+                @include flex-wrap( nowrap );
+            
+                .title_bar {
+                    
+                    @include display-flex( flex );
+                    @include flex-direction( row );
+                    @include flex-wrap( nowrap );
+                    @include order( 1 );
+                    
+                    .title {
+                        
+                        width: rem( 640px );
+                        @include order( 1 );
+                        
+                    }
+                    
+                    .author {
+                        
+                        width: rem( 220px );
+                        @include order( 2 );
+                        
+                    }
+                    
+                    .menu {
+                        
+                        width: rem( 40px );
+                        @include order( 3 );
+                        
+                    }
+                    
+                } // end title bar
+                
+                .main_content_wrapper {
+                    
+                    height: rem( 560px );
+                    
+                    @include display-flex( flex );
+                    @include flex-direction( row );
+                    @include flex-wrap( nowrap );
+                    @include order( 2 );
+                    
+                    
+                    .main_content {
+                        
+                        width: rem( 640px );
+                        
+                        @include display-flex( flex );
+                        @include flex-direction( column );
+                        @include flex-wrap( nowrap );
+                        @include order( 1 );
+                        
+                        .slide {
+                        
+                            width: rem( 640px );
+                            height: rem( 360px );
+                            @include order( 1 );
+                        
+                        }
+                        
+                        .notes {
+                        
+                            width: rem( 640px );
+                            height: rem( 160px );
+                            @include order( 2 );
+                        
+                        }
+                        
+                        .control_bar_wrapper {
+                        
+                            width: 100%;
+                            height: rem( 40px );
+                            @include order( 3 );
+                        
+                        }
+                        
+                    }
+                    
+                    .toc {
+                        
+                        width: rem( 258px );
+                        height: rem( 560px );
+                        @include order( 2 );
+                        
+                    } // end table of content
+                    
+                } // end main content wrapper
+                
+                .errorscreen {
+            
+                    @include display-flex( flex );
+                    @include flex-direction( column );
+                    @include justify-content( center );
+                    
+                } // end error screen
+                
+                .errorscreen.hide {
+                    
+                    display: none;
+                    
+                }
+                
+            } // end sbplus
+            
+        } // end sbplus wrapper
+        
+    } // end flexbox
+    
+    // if the device does not support flexbox
+    .no-flexbox {
+        
+        .sbplus_wrapper {
+            
+            .sbplus {
+                
+                width: rem( 900px );
+                height: rem( 590px );
+                
+                .title_bar {
+                    
+                    width: 100%;
+                    
+                    .title {
+                        
+                        width: rem( 640px );
+                        float: left;
+                        
+                    }
+                    
+                    .author {
+                        
+                        width: rem( 220px );
+                        float: left;
+                        
+                    }
+                    
+                    .menu {
+                        
+                        width: rem( 40px );
+                        float: left;
+                        
+                    }
+                    
+                } // end title bar
+                
+                .main_content_wrapper {
+                    
+                    width: 100%;
+                    height: rem( 560px );
+                    
+                    @include clearfix();
+                    
+                    .main_content {
+                        
+                        width: rem( 640px );
+                        float: left;
+                        
+                        .slide {
+                        
+                            width: rem( 640px );
+                            height: rem( 360px );
+                            float: left;
+                        
+                        }
+                        
+                        .notes {
+                        
+                            width: rem( 640px );
+                            height: rem( 160px );
+                            float: left;
+                        
+                        }
+                        
+                        .control_bar_wrapper {
+                        
+                            width: 100%;
+                            height: rem( 40px );
+                            float: left;
+                            clear: both;
+                        
+                        }
+                        
+                    } // end main content wrapper
+                    
+                    .toc {
+                        
+                        width: rem( 258px );
+                        height: rem( 560px );
+                        float: left;
+                        
+                    } // end table of content
+                    
+                } // end main content wrapper
+                
+                .errorscreen {
+                    
+                    .content {
+                        
+                        position: absolute;
+                        top: 50%;
+                        width: 100%;
+                        transform: translateY(-50%);
+                        
+                    }
+                    
+                }
+                
+            } // end sbplus
+            
+        } // end sbplus wrapper
+        
+    } // end no flexbox
+    
+}
