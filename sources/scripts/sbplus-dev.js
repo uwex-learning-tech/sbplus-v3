@@ -25,10 +25,44 @@
  */
  
  /* global Modernizr */
+ /* global requirejs */
+ /* global require */
+ /* global sbplus */
  
- $( document ).ready( function() {
+requirejs.config( {
+    
+    baseUrl: 'sources/scripts',
+    paths: {
+        views: 'views',
+        templates: 'templates',
+        models: 'models',
+        collections: 'collections'
+    }
+    
+} );
+ 
+/**** ON DOM READY ****/
+require( [ 'domReady' ], function ( domReady ) {
+    
+    domReady( function () {
+        
+        $( this ).checkFeatures();
+        
+        var sbplusView = new sbplus.mainView();
+        $( '.sbplus_wrapper' ).html( sbplusView.render().el );
+        
+        var splashInfo = new sbplus.setup( { title: 'ABD' } );
+        var splashscreen = new sbplus.splashView( { model: splashInfo } );
+        $( '.splashscreen' ).html( splashscreen.render().el );
+        
+    } );
+    
+} );
+ 
+/**** METHODS ****/
+ 
+ $.fn.checkFeatures = function() {
      
-     // check for core features
      if ( !Modernizr.audio || !Modernizr.video || !Modernizr.json || !Modernizr.eventlistener) {
          
          $(this).displayErrorScreen( 'Your web browser is not supported!', 'Please use a modern web browser.', false );
@@ -51,7 +85,7 @@
          
      }
      
- } );
+ };
  
  $.fn.displayErrorScreen = function( ttl, msg, allowContinue ) {
      

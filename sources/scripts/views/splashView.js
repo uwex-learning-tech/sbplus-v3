@@ -1,0 +1,1 @@
+require(["text!templates/splashscreen.tpl"],function(e){sbplus.splashView=Backbone.View.extend({tagName:"div",className:"splashinfo",template:_.template(e),render:function(){var e=this.template(this.model.toJSON());return this.$el.html(e),this}})});

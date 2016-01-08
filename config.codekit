@@ -108,27 +108,93 @@
 		"shouldRunBless": 0,
 		"useLibsass": 0
 		},
-	"\/sources\/scripts\/jquery.js": {
+	"\/sources\/scripts\/domReady.js": {
 		"fileType": 64,
 		"ignore": 1,
 		"ignoreWasSetByUser": 1,
-		"inputAbbreviatedPath": "\/sources\/scripts\/jquery.js",
-		"outputAbbreviatedPath": "\/sources\/scripts\/jquery.js",
+		"inputAbbreviatedPath": "\/sources\/scripts\/domReady.js",
+		"outputAbbreviatedPath": "\/sources\/scripts\/domReady.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
-		"syntaxCheckerStyle": 1
+		"outputStyle": 0,
+		"syntaxCheckerStyle": 0
 		},
-	"\/sources\/scripts\/modernizr.js": {
+	"\/sources\/scripts\/libs\/backbone.js": {
+		"fileType": 64,
+		"ignore": 1,
+		"ignoreWasSetByUser": 1,
+		"inputAbbreviatedPath": "\/sources\/scripts\/libs\/backbone.js",
+		"outputAbbreviatedPath": "\/sources\/scripts\/libs\/backbone.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 0,
+		"syntaxCheckerStyle": 0
+		},
+	"\/sources\/scripts\/libs\/jquery.js": {
+		"fileType": 64,
+		"ignore": 1,
+		"ignoreWasSetByUser": 1,
+		"inputAbbreviatedPath": "\/sources\/scripts\/libs\/jquery.js",
+		"outputAbbreviatedPath": "\/sources\/scripts\/libs\/jquery.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 0,
+		"syntaxCheckerStyle": 0
+		},
+	"\/sources\/scripts\/libs\/modernizr.js": {
+		"fileType": 64,
+		"ignore": 1,
+		"ignoreWasSetByUser": 1,
+		"inputAbbreviatedPath": "\/sources\/scripts\/libs\/modernizr.js",
+		"outputAbbreviatedPath": "\/sources\/scripts\/libs\/modernizr.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 0,
+		"syntaxCheckerStyle": 0
+		},
+	"\/sources\/scripts\/libs\/underscore.js": {
+		"fileType": 64,
+		"ignore": 1,
+		"ignoreWasSetByUser": 1,
+		"inputAbbreviatedPath": "\/sources\/scripts\/libs\/underscore.js",
+		"outputAbbreviatedPath": "\/sources\/scripts\/libs\/underscore.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 0,
+		"syntaxCheckerStyle": 0
+		},
+	"\/sources\/scripts\/models\/sbSetup-dev.js": {
 		"fileType": 64,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/sources\/scripts\/modernizr.js",
-		"outputAbbreviatedPath": "\/sources\/scripts\/modernizr.js",
+		"inputAbbreviatedPath": "\/sources\/scripts\/models\/sbSetup-dev.js",
+		"outputAbbreviatedPath": "\/sources\/scripts\/models\/sbSetup.js",
 		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
+		"outputPathIsSetByUser": 1,
 		"outputStyle": 1,
 		"syntaxCheckerStyle": 1
+		},
+	"\/sources\/scripts\/models\/sbSetup.js": {
+		"fileType": 64,
+		"ignore": 1,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/sources\/scripts\/models\/sbSetup.js",
+		"outputAbbreviatedPath": "\/sources\/scripts\/models\/sbSetup.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 1,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 1
+		},
+	"\/sources\/scripts\/require.js": {
+		"fileType": 64,
+		"ignore": 1,
+		"ignoreWasSetByUser": 1,
+		"inputAbbreviatedPath": "\/sources\/scripts\/require.js",
+		"outputAbbreviatedPath": "\/sources\/scripts\/require.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 0,
+		"syntaxCheckerStyle": 0
 		},
 	"\/sources\/scripts\/sbplus-dev.js": {
 		"fileType": 64,
@@ -147,6 +213,61 @@
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/sources\/scripts\/sbplus.js",
 		"outputAbbreviatedPath": "\/sources\/scripts\/sbplus.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 1
+		},
+	"\/sources\/scripts\/text.js": {
+		"fileType": 64,
+		"ignore": 1,
+		"ignoreWasSetByUser": 1,
+		"inputAbbreviatedPath": "\/sources\/scripts\/text.js",
+		"outputAbbreviatedPath": "\/sources\/scripts\/text.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 0,
+		"syntaxCheckerStyle": 0
+		},
+	"\/sources\/scripts\/views\/sbplusMain-dev.js": {
+		"fileType": 64,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/sources\/scripts\/views\/sbplusMain-dev.js",
+		"outputAbbreviatedPath": "\/sources\/scripts\/views\/sbplusMain.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 1,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 1
+		},
+	"\/sources\/scripts\/views\/sbplusMain.js": {
+		"fileType": 64,
+		"ignore": 1,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/sources\/scripts\/views\/sbplusMain.js",
+		"outputAbbreviatedPath": "\/sources\/scripts\/views\/sbplusMain.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 1
+		},
+	"\/sources\/scripts\/views\/splashView-dev.js": {
+		"fileType": 64,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/sources\/scripts\/views\/splashView-dev.js",
+		"outputAbbreviatedPath": "\/sources\/scripts\/views\/splashView.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 1,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 1
+		},
+	"\/sources\/scripts\/views\/splashView.js": {
+		"fileType": 64,
+		"ignore": 1,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/sources\/scripts\/views\/splashView.js",
+		"outputAbbreviatedPath": "\/sources\/scripts\/views\/splashView.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 1,

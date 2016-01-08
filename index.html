@@ -30,55 +30,22 @@
         <link href="manifest.json" rel="manifest" />
         <link href="sources/css/sbplus.css" rel="stylesheet" media="all" />
         
-        <script src="sources/scripts/modernizr.js"></script>
-        <script src="sources/scripts/jquery.js"></script>
-        <script src="sources/scripts/sbplus.js"></script>
-        
         <title>SBPLUS</title>
         
     </head>
     
     <body>
         
-        <div class="sbplus_wrapper">
-            
-            <div class="sbplus">
-                
-                <div class="splashscreen" hidden></div>
-                
-                <div class="errorscreen hide">
-                    <div class="content">
-                        <p class="title"></p>
-                        <p class="msg"></p>
-                        <p class="act"></p>
-                    </div>
-                </div>
-                
-                <div class="title_bar">
-                    
-                    <div class="title"></div>
-                    <div class="author"></div>
-                    <button class="menu"><span class="icon-menu"></span></button>
-                    
-                </div>
-                
-                <div class="main_content_wrapper">
-                    
-                    <div class="main_content">
-                        
-                        <div class="slide"></div>
-                        <div class="notes"></div>
-                        <nav class="control_bar_wrapper"></nav>
-                        
-                    </div>
-                    
-                    <nav class="toc"></nav>
-                    
-                </div>
-                
-            </div>
-            
-        </div>
+        <div class="sbplus_wrapper"></div>
+        
+        <script src="sources/scripts/libs/modernizr.js"></script>
+        <script src="sources/scripts/libs/jquery.js"></script>
+        <script src="sources/scripts/libs/underscore.js"></script>
+        <script src="sources/scripts/libs/backbone.js"></script>
+        <script src="sources/scripts/models/sbSetup.js"></script>
+        <script data-main="sources/scripts/sbplus.js" src="sources/scripts/require.js"></script>
+        <script src="sources/scripts/views/sbplusMain.js"></script>
+        <script src="sources/scripts/views/splashView.js"></script>
         
     </body>
     
