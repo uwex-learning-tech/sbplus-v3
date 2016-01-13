@@ -1,1 +1,0 @@
-var sbplus=sbplus||{};sbplus.setup=Backbone.Model.extend({defaults:{title:"",subtitle:"",length:"",author:"",authorBio:"",generalInfo:"",accent:"#0000ff",slideFormat:"jpg",analytics:"off",xmlVersion:"3"}});

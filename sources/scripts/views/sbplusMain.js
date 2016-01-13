@@ -1,1 +1,0 @@
-require(["text!templates/sbplus.tpl"],function(e){sbplus.mainView=Backbone.View.extend({tagName:"div",className:"sbplus",template:_.template(e),render:function(){var e=this.template();return this.$el.html(e),this}})});

@@ -1,4 +1,5 @@
 $default-font-size: 16px;
+$default-font-family: Helvetica, Arial, sans-serif;
 $font-color: #333;
 $border-color: #ccc;
 $link-hover-color: #18b8f7;
@@ -8,6 +9,8 @@ $gutter: 16px;
 @import "compass/css3/box-sizing";
 @import "compass/utilities/general/clearfix";
 @import "compass/css3/flexbox";
+@import "compass/css3/transform";
+
 @import "../fonts/sbplus_fonts.css";
 
 //mixins
@@ -65,7 +68,7 @@ body {
     
     @extend html;
     
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: $default-font-family;
 	line-height: rem( 16px );
 	color: $font-color;
 
@@ -74,6 +77,13 @@ body {
 h1, h2, h3, h4, h5, h6, p, blockquote, ol, ul, li {
     
     margin: rem( $gutter ) 0;
+    
+}
+
+ul {
+    
+    list-style: disc;
+    margin-left: rem( 25px );
     
 }
 
@@ -90,16 +100,58 @@ a:hover {
     
 }
 
+strong {
+    
+    font-weight: bold;
+    
+}
+
 button {
     
+    padding: rem( 20px ) rem( 24px );
+    font-size: rem( 20px );
+    font-family: $default-font-family;
+    line-height: 0;
+    color: #fff;
+    border: 0;
+    background-color: #535ca8;
     cursor: pointer;
+    outline: none;
     
 }
 
 // storybook plus rules
 
 .sbplus_wrapper {
+    
+    .notSupportedMsg {
+        
+        padding: rem( 5px ) rem( 20px ) 0;
+        
+        h1 {
             
+            font-size: rem( 24px );
+            line-height: normal;
+            font-weight: bold;
+            color: #bc0909;
+            
+        } 
+        
+        p {
+            
+            font-size: rem( $default-font-size );
+            line-height: normal;
+            
+            a, a:visited {
+                
+                color: $link-hover-color;
+                
+            }
+            
+        }
+        
+    }
+    
     .sbplus {
         
         position: relative;
@@ -203,8 +255,59 @@ button {
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: teal;
+            background-color: #fff;
+            background-position: center center;
             z-index: 0;
+            
+            @include transform-style( preserve-3d );
+            
+            .splashinfo {
+                
+                position: relative;
+                top: 50%;
+                padding: 0 rem( 200px );
+                @include translateY( -50% );
+                
+                .title {
+                    
+                    font-weight: bold;
+                    font-size: rem( 20px );
+                    line-height: rem( 26px );
+                    margin: 0;
+                    
+                }
+                
+                .subtitle {
+                    
+                    font-size: rem( 18px );
+                    line-height: rem( 24px );
+                    line-height: normal;
+                    margin-top: 0;
+                    margin-bottom: rem( $gutter );
+                    
+                }
+                
+                .author {
+                    
+                    margin-top: 0;
+                    margin-bottom: rem( $gutter );
+                    
+                }
+                
+                .length {
+                    
+                    margin-top: 0;
+                    margin-bottom: rem( $gutter );
+                    
+                }
+                
+                .startBtn {
+                    
+                    margin: 0;
+                    
+                }
+                
+            }
             
         }
         
@@ -232,6 +335,12 @@ button {
                 }
                 
             }
+            
+        }
+        
+        .errorscreen.hide {
+            
+            display: none;
             
         }
         

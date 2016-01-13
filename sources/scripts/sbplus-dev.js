@@ -25,65 +25,65 @@
  */
  
  /* global Modernizr */
- /* global requirejs */
- /* global require */
  /* global sbplus */
  
-requirejs.config( {
-    
-    baseUrl: 'sources/scripts',
-    paths: {
-        views: 'views',
-        templates: 'templates',
-        models: 'models',
-        collections: 'collections'
-    }
-    
-} );
- 
 /**** ON DOM READY ****/
-require( [ 'domReady' ], function ( domReady ) {
+$( document ).ready( function() {
     
-    domReady( function () {
-        
-        $( this ).checkFeatures();
-        
-        var sbplusView = new sbplus.mainView();
-        $( '.sbplus_wrapper' ).html( sbplusView.render().el );
-        
-        var splashInfo = new sbplus.setup( { title: 'ABD' } );
-        var splashscreen = new sbplus.splashView( { model: splashInfo } );
-        $( '.splashscreen' ).html( splashscreen.render().el );
-        
-    } );
+    // check for core compatible features
+        if ( $( this ).haveCoreFeatures() ) {
+            
+            // initialize the sbplus splash screen model
+            var splashInfo = new sbplus.setup( {
+                title: 'Presentation Title Goes Here and Can Be As Many Lines As You Want But Two Is Recommended',
+                subtitle: 'Subtitle goes here and Can Be As Many Lines As You Want But Two Is Recommended',
+                author: 'Dr. Firstname Lastname',
+                length: '25 minutes'
+            } );
+            
+            // initialize the sbplus splash screen view
+            var splashScreen = new sbplus.splashView( { model: splashInfo } );
+            
+            // set the document/page title
+            $( document ).attr( "title", splashInfo.get( 'title' ) );
+            
+            // get the sbplus structure via ajax
+            $.get( 'sources/scripts/templates/sbplus.tpl', function( frame ) {
+                
+                // display the sbplus frame
+                $( '.sbplus_wrapper' ).html( frame );
+                
+                // display the splashscreen
+                $( '.splashscreen' ).html( splashScreen.render().el ).css( 'background-image', 'url(' + splashInfo.get( 'splashImg' ) + ')' );
+                
+                // bind start button for splash screen
+                $( '.startBtn' ).on( 'click', function() {
+                    
+                    $( '.splashscreen' ).fadeOut();
+                    
+                } );
+                
+            } );
+            
+        } else {
+            
+            $( '.sbplus_wrapper' ).html( '<div class="notSupportedMsg"><h1>Your web browser is not supported.</h1><p>It is not capable of delivering the core features of this application.</p><p><strong>Recommended web browsers</strong>: latest stable version of all modern web browsers (Mozilla Firefox, Google Chrome, Apple Safari, Microsoft Edge, etc.).</p><p><strong>Minimium supported web browser versions</strong>:<ul><li>Microsoft Internet Explorer 10</li><li>Mozilla Firefox 35</li><li>Google Chorme 33</li><li>Apple Safari 5</li></ul></p><p>For more information on modern web browsers and how to update, visit <a href="https://whatbrowser.org/" target="_blank">whatbrowser.org</a>.</p></div>' );
+            
+        }
     
 } );
  
 /**** METHODS ****/
  
- $.fn.checkFeatures = function() {
+ $.fn.haveCoreFeatures = function() {
      
-     if ( !Modernizr.audio || !Modernizr.video || !Modernizr.json || !Modernizr.eventlistener) {
+     if ( !Modernizr.audio || !Modernizr.video || !Modernizr.json || !Modernizr.eventlistener ) {
          
-         $(this).displayErrorScreen( 'Your web browser is not supported!', 'Please use a modern web browser.', false );
-         
-     } else {
-         
-         // check for aesthetic features
-         if ( !Modernizr.mediaqueries || !Modernizr.rgba || !Modernizr.unicode || !Modernizr.fontface || !Modernizr.svg || !Modernizr.boxsizing || !Modernizr.csstransforms ) {
-             
-             $(this).displayErrorScreen( 'Your web browser is not modern!', 'For best viewing experiences, please use a modern web browser.', true );
-             
-         }
-         
-         // check for cookies
-         if ( !Modernizr.cookies ) {
-             
-             $(this).displayErrorScreen( 'Cookies are not enabled!', 'For best experiences, please enable cookies on your web browser.', true );
-             
-         }
+         return false;
          
      }
+     
+     return true;
      
  };
  
@@ -91,7 +91,7 @@ require( [ 'domReady' ], function ( domReady ) {
      
      allowContinue = typeof allowContinue !== 'undefined' ? allowContinue : false;
      
-     var errorScreen = $( '.sbplus_wrapper .sbplus .errorscreen' );
+     var errorScreen = $( '.errorscreen' );
      
      errorScreen.find( '.title' ).html( ttl );
      errorScreen.find( '.msg' ).html( msg );
@@ -109,7 +109,7 @@ require( [ 'domReady' ], function ( domReady ) {
  
  $.fn.hideErrorScreen = function() {
      
-     var errorScreen = $( '.sbplus_wrapper .sbplus .errorscreen' );
+     var errorScreen = $( '.errorscreen' );
      
      errorScreen.find( '.title' ).html( '' );
      errorScreen.find( '.msg' ).html( '' );

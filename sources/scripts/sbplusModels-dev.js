@@ -2,6 +2,7 @@
 
 // Storybook Plus Namespace
 var sbplus = sbplus || {};
+
 sbplus.setup = Backbone.Model.extend( {
     
     defaults: {
@@ -15,7 +16,8 @@ sbplus.setup = Backbone.Model.extend( {
         accent: '#0000ff',
         slideFormat: 'jpg',
         analytics: 'off',
-        xmlVersion: '3'
+        xmlVersion: '3',
+        splashImg: 'sources/images/default_splash.jpg'
         
     }
     

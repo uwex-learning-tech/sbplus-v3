@@ -1,5 +1,4 @@
 <div class="sbplus">
-                
     <div class="splashscreen"></div>
     
     <div class="errorscreen hide">
@@ -31,5 +30,4 @@
         <nav class="toc"></nav>
         
     </div>
-    
 </div>
