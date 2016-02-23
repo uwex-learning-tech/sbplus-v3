@@ -1,1 +1,0 @@
-sbplus.splashView=Backbone.View.extend({tagName:"div",className:"splashinfo",render:function(){var t=_.template('<h1 class="title"><%= title %></h1><p class="subtitle"><%= subtitle %></p><p class="author"><%= author %></p><p class="length"><%= length %></p><button class="startBtn">START</button>');return this.$el.html(t(this.model.toJSON())),this}});

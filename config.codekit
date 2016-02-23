@@ -1,6 +1,6 @@
 {
 "CodeKitInfo": "This is a CodeKit 2.x project configuration file. It is designed to sync project settings across multiple machines. MODIFYING THE CONTENTS OF THIS FILE IS A POOR LIFE DECISION. If you do so, you will likely cause CodeKit to crash. This file is not useful unless accompanied by the project that created it in CodeKit 2. This file is not backwards-compatible with CodeKit 1.x. For more information, see: http:\/\/incident57.com\/codekit",
-"creatorBuild": "19102",
+"creatorBuild": "19115",
 "files": {
 	"\/assets\/slide\/slide01.png": {
 		"fileType": 32768,
@@ -119,17 +119,6 @@
 		"shouldRunBless": 0,
 		"useLibsass": 0
 		},
-	"\/sources\/scripts\/libs\/backbone.js": {
-		"fileType": 64,
-		"ignore": 1,
-		"ignoreWasSetByUser": 1,
-		"inputAbbreviatedPath": "\/sources\/scripts\/libs\/backbone.js",
-		"outputAbbreviatedPath": "\/sources\/scripts\/libs\/backbone.js",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"outputStyle": 0,
-		"syntaxCheckerStyle": 0
-		},
 	"\/sources\/scripts\/libs\/jquery.js": {
 		"fileType": 64,
 		"ignore": 1,
@@ -152,17 +141,6 @@
 		"outputStyle": 0,
 		"syntaxCheckerStyle": 0
 		},
-	"\/sources\/scripts\/libs\/underscore.js": {
-		"fileType": 64,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/sources\/scripts\/libs\/underscore.js",
-		"outputAbbreviatedPath": "\/sources\/scripts\/libs\/underscore.js",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
-		"syntaxCheckerStyle": 1
-		},
 	"\/sources\/scripts\/sbplus-dev.js": {
 		"fileType": 64,
 		"ignore": 0,
@@ -180,50 +158,6 @@
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/sources\/scripts\/sbplus.js",
 		"outputAbbreviatedPath": "\/sources\/scripts\/sbplus.js",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
-		"syntaxCheckerStyle": 1
-		},
-	"\/sources\/scripts\/sbplusModels-dev.js": {
-		"fileType": 64,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/sources\/scripts\/sbplusModels-dev.js",
-		"outputAbbreviatedPath": "\/sources\/scripts\/sbplusModels.js",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 1,
-		"outputStyle": 1,
-		"syntaxCheckerStyle": 1
-		},
-	"\/sources\/scripts\/sbplusModels.js": {
-		"fileType": 64,
-		"ignore": 1,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/sources\/scripts\/sbplusModels.js",
-		"outputAbbreviatedPath": "\/sources\/scripts\/sbplusModels.js",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
-		"syntaxCheckerStyle": 1
-		},
-	"\/sources\/scripts\/sbplusViews-dev.js": {
-		"fileType": 64,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/sources\/scripts\/sbplusViews-dev.js",
-		"outputAbbreviatedPath": "\/sources\/scripts\/sbplusViews.js",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 1,
-		"outputStyle": 1,
-		"syntaxCheckerStyle": 1
-		},
-	"\/sources\/scripts\/sbplusViews.js": {
-		"fileType": 64,
-		"ignore": 1,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/sources\/scripts\/sbplusViews.js",
-		"outputAbbreviatedPath": "\/sources\/scripts\/sbplusViews.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 1,

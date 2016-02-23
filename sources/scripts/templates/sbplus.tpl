@@ -1,4 +1,5 @@
 <div class="sbplus">
+    
     <div class="splashscreen"></div>
     
     <div class="errorscreen hide">
@@ -9,19 +10,19 @@
         </div>
     </div>
     
-    <div class="title_bar">
+    <div class="main_content_wrapper hide">
         
-        <div class="title"></div>
-        <div class="author"></div>
-        <button class="menu"><span class="icon-menu"></span></button>
+        <div class="title_bar">
         
-    </div>
-    
-    <div class="main_content_wrapper">
+            <div class="title"></div>
+            <div class="author"></div>
+            <button class="menu"><span class="icon-menu"></span></button>
+            
+        </div>
         
         <div class="main_content">
             
-            <div class="slide"></div>
+            <div id="content" class="slide" aria-live="polite"></div>
             <div class="notes"></div>
             <nav class="control_bar_wrapper"></nav>
             

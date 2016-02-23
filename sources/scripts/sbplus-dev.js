@@ -25,51 +25,75 @@
  */
  
  /* global Modernizr */
- /* global sbplus */
+ 
+var sbplus = sbplus || {
+        
+    title: '',
+    subtitle: '',
+    length: '',
+    author: '',
+    authorBio: '',
+    generalInfo: '',
+    accent: '#0000ff',
+    slideFormat: 'jpg',
+    analytics: 'off',
+    xmlVersion: '3',
+    splashImg: 'sources/images/default_splash.jpg',
+    
+    splashinfo: function() {
+        
+        return '<div class="splashinfo"><h1 tabindex="1" class="title">' + this.title + '</h1><p tabindex="1" class="subtitle">'+ this.subtitle + '</p><p tabindex="1" class="author">' + this.author + '</p><p tabindex="1" class="length">' + this.length + '</p><button tabindex="1" class="startBtn" aria-label="Start Presentation">START</button></div>';
+        
+    }
+    
+};
  
 /**** ON DOM READY ****/
-$( document ).ready( function() {
+$( function() {
     
     // check for core compatible features
-        if ( $( this ).haveCoreFeatures() ) {
+    if ( $( this ).haveCoreFeatures() ) {
+        
+        // initialize the sbplus splash screen model
+        sbplus.title = 'Presentation Title Goes Here and Can Be As Many Lines As You Want But Two Is Recommended';
+        sbplus.subtitle = 'Subtitle goes here and Can Be As Many Lines As You Want But Two Is Recommended';
+        sbplus.author = 'Dr. Firstname Lastname';
+        sbplus.length = '25 minutes';
+        
+        // set the document/page title
+        $( document ).attr( "title", sbplus.title );
+        
+        // get the sbplus template via ajax
+        $.get( 'sources/scripts/templates/sbplus.tpl', function( template ) {
             
-            // initialize the sbplus splash screen model
-            var splashInfo = new sbplus.setup( {
-                title: 'Presentation Title Goes Here and Can Be As Many Lines As You Want But Two Is Recommended',
-                subtitle: 'Subtitle goes here and Can Be As Many Lines As You Want But Two Is Recommended',
-                author: 'Dr. Firstname Lastname',
-                length: '25 minutes'
-            } );
+            // display the sbplus frame
+            $( '.sbplus_wrapper' ).html( template );
             
-            // initialize the sbplus splash screen view
-            var splashScreen = new sbplus.splashView( { model: splashInfo } );
+            // display the splashscreen
+            $( '.splashscreen' ).html( sbplus.splashinfo() ).css( 'background-image', 'url(' + sbplus.splashImg + ')' );
             
-            // set the document/page title
-            $( document ).attr( "title", splashInfo.get( 'title' ) );
-            
-            // get the sbplus structure via ajax
-            $.get( 'sources/scripts/templates/sbplus.tpl', function( frame ) {
+            // bind start button for splash screen
+            $( '.startBtn' ).on( 'click', function() {
                 
-                // display the sbplus frame
-                $( '.sbplus_wrapper' ).html( frame );
-                
-                // display the splashscreen
-                $( '.splashscreen' ).html( splashScreen.render().el ).css( 'background-image', 'url(' + splashInfo.get( 'splashImg' ) + ')' );
-                
-                // bind start button for splash screen
-                $( '.startBtn' ).on( 'click', function() {
+                $( '.splashscreen' ).fadeOut( 'fast', function() {
                     
-                    $( '.splashscreen' ).fadeOut();
+                    $( '.main_content_wrapper' ).fadeIn( 500 ).css( 'display', ( Modernizr.flexbox ) ? 'flex' : 'block' ).removeClass( 'hide' );
                     
                 } );
                 
             } );
             
-        } else {
+        } );
+        
+    } else {
+        
+        $.get( 'sources/scripts/templates/nosupport.tpl', function( template ) {
             
-            $( '.sbplus_wrapper' ).html( '<div class="notSupportedMsg"><h1>Your web browser is not supported.</h1><p>It is not capable of delivering the core features of this application.</p><p><strong>Recommended web browsers</strong>: latest stable version of all modern web browsers (Mozilla Firefox, Google Chrome, Apple Safari, Microsoft Edge, etc.).</p><p><strong>Minimium supported web browser versions</strong>:<ul><li>Microsoft Internet Explorer 10</li><li>Mozilla Firefox 35</li><li>Google Chorme 33</li><li>Apple Safari 5</li></ul></p><p>For more information on modern web browsers and how to update, visit <a href="https://whatbrowser.org/" target="_blank">whatbrowser.org</a>.</p></div>' );
+            $( '.sbplus_wrapper' ).html( template );
             
-        }
+        } );
+        
+    }
     
 } );
  

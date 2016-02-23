@@ -2,7 +2,7 @@ $default-font-size: 16px;
 $default-font-family: Helvetica, Arial, sans-serif;
 $font-color: #333;
 $border-color: #ccc;
-$link-hover-color: #18b8f7;
+$link-color: #18b8f7;
 $gutter: 16px;
 
 @import "compass/reset";
@@ -89,14 +89,14 @@ ul {
 
 a, a:visited {
                         
-    color: #fff;
+    color: $link-color;
     text-decoration: none;
     
 }
 
 a:hover {
     
-    color: $link-hover-color; 
+    text-decoration: underline;
     
 }
 
@@ -108,15 +108,38 @@ strong {
 
 button {
     
-    padding: rem( 20px ) rem( 24px );
-    font-size: rem( 20px );
+    padding: rem( 10px ) rem( 12px );
+    font-size: rem( 18px );
     font-family: $default-font-family;
-    line-height: 0;
+    line-height: normal;
     color: #fff;
     border: 0;
-    background-color: #535ca8;
     cursor: pointer;
     outline: none;
+    
+}
+
+noscript {
+    
+    h1 {
+        
+        font-size: rem( 24px );
+        line-height: rem( 32px );
+        
+    }
+    
+    p {
+        
+        line-height: rem( 22px );
+        
+    }   
+    
+}
+
+// misc
+.sr-only {
+    
+    display: none;
     
 }
 
@@ -142,12 +165,6 @@ button {
             font-size: rem( $default-font-size );
             line-height: normal;
             
-            a, a:visited {
-                
-                color: $link-hover-color;
-                
-            }
-            
         }
         
     }
@@ -158,73 +175,74 @@ button {
         margin: 0 auto;
         overflow: hidden;
         
-        .title_bar {
-            
-            height: rem( 30px );
-            color: #fff;
-            background-color: $font-color;
-            
-            .title {
-                
-                line-height: rem( 30px );
-                padding: 0 0 0 rem( 15px );
-                white-space: nowrap;
-                text-overflow: ellipsis;
-                overflow: hidden;
-                
-            }
-            
-            .author {
-                
-                @extend .title;
-                
-                border-right: rem( 1px ) solid $border-color;
-                
-            }
-            
-            .menu {
-                
-                @extend .title;
-
-                height: rem( 30px );
-                text-align: center;
-                border: none;
-                color: #fff;
-                padding: 0;
-                background-color: transparent;
-                
-                [class^="icon-"] {
-                    
-                    font-size: rem( 16px );
-                    line-height: rem( 30px );
-                    
-                }
-                
-            }
-            
-            .menu:hover {
-                
-                [class^="icon-"] {
-                    
-                    color: $link-hover-color;
-                    
-                }
-                
-            }
-            
-            .menu:focus {
-                
-                outline: none;
-                
-            }
-            
-        } // end title bar
-        
         .main_content_wrapper {
             
-            border: rem( 1px ) solid $border-color;
+            .title_bar {
+            
+                height: rem( 30px );
+                color: #fff;
+                background-color: $font-color;
+                
+                .title {
+                    
+                    line-height: rem( 30px );
+                    padding: 0 0 0 rem( 15px );
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    
+                }
+                
+                .author {
+                    
+                    @extend .title;
+                    
+                    border-right: rem( 1px ) solid $border-color;
+                    
+                }
+                
+                .menu {
+                    
+                    @extend .title;
+    
+                    height: rem( 30px );
+                    text-align: center;
+                    border: none;
+                    color: #fff;
+                    padding: 0;
+                    background-color: transparent;
+                    
+                    [class^="icon-"] {
+                        
+                        font-size: rem( 16px );
+                        line-height: rem( 30px );
+                        
+                    }
+                    
+                }
+                
+                .menu:hover {
+                    
+                    [class^="icon-"] {
+                        
+                        color: $link-color;
+                        
+                    }
+                    
+                }
+                
+                .menu:focus {
+                    
+                    outline: none;
+                    
+                }
+                
+            } // end title bar
             
             .main_content {
+                
+                border: rem( 1px ) solid $border-color;
+                border-top: none;
                 
                 .notes {
                 
@@ -242,7 +260,8 @@ button {
             
             .toc {
                 
-                border-left: rem( 1px ) solid $border-color;
+                border-right: rem( 1px ) solid $border-color;
+                border-bottom: rem( 1px ) solid $border-color;
                 
             } // end table of content
             
@@ -304,6 +323,9 @@ button {
                 .startBtn {
                     
                     margin: 0;
+                    background-color: #535cab;
+                    padding-right: rem( 24px );
+                    padding-left: rem( 24px );
                     
                 }
                 
@@ -348,25 +370,12 @@ button {
     
 } // end sbplus wrapper
 
-// misc
-*[hidden] {
-    
-    display: none;
-    
-}
-
 // device width over 900 pixels
 @media only screen
 and (min-width: 900px) {
     
     // if device does support flexbox
     .flexbox {
-        
-        > * {
-            
-            @include flex( 1 100% );
-            
-        }
         
         .sbplus_wrapper {
             
@@ -375,70 +384,63 @@ and (min-width: 900px) {
                 width: rem( 900px );
                 height: rem( 590px );
                 
-                @include display-flex( flex );
-                @include flex-direction( column );
-                @include flex-wrap( nowrap );
-            
-                .title_bar {
-                    
-                    @include display-flex( flex );
-                    @include flex-direction( row );
-                    @include flex-wrap( nowrap );
-                    @include order( 1 );
-                    
-                    .title {
-                        
-                        width: rem( 640px );
-                        @include order( 1 );
-                        
-                    }
-                    
-                    .author {
-                        
-                        width: rem( 220px );
-                        @include order( 2 );
-                        
-                    }
-                    
-                    .menu {
-                        
-                        width: rem( 40px );
-                        @include order( 3 );
-                        
-                    }
-                    
-                } // end title bar
-                
                 .main_content_wrapper {
                     
-                    height: rem( 560px );
-                    
                     @include display-flex( flex );
                     @include flex-direction( row );
-                    @include flex-wrap( nowrap );
-                    @include order( 2 );
+                    @include flex-wrap( wrap );
                     
+                    .title_bar {
+                    
+                        @include display-flex( flex );
+                        @include flex-direction( row );
+                        @include flex-wrap( nowrap );
+                        @include order( 1 );
+                        
+                        width: rem( 900px );
+                        
+                        .title {
+                            
+                            width: rem( 640px );
+                            @include order( 1 );
+                            
+                        }
+                        
+                        .author {
+                            
+                            width: rem( 220px );
+                            @include order( 2 );
+                            
+                        }
+                        
+                        .menu {
+                            
+                            width: rem( 40px );
+                            @include order( 3 );
+                            
+                        }
+                        
+                    } // end title bar
                     
                     .main_content {
                         
                         width: rem( 640px );
+                        height: rem( 560px );
                         
                         @include display-flex( flex );
                         @include flex-direction( column );
                         @include flex-wrap( nowrap );
-                        @include order( 1 );
+                        @include order( 2 );
                         
                         .slide {
                         
-                            width: rem( 640px );
-                            height: rem( 360px );
+                            height: rem( 359px );
                             @include order( 1 );
                         
                         }
                         
                         .notes {
                         
-                            width: rem( 640px );
                             height: rem( 160px );
                             @include order( 2 );
                         
@@ -446,7 +448,6 @@ and (min-width: 900px) {
                         
                         .control_bar_wrapper {
                         
-                            width: 100%;
                             height: rem( 40px );
                             @include order( 3 );
                         
@@ -456,13 +457,20 @@ and (min-width: 900px) {
                     
                     .toc {
                         
-                        width: rem( 258px );
+                        @include order( 3 );
+                        
+                        width: rem( 260px );
                         height: rem( 560px );
-                        @include order( 2 );
                         
                     } // end table of content
                     
                 } // end main content wrapper
+                
+                .main_content_wrapper.hide {
+            
+                    display: none;
+                    
+                }
                 
                 .errorscreen {
             
@@ -494,39 +502,39 @@ and (min-width: 900px) {
                 width: rem( 900px );
                 height: rem( 590px );
                 
-                .title_bar {
-                    
-                    width: 100%;
-                    
-                    .title {
-                        
-                        width: rem( 640px );
-                        float: left;
-                        
-                    }
-                    
-                    .author {
-                        
-                        width: rem( 220px );
-                        float: left;
-                        
-                    }
-                    
-                    .menu {
-                        
-                        width: rem( 40px );
-                        float: left;
-                        
-                    }
-                    
-                } // end title bar
-                
                 .main_content_wrapper {
                     
                     width: 100%;
-                    height: rem( 560px );
+                    height: rem( 590px );
                     
                     @include clearfix();
+                    
+                    .title_bar {
+                    
+                        width: 100%;
+                        
+                        .title {
+                            
+                            width: rem( 640px );
+                            float: left;
+                            
+                        }
+                        
+                        .author {
+                            
+                            width: rem( 220px );
+                            float: left;
+                            
+                        }
+                        
+                        .menu {
+                            
+                            width: rem( 40px );
+                            float: left;
+                            
+                        }
+                        
+                    } // end title bar
                     
                     .main_content {
                         
@@ -535,15 +543,15 @@ and (min-width: 900px) {
                         
                         .slide {
                         
-                            width: rem( 640px );
-                            height: rem( 360px );
+                            width: rem( 638px );
+                            height: rem( 359px );
                             float: left;
                         
                         }
                         
                         .notes {
                         
-                            width: rem( 640px );
+                            width: rem( 638px );
                             height: rem( 160px );
                             float: left;
                         
@@ -551,7 +559,7 @@ and (min-width: 900px) {
                         
                         .control_bar_wrapper {
                         
-                            width: 100%;
+                            width: rem( 638px );
                             height: rem( 40px );
                             float: left;
                             clear: both;
@@ -562,7 +570,7 @@ and (min-width: 900px) {
                     
                     .toc {
                         
-                        width: rem( 258px );
+                        width: rem( 260px );
                         height: rem( 560px );
                         float: left;
                         
