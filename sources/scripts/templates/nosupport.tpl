@@ -1,4 +1,4 @@
-<div class="notSupportedMsg">
+<div class="error">
     <h1>Your web browser is not supported.</h1>
     <p>It is not capable of delivering the core features of this application.</p>
     <p><strong>Recommended web browsers</strong>: latest stable version of all modern web browsers (Mozilla Firefox, Google Chrome, Apple Safari, Microsoft Edge, etc.).</p>

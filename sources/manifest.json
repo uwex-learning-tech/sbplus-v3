@@ -4,6 +4,7 @@
     "name": "Storybook Plus",
     "start_url": "/index.html",
     "display": "standalone",
-    "orientation": "landscape"
+    "orientation": "landscape",
+    "sbplus_root_directory": "sources/"
     
 }

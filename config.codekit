@@ -101,7 +101,7 @@
 		"outputAbbreviatedPath": "\/sources\/manifest-min.json",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1
+		"outputStyle": 0
 		},
 	"\/sources\/sass\/sbplus.scss": {
 		"createSourceMap": 0,
@@ -386,7 +386,7 @@
 			"flagValue": -1
 			},
 		"camelcase": {
-			"active": 1,
+			"active": 0,
 			"flagValue": -1
 			},
 		"couch": {
