@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<storybook accent="#0000ff" slideFormat="jpg" analytics="off" xmlVersion="3">
+<storybook accent="#535cab" slideFormat="jpg" analytics="off" xmlVersion="3">
     
     <setup>
         
-        <title>ABC</title>
-        <subtitle>DEFG</subtitle>
-        <length>~10 Minutes</length>
-        <author name="John Doe">
-            <!-- author descripion, bio, profile, whatever -->
+        <title>Understanding the Hierarchy and Interplay of Statutes, Regulations, and Case Law at the Federal and State Levels</title>
+        <subtitle>SMGT 340</subtitle>
+        <length>25 Minutes</length>
+        <author name="Demo">
+            <![CDATA[<p>Oh, hello! Hey! Hi! This is a demo of the Storyboard Player (SBP). Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ut purus augue. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae, praesentium, ipsam, ut, voluptatibus pariatur quasi esse adipisci dolorum laboriosam excepturi possimus minima libero atque consequuntur quidem reiciendis eligendi laborum vero? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat, accusamus, similique qui dicta libero dolorem culpa molestias necessitatibus voluptatibus nostrum rem illo corporis ipsam nulla cumque harum vero nemo voluptate. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestias, veritatis excepturi fuga quisquam dolorem nesciunt ea necessitatibus accusantium. Voluptatibus minima voluptatum harum laboriosam ex reiciendis praesentium. Quas, quia a quis. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic, rem, ipsa, reprehenderit quod quo eum sunt a eveniet ex excepturi soluta deleniti dicta est error perferendis tempora tenetur harum neque.</p>]]>
         </author>
         <generalInfo>
-            <!-- general information about the presentation -->
+            <![CDATA[<p>This is general info: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>]]>
         </generalInfo>
         
     </setup>

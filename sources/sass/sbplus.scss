@@ -56,6 +56,12 @@ $gutter: 16px;
     
 }
 
+*:focus {
+    
+    outline: 1px dashed #000;
+    
+}
+
 html {
     
     font-size: $default-font-size;
@@ -115,7 +121,6 @@ button {
     color: #fff;
     border: 0;
     cursor: pointer;
-    outline: none;
     
 }
 
@@ -137,6 +142,11 @@ noscript {
 }
 
 // misc
+.hide {
+    
+    display: none;
+    
+}
 .sr-only {
     
     display: none;
@@ -147,7 +157,7 @@ noscript {
 
 .sbplus_wrapper {
     
-    .notSupportedMsg {
+    .error {
         
         padding: rem( 5px ) rem( 20px ) 0;
         
@@ -186,7 +196,7 @@ noscript {
                 .title {
                     
                     line-height: rem( 30px );
-                    padding: 0 0 0 rem( 15px );
+                    padding: 0 rem( 10px );
                     white-space: nowrap;
                     text-overflow: ellipsis;
                     overflow: hidden;
@@ -196,12 +206,10 @@ noscript {
                 .author {
                     
                     @extend .title;
-                    
-                    border-right: rem( 1px ) solid $border-color;
-                    
+                                        
                 }
                 
-                .menu {
+                .menuBtn {
                     
                     @extend .title;
     
@@ -221,7 +229,7 @@ noscript {
                     
                 }
                 
-                .menu:hover {
+                .menuBtn:hover{
                     
                     [class^="icon-"] {
                         
@@ -231,11 +239,6 @@ noscript {
                     
                 }
                 
-                .menu:focus {
-                    
-                    outline: none;
-                    
-                }
                 
             } // end title bar
             
@@ -258,12 +261,107 @@ noscript {
                 
             } // end main content
             
-            .toc {
+            .side_panel {
                 
                 border-right: rem( 1px ) solid $border-color;
                 border-bottom: rem( 1px ) solid $border-color;
                 
             } // end table of content
+            
+            #menu_panel {
+                    
+                background-color: #e4e4e4;
+                overflow-x: hidden;
+                
+                .menu_bar {
+                    
+                    height: rem( 30px );
+                    color: #fff;
+                    background-color: $font-color;
+                    text-align: right;
+                    
+                    .closeBtn {
+                        
+                        height: rem( 30px );
+                        text-align: center;
+                        border: none;
+                        color: #f00;
+                        padding: 0;
+                        line-height: rem( 30px );
+                        background-color: transparent;
+                        
+                        [class^="icon-"] {
+                            
+                            font-size: rem( 24px );
+                            line-height: rem( 30px );
+                            
+                        }
+                        
+                    }
+                    
+                }
+                
+                .menu {
+                    
+                    list-style: none;
+                    margin: 0;
+                    padding: 0;
+                    
+                    .menu_item {
+                        
+                        margin: 0;
+                        
+                        a {
+                            
+                            position: relative;
+                            display: block;
+                            color: $font-color;
+                            text-decoration: none;
+                            padding: rem( 10px ) rem( 10px );
+                            border-bottom: rem( 1px ) solid #d0d0d0;
+                            
+                        }
+                        
+                        a:after {
+                            
+                            position: absolute;
+                            font-size: rem( 14px );
+                            line-height: rem( 14px );
+                            width: rem( 14px );
+                            height: rem( 14px );
+                            color: #ccc;
+                            top: 34%;
+                            right: rem( 10px );
+                            font-family: 'sbplus' !important;
+                            content: "\edba";
+                            
+                        }
+                        
+                        a:hover {
+                            
+                            color: #535cab;
+                            
+                        }
+                        
+                    }
+                    
+                }
+                
+                .menu_item_details {
+                                
+                    background-color: #fff;
+                    
+                    .menu_item_content {
+                        
+                        font-size: rem( 14px );
+                        line-height: rem( 18px );
+                        padding: 0 rem( 10px );
+                        
+                    }
+                    
+                }
+                
+            }
             
         } // end main content wrapper
         
@@ -333,39 +431,6 @@ noscript {
             
         }
         
-        .errorscreen {
-            
-            @extend .splashscreen;
-            background-color: rgba(255, 255, 255, 0.85);
-            z-index: 1;
-            
-            .content {
-                
-                text-align: center;
-                
-                .title {
-                    
-                    font-size: rem( 24px );
-                    line-height: rem( 24px );
-                    margin-bottom: rem( $gutter );
-                }
-                
-                .msg {
-                    
-                    line-height: rem( $default-font-size + 4 );
-                    
-                }
-                
-            }
-            
-        }
-        
-        .errorscreen.hide {
-            
-            display: none;
-            
-        }
-        
     } // end sbplus
     
 } // end sbplus wrapper
@@ -385,6 +450,8 @@ and (min-width: 900px) {
                 height: rem( 590px );
                 
                 .main_content_wrapper {
+                    
+                    position: relative;
                     
                     @include display-flex( flex );
                     @include flex-direction( row );
@@ -413,7 +480,7 @@ and (min-width: 900px) {
                             
                         }
                         
-                        .menu {
+                        .menuBtn {
                             
                             width: rem( 40px );
                             @include order( 3 );
@@ -424,7 +491,7 @@ and (min-width: 900px) {
                     
                     .main_content {
                         
-                        width: rem( 640px );
+                        width: rem( 642px );
                         height: rem( 560px );
                         
                         @include display-flex( flex );
@@ -433,15 +500,15 @@ and (min-width: 900px) {
                         @include order( 2 );
                         
                         .slide {
-                        
-                            height: rem( 359px );
+                            
+                            height: rem( 360px );
                             @include order( 1 );
                         
                         }
                         
                         .notes {
                         
-                            height: rem( 160px );
+                            height: rem( 159px );
                             @include order( 2 );
                         
                         }
@@ -455,33 +522,121 @@ and (min-width: 900px) {
                         
                     }
                     
-                    .toc {
+                    .side_panel {
+                        
+                        position: relative;
                         
                         @include order( 3 );
                         
-                        width: rem( 260px );
+                        width: rem( 258px );
                         height: rem( 560px );
                         
                     } // end table of content
+                    
+                    #menu_panel {
+                            
+                        position: absolute;
+                        width: rem( 257px );
+                        height: rem( 589px );
+                        top: 0;
+                        left: rem( 642px );
+                        background-color: #fff;
+                        z-index: 1;
+                        
+                        .menu_bar {
+                            
+                            @include display-flex( flex );
+                            @include flex-direction( row );
+                            @include flex-wrap( nowrap );
+                            
+                            height: rem( 30px );
+                            color: #fff;
+                            background-color: $font-color;
+                            
+                            .closeBtn {
+                                
+                                width: rem( 40px );
+                                
+                            }
+                            
+                            .title {
+                                
+                                width: rem( 217px );
+                                padding-top: rem( 8px );
+                                padding-left: rem( 10px );
+                                text-align: left;
+                                
+                            }
+                            
+                        }
+                        
+                        .menu_item_details {
+                            
+                            
+                            position: absolute;
+                            width: rem( 257px );
+                            height: rem( 559px );
+                            top: rem( 30px );
+                            right: rem( -258px );
+                            
+                            .navbar {
+                                
+                                @include display-flex( flex );
+                                @include flex-direction( row );
+                                @include flex-wrap( nowrap );
+                                
+                                width: 100%;
+                                height: rem( 25px );
+                                background-color: #e4e4e4;
+                                border-bottom: rem( 1px ) solid $border-color;
+                                
+                                .backBtn {
+                                    
+                                    display: block;
+                                    width: rem( 44px );
+                                    padding: rem( 1px ) rem( 5px ) 0;
+                                    font-size: rem( 14px );
+                                    line-height: rem( 14px );
+                                    color: #535cab;
+                                    background-color: transparent;
+                                    text-align: left;
+                                    @include order( 1 );
+                                    
+                                }
+                                
+                                .title {
+                                    
+                                    width: rem( 213px );
+                                    padding-top: rem( 5px );
+                                    text-indent: rem( -44px );
+                                    text-align: center;
+                                    @include order( 2 );
+                                    
+                                }
+                                
+                            }
+                            
+                            .menu_item_content {
+                        
+                                height: rem( 534px );
+                                overflow-y: auto;
+                                
+                                p:first-child {
+                                    
+                                    margin-top: rem( 8px );
+                                    
+                                }
+                                
+                            }
+                            
+                        }
+                        
+                    }
                     
                 } // end main content wrapper
                 
                 .main_content_wrapper.hide {
             
-                    display: none;
-                    
-                }
-                
-                .errorscreen {
-            
-                    @include display-flex( flex );
-                    @include flex-direction( column );
-                    @include justify-content( center );
-                    
-                } // end error screen
-                
-                .errorscreen.hide {
-                    
                     display: none;
                     
                 }
@@ -527,7 +682,7 @@ and (min-width: 900px) {
                             
                         }
                         
-                        .menu {
+                        .menuBtn {
                             
                             width: rem( 40px );
                             float: left;
@@ -538,28 +693,28 @@ and (min-width: 900px) {
                     
                     .main_content {
                         
-                        width: rem( 640px );
+                        width: rem( 642px );
                         float: left;
                         
                         .slide {
                         
-                            width: rem( 638px );
-                            height: rem( 359px );
+                            width: rem( 640px );
+                            height: rem( 360px );
                             float: left;
                         
                         }
                         
                         .notes {
                         
-                            width: rem( 638px );
-                            height: rem( 160px );
+                            width: rem( 640px );
+                            height: rem( 159px );
                             float: left;
                         
                         }
                         
                         .control_bar_wrapper {
                         
-                            width: rem( 638px );
+                            width: rem( 640px );
                             height: rem( 40px );
                             float: left;
                             clear: both;
@@ -568,28 +723,15 @@ and (min-width: 900px) {
                         
                     } // end main content wrapper
                     
-                    .toc {
+                    .side_panel {
                         
-                        width: rem( 260px );
+                        width: rem( 258px );
                         height: rem( 560px );
                         float: left;
                         
                     } // end table of content
                     
                 } // end main content wrapper
-                
-                .errorscreen {
-                    
-                    .content {
-                        
-                        position: absolute;
-                        top: 50%;
-                        width: 100%;
-                        transform: translateY(-50%);
-                        
-                    }
-                    
-                }
                 
             } // end sbplus
             

@@ -2,21 +2,13 @@
     
     <div class="splashscreen"></div>
     
-    <div class="errorscreen hide">
-        <div class="content">
-            <p class="title"></p>
-            <p class="msg"></p>
-            <p class="act"></p>
-        </div>
-    </div>
-    
     <div class="main_content_wrapper hide">
         
         <div class="title_bar">
         
-            <div class="title"></div>
-            <div class="author"></div>
-            <button class="menu"><span class="icon-menu"></span></button>
+            <div class="title" tabindex="-1"></div>
+            <div class="author" tabindex="-1"></div>
+            <button class="menuBtn" tabindex="1" aria-label="Menu" aria-expanded="false" aria-controls="menu_panel" title="Open Menu"><span class="icon-menu"></span></button>
             
         </div>
         
@@ -28,7 +20,31 @@
             
         </div>
         
-        <nav class="toc"></nav>
+        <div class="side_panel"></div>
+        
+        <nav id="menu_panel" class="hide" aria-expanded="false">
+            
+            <div class="menu_bar">
+                <div class="title">Menu</div>
+                <button class="closeBtn" title="Close Menu"><span class="icon-close"></span></button>
+            </div>
+            
+            <ul class="menu">
+                <li class="menu_item"><a id="showProfile" href="#" aria-expanded="false" aria-controls="menu_item_details"><span class="icon-profile"></span> Author Profile</a></li>
+                <li class="menu_item"><a id="showGeneralInfo" href="#" aria-expanded="false" aria-controls="menu_item_details"><span class="icon-info"></span> General Information</a></li>
+                <li class="menu_item"><a id="showHelp" href="#" aria-expanded="false" aria-controls="menu_item_details"><span class="icon-help"></span> Help</a></li>
+                <li class="menu_item"><a id="showSettings" href="#" aria-expanded="false" aria-controls="menu_item_details"><span class="icon-settings"></span> Settings</a></li>
+            </ul>
+            
+            <div id="menu_item_details" class="menu_item_details hide" aria-expanded="false">
+                <div class="navbar">
+                    <button class="backBtn" aria-label="Back to menu list"><span class="icon-left"></span></button>
+                    <div class="title">Title</div>
+                </div>
+                <div class="menu_item_content"></div>
+            </div>
+            
+        </nav>
         
     </div>
 </div>
