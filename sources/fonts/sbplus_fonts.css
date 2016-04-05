@@ -1,69 +1,81 @@
 @font-face {
-	font-family: 'sbplus';
-	src:url('sbplus.eot?syqo33');
-	src:url('sbplus.eot?syqo33#iefix') format('embedded-opentype'),
-		url('sbplus.ttf?syqo33') format('truetype'),
-		url('sbplus.woff?syqo33') format('woff'),
-		url('sbplus.svg?syqo33#sbplus') format('svg');
-	font-weight: normal;
-	font-style: normal;
+    font-family: 'sbplus';
+    src:    url('sbplus.eot?2t7fff');
+    src:    url('sbplus.eot?2t7fff#iefix') format('embedded-opentype'),
+        url('sbplus.ttf?2t7fff') format('truetype'),
+        url('sbplus.woff?2t7fff') format('woff'),
+        url('sbplus.svg?2t7fff#sbplus') format('svg');
+    font-weight: normal;
+    font-style: normal;
 }
 
 [class^="icon-"], [class*=" icon-"] {
     /* use !important to prevent issues with browser extensions that change fonts */
-	font-family: 'sbplus' !important;
-	speak: none;
-	font-style: normal;
-	font-weight: normal;
-	font-variant: normal;
-	text-transform: none;
-	line-height: 1;
+    font-family: 'sbplus' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
 
-	/* Better Font Rendering =========== */
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 .icon-notes:before {
-	content: "\e99b";
+    content: "\e99b";
 }
 .icon-loading:before {
-	content: "\eb20";
+    content: "\eb20";
 }
 .icon-expand:before {
-	content: "\eb45";
+    content: "\eb45";
 }
 .icon-contract:before {
-	content: "\eb46";
+    content: "\eb46";
 }
 .icon-assessment:before {
-	content: "\ec24";
+    content: "\ec24";
 }
 .icon-table-of-content:before {
-	content: "\ec55";
+    content: "\ec55";
 }
 .icon-menu:before {
-	content: "\ec6e";
+    content: "\ec6e";
 }
 .icon-swipe-left-right:before {
-	content: "\ed2f";
+    content: "\ed2f";
 }
 .icon-open:before {
-	content: "\ed5c";
+    content: "\ed5c";
 }
 .icon-collapse:before {
-	content: "\ed5d";
+    content: "\ed5d";
 }
 .icon-close:before {
-	content: "\ed6b";
-}
-.icon-next:before {
-	content: "\eddb";
-}
-.icon-previous:before {
-	content: "\eddf";
+    content: "\ed6b";
 }
 .icon-download:before {
-	content: "\ee36";
+    content: "\ee36";
+}
+.icon-profile:before {
+    content: "\eb0b";
+}
+.icon-settings:before {
+    content: "\eb5f";
+}
+.icon-help:before {
+    content: "\ed52";
+}
+.icon-info:before {
+    content: "\ed60";
+}
+.icon-right:before {
+    content: "\edba";
+}
+.icon-left:before {
+    content: "\edc2";
 }
 
