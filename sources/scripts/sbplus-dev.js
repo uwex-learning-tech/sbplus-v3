@@ -133,7 +133,7 @@ $.fn.loadPresentation = function( configs, context ) {
             
         } ).fail( function() {
             
-            sbplus.splashImg = configs.sbplus_splash_directory + 'default.jpg';
+            sbplus.splashImg = configs.sbplus_root_directory + 'images/default.jpg';
             
         } ).always( function() {
             
@@ -145,7 +145,7 @@ $.fn.loadPresentation = function( configs, context ) {
                 
                 $( '.splashscreen' ).fadeOut( 'fast', function() {
                     
-                    $( '.main_content_wrapper' ).css( 'display', ( Modernizr.flexbox ) ? 'flex' : 'block' ).fadeIn( 500, function() {
+                    $( '.main_content_wrapper' ).css( 'display', 'flex' ).fadeIn( 500, function() {
                         
                         // remove the hide class from the main contain wrapper
                         $( this ).removeClass( 'hide' );
@@ -238,7 +238,7 @@ $.fn.setupPresentation = function() {
  
  $.fn.haveCoreFeatures = function() {
      
-     if ( !Modernizr.audio || !Modernizr.video || !Modernizr.json || !Modernizr.eventlistener ) {
+     if ( !Modernizr.audio || !Modernizr.video || !Modernizr.json || !Modernizr.eventlistener || !Modernizr.flexbox ) {
          
          return false;
          
@@ -299,7 +299,7 @@ $.fn.setupPresentation = function() {
     
     if ( $.fn.isEmpty( url[url.length - 1] ) || new RegExp( '[\?]' ).test( url[url.length - 1] ) ) {
         
-        url.splice( url.length - 1, 1);
+        url.splice( url.length - 1, 1 );
         
     }
     
