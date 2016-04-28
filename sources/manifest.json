@@ -5,6 +5,7 @@
     "start_url": "/index.html",
     "display": "standalone",
     "orientation": "landscape",
-    "sbplus_root_directory": "sources/"
+    "sbplus_root_directory": "../sources/",
+    "sbplus_splash_directory": "https://media.uwex.edu/content/media/storybook_support/splash/"
     
 }

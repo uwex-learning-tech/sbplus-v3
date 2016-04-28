@@ -34,13 +34,12 @@ var sbplus = sbplus || {
     author: '',
     authorBio: '',
     generalInfo: '',
+    courseNumber: '',
     accent: '#535cab',
     slideFormat: 'jpg',
     analytics: 'off',
     xmlVersion: '3',
-    splashImg: 'sources/images/default_splash.jpg',
-    
-    splashinfo: function() {
+    getSplashInfo: function() {
         
         return '<div class="splashinfo"><h1 tabindex="1" class="title">' + this.title + '</h1><p tabindex="1" class="subtitle">'+ this.subtitle + '</p><p tabindex="1" class="author">' + this.author + '</p><p tabindex="1" class="length">' + this.length + '</p><button tabindex="1" class="startBtn" aria-label="Start Presentation">START</button></div>';
         
@@ -109,6 +108,7 @@ $.fn.loadPresentation = function( configs, context ) {
     sbplus.authorBio = setupCntxt.find( 'author' ).text();
     sbplus.length = setupCntxt.find( 'length' ).text();
     sbplus.generalInfo = setupCntxt.find( 'generalInfo' ).text();
+    sbplus.courseNumber = setupCntxt.attr('courseNumber');
     
     sbplus.accent = ( $.fn.isEmpty( globalCntxt.attr( 'accent' ) ) ) ? sbplus.accent : globalCntxt.attr( 'accent' );
     sbplus.slideFormat = ( $.fn.isEmpty( globalCntxt.attr( 'slideFormat' ) ) ) ? sbplus.slideFormat : globalCntxt.attr( 'slideFormat' );
@@ -117,31 +117,47 @@ $.fn.loadPresentation = function( configs, context ) {
     // set the document/page title
     $( document ).attr( "title", sbplus.title );
     
+    // splash image url
+    var splashImgURL = configs.sbplus_splash_directory + $.fn.getProgramDirectory() + ( ( $.fn.isEmpty( sbplus.courseNumber ) ) ? '' : sbplus.courseNumber ) + '.jpg';
+    
     // get the sbplus template via ajax
     $.get( configs.sbplus_root_directory + 'scripts/templates/sbplus.tpl', function( template ) {
         
         // display the sbplus frame
         $( '.sbplus_wrapper' ).html( template );
         
-        // display the splashscreen
-        $( '.splashscreen' ).html( sbplus.splashinfo() ).css( 'background-image', 'url(' + sbplus.splashImg + ')' );
-        
-        // bind start button for splash screen
-        $( '.startBtn' ).css( 'background-color', sbplus.accent ).on( 'click', function() {
+        // get splash image
+        $.get( splashImgURL , function() {
             
-            $( '.splashscreen' ).fadeOut( 'fast', function() {
+            sbplus.splashImg = splashImgURL;
+            
+        } ).fail( function() {
+            
+            sbplus.splashImg = configs.sbplus_splash_directory + 'default.jpg';
+            
+        } ).always( function() {
+            
+            // display the splashscreen
+            $( '.splashscreen' ).html( sbplus.getSplashInfo() ).css( 'background-image', 'url(' + sbplus.splashImg + ')' );
+            
+            // bind start button for splash screen
+            $( '.startBtn' ).css( 'background-color', sbplus.accent ).on( 'click', function() {
                 
-                $( '.main_content_wrapper' ).css( 'display', ( Modernizr.flexbox ) ? 'flex' : 'block' ).fadeIn( 500, function() {
+                $( '.splashscreen' ).fadeOut( 'fast', function() {
                     
-                    // remove the hide class from the main contain wrapper
-                    $( this ).removeClass( 'hide' );
+                    $( '.main_content_wrapper' ).css( 'display', ( Modernizr.flexbox ) ? 'flex' : 'block' ).fadeIn( 500, function() {
+                        
+                        // remove the hide class from the main contain wrapper
+                        $( this ).removeClass( 'hide' );
+                        
+                        $.fn.setupPresentation();
+                        
+                    } );
                     
-                    $.fn.setupPresentation();
+                    // remove the splash screen from the dom
+                    $( this ).remove();
                     
                 } );
-                
-                // remove the splash screen from the dom
-                $( this ).remove();
                 
             } );
             
@@ -246,7 +262,6 @@ $.fn.setupPresentation = function() {
      
  };
  
- 
  $.fn.isEmpty = function( str ) {
      
      var result = str.trim();
@@ -278,3 +293,18 @@ $.fn.setupPresentation = function() {
      
  };
  
+ $.fn.getProgramDirectory = function() {
+    
+    var url = window.location.href.split( "/" );
+    
+    if ( $.fn.isEmpty( url[url.length - 1] ) || new RegExp( '[\?]' ).test( url[url.length - 1] ) ) {
+        
+        url.splice( url.length - 1, 1);
+        
+    }
+    
+    if ( url[4] === undefined ) { return url[3]; }
+
+    return url[4];
+
+};

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <storybook accent="#535cab" slideFormat="jpg" analytics="off" xmlVersion="3">
     
-    <setup>
+    <setup courseNumber="">
         
         <title>Understanding the Hierarchy and Interplay of Statutes, Regulations, and Case Law at the Federal and State Levels</title>
         <subtitle>SMGT 340</subtitle>
