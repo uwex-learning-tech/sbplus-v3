@@ -6,9 +6,3 @@
 
 *.js.map
 **/*.js.map
-
-/assets/video
-/assets/audio
-/assets/slide
-/assets/html
-/assets/swf

@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<storybook accent="#535cab" slideFormat="jpg" analytics="off" xmlVersion="3">
+<storybook accent="#7b3009" slideFormat="jpg" analytics="off" xmlVersion="3">
     
     <setup courseNumber="">
         
-        <title>Understanding the Hierarchy and Interplay of Statutes, Regulations, and Case Law at the Federal and State Levels</title>
-        <subtitle>SMGT 340</subtitle>
-        <length>25 Minutes</length>
-        <author name="Demo">
-            <![CDATA[<p>Oh, hello! Hey! Hi! This is a demo of the Storyboard Player (SBP). Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ut purus augue. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae, praesentium, ipsam, ut, voluptatibus pariatur quasi esse adipisci dolorum laboriosam excepturi possimus minima libero atque consequuntur quidem reiciendis eligendi laborum vero? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat, accusamus, similique qui dicta libero dolorem culpa molestias necessitatibus voluptatibus nostrum rem illo corporis ipsam nulla cumque harum vero nemo voluptate. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestias, veritatis excepturi fuga quisquam dolorem nesciunt ea necessitatibus accusantium. Voluptatibus minima voluptatum harum laboriosam ex reiciendis praesentium. Quas, quia a quis. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic, rem, ipsa, reprehenderit quod quo eum sunt a eveniet ex excepturi soluta deleniti dicta est error perferendis tempora tenetur harum neque.</p>]]>
+        <title>BKN315 - Chocolate Chip Cookies</title>
+        <subtitle>A Sample Storybook Plus Presentation</subtitle>
+        <length>7 Minutes</length>
+        <author name="Bryan Bortz">
+            <![CDATA[<p><strong>UW-Extension Continuing Education, Outreach and E-Learning</strong></p><p>Bryan Bortz is a Senior Media Specialist at UW-Extension CEOEL, and a life long fan of cookies.</p>]]>
         </author>
         <generalInfo>
-            <![CDATA[<p>This is general info: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>]]>
+            <![CDATA[<p>This an sample Storybook Plus presentation on chocolate chip cookies.</p>]]>
         </generalInfo>
         
     </setup>
@@ -20,96 +20,89 @@
         section title attribute defaults to "section #"
         image default to jpg unless file extension (i.e., .png) is specified
     -->
-
-    <section title="Section 1">
+    
+    <!-- section 1 -->
+    
+    <section title="Chocolate Chip Cookies">
         
-        <!-- image -->
-        <page type="image" src="filename" title="">
-            
+        <page type="audio" src="slide01" title="Title Slide">
             <note />
-            
         </page>
         
-        <!-- audio with assumption of image -->
-        <page type="image-audio" src="filename" title="">
-            
+        <page type="audio" src="slide02" title="Overview">
             <note />
-            
         </page>
         
-        <!-- video -->
-        <page type="video" src="filename" title="">
-            
+        <page type="audio" src="slide03" title="Cookie Type">
             <note />
-            
         </page>
         
-        <!-- html -->
-        <page type="html" src="foldername" title="" icon="">
-            
+        <page type="audio" src="slide04" title="History">
             <note />
-            
         </page>
         
-        <!-- kaltura -->
-        <page type="kaltura" src="id" title="">
-            
-            <note />
-            
+        <page type="audio" src="slide05" title="A Cookie Timeline">
+            <note><![CDATA[<p><strong>Link:</strong> <a href="https://en.wikipedia.org/wiki/Hydrox">Hydrox Cookie Brand - Wikipedia</a>]]></note>
         </page>
         
-        <!-- youtube -->
-        <page type="youtube" src="id" title="">
-            
+        <page type="audio" src="slide06" title="The Recipe">
             <note />
-            
         </page>
         
-        <!-- vimeo -->
-        <page type="vimeo" src="id" title="">
-            
+        <page type="audio" src="slide07" title="Tools">
             <note />
-            
         </page>
         
-        <!-- bundle -->
-        <page type="bundle" src="filename" title="">
-            
-            <frame start="00:00"></frame>
-            <frame start="00:30"></frame>
-            <frame start="00:50"></frame>
-            <frame start="00:55"></frame>
-            
+        <page type="audio" src="slide08" title="Part 1 - Preheating and Melting">
             <note />
-            
         </page>
         
-        <!-- quiz: multiple choice single -->
-        <page type="quiz" title="">
+        <page type="audio" src="slide09" title="Part 2 - Combining the Ingredients">
+            <note />
+        </page>
+        
+        <page type="audio" src="slide10" title="Part 3 - Preparing for Baking">
+            <note />
+        </page>
+        
+        <page type="audio" src="slide11" title="Part 4 - Baking">
+            <note />
+        </page>
+        
+        <page type="audio" src="slide12" title="Cookie Troubleshooting">
+            <note />
+        </page>
+        
+        <page type="audio" src="slide13" title="Chocolate Chip Cookie Variants">
+            <note />
+        </page>
+        
+    </section>
+    
+    <!-- section 2 -->
+    
+    <section title="Self Assessments">
+        
+        <page type="quiz" title="Question 1">
             
             <mulitpleChoiceSingle>
                 
-                <question image="" audio="">Lorem lorem</question>
+                <question image="" audio="">I'm not sure I was clear, should you burn the butter or not?</question>
                 <choices>
                     
+                    <answer image="" audio="">
+                        <value>Yes</value>
+                        <feedback image="" audio="">Sorry, I misspoke. Don't burn the butter.</feedback>
+                    </answer>
+                    
                     <answer image="" audio="" correct="yes">
-                        <value></value>
-                        <feedback image="" audio=""></feedback>
+                        <value>No</value>
+                        <feedback image="" audio="">That's right, we don't want burnt butter in our cookies.</feedback>
                     </answer>
                     
                     <answer image="" audio="">
-                        <value></value>
-                        <feedback image="" audio=""></feedback>
-                    </answer>
-                    
-                    <answer image="" audio="">
-                        <value></value>
-                        <feedback image="" audio=""></feedback>
-                    </answer>
-                    
-                    <answer image="" audio="">
-                        <value></value>
-                        <feedback image="" audio=""></feedback>
+                        <value>It depends on personal taste</value>
+                        <feedback image="" audio="">Personally, I don't think you should burn the butter. But if you indeed like burnt butter in your cookies, go ahead.</feedback>
                     </answer>
                     
                 </choices>
@@ -118,81 +111,47 @@
             
         </page>
         
-        <!-- quiz: multiple choice multiple -->
-        <page type="quiz" title="">
-            
-            <mulitpleChoiceMultiple>
-                
-                <question image="" audio="">Lorem lorem</question>
-                <choices>
-                    
-                    <answer image="" audio="" correct="yes">
-                        <value></value>
-                    </answer>
-                    
-                    <answer image="" audio="">
-                        <value></value>
-                    </answer>
-                    
-                    <answer image="" audio="" correct="yes">
-                        <value></value>
-                    </answer>
-                    
-                    <answer image="" audio="">
-                        <value></value>
-                    </answer>
-                    
-                </choices>
-                
-                <correctFeedback image="" audio=""></correctFeedback>
-                <incorrectFeedback image="" audio=""></incorrectFeedback>
-                
-            </mulitpleChoiceMultiple>
-            
-        </page>
-        
-        <!-- quiz: true or false -->
-        <page type="quiz" title="">
-            
-            <trueFlase>
-                
-                <question>Lorem lorem</question>
-
-                <true image="" audio="" correct="yes">
-                    <feedback image="" audio=""></feedback>
-                </true>
-                
-                <false image="" audio="">
-                    <feedback image="" audio=""></feedback>
-                </false>
-                
-            </trueFlase>
-            
-        </page>
-        
-        <!-- quiz: short answer -->
-        <page type="quiz" title="">
+        <page type="quiz" title="Question 2">
             
             <shortAnswer>
                 
-                <question>Lorem lorem</question>
-                <feedback></feedback>
+                <question>What are your main take aways from this presentation?</question>
+                <feedback>I was hoping you would be surprised to hear how relatively young the Chocolate Chip cookie is. I am also hoping you noticed how important getting the ingredients right is to having good results.</feedback>
                 
             </shortAnswer>
             
         </page>
         
-        <!-- quiz: fill in the blank -->
-        <page type="quiz" title="">
+        <page type="quiz" title="Question 3">
             
-            <fillInTheBlank>
+            <mulitpleChoiceSingle>
                 
-                <question>Lorem lorem</question>
-                <answer></answer>
-                <correctFeedback></correctFeedback>
-                <incorrectFeedback></incorrectFeedback>
+                <question image="" audio="">In what year was the first Chocolate Chip Cookie recipe published?</question>
+                <choices>
+                    
+                    <answer image="" audio="">
+                        <value>1930</value>
+                        <feedback image="" audio="">Nope!</feedback>
+                    </answer>
+                    
+                    <answer image="" audio="">
+                        <value>1908</value>
+                        <feedback image="" audio="">This is when the Hydrox Cookie was introduced.</feedback>
+                    </answer>
+                    
+                    <answer image="" audio="" correct="yes">
+                        <value>1938</value>
+                        <feedback image="" audio="">Correct!</feedback>
+                    </answer>
+                    
+                    <answer image="" audio="">
+                        <value>1912</value>
+                        <feedback image="" audio="">This is when the Oreo was introduced.</feedback>
+                    </answer>
+                    
+                </choices>
                 
-            </fillInTheBlank>
+            </mulitpleChoiceSingle>
             
         </page>
         

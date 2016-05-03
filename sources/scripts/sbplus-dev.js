@@ -28,13 +28,6 @@
  
 var sbplus = sbplus || {
         
-    title: '',
-    subtitle: '',
-    length: '',
-    author: '',
-    authorBio: '',
-    generalInfo: '',
-    courseNumber: '',
     accent: '#535cab',
     slideFormat: 'jpg',
     analytics: 'off',
@@ -108,7 +101,7 @@ $.fn.loadPresentation = function( configs, context ) {
     sbplus.authorBio = setupCntxt.find( 'author' ).text();
     sbplus.length = setupCntxt.find( 'length' ).text();
     sbplus.generalInfo = setupCntxt.find( 'generalInfo' ).text();
-    sbplus.courseNumber = setupCntxt.attr('courseNumber');
+    sbplus.courseNumber = setupCntxt.attr( 'courseNumber' );
     
     sbplus.accent = ( $.fn.isEmpty( globalCntxt.attr( 'accent' ) ) ) ? sbplus.accent : globalCntxt.attr( 'accent' );
     sbplus.slideFormat = ( $.fn.isEmpty( globalCntxt.attr( 'slideFormat' ) ) ) ? sbplus.slideFormat : globalCntxt.attr( 'slideFormat' );
@@ -176,125 +169,40 @@ $.fn.setupPresentation = function() {
     $( '.title_bar .title' ).html( sbplus.title );
     $( '.author' ).html( sbplus.author );
     
-    $( '.menuBtn' ).on( 'click', function() {
-        
-        $( this ).attr( 'aria-expanded', 'true' );
-        $( '#menu_panel' ).removeClass( 'hide' ).attr( 'aria-expanded', 'true' );
-        
-        return false;
-        
-    } );
-    
-    $( '#showProfile' ).on( 'click', function() {
-        
-        $( this ).showMenuItemDetails( 'Author Profile', sbplus.authorBio );
-        
-        return false;
-        
-    } );
-    
-    $( '#showGeneralInfo' ).on( 'click', function() {
-        
-        $( this ).showMenuItemDetails( 'General Information', sbplus.generalInfo );
-        
-        return false;
-        
-    } );
-    
-    $( '#showHelp' ).on( 'click', function() {
-        
-        $( this ).showMenuItemDetails( 'Help', '<p>Help information go here...</p>' );
-        return false;
-        
-    } );
-    
-    $( '#showSettings' ).on( 'click', function() {
-        
-        $( this ).showMenuItemDetails( 'Settings', '<p>Settings go here...</p>' );
-        return false;
-        
-    } );
-    
-    $( '.backBtn' ).on( 'click', function() {
-        
-        $.fn.hideMenuItemDetails();
-        return false;
-        
-    } );
-    
-    $( '.closeBtn' ).on( 'click', function() {
-        
-        $( '.menuBtn' ).attr( 'aria-expanded', 'false' );
-        $( '#menu_panel' ).addClass( 'hide' ).attr( 'aria-expanded', 'false' );
-        
-        $.fn.hideMenuItemDetails();
-        return false;
-        
-    } );
+    $.fn.bindMenuEvents();
     
 };
 
 /**** HELPER METHODS ****/
  
- $.fn.haveCoreFeatures = function() {
-     
-     if ( !Modernizr.audio || !Modernizr.video || !Modernizr.json || !Modernizr.eventlistener || !Modernizr.flexbox ) {
-         
-         return false;
-         
-     }
-     
-     return true;
-     
- };
- 
- $.fn.getConfigFileUrl = function() {
-     
-     var configsFile = document.getElementById( 'sbplus_configs' );
-     
-     if ( configsFile === null ) {
-         
-         return false;
-         
-     }
-     
-     return configsFile.href;
-     
- };
- 
- $.fn.isEmpty = function( str ) {
-     
-     var result = str.trim();
-     
-     return ( !result || result.length === 0 );
-     
- };
- 
- $.fn.showMenuItemDetails = function( title, content ) {
-     
-     $(this).attr( 'aria-expanded', 'true' );
-     
-     $( '.menu_item_details' ).attr( 'aria-expanded', 'true' );
-     $( '.menu_item_details .navbar .title' ).html( title );
-     $( '.menu_item_details .menu_item_content' ).html( content );
-     $( '.menu_item_details' ).removeClass( 'hide' ).animate( { right: '0px' }, 250 );
-     
- };
- 
- $.fn.hideMenuItemDetails = function() {
-     
-     $( '.menu_item a' ).attr( 'aria-expanded', 'false' );
-     
-     $( '.menu_item_details' ).attr( 'aria-expanded', 'false' ).animate( { right: '-258px' }, 250, function() {
-            
-        $( this ).addClass( 'hide' );
-        
-     } );
-     
- };
- 
- $.fn.getProgramDirectory = function() {
+$.fn.haveCoreFeatures = function() {
     
+    if ( !Modernizr.audio || !Modernizr.video || !Modernizr.json || !Modernizr.eventlistener || !Modernizr.flexbox ) {
+    
+        return false;
+    
+    }
+    
+    return true;
+     
+};
+ 
+$.fn.getConfigFileUrl = function() {
+ 
+    var configsFile = document.getElementById( 'sbplus_configs' );
+    
+    if ( configsFile === null ) {
+     
+     return false;
+     
+    }
+    
+    return configsFile.href;
+ 
+};
+ 
+$.fn.getProgramDirectory = function() {
+
     var url = window.location.href.split( "/" );
     
     if ( $.fn.isEmpty( url[url.length - 1] ) || new RegExp( '[\?]' ).test( url[url.length - 1] ) ) {
@@ -304,7 +212,101 @@ $.fn.setupPresentation = function() {
     }
     
     if ( url[4] === undefined ) { return url[3]; }
-
+    
     return url[4];
 
+};
+ 
+$.fn.isEmpty = function( str ) {
+ 
+    var result = str.trim();
+    
+    return ( !result || result.length === 0 );
+ 
+};
+ 
+$.fn.bindMenuEvents = function() {
+ 
+    $( '.menuBtn' ).on( 'click', function() {
+    
+        $( this ).attr( 'aria-expanded', 'true' );
+        $( '#menu_panel' ).removeClass( 'hide' ).attr( 'aria-expanded', 'true' );
+        
+        return false;
+    
+    } );
+    
+    $( '#showProfile' ).on( 'click', function() {
+    
+        $( this ).showMenuItemDetails( 'Author Profile', sbplus.authorBio );
+        
+        return false;
+    
+    } );
+    
+    $( '#showGeneralInfo' ).on( 'click', function() {
+    
+        $( this ).showMenuItemDetails( 'General Information', sbplus.generalInfo );
+        
+        return false;
+    
+    } );
+    
+    $( '#showHelp' ).on( 'click', function() {
+    
+        $( this ).showMenuItemDetails( 'Help', '<p>Help information go here...</p>' );
+        
+        return false;
+    
+    } );
+    
+    $( '#showSettings' ).on( 'click', function() {
+    
+        $( this ).showMenuItemDetails( 'Settings', '<p>Settings go here...</p>' );
+        
+        return false;
+    
+    } );
+    
+    $( '.backBtn' ).on( 'click', function() {
+    
+        $.fn.hideMenuItemDetails();
+        
+        return false;
+    
+    } );
+    
+    $( '.closeBtn' ).on( 'click', function() {
+    
+        $( '.menuBtn' ).attr( 'aria-expanded', 'false' );
+        $( '#menu_panel' ).addClass( 'hide' ).attr( 'aria-expanded', 'false' );
+        
+        $.fn.hideMenuItemDetails();
+        return false;
+    
+    } );
+ 
+};
+ 
+$.fn.showMenuItemDetails = function( title, content ) {
+ 
+    $(this).attr( 'aria-expanded', 'true' );
+    
+    $( '.menu_item_details' ).attr( 'aria-expanded', 'true' );
+    $( '.menu_item_details .navbar .title' ).html( title );
+    $( '.menu_item_details .menu_item_content' ).html( content );
+    $( '.menu_item_details' ).removeClass( 'hide' ).animate( { right: '0px' }, 250 );
+ 
+};
+ 
+$.fn.hideMenuItemDetails = function() {
+ 
+    $( '.menu_item a' ).attr( 'aria-expanded', 'false' );
+    
+    $( '.menu_item_details' ).attr( 'aria-expanded', 'false' ).animate( { right: '-258px' }, 250, function() {
+        
+        $( this ).addClass( 'hide' );
+    
+    } );
+ 
 };
