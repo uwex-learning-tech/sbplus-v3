@@ -177,7 +177,7 @@ $.fn.setupPresentation = function() {
  
 $.fn.haveCoreFeatures = function() {
     
-    if ( !Modernizr.audio || !Modernizr.video || !Modernizr.json || !Modernizr.eventlistener || !Modernizr.flexbox ) {
+    if ( !Modernizr.audio || !Modernizr.video || !Modernizr.json || !Modernizr.flexbox ) {
     
         return false;
     
