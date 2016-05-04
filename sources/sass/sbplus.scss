@@ -428,6 +428,23 @@ noscript {
                     
                 }
                 
+                .download_files {
+                    
+                    margin: rem( $gutter ) 0;
+                    font-size: rem( 12px );
+                    
+                    .dl_item {
+                        
+                        color: $font-color;
+                        background-color: #fff;
+                        font-size: rem( 14px );
+                        padding: rem( 6px );
+                        border: rem( 1px ) solid #888;
+                        
+                    }
+                    
+                }
+                
             }
             
         }

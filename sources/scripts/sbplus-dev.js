@@ -31,12 +31,7 @@ var sbplus = sbplus || {
     accent: '#535cab',
     slideFormat: 'jpg',
     analytics: 'off',
-    xmlVersion: '3',
-    getSplashInfo: function() {
-        
-        return '<div class="splashinfo"><h1 tabindex="1" class="title">' + this.title + '</h1><p tabindex="1" class="subtitle">'+ this.subtitle + '</p><p tabindex="1" class="author">' + this.author + '</p><p tabindex="1" class="length">' + this.length + '</p><button tabindex="1" class="startBtn" aria-label="Start Presentation">START</button></div>';
-        
-    }
+    xmlVersion: '3'
     
 };
  
@@ -110,31 +105,55 @@ $.fn.loadPresentation = function( configs, context ) {
     // set the document/page title
     $( document ).attr( "title", sbplus.title );
     
-    // splash image url
-    var splashImgURL = configs.sbplus_splash_directory + $.fn.getProgramDirectory() + ( ( $.fn.isEmpty( sbplus.courseNumber ) ) ? '' : sbplus.courseNumber ) + '.jpg';
-    
     // get the sbplus template via ajax
-    $.get( configs.sbplus_root_directory + 'scripts/templates/sbplus.tpl', function( template ) {
+    $.get( configs.sbplus_root_directory + 'scripts/templates/sbplus.tpl', function( sbplusFrame ) {
         
         // display the sbplus frame
-        $( '.sbplus_wrapper' ).html( template );
+        $( '.sbplus_wrapper' ).html( sbplusFrame );
         
-        // get splash image
-        $.get( splashImgURL , function() {
+        // get and display the splash screen
+        $.get( configs.sbplus_root_directory + 'scripts/templates/splashscreen.tpl', function( splashscreen ) {
             
-            sbplus.splashImg = splashImgURL;
+            $( '.splashscreen' ).html( splashscreen );
             
-        } ).fail( function() {
+            var splashImgURL = configs.sbplus_splash_directory + $.fn.getProgramDirectory() + ( ( $.fn.isEmpty( sbplus.courseNumber ) ) ? '' : sbplus.courseNumber ) + '.jpg';
             
-            sbplus.splashImg = configs.sbplus_root_directory + 'images/default.jpg';
+            // get splash image
+            $.get( splashImgURL , function() {
+                
+                $( '.splashscreen' ).css( 'background-image', 'url(' + splashImgURL + ')' );
+                
+            } ).fail( function() {
+                
+                $.get( 'assets/splash.jpg', function() {
+                    
+                    $( '.splashscreen' ).css( 'background-image', 'url(assets/splash.jpg)' );
+                    
+                } ).fail( function() {
+                    
+                    $( '.splashscreen' ).css( 'background-image', 'url(' + configs.sbplus_root_directory + 'images/default.jpg)' );
+                    
+                } );
+                
+            } );
             
-        } ).always( function() {
+            // set & display presentation informations on splash screen
+            $( '.splashinfo .title' ).html( sbplus.title );
+            $( '.splashinfo .subtitle' ).html( sbplus.subtitle );
+            $( '.splashinfo .author' ).html( sbplus.author );
+            $( '.splashinfo .length' ).html( sbplus.length );
+            $( '.splashinfo .startBtn' ).css( 'background-color', sbplus.accent );
             
-            // display the splashscreen
-            $( '.splashscreen' ).html( sbplus.getSplashInfo() ).css( 'background-image', 'url(' + sbplus.splashImg + ')' );
+            if ( navigator.cookieEnabled && document.cookie ) {
+                
+                
+                $( '.splashinfo .resumeBtn' ).css( 'background-color', sbplus.accent )
+                                             .removeClass( 'hide' );
+                
+            }
             
             // bind start button for splash screen
-            $( '.startBtn' ).css( 'background-color', sbplus.accent ).on( 'click', function() {
+            $( '.splashinfo .startBtn' ).on( 'click', function() {
                 
                 $( '.splashscreen' ).fadeOut( 'fast', function() {
                     
@@ -153,6 +172,10 @@ $.fn.loadPresentation = function( configs, context ) {
                 } );
                 
             } );
+            
+        } ).fail( function() {
+            
+            $( '.sbplus_wrapper' ).html( '<div class="error"><h1>Template file not found!</h1><p>splashscreen.tpl file not found in the templates directory.</p></div>' );
             
         } );
         
