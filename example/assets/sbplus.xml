@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <storybook accent="#7b3009" slideFormat="jpg" analytics="off" xmlVersion="3">
     
-    <setup courseNumber="">
+    <setup postfix="">
         
         <title>BKN315 - Chocolate Chip Cookies</title>
         <subtitle>A Sample Storybook Plus Presentation</subtitle>

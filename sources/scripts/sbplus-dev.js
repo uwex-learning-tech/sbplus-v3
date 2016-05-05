@@ -96,7 +96,7 @@ $.fn.loadPresentation = function( configs, context ) {
     sbplus.authorBio = setupCntxt.find( 'author' ).text();
     sbplus.length = setupCntxt.find( 'length' ).text();
     sbplus.generalInfo = setupCntxt.find( 'generalInfo' ).text();
-    sbplus.courseNumber = setupCntxt.attr( 'courseNumber' );
+    sbplus.postfix = setupCntxt.attr( 'postfix' );
     
     sbplus.accent = ( $.fn.isEmpty( globalCntxt.attr( 'accent' ) ) ) ? sbplus.accent : globalCntxt.attr( 'accent' );
     sbplus.slideFormat = ( $.fn.isEmpty( globalCntxt.attr( 'slideFormat' ) ) ) ? sbplus.slideFormat : globalCntxt.attr( 'slideFormat' );
@@ -114,11 +114,12 @@ $.fn.loadPresentation = function( configs, context ) {
         // get and display the splash screen
         $.get( configs.sbplus_root_directory + 'scripts/templates/splashscreen.tpl', function( splashscreen ) {
             
+            var splashImgURL = configs.sbplus_splash_directory + $.fn.getProgramDirectory() + ( ( $.fn.isEmpty( sbplus.postfix ) ) ? '' : sbplus.courseNumber ) + '.jpg';
+            
+            // set the splashscreen DOM
             $( '.splashscreen' ).html( splashscreen );
             
-            var splashImgURL = configs.sbplus_splash_directory + $.fn.getProgramDirectory() + ( ( $.fn.isEmpty( sbplus.courseNumber ) ) ? '' : sbplus.courseNumber ) + '.jpg';
-            
-            // get splash image
+            // load splash screen image
             $.get( splashImgURL , function() {
                 
                 $( '.splashscreen' ).css( 'background-image', 'url(' + splashImgURL + ')' );
@@ -128,10 +129,6 @@ $.fn.loadPresentation = function( configs, context ) {
                 $.get( 'assets/splash.jpg', function() {
                     
                     $( '.splashscreen' ).css( 'background-image', 'url(assets/splash.jpg)' );
-                    
-                } ).fail( function() {
-                    
-                    $( '.splashscreen' ).css( 'background-image', 'url(' + configs.sbplus_root_directory + 'images/default.jpg)' );
                     
                 } );
                 
