@@ -31,7 +31,8 @@ var sbplus = sbplus || {
     accent: '#535cab',
     slideFormat: 'jpg',
     analytics: 'off',
-    xmlVersion: '3'
+    xmlVersion: '3',
+    trackCount: 0
     
 };
  
@@ -102,6 +103,8 @@ $.fn.loadPresentation = function( configs, context ) {
     sbplus.slideFormat = ( $.fn.isEmpty( globalCntxt.attr( 'slideFormat' ) ) ) ? sbplus.slideFormat : globalCntxt.attr( 'slideFormat' );
     sbplus.analytics = ( $.fn.isEmpty( globalCntxt.attr( 'analytics' ) ) ) ? sbplus.analytics : globalCntxt.attr( 'analytics' );
     
+    sbplus.section = context.find( 'section' );
+    
     // set the document/page title
     $( document ).attr( "title", sbplus.title );
     
@@ -114,21 +117,27 @@ $.fn.loadPresentation = function( configs, context ) {
         // get and display the splash screen
         $.get( configs.sbplus_root_directory + 'scripts/templates/splashscreen.tpl', function( splashscreen ) {
             
-            var splashImgURL = configs.sbplus_splash_directory + $.fn.getProgramDirectory() + ( ( $.fn.isEmpty( sbplus.postfix ) ) ? '' : sbplus.courseNumber ) + '.jpg';
-            
             // set the splashscreen DOM
             $( '.splashscreen' ).html( splashscreen );
             
-            // load splash screen image
-            $.get( splashImgURL , function() {
-                
-                $( '.splashscreen' ).css( 'background-image', 'url(' + splashImgURL + ')' );
+            // get the splash screen image
+            $.get( 'assets/splash.jpg', function() {
+                        
+                $( '.splashscreen' ).css( 'background-image', 'url(assets/splash.jpg)' );
                 
             } ).fail( function() {
                 
-                $.get( 'assets/splash.jpg', function() {
+                $.get( configs.sbplus_splash_directory + $.fn.getProgramDirectory() + sbplus.postfix + '.jpg' , function() {
+                
+                    $( '.splashscreen' ).css( 'background-image', 'url(' + this.url + ')' );
                     
-                    $( '.splashscreen' ).css( 'background-image', 'url(assets/splash.jpg)' );
+                } ).fail( function() {
+                    
+                    $.get( configs.sbplus_splash_directory + $.fn.getProgramDirectory() + '.jpg' , function() {
+                
+                        $( '.splashscreen' ).css( 'background-image', 'url(' + this.url + ')' );
+                        
+                    } );
                     
                 } );
                 
@@ -141,12 +150,11 @@ $.fn.loadPresentation = function( configs, context ) {
             $( '.splashinfo .length' ).html( sbplus.length );
             $( '.splashinfo .startBtn' ).css( 'background-color', sbplus.accent );
             
-            if ( navigator.cookieEnabled && document.cookie ) {
-                
+            if ( navigator.cookieEnabled && $.fn.checkValueInCookie( 'sbplus-' + $.fn.getRootDirectory() ) ) {
                 
                 $( '.splashinfo .resumeBtn' ).css( 'background-color', sbplus.accent )
                                              .removeClass( 'hide' );
-                
+
             }
             
             // bind start button for splash screen
@@ -170,6 +178,8 @@ $.fn.loadPresentation = function( configs, context ) {
                 
             } );
             
+            $.fn.getDownloadableFiles();
+            
         } ).fail( function() {
             
             $( '.sbplus_wrapper' ).html( '<div class="error"><h1>Template file not found!</h1><p>splashscreen.tpl file not found in the templates directory.</p></div>' );
@@ -189,7 +199,123 @@ $.fn.setupPresentation = function() {
     $( '.title_bar .title' ).html( sbplus.title );
     $( '.author' ).html( sbplus.author );
     
+    $.fn.loadTableOfContents();
     $.fn.bindMenuEvents();
+    
+};
+
+$.fn.loadTableOfContents = function() {
+        
+    $.each( sbplus.section, function( index ) {
+        
+        var page = $( this ).find( 'page' );
+        var sectionTitle = ( $.fn.isEmpty( $( this ).attr( 'title' ) ) ) ? 'Section ' + ( index + 1 ) : $( this ).attr( 'title' );
+        
+        $( '.tableOfContents' ).append( '<div class="section"><div class="header"><div class="title">' + sectionTitle + '</div><div class="expandCollapseIcon"><span class="icon-collapse"></span></div></div><div class="content"><ul class="selectable">' );
+        
+        $.each( page, function( j ) {
+            
+            if ( $( this ).attr( 'type' ) !== 'quiz' ) {
+                
+                $( '.selectable:eq(' + index + ')' ).append( '<li class="selectee" data-slide="' + j + '"><span class="num">' + ( sbplus.trackCount + 1 ) +'.</span> ' + $( this ).attr('title') + '</li>' );
+                
+            } else {
+                
+                $( '.selectable:eq(' + index + ')' ).append( '<li class="selectee" data-slide="' + j + '"><span class="icon-assessment"></span> ' + $( this ).attr('title') + '</li>' );
+                
+            }
+            
+            sbplus.trackCount++;
+            
+        } );
+        
+        $( '.tableOfContents' ).append( '</ul></div></div>' );
+        
+    } );
+    
+    if ( sbplus.section.length >= 2 ) {
+        
+        $( '.tableOfContents .section .header' ).on( 'click', function() {
+        
+            var content = $( this ).parent().find( '.content' );
+            var icon = $( this ).parent().find( '.expandCollapseIcon' ).find( 'span' );
+            
+            if ( $( content ).is( ':visible' ) ) {
+                
+                content.slideUp( 250, function() {
+                    
+                    $( icon ).removeClass( 'icon-collapse' ).addClass( 'icon-open' );
+                    
+                } );
+                
+            } else {
+                
+                content.slideDown( 250, function() {
+                    
+                    $( icon ).removeClass( 'icon-open' ).addClass( 'icon-collapse' );
+                    
+                } );
+                
+            }
+            
+        } );
+        
+    } else {
+        
+        $( '.tableOfContents .section .header' ).remove();
+        
+    }
+    
+    $( '.selectable .selectee' ).on( 'click', function() {
+        
+        if ( sbplus.section.length >= 2 ) {
+            
+            var header = $( this ).parent().parent().prev();
+            
+            // reset old
+            $( '.header' ).removeClass( 'current' );
+            
+            // hightlight new
+            $( header ).addClass( 'current' );
+            
+        }
+        
+        $( '.selectable .selectee' ).removeClass( 'selected' );
+        $( this ).addClass( 'selected' );
+        
+    } );
+    
+};
+
+$.fn.getDownloadableFiles = function() {
+    
+    $.get( $.fn.getProgramDirectory() + '.mp4', function() {
+        
+        sbplus.videoDownloadSrc = this.url;
+        $( '.dl_item.video' ).attr( 'href', sbplus.videoDownloadSrc ).removeClass( 'hide' );
+        
+    } );
+    
+    $.get( $.fn.getProgramDirectory() + '.mp3', function() {
+        
+        sbplus.audioDownloadSrc = this.url;
+        $( '.dl_item.audio' ).attr( 'href', sbplus.audioDownloadSrc ).removeClass( 'hide' );
+        
+    } );
+    
+    $.get( $.fn.getProgramDirectory() + '.pdf', function() {
+        
+        sbplus.pdfDownloadSrc = this.url;
+        $( '.dl_item.pdf' ).attr( 'href', sbplus.pdfDownloadSrc ).removeClass( 'hide' );
+        
+    } );
+    
+    $.get( $.fn.getProgramDirectory() + '.zip', function() {
+        
+        sbplus.zipDownloadSrc = this.url;
+        $( '.dl_item.zip' ).attr( 'href', sbplus.zipDownloadSrc ).removeClass( 'hide' );
+        
+    } );
     
 };
 
@@ -231,17 +357,33 @@ $.fn.getProgramDirectory = function() {
         
     }
     
-    if ( url[4] === undefined ) { return url[3]; }
+    if ( url[4] === undefined ) {
+        
+        return url[3];
+        
+    }
     
     return url[4];
 
 };
+
+$.fn.getRootDirectory = function() {
+    
+    var url = window.location.href.split( "/" );
+    
+    if ( $.fn.isEmpty( url[url.length - 1] ) || new RegExp( '[\?]' ).test( url[url.length - 1] ) || url[url.length - 1] === 'index.html'  ) {
+        
+        url.splice( url.length - 1, 1 );
+        
+    }
+    
+    return url[url.length - 1];
+    
+};
  
 $.fn.isEmpty = function( str ) {
- 
-    var result = str.trim();
     
-    return ( !result || result.length === 0 );
+    return ( !str.trim() || str.trim().length === 0 );
  
 };
  
@@ -256,37 +398,6 @@ $.fn.bindMenuEvents = function() {
     
     } );
     
-    $( '#showProfile' ).on( 'click', function() {
-    
-        $( this ).showMenuItemDetails( 'Author Profile', sbplus.authorBio );
-        
-        return false;
-    
-    } );
-    
-    $( '#showGeneralInfo' ).on( 'click', function() {
-    
-        $( this ).showMenuItemDetails( 'General Information', sbplus.generalInfo );
-        
-        return false;
-    
-    } );
-    
-    $( '#showHelp' ).on( 'click', function() {
-    
-        $( this ).showMenuItemDetails( 'Help', '<p>Help information go here...</p>' );
-        
-        return false;
-    
-    } );
-    
-    $( '#showSettings' ).on( 'click', function() {
-    
-        $( this ).showMenuItemDetails( 'Settings', '<p>Settings go here...</p>' );
-        
-        return false;
-    
-    } );
     
     $( '.backBtn' ).on( 'click', function() {
     
@@ -305,7 +416,72 @@ $.fn.bindMenuEvents = function() {
         return false;
     
     } );
+    
+    // menu items
+    $( '#showProfile' ).onMenuItemClick();
+    $( '#showGeneralInfo' ).onMenuItemClick();
+    $( '#showHelp' ).onMenuItemClick();
+    $( '#showSettings' ).onMenuItemClick();
  
+};
+
+$.fn.onMenuItemClick = function() {
+    
+    var title, content;
+    
+    $( this ).on( 'click', function() {
+        
+        var selector = '#' + this.id;
+        
+        switch ( selector ) {
+        
+            case '#showProfile':
+                
+                title = 'Author Profile';
+                content = sbplus.authorBio;
+                
+            break;
+            
+            case '#showGeneralInfo':
+                
+                title = 'General Information';
+                content = sbplus.generalInfo;
+                
+            break;
+            
+            case '#showHelp':
+                
+                title = 'Help';
+                content = '<p>Help information go here...</p>';
+                
+            break;
+            
+            case '#showSettings':
+                
+                title = 'Settings';
+                content = '<p>Settings go here...</p>';
+                
+            break;
+            
+            default:
+            
+                title = '';
+                content ='';
+                
+            break;
+            
+        }
+        
+        if ( title !== '' && content !== '' ) {
+            
+            $( this ).showMenuItemDetails( title, content );
+            
+        }
+        
+        return false;
+        
+    } );
+    
 };
  
 $.fn.showMenuItemDetails = function( title, content ) {
@@ -330,3 +506,70 @@ $.fn.hideMenuItemDetails = function() {
     } );
  
 };
+
+
+/********** COOKIE METHODS ***************/
+
+$.fn.setCookie = function( cname, cvalue, exdays ) {
+    
+    var d = new Date();
+    
+    d.setTime( d.getTime() + ( exdays * 24 * 60 * 60 * 1000 ) );
+    
+    var expires = 'expires=' + d.toUTCString();
+    
+    document.cookie = cname + '=' + cvalue + '; ' + expires;
+    
+};
+
+$.fn.getCookie = function( cname ) {
+    
+    var name = cname + '=';
+    var ca = document.cookie.split(';');
+    
+    for ( var i = 0; i < ca.length; i++ ) {
+        
+        var c = ca[i];
+        
+        while ( c.charAt( 0 ) === ' ' ) {
+            
+            c = c.substring( 1 );
+            
+        }
+        
+        if ( c.indexOf( name ) === 0 ) {
+            
+            return c.substring( name.length, c.length );
+            
+        }
+        
+    }
+    
+    return '';
+    
+};
+
+$.fn.deleteCookie = function( cname ) {
+    
+    document.cookie = cname + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC';
+    
+};
+
+$.fn.checkValueInCookie = function( cname ) {
+    
+    var name = $.fn.getCookie( cname );
+    
+    if ( name !== '' ) {
+        
+        return true;
+        
+    }
+    
+    return false;
+    
+};
+
+
+
+
+

@@ -9,6 +9,7 @@ $gutter: 16px;
 @import "compass/css3/box-sizing";
 @import "compass/utilities/general/clearfix";
 @import "compass/css3/flexbox";
+@import "compass/css3/user-interface";
 @import "compass/css3/transform";
 
 @import "../fonts/sbplus_fonts.css";
@@ -38,6 +39,63 @@ $gutter: 16px;
         
     }
     
+}
+
+@mixin excerpt($font-size: 12px, $line-height: 1.4, $lines-to-show: 2, $excerpt-bg: transparent) {
+  background: $excerpt-bg;
+  display: block; /* Fallback for non-webkit */
+  display: -webkit-box;
+  max-height: $font-size*$line-height*$lines-to-show; /* Fallback for non-webkit */
+  font-size: $font-size;
+  line-height: $line-height;
+  -webkit-line-clamp: $lines-to-show;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  @-moz-document url-prefix() {
+    overflow: hidden;
+    position: relative;
+    &:before {
+      background: $excerpt-bg;
+      bottom: 0;
+      position: absolute;
+      right: 1px;
+      float: right;
+      content: '\2026';
+      margin-left: -3rem;
+      width: 2rem;
+    }
+    &:after {
+      content: '';
+      background: $excerpt-bg;
+      position: absolute;
+      height: 25px;
+      width: 80%;
+      z-index: 1;
+    }
+  }
+  @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+      overflow: hidden;
+      position: relative;
+       &:before {
+          background: $excerpt-bg;
+          bottom: 0;
+          position: absolute;
+          right: 1px;
+          float: right;
+          content: '\2026';
+          margin-left: -3rem;
+          width: 2rem;
+        }
+        &:after {
+          content: '';
+          background: $excerpt-bg;
+          position: absolute;
+          height: 25px;
+          width: 80%;
+          z-index: 1;
+        }
+    }
 }
 
 // functions
@@ -381,16 +439,6 @@ noscript {
             
             @include transform-style( preserve-3d );
             
-/*
-            .backgroundImg {
-                
-                position: absolute;
-                top: 0;
-                left: 0;
-                
-            }
-*/
-            
             .splashinfo {
                 
                 position: relative;
@@ -448,19 +496,32 @@ noscript {
                     .dl_item {
                         
                         display: inline-block;
-                        min-width: rem( 90px );
+                        position: relative;
                         color: $font-color;
                         background-color: #fff;
                         font-size: rem( 14px );
-                        padding: rem( 6px );
+                        padding: rem( 6px ) rem( 6px ) rem( 6px ) rem( 24px );
                         border: rem( 1px ) solid #888;
-                        text-align: center;
+                        
+                        [class^="icon-"] {
+                            
+                            position: absolute;
+                            top: rem( 8px );
+                            left: rem( 6px );
+                            
+                        }
                         
                     }
                     
                     .dl_item:hover {
                         
                         text-decoration: none;
+                        
+                    }
+                    
+                    .dl_item.hide {
+                        
+                        display: none;
                         
                     }
                     
@@ -569,6 +630,154 @@ and (min-width: 900px) {
                         
                         width: rem( 258px );
                         height: rem( 560px );
+                        
+                        .topbar {
+                                
+                            height: rem( 25px );
+                            background-color: #ececed;
+                            border-bottom: rem( 2px ) solid $border-color;
+                            
+                            .title {
+                                
+                                font-size: rem( 14px );
+                                font-weight: bold;
+                                color: #494949;
+                                padding: rem( 4px ) 0 0 rem( 10px );
+                                
+                            }
+                            
+                        }
+                        
+                        .tableOfContents {
+                            
+                            @include user-select( none );
+                            height: rem( 534px );
+                            overflow-y: auto;
+                            
+                            .section {
+                                
+                                .header {
+                                    
+                                    @include display-flex( flex );
+                                    @include align-items( center );
+                                    @include justify-content( center );
+                                    
+                                    width: 100%;
+                                    height: rem( 40px );
+                                    background-color: #f2f2f2;
+                                    font-size: rem( 12px );
+                                    line-height: rem( 16px );
+                                    color: #494949;
+                                    
+                                    cursor: pointer;
+                                    border-bottom: rem( 1px ) solid $border-color;
+                                    
+                                    .title {
+                                        
+                                        width: 91%;
+                                        padding: 0 rem( 10px );
+                                        font-weight: bold;
+                                        margin-bottom: 0;
+                                        @include excerpt( rem( 12px ), 1.2, 2, #f2f2f2 );
+                                        
+                                    }
+                                    
+                                    .expandCollapseIcon {
+                                        
+                                        width: 9%;
+                                        line-height: 0;
+                                        text-align: left;
+                                        padding-left: rem( 1px );
+                                        
+                                    }
+                                    
+                                    
+                                }
+                                
+                                .header.current {
+                                
+                                    background-color: #3b4381;
+                                    color: #fff;
+                                    
+                                    .title {
+                                        
+                                        @include excerpt( rem( 12px ), 1.2, 2, #3b4381 );
+                                        
+                                    }
+                                    
+                                }
+                                
+                                .content {
+                                    
+                                    font-size: rem( 12px );
+                                    line-height: rem( 14px );
+                                    border-bottom: rem( 1px ) solid $border-color;
+                                    
+                                    ul {
+                                        
+                                        margin: 0;
+                                        padding: 0;
+                                        list-style: none;
+                                        
+                                        li {
+                                            
+                                            padding: rem( 10px ) 0 rem( 10px ) rem( 30px );
+                                            margin: 0;
+                                            cursor: pointer;
+                                            text-indent: rem( -30px );
+                                            
+                                            .num {
+                                                
+                                                display: inline-block;
+                                                width: rem( 17px );
+                                                margin-left: rem( 10px );
+                                                text-align: right;
+                                                
+                                            }
+                                            
+                                            .icon-assessment {
+                                                
+                                                display: inline-block;
+                                                width: rem( 17px );
+                                                margin-left: rem( 5px );
+                                                margin-right: rem( 5px );
+                                                text-align: right;
+                                                
+                                            }
+                                            
+                                        }
+                                        
+                                        li.selected {
+                                            
+                                            color: #fff;
+                                            background-color: #535ca8;
+                                            
+                                        }
+                                        
+                                        li:hover {
+                                            
+                                            color: #fff;
+                                            background-color: #5c68d5;
+                                            
+                                        }
+                                        
+                                    }
+                                    
+                                }
+                                
+                            }
+                            
+                            .section:last-child {
+                                
+                                .content {
+                                    
+                                    border-bottom: none;
+                                    
+                                }
+                                
+                            }
+                            
+                        }
                         
                     } // end table of content
                     

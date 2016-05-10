@@ -20,8 +20,21 @@
             
         </div>
         
-        <div class="side_panel"></div>
+        <!-- side bar -->
         
+        <div class="side_panel">
+            
+            <div class="topbar">
+                <div class="title">Table of Contents</div>
+            </div>
+            
+            <div class="tableOfContents"></div>
+            
+        </div>
+        
+        <!-- end side bar -->
+        
+        <!-- menu panel -->
         <nav id="menu_panel" class="hide" aria-expanded="false">
             
             <div class="menu_bar">
@@ -45,6 +58,8 @@
             </div>
             
         </nav>
+        
+        <!-- end menu panel -->
         
     </div>
 </div>
