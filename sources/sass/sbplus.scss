@@ -490,11 +490,13 @@ noscript {
                 
                 .download_files {
                     
+                    height: rem( 30px );
                     margin: rem( $gutter ) 0;
                     font-size: rem( 12px );
                     
                     .dl_item {
                         
+                        min-width: rem( 108px );
                         display: inline-block;
                         position: relative;
                         color: $font-color;
@@ -516,12 +518,6 @@ noscript {
                     .dl_item:hover {
                         
                         text-decoration: none;
-                        
-                    }
-                    
-                    .dl_item.hide {
-                        
-                        display: none;
                         
                     }
                     
