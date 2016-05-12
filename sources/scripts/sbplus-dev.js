@@ -26,6 +26,10 @@
  
  /* global Modernizr */
 
+/***************************************
+    Storybook Plus Module
+****************************************/
+
 var sbplus = ( function() {
     
     var manifest;
@@ -45,16 +49,28 @@ var sbplus = ( function() {
         
     };
     
-    var $sbplus = $( '.sbplus_wrapper' );
+    var $sbplus;
     
-    
-    // main functions
+    $( document ).ready( function() {
+        
+        $sbplus = $( '.sbplus_wrapper' );
+        
+        $.getJSON( $.fn.getConfigFileUrl(), function( e ) {
+        
+            manifest = e;
+            loadSBPlusData();
+            
+        } ).fail( function() {
+            
+            sbplusError.show( 'Configuration file (manifest.json) is not found!', 'Please make sure the index.html file is compatible with Storybook Plus version 3.');
+            
+        } );
+        
+    } );
     
     function loadSBPlusData() {
         
-        // TODO: try to simply this block of code into just one method call
-        
-        if ( haveCoreFeatures() ) {
+        if ( $.fn.haveCoreFeatures() ) {
             
             $.get( 'assets/sbplus.xml', function( data ) {
                 
@@ -63,7 +79,7 @@ var sbplus = ( function() {
                 
             }).fail( function() {
                 
-                renderError( 'Table of Contents XML file (sbplus.xml) is not found!', 'Please make sure the XML file exists in the assets directory and compatible with Storybook Plus version 3.' );
+                sbplusError.show( 'Table of Contents XML file (sbplus.xml) is not found!', 'Please make sure the XML file exists in the assets directory and compatible with Storybook Plus version 3.' );
                 
             } );
             
@@ -75,7 +91,7 @@ var sbplus = ( function() {
                 
             } ).fail( function() {
                 
-                renderError( 'Unsuppored web browser!', 'Your web browser does not support current version of Storybook Plus. In addition, nosupport.tpl file is not found. nosuppory.tpl file contains information to display in regard to unsupported web browsers.');
+                sbplusError.show( 'Unsupported web browser!', 'Your web browser does not support current version of Storybook Plus. In addition, nosupport.tpl file is not found. nosuppory.tpl file contains information to display in regard to unsupported web browsers.');
                 
             } );
             
@@ -97,222 +113,44 @@ var sbplus = ( function() {
         context.postfix = setupCntxt.attr( 'postfix' );
         context.section = context.data.find( 'section' );
         
-        settings.accent = isEmpty( globalCntxt.attr( 'accent' ) ) ? settings.accent : globalCntxt.attr( 'accent' );
-        settings.slideFormat = isEmpty( globalCntxt.attr( 'slideFormat' ) ) ? settings.slideFormat : globalCntxt.attr( 'slideFormat' );
-        settings.analytics = isEmpty( globalCntxt.attr( 'analytics' ) ) ? settings.analytics : globalCntxt.attr( 'analytics' );
+        settings.accent = $.fn.isEmpty( globalCntxt.attr( 'accent' ) ) ? settings.accent : globalCntxt.attr( 'accent' );
+        settings.slideFormat = $.fn.isEmpty( globalCntxt.attr( 'slideFormat' ) ) ? settings.slideFormat : globalCntxt.attr( 'slideFormat' );
+        settings.analytics = $.fn.isEmpty( globalCntxt.attr( 'analytics' ) ) ? settings.analytics : globalCntxt.attr( 'analytics' );
         
         $.get( manifest.sbplus_root_directory + 'scripts/templates/sbplus.tpl', function( e ) {
             
             renderSBPlus( e );
-            getSplashScreen();
             
         } ).fail( function() {
             
-            renderError( 'Template file not found!', 'sbplus.tpl file not found in the templates directory.' );
+            sbplusError.show( 'Template file not found!', 'sbplus.tpl file not found in the templates directory.' );
             
         } );
         
     }
-    
-    function getSplashScreen() {
-        
-        var bg = '';
-        
-        $.get( manifest.sbplus_root_directory + 'scripts/templates/splashscreen.tpl', function( cntx ) {
-            
-            // TODO: try the defferred method to combine the get for splash image
-            
-            // get the splash screen image
-            $.get( 'assets/splash.jpg', function() {
-                
-                bg = 'assets/splash.jpg';
-                
-            } ).fail( function() {
-                
-                $.get( manifest.sbplus_splash_directory + getProgramDirectory() + context.postfix + '.jpg' , function() {
-                
-                    bg = this.url;
-                    
-                } ).fail( function() {
-                    
-                    $.get( manifest.sbplus_splash_directory + getProgramDirectory() + '.jpg' , function() {
-                
-                        bg = this.url;
-                        
-                    } ).always( function() {
-                        
-                        renderSplashScreen( cntx, bg );
-                        renderTableOfContents();
-                        getDownloadableFiles();
-                        bindStartPresentationEvent();
-                        
-                    } );
-                    
-                } );
-                
-            } );
-            
-        } ).fail( function() {
-            
-            renderError( 'Template file not found!', 'splashscreen.tpl file not found in the templates directory.' );
-            
-        } );
-        
-    }
-    
-    function getDownloadableFiles() {
-        
-        $.get( getProgramDirectory() + '.mp4', function() {
-            
-            context.videoDownloadSrc = this.url;
-            
-        } ).always( function() {
-            
-            $.get( getProgramDirectory() + '.mp3', function() {
-            
-                context.audioDownloadSrc = this.url;
-                
-            } ).always( function() {
-                
-                $.get( getProgramDirectory() + '.pdf', function() {
-            
-                    context.pdfDownloadSrc = this.url;
-                    
-                } ).always( function() {
-                    
-                    $.get( getProgramDirectory() + '.zip', function() {
-            
-                        context.zipDownloadSrc = this.url;
-                        
-                    } ).always( function() {
-                        
-                        renderDownloadableItems();
-                        
-                    } );
-                    
-                } );
-                
-            } );
-            
-        } );
-        
-    }
-    
-    
-    // rendering functions
     
     function renderTableOfContents() {
-    
+        
+        var toc = $( '.tableOfContents' );
+        
         $.each( context.section, function( index ) {
             
             var page = $( this ).find( 'page' );
-            var sectionTitle = ( isEmpty( $( this ).attr( 'title' ) ) ) ? 'Section ' + ( index + 1 ) : $( this ).attr( 'title' );
+            var sectionTitle = ( $.fn.isEmpty( $( this ).attr( 'title' ) ) ) ? 'Section ' + ( index + 1 ) : $( this ).attr( 'title' );
             
-            $( '.tableOfContents' ).append( '<div class="section"><div class="header"><div class="title">' + sectionTitle + '</div><div class="expandCollapseIcon"><span class="icon-collapse"></span></div></div><div class="content"><ul class="selectable">' );
+            toc.append( '<div class="section"><div class="header"><div class="title">' + sectionTitle + '</div><div class="expandCollapseIcon"><span class="icon-collapse"></span></div></div><div class="content"><ul class="selectable">' );
             
             $.each( page, function( j ) {
-                
-                if ( $( this ).attr( 'type' ) !== 'quiz' ) {
                     
-                    $( '.selectable:eq(' + index + ')' ).append( '<li class="selectee" data-slide="' + j + '"><span class="num">' + ( context.trackCount + 1 ) +'.</span> ' + $( this ).attr('title') + '</li>' );
-                    
-                } else {
-                    
-                    $( '.selectable:eq(' + index + ')' ).append( '<li class="selectee" data-slide="' + j + '"><span class="icon-assessment"></span> ' + $( this ).attr('title') + '</li>' );
-                    
-                }
+                $( '.selectable:eq(' + index + ')' ).append( '<li class="selectee" data-slide="' + j + '">' + ( ( $( this ).attr( 'type' ) !== 'quiz' ) ? '<span class="num">' + ( context.trackCount + 1 ) + '.</span> ' : '<span class="icon-assessment"></span> ' ) + $( this ).attr('title') + '</li>' );
                 
                 context.trackCount++;
                 
             } );
             
-            $( '.tableOfContents' ).append( '</ul></div></div>' );
+            toc.append( '</ul></div></div>' );
             
         } );
-        
-        if ( context.section.length >= 2 ) {
-            
-            $( '.tableOfContents .section .header' ).on( 'click', function() {
-            
-                var content = $( this ).parent().find( '.content' );
-                var icon = $( this ).parent().find( '.expandCollapseIcon' ).find( 'span' );
-                
-                if ( $( content ).is( ':visible' ) ) {
-                    
-                    content.slideUp( 250, function() {
-                        
-                        $( icon ).removeClass( 'icon-collapse' ).addClass( 'icon-open' );
-                        
-                    } );
-                    
-                } else {
-                    
-                    content.slideDown( 250, function() {
-                        
-                        $( icon ).removeClass( 'icon-open' ).addClass( 'icon-collapse' );
-                        
-                    } );
-                    
-                }
-                
-            } );
-            
-        } else {
-            
-            $( '.tableOfContents .section .header' ).remove();
-            
-        }
-        
-        $( '.selectable .selectee' ).on( 'click', function() {
-            
-            if ( context.section.length >= 2 ) {
-                
-                var header = $( this ).parent().parent().prev();
-                
-                // reset old
-                $( '.header' ).removeClass( 'current' );
-                
-                // hightlight new
-                $( header ).addClass( 'current' );
-                
-            }
-            
-            $( '.selectable .selectee' ).removeClass( 'selected' );
-            $( this ).addClass( 'selected' );
-            
-        } );
-        
-    }
-    
-    function renderDownloadableItems() {
-        
-        var downloadables = '';
-        
-        if ( typeof context.videoDownloadSrc !== 'undefined' ) {
-            
-            downloadables += '<a class="dl_item video" href="' + context.videoDownloadSrc + '" role="button" tabindex="1" aria-label="Download video file" download><span class="icon-download"></span> Video</a> ';
-            
-        }
-        
-        if ( typeof context.audioDownloadSrc !== 'undefined' ) {
-            
-            downloadables += '<a class="dl_item audio" href="' + context.audioDownloadSrc + '" role="button" tabindex="1" aria-label="Download audio file" download><span class="icon-download"></span> Audio</a> ';
-            
-        }
-        
-        if ( typeof context.pdfDownloadSrc !== 'undefined' ) {
-            
-            downloadables += '<a class="dl_item pdf" href="' + context.pdfDownloadSrc + '" role="button" tabindex="1" aria-label="Download PDF file" download><span class="icon-download"></span> Transcript</a> ';
-            
-        }
-        
-        if ( typeof context.zipDownloadSrc !== 'undefined' ) {
-            
-            downloadables += '<a class="dl_item zip" href="' + context.zipDownloadSrc + '" role="button" tabindex="1" aria-label="Download Supplement file" download><span class="icon-download"></span> Supplement</a>';
-            
-        }
-        
-        $( '.download_files' ).hide().html( downloadables ).fadeIn( 500 );
         
     }
     
@@ -327,12 +165,14 @@ var sbplus = ( function() {
                 $( '.title_bar .title' ).html( context.title );
                 $( '.author' ).html( context.author );
                 
+                renderTableOfContents();
+                bindTOCEvents();
                 bindMenuEvents();
                 
             } );
             
             $( this ).remove();
-            unbindStartPresentationButton();
+            sbplusSplashScreen.unbindStartPresentationBtn();
             
         } );
         
@@ -342,43 +182,13 @@ var sbplus = ( function() {
 
         $( document ).attr( "title", context.title );
         $sbplus.html( e );
-        
-    }
-    
-    function renderSplashScreen( cntx, bg ) {
-        
-        $( '.splashscreen' ).html( cntx );
-        
-        if ( bg !== '' ) {
-            
-            $( '.splashscreen' ).css( 'background-image', 'url(' + bg + ')' );
-            
-        }
-    
-        $( '.splashinfo .title' ).html( context.title );
-        $( '.splashinfo .subtitle' ).html( context.subtitle );
-        $( '.splashinfo .author' ).html( context.author );
-        $( '.splashinfo .length' ).html( context.length );
-        $( '.splashinfo .startBtn' ).css( 'background-color', settings.accent );
-        
-        if ( navigator.cookieEnabled && $.fn.checkValueInCookie( 'sbplus-' + getRootDirectory() ) ) {
-            
-            $( '.splashinfo .resumeBtn' ).css( 'background-color', settings.accent )
-                                         .removeClass( 'hide' );
-
-        }
+        sbplusSplashScreen.get( manifest, context, settings );
         
     }
     
     function renderUnsupportedMessage( e ) {
         
         $sbplus.html( e );
-        
-    }
-    
-    function renderError( title, content ) {
-        
-        $sbplus.html( '<div class="error"><h1>' + title + '</h1><p>' + content + '</p></div>' );
         
     }
     
@@ -409,18 +219,6 @@ var sbplus = ( function() {
     
     
     // event functions
-    
-    function bindStartPresentationEvent() {
-        
-        $( '.splashinfo .startBtn' ).on( 'click', renderPresentation );
-        
-    }
-    
-    function unbindStartPresentationButton() {
-        
-        $( '.splashinfo .startBtn' ).off( 'click' );
-        
-    }
     
     function bindMenuEvents() {
  
@@ -513,153 +311,66 @@ var sbplus = ( function() {
         
     }
     
-    // support functions
-    
-    function haveCoreFeatures() {
+    function bindTOCEvents() {
         
-        if ( !Modernizr.audio || !Modernizr.video || !Modernizr.json || !Modernizr.flexbox ) {
-    
-            return false;
-        
-        }
-        
-        return true;
-        
-    }
-    
-    function getConfigFileUrl() {
- 
-        var configsFile = document.getElementById( 'sbplus_configs' );
-        
-        if ( configsFile === null ) {
-         
-         return false;
-         
-        }
-        
-        return configsFile.href;
-     
-    }
-    
-    function getProgramDirectory() {
-
-        var url = window.location.href.split( "/" );
-        
-        if ( isEmpty( url[url.length - 1] ) || new RegExp( '[\?]' ).test( url[url.length - 1] ) ) {
+        if ( context.section.length >= 2 ) {
             
-            url.splice( url.length - 1, 1 );
+            $( '.tableOfContents .section .header' ).on( 'click', function() {
+            
+                var content = $( this ).parent().find( '.content' );
+                var icon = $( this ).parent().find( '.expandCollapseIcon' ).find( 'span' );
+                
+                if ( $( content ).is( ':visible' ) ) {
+                    
+                    content.slideUp( 250, function() {
+                        
+                        $( icon ).removeClass( 'icon-collapse' ).addClass( 'icon-open' );
+                        
+                    } );
+                    
+                } else {
+                    
+                    content.slideDown( 250, function() {
+                        
+                        $( icon ).removeClass( 'icon-open' ).addClass( 'icon-collapse' );
+                        
+                    } );
+                    
+                }
+                
+            } );
+            
+        } else {
+            
+            $( '.tableOfContents .section .header' ).remove();
             
         }
         
-        if ( url[4] === undefined ) {
+        $( '.selectable .selectee' ).on( 'click', function() {
             
-            return url[3];
+            if ( context.section.length >= 2 ) {
+                
+                var header = $( this ).parent().parent().prev();
+                
+                // reset old
+                $( '.header' ).removeClass( 'current' );
+                
+                // hightlight new
+                $( header ).addClass( 'current' );
+                
+            }
             
-        }
-        
-        return url[4];
-    
-    }
-
-    function getRootDirectory() {
-    
-        var url = window.location.href.split( "/" );
-        
-        if ( isEmpty( url[url.length - 1] ) || new RegExp( '[\?]' ).test( url[url.length - 1] ) || url[url.length - 1] === 'index.html'  ) {
+            $( '.selectable .selectee' ).removeClass( 'selected' );
+            $( this ).addClass( 'selected' );
             
-            url.splice( url.length - 1, 1 );
-            
-        }
-        
-        return url[url.length - 1];
+        } );
         
     }
-    
-    function isEmpty( str ) {
         
-        return ( !str.trim() || str.trim().length === 0 );
+    return {
         
-    }
-    
-    
-    // init
-    
-    $.getJSON( getConfigFileUrl(), function( e ) {
+        render: renderPresentation
         
-        manifest = e;
-        loadSBPlusData();
-        
-    } ).fail( function() {
-        
-        renderError( 'Configuration file (manifest.json) is not found!', 'Please make sure the index.html file is compatible with Storybook Plus version 3.');
-        
-    });
+    };
     
-});
-
-
-
-$( function() { sbplus(); } );
-
-
-
-/********** COOKIE METHODS ***************/
-
-$.fn.setCookie = function( cname, cvalue, exdays ) {
-    
-    var d = new Date();
-    
-    d.setTime( d.getTime() + ( exdays * 24 * 60 * 60 * 1000 ) );
-    
-    var expires = 'expires=' + d.toUTCString();
-    
-    document.cookie = cname + '=' + cvalue + '; ' + expires;
-    
-};
-
-$.fn.getCookie = function( cname ) {
-    
-    var name = cname + '=';
-    var ca = document.cookie.split(';');
-    
-    for ( var i = 0; i < ca.length; i++ ) {
-        
-        var c = ca[i];
-        
-        while ( c.charAt( 0 ) === ' ' ) {
-            
-            c = c.substring( 1 );
-            
-        }
-        
-        if ( c.indexOf( name ) === 0 ) {
-            
-            return c.substring( name.length, c.length );
-            
-        }
-        
-    }
-    
-    return '';
-    
-};
-
-$.fn.deleteCookie = function( cname ) {
-    
-    document.cookie = cname + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC';
-    
-};
-
-$.fn.checkValueInCookie = function( cname ) {
-    
-    var name = $.fn.getCookie( cname );
-    
-    if ( name !== '' ) {
-        
-        return true;
-        
-    }
-    
-    return false;
-    
-};
+} )();

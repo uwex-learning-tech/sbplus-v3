@@ -14,33 +14,9 @@ $gutter: 16px;
 
 @import "../fonts/sbplus_fonts.css";
 
+// TODO: https://jsfiddle.net/MadLittleMods/LmYay/
+
 //mixins
-
-@mixin aspect-ratio( $width, $height ) {
-    
-    position: relative;
-    
-    &:before {
-        
-        display: block;
-        content: "";
-        width: 100%;
-        padding-top: ( $height / $width ) * 100%;
-        
-    }
-    
-    > .sbplus {
-        
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        
-    }
-    
-}
-
 @mixin excerpt($font-size: 12px, $line-height: 1.4, $lines-to-show: 2, $excerpt-bg: transparent) {
   background: $excerpt-bg;
   display: block; /* Fallback for non-webkit */
@@ -565,6 +541,7 @@ and (min-width: 900px) {
                         .title {
                             
                             width: rem( 640px );
+                            
                             @include order( 1 );
                             
                         }
@@ -603,7 +580,7 @@ and (min-width: 900px) {
                         }
                         
                         .notes {
-                        
+                            
                             height: rem( 159px );
                             @include order( 2 );
                         
@@ -612,6 +589,7 @@ and (min-width: 900px) {
                         .control_bar_wrapper {
                         
                             height: rem( 40px );
+                            
                             @include order( 3 );
                         
                         }
