@@ -355,12 +355,34 @@
 		"outputStyle": 0,
 		"syntaxCheckerStyle": 0
 		},
+	"\/sources\/scripts\/sbplusMenu.js": {
+		"fileType": 64,
+		"ignore": 1,
+		"ignoreWasSetByUser": 1,
+		"inputAbbreviatedPath": "\/sources\/scripts\/sbplusMenu.js",
+		"outputAbbreviatedPath": "\/sources\/scripts\/sbplusMenu.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 0,
+		"syntaxCheckerStyle": 0
+		},
 	"\/sources\/scripts\/sbplusSplashScreen.js": {
 		"fileType": 64,
 		"ignore": 1,
 		"ignoreWasSetByUser": 1,
 		"inputAbbreviatedPath": "\/sources\/scripts\/sbplusSplashScreen.js",
 		"outputAbbreviatedPath": "\/sources\/scripts\/sbplusSplashScreen.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 0,
+		"syntaxCheckerStyle": 0
+		},
+	"\/sources\/scripts\/sbplusTableOfContents.js": {
+		"fileType": 64,
+		"ignore": 1,
+		"ignoreWasSetByUser": 1,
+		"inputAbbreviatedPath": "\/sources\/scripts\/sbplusTableOfContents.js",
+		"outputAbbreviatedPath": "\/sources\/scripts\/sbplusTableOfContents.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 0,
@@ -392,8 +414,20 @@
 			},
 		{
 			"followForSyntaxChecking": 1,
-			"linkedFileAbbreviatedPath": "\/sources\/scripts\/functions.js",
+			"linkedFileAbbreviatedPath": "\/sources\/scripts\/sbplusTableOfContents.js",
 			"position": 3,
+			"type": 1
+			},
+		{
+			"followForSyntaxChecking": 1,
+			"linkedFileAbbreviatedPath": "\/sources\/scripts\/sbplusMenu.js",
+			"position": 4,
+			"type": 1
+			},
+		{
+			"followForSyntaxChecking": 1,
+			"linkedFileAbbreviatedPath": "\/sources\/scripts\/functions.js",
+			"position": 5,
 			"type": 1
 			}
 		]
