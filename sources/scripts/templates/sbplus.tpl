@@ -14,8 +14,12 @@
         
         <div class="main_content">
             
-            <div id="content" class="slide" aria-live="polite"></div>
-            <div class="notes"></div>
+            <div class="container" aria-live="polite">
+                <div class="content"></div>
+            </div>
+            <div class="notes">
+                <div class="content"></div>
+            </div>
             <nav class="control_bar_wrapper"></nav>
             
         </div>

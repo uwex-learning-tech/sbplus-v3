@@ -165,6 +165,14 @@ var sbplus = ( function() {
                 $( '.title_bar .title' ).html( context.title );
                 $( '.author' ).html( context.author );
                 
+                resizeDom();
+                
+                $( window ).resize( function() {
+                    
+                    resizeDom();
+                    
+                } );
+                
                 renderTableOfContents();
                 bindTOCEvents();
                 bindMenuEvents();
@@ -198,7 +206,7 @@ var sbplus = ( function() {
             
             $( '.menu_item a' ).attr( 'aria-expanded', 'false' );
         
-            $( '.menu_item_details' ).attr( 'aria-expanded', 'false' ).animate( { right: '-258px' }, 250, function() {
+            $( '.menu_item_details' ).attr( 'aria-expanded', 'false' ).animate( { right: '-100%' }, 250, function() {
                 
                 $( this ).addClass( 'hide' );
             
@@ -364,6 +372,17 @@ var sbplus = ( function() {
             $( this ).addClass( 'selected' );
             
         } );
+        
+    }
+    
+    function resizeDom() {
+        
+        var notesHeight = $( window ).outerHeight() - ( $( '.main_content_wrapper .title_bar' ).outerHeight() + $( '.main_content .control_bar_wrapper' ).outerHeight() + $( '.main_content .container .content' ).outerHeight() ); 
+        
+        var contentHeight = ( 1 - ( $( '.main_content_wrapper .title_bar' ).outerHeight() / $( window ).outerHeight() ) ) * 100;
+        
+        $( '.main_content, .side_panel').css( 'height', contentHeight + '%' );
+        $( '.main_content .notes' ).css( 'height', notesHeight );
         
     }
         

@@ -4,6 +4,7 @@ $font-color: #333;
 $border-color: #ccc;
 $link-color: #18b8f7;
 $gutter: 16px;
+$default-accent: #535cab;
 
 @import "compass/reset";
 @import "compass/css3/box-sizing";
@@ -11,70 +12,9 @@ $gutter: 16px;
 @import "compass/css3/flexbox";
 @import "compass/css3/user-interface";
 @import "compass/css3/transform";
-
+@import "compass/css3/background-size";
 @import "../fonts/sbplus_fonts.css";
 
-// TODO: https://jsfiddle.net/MadLittleMods/LmYay/
-
-//mixins
-@mixin excerpt($font-size: 12px, $line-height: 1.4, $lines-to-show: 2, $excerpt-bg: transparent) {
-  background: $excerpt-bg;
-  display: block; /* Fallback for non-webkit */
-  display: -webkit-box;
-  max-height: $font-size*$line-height*$lines-to-show; /* Fallback for non-webkit */
-  font-size: $font-size;
-  line-height: $line-height;
-  -webkit-line-clamp: $lines-to-show;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  @-moz-document url-prefix() {
-    overflow: hidden;
-    position: relative;
-    &:before {
-      background: $excerpt-bg;
-      bottom: 0;
-      position: absolute;
-      right: 1px;
-      float: right;
-      content: '\2026';
-      margin-left: -3rem;
-      width: 2rem;
-    }
-    &:after {
-      content: '';
-      background: $excerpt-bg;
-      position: absolute;
-      height: 25px;
-      width: 80%;
-      z-index: 1;
-    }
-  }
-  @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
-      overflow: hidden;
-      position: relative;
-       &:before {
-          background: $excerpt-bg;
-          bottom: 0;
-          position: absolute;
-          right: 1px;
-          float: right;
-          content: '\2026';
-          margin-left: -3rem;
-          width: 2rem;
-        }
-        &:after {
-          content: '';
-          background: $excerpt-bg;
-          position: absolute;
-          height: 25px;
-          width: 80%;
-          z-index: 1;
-        }
-    }
-}
-
-// functions
 
 @function rem( $px, $base: $default-font-size ) {
     
@@ -82,184 +22,380 @@ $gutter: 16px;
     
 }
 
-// general rules
 
-* {
+@mixin excerpt( $font-size: 12px, $line-height: 1.4, $lines-to-show: 2, $excerpt-bg: transparent ) {
     
+    background: $excerpt-bg;
+    display: block;
+    display: -webkit-box;
+    max-height: $font-size * $line-height * $lines-to-show;
+    font-size: $font-size;
+    line-height: $line-height;
+    -webkit-line-clamp: $lines-to-show;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    
+    @-moz-document url-prefix() {
+        
+        overflow: hidden;
+        position: relative;
+        
+        &:before {
+            background: $excerpt-bg;
+            bottom: 0;
+            position: absolute;
+            right: 1px;
+            right: rem( 1px );
+            float: right;
+            content: '\2026';
+            margin-left: -3rem;
+            width: 2rem;
+        }
+        
+        &:after {
+            content: '';
+            background: $excerpt-bg;
+            position: absolute;
+            height: 25px;
+            height: rem( 25px );
+            width: 80%;
+            z-index: 1;
+        }
+        
+    }
+    
+    @media screen and ( -ms-high-contrast: active ), ( -ms-high-contrast: none ) {
+        
+        overflow: hidden;
+        position: relative;
+        
+        &:before {
+            background: $excerpt-bg;
+            bottom: 0;
+            position: absolute;
+            right: 1px;
+            float: right;
+            content: '\2026';
+            margin-left: -3rem;
+            width: 2rem;
+        }
+        
+        &:after {
+            content: '';
+            background: $excerpt-bg;
+            position: absolute;
+            height: 25px;
+            width: 80%;
+            z-index: 1;
+        }
+        
+    }
+    
+}
+
+@mixin aspect-ratio( $width, $height ) {
+    
+    position: relative;
+    
+    &:before {
+        display: block;
+        content: "";
+        width: 100%;
+        padding-top: ($height / $width) * 100%;
+    }
+    
+    > .content {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
+    
+}
+
+
+/**************************
+    GENERAL RULES
+**************************/
+
+*, *:before, *:after {
     @include box-sizing( border-box );
-    
 }
 
 *:focus {
-    
-    //outline: 1px dashed #ccc;
     outline: none;
-    
 }
 
 html {
-    
+    height: 100%;
     font-size: $default-font-size;
     margin: 0;
     padding: 0;
-    
 }
 
 body {
-    
     @extend html;
-    
     font-family: $default-font-family;
+    line-height: 16px;
 	line-height: rem( 16px );
 	color: $font-color;
-
 }
 
 h1, h2, h3, h4, h5, h6, p, blockquote, ol, ul, li {
-    
+    margin: $gutter 0;
     margin: rem( $gutter ) 0;
-    
 }
 
 ul {
-    
     list-style: disc;
-    margin-left: rem( 25px );
-    
+    margin-left: 25px;
+    margin-left: rem( 25px ); 
 }
 
-a, a:visited {
-                        
+a, a:visited {               
     color: $link-color;
     text-decoration: none;
-    
 }
 
 a:hover {
-    
     text-decoration: underline;
-    
 }
 
 strong {
-    
     font-weight: bold;
-    
 }
 
 button {
-    
+    padding: 10px 20px;
     padding: rem( 10px ) rem( 12px );
+    font-size: 18px;
     font-size: rem( 18px );
     font-family: $default-font-family;
     line-height: normal;
     color: #fff;
     border: 0;
     cursor: pointer;
-    
 }
 
 noscript {
     
     h1 {
-        
+        font-size: 24px;
         font-size: rem( 24px );
+        line-height: 32px;
         line-height: rem( 32px );
-        
     }
     
     p {
-        
+        line-height: 22px;
         line-height: rem( 22px );
-        
     }   
     
 }
 
-// misc
-.hide {
-    
-    display: none;
-    
-}
-.sr-only {
-    
-    display: none;
-    
-}
-
-// storybook plus rules
+/**************************
+    STORYBOOK PLUS RULES
+**************************/
 
 .sbplus_wrapper {
     
+    width: 100%;
+    height: 100%;
+
+    // error screen
     .error {
         
+        padding: 5px 20px 0;
         padding: rem( 5px ) rem( 20px ) 0;
         
         h1 {
-            
+            font-size: 24px;
             font-size: rem( 24px );
             line-height: normal;
             font-weight: bold;
             color: #bc0909;
-            
         } 
         
         p {
-            
+            font-size: $default-font-size;
             font-size: rem( $default-font-size );
             line-height: normal;
-            
         }
         
     }
     
+    // main storybook
     .sbplus {
         
-        position: relative;
-        margin: 0 auto;
-        overflow: hidden;
+        height: 100%;
+        
+        .splashscreen {
+            
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #ccc;
+            background-image: url(../images/default.jpg);
+            background-position: center center;
+            background-repeat: no-repeat;
+            @include background-size( cover );
+            z-index: 0;
+            
+            @include display-flex( flex );
+            @include align-items( center );
+            @include justify-content( center );
+            
+            .splashinfo {
+                
+                max-width: 50%;
+                
+                .title {
+                    font-weight: bold;
+                    font-size: 20px;
+                    font-size: rem( 20px );
+                    line-height: 26px;
+                    line-height: rem( 26px );
+                    margin: 0;
+                }
+                
+                .subtitle {
+                    font-size: 18px;
+                    font-size: rem( 18px );
+                    line-height: 24px;
+                    line-height: rem( 24px );
+                    line-height: normal;
+                    margin: 0 0 $gutter;
+                    margin: 0 0 rem( $gutter );
+                }
+                
+                .author {
+                    margin: 0 0 $gutter;
+                    margin: 0 0 rem( $gutter );
+                }
+                
+                .length {
+                    @extend .author;
+                }
+                
+                .startBtn {
+                    margin: 0;
+                    background-color: $default-accent;
+                    padding-right: 24px;
+                    padding-right: rem( 24px );
+                    padding-left: 24px;
+                    padding-left: rem( 24px );
+                }
+                
+                .download_files {
+                    
+                    height: 30px;
+                    height: rem( 30px );
+                    margin: $gutter 0;
+                    margin: rem( $gutter ) 0;
+                    font-size: 12px;
+                    font-size: rem( 12px );
+                    
+                    .dl_item {
+                        
+                        display: inline-block;
+                        position: relative;
+                        min-width: 108px;
+                        min-width: rem( 108px );
+                        color: $font-color;
+                        background-color: #fff;
+                        font-size: 14px;
+                        font-size: rem( 14px );
+                        padding: 6px 6px 6px 24px;
+                        padding: rem( 6px ) rem( 6px ) rem( 6px ) rem( 24px );
+                        border: 1px solid #888;
+                        border: rem( 1px ) solid #888;
+                        
+                        [class^="icon-"] {
+                            position: absolute;
+                            top: 8px;
+                            top: rem( 8px );
+                            left: 6px;
+                            left: rem( 6px );
+                        }
+                        
+                    }
+                    
+                    .dl_item:hover {
+                        text-decoration: none;
+                    }
+                    
+                }
+                
+            }
+            
+        } // end splashscreen
         
         .main_content_wrapper {
+                
+            @include display-flex( flex );
+            @include flex-direction( row );
+            @include flex-wrap( wrap );
+            
+            position: relative;
+            height: 100%;
             
             .title_bar {
-            
+                
+                @include display-flex( flex );
+                @include flex-direction( row );
+                @include flex-wrap( nowrap );
+                @include order( 1 );
+                
+                width: 100%;
+                height: 30px;
                 height: rem( 30px );
                 color: #fff;
                 background-color: $font-color;
                 
                 .title {
                     
+                    width: 64%;
+                    line-height: 30px;
                     line-height: rem( 30px );
+                    padding: 0 10px;
                     padding: 0 rem( 10px );
                     white-space: nowrap;
                     text-overflow: ellipsis;
                     overflow: hidden;
-                    
+                    @include order( 1 );
                 }
                 
                 .author {
-                    
                     @extend .title;
+                    width: 31%;
+                    @include order( 2 );
                                         
                 }
                 
                 .menuBtn {
                     
                     @extend .title;
-    
+                    
+                    width: 5%;
+                    min-width: rem( 40px );
+                    height: 30px;
                     height: rem( 30px );
                     text-align: center;
                     border: none;
                     color: #fff;
                     padding: 0;
                     background-color: transparent;
+                    @include order( 3 );
                     
                     [class^="icon-"] {
-                        
+                        font-size: 16px;
                         font-size: rem( 16px );
+                        line-height: 30px;
                         line-height: rem( 30px );
-                        
                     }
                     
                 }
@@ -267,49 +403,220 @@ noscript {
                 .menuBtn:hover{
                     
                     [class^="icon-"] {
-                        
                         color: $link-color;
-                        
                     }
                     
                 }
                 
-                
-            } // end title bar
+            }
             
             .main_content {
-                
+                                
+                @include display-flex( flex );
+                @include flex-direction( column );
+                @include flex-wrap( nowrap );
+                @include order( 2 );
+                width: 64.2%;
+                height: 96.5%;
+                border: 1px solid $border-color;
                 border: rem( 1px ) solid $border-color;
                 border-top: none;
                 
+                .container {
+                    @include order( 1 );
+                    @include aspect-ratio( 16, 9 );
+                }
+                
                 .notes {
-                
+                    border-top: 1px solid $border-color;
                     border-top: rem( 1px ) solid $border-color;
-                
-                } // end note
+                    @include order( 2 );
+                }
                 
                 .control_bar_wrapper {
-                
+                    height: 40px;
+                    height: rem( 40px );
+                    border-top: 1px solid $border-color;
                     border-top: rem( 1px ) solid $border-color;
-                
-                } // end control bar wrapper
+                    @include order( 3 );
+                }
                 
             } // end main content
             
             .side_panel {
                 
+                position: relative;
+                width: 35.8%;
+                height: 96.5%;
                 border-right: rem( 1px ) solid $border-color;
                 border-bottom: rem( 1px ) solid $border-color;
+                @include order( 3 );
                 
-            } // end table of content
+                .topbar {
+                    
+                    height: 25px;     
+                    height: rem( 25px );
+                    background-color: #ececed;
+                    border-bottom: 2px solid $border-color;
+                    border-bottom: rem( 2px ) solid $border-color;
+                    
+                    .title {
+                        font-size: 14px;
+                        font-size: rem( 14px );
+                        font-weight: bold;
+                        color: #494949;
+                        padding: 4px 0 0 8px;
+                        padding: rem( 4px ) 0 0 rem( 8px );
+                    }
+                    
+                }
+                
+                .tableOfContents {
+                            
+                    height: 96%;
+                    overflow-y: auto;
+                    @include user-select( none );
+                    
+                    .section {
+                        
+                        .header {
+                            
+                            @include display-flex( flex );
+                            @include align-items( center );
+                            @include justify-content( center );
+                            
+                            width: 100%;
+                            height: rem( 40px );
+                            background-color: #f2f2f2;
+                            font-size: 12px;
+                            font-size: rem( 12px );
+                            line-height: 16px;
+                            line-height: rem( 16px );
+                            color: #494949;
+                            cursor: pointer;
+                            border-bottom: 1px solid $border-color;
+                            border-bottom: rem( 1px ) solid $border-color;
+                            
+                            .title {
+                                width: 91%;
+                                padding: 0 8px;
+                                padding: 0 rem( 8px );
+                                font-weight: bold;
+                                margin-bottom: 0;
+                                @include excerpt( rem( 12px ), 1.2, 2, #f2f2f2 );
+                            }
+                            
+                            .expandCollapseIcon {
+                                width: 9%;
+                                line-height: 0;
+                                text-align: left;
+                                padding-left: 1px;
+                                padding-left: rem( 1px );
+                            }
+                            
+                        }
+                        
+                        .header.current {
+                            
+                            color: #fff;
+                            background-color: #3b4381;
+                            
+                            .title {
+                                @include excerpt( rem( 12px ), 1.2, 2, #3b4381 );
+                            }
+                            
+                        }
+                        
+                        .content {
+                            
+                            font-size: 12px;
+                            font-size: rem( 12px );
+                            line-height: 14px;
+                            line-height: rem( 14px );
+                            border-bottom: 1px solid $border-color;
+                            border-bottom: rem( 1px ) solid $border-color;
+                            
+                            ul {
+                                
+                                margin: 0;
+                                padding: 0;
+                                list-style: none;
+                                
+                                li {
+                                    
+                                    padding: 10px 0 10px 30px;
+                                    padding: rem( 10px ) 0 rem( 10px ) rem( 30px );
+                                    margin: 0;
+                                    cursor: pointer;
+                                    text-indent: -30px;
+                                    text-indent: rem( -30px );
+                                    
+                                    .num {
+                                        display: inline-block;
+                                        width: 17px;
+                                        width: rem( 17px );
+                                        margin-left: 10px;
+                                        margin-left: rem( 10px );
+                                        text-align: right;
+                                    }
+                                    
+                                    .icon-assessment {
+                                        display: inline-block;
+                                        width: 17px;
+                                        width: rem( 17px );
+                                        margin: 0 5px;
+                                        margin: 0 rem( 5px );
+                                        text-align: right;
+                                    }
+                                    
+                                }
+                                
+                                li.selected {
+                                    color: #fff;
+                                    background-color: $default-accent;
+                                }
+                                
+                                li:hover {
+                                    color: #fff;
+                                    background-color: #5c68d5;
+                                }
+                                
+                            }
+                            
+                        }
+                        
+                    }
+                    
+                    .section:last-child {
+                        
+                        .content {
+                            border-bottom: none;
+                        }
+                        
+                    }
+                    
+                }
+                
+            } // end side panel
             
             #menu_panel {
-                    
-                background-color: #e4e4e4;
+                
+                position: absolute;
+                width: 35.8%;
+                height: 99.9%;
+                top: 0;
+                right: 0;
+                background-color: #fff;
+                z-index: 1;
                 overflow-x: hidden;
                 
                 .menu_bar {
                     
+                    @include display-flex( flex );
+                    @include flex-direction( row );
+                    @include flex-wrap( nowrap );
+                    
+                    height: 30px;
                     height: rem( 30px );
                     color: #fff;
                     background-color: $font-color;
@@ -317,21 +624,37 @@ noscript {
                     
                     .closeBtn {
                         
+                        width: 5%;
+                        min-width: 40px;
+                        min-width: rem( 40px );
+                        height: 30px;
                         height: rem( 30px );
                         text-align: center;
                         border: none;
                         color: #f00;
                         padding: 0;
+                        line-height: 30px;
                         line-height: rem( 30px );
                         background-color: transparent;
                         
                         [class^="icon-"] {
-                            
+                            font-size: 24px;
                             font-size: rem( 24px );
+                            line-height: 30px;
                             line-height: rem( 30px );
-                            
                         }
                         
+                    }
+                    
+                    .title {
+                        width: 95%;
+                        min-width: 271px;  
+                        min-width: rem( 217px );
+                        padding-top: 8px;
+                        padding-top: rem( 8px );
+                        padding-left: 10px;
+                        padding-left: rem( 10px );
+                        text-align: left;
                     }
                     
                 }
@@ -347,35 +670,36 @@ noscript {
                         margin: 0;
                         
                         a {
-                            
                             position: relative;
                             display: block;
                             color: $font-color;
                             text-decoration: none;
-                            padding: rem( 10px ) rem( 10px );
+                            padding: 10px;
+                            padding: rem( 10px );
+                            border-bottom: 1px solid #d0d0d0;
                             border-bottom: rem( 1px ) solid #d0d0d0;
-                            
                         }
                         
                         a:after {
-                            
                             position: absolute;
-                            font-size: rem( 14px );
-                            line-height: rem( 14px );
+                            width: 14px;
                             width: rem( 14px );
+                            height: 14px;
                             height: rem( 14px );
+                            font-size: 14px;
+                            font-size: rem( 14px );
+                            line-height: 14px;
+                            line-height: rem( 14px );
                             color: #ccc;
                             top: 34%;
+                            right: 10px;
                             right: rem( 10px );
                             font-family: 'sbplus' !important;
                             content: "\edba";
-                            
                         }
                         
                         a:hover {
-                            
-                            color: #535cab;
-                            
+                            color: $default-accent;
                         }
                         
                     }
@@ -383,490 +707,99 @@ noscript {
                 }
                 
                 .menu_item_details {
-                                
+                    
+                    position: absolute;
+                    width: 100%;
+                    min-width: rem( 257px );
+                    height: 96.6%;
+                    top: 30px;
+                    top: rem( 30px );
+                    right: -258px;
+                    right: rem( -258px );   
                     background-color: #fff;
                     
-                    .menu_item_content {
+                    .navbar {
+                                
+                        @include display-flex( flex );
+                        @include flex-direction( row );
+                        @include flex-wrap( nowrap );
                         
-                        font-size: rem( 14px );
-                        line-height: rem( 18px );
-                        padding: 0 rem( 10px );
+                        width: 100%;
+                        height: 25px;
+                        height: rem( 25px );
+                        background-color: #e4e4e4;
+                        border-bottom: 1px solid $border-color;
+                        border-bottom: rem( 1px ) solid $border-color;
                         
-                    }
-                    
-                }
-                
-            }
-            
-        } // end main content wrapper
-        
-        .splashscreen {
-            
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: #ccc;
-            background-image: url(../images/default.jpg);
-            background-position: center center;
-            background-repeat: no-repeat;
-            z-index: 0;
-            
-            @include transform-style( preserve-3d );
-            
-            .splashinfo {
-                
-                position: relative;
-                top: 50%;
-                padding: 0 rem( 200px );
-                @include translateY( -50% );
-                
-                .title {
-                    
-                    font-weight: bold;
-                    font-size: rem( 20px );
-                    line-height: rem( 26px );
-                    margin: 0;
-                    
-                }
-                
-                .subtitle {
-                    
-                    font-size: rem( 18px );
-                    line-height: rem( 24px );
-                    line-height: normal;
-                    margin-top: 0;
-                    margin-bottom: rem( $gutter );
-                    
-                }
-                
-                .author {
-                    
-                    margin-top: 0;
-                    margin-bottom: rem( $gutter );
-                    
-                }
-                
-                .length {
-                    
-                    margin-top: 0;
-                    margin-bottom: rem( $gutter );
-                    
-                }
-                
-                .startBtn {
-                    
-                    margin: 0;
-                    background-color: #535cab;
-                    padding-right: rem( 24px );
-                    padding-left: rem( 24px );
-                    
-                }
-                
-                .download_files {
-                    
-                    height: rem( 30px );
-                    margin: rem( $gutter ) 0;
-                    font-size: rem( 12px );
-                    
-                    .dl_item {
+                        .backBtn {
+                            display: block;
+                            width: 5%;
+                            min-width: rem( 44px );
+                            font-size: 14px;
+                            font-size: rem( 14px );
+                            line-height: 14px;
+                            line-height: rem( 14px );
+                            color: #535cab;
+                            background-color: transparent;
+                            text-align: left;
+                            padding: 1px 5px 0;
+                            padding: rem( 1px ) rem( 5px ) 0;
+                            @include order( 1 );
+                        }
                         
-                        min-width: rem( 108px );
-                        display: inline-block;
-                        position: relative;
-                        color: $font-color;
-                        background-color: #fff;
-                        font-size: rem( 14px );
-                        padding: rem( 6px ) rem( 6px ) rem( 6px ) rem( 24px );
-                        border: rem( 1px ) solid #888;
-                        
-                        [class^="icon-"] {
-                            
-                            position: absolute;
-                            top: rem( 8px );
-                            left: rem( 6px );
-                            
+                        .title {
+                            width: 95%;
+                            min-width: rem( 213px );
+                            padding-top: 5px;
+                            padding-top: rem( 5px );
+                            text-indent: -44px;
+                            text-indent: rem( -44px );
+                            text-align: center;
+                            @include order( 2 );
                         }
                         
                     }
                     
-                    .dl_item:hover {
+                    .menu_item_content {
                         
-                        text-decoration: none;
+                        height: 97.29%;
+                        font-size: 14px;
+                        font-size: rem( 14px );
+                        line-height: 18px;
+                        line-height: rem( 18px );
+                        padding: 0 10px;
+                        padding: 0 rem( 10px );
+                        overflow-y: auto;
+                        
+                        p:first-child {
+                            margin-top: 8px;
+                            margin-top: rem( 8px );
+                        }
                         
                     }
                     
                 }
                 
-            }
+            } // end menu panel
             
+        } // end main content wrapper
+        
+        .main_content_wrapper.hide {
+            display: none;
         }
         
     } // end sbplus
     
-} // end sbplus wrapper
+} // end sbplus_wrapper
 
-// device width over 900 pixels
-@media only screen
-and (min-width: 900px) {
-    
-    // if device does support flexbox
-    .flexbox {
-        
-        .sbplus_wrapper {
-            
-            .sbplus {
-                
-                width: rem( 900px );
-                height: rem( 590px );
-                
-                .main_content_wrapper {
-                    
-                    position: relative;
-                    
-                    @include display-flex( flex );
-                    @include flex-direction( row );
-                    @include flex-wrap( wrap );
-                    
-                    .title_bar {
-                    
-                        @include display-flex( flex );
-                        @include flex-direction( row );
-                        @include flex-wrap( nowrap );
-                        @include order( 1 );
-                        
-                        width: rem( 900px );
-                        
-                        .title {
-                            
-                            width: rem( 640px );
-                            
-                            @include order( 1 );
-                            
-                        }
-                        
-                        .author {
-                            
-                            width: rem( 220px );
-                            @include order( 2 );
-                            
-                        }
-                        
-                        .menuBtn {
-                            
-                            width: rem( 40px );
-                            @include order( 3 );
-                            
-                        }
-                        
-                    } // end title bar
-                    
-                    .main_content {
-                        
-                        width: rem( 642px );
-                        height: rem( 560px );
-                        
-                        @include display-flex( flex );
-                        @include flex-direction( column );
-                        @include flex-wrap( nowrap );
-                        @include order( 2 );
-                        
-                        .slide {
-                            
-                            height: rem( 360px );
-                            @include order( 1 );
-                        
-                        }
-                        
-                        .notes {
-                            
-                            height: rem( 159px );
-                            @include order( 2 );
-                        
-                        }
-                        
-                        .control_bar_wrapper {
-                        
-                            height: rem( 40px );
-                            
-                            @include order( 3 );
-                        
-                        }
-                        
-                    }
-                    
-                    .side_panel {
-                        
-                        position: relative;
-                        
-                        @include order( 3 );
-                        
-                        width: rem( 258px );
-                        height: rem( 560px );
-                        
-                        .topbar {
-                                
-                            height: rem( 25px );
-                            background-color: #ececed;
-                            border-bottom: rem( 2px ) solid $border-color;
-                            
-                            .title {
-                                
-                                font-size: rem( 14px );
-                                font-weight: bold;
-                                color: #494949;
-                                padding: rem( 4px ) 0 0 rem( 10px );
-                                
-                            }
-                            
-                        }
-                        
-                        .tableOfContents {
-                            
-                            @include user-select( none );
-                            height: rem( 534px );
-                            overflow-y: auto;
-                            
-                            .section {
-                                
-                                .header {
-                                    
-                                    @include display-flex( flex );
-                                    @include align-items( center );
-                                    @include justify-content( center );
-                                    
-                                    width: 100%;
-                                    height: rem( 40px );
-                                    background-color: #f2f2f2;
-                                    font-size: rem( 12px );
-                                    line-height: rem( 16px );
-                                    color: #494949;
-                                    
-                                    cursor: pointer;
-                                    border-bottom: rem( 1px ) solid $border-color;
-                                    
-                                    .title {
-                                        
-                                        width: 91%;
-                                        padding: 0 rem( 10px );
-                                        font-weight: bold;
-                                        margin-bottom: 0;
-                                        @include excerpt( rem( 12px ), 1.2, 2, #f2f2f2 );
-                                        
-                                    }
-                                    
-                                    .expandCollapseIcon {
-                                        
-                                        width: 9%;
-                                        line-height: 0;
-                                        text-align: left;
-                                        padding-left: rem( 1px );
-                                        
-                                    }
-                                    
-                                    
-                                }
-                                
-                                .header.current {
-                                
-                                    background-color: #3b4381;
-                                    color: #fff;
-                                    
-                                    .title {
-                                        
-                                        @include excerpt( rem( 12px ), 1.2, 2, #3b4381 );
-                                        
-                                    }
-                                    
-                                }
-                                
-                                .content {
-                                    
-                                    font-size: rem( 12px );
-                                    line-height: rem( 14px );
-                                    border-bottom: rem( 1px ) solid $border-color;
-                                    
-                                    ul {
-                                        
-                                        margin: 0;
-                                        padding: 0;
-                                        list-style: none;
-                                        
-                                        li {
-                                            
-                                            padding: rem( 10px ) 0 rem( 10px ) rem( 30px );
-                                            margin: 0;
-                                            cursor: pointer;
-                                            text-indent: rem( -30px );
-                                            
-                                            .num {
-                                                
-                                                display: inline-block;
-                                                width: rem( 17px );
-                                                margin-left: rem( 10px );
-                                                text-align: right;
-                                                
-                                            }
-                                            
-                                            .icon-assessment {
-                                                
-                                                display: inline-block;
-                                                width: rem( 17px );
-                                                margin-left: rem( 5px );
-                                                margin-right: rem( 5px );
-                                                text-align: right;
-                                                
-                                            }
-                                            
-                                        }
-                                        
-                                        li.selected {
-                                            
-                                            color: #fff;
-                                            background-color: #535ca8;
-                                            
-                                        }
-                                        
-                                        li:hover {
-                                            
-                                            color: #fff;
-                                            background-color: #5c68d5;
-                                            
-                                        }
-                                        
-                                    }
-                                    
-                                }
-                                
-                            }
-                            
-                            .section:last-child {
-                                
-                                .content {
-                                    
-                                    border-bottom: none;
-                                    
-                                }
-                                
-                            }
-                            
-                        }
-                        
-                    } // end table of content
-                    
-                    #menu_panel {
-                            
-                        position: absolute;
-                        width: rem( 257px );
-                        height: rem( 589px );
-                        top: 0;
-                        left: rem( 642px );
-                        background-color: #fff;
-                        z-index: 1;
-                        
-                        .menu_bar {
-                            
-                            @include display-flex( flex );
-                            @include flex-direction( row );
-                            @include flex-wrap( nowrap );
-                            
-                            height: rem( 30px );
-                            color: #fff;
-                            background-color: $font-color;
-                            
-                            .closeBtn {
-                                
-                                width: rem( 40px );
-                                
-                            }
-                            
-                            .title {
-                                
-                                width: rem( 217px );
-                                padding-top: rem( 8px );
-                                padding-left: rem( 10px );
-                                text-align: left;
-                                
-                            }
-                            
-                        }
-                        
-                        .menu_item_details {
-                            
-                            
-                            position: absolute;
-                            width: rem( 257px );
-                            height: rem( 559px );
-                            top: rem( 30px );
-                            right: rem( -258px );
-                            
-                            .navbar {
-                                
-                                @include display-flex( flex );
-                                @include flex-direction( row );
-                                @include flex-wrap( nowrap );
-                                
-                                width: 100%;
-                                height: rem( 25px );
-                                background-color: #e4e4e4;
-                                border-bottom: rem( 1px ) solid $border-color;
-                                
-                                .backBtn {
-                                    
-                                    display: block;
-                                    width: rem( 44px );
-                                    padding: rem( 1px ) rem( 5px ) 0;
-                                    font-size: rem( 14px );
-                                    line-height: rem( 14px );
-                                    color: #535cab;
-                                    background-color: transparent;
-                                    text-align: left;
-                                    @include order( 1 );
-                                    
-                                }
-                                
-                                .title {
-                                    
-                                    width: rem( 213px );
-                                    padding-top: rem( 5px );
-                                    text-indent: rem( -44px );
-                                    text-align: center;
-                                    @include order( 2 );
-                                    
-                                }
-                                
-                            }
-                            
-                            .menu_item_content {
-                        
-                                height: rem( 534px );
-                                overflow-y: auto;
-                                
-                                p:first-child {
-                                    
-                                    margin-top: rem( 8px );
-                                    
-                                }
-                                
-                            }
-                            
-                        }
-                        
-                    }
-                    
-                } // end main content wrapper
-                
-                .main_content_wrapper.hide {
-            
-                    display: none;
-                    
-                }
-                
-            } // end sbplus
-            
-        } // end sbplus wrapper
-        
-    } // end flexbox
-    
+/**************************
+    MISC./HELPER RULES
+**************************/
+
+.hide {
+    display: none;
+}
+
+.sr-only {
+    display: none;
 }
