@@ -1,3 +1,7 @@
+/***************************************
+    Get Error Module
+****************************************/
+
 var sbplusError = ( function() {
     
     var title, content;

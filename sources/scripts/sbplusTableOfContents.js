@@ -4,9 +4,11 @@
 var sbplusTableOfContents = ( function() {
     
     var context;
+    var settings;
     
-    function get( _context ) {
+    function get( _context, _settings ) {
         
+        settings = _settings;
         context = _context;
         _render();
         
@@ -16,16 +18,16 @@ var sbplusTableOfContents = ( function() {
         
         var toc = $( '.tableOfContents' );
         
-        $.each( context.section, function( index ) {
+        $.each( context.section, function( s ) {
             
             var page = $( this ).find( 'page' );
-            var sectionTitle = ( $.fn.isEmpty( $( this ).attr( 'title' ) ) ) ? 'Section ' + ( index + 1 ) : $( this ).attr( 'title' );
+            var sectionTitle = ( $.fn.isEmpty( $( this ).attr( 'title' ) ) ) ? 'Section ' + ( s + 1 ) : $( this ).attr( 'title' );
             
             toc.append( '<div class="section"><div class="header"><div class="title">' + sectionTitle + '</div><div class="expandCollapseIcon"><span class="icon-collapse"></span></div></div><div class="content"><ul class="selectable">' );
             
-            $.each( page, function( j ) {
+            $.each( page, function( p ) {
                     
-                $( '.selectable:eq(' + index + ')' ).append( '<li class="selectee" data-slide="' + j + '">' + ( ( $( this ).attr( 'type' ) !== 'quiz' ) ? '<span class="num">' + ( context.trackCount + 1 ) + '.</span> ' : '<span class="icon-assessment"></span> ' ) + $( this ).attr('title') + '</li>' );
+                $( '.selectable:eq(' + s + ')' ).append( '<li class="selectee" data-section="' + s + '" data-page="' + p + '">' + ( ( $( this ).attr( 'type' ) !== 'quiz' ) ? '<span class="num">' + ( context.trackCount + 1 ) + '.</span> ' : '<span class="icon-assessment"></span> ' ) + $( this ).attr('title') + '</li>' );
                 
                 context.trackCount++;
                 
@@ -90,6 +92,12 @@ var sbplusTableOfContents = ( function() {
                 $( header ).addClass( 'current' );
                 
             }
+            
+            if ( !$( this ).hasClass( 'selected' ) ) {
+                
+                sbplusSlide.get( context.section, settings, $( this ).data( 'section' ), $( this ).data( 'page' ) );
+                
+            } 
             
             item.removeClass( 'selected' );
             $( this ).addClass( 'selected' );

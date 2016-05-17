@@ -148,7 +148,8 @@ var sbplus = ( function() {
                     
                 } );
                 
-                sbplusTableOfContents.get( context );
+                sbplusSlide.get( context.section, settings );
+                sbplusTableOfContents.get( context, settings );
                 sbplusMenu.get( context );
                 
             } );
@@ -165,12 +166,31 @@ var sbplus = ( function() {
         $( document ).attr( "title", context.title );
         $sbplus.html( e );
         sbplusSplashScreen.get( manifest, context, settings );
+        _loadVideoJS();
         
     }
     
     function renderUnsupportedMessage( e ) {
         
         $sbplus.html( e );
+        
+    }
+    
+    function _loadVideoJS() {
+        
+        var j = document.createElement('script');
+        j.type = 'text/javascript';
+        j.src = manifest.sbplus_root_directory + 'scripts/libs/videojs/video.min.js';
+        document.getElementsByTagName('head')[0].appendChild(j);
+        
+        var ls = document.createElement('link');
+        ls.rel= 'stylesheet';
+        ls.href= manifest.sbplus_root_directory + 'scripts/libs/videojs/video-js.min.css';
+        document.getElementsByTagName('head')[0].appendChild(ls);
+        
+        $.fn.setCookie( 'sbplus-vjs-autoplay', 1 );
+        $.fn.setCookie( 'sbplus-vjs-volume', .8 );
+        $.fn.setCookie( 'sbplus-vjs-playbackrate', '1.5' );
         
     }
     
