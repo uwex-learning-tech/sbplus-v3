@@ -22,17 +22,6 @@
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
-	"\/example\/assets\/slide\/slide02.jpg": {
-		"fileType": 16384,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"initialSize": 65162,
-		"inputAbbreviatedPath": "\/example\/assets\/slide\/slide02.jpg",
-		"outputAbbreviatedPath": "\/example\/assets\/slide\/slide02.jpg",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"processed": 0
-		},
 	"\/example\/assets\/slide\/slide03.jpg": {
 		"fileType": 16384,
 		"ignore": 0,
@@ -161,6 +150,17 @@
 		"initialSize": 38841,
 		"inputAbbreviatedPath": "\/example\/assets\/slide\/slide14.jpg",
 		"outputAbbreviatedPath": "\/example\/assets\/slide\/slide14.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/example\/assets\/slide\/slide2.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 65162,
+		"inputAbbreviatedPath": "\/example\/assets\/slide\/slide2.jpg",
+		"outputAbbreviatedPath": "\/example\/assets\/slide\/slide2.jpg",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0

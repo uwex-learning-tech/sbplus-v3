@@ -140,11 +140,11 @@ var sbplus = ( function() {
                 $( '.title_bar .title' ).html( context.title );
                 $( '.author' ).html( context.author );
                 
-                resizeDom();
+                _resizeDom();
                 
                 $( window ).resize( function() {
                     
-                    resizeDom();
+                    _resizeDom();
                     
                 } );
                 
@@ -188,13 +188,59 @@ var sbplus = ( function() {
         ls.href= manifest.sbplus_root_directory + 'scripts/libs/videojs/video-js.min.css';
         document.getElementsByTagName('head')[0].appendChild(ls);
         
-        $.fn.setCookie( 'sbplus-vjs-autoplay', 1 );
-        $.fn.setCookie( 'sbplus-vjs-volume', .8 );
-        $.fn.setCookie( 'sbplus-vjs-playbackrate', '1.5' );
+        _initVJSCookies();
         
     }
     
-    function resizeDom() {
+    function _initVJSCookies() {
+        
+        // auto play
+        if ( $.fn.checkValueInCookie( 'sbplus-vjs-autoplay' ) ) {
+            
+            $.fn.setCookie( 'sbplus-vjs-autoplay', $.fn.getCookie( 'sbplus-vjs-autoplay' ) );
+            
+        } else {
+            
+            $.fn.setCookie( 'sbplus-vjs-autoplay', 1 );
+            
+        }
+        
+        // volume
+        if ( $.fn.checkValueInCookie( 'sbplus-vjs-volume' ) ) {
+            
+            $.fn.setCookie( 'sbplus-vjs-volume', $.fn.getCookie( 'sbplus-vjs-volume' ) );
+            
+        } else {
+            
+            $.fn.setCookie( 'sbplus-vjs-volume', 0.8 );
+            
+        }
+        
+        // playback rate
+        if ( $.fn.checkValueInCookie( 'sbplus-vjs-playbackrate' ) ) {
+            
+            $.fn.setCookie( 'sbplus-vjs-playbackrate', $.fn.getCookie( 'sbplus-vjs-playbackrate' ) );
+            
+        } else {
+            
+            $.fn.setCookie( 'sbplus-vjs-playbackrate', 1 );
+            
+        }
+        
+        // subtitles
+        if ( $.fn.checkValueInCookie( 'sbplus-vjs-enabledSubtitles' ) ) {
+            
+            $.fn.setCookie( 'sbplus-vjs-enabledSubtitles', $.fn.getCookie( 'sbplus-vjs-enabledSubtitles' ) );
+            
+        } else {
+            
+            $.fn.setCookie( 'sbplus-vjs-enabledSubtitles', 0 );
+            
+        }
+        
+    }
+    
+    function _resizeDom() {
         
         var notesHeight = $( window ).outerHeight() - ( $( '.main_content_wrapper .title_bar' ).outerHeight() + $( '.main_content .control_bar_wrapper' ).outerHeight() + $( '.main_content .container .content' ).outerHeight() ); 
         

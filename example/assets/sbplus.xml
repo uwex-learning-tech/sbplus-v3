@@ -157,4 +157,14 @@
         
     </section>
     
+    <!-- others -->
+    
+    <section title="Other Examples">
+        
+        <page type="video" src="smgt370_course_intro" title="Video from Assets Directory">
+            <note />
+        </page>
+        
+    </section>
+    
 </storybook>

@@ -8,9 +8,16 @@ var sbplusSlide = ( function() {
     
     var context;
     var settings;
+    
+    var directory;
+    var pageType;
+    var mediaMime;
+    var mediaFormat;
     var fileName;
     var imgFormat;
+    
     var mediaPlayer = null;
+    var subtitles = false;
     
     function get( _context, _settings, section, page ) {
         
@@ -28,64 +35,79 @@ var sbplusSlide = ( function() {
     function _showSlide( s, p ) {
         
         var slide = $( context[s] ).find( 'page' )[p];
-        var type = $( slide ).attr( 'type' );
+       
+        pageType = $( slide ).attr( 'type' );
         
-        fileName = type !== 'quiz' ? $( slide ).attr( 'src' ) : '';
+        fileName = pageType !== 'quiz' ? $( slide ).attr( 'src' ) : '';
         
         if ( mediaPlayer !== null ) {
             
             mediaPlayer.dispose();
             mediaPlayer = null;
-            $( '#ap' ).remove();
             
         }
         
-        switch ( type ) {
-            
-            case 'audio':
-                
-                _renderMedia( 'audio' );
-                
-            break;
-            
-        }
+        _renderMedia();
          
     }
     
-    function _renderMedia( type ) {
+    function _renderMedia() {
         
         var $container = $( '.main_content .container .content' );
-        var subtitle = '';
         var slideImg = '';
         
-        switch ( type ) {
+        switch ( pageType ) {
             
             case 'audio':
-            
+            case 'video':
+                
+                if ( pageType === 'video' ) {
+                    
+                    directory = 'assets/video/';
+                    mediaMime = 'video/mp4';
+                    mediaFormat = '.mp4';
+                    
+                } else {
+                    
+                    directory = 'assets/audio/';
+                    mediaMime = 'audio/mp3';
+                    mediaFormat = '.mp3';
+                    
+                }
+                
                 $.get( 'assets/slide/' + fileName + '.' + imgFormat, function() {
                     
                     slideImg = this.url;
+                    _removeSlideErrorMsg();
                     
-                    $.get( 'assets/audio/' + fileName + '.vtt', function() {
+                } ).fail( function() {
                     
-                        subtitle = '<track kind="subtitles" src="assets/audio/' + fileName + '.vtt" srclang="en" label="English">';
+                    if ( pageType === 'audio' ) {
+                    
+                        $container.before( '<div class="slideError">Slide image not found!<br>Expected image: assets/slide/' + fileName + '.' + imgFormat + '</div>' );
+                        
+                    } else {
+                        
+                        _removeSlideErrorMsg();
+                        
+                    }
+                
+                } ).always( function() {
+                    
+                    $.get( directory + fileName + '.vtt', function() {
+                    
+                        subtitles = true;
                     
                     } ).always( function() {
-                    
-                        var audioSrc = '<source src="assets/audio/' + fileName + '.mp3" type="audio/mp3">';
-                    
-                        $container.html( '<video id="ap" class="video-js vjs-default-skin" poster="' + slideImg + '\">' + audioSrc + subtitle + '</video>' ).promise().done( function() {
+                        
+                    $container.html( '<video id="ap" class="video-js vjs-default-skin" poster="' + slideImg + '\"></video>' ).promise().done( function() {
                     
                             _renderVideoJsPlayer( 'ap' );
                     
                         } );
                     
                     } );
-                
-                } ).fail( function() {
-                
-                    $container.html( "Image not found!", "Expected image: assets/slide/" + fileName + "." + imgFormat );
-                
+                    
                 } );
                 
             break;
@@ -97,15 +119,18 @@ var sbplusSlide = ( function() {
     function _renderVideoJsPlayer( playerID ) {
         
         var options = {
-    
+            
             techOrder: ["html5"],
-            "width": 640,
-            "height": 360,
-            "controls": true,
-            "autoplay": $.fn.getCookie( 'sbplus-vjs-autoplay' ) === '1' ? true : false,
-            "preload": "auto",
-            "playbackRates": [0.5, 1, 1.5, 2],
-            "plugins": {}
+            width: 640,
+            height: 360,
+            controls: true,
+            autoplay: Number( $.fn.getCookie( 'sbplus-vjs-autoplay' ) ) === 1 ? true : false,
+            preload: "auto",
+            playbackRates: [0.5, 1, 1.5, 2],
+            controlBar: {
+                fullscreenToggle: false
+            },
+            plugins: {}
     
         };
         
@@ -121,14 +146,69 @@ var sbplusSlide = ( function() {
         
         mediaPlayer = videojs( playerID, options, function() {
             
+            this.src( { type: mediaMime, src: directory + fileName + mediaFormat } );
+            
+            if ( subtitles ) {
+                
+                this.addRemoteTextTrack( { 
+                    src: directory + fileName + '.vtt',
+                    kind: 'subtitles',
+                    label: 'English',
+                    srclang: 'en',
+                    default: Number( $.fn.getCookie( 'sbplus-vjs-enabledSubtitles' ) ) === 1 ? true : false
+                } );
+                
+            }
+            
             // settings
-            this.removeChild( 'vjs-fullscreen-control' );
+            this.playbackRate( $.fn.getCookie( 'sbplus-vjs-playbackrate' ) );
             this.volume( Number( $.fn.getCookie( 'sbplus-vjs-volume' ) ) );
             
-            this.rate( 1.5 );
+            // update the volume cookie when changed
+            this.on( 'volumechange', function() {
+                
+                $.fn.setCookie( 'sbplus-vjs-volume', this.volume() );
+                
+            } );
+            
+            // update the playback rate when changed
+            this.on( 'ratechange', function() {
+                
+                $.fn.setCookie( 'sbplus-vjs-playbackrate', this.playbackRate() );
+                
+            } );
+            
+            // update the subtitles presence when changed
+            this.remoteTextTracks().addEventListener( 'change', function() {
+                
+                if ( this.tracks_[0].label === 'English' ) {
+                    
+                    if ( this.tracks_[0].mode === 'showing' ) {
+                        
+                        $.fn.setCookie( 'sbplus-vjs-enabledSubtitles', 1 );
+                        
+                    } else {
+                        
+                        $.fn.setCookie( 'sbplus-vjs-enabledSubtitles', 0 );
+                        
+                    }
+                    
+                }
+                
+            });
     
         } );
+        
+    }
     
+    function _removeSlideErrorMsg() {
+        
+        if ( $( '.slideError' ).length ) {
+                        
+            $( '.slideError' ).remove();
+            
+        }
+        
     }
     
     return {

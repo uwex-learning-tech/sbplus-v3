@@ -427,6 +427,19 @@ noscript {
                     @include order( 1 );
                     @include aspect-ratio( 16, 9 );
                     
+                    .slideError {
+                        
+                        position: absolute;
+                        width: 100%;
+                        top: 0;
+                        left: 0;
+                        color: #fff;
+                        padding: rem( $gutter );
+                        z-index: 1;
+                        background-color: #f00;
+                        
+                    }
+                    
                     .content {
                         
                         background-color: #000;
@@ -436,24 +449,40 @@ noscript {
                             height: auto;
                         }
                         
+                        .video-js {
+                          font-size: 11px;
+                          color: #fff;
+                        }
+                        
+                        .vjs-default-skin {
+                            
+                            .vjs-big-play-button {
+                                
+                                font-size: 3em;
+                                line-height: 1.5em;
+                                height: 1.5em;
+                                width: 3em;
+                                border: 0.06666em solid #fff;
+                                border-radius: 0.3em;
+                                left: 50%;
+                                top: 50%;
+                                margin-left: -1.5em;
+                                margin-top: -0.75em;
+                                
+                            }
+                          
+                        }
+                        
                         .video-js.ap-dimensions {
                             
                             width: 100%;
                             height: 100%;
                             
-                            .vjs-fullscreen-control {
-                                
-                                display: none;
-                                
-                            }
-                            
                             .vjs-subtitles-button.vjs-menu-button-popup {
                                 
                                 .vjs-menu {
-                                    
                                     font-family: $default-font-family;
                                     left: -6em;
-                                    
                                 }
                                 
                             }
