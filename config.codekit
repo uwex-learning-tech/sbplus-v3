@@ -694,6 +694,17 @@
 		"outputStyle": 1,
 		"syntaxCheckerStyle": 1
 		},
+	"\/sources\/scripts\/sbplusControls.js": {
+		"fileType": 64,
+		"ignore": 1,
+		"ignoreWasSetByUser": 1,
+		"inputAbbreviatedPath": "\/sources\/scripts\/sbplusControls.js",
+		"outputAbbreviatedPath": "\/sources\/scripts\/sbplusControls.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 0,
+		"syntaxCheckerStyle": 0
+		},
 	"\/sources\/scripts\/sbplusDownloadable.js": {
 		"fileType": 64,
 		"ignore": 1,
@@ -797,32 +808,38 @@
 			},
 		{
 			"followForSyntaxChecking": 1,
-			"linkedFileAbbreviatedPath": "\/sources\/scripts\/sbplusTableOfContents.js",
+			"linkedFileAbbreviatedPath": "\/sources\/scripts\/sbplusControls.js",
 			"position": 3,
 			"type": 1
 			},
 		{
 			"followForSyntaxChecking": 1,
-			"linkedFileAbbreviatedPath": "\/sources\/scripts\/sbplusSlide.js",
+			"linkedFileAbbreviatedPath": "\/sources\/scripts\/sbplusTableOfContents.js",
 			"position": 4,
 			"type": 1
 			},
 		{
 			"followForSyntaxChecking": 1,
-			"linkedFileAbbreviatedPath": "\/sources\/scripts\/sbplusNotes.js",
+			"linkedFileAbbreviatedPath": "\/sources\/scripts\/sbplusSlide.js",
 			"position": 5,
 			"type": 1
 			},
 		{
 			"followForSyntaxChecking": 1,
-			"linkedFileAbbreviatedPath": "\/sources\/scripts\/sbplusMenu.js",
+			"linkedFileAbbreviatedPath": "\/sources\/scripts\/sbplusNotes.js",
 			"position": 6,
 			"type": 1
 			},
 		{
 			"followForSyntaxChecking": 1,
-			"linkedFileAbbreviatedPath": "\/sources\/scripts\/functions.js",
+			"linkedFileAbbreviatedPath": "\/sources\/scripts\/sbplusMenu.js",
 			"position": 7,
+			"type": 1
+			},
+		{
+			"followForSyntaxChecking": 1,
+			"linkedFileAbbreviatedPath": "\/sources\/scripts\/functions.js",
+			"position": 8,
 			"type": 1
 			}
 		]

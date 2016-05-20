@@ -500,11 +500,36 @@ noscript {
                 }
                 
                 .control_bar_wrapper {
+                    
+                    @include display-flex( flex );
+                    @include flex-direction( row );
+                    
                     height: 40px;
                     height: rem( 40px );
                     border-top: 1px solid $border-color;
                     border-top: rem( 1px ) solid $border-color;
                     @include order( 3 );
+                    
+                    button {
+                        
+                        @include display-flex( flex );
+                        color: $font-color;
+                        width: 60px;
+                        width: rem( 60px );
+                        text-align: center;
+                        @include justify-content( center );
+                        border-right: 1px solid $border-color;
+                        border-right: rem( 1px ) solid $border-color;
+                        background-color: transparent;
+                        
+                    }
+                    
+                    button:hover {
+                        
+                        color: $default-accent;
+                        
+                    }
+                    
                 }
                 
             } // end main content

@@ -148,8 +148,8 @@ var sbplus = ( function() {
                     
                 } );
                 
-                sbplusSlide.get( context.section, settings );
                 sbplusTableOfContents.get( context, settings );
+                sbplusSlide.get( context.section, settings );
                 sbplusMenu.get( context );
                 
             } );
@@ -166,6 +166,8 @@ var sbplus = ( function() {
         $( document ).attr( "title", context.title );
         $sbplus.html( e );
         sbplusSplashScreen.get( manifest, context, settings );
+        sbplusControls.init( context.section, settings );
+        
         _loadVideoJS();
         
     }

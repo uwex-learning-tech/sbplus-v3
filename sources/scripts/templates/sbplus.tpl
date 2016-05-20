@@ -20,7 +20,11 @@
             <div class="notes">
                 <div class="content"></div>
             </div>
-            <nav class="control_bar_wrapper"></nav>
+            <nav class="control_bar_wrapper">
+                <button class="previous"><span class="icon-left"></span></button>
+                <button class="next"><span class="icon-right"></span></button>
+                <div class="status">Slide <span class="current">#</span> of <span class="total">#</span></div>
+            </nav>
             
         </div>
         

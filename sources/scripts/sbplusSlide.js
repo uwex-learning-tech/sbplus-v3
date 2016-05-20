@@ -48,6 +48,7 @@ var sbplusSlide = ( function() {
         }
         
         _renderMedia();
+        sbplusTableOfContents.update( s, p );
          
     }
     

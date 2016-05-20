@@ -26,8 +26,8 @@ var sbplusTableOfContents = ( function() {
             toc.append( '<div class="section"><div class="header"><div class="title">' + sectionTitle + '</div><div class="expandCollapseIcon"><span class="icon-collapse"></span></div></div><div class="content"><ul class="selectable">' );
             
             $.each( page, function( p ) {
-                    
-                $( '.selectable:eq(' + s + ')' ).append( '<li class="selectee" data-section="' + s + '" data-page="' + p + '">' + ( ( $( this ).attr( 'type' ) !== 'quiz' ) ? '<span class="num">' + ( context.trackCount + 1 ) + '.</span> ' : '<span class="icon-assessment"></span> ' ) + $( this ).attr('title') + '</li>' );
+                
+                $( '.selectable:eq(' + s + ')' ).append( '<li class="selectee" data-section="' + s + '" data-page="' + p + '" data-order="' + context.trackCount + '">' + ( ( $( this ).attr( 'type' ) !== 'quiz' ) ? '<span class="num">' + ( context.trackCount + 1 ) + '.</span> ' : '<span class="icon-assessment"></span> ' ) + $( this ).attr('title') + '</li>' );
                 
                 context.trackCount++;
                 
@@ -96,6 +96,7 @@ var sbplusTableOfContents = ( function() {
             if ( !$( this ).hasClass( 'selected' ) ) {
                 
                 sbplusSlide.get( context.section, settings, $( this ).data( 'section' ), $( this ).data( 'page' ) );
+                sbplusControls.update( Number ( $( this ).data( 'order' ) ) );
                 
             } 
             
@@ -106,9 +107,22 @@ var sbplusTableOfContents = ( function() {
         
     }
     
+    function updateSelected( s, p ) {
+        
+        // reset
+        $( '.header' ).removeClass( 'current' );
+        $( '.selectee' ).removeClass( 'selected' );
+        
+        // hightlight new
+        $( '.section .header:eq(' + s + ')' ).addClass( 'current' );
+        $( '.section:eq(' + s + ') .selectee[data-page="' + p + '"]' ).addClass( 'selected' );
+        
+    }
+    
     return {
         
-        get: get
+        get: get,
+        update: updateSelected
         
     };
     
