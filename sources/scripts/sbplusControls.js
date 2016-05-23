@@ -55,8 +55,6 @@ var sbplusControls = ( function() {
             
             sbplusSlide.get( context, settings, section, page );
             
-            updateStatus();
-            
         });
         
         $( '.control_bar_wrapper .previous' ).on( 'click', function() {
@@ -88,8 +86,6 @@ var sbplusControls = ( function() {
             }
             
             sbplusSlide.get( context, settings, section, page );
-            
-            updateStatus();
             
         } );
         

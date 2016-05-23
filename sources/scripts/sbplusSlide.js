@@ -19,6 +19,8 @@ var sbplusSlide = ( function() {
     var mediaPlayer = null;
     var subtitles = false;
     
+    var timeoutCookie;
+    
     function get( _context, _settings, section, page ) {
         
         section = typeof section !== 'undefined' ?  Number( section ) : 0;
@@ -49,8 +51,15 @@ var sbplusSlide = ( function() {
         
         _renderMedia();
         sbplusTableOfContents.update( s, p );
-        $.fn.setCookie( 'sbplus-' + $.fn.getRootDirectory(), s + ':' + p );
-         
+        
+        // update cookie value for resume
+        window.clearTimeout( timeoutCookie );
+        timeoutCookie = window.setTimeout( function() {
+            
+            $.fn.setCookie( 'sbplus-' + $.fn.getRootDirectory(), s + ':' + p );
+            
+        }, 3000 );
+        
     }
     
     function _renderMedia() {

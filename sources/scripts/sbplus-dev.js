@@ -175,12 +175,9 @@ var sbplus = ( function() {
                 
                 sbplusSplashScreen.unbindResumePresentationBtn();
                 
-            } else {
-                
-                sbplusSplashScreen.unbindStartPresentationBtn();
-                
             }
             
+            sbplusSplashScreen.unbindStartPresentationBtn();            
             
         } );
         

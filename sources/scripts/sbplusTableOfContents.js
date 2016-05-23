@@ -96,7 +96,6 @@ var sbplusTableOfContents = ( function() {
             if ( !$( this ).hasClass( 'selected' ) ) {
                 
                 sbplusSlide.get( context.section, settings, $( this ).data( 'section' ), $( this ).data( 'page' ) );
-                sbplusControls.update( Number ( $( this ).data( 'order' ) ) );
                 
             } 
             
@@ -109,13 +108,17 @@ var sbplusTableOfContents = ( function() {
     
     function updateSelected( s, p ) {
         
+        var currentHeader = $( '.section .header:eq(' + s + ')' );
+        var currentPage = $( '.section:eq(' + s + ') .selectee[data-page="' + p + '"]' );
+        
         // reset
         $( '.header' ).removeClass( 'current' );
         $( '.selectee' ).removeClass( 'selected' );
         
         // hightlight new
-        $( '.section .header:eq(' + s + ')' ).addClass( 'current' );
-        $( '.section:eq(' + s + ') .selectee[data-page="' + p + '"]' ).addClass( 'selected' );
+        currentHeader.addClass( 'current' );
+        currentPage.addClass( 'selected' );
+        sbplusControls.update( currentPage.data( 'order' ) );
         
     }
     
