@@ -4,7 +4,7 @@
 var sbplusSplashScreen = ( function () {
     
     var manifest, context, settings, bg = '';
-    var startBtn;
+    var startBtn, resumeBtn;
     
     function get( _manifest, _context, _settings ) {
         
@@ -57,9 +57,25 @@ var sbplusSplashScreen = ( function () {
         
     }
     
+    function bindResumePresentationEvent() {
+        
+        resumeBtn.on( 'click', function() {
+            
+            sbplus.render( true );
+            
+        } );
+        
+    }
+    
     function unbindStartPresentationButton() {
         
         startBtn.off( 'click' );
+        
+    }
+    
+    function unbindResumePresentationButton() {
+        
+        resumeBtn.off( 'click' );
         
     }
     
@@ -83,6 +99,8 @@ var sbplusSplashScreen = ( function () {
             
             $( '.splashinfo .resumeBtn' ).css( 'background-color', settings.accent )
                                          .removeClass( 'hide' );
+            resumeBtn = $( '.splashinfo .resumeBtn' );
+            bindResumePresentationEvent();
 
         }
         
@@ -95,7 +113,8 @@ var sbplusSplashScreen = ( function () {
     return {
         
         get: get,
-        unbindStartPresentationBtn: unbindStartPresentationButton
+        unbindStartPresentationBtn: unbindStartPresentationButton,
+        unbindResumePresentationBtn: unbindResumePresentationButton
         
     };
     

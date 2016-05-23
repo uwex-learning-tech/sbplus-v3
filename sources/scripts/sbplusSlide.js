@@ -49,6 +49,7 @@ var sbplusSlide = ( function() {
         
         _renderMedia();
         sbplusTableOfContents.update( s, p );
+        $.fn.setCookie( 'sbplus-' + $.fn.getRootDirectory(), s + ':' + p );
          
     }
     

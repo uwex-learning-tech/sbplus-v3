@@ -129,7 +129,9 @@ var sbplus = ( function() {
         
     }
     
-    function renderPresentation() {
+    function renderPresentation( resume ) {
+        
+        resume = typeof resume !== 'undefined' ? true : false;
         
         $( '.splashscreen' ).fadeOut( 'fast', function() {
                 
@@ -149,13 +151,36 @@ var sbplus = ( function() {
                 } );
                 
                 sbplusTableOfContents.get( context, settings );
-                sbplusSlide.get( context.section, settings );
+                
+                if ( resume ) {
+                    
+                    var leftOfAt = $.fn.getCookie( 'sbplus-' + $.fn.getRootDirectory() ).split( ':' );
+                    var s = Number(leftOfAt[0]), p = leftOfAt[1];
+                    
+                    sbplusSlide.get( context.section, settings, s, p);
+                    
+                } else {
+                    
+                    sbplusSlide.get( context.section, settings );
+                    
+                }
+                
                 sbplusMenu.get( context );
                 
             } );
             
             $( this ).remove();
-            sbplusSplashScreen.unbindStartPresentationBtn();
+            
+            if ( resume ) {
+                
+                sbplusSplashScreen.unbindResumePresentationBtn();
+                
+            } else {
+                
+                sbplusSplashScreen.unbindStartPresentationBtn();
+                
+            }
+            
             
         } );
         
