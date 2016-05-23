@@ -196,49 +196,10 @@ var sbplus = ( function() {
     
     function _initVJSCookies() {
         
-        // auto play
-        if ( $.fn.checkValueInCookie( 'sbplus-vjs-autoplay' ) ) {
-            
-            $.fn.setCookie( 'sbplus-vjs-autoplay', $.fn.getCookie( 'sbplus-vjs-autoplay' ) );
-            
-        } else {
-            
-            $.fn.setCookie( 'sbplus-vjs-autoplay', 1 );
-            
-        }
-        
-        // volume
-        if ( $.fn.checkValueInCookie( 'sbplus-vjs-volume' ) ) {
-            
-            $.fn.setCookie( 'sbplus-vjs-volume', $.fn.getCookie( 'sbplus-vjs-volume' ) );
-            
-        } else {
-            
-            $.fn.setCookie( 'sbplus-vjs-volume', 0.8 );
-            
-        }
-        
-        // playback rate
-        if ( $.fn.checkValueInCookie( 'sbplus-vjs-playbackrate' ) ) {
-            
-            $.fn.setCookie( 'sbplus-vjs-playbackrate', $.fn.getCookie( 'sbplus-vjs-playbackrate' ) );
-            
-        } else {
-            
-            $.fn.setCookie( 'sbplus-vjs-playbackrate', 1 );
-            
-        }
-        
-        // subtitles
-        if ( $.fn.checkValueInCookie( 'sbplus-vjs-enabledSubtitles' ) ) {
-            
-            $.fn.setCookie( 'sbplus-vjs-enabledSubtitles', $.fn.getCookie( 'sbplus-vjs-enabledSubtitles' ) );
-            
-        } else {
-            
-            $.fn.setCookie( 'sbplus-vjs-enabledSubtitles', 0 );
-            
-        }
+        $.fn.setCookie( 'sbplus-vjs-autoplay', 1 );
+        $.fn.setCookie( 'sbplus-vjs-volume', 0.8 );
+        $.fn.setCookie( 'sbplus-vjs-playbackrate', 1 );
+        $.fn.setCookie( 'sbplus-vjs-enabledSubtitles', 0 );
         
     }
     

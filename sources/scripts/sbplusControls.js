@@ -67,8 +67,25 @@ var sbplusControls = ( function() {
             
             currentPage = Number( $( '.selectee.selected' ).data( 'order' ) );
             
-            page--;
-            currentPage--;
+            if ( page < totalPagesInSection && page > 0 ) {
+                
+                page--;
+                currentPage--;
+                
+            } else {
+                
+                section--;
+                
+                if ( section < 0 ) {
+                    
+                    section = totalSection - 1;
+                    
+                }
+                
+                page = $( context[section] ).find( 'page' ).length - 1;
+                currentPage = page;
+                
+            }
             
             sbplusSlide.get( context, settings, section, page );
             

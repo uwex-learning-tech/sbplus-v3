@@ -165,28 +165,16 @@ var sbplusSlide = ( function() {
             this.playbackRate( $.fn.getCookie( 'sbplus-vjs-playbackrate' ) );
             this.volume( Number( $.fn.getCookie( 'sbplus-vjs-volume' ) ) );
             
-            // update the volume cookie when changed
-            this.on( 'volumechange', function() {
+            this.textTracks().addEventListener( 'change', function() {
                 
-                $.fn.setCookie( 'sbplus-vjs-volume', this.volume() );
+                var tracks = this.tracks_;
                 
-            } );
-            
-            // update the playback rate when changed
-            this.on( 'ratechange', function() {
-                
-                $.fn.setCookie( 'sbplus-vjs-playbackrate', this.playbackRate() );
-                
-            } );
-            
-            // update the subtitles presence when changed
-            this.remoteTextTracks().addEventListener( 'change', function() {
-                
-                if ( this.tracks_[0].label === 'English' ) {
+                $.each( tracks, function() {
                     
-                    if ( this.tracks_[0].mode === 'showing' ) {
-                        
+                    if ( this.mode === 'showing' ) {
+
                         $.fn.setCookie( 'sbplus-vjs-enabledSubtitles', 1 );
+                        return false;
                         
                     } else {
                         
@@ -194,10 +182,10 @@ var sbplusSlide = ( function() {
                         
                     }
                     
-                }
+                } );
                 
-            });
-    
+            } );
+                
         } );
         
     }

@@ -470,6 +470,28 @@ noscript {
                                 margin-top: -0.75em;
                                 
                             }
+                            
+                            .vjs-menu-item.vjs-selected {
+                                position: relative;
+                                color: #fff;
+                                background-color: rgba( 255, 255, 255, 0.25);
+                            }
+                            
+                            .vjs-menu-item.vjs-selected:before {
+                                position: absolute;
+                                top: 3px;
+                                top: rem( 3px );
+                                left: 4px;
+                                left: rem( 4px );
+                                width: 10px;
+                                width: rem( 10px );
+                                height: 10px;
+                                height: rem( 10px );
+                                font-family: 'sbplus';
+                                content: '\edba';
+                                font-size: 10px;
+                                font-size: rem( 10px );
+                            }
                           
                         }
                         
@@ -527,6 +549,14 @@ noscript {
                     button:hover {
                         
                         color: $default-accent;
+                        
+                    }
+                    
+                    .status {
+                        
+                        font-weight: bold;
+                        padding: 13px 0 0 13px;
+                        padding: rem( 13px ) 0 0 rem( 13px );
                         
                     }
                     
