@@ -157,11 +157,11 @@ var sbplus = ( function() {
                     var leftOfAt = $.fn.getCookie( 'sbplus-' + $.fn.getRootDirectory() ).split( ':' );
                     var s = Number(leftOfAt[0]), p = leftOfAt[1];
                     
-                    sbplusSlide.get( context.section, settings, s, p);
+                    sbplusSlide.get( context.section, settings, s, p, manifest );
                     
                 } else {
                     
-                    sbplusSlide.get( context.section, settings );
+                    sbplusSlide.get( context.section, settings, 0, 0, manifest );
                     
                 }
                 
@@ -204,7 +204,7 @@ var sbplus = ( function() {
         
         var j = document.createElement('script');
         j.type = 'text/javascript';
-        j.src = manifest.sbplus_root_directory + 'scripts/libs/videojs/video.min.js';
+        j.src = manifest.sbplus_root_directory + 'scripts/libs/videojs/video.js';
         document.getElementsByTagName('head')[0].appendChild(j);
         
         var ls = document.createElement('link');

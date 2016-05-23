@@ -300,6 +300,28 @@
 		"outputStyle": 0,
 		"syntaxCheckerStyle": 0
 		},
+	"\/sources\/scripts\/libs\/kaltura\/kwidgetgetsources.js": {
+		"fileType": 64,
+		"ignore": 1,
+		"ignoreWasSetByUser": 1,
+		"inputAbbreviatedPath": "\/sources\/scripts\/libs\/kaltura\/kwidgetgetsources.js",
+		"outputAbbreviatedPath": "\/sources\/scripts\/libs\/kaltura\/kwidgetgetsources.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 0
+		},
+	"\/sources\/scripts\/libs\/kaltura\/mwembedloader.js": {
+		"fileType": 64,
+		"ignore": 1,
+		"ignoreWasSetByUser": 1,
+		"inputAbbreviatedPath": "\/sources\/scripts\/libs\/kaltura\/mwembedloader.js",
+		"outputAbbreviatedPath": "\/sources\/scripts\/libs\/kaltura\/mwembedloader.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 0,
+		"syntaxCheckerStyle": 1
+		},
 	"\/sources\/scripts\/libs\/modernizr.js": {
 		"fileType": 64,
 		"ignore": 1,
@@ -652,6 +674,50 @@
 		"outputStyle": 1,
 		"syntaxCheckerStyle": 1
 		},
+	"\/sources\/scripts\/libs\/videojs\/plugins\/resolution\/videojs-resolution-switcher.js": {
+		"fileType": 64,
+		"ignore": 1,
+		"ignoreWasSetByUser": 1,
+		"inputAbbreviatedPath": "\/sources\/scripts\/libs\/videojs\/plugins\/resolution\/videojs-resolution-switcher.js",
+		"outputAbbreviatedPath": "\/sources\/scripts\/libs\/videojs\/plugins\/resolution\/videojs-resolution-switcher.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 0,
+		"syntaxCheckerStyle": 0
+		},
+	"\/sources\/scripts\/libs\/videojs\/plugins\/vimeo\/vimeo.js": {
+		"fileType": 64,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/sources\/scripts\/libs\/videojs\/plugins\/vimeo\/vimeo.js",
+		"outputAbbreviatedPath": "\/sources\/scripts\/libs\/videojs\/plugins\/vimeo\/vimeo.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 1
+		},
+	"\/sources\/scripts\/libs\/videojs\/plugins\/youtube\/youtube.js": {
+		"fileType": 64,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/sources\/scripts\/libs\/videojs\/plugins\/youtube\/youtube.js",
+		"outputAbbreviatedPath": "\/sources\/scripts\/libs\/videojs\/plugins\/youtube\/youtube.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 1
+		},
+	"\/sources\/scripts\/libs\/videojs\/video-dev.js": {
+		"fileType": 64,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/sources\/scripts\/libs\/videojs\/video-dev.js",
+		"outputAbbreviatedPath": "\/sources\/scripts\/libs\/videojs\/video-dev.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 1
+		},
 	"\/sources\/scripts\/libs\/videojs\/video-js.min.css": {
 		"fileType": 16,
 		"ignore": 0,
@@ -661,16 +727,16 @@
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
-	"\/sources\/scripts\/libs\/videojs\/video.min.js": {
+	"\/sources\/scripts\/libs\/videojs\/video.js": {
 		"fileType": 64,
 		"ignore": 1,
-		"ignoreWasSetByUser": 1,
-		"inputAbbreviatedPath": "\/sources\/scripts\/libs\/videojs\/video.min.js",
-		"outputAbbreviatedPath": "\/sources\/scripts\/libs\/videojs\/video.min.js",
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/sources\/scripts\/libs\/videojs\/video.js",
+		"outputAbbreviatedPath": "\/sources\/scripts\/libs\/videojs\/video.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 0,
-		"syntaxCheckerStyle": 0
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 1
 		},
 	"\/sources\/scripts\/sbplus-dev.js": {
 		"fileType": 64,

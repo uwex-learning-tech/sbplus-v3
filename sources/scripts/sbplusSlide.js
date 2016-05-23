@@ -3,11 +3,15 @@
 ****************************************/
 
 /* global videojs */
+/* global kWidget */
 
 var sbplusSlide = ( function() {
     
+    var manifest;
     var context;
     var settings;
+    
+    var $container;
     
     var directory;
     var pageType;
@@ -19,12 +23,17 @@ var sbplusSlide = ( function() {
     var mediaPlayer = null;
     var subtitles = false;
     
+    var kalturaLoaded = 0;
+    var flavors = {};
+    var isKaltura = false;
+    var kalturaCaptionId;
+    var kalturaVideoDuration;
+    
     var timeoutCookie;
     
-    function get( _context, _settings, section, page ) {
+    function get( _context, _settings, section, page, _manifest ) {
         
-        section = typeof section !== 'undefined' ?  Number( section ) : 0;
-        page = typeof page !== 'undefined' ?  Number( page ) : 0;
+        manifest = typeof _manifest !== 'undefined' ? _manifest : manifest;
         
         settings = _settings;
         context = _context;
@@ -46,6 +55,7 @@ var sbplusSlide = ( function() {
             
             mediaPlayer.dispose();
             mediaPlayer = null;
+            isKaltura = false;
             
         }
         
@@ -64,8 +74,8 @@ var sbplusSlide = ( function() {
     
     function _renderMedia() {
         
-        var $container = $( '.main_content .container .content' );
         var slideImg = '';
+        $container = $( '.main_content .container .content' );
         
         switch ( pageType ) {
             
@@ -123,7 +133,82 @@ var sbplusSlide = ( function() {
                 
             break;
             
+            case 'kaltura':
+                
+                if ( kalturaLoaded === 0 ) {
+
+                    $.getScript( manifest.sbplus_root_directory + '/scripts/libs/kaltura/mwembedloader.js', function() {
+        
+                        $.getScript( manifest.sbplus_root_directory +  '/scripts/libs/kaltura/kwidgetgetsources.js', function() {
+        
+                            kalturaLoaded = 1;
+                            
+                            _loadKalturaVideoData();
+                    
+                        } );
+                        
+                    } );
+        
+                } else {
+        
+                    _loadKalturaVideoData();
+        
+                }
+            
+            break;
+            
         }
+        
+    }
+    
+    function _loadKalturaVideoData() {
+        
+        var entryId;
+    
+        kWidget.getSources( {
+    
+            'partnerId': 1660872,
+            'entryId': fileName,
+            'callback': function( data ) {
+    
+                entryId = data.entryId;
+                kalturaCaptionId = data.captionId;
+                kalturaVideoDuration = data.duration;
+    
+                for( var i in data.sources ) {
+    
+                    var source = data.sources[i];
+    
+                    if ( source.flavorParamsId === 487061 ) {
+    
+                        flavors.low = source.src;
+    
+                    }
+    
+                    if ( source.flavorParamsId === 487071 ) {
+    
+                        flavors.normal = source.src;
+    
+                    }
+    
+                    if ( source.flavorParamsId === 487081 ) {
+    
+                        flavors.high = source.src;
+    
+                    }
+    
+                }
+                
+                $container.html( '<video id="ap" class="video-js vjs-default-skin" crossorigin="anonymous"></video>' ).promise().done( function() {
+                    
+                    isKaltura = true;
+                    _renderVideoJsPlayer( 'ap' );
+            
+                } );
+                
+            }
+    
+        } );
         
     }
     
@@ -137,11 +222,12 @@ var sbplusSlide = ( function() {
             controls: true,
             autoplay: Number( $.fn.getCookie( 'sbplus-vjs-autoplay' ) ) === 1 ? true : false,
             preload: "auto",
-            playbackRates: [0.5, 1, 1.5, 2],
+            playbackRates: [0.5, 1, 1.5, 2]/*
+,
             controlBar: {
                 fullscreenToggle: false
-            },
-            plugins: {}
+            }
+*/
     
         };
         
@@ -151,25 +237,53 @@ var sbplusSlide = ( function() {
                 
                 options.plugins = null;
                 
+                if ( isKaltura ) {
+                
+                    options.plugins = { videoJsResolutionSwitcher: { 'default': 720 } };
+                    
+                }
+                
             break;
             
         }
         
         mediaPlayer = videojs( playerID, options, function() {
             
-            this.src( { type: mediaMime, src: directory + fileName + mediaFormat } );
-            
-            if ( subtitles ) {
-                
+            if ( isKaltura ) {
+        			
                 this.addRemoteTextTrack( { 
-                    src: directory + fileName + '.vtt',
+                    src: 'https://www.kaltura.com/api_v3/?service=caption_captionasset&action=servewebvtt&captionAssetId=' + kalturaCaptionId + '&segmentDuration=' + kalturaVideoDuration + '&segmentIndex=1',
                     kind: 'subtitles',
                     label: 'English',
                     srclang: 'en',
                     default: Number( $.fn.getCookie( 'sbplus-vjs-enabledSubtitles' ) ) === 1 ? true : false
                 } );
                 
-            }
+        		this.updateSrc( [
+        			
+        			{ src: flavors.low, type: "video/mp4", label: "low", res: 360 },
+        			{ src: flavors.normal, type: "video/mp4", label: "normal", res: 720 },
+        			{ src: flavors.high, type: "video/mp4", label: "high", res: 1080 }
+        			
+        		] );
+        		
+        	} else {
+            	
+            	if ( subtitles ) {
+                
+                    this.addRemoteTextTrack( { 
+                        src: directory + fileName + '.vtt',
+                        kind: 'subtitles',
+                        label: 'English',
+                        srclang: 'en',
+                        default: Number( $.fn.getCookie( 'sbplus-vjs-enabledSubtitles' ) ) === 1 ? true : false
+                    } );
+                    
+                }
+            	
+            	this.src( { type: mediaMime, src: directory + fileName + mediaFormat } );
+            	
+        	}
             
             // settings
             this.playbackRate( $.fn.getCookie( 'sbplus-vjs-playbackrate' ) );
