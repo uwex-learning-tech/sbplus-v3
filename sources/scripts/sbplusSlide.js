@@ -222,12 +222,10 @@ var sbplusSlide = ( function() {
             controls: true,
             autoplay: Number( $.fn.getCookie( 'sbplus-vjs-autoplay' ) ) === 1 ? true : false,
             preload: "auto",
-            playbackRates: [0.5, 1, 1.5, 2]/*
-,
+            playbackRates: [0.5, 1, 1.5, 2],
             controlBar: {
                 fullscreenToggle: false
             }
-*/
     
         };
         

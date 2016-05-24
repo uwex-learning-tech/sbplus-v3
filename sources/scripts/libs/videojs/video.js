@@ -207,7 +207,7 @@ ea.isEl=P.isEl,ea.isTextNode=P.isTextNode,ea.createEl=P.createEl,ea.hasClass=P.h
         var choosen = chooseSrc(groupedSrc, src);
         var menuButton = new ResolutionMenuButton(player, { sources: groupedSrc, initialySelectedLabel: choosen.label , initialySelectedRes: choosen.res , customSourcePicker: settings.customSourcePicker}, settings, label);
 				videojs.addClass(menuButton.el(), 'vjs-resolution-button');
-        player.controlBar.resolutionSwitcher = player.controlBar.el_.insertBefore(menuButton.el_, player.controlBar.getChild('fullscreenToggle').el_);
+        player.controlBar.resolutionSwitcher = player.controlBar.el_.insertBefore(menuButton.el_, player.controlBar.getChild('subtitlesButton').el_);
         player.controlBar.resolutionSwitcher.dispose = function(){
           this.parentNode.removeChild(this);
         };
@@ -292,17 +292,14 @@ ea.isEl=P.isEl,ea.isTextNode=P.isTextNode,ea.createEl=P.createEl,ea.hasClass=P.h
         if (selectedRes === 'high') {
           selectedRes = src[0].res;
           selectedLabel = src[0].label;
-        } else if (selectedRes === 'low' || selectedRes == null) {
+        } else if (selectedRes === 'low' || selectedRes == null || !groupedSrc.res[selectedRes]) {
           // Select low-res if default is low or not set
           selectedRes = src[src.length - 1].res;
           selectedLabel = src[src.length -1].label;
         } else if (groupedSrc.res[selectedRes]) {
           selectedLabel = groupedSrc.res[selectedRes][0].label;
         }
-
-        if(selectedRes === undefined){
-          return {res: selectedRes, label: selectedLabel, sources: groupedSrc.label[selectedLabel]};
-        }
+				
         return {res: selectedRes, label: selectedLabel, sources: groupedSrc.res[selectedRes]};
       }
 			

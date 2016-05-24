@@ -449,15 +449,15 @@ noscript {
                             height: auto;
                         }
                         
-                        .video-js {
-                          font-size: 11px;
-                          color: #fff;
-                        }
-                        
-                        .vjs-default-skin {
+                        // videojs
+                        .video-js.vjs-default-skin {
+                            
+                            width: 100%;
+                            height: 100%;
+                            font-size: 11px;
+                            color: #fff;
                             
                             .vjs-big-play-button {
-                                
                                 font-size: 3em;
                                 line-height: 1.5em;
                                 height: 1.5em;
@@ -468,41 +468,59 @@ noscript {
                                 top: 50%;
                                 margin-left: -1.5em;
                                 margin-top: -0.75em;
+                            }
+                            
+                            .vjs-menu {
+                                
+                                font-family: $default-font-family;
+                                
+                                .vjs-menu-content {
+                                    
+                                    .vjs-menu-item.vjs-selected {
+                                        position: relative;
+                                        color: #fff;
+                                        background-color: rgba( 255, 255, 255, 0.25);
+                                    }
+                                    
+                                    .vjs-menu-item.vjs-selected:before {
+                                        position: absolute;
+                                        top: 3px;
+                                        top: rem( 3px );
+                                        left: 4px;
+                                        left: rem( 4px );
+                                        width: 10px;
+                                        width: rem( 10px );
+                                        height: 10px;
+                                        height: rem( 10px );
+                                        font-family: 'sbplus';
+                                        content: '\edba';
+                                        font-size: 10px;
+                                        font-size: rem( 10px );
+                                    }
+                                    
+                                }
                                 
                             }
                             
-                            .vjs-menu-item.vjs-selected {
-                                position: relative;
-                                color: #fff;
-                                background-color: rgba( 255, 255, 255, 0.25);
-                            }
-                            
-                            .vjs-menu-item.vjs-selected:before {
-                                position: absolute;
-                                top: 3px;
-                                top: rem( 3px );
-                                left: 4px;
-                                left: rem( 4px );
-                                width: 10px;
-                                width: rem( 10px );
-                                height: 10px;
-                                height: rem( 10px );
-                                font-family: 'sbplus';
-                                content: '\edba';
-                                font-size: 10px;
-                                font-size: rem( 10px );
+                            /* subtitles button */
+                            .vjs-subtitles-button.vjs-menu-button-popup {
+                                
+                                .vjs-menu {
+                                    left: -6em;
+                                }
+                                
                             }
                             
                             /* resolution plugin */
 
                             .vjs-resolution-button {
-                              font-family: VideoJS;
+                                font-family: VideoJS;
                             }
                             
                             .vjs-resolution-button .vjs-resolution-button-staticlabel:before {
-                              content: '\f110';
-                              font-size: 1.8em;
-                              line-height: 1.67;
+                                content: '\f110';
+                                font-size: 1.8em;
+                                line-height: 1.67;
                             }
                             
                             .vjs-resolution-button .vjs-resolution-button-label {
@@ -518,27 +536,11 @@ noscript {
                             }
                             
                             .vjs-resolution-button ul.vjs-menu-content {
-                              width: 7em !important;
+                                width: 7em;
                             }
                             
                             .vjs-resolution-button .vjs-menu {
-                              left: -3em;
-                            }
-                          
-                        }
-                        
-                        .video-js.ap-dimensions {
-                            
-                            width: 100%;
-                            height: 100%;
-                            
-                            .vjs-subtitles-button.vjs-menu-button-popup {
-                                
-                                .vjs-menu {
-                                    font-family: $default-font-family;
-                                    left: -6em;
-                                }
-                                
+                                left: -1.8em;
                             }
                             
                         }

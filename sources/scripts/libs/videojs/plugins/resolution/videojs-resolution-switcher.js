@@ -184,7 +184,7 @@
         var choosen = chooseSrc(groupedSrc, src);
         var menuButton = new ResolutionMenuButton(player, { sources: groupedSrc, initialySelectedLabel: choosen.label , initialySelectedRes: choosen.res , customSourcePicker: settings.customSourcePicker}, settings, label);
 				videojs.addClass(menuButton.el(), 'vjs-resolution-button');
-        player.controlBar.resolutionSwitcher = player.controlBar.el_.insertBefore(menuButton.el_, player.controlBar.getChild('fullscreenToggle').el_);
+        player.controlBar.resolutionSwitcher = player.controlBar.el_.insertBefore(menuButton.el_, player.controlBar.getChild('subtitlesButton').el_);
         player.controlBar.resolutionSwitcher.dispose = function(){
           this.parentNode.removeChild(this);
         };
