@@ -21,13 +21,13 @@ var sbplusSlide = ( function() {
     var imgFormat;
     
     var mediaPlayer = null;
-    var subtitles = false;
+    var subtitles;
+    var currentPlayrate = 1;
+    var subtitlesOn = false;
     
     var kalturaLoaded = 0;
     var flavors = {};
     var isKaltura = false;
-    var kalturaCaptionId;
-    var kalturaVideoDuration;
     
     var timeoutCookie;
     
@@ -38,6 +38,12 @@ var sbplusSlide = ( function() {
         settings = _settings;
         context = _context;
         imgFormat = settings.slideFormat;
+        
+        if ( Number( $.fn.getCookie( 'sbplus-vjs-enabledSubtitles' ) ) === 1 ) {
+            
+            subtitlesOn = true;
+            
+        }
 
         _showSlide( section, page );       
         
@@ -51,6 +57,7 @@ var sbplusSlide = ( function() {
         
         fileName = pageType !== 'quiz' ? $( slide ).attr( 'src' ) : '';
         
+        // resets
         if ( mediaPlayer !== null ) {
             
             mediaPlayer.dispose();
@@ -59,10 +66,14 @@ var sbplusSlide = ( function() {
             
         }
         
+        _removeSlideErrorMsg();
+        
+        // new "instance"
+        
         _renderMedia();
         sbplusTableOfContents.update( s, p );
         
-        // update cookie value for resume
+        // update cookie value for resume after a delay
         window.clearTimeout( timeoutCookie );
         timeoutCookie = window.setTimeout( function() {
             
@@ -99,7 +110,6 @@ var sbplusSlide = ( function() {
                 $.get( 'assets/slide/' + fileName + '.' + imgFormat, function() {
                     
                     slideImg = this.url;
-                    _removeSlideErrorMsg();
                     
                 } ).fail( function() {
                     
@@ -107,21 +117,17 @@ var sbplusSlide = ( function() {
                     
                         $container.before( '<div class="slideError">Slide image not found!<br>Expected image: assets/slide/' + fileName + '.' + imgFormat + '</div>' );
                         
-                    } else {
-                        
-                        _removeSlideErrorMsg();
-                        
                     }
                 
                 } ).always( function() {
                     
                     $.get( directory + fileName + '.vtt', function() {
                     
-                        subtitles = true;
+                        subtitles = '<track kind="subtitles" label="English" srclang="en" src="' + directory + fileName + '.vtt" ' + ( subtitlesOn === true ? 'default' : '' ) + ' />';
                     
                     } ).always( function() {
                         
-                    $container.html( '<video id="ap" class="video-js vjs-default-skin" poster="' + slideImg + '\"></video>' ).promise().done( function() {
+                    $container.html( '<video id="ap" class="video-js vjs-default-skin" poster="' + slideImg + '\">' + subtitles + '</video>' ).promise().done( function() {
                     
                             _renderVideoJsPlayer( 'ap' );
                     
@@ -163,7 +169,7 @@ var sbplusSlide = ( function() {
     
     function _loadKalturaVideoData() {
         
-        var entryId;
+        var entryId, captionId, videoDuration;
     
         kWidget.getSources( {
     
@@ -172,8 +178,8 @@ var sbplusSlide = ( function() {
             'callback': function( data ) {
     
                 entryId = data.entryId;
-                kalturaCaptionId = data.captionId;
-                kalturaVideoDuration = data.duration;
+                captionId = data.captionId;
+                videoDuration = data.duration;
     
                 for( var i in data.sources ) {
     
@@ -199,7 +205,7 @@ var sbplusSlide = ( function() {
     
                 }
                 
-                $container.html( '<video id="ap" class="video-js vjs-default-skin" crossorigin="anonymous"></video>' ).promise().done( function() {
+                $container.html( '<video id="ap" class="video-js vjs-default-skin" crossorigin="anonymous"><track kind="subtitles" label="English" srclang="en" src="https://www.kaltura.com/api_v3/?service=caption_captionasset&action=servewebvtt&captionAssetId=' + captionId + '&segmentDuration=' + videoDuration + '&segmentIndex=1" ' + ( subtitlesOn === true ? 'default' : '' ) + ' /></video>' ).promise().done( function() {
                     
                     isKaltura = true;
                     _renderVideoJsPlayer( 'ap' );
@@ -225,15 +231,14 @@ var sbplusSlide = ( function() {
             playbackRates: [0.5, 1, 1.5, 2],
             controlBar: {
                 fullscreenToggle: false
-            }
+            },
+            plugins: {}
     
         };
         
         switch ( playerID ) {
             
             case 'ap':
-                
-                options.plugins = null;
                 
                 if ( isKaltura ) {
                 
@@ -247,17 +252,11 @@ var sbplusSlide = ( function() {
         
         mediaPlayer = videojs( playerID, options, function() {
             
+            var player = this;
+            
             if ( isKaltura ) {
-        			
-                this.addRemoteTextTrack( { 
-                    src: 'https://www.kaltura.com/api_v3/?service=caption_captionasset&action=servewebvtt&captionAssetId=' + kalturaCaptionId + '&segmentDuration=' + kalturaVideoDuration + '&segmentIndex=1',
-                    kind: 'subtitles',
-                    label: 'English',
-                    srclang: 'en',
-                    default: Number( $.fn.getCookie( 'sbplus-vjs-enabledSubtitles' ) ) === 1 ? true : false
-                } );
                 
-        		this.updateSrc( [
+        		player.updateSrc( [
         			
         			{ src: flavors.low, type: "video/mp4", label: "low", res: 360 },
         			{ src: flavors.normal, type: "video/mp4", label: "normal", res: 720 },
@@ -265,42 +264,42 @@ var sbplusSlide = ( function() {
         			
         		] );
         		
+        		player.on( 'resolutionchange', function() {
+            		
+            		player.playbackRate( currentPlayrate );
+            		
+        		} );
+        		
+        		player.on( 'ratechange', function() {
+            		
+            		currentPlayrate = player.playbackRate();
+            		
+        		} );
+        		
         	} else {
             	
-            	if ( subtitles ) {
-                
-                    this.addRemoteTextTrack( { 
-                        src: directory + fileName + '.vtt',
-                        kind: 'subtitles',
-                        label: 'English',
-                        srclang: 'en',
-                        default: Number( $.fn.getCookie( 'sbplus-vjs-enabledSubtitles' ) ) === 1 ? true : false
-                    } );
-                    
-                }
-            	
-            	this.src( { type: mediaMime, src: directory + fileName + mediaFormat } );
+            	player.src( { type: mediaMime, src: directory + fileName + mediaFormat } );
             	
         	}
             
             // settings
-            this.playbackRate( $.fn.getCookie( 'sbplus-vjs-playbackrate' ) );
-            this.volume( Number( $.fn.getCookie( 'sbplus-vjs-volume' ) ) );
+            player.playbackRate( $.fn.getCookie( 'sbplus-vjs-playbackrate' ) );
+            player.volume( Number( $.fn.getCookie( 'sbplus-vjs-volume' ) ) );
             
-            this.textTracks().addEventListener( 'change', function() {
+            player.textTracks().addEventListener( 'change', function() {
                 
                 var tracks = this.tracks_;
                 
                 $.each( tracks, function() {
                     
                     if ( this.mode === 'showing' ) {
-
-                        $.fn.setCookie( 'sbplus-vjs-enabledSubtitles', 1 );
+                        
+                        subtitlesOn = true;
                         return false;
                         
                     } else {
                         
-                        $.fn.setCookie( 'sbplus-vjs-enabledSubtitles', 0 );
+                        subtitlesOn = false;
                         
                     }
                     

@@ -371,7 +371,7 @@ noscript {
                 
                 .author {
                     @extend .title;
-                    width: 31%;
+                    width: 33%;
                     @include order( 2 );
                                         
                 }
@@ -380,7 +380,7 @@ noscript {
                     
                     @extend .title;
                     
-                    width: 5%;
+                    width: 3%;
                     min-width: rem( 40px );
                     height: 30px;
                     height: rem( 30px );
@@ -653,7 +653,7 @@ noscript {
                             border-bottom: rem( 1px ) solid $border-color;
                             
                             .title {
-                                width: 91%;
+                                width: 94%;
                                 padding: 0 8px;
                                 padding: 0 rem( 8px );
                                 font-weight: bold;
@@ -662,9 +662,11 @@ noscript {
                             }
                             
                             .expandCollapseIcon {
-                                width: 9%;
+                                width: 6%;
+                                min-width: 40px;
+                                min-width: rem( 40px );
                                 line-height: 0;
-                                text-align: left;
+                                text-align: center;
                                 padding-left: 1px;
                                 padding-left: rem( 1px );
                             }
