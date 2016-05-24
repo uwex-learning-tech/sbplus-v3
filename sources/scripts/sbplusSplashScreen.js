@@ -55,6 +55,16 @@ var sbplusSplashScreen = ( function () {
             
         } );
         
+        startBtn.on( 'mouseover', function() {
+            
+            $( this ).css( "background-color", $.fn.colorLum( settings.accent, 0.2 ) );
+            
+        } ).on( 'mouseout', function() {
+            
+            $( this ).css( "background-color", settings.accent );
+            
+        } );
+        
     }
     
     function bindResumePresentationEvent() {
@@ -65,17 +75,31 @@ var sbplusSplashScreen = ( function () {
             
         } );
         
+        resumeBtn.on( 'mouseover', function() {
+            
+            $( this ).css( "background-color", $.fn.colorLum( settings.accent, 0.2 ) );
+            
+        } ).on( 'mouseout', function() {
+            
+            $( this ).css( "background-color", settings.accent );
+            
+        } );
+        
     }
     
     function unbindStartPresentationButton() {
         
         startBtn.off( 'click' );
+        startBtn.off( 'mouseover' );
+        startBtn.off( 'mouseout' );
         
     }
     
     function unbindResumePresentationButton() {
         
         resumeBtn.off( 'click' );
+        resumeBtn.off( 'mouseover' );
+        resumeBtn.off( 'mouseout' );
         
     }
     
