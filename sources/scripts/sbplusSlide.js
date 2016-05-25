@@ -86,8 +86,7 @@ var sbplusSlide = ( function() {
     function _renderMedia() {
         
         var slideImg = '';
-        
-        $container = $( '.main_content .container .content' );
+        $container = $( '.container .content' );
         
         switch ( pageType ) {
             
@@ -305,6 +304,8 @@ var sbplusSlide = ( function() {
                 } );
                 
             } );
+            
+            //sbplus.resize();
                 
         } );
         

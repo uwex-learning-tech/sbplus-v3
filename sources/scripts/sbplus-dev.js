@@ -135,20 +135,12 @@ var sbplus = ( function() {
         
         $( '.splashscreen' ).fadeOut( 'fast', function() {
                 
-            $( '.main_content_wrapper' ).css( 'display', 'flex' ).fadeIn( 500, function() {
+            $( '.main_content_wrapper' ).css( 'display', 'block' ).fadeIn( 500, function() {
                 
                 $( this ).removeClass( 'hide' );
                 
                 $( '.title_bar .title' ).html( context.title );
                 $( '.author' ).html( context.author );
-                
-                resizeDom();
-                
-                $( window ).resize( function() {
-                    
-                    resizeDom();
-                    
-                } );
                 
                 sbplusTableOfContents.get( context, settings );
                 
@@ -166,6 +158,17 @@ var sbplus = ( function() {
                 }
                 
                 sbplusMenu.get( context );
+                
+                resizeDom();
+                $( window ).resize( function() {
+                    
+                    resizeDom();
+                    
+                } );
+                
+                $(window).on('zoom', function() {
+                console.log('zoom', window.devicePixelRatio);
+            });
                 
             } );
             
@@ -227,12 +230,28 @@ var sbplus = ( function() {
     
     function resizeDom() {
         
-        var notesHeight = $( window ).outerHeight() - ( $( '.main_content_wrapper .title_bar' ).outerHeight() + $( '.main_content .control_bar_wrapper' ).outerHeight() + $( '.main_content .container .content' ).outerHeight() ); 
+        var widowWidth = $( window ).outerWidth();
+        var windowHeight = $( window ).outerHeight();
+        var titleBarHeight = $( '.title_bar' ).outerHeight();
+        var controlBarHeight = $( '.control_bar_wrapper' ).outerHeight();
+        var slideHeight = $( '.container .content' ).outerHeight();
+        var sidePanelTopBarHeight = $( '.side_panel .topbar' ).outerHeight();
         
-        var contentHeight = ( 1 - ( $( '.main_content_wrapper .title_bar' ).outerHeight() / $( window ).outerHeight() ) ) * 100;
+        var notesHeight = windowHeight - ( titleBarHeight + controlBarHeight + slideHeight );
+        $( '.main_content' ).css( 'height', windowHeight - ( titleBarHeight + slideHeight ) );
+        $( '.main_content .notes' ).css( 'height', windowHeight - ( titleBarHeight + controlBarHeight + slideHeight ) );
         
-        $( '.main_content, .side_panel').css( 'height', contentHeight + '%' );
-        $( '.main_content .notes' ).css( 'height', notesHeight );
+        if ( widowWidth >= 888 ) {
+            
+            $( '.side_panel').css( 'margin-top', slideHeight * -1 );
+            $( '.tableOfContents').css( 'height', slideHeight + notesHeight + controlBarHeight - sidePanelTopBarHeight - 1 );
+            
+        } else {
+                
+            $( '.side_panel').css( 'margin-top', 0 );
+            $( '.tableOfContents').css( 'height', notesHeight + controlBarHeight - sidePanelTopBarHeight - 1 );
+            
+        }
         
     }
         

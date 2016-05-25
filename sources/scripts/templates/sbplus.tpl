@@ -12,35 +12,41 @@
             
         </div>
         
+        <div class="container aspect-ratio" aria-live="polite">
+            <div class="content"></div>
+        </div>
+        
         <div class="main_content">
             
-            <div class="container aspect-ratio" aria-live="polite">
-                <div class="content"></div>
+            <div class="left_side">
+                
+                <div class="notes">
+                    <div class="content"></div>
+                </div>
+                
+                <nav class="control_bar_wrapper">
+                    <button class="previous"><span class="icon-left"></span></button>
+                    <button class="next"><span class="icon-right"></span></button>
+                    <div class="status">Slide <span class="current">#</span> of <span class="total">#</span></div>
+                </nav>
+            
             </div>
-            <div class="notes">
-                <div class="content"></div>
+            
+            <!-- side bar -->
+        
+            <div class="side_panel">
+                
+                <div class="topbar">
+                    <div class="title">Table of Contents</div>
+                </div>
+                
+                <div class="tableOfContents"></div>
+                
             </div>
-            <nav class="control_bar_wrapper">
-                <button class="previous"><span class="icon-left"></span></button>
-                <button class="next"><span class="icon-right"></span></button>
-                <div class="status">Slide <span class="current">#</span> of <span class="total">#</span></div>
-            </nav>
+            
+            <!-- end side bar -->
             
         </div>
-        
-        <!-- side bar -->
-        
-        <div class="side_panel">
-            
-            <div class="topbar">
-                <div class="title">Table of Contents</div>
-            </div>
-            
-            <div class="tableOfContents"></div>
-            
-        </div>
-        
-        <!-- end side bar -->
         
         <!-- menu panel -->
         <nav id="menu_panel" class="hide" aria-expanded="false">

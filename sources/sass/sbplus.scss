@@ -335,10 +335,6 @@ noscript {
         } // end splashscreen
         
         .main_content_wrapper {
-                
-            @include display-flex( flex );
-            @include flex-direction( row );
-            @include flex-wrap( wrap );
             
             position: relative;
             height: 100%;
@@ -348,7 +344,6 @@ noscript {
                 @include display-flex( flex );
                 @include flex-direction( row );
                 @include flex-wrap( nowrap );
-                @include order( 1 );
                 
                 width: 100%;
                 height: 30px;
@@ -410,362 +405,372 @@ noscript {
                 
             }
             
+            .container {
+                    
+                @include order( 1 );
+                width: 64%;
+                
+                .slideError {
+                    
+                    position: absolute;
+                    width: 100%;
+                    top: 0;
+                    left: 0;
+                    color: #fff;
+                    padding: rem( $gutter );
+                    z-index: 1;
+                    background-color: #f00;
+                    
+                }
+                
+                .content {
+                    
+                    background-color: #000;
+                    
+                    img {
+                        width: 100%;
+                        height: auto;
+                    }
+                    
+                    // videojs
+                    .video-js.vjs-default-skin {
+                        
+                        width: 100%;
+                        height: 100%;
+                        font-size: 11px;
+                        color: #fff;
+                        
+                        .vjs-big-play-button {
+                            font-size: 3em;
+                            line-height: 1.5em;
+                            height: 1.5em;
+                            width: 3em;
+                            border: 0.06666em solid #fff;
+                            border-radius: 0.3em;
+                            left: 50%;
+                            top: 50%;
+                            margin-left: -1.5em;
+                            margin-top: -0.75em;
+                        }
+                        
+                        .vjs-menu {
+                            
+                            font-family: $default-font-family;
+                            
+                            .vjs-menu-content {
+                                
+                                .vjs-menu-item.vjs-selected {
+                                    position: relative;
+                                    color: #fff;
+                                    background-color: rgba( 255, 255, 255, 0.25);
+                                }
+                                
+                                .vjs-menu-item.vjs-selected:before {
+                                    position: absolute;
+                                    top: 3px;
+                                    top: rem( 3px );
+                                    left: 4px;
+                                    left: rem( 4px );
+                                    width: 10px;
+                                    width: rem( 10px );
+                                    height: 10px;
+                                    height: rem( 10px );
+                                    font-family: 'sbplus';
+                                    content: '\edba';
+                                    font-size: 10px;
+                                    font-size: rem( 10px );
+                                }
+                                
+                            }
+                            
+                        }
+                        
+                        /* subtitles button */
+                        .vjs-subtitles-button.vjs-menu-button-popup {
+                            
+                            .vjs-menu {
+                                left: -6em;
+                            }
+                            
+                        }
+                        
+                        /* resolution plugin */
+
+                        .vjs-resolution-button {
+                            font-family: VideoJS;
+                        }
+                        
+                        .vjs-resolution-button .vjs-resolution-button-staticlabel:before {
+                            content: '\f110';
+                            font-size: 1.8em;
+                            line-height: 1.67;
+                        }
+                        
+                        .vjs-resolution-button .vjs-resolution-button-label {
+                            font-size: 1.2em;
+                            line-height: 2.50em;
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            width: 100%;
+                            height: 100%;
+                            text-align: center;
+                            box-sizing: inherit;
+                        }
+                        
+                        .vjs-resolution-button ul.vjs-menu-content {
+                            width: 7em;
+                        }
+                        
+                        .vjs-resolution-button .vjs-menu {
+                            left: -1.8em;
+                        }
+                        
+                    }
+                    
+                }
+                
+            }
+            
+            .aspect-ratio {
+                
+                @include aspect-ratio( 16, 9 );
+                
+            }
+            
             .main_content {
                                 
                 @include display-flex( flex );
-                @include flex-direction( column );
+                @include flex-direction( row );
                 @include flex-wrap( nowrap );
-                @include order( 2 );
-                width: 64.2%;
-                height: 96.5%;
-                border: 1px solid $border-color;
-                border: rem( 1px ) solid $border-color;
-                border-top: none;
                 
-                .container {
-                    
-                    @include order( 1 );
-                    
-                    .slideError {
-                        
-                        position: absolute;
-                        width: 100%;
-                        top: 0;
-                        left: 0;
-                        color: #fff;
-                        padding: rem( $gutter );
-                        z-index: 1;
-                        background-color: #f00;
-                        
-                    }
-                    
-                    .content {
-                        
-                        background-color: #000;
-                        
-                        img {
-                            width: 100%;
-                            height: auto;
-                        }
-                        
-                        // videojs
-                        .video-js.vjs-default-skin {
-                            
-                            width: 100%;
-                            height: 100%;
-                            font-size: 11px;
-                            color: #fff;
-                            
-                            .vjs-big-play-button {
-                                font-size: 3em;
-                                line-height: 1.5em;
-                                height: 1.5em;
-                                width: 3em;
-                                border: 0.06666em solid #fff;
-                                border-radius: 0.3em;
-                                left: 50%;
-                                top: 50%;
-                                margin-left: -1.5em;
-                                margin-top: -0.75em;
-                            }
-                            
-                            .vjs-menu {
-                                
-                                font-family: $default-font-family;
-                                
-                                .vjs-menu-content {
-                                    
-                                    .vjs-menu-item.vjs-selected {
-                                        position: relative;
-                                        color: #fff;
-                                        background-color: rgba( 255, 255, 255, 0.25);
-                                    }
-                                    
-                                    .vjs-menu-item.vjs-selected:before {
-                                        position: absolute;
-                                        top: 3px;
-                                        top: rem( 3px );
-                                        left: 4px;
-                                        left: rem( 4px );
-                                        width: 10px;
-                                        width: rem( 10px );
-                                        height: 10px;
-                                        height: rem( 10px );
-                                        font-family: 'sbplus';
-                                        content: '\edba';
-                                        font-size: 10px;
-                                        font-size: rem( 10px );
-                                    }
-                                    
-                                }
-                                
-                            }
-                            
-                            /* subtitles button */
-                            .vjs-subtitles-button.vjs-menu-button-popup {
-                                
-                                .vjs-menu {
-                                    left: -6em;
-                                }
-                                
-                            }
-                            
-                            /* resolution plugin */
-
-                            .vjs-resolution-button {
-                                font-family: VideoJS;
-                            }
-                            
-                            .vjs-resolution-button .vjs-resolution-button-staticlabel:before {
-                                content: '\f110';
-                                font-size: 1.8em;
-                                line-height: 1.67;
-                            }
-                            
-                            .vjs-resolution-button .vjs-resolution-button-label {
-                                font-size: 1.2em;
-                                line-height: 2.50em;
-                                position: absolute;
-                                top: 0;
-                                left: 0;
-                                width: 100%;
-                                height: 100%;
-                                text-align: center;
-                                box-sizing: inherit;
-                            }
-                            
-                            .vjs-resolution-button ul.vjs-menu-content {
-                                width: 7em;
-                            }
-                            
-                            .vjs-resolution-button .vjs-menu {
-                                left: -1.8em;
-                            }
-                            
-                        }
-                        
-                    }
-                    
-                }
+                width: 100%;
+                border-bottom: rem( 1px ) solid $border-color;
                 
-                .aspect-ratio {
-                    
-                    @include aspect-ratio( 16, 9 );
-                    
-                }
-                
-                .notes {
-                    border-top: 1px solid $border-color;
-                    border-top: rem( 1px ) solid $border-color;
-                    @include order( 2 );
-                }
-                
-                .control_bar_wrapper {
+                .left_side {
                     
                     @include display-flex( flex );
                     @include flex-direction( row );
+                    @include flex-wrap( wrap );
+                    @include order( 1 );
                     
-                    height: 40px;
-                    height: rem( 40px );
-                    border-top: 1px solid $border-color;
-                    border-top: rem( 1px ) solid $border-color;
-                    @include order( 3 );
+                    width: 64%;
                     
-                    button {
+                    .notes {
+                        
+                        width: 100%;
+                        border-top: 1px solid $border-color;
+                        border-top: rem( 1px ) solid $border-color;
+                        
+                    }
+                    
+                    .control_bar_wrapper {
                         
                         @include display-flex( flex );
-                        color: $font-color;
-                        width: 60px;
-                        width: rem( 60px );
-                        text-align: center;
-                        @include justify-content( center );
-                        border-right: 1px solid $border-color;
-                        border-right: rem( 1px ) solid $border-color;
-                        background-color: transparent;
+                        @include flex-direction( row );
                         
-                    }
-                    
-                    button:hover {
+                        width: 100%;
+                        height: 40px;
+                        height: rem( 40px );
+                        border-top: 1px solid $border-color;
+                        border-top: rem( 1px ) solid $border-color;
                         
-                        color: $default-accent;
-                        
-                    }
-                    
-                    .status {
-                        
-                        font-weight: bold;
-                        padding: 13px 0 0 13px;
-                        padding: rem( 13px ) 0 0 rem( 13px );
-                        
-                    }
-                    
-                }
-                
-            } // end main content
-            
-            .side_panel {
-                
-                position: relative;
-                width: 35.8%;
-                height: 96.5%;
-                border-right: rem( 1px ) solid $border-color;
-                border-bottom: rem( 1px ) solid $border-color;
-                @include order( 3 );
-                
-                .topbar {
-                    
-                    height: 25px;     
-                    height: rem( 25px );
-                    background-color: #ececed;
-                    border-bottom: 2px solid $border-color;
-                    border-bottom: rem( 2px ) solid $border-color;
-                    
-                    .title {
-                        font-size: 14px;
-                        font-size: rem( 14px );
-                        font-weight: bold;
-                        color: #494949;
-                        padding: 4px 0 0 8px;
-                        padding: rem( 4px ) 0 0 rem( 8px );
-                    }
-                    
-                }
-                
-                .tableOfContents {
-                            
-                    height: 96%;
-                    overflow-y: auto;
-                    @include user-select( none );
-                    
-                    .section {
-                        
-                        .header {
+                        button {
                             
                             @include display-flex( flex );
-                            @include align-items( center );
+                            color: $font-color;
+                            width: 60px;
+                            width: rem( 60px );
+                            text-align: center;
                             @include justify-content( center );
-                            
-                            width: 100%;
-                            height: rem( 40px );
-                            background-color: #f2f2f2;
-                            font-size: 12px;
-                            font-size: rem( 12px );
-                            line-height: 16px;
-                            line-height: rem( 16px );
-                            color: #494949;
-                            cursor: pointer;
-                            border-bottom: 1px solid $border-color;
-                            border-bottom: rem( 1px ) solid $border-color;
-                            
-                            .title {
-                                width: 94%;
-                                padding: 0 8px;
-                                padding: 0 rem( 8px );
-                                font-weight: bold;
-                                margin-bottom: 0;
-                                @include excerpt( rem( 12px ), 1.2, 2, #f2f2f2 );
-                            }
-                            
-                            .expandCollapseIcon {
-                                width: 6%;
-                                min-width: 40px;
-                                min-width: rem( 40px );
-                                line-height: 0;
-                                text-align: center;
-                                padding-left: 1px;
-                                padding-left: rem( 1px );
-                            }
+                            border-right: 1px solid $border-color;
+                            border-right: rem( 1px ) solid $border-color;
+                            background-color: transparent;
                             
                         }
                         
-                        .header.current {
+                        button:hover {
                             
-                            color: #fff;
-                            background-color: #3b4381;
-                            
-                            .title {
-                                @include excerpt( rem( 12px ), 1.2, 2, #3b4381 );
-                            }
+                            color: $default-accent;
                             
                         }
                         
-                        .content {
+                        .status {
                             
-                            font-size: 12px;
-                            font-size: rem( 12px );
-                            line-height: 14px;
-                            line-height: rem( 14px );
-                            border-bottom: 1px solid $border-color;
-                            border-bottom: rem( 1px ) solid $border-color;
+                            font-weight: bold;
+                            padding: 13px 0 0 13px;
+                            padding: rem( 13px ) 0 0 rem( 13px );
                             
-                            ul {
-                                
-                                margin: 0;
-                                padding: 0;
-                                list-style: none;
-                                
-                                li {
-                                    
-                                    padding: 10px 0 10px 30px;
-                                    padding: rem( 10px ) 0 rem( 10px ) rem( 30px );
-                                    margin: 0;
-                                    cursor: pointer;
-                                    text-indent: -30px;
-                                    text-indent: rem( -30px );
-                                    
-                                    .num {
-                                        display: inline-block;
-                                        width: 17px;
-                                        width: rem( 17px );
-                                        margin-left: 10px;
-                                        margin-left: rem( 10px );
-                                        text-align: right;
-                                    }
-                                    
-                                    .icon-assessment {
-                                        display: inline-block;
-                                        width: 17px;
-                                        width: rem( 17px );
-                                        margin: 0 5px;
-                                        margin: 0 rem( 5px );
-                                        text-align: right;
-                                    }
-                                    
-                                }
-                                
-                                li.selected {
-                                    color: #fff;
-                                    background-color: $default-accent;
-                                }
-                                
-                                li:hover {
-                                    color: #fff;
-                                    background-color: #5c68d5;
-                                }
-                                
-                            }
-                            
-                        }
-                        
-                    }
-                    
-                    .section:last-child {
-                        
-                        .content {
-                            border-bottom: none;
                         }
                         
                     }
                     
                 }
                 
-            } // end side panel
+                .side_panel {
+                
+                    position: relative;
+                    width: 36%;
+                    border-left: rem( 1px ) solid $border-color;
+                    @include order( 2 );
+                    
+                    .topbar {
+                        
+                        height: 25px;     
+                        height: rem( 25px );
+                        background-color: #ececed;
+                        border-bottom: 2px solid $border-color;
+                        border-bottom: rem( 2px ) solid $border-color;
+                        
+                        .title {
+                            font-size: 14px;
+                            font-size: rem( 14px );
+                            font-weight: bold;
+                            color: #494949;
+                            padding: 4px 0 0 8px;
+                            padding: rem( 4px ) 0 0 rem( 8px );
+                        }
+                        
+                    }
+                    
+                    .tableOfContents {
+                                
+                        height: 97.3%;
+                        overflow-y: auto;
+                        @include user-select( none );
+                        
+                        .section {
+                            
+                            .header {
+                                
+                                @include display-flex( flex );
+                                @include align-items( center );
+                                @include justify-content( center );
+                                
+                                width: 100%;
+                                height: rem( 40px );
+                                background-color: #f2f2f2;
+                                font-size: 12px;
+                                font-size: rem( 12px );
+                                line-height: 16px;
+                                line-height: rem( 16px );
+                                color: #494949;
+                                cursor: pointer;
+                                border-bottom: 1px solid $border-color;
+                                border-bottom: rem( 1px ) solid $border-color;
+                                
+                                .title {
+                                    width: 94%;
+                                    padding: 0 8px;
+                                    padding: 0 rem( 8px );
+                                    font-weight: bold;
+                                    margin-bottom: 0;
+                                    @include excerpt( rem( 12px ), 1.2, 2, #f2f2f2 );
+                                }
+                                
+                                .expandCollapseIcon {
+                                    width: 6%;
+                                    min-width: 40px;
+                                    min-width: rem( 40px );
+                                    line-height: 0;
+                                    text-align: center;
+                                    padding-left: 1px;
+                                    padding-left: rem( 1px );
+                                }
+                                
+                            }
+                            
+                            .header.current {
+                                
+                                color: #fff;
+                                background-color: #3b4381;
+                                
+                                .title {
+                                    @include excerpt( rem( 12px ), 1.2, 2, #3b4381 );
+                                }
+                                
+                            }
+                            
+                            .content {
+                                
+                                font-size: 12px;
+                                font-size: rem( 12px );
+                                line-height: 14px;
+                                line-height: rem( 14px );
+                                border-bottom: 1px solid $border-color;
+                                border-bottom: rem( 1px ) solid $border-color;
+                                background-color: #fff;
+                                
+                                ul {
+                                    
+                                    margin: 0;
+                                    padding: 0;
+                                    list-style: none;
+                                    
+                                    li {
+                                        
+                                        padding: 10px 0 10px 30px;
+                                        padding: rem( 10px ) 0 rem( 10px ) rem( 30px );
+                                        margin: 0;
+                                        cursor: pointer;
+                                        text-indent: -30px;
+                                        text-indent: rem( -30px );
+                                        
+                                        .num {
+                                            display: inline-block;
+                                            width: 17px;
+                                            width: rem( 17px );
+                                            margin-left: 10px;
+                                            margin-left: rem( 10px );
+                                            text-align: right;
+                                        }
+                                        
+                                        .icon-assessment {
+                                            display: inline-block;
+                                            width: 17px;
+                                            width: rem( 17px );
+                                            margin: 0 5px;
+                                            margin: 0 rem( 5px );
+                                            text-align: right;
+                                        }
+                                        
+                                    }
+                                    
+                                    li.selected {
+                                        color: #fff;
+                                        background-color: $default-accent;
+                                    }
+                                    
+                                    li:hover {
+                                        color: #fff;
+                                        background-color: #5c68d5;
+                                    }
+                                    
+                                }
+                                
+                            }
+                            
+                        }
+                        
+                        .section:last-child {
+                            
+                            .content {
+                                border-bottom: none;
+                            }
+                            
+                        }
+                        
+                    }
+                    
+                } // end side panel
+                
+            } // end main content
             
             #menu_panel {
                 
                 position: absolute;
-                width: 35.8%;
-                height: 99.9%;
+                width: 36%;
+                height: 100%;
                 top: 0;
                 right: 0;
                 background-color: $border-color;
@@ -954,6 +959,49 @@ noscript {
     } // end sbplus
     
 } // end sbplus_wrapper
+
+@media screen and (orientation: portrait) {
+    
+    .sbplus_wrapper {
+        
+        // main storybook
+        .sbplus {
+            
+            .main_content_wrapper {
+                
+                .container {
+                    width: 100%;
+                }
+                
+            } // end main content wrapper
+            
+        } // end sbplus
+        
+    } // end sbplus_wrapper
+  
+}
+
+@media screen and (max-width: 888px) {
+    
+    .sbplus_wrapper {
+        
+        // main storybook
+        .sbplus {
+            
+            .main_content_wrapper {
+                
+                .container {
+                    width: 100%;
+                }
+                
+            } // end main content wrapper
+            
+        } // end sbplus
+        
+    } // end sbplus_wrapper
+  
+}
+
 
 /**************************
     MISC./HELPER RULES
