@@ -142,11 +142,11 @@ var sbplus = ( function() {
                 $( '.title_bar .title' ).html( context.title );
                 $( '.author' ).html( context.author );
                 
-                _resizeDom();
+                resizeDom();
                 
                 $( window ).resize( function() {
                     
-                    _resizeDom();
+                    resizeDom();
                     
                 } );
                 
@@ -225,7 +225,7 @@ var sbplus = ( function() {
         
     }
     
-    function _resizeDom() {
+    function resizeDom() {
         
         var notesHeight = $( window ).outerHeight() - ( $( '.main_content_wrapper .title_bar' ).outerHeight() + $( '.main_content .control_bar_wrapper' ).outerHeight() + $( '.main_content .container .content' ).outerHeight() ); 
         
@@ -238,7 +238,8 @@ var sbplus = ( function() {
         
     return {
         
-        render: renderPresentation
+        render: renderPresentation,
+        resize: resizeDom
         
     };
     

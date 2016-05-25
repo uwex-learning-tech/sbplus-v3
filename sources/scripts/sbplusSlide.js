@@ -86,6 +86,7 @@ var sbplusSlide = ( function() {
     function _renderMedia() {
         
         var slideImg = '';
+        
         $container = $( '.main_content .container .content' );
         
         switch ( pageType ) {
@@ -223,8 +224,6 @@ var sbplusSlide = ( function() {
         var options = {
             
             techOrder: ["html5"],
-            width: 640,
-            height: 360,
             controls: true,
             autoplay: Number( $.fn.getCookie( 'sbplus-vjs-autoplay' ) ) === 1 ? true : false,
             preload: "auto",

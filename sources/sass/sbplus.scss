@@ -425,7 +425,6 @@ noscript {
                 .container {
                     
                     @include order( 1 );
-                    @include aspect-ratio( 16, 9 );
                     
                     .slideError {
                         
@@ -546,6 +545,12 @@ noscript {
                         }
                         
                     }
+                    
+                }
+                
+                .aspect-ratio {
+                    
+                    @include aspect-ratio( 16, 9 );
                     
                 }
                 

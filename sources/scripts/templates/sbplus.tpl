@@ -14,7 +14,7 @@
         
         <div class="main_content">
             
-            <div class="container" aria-live="polite">
+            <div class="container aspect-ratio" aria-live="polite">
                 <div class="content"></div>
             </div>
             <div class="notes">
