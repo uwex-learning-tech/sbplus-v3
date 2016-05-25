@@ -173,7 +173,7 @@ var sbplusSlide = ( function() {
     
         kWidget.getSources( {
     
-            'partnerId': 1660872,
+            'partnerId': manifest.sbplus_kaltura.id,
             'entryId': fileName,
             'callback': function( data ) {
     
@@ -185,19 +185,19 @@ var sbplusSlide = ( function() {
     
                     var source = data.sources[i];
     
-                    if ( source.flavorParamsId === 487061 ) {
+                    if ( source.flavorParamsId === manifest.sbplus_kaltura.low ) {
     
                         flavors.low = source.src;
     
                     }
     
-                    if ( source.flavorParamsId === 487071 ) {
+                    if ( source.flavorParamsId === manifest.sbplus_kaltura.normal ) {
     
                         flavors.normal = source.src;
     
                     }
     
-                    if ( source.flavorParamsId === 487081 ) {
+                    if ( source.flavorParamsId === manifest.sbplus_kaltura.high ) {
     
                         flavors.high = source.src;
     

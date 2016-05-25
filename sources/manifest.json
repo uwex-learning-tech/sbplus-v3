@@ -6,6 +6,8 @@
     "display": "standalone",
     "orientation": "landscape",
     "sbplus_root_directory": "../sources/",
-    "sbplus_splash_directory": "https://media.uwex.edu/content/media/storybook_support/splash/"
+    "sbplus_splash_directory": "https://media.uwex.edu/content/media/storybook_support/splash/",
+    "sbplus_kaltura": { "id": 1660872, "high": 487081, "normal": 487071, "low": 487061 }
+    
     
 }
