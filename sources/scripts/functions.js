@@ -103,6 +103,8 @@ $.fn.colorLum = function( hex, lum ) {
 
 $.fn.setCookie = function( cname, cvalue, exdays ) {
     
+    exdays = typeof exdays !== 'undefined' ? exdays : 30;
+    
     var d = new Date();
     
     d.setTime( d.getTime() + ( exdays * 24 * 60 * 60 * 1000 ) );
