@@ -28,6 +28,8 @@ var sbplusSlide = ( function() {
     var kalturaLoaded = 0;
     var flavors = {};
     var isKaltura = false;
+    var isYoutube = false;
+    var isVimeo = false;
     
     var timeoutCookie;
     
@@ -58,19 +60,19 @@ var sbplusSlide = ( function() {
         fileName = pageType !== 'quiz' ? $( slide ).attr( 'src' ) : '';
         
         // resets
+        _removeSlideErrorMsg();
         if ( mediaPlayer !== null ) {
             
+            isKaltura = false;
+            isYoutube = false;
+            isVimeo = false;
             mediaPlayer.dispose();
             mediaPlayer = null;
-            isKaltura = false;
             
         }
         
-        _removeSlideErrorMsg();
-        
-        // new "instance"
-        
         _renderMedia();
+        
         sbplusTableOfContents.update( s, p );
         
         // update cookie value for resume after a delay
@@ -86,26 +88,16 @@ var sbplusSlide = ( function() {
     function _renderMedia() {
         
         var slideImg = '';
+        
         $container = $( '.container .content' );
         
         switch ( pageType ) {
             
             case 'audio':
-            case 'video':
-                
-                if ( pageType === 'video' ) {
-                    
-                    directory = 'assets/video/';
-                    mediaMime = 'video/mp4';
-                    mediaFormat = '.mp4';
-                    
-                } else {
-                    
-                    directory = 'assets/audio/';
-                    mediaMime = 'audio/mp3';
-                    mediaFormat = '.mp3';
-                    
-                }
+ 
+                directory = 'assets/audio/';
+                mediaMime = 'audio/mp3';
+                mediaFormat = '.mp3';
                 
                 $.get( 'assets/slide/' + fileName + '.' + imgFormat, function() {
                     
@@ -113,11 +105,7 @@ var sbplusSlide = ( function() {
                     
                 } ).fail( function() {
                     
-                    if ( pageType === 'audio' ) {
-                    
-                        $container.before( '<div class="slideError">Slide image not found!<br>Expected image: assets/slide/' + fileName + '.' + imgFormat + '</div>' );
-                        
-                    }
+                    $container.before( '<div class="slideError">Slide image not found!<br>Expected image: assets/slide/' + fileName + '.' + imgFormat + '</div>' );
                 
                 } ).always( function() {
                     
@@ -129,12 +117,34 @@ var sbplusSlide = ( function() {
                         
                     $container.html( '<video id="ap" class="video-js vjs-default-skin" poster="' + slideImg + '\">' + subtitles + '</video>' ).promise().done( function() {
                     
-                            _renderVideoJsPlayer( 'ap' );
+                            _renderVideoJsPlayer();
                     
                         } );
                     
                     } );
                     
+                } );
+                
+            break;
+            
+            case 'video':
+                    
+                directory = 'assets/video/';
+                mediaMime = 'video/mp4';
+                mediaFormat = '.mp4';
+                
+                $.get( directory + fileName + '.vtt', function() {
+                    
+                    subtitles = '<track kind="subtitles" label="English" srclang="en" src="' + directory + fileName + '.vtt" ' + ( subtitlesOn === true ? 'default' : '' ) + ' />';
+                
+                } ).always( function() {
+                    
+                $container.html( '<video id="ap" class="video-js vjs-default-skin">' + subtitles + '</video>' ).promise().done( function() {
+                
+                        _renderVideoJsPlayer();
+                
+                    } );
+                
                 } );
                 
             break;
@@ -148,7 +158,6 @@ var sbplusSlide = ( function() {
                         $.getScript( manifest.sbplus_root_directory +  '/scripts/libs/kaltura/kwidgetgetsources.js', function() {
         
                             kalturaLoaded = 1;
-                            
                             _loadKalturaVideoData();
                     
                         } );
@@ -163,6 +172,27 @@ var sbplusSlide = ( function() {
             
             break;
             
+            case 'youtube':
+            case 'vimeo':
+                
+                if ( pageType === 'youtube' ) {
+                    
+                    isYoutube = true;
+                    
+                } else {
+                    
+                    isVimeo = true;
+                    
+                }
+                
+                $container.html( '<video id="ap" class="video-js vjs-default-skin"></video>' ).promise().done( function() {
+                    
+                    _renderVideoJsPlayer();
+                
+                } );
+                
+            break;
+            
         }
         
     }
@@ -170,6 +200,8 @@ var sbplusSlide = ( function() {
     function _loadKalturaVideoData() {
         
         var entryId, captionId, videoDuration;
+        
+        isKaltura = true;
     
         kWidget.getSources( {
     
@@ -207,8 +239,7 @@ var sbplusSlide = ( function() {
                 
                 $container.html( '<video id="ap" class="video-js vjs-default-skin" crossorigin="anonymous"><track kind="subtitles" label="English" srclang="en" src="https://www.kaltura.com/api_v3/?service=caption_captionasset&action=servewebvtt&captionAssetId=' + captionId + '&segmentDuration=' + videoDuration + '&segmentIndex=1" ' + ( subtitlesOn === true ? 'default' : '' ) + ' /></video>' ).promise().done( function() {
                     
-                    isKaltura = true;
-                    _renderVideoJsPlayer( 'ap' );
+                    _renderVideoJsPlayer();
             
                 } );
                 
@@ -218,7 +249,7 @@ var sbplusSlide = ( function() {
         
     }
     
-    function _renderVideoJsPlayer( playerID ) {
+    function _renderVideoJsPlayer() {
         
         var options = {
             
@@ -229,26 +260,30 @@ var sbplusSlide = ( function() {
             playbackRates: [0.5, 1, 1.5, 2],
             controlBar: {
                 fullscreenToggle: false
-            },
-            plugins: {}
+            }
     
         };
         
-        switch ( playerID ) {
+        if ( isKaltura ) {
+                
+            options.plugins = { videoJsResolutionSwitcher: { 'default': 720 } };
             
-            case 'ap':
-                
-                if ( isKaltura ) {
-                
-                    options.plugins = { videoJsResolutionSwitcher: { 'default': 720 } };
-                    
-                }
-                
-            break;
+        } else if ( isYoutube ) {
+            
+            options.techOrder = ["youtube"];
+            options.sources = [{ type: "video/youtube", src: "https://www.youtube.com/watch?v=" + fileName }];
+            options.playbackRates = null;
+            options.plugins = { videoJsResolutionSwitcher: { 'default': 720 } };
+            
+        } else if ( isVimeo ) {
+            
+            options.techOrder = ["vimeo"];
+            options.sources = [{ type: "video/vimeo", src: "https://vimeo.com/" + fileName }];
+            options.playbackRates = null;
             
         }
         
-        mediaPlayer = videojs( playerID, options, function() {
+        mediaPlayer = videojs( 'ap', options, function() {
             
             var player = this;
             
@@ -276,12 +311,31 @@ var sbplusSlide = ( function() {
         		
         	} else {
             	
-            	player.src( { type: mediaMime, src: directory + fileName + mediaFormat } );
+            	if ( isYoutube === false && isVimeo === false ) {
+                	
+                	player.src( { type: mediaMime, src: directory + fileName + mediaFormat } );
+                	
+                }
+            	
+        	}
+        	
+        	if ( isVimeo ) {
+            	
+            	if ( options.autoplay ) {
+                	
+                	player.play();
+                	
+            	}
             	
         	}
             
             // settings
-            player.playbackRate( $.fn.getCookie( 'sbplus-vjs-playbackrate' ) );
+            if ( options.playbackRates !== null ) {
+                
+                player.playbackRate( $.fn.getCookie( 'sbplus-vjs-playbackrate' ) );
+                
+            }
+            
             player.volume( Number( $.fn.getCookie( 'sbplus-vjs-volume' ) ) );
             
             player.textTracks().addEventListener( 'change', function() {
@@ -304,8 +358,6 @@ var sbplusSlide = ( function() {
                 } );
                 
             } );
-            
-            //sbplus.resize();
                 
         } );
         

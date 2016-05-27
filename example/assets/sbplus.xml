@@ -165,6 +165,14 @@
             <note />
         </page>
         
+        <page type="youtube" src="rAubpv_5DYM" title="Video from YouTube">
+            <note />
+        </page>
+        
+        <page type="vimeo" src="167409747" title="Video from Vimeo">
+            <note />
+        </page>
+        
     </section>
     
 </storybook>

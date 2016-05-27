@@ -159,16 +159,13 @@ var sbplus = ( function() {
                 
                 sbplusMenu.get( context );
                 
+                // resize DOM
                 resizeDom();
                 $( window ).resize( function() {
                     
                     resizeDom();
                     
                 } );
-                
-                $(window).on('zoom', function() {
-                console.log('zoom', window.devicePixelRatio);
-            });
                 
             } );
             

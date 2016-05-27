@@ -18,11 +18,11 @@ THE SOFTWARE. */
 /*global define, YT*/
 (function (root, factory) {
   if(typeof define === 'function' && define.amd) {
-    define(['video.js'], function(videojs){
+    define(['videojs'], function(videojs){
       return (root.Youtube = factory(videojs));
     });
   } else if(typeof module === 'object' && module.exports) {
-    module.exports = (root.Youtube = factory(require('video.js')));
+    module.exports = factory(require('video.js'));
   } else {
     root.Youtube = factory(root.videojs);
   }
@@ -549,7 +549,11 @@ THE SOFTWARE. */
   };
 
   Youtube.canPlaySource = function(e) {
-    return (e.type === 'video/youtube');
+    return Youtube.canPlayType(e.type);
+  };
+
+  Youtube.canPlayType = function(e) {
+    return (e === 'video/youtube');
   };
 
   var _isOnMobile = /(iPad|iPhone|iPod|Android)/g.test(navigator.userAgent);

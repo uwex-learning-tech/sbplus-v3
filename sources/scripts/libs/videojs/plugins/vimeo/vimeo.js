@@ -354,11 +354,11 @@ THE SOFTWARE. */
 
   function injectCss() {
     var css = // iframe blocker to catch mouse events
-              '.vjs-vimeo { overflow: hidden }' +
+              '.vjs-vimeo { overflow: hidden; height:100%; }' +
               '.vjs-vimeo .vjs-iframe-blocker { display: none; }' +
               '.vjs-vimeo.vjs-user-inactive .vjs-iframe-blocker { display: block; }' +
               '.vjs-vimeo .vjs-poster { background-size: cover; }' +
-              '.vimeoplayer {display:block; width:638px; height:558px; margin:0 auto;margin-top:-150px;}';
+              '.vimeoplayer { width:100%; height:180%; position:absolute; left:0; top:-40%; }';
 
     var head = document.head || document.getElementsByTagName('head')[0];
 
@@ -655,4 +655,3 @@ THE SOFTWARE. */
 
   })();
 })();
-
