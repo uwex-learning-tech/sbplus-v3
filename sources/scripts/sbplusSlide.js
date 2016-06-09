@@ -87,14 +87,33 @@ var sbplusSlide = ( function() {
     
     function _renderMedia() {
         
-        var slideImg = '';
-        
         $container = $( '.page_container .content' );
         
         switch ( pageType ) {
             
+            case 'image':
+                
+                var img = new Image();
+        
+                $( img ).load( function() {
+    
+                    $container.html( img );
+    
+                } ).error( function() {
+    
+                    $container.before( '<div class="slideError">Slide image not found!<br>Expected image: assets/slide/' + fileName + '.' + imgFormat + '</div>' );
+    
+                } ).attr( {
+                    'src': 'assets/slide/' + fileName + '.' + imgFormat,
+                    'border': 0
+                } );
+                
+            break;
+            
             case 'audio':
- 
+                
+                var slideImg = '';
+                
                 directory = 'assets/audio/';
                 mediaMime = 'audio/mp3';
                 mediaFormat = '.mp3';

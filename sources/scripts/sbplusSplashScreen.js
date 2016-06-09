@@ -119,7 +119,7 @@ var sbplusSplashScreen = ( function () {
         $( '.splashinfo .length' ).html( context.length );
         $( '.splashinfo .startBtn' ).css( 'background-color', settings.accent );
         
-        if ( navigator.cookieEnabled && $.fn.checkValueInCookie( 'sbplus-' + $.fn.getRootDirectory() ) ) {
+        if ( navigator.cookieEnabled && $.fn.hasCookieValue( 'sbplus-' + $.fn.getRootDirectory() ) ) {
             
             $( '.splashinfo .resumeBtn' ).css( 'background-color', settings.accent )
                                          .removeClass( 'hide' );

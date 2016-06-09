@@ -148,7 +148,7 @@ $.fn.deleteCookie = function( cname ) {
     
 };
 
-$.fn.checkValueInCookie = function( cname ) {
+$.fn.hasCookieValue = function( cname ) {
     
     var name = $.fn.getCookie( cname );
     

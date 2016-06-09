@@ -173,6 +173,10 @@
             <note />
         </page>
         
+        <page type="image" src="slide03" title="Image from Assets Directory">
+            <note />
+        </page>
+        
     </section>
     
 </storybook>

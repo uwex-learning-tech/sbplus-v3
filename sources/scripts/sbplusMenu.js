@@ -6,6 +6,7 @@ var sbplusMenu = ( function() {
     
     var context;
     var manifest;
+    var settingLoaded = '';
     
     function get( _manifest, _context ) {
         
@@ -62,6 +63,7 @@ var sbplusMenu = ( function() {
     
         var title, content; 
         var selector = '#' + this.id;
+        var self = this;
         
         switch ( selector ) {
         
@@ -89,7 +91,21 @@ var sbplusMenu = ( function() {
             case '#showSettings':
                 
                 title = 'Settings';
-                content = '<p>Settings go here...</p>';
+                
+                if ( settingLoaded.length === 0 ) {
+                    
+                    $.get( manifest.sbplus_root_directory + 'scripts/templates/settings.tpl', function( data ) {
+                    
+                        settingLoaded = data;
+                        renderMenuItemDetails( self, title, data );
+                        
+                    } );
+                    
+                } else {
+                    
+                    content = settingLoaded;
+                    
+                }
                 
             break;
             
@@ -104,7 +120,7 @@ var sbplusMenu = ( function() {
         
         if ( title !== '' && content !== '' ) {
             
-            renderMenuItemDetails( this, title, content );
+            renderMenuItemDetails( self, title, content );
             
         }
         

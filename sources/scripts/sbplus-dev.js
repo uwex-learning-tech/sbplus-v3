@@ -190,7 +190,7 @@ var sbplus = ( function() {
         sbplusSplashScreen.get( manifest, context, settings );
         sbplusControls.init( context.section, settings );
         
-        _loadVideoJS();
+        _initVJSCookies();
         
     }
     
@@ -200,28 +200,51 @@ var sbplus = ( function() {
         
     }
     
-    function _loadVideoJS() {
-        
-        var j = document.createElement('script');
-        j.type = 'text/javascript';
-        j.src = manifest.sbplus_root_directory + 'scripts/libs/videojs/video.js';
-        document.getElementsByTagName('head')[0].appendChild(j);
-        
-        var ls = document.createElement('link');
-        ls.rel= 'stylesheet';
-        ls.href= manifest.sbplus_root_directory + 'scripts/libs/videojs/video-js.min.css';
-        document.getElementsByTagName('head')[0].appendChild(ls);
-        
-        _initVJSCookies();
-        
-    }
-    
     function _initVJSCookies() {
         
-        $.fn.setCookie( 'sbplus-vjs-autoplay', 1 );
-        $.fn.setCookie( 'sbplus-vjs-volume', 0.8 );
-        $.fn.setCookie( 'sbplus-vjs-playbackrate', 1 );
-        $.fn.setCookie( 'sbplus-vjs-enabledSubtitles', 0 );
+        // set autoplay
+        if ( $.fn.hasCookieValue('sbplus-vjs-autoplay') ) {
+            
+            $.fn.setCookie( 'sbplus-vjs-autoplay', $.fn.getCookie('sbplus-vjs-autoplay') );
+            
+        } else {
+            
+            $.fn.setCookie( 'sbplus-vjs-autoplay', 1 );
+            
+        }
+        
+        // set volume level
+        if ( $.fn.hasCookieValue('sbplus-vjs-volume') ) {
+            
+            $.fn.setCookie( 'sbplus-vjs-volume', $.fn.getCookie('sbplus-vjs-volume') );
+            
+        } else {
+            
+            $.fn.setCookie( 'sbplus-vjs-volume', 0.8 );
+            
+        }
+        
+        // set playback rate
+        if ( $.fn.hasCookieValue('sbplus-vjs-playbackrate') ) {
+            
+            $.fn.setCookie( 'sbplus-vjs-playbackrate', $.fn.getCookie('sbplus-vjs-playbackrate') );
+            
+        } else {
+            
+            $.fn.setCookie( 'sbplus-vjs-playbackrate', 1 );
+            
+        }
+        
+        // display subtitle
+        if ( $.fn.hasCookieValue('sbplus-vjs-enabledSubtitles') ) {
+            
+            $.fn.setCookie( 'sbplus-vjs-enabledSubtitles', $.fn.getCookie('sbplus-vjs-enabledSubtitles') );
+            
+        } else {
+            
+            $.fn.setCookie( 'sbplus-vjs-enabledSubtitles', 0 );
+            
+        }
         
     }
     

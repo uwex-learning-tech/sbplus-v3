@@ -946,6 +946,51 @@ noscript {
                         p:first-child {
                             margin-top: 8px;
                             margin-top: rem( 8px );
+                            margin-bottom: 0;
+                        }
+                        
+                        .sbplus_settings {
+                            
+                            .grid {
+                                
+                                @include display-flex();
+                                @include flex-flow(column nowrap);
+                                
+                                .row {
+                                    
+                                    @include display-flex();
+                                    @include flex-flow(row wrap);
+                                    padding: 10px;
+                                    
+                                    .label {
+                                        @include flex(2 1 85%);
+                                    }
+                                    
+                                    .control {
+                                        
+                                        @include flex(1 1 15%);
+                                        
+                                        select, input {
+                                            width: 100%;
+                                        }
+                                        
+                                    }
+                                    
+                                }
+                                
+                                .row:nth-child(even) {
+                                    background-color: #f2f2f2;
+                                }
+                                
+                            }
+                            
+                            button {
+                                font-size: rem( 14px );
+                                margin: rem( $gutter ) 0;
+                                background-color: $default-accent;
+                                padding: 8px 20px;
+                            }
+                            
                         }
                         
                     }
