@@ -231,12 +231,12 @@ var sbplus = ( function() {
         var windowHeight = $( window ).outerHeight();
         var titleBarHeight = $( '.title_bar' ).outerHeight();
         var controlBarHeight = $( '.control_bar_wrapper' ).outerHeight();
-        var slideHeight = $( '.container .content' ).outerHeight();
+        var slideHeight = $( '.page_container .content' ).outerHeight();
         var sidePanelTopBarHeight = $( '.side_panel .topbar' ).outerHeight();
         
         var notesHeight = windowHeight - ( titleBarHeight + controlBarHeight + slideHeight );
-        $( '.main_content' ).css( 'height', windowHeight - ( titleBarHeight + slideHeight ) );
-        $( '.main_content .notes' ).css( 'height', windowHeight - ( titleBarHeight + controlBarHeight + slideHeight ) );
+        $( '.widget_container' ).css( 'height', windowHeight - ( titleBarHeight + slideHeight ) );
+        $( '.widget_container .notes' ).css( 'height', windowHeight - ( titleBarHeight + controlBarHeight + slideHeight ) );
         
         if ( widowWidth >= 888 ) {
             

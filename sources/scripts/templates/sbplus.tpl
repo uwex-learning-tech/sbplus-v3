@@ -12,11 +12,15 @@
             
         </div>
         
-        <div class="container aspect-ratio" aria-live="polite">
+        <!-- page/slide container -->
+        
+        <div class="page_container aspect-ratio" aria-live="polite">
             <div class="content"></div>
         </div>
         
-        <div class="main_content">
+        <div class="widget_container">
+            
+            <!-- notes & controls -->
             
             <div class="left_side">
                 

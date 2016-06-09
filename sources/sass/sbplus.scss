@@ -405,7 +405,7 @@ noscript {
                 
             }
             
-            .container {
+            .page_container {
                     
                 @include order( 1 );
                 width: 64%;
@@ -538,7 +538,7 @@ noscript {
                 
             }
             
-            .main_content {
+            .widget_container {
                                 
                 @include display-flex( flex );
                 @include flex-direction( row );
@@ -973,7 +973,7 @@ noscript {
             
             .main_content_wrapper {
                 
-                .container {
+                .page_container {
                     width: 100%;
                 }
                 
@@ -994,7 +994,7 @@ noscript {
             
             .main_content_wrapper {
                 
-                .container {
+                .page_container {
                     width: 100%;
                 }
                 

@@ -89,7 +89,7 @@ var sbplusSlide = ( function() {
         
         var slideImg = '';
         
-        $container = $( '.container .content' );
+        $container = $( '.page_container .content' );
         
         switch ( pageType ) {
             
