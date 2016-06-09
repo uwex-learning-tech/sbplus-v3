@@ -774,8 +774,10 @@ noscript {
                 top: 0;
                 right: 0;
                 background-color: $border-color;
+                border-bottom: 1px solid $border-color;
+                border-bottom: rem( 1px ) solid $border-color;
                 z-index: 1;
-                overflow-x: hidden;
+                overflow: hidden;
                 
                 .menu_bar {
                     
@@ -885,6 +887,8 @@ noscript {
                     right: -258px;
                     right: rem( -258px );   
                     background-color: #fff;
+                    border-left: 1px solid $border-color;
+                    border-left: rem( 1px ) solid $border-color;
                     
                     .navbar {
                                 

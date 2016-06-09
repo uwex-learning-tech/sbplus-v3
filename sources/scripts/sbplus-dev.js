@@ -157,7 +157,7 @@ var sbplus = ( function() {
                     
                 }
                 
-                sbplusMenu.get( context );
+                sbplusMenu.get( manifest, context );
                 
                 // resize DOM
                 resizeDom();

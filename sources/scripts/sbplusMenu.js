@@ -5,9 +5,11 @@
 var sbplusMenu = ( function() {
     
     var context;
+    var manifest;
     
-    function get( _context ) {
+    function get( _manifest, _context ) {
         
+        manifest = _manifest;
         context = _context;
         _render();
         
@@ -80,7 +82,7 @@ var sbplusMenu = ( function() {
             case '#showHelp':
                 
                 title = 'Help';
-                content = '<p>Help information go here...</p>';
+                content = manifest.sbplus_help_information;
                 
             break;
             
