@@ -29,9 +29,20 @@
                 </div>
                 
                 <nav class="control_bar_wrapper">
-                    <button class="previous"><span class="icon-left"></span></button>
-                    <button class="next"><span class="icon-right"></span></button>
+                    <div class="left_controls">
+                        <button class="previous"><span class="icon-left"></span></button>
+                        <button class="next"><span class="icon-right"></span></button>
+                    </div>
                     <div class="status">Slide <span class="current">#</span> of <span class="total">#</span></div>
+                    <div class="right_controls">
+                        <button class="downloadsBtn"><span class="icon-download"></span> Downloads</button>
+                        <div class="expandOnly hide">
+                            <button class="tocBtn"><span class="icon-table-of-content"></span></button>
+                            <button class="notesBtn"><span class="icon-notes"></span></button>
+                        </div>
+                        <button class="expandContractBtn"><span class="icon-expand"></span></button>
+                        <button class="popoutBtn hide"><span class="icon-popout"></span></button>
+                    </div>
                 </nav>
             
             </div>

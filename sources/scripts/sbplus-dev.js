@@ -263,12 +263,12 @@ var sbplus = ( function() {
         
         if ( widowWidth >= 888 ) {
             
-            $( '.side_panel').css( 'margin-top', slideHeight * -1 );
+            $( '.side_panel').css( {'margin-top': slideHeight * -1, 'border-top': 'none'} );
             $( '.tableOfContents').css( 'height', slideHeight + notesHeight + controlBarHeight - sidePanelTopBarHeight - 1 );
             
         } else {
                 
-            $( '.side_panel').css( 'margin-top', 0 );
+            $( '.side_panel').css( {'margin-top': 0, 'border-top': '1px solid #ccc'} );
             $( '.tableOfContents').css( 'height', notesHeight + controlBarHeight - sidePanelTopBarHeight - 1 );
             
         }

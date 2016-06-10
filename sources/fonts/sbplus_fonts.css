@@ -1,10 +1,10 @@
 @font-face {
     font-family: 'sbplus';
-    src:    url('sbplus.eot?2t7fff');
-    src:    url('sbplus.eot?2t7fff#iefix') format('embedded-opentype'),
-        url('sbplus.ttf?2t7fff') format('truetype'),
-        url('sbplus.woff?2t7fff') format('woff'),
-        url('sbplus.svg?2t7fff#sbplus') format('svg');
+    src:    url('sbplus.eot?fbtzap');
+    src:    url('sbplus.eot?fbtzap#iefix') format('embedded-opentype'),
+        url('sbplus.ttf?fbtzap') format('truetype'),
+        url('sbplus.woff?fbtzap') format('woff'),
+        url('sbplus.svg?fbtzap#sbplus') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -78,4 +78,6 @@
 .icon-left:before {
     content: "\edc2";
 }
-
+.icon-popout:before {
+    content: "\ea7e";
+}
