@@ -18,11 +18,11 @@ var sbplusMenu = ( function() {
     
     function _render() {
         
-        bindMenuEvents();
+        _bindMenuEvents();
         
     }
     
-    function bindMenuEvents() {
+    function _bindMenuEvents() {
  
         $( '.menuBtn' ).on( 'click', function() {
         
@@ -36,7 +36,7 @@ var sbplusMenu = ( function() {
         
         $( '.backBtn' ).on( 'click', function() {
         
-            renderMenuItemDetails();
+            _renderMenuItemDetails();
             
             return false;
         
@@ -47,21 +47,21 @@ var sbplusMenu = ( function() {
             $( '.menuBtn' ).attr( 'aria-expanded', 'false' );
             $( '#menu_panel' ).addClass( 'hide' ).attr( 'aria-expanded', 'false' );
             
-            renderMenuItemDetails();
+            _renderMenuItemDetails();
             return false;
         
         } );
         
-        $( '#showProfile' ).on( 'click', onMenuItemClick );
-        $( '#showGeneralInfo' ).on( 'click', onMenuItemClick );
-        $( '#showHelp' ).on( 'click', onMenuItemClick );
-        $( '#showSettings' ).on( 'click', onMenuItemClick );
+        $( '#showProfile' ).on( 'click', _onMenuItemClick );
+        $( '#showGeneralInfo' ).on( 'click', _onMenuItemClick );
+        $( '#showHelp' ).on( 'click', _onMenuItemClick );
+        $( '#showSettings' ).on( 'click', _onMenuItemClick );
      
     }
     
-    function onMenuItemClick () {
+    function _onMenuItemClick () {
     
-        var title, content; 
+        var title, content = ''; 
         var selector = '#' + this.id;
         var self = this;
         
@@ -97,13 +97,15 @@ var sbplusMenu = ( function() {
                     $.get( manifest.sbplus_root_directory + 'scripts/templates/settings.tpl', function( data ) {
                     
                         settingLoaded = data;
-                        renderMenuItemDetails( self, title, data );
+                        _renderMenuItemDetails( self, title, data );
+                        _syncSettings();
                         
                     } );
                     
                 } else {
                     
                     content = settingLoaded;
+                    _syncSettings();
                     
                 }
                 
@@ -120,7 +122,7 @@ var sbplusMenu = ( function() {
         
         if ( title !== '' && content !== '' ) {
             
-            renderMenuItemDetails( self, title, content );
+            _renderMenuItemDetails( self, title, content );
             
         }
         
@@ -128,7 +130,7 @@ var sbplusMenu = ( function() {
         
     }
     
-    function renderMenuItemDetails( el, title, content ) {
+    function _renderMenuItemDetails( el, title, content ) {
         
         if ( typeof el === 'undefined' ) {
             
@@ -140,6 +142,8 @@ var sbplusMenu = ( function() {
             
             } );
             
+            _unbindSaveBtn();
+            
             return;
             
         }
@@ -150,6 +154,115 @@ var sbplusMenu = ( function() {
         $( '.menu_item_details .navbar .title' ).html( title );
         $( '.menu_item_details .menu_item_content' ).html( content );
         $( '.menu_item_details' ).removeClass( 'hide' ).animate( { right: '0px' }, 250 );
+        
+        if ( $(el)[0].id === 'showSettings' ) {
+            _bindSaveBtn();
+        }
+        
+    }
+    
+    function _syncSettings() {
+        
+        // autoplay
+        var autoplayVal = $.fn.getCookie('sbplus-vjs-autoplay');
+        
+        if ( autoplayVal === '1') {
+            $( '#autoplay' ).prop( 'checked', true );
+        } else {
+            $( '#autoplay' ).prop( 'checked', false );
+        }
+        
+        // volume
+        var volumeVal = $.fn.getCookie('sbplus-vjs-volume');
+        
+        $( '#volume' ).prop( 'value', volumeVal );
+        
+        // playrate
+        var rateVal = $.fn.getCookie('sbplus-vjs-playbackrate');
+        $( '#playback' ).val( rateVal );
+        
+        // subtitle
+        var subtitleVal = $.fn.getCookie('sbplus-vjs-enabledSubtitles');
+        
+        if ( subtitleVal === '1') {
+            $( '#subtitle' ).prop( 'checked', true );
+        } else {
+            $( '#subtitle' ).prop( 'checked', false );
+        }
+        
+    }
+    
+    function _bindSaveBtn() {
+        
+        $( '#saveSettingBtn' ).on('click', function(e) {
+            
+            var self = $( this );
+            var volError = false;
+            
+            self.prop( 'disabled', true ).html( 'Saving...' );
+            
+            // autoplay
+            if ( $( '#autoplay' ).is( ':checked' ) ) {
+                $.fn.setCookie('sbplus-vjs-autoplay', 1);
+            } else {
+                $.fn.setCookie('sbplus-vjs-autoplay', 0);
+            }
+            
+            // volumne
+            var vol = $( '#volume' ).val();
+            
+            if ( vol < 0 || vol > 1 || vol === '' ) {
+                volError = true;
+                vol = 0.8;
+            } else {
+                $.fn.setCookie('sbplus-vjs-volume', vol );
+            }
+            
+            // playrate
+            $.fn.setCookie('sbplus-vjs-playbackrate', $( '#playback option:selected' ).val() );
+            
+            //subtitle
+            if ( $( '#subtitle' ).is( ':checked' ) ) {
+                $.fn.setCookie('sbplus-vjs-enabledSubtitles', 1);
+            } else {
+                $.fn.setCookie('sbplus-vjs-enabledSubtitles', 0);
+            }
+            
+            if ( volError ) {
+                
+                $( '#volume' ).parent().parent().addClass( 'invalid' );
+                $( '#volume' ).parent().after( '<p class="emsg">Must be between 0 to 1.</p>' );
+                
+            } else {
+                
+                $( '#volume' ).parent().parent().removeClass( 'invalid' );
+                $( '.emsg' ).remove();
+                
+            }
+            
+            setTimeout(function() {
+                
+                _syncSettings();
+                self.html( 'Settings Saved!' );
+                
+                setTimeout(function() {
+                
+                    self.prop( 'disabled', false ).html( 'Save' );
+                    
+                }, 2000);
+                
+            }, 1000);
+            
+            e.preventDefault();
+            return false;
+            
+        } );
+        
+    }
+    
+    function _unbindSaveBtn() {
+        
+        $( '#saveSettingBtn' ).unbind();
         
     }
     

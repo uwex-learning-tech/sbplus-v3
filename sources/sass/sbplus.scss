@@ -973,13 +973,28 @@ noscript {
                                         select, input {
                                             width: 100%;
                                         }
-                                        
+                                                                                
                                     }
                                     
                                 }
                                 
                                 .row:nth-child(even) {
                                     background-color: #f2f2f2;
+                                }
+                                
+                                .invalid {
+                                        
+                                    background-color: #ffa3a3 !important;
+                                    
+                                    input {
+                                        color: #f00;
+                                    }
+                                    
+                                    .emsg {
+                                        margin: 0;
+                                        font-size: 12px;
+                                    }
+                                    
                                 }
                                 
                             }
@@ -989,6 +1004,12 @@ noscript {
                                 margin: rem( $gutter ) 0;
                                 background-color: $default-accent;
                                 padding: 8px 20px;
+                            }
+                            
+                            button:disabled {
+                                color: #333;
+                                background-color: $border-color;
+                                cursor: default;
                             }
                             
                         }

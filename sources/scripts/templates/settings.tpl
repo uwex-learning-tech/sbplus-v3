@@ -16,8 +16,8 @@
         <div class="row">
             <div class="label"><label for="playback">Default playback rate</label></div>
             <div class="control">
-                <select>
-                    <option value=".5">0.5x</option>
+                <select id="playback">
+                    <option value="0.5">0.5x</option>
                     <option value="1" selected>1</option>
                     <option value="1.5">1.5x</option>
                     <option value="2">2x</option>

@@ -21,19 +21,31 @@ var sbplusSplashScreen = ( function () {
                 
             } ).fail( function() {
                 
-                $.get( manifest.sbplus_splash_directory + $.fn.getProgramDirectory() + context.postfix + '.jpg' , function() {
-                
-                    bg = this.url;
-                    
-                } ).fail( function() {
+                if ( context.postfix === '' ) {
                     
                     $.get( manifest.sbplus_splash_directory + $.fn.getProgramDirectory() + '.jpg' , function() {
-                
+                    
                         bg = this.url;
                         
                     } );
                     
-                } );
+                } else {
+                    
+                    $.get( manifest.sbplus_splash_directory + $.fn.getProgramDirectory() + context.postfix + '.jpg' , function() {
+                
+                        bg = this.url;
+                        
+                    } ).fail( function() {
+                        
+                        $.get( manifest.sbplus_splash_directory + $.fn.getProgramDirectory() + '.jpg' , function() {
+                    
+                            bg = this.url;
+                            
+                        } );
+                        
+                    } );
+                    
+                }
                 
             } );
             
@@ -105,6 +117,8 @@ var sbplusSplashScreen = ( function () {
     
     function _render( cntx ) {
         
+        var resumeCookieKey = 'sbplus-' + $.fn.getRootDirectory();
+        
         $( '.splashscreen' ).html( cntx );
         
         if ( bg !== '' ) {
@@ -119,12 +133,16 @@ var sbplusSplashScreen = ( function () {
         $( '.splashinfo .length' ).html( context.length );
         $( '.splashinfo .startBtn' ).css( 'background-color', settings.accent );
         
-        if ( navigator.cookieEnabled && $.fn.hasCookieValue( 'sbplus-' + $.fn.getRootDirectory() ) ) {
+        if ( navigator.cookieEnabled && $.fn.hasCookieValue( resumeCookieKey ) ) {
             
-            $( '.splashinfo .resumeBtn' ).css( 'background-color', settings.accent )
+            if ( $.fn.getCookie( resumeCookieKey ) !== '0:0' ) {
+                
+                $( '.splashinfo .resumeBtn' ).css( 'background-color', settings.accent )
                                          .removeClass( 'hide' );
-            resumeBtn = $( '.splashinfo .resumeBtn' );
-            bindResumePresentationEvent();
+                resumeBtn = $( '.splashinfo .resumeBtn' );
+                bindResumePresentationEvent();
+                
+            }
 
         }
         
