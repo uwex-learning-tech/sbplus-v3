@@ -6,4 +6,7 @@
     <button tabindex="1" class="startBtn" aria-label="Start Presentation">START</button>
     <button tabindex="1" class="resumeBtn hide" aria-label="Resume Presentation">RESUME</button>
     <div class="download_files">Loading downloadable files...</div>
+    <button tabindex="1" class="popoutBtn hide" aria-label="Open presentation in a new window.">
+        <span class="icon-popout"></span>
+    </button>
 </div>

@@ -135,37 +135,32 @@ var sbplus = ( function() {
         
         $( '.splashscreen' ).fadeOut( 'fast', function() {
                 
-            $( '.main_content_wrapper' ).css( 'display', 'block' ).fadeIn( 500, function() {
+            $( '.main_content_wrapper' ).removeClass( 'hide' );
+            $( '.title_bar .title' ).html( context.title );
+            $( '.author' ).html( context.author );
+            
+            sbplusTableOfContents.get( context, settings );
+            
+            if ( resume ) {
                 
-                $( this ).removeClass( 'hide' );
+                var leftOfAt = $.fn.getCookie( 'sbplus-' + $.fn.getRootDirectory() ).split( ':' );
+                var s = Number(leftOfAt[0]), p = leftOfAt[1];
                 
-                $( '.title_bar .title' ).html( context.title );
-                $( '.author' ).html( context.author );
+                sbplusSlide.get( context.section, settings, s, p, manifest );
                 
-                sbplusTableOfContents.get( context, settings );
+            } else {
                 
-                if ( resume ) {
-                    
-                    var leftOfAt = $.fn.getCookie( 'sbplus-' + $.fn.getRootDirectory() ).split( ':' );
-                    var s = Number(leftOfAt[0]), p = leftOfAt[1];
-                    
-                    sbplusSlide.get( context.section, settings, s, p, manifest );
-                    
-                } else {
-                    
-                    sbplusSlide.get( context.section, settings, 0, 0, manifest );
-                    
-                }
+                sbplusSlide.get( context.section, settings, 0, 0, manifest );
                 
-                sbplusMenu.get( manifest, context );
+            }
+            
+            sbplusMenu.get( manifest, context );
+            
+            // resize DOM
+            resizeDom();
+            $( window ).resize( function() {
                 
-                // resize DOM
                 resizeDom();
-                $( window ).resize( function() {
-                    
-                    resizeDom();
-                    
-                } );
                 
             } );
             

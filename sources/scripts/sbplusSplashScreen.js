@@ -150,6 +150,14 @@ var sbplusSplashScreen = ( function () {
         bindStartPresentationEvent();
         sbplusDownloadable.get();
         
+        if ( window.self !== window.top ) {
+            $( '.popoutBtn' ).removeClass( 'hide' ).on( 'click', function() {
+                
+                window.open( window.location.href, '_blank' );
+                
+            } );
+        }
+        
     }
     
     return {

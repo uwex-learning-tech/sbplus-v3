@@ -203,6 +203,7 @@ noscript {
     
     width: 100%;
     height: 100%;
+    overflow: hidden;
 
     // error screen
     .error {
@@ -330,6 +331,16 @@ noscript {
                     
                 }
                 
+                .popoutBtn {
+                    position: absolute;
+                    font-size: 200%;
+                    line-height: 0;
+                    bottom: 0;
+                    right: 0;
+                    color: #000;
+                    background-color: transparent;
+                }
+                
             }
             
         } // end splashscreen
@@ -342,8 +353,7 @@ noscript {
             .title_bar {
                 
                 @include display-flex( flex );
-                @include flex-direction( row );
-                @include flex-wrap( nowrap );
+                @include flex-flow( row nowrap );
                 
                 width: 100%;
                 height: 30px;
@@ -353,7 +363,7 @@ noscript {
                 
                 .title {
                     
-                    width: 64%;
+                    @include flex(3 1 75%);
                     line-height: 30px;
                     line-height: rem( 30px );
                     padding: 0 10px;
@@ -361,22 +371,20 @@ noscript {
                     white-space: nowrap;
                     text-overflow: ellipsis;
                     overflow: hidden;
-                    @include order( 1 );
                 }
                 
                 .author {
                     @extend .title;
-                    width: 33%;
-                    @include order( 2 );
+                    @include flex(2 1 20%);
                                         
                 }
                 
                 .menuBtn {
                     
                     @extend .title;
+                    @include flex(1 1 5%);
                     
-                    width: 3%;
-                    min-width: rem( 40px );
+                    //min-width: rem( 40px );
                     height: 30px;
                     height: rem( 30px );
                     text-align: center;
@@ -384,7 +392,6 @@ noscript {
                     color: #fff;
                     padding: 0;
                     background-color: transparent;
-                    @include order( 3 );
                     
                     [class^="icon-"] {
                         font-size: 16px;
@@ -408,7 +415,7 @@ noscript {
             .page_container {
                     
                 @include order( 1 );
-                width: 64%;
+                width: 75%;
                 
                 .slideError {
                     
@@ -541,8 +548,7 @@ noscript {
             .widget_container {
                                 
                 @include display-flex( flex );
-                @include flex-direction( row );
-                @include flex-wrap( nowrap );
+                @include flex-flow( row nowrap );
                 
                 width: 100%;
                 border-bottom: rem( 1px ) solid $border-color;
@@ -550,18 +556,15 @@ noscript {
                 .left_side {
                     
                     @include display-flex( flex );
-                    @include flex-direction( row );
-                    @include flex-wrap( wrap );
-                    @include order( 1 );
-                    
-                    width: 64%;
+                    @include flex-flow( row wrap );
+                    @include flex(2 1 75%);
+                    border-top: 1px solid $border-color;
+                    border-top: rem( 1px ) solid $border-color;
+                    border-left: 1px solid $border-color;
+                    border-left: rem( 1px ) solid $border-color;
                     
                     .notes {
-                        
                         width: 100%;
-                        border-top: 1px solid $border-color;
-                        border-top: rem( 1px ) solid $border-color;
-                        
                     }
                     
                     .control_bar_wrapper {
@@ -643,9 +646,11 @@ noscript {
                 .side_panel {
                 
                     position: relative;
-                    width: 36%;
+                    border-left: 1px solid $border-color;
                     border-left: rem( 1px ) solid $border-color;
-                    @include order( 2 );
+                    border-right: 1px solid $border-color;
+                    border-right: rem( 1px ) solid $border-color;
+                    @include flex(1 1 25%);
                     
                     .topbar {
                         
@@ -660,8 +665,8 @@ noscript {
                             font-size: rem( 14px );
                             font-weight: bold;
                             color: #494949;
-                            padding: 4px 0 0 8px;
-                            padding: rem( 4px ) 0 0 rem( 8px );
+                            padding: 4px 0 0 10px;
+                            padding: rem( 4px ) 0 0 rem( 10px );
                         }
                         
                     }
@@ -678,7 +683,6 @@ noscript {
                                 
                                 @include display-flex( flex );
                                 @include align-items( center );
-                                @include justify-content( center );
                                 
                                 width: 100%;
                                 height: rem( 40px );
@@ -693,18 +697,16 @@ noscript {
                                 border-bottom: rem( 1px ) solid $border-color;
                                 
                                 .title {
-                                    width: 94%;
-                                    padding: 0 8px;
-                                    padding: 0 rem( 8px );
+                                    @include flex(2 1 80%);
+                                    padding: 0 10px;
+                                    padding: 0 rem( 10px );
                                     font-weight: bold;
                                     margin-bottom: 0;
                                     @include excerpt( rem( 12px ), 1.2, 2, #f2f2f2 );
                                 }
                                 
                                 .expandCollapseIcon {
-                                    width: 6%;
-                                    min-width: 40px;
-                                    min-width: rem( 40px );
+                                    @include flex(1 1 20%);
                                     line-height: 0;
                                     text-align: center;
                                     padding-left: 1px;
@@ -802,7 +804,7 @@ noscript {
             #menu_panel {
                 
                 position: absolute;
-                width: 36%;
+                width: 25%;
                 height: 100%;
                 top: 0;
                 right: 0;
@@ -826,9 +828,7 @@ noscript {
                     
                     .closeBtn {
                         
-                        width: 5%;
-                        min-width: 40px;
-                        min-width: rem( 40px );
+                        @include flex(1 1 15%);
                         height: 30px;
                         height: rem( 30px );
                         text-align: center;
@@ -849,9 +849,7 @@ noscript {
                     }
                     
                     .title {
-                        width: 95%;
-                        min-width: 271px;  
-                        min-width: rem( 217px );
+                        @include flex(2 1 85%);
                         padding-top: 8px;
                         padding-top: rem( 8px );
                         padding-left: 10px;
@@ -867,6 +865,7 @@ noscript {
                     margin: 0;
                     padding: 0;
                     background-color: #fff;
+                    border-right: 1px solid $border-color;
                     
                     .menu_item {
                         
@@ -913,7 +912,6 @@ noscript {
                     
                     position: absolute;
                     width: 100%;
-                    min-width: rem( 257px );
                     height: 96.6%;
                     top: 30px;
                     top: rem( 30px );
@@ -922,6 +920,8 @@ noscript {
                     background-color: #fff;
                     border-left: 1px solid $border-color;
                     border-left: rem( 1px ) solid $border-color;
+                    border-right: 1px solid $border-color;
+                    border-right: rem( 1px ) solid $border-color;
                     
                     .navbar {
                                 
@@ -949,18 +949,15 @@ noscript {
                             text-align: left;
                             padding: 1px 5px 0;
                             padding: rem( 1px ) rem( 5px ) 0;
-                            @include order( 1 );
                         }
                         
                         .title {
                             width: 95%;
-                            min-width: rem( 213px );
                             padding-top: 5px;
                             padding-top: rem( 5px );
                             text-indent: -44px;
                             text-indent: rem( -44px );
                             text-align: center;
-                            @include order( 2 );
                         }
                         
                     }
@@ -1054,10 +1051,6 @@ noscript {
             } // end menu panel
             
         } // end main content wrapper
-        
-        .main_content_wrapper.hide {
-            display: none;
-        }
         
     } // end sbplus
     
