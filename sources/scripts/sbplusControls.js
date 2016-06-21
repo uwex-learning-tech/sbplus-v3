@@ -89,6 +89,37 @@ var sbplusControls = ( function() {
             
         } );
         
+        $( '.control_bar_wrapper .expandContractBtn' ).on( 'click', function() {
+            
+            var pageContainer = $( '.page_container' );
+            var expandedControls = $( '.control_bar_wrapper .expandOnly' );
+            var isExpanded = pageContainer.hasClass( 'expanded' );
+            var widgets = $( '.notes, .side_panel' );
+            var btnIcon = $( this ).find( 'span' );
+            var mainContainerWrapper = $( '.main_content_wrapper' );
+            
+            if ( isExpanded ) {
+                
+                pageContainer.removeClass( 'expanded' ).addClass( 'aspect-ratio' ).css( 'height', 'auto' );
+                expandedControls.addClass( 'hide' );
+                widgets.removeClass( 'hide' );
+                btnIcon.removeClass( 'icon-contract' ).addClass( 'icon-expand' );
+                mainContainerWrapper.removeClass( 'full-view' );
+                
+            } else {
+                
+                pageContainer.addClass( 'expanded' ).removeClass( 'aspect-ratio' );
+                expandedControls.removeClass( 'hide' );
+                widgets.addClass( 'hide' );
+                btnIcon.removeClass( 'icon-expand' ).addClass( 'icon-contract' );
+                mainContainerWrapper.addClass( 'full-view' );
+                
+            }
+            
+            sbplus.resize();
+            
+        } );
+        
         _render();
         
     }

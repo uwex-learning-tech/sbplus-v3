@@ -251,20 +251,31 @@ var sbplus = ( function() {
         var controlBarHeight = $( '.control_bar_wrapper' ).outerHeight();
         var slideHeight = $( '.page_container .content' ).outerHeight();
         var sidePanelTopBarHeight = $( '.side_panel .topbar' ).outerHeight();
+        var isExpanded = $( '.page_container' ).hasClass( 'expanded' );
         
-        var notesHeight = windowHeight - ( titleBarHeight + controlBarHeight + slideHeight );
-        $( '.widget_container' ).css( 'height', windowHeight - ( titleBarHeight + slideHeight ) );
-        $( '.widget_container .notes' ).css( 'height', windowHeight - ( titleBarHeight + controlBarHeight + slideHeight ) );
-        
-        if ( widowWidth >= 888 ) {
+        if ( isExpanded ) {
             
-            $( '.side_panel').css( {'margin-top': slideHeight * -1, 'border-top': 'none'} );
-            $( '.tableOfContents').css( 'height', slideHeight + notesHeight + controlBarHeight - sidePanelTopBarHeight - 1 );
+            var heightPercentage = 100 - ( ( controlBarHeight + titleBarHeight ) / windowHeight * 100 );
+            $( '.page_container.expanded' ).css( 'height', heightPercentage + '%'  );
             
         } else {
+            
+            var notesHeight = windowHeight - ( titleBarHeight + controlBarHeight + slideHeight );
+            
+            $( '.widget_container' ).css( 'height', windowHeight - ( titleBarHeight + slideHeight ) );
+            $( '.widget_container .notes' ).css( 'height', windowHeight - ( titleBarHeight + controlBarHeight + slideHeight ) );
+            
+            if ( widowWidth >= 888 ) {
+            
+                $( '.side_panel').css( {'margin-top': slideHeight * -1, 'border-top': 'none'} );
+                $( '.tableOfContents').css( 'height', slideHeight + notesHeight + controlBarHeight - sidePanelTopBarHeight - 1 );
                 
-            $( '.side_panel').css( {'margin-top': 0, 'border-top': '1px solid #ccc'} );
-            $( '.tableOfContents').css( 'height', notesHeight + controlBarHeight - sidePanelTopBarHeight - 1 );
+            } else {
+                    
+                $( '.side_panel').css( {'margin-top': 0, 'border-top': '1px solid #ccc'} );
+                $( '.tableOfContents').css( 'height', notesHeight + controlBarHeight - sidePanelTopBarHeight - 1 );
+                
+            }
             
         }
         
