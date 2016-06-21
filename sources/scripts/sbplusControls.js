@@ -122,9 +122,11 @@ var sbplusControls = ( function() {
                 btnIcon.removeClass( 'icon-contract' ).addClass( 'icon-expand' );
                 mainContainerWrapper.removeClass( 'full-view' );
                 
-                // reset note
+                // reset note & toc
                 $( '.control_bar_wrapper .expandOnly .notesBtn' ).removeClass( 'active' );
                 $( '.widget_container .notes' ).css( 'top', '40px' );
+                $( '.control_bar_wrapper .expandOnly .tocBtn' ).removeClass( 'active' );
+                $( '.widget_container .side_panel' ).css( 'right', '' );
                 
             } else {
                 
@@ -159,13 +161,47 @@ var sbplusControls = ( function() {
                 
             } else {
                 
-                notes.removeClass( 'hide' ).animate( {
+                notes.animate( {
                     
                     top: '40px'
                     
                 }, 250, function() {
                     
                     notes.addClass( 'hide' );
+                    $( self ).removeClass( 'active' );
+                    
+                } );
+                
+            }
+            
+        } );
+        
+        $( '.control_bar_wrapper .expandOnly .tocBtn' ).on( 'click', function() {
+            
+            var self = this;
+            var toc = $( '.widget_container .side_panel' );
+            
+            if ( toc.hasClass( 'hide' ) ) {
+                
+                toc.removeClass( 'hide' ).animate( {
+                    
+                    right: '0'
+                    
+                }, 250, function() {
+                    
+                    $( self ).addClass( 'active' );
+                    
+                } );
+                
+            } else {
+                
+                toc.animate( {
+                    
+                    right: ( toc.outerWidth() * -1 ) + 'px'
+                    
+                }, 250, function() {
+                    
+                    toc.addClass( 'hide' );
                     $( self ).removeClass( 'active' );
                     
                 } );

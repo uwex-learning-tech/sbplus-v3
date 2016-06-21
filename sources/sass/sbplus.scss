@@ -651,6 +651,7 @@ noscript {
                                 left: 0;
                                 background-color: #fff;
                                 border: 1px solid $border-color;
+                                z-index: 10;
                                 
                                 .files {
                                     
@@ -1128,13 +1129,14 @@ noscript {
             
             .widget_container {
                 
+                position: relative;
+                
                 .left_side {
                     
                     position: relative;
                     
                     .notes {
                         position: absolute;
-                        width: 80%;
                         min-height: 250px;
                         background-color: rgba(255, 255, 255, .95);
                         top: rem( 40px );
@@ -1148,6 +1150,22 @@ noscript {
                     .control_bar_wrapper {
                         border-right: 1px solid $border-color;
                         border-right: rem( 1px ) solid $border-color;
+                    }
+                    
+                }
+                
+                .side_panel {
+                    
+                    position: absolute;
+                    background-color: #fff;
+                    top: -50px;
+                    right: -30%;
+                    margin: 0 !important;
+                    z-index: 1;
+                    border-bottom: none;
+                    
+                    .tableOfContents {
+                        height: 97%;
                     }
                     
                 }
