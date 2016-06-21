@@ -257,6 +257,7 @@ var sbplus = ( function() {
             
             var heightPercentage = 100 - ( ( controlBarHeight + titleBarHeight ) / windowHeight * 100 );
             $( '.page_container.expanded' ).css( 'height', heightPercentage + '%'  );
+            $( '.widget_container .notes' ).css( { 'height': '', 'width': $( '.status' ).outerWidth() + 'px' } );
             
         } else {
             

@@ -13,6 +13,7 @@ $default-accent: #535cab;
 @import "compass/css3/user-interface";
 @import "compass/css3/transform";
 @import "compass/css3/background-size";
+@import "compass/css3/border-radius";
 @import "../fonts/sbplus_fonts.css";
 
 
@@ -631,6 +632,11 @@ noscript {
                             border-left: rem( 1px ) solid $border-color;
                         }
                         
+                        .active {
+                            color: $default-accent;
+                            background-color: #eee;
+                        }
+                        
                         .downloadsBtn {
                             
                             position: relative;
@@ -1123,6 +1129,21 @@ noscript {
             .widget_container {
                 
                 .left_side {
+                    
+                    position: relative;
+                    
+                    .notes {
+                        position: absolute;
+                        width: 80%;
+                        min-height: 250px;
+                        background-color: rgba(255, 255, 255, .95);
+                        top: rem( 40px );
+                        left: rem( 121px );
+                        z-index: 0;
+                        border-right: 1px solid $border-color;
+                        border-right: rem( 1px ) solid $border-color;
+                        @include border-radius( 4px 4px 0 0 );
+                    }
                     
                     .control_bar_wrapper {
                         border-right: 1px solid $border-color;

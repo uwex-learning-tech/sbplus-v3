@@ -122,6 +122,10 @@ var sbplusControls = ( function() {
                 btnIcon.removeClass( 'icon-contract' ).addClass( 'icon-expand' );
                 mainContainerWrapper.removeClass( 'full-view' );
                 
+                // reset note
+                $( '.control_bar_wrapper .expandOnly .notesBtn' ).removeClass( 'active' );
+                $( '.widget_container .notes' ).css( 'top', '40px' );
+                
             } else {
                 
                 pageContainer.addClass( 'expanded' ).removeClass( 'aspect-ratio' );
@@ -136,6 +140,40 @@ var sbplusControls = ( function() {
             
         } );
         
+        $( '.control_bar_wrapper .expandOnly .notesBtn' ).on( 'click', function() {
+            
+            var self = this;
+            var notes = $( '.widget_container .notes' );
+            
+            if ( notes.hasClass( 'hide' ) ) {
+                
+                notes.removeClass( 'hide' ).animate( {
+                    
+                    top: '-250px'
+                    
+                }, 250, function() {
+                    
+                    $( self ).addClass( 'active' );
+                    
+                } );
+                
+            } else {
+                
+                notes.removeClass( 'hide' ).animate( {
+                    
+                    top: '40px'
+                    
+                }, 250, function() {
+                    
+                    notes.addClass( 'hide' );
+                    $( self ).removeClass( 'active' );
+                    
+                } );
+                
+            }
+            
+        } );
+        
         _render();
         
     }
@@ -143,7 +181,6 @@ var sbplusControls = ( function() {
     function getDownloadItems() {
         
         var items = sbplusDownloadable.getDownloads();
-        console.log(items);
         var files = $( '.download_items .files' );
         
         if ( items.video !== undefined ) {
