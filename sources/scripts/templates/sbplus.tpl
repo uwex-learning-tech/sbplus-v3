@@ -35,7 +35,14 @@
                     </div>
                     <div class="status">Slide <span class="current">#</span> of <span class="total">#</span></div>
                     <div class="right_controls">
-                        <button class="downloadsBtn"><span class="icon-download"></span> Downloads</button>
+                        <button class="downloadsBtn">
+                            <div class="download_items hide">
+                                <ul class="files">
+                                    
+                                </ul>
+                            </div>
+                            <span class="icon-download"></span> Downloads
+                        </button>
                         <div class="expandOnly hide">
                             <button class="tocBtn"><span class="icon-table-of-content"></span></button>
                             <button class="notesBtn"><span class="icon-notes"></span></button>

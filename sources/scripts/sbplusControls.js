@@ -89,6 +89,22 @@ var sbplusControls = ( function() {
             
         } );
         
+        $( '.control_bar_wrapper .downloadsBtn' ).on( 'click', function() {
+            
+            var items = $( '.download_items' );
+            
+            if ( items.hasClass( 'hide' ) ) {
+                
+                items.removeClass( 'hide' );
+                
+            } else {
+                
+                items.addClass( 'hide' );
+                
+            }
+            
+        } );
+        
         $( '.control_bar_wrapper .expandContractBtn' ).on( 'click', function() {
             
             var pageContainer = $( '.page_container' );
@@ -124,6 +140,34 @@ var sbplusControls = ( function() {
         
     }
     
+    function getDownloadItems() {
+        
+        var items = sbplusDownloadable.getDownloads();
+        console.log(items);
+        var files = $( '.download_items .files' );
+        
+        if ( items.video !== undefined ) {
+            
+            files.append( '<li><a href="'+items.video+'" download>Video</a></li>' );
+        }
+        
+        if ( items.audio !== undefined ) {
+            
+            files.append( '<li><a href="'+items.audio+'" download>Audio</a></li>' );
+        }
+        
+        if ( items.pdf !== undefined ) {
+            
+            files.append( '<li><a href="'+items.pdf+'" download>Transcript</a></li>' );
+        }
+        
+        if ( items.zip !== undefined ) {
+            
+            files.append( '<li><a href="'+items.zip+'" download>Supplement</a></li>' );
+        }
+        
+    }
+    
     function updateStatus( num ) {
         
         num = typeof num !== 'undefined' ? num : currentPage;
@@ -136,6 +180,7 @@ var sbplusControls = ( function() {
         
         updateStatus();
         $( '.control_bar_wrapper .status .total' ).html( totalPages );
+        getDownloadItems();
         
     }
     

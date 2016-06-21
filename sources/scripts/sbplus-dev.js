@@ -154,6 +154,7 @@ var sbplus = ( function() {
                 
             }
             
+            sbplusControls.init( context.section, settings );
             sbplusMenu.get( manifest, context );
             
             // resize DOM
@@ -183,7 +184,6 @@ var sbplus = ( function() {
         $( document ).attr( "title", context.title );
         $sbplus.html( e );
         sbplusSplashScreen.get( manifest, context, settings );
-        sbplusControls.init( context.section, settings );
         
         _initVJSCookies();
         
