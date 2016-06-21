@@ -270,7 +270,12 @@ var sbplus = ( function() {
             var notesHeight = windowHeight - ( titleBarHeight + controlBarHeight + slideHeight );
             
             $( '.widget_container' ).css( 'height', windowHeight - ( titleBarHeight + slideHeight ) );
-            $( '.widget_container .notes' ).css( 'height', windowHeight - ( titleBarHeight + controlBarHeight + slideHeight ) );
+            $( '.widget_container .notes' ).css( {
+                
+                'height': windowHeight - ( titleBarHeight + controlBarHeight + slideHeight ),
+                'width': ''
+            
+            } );
             
             if ( widowWidth >= 888 ) {
             
