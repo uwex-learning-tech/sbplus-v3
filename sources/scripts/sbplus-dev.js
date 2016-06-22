@@ -107,7 +107,6 @@ var sbplus = ( function() {
         context.title = setupCntxt.find( 'title' ).text();
         context.subtitle = setupCntxt.find( 'subtitle' ).text();
         context.author = setupCntxt.find( 'author' ).attr( 'name' );
-        context.authorBio = setupCntxt.find( 'author' ).text();
         context.length = setupCntxt.find( 'length' ).text();
         context.generalInfo = setupCntxt.find( 'generalInfo' ).text();
         context.postfix = setupCntxt.attr( 'postfix' );
@@ -164,8 +163,6 @@ var sbplus = ( function() {
                 resizeDom();
                 
             } );
-            
-            $( this ).remove();
             
             if ( resume ) {
                 

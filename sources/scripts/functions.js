@@ -62,6 +62,12 @@ String.prototype.capitalize = function() {
     
 };
 
+$.fn.cleanString = function( str ) {
+    
+    return str.replace(/[^\w]/gi, '').toLowerCase();
+    
+};
+
 $.fn.haveCoreFeatures = function() {
         
     if ( !Modernizr.audio || !Modernizr.video || !Modernizr.json || !Modernizr.flexbox ) {

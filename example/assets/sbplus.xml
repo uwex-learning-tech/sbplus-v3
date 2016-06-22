@@ -6,9 +6,7 @@
         <title>BKN315 - Chocolate Chip Cookies</title>
         <subtitle>A Sample Storybook Plus Presentation</subtitle>
         <length>7 Minutes</length>
-        <author name="Bryan Bortz">
-            <![CDATA[<p><strong>UW-Extension Continuing Education, Outreach and E-Learning</strong></p><p>Bryan Bortz is a Senior Media Specialist at UW-Extension CEOEL, and a life long fan of cookies.</p>]]>
-        </author>
+        <author name="Bryan Bortz"></author>
         <generalInfo>
             <![CDATA[<p>This an sample Storybook Plus presentation on chocolate chip cookies.</p>]]>
         </generalInfo>

@@ -7,6 +7,8 @@ var sbplusMenu = ( function() {
     var context;
     var manifest;
     var settingLoaded = '';
+    var profileLoaded = '';
+    var profile;
     
     function get( _manifest, _context ) {
         
@@ -69,8 +71,65 @@ var sbplusMenu = ( function() {
         
             case '#showProfile':
                 
+                var author = context.data.find( 'setup' ).find( 'author' );
+                var authorName = author.attr( 'name' );
+                
                 title = 'Author Profile';
-                content = context.authorBio;
+                
+                if ( $.fn.isEmpty( author.text() ) ) {
+                    
+                    if ( profileLoaded.length === 0 ) {
+                        
+                        var file = manifest.sbplus_author_directory + $.fn.cleanString( authorName );
+                        
+                        $.ajax({
+                            crossDomain: true,
+                            type: 'GET',
+                            dataType: 'jsonp',
+                            jsonpCallback: 'author',
+                            url: file + '.json',
+                            success: function( res ) {
+                                
+                                profileLoaded = res;
+                                
+                                var profileImage = new Image();
+                                
+                                $( profileImage ).load( function() {
+                                    
+                                    profile = '<img class="profileImg" src="' + file + '.jpg" alt="Photo of ' + res.name + '" />';
+                                    profile += '<p><strong>' + res.name + '</strong></p>' + res.profile;
+                                    _renderMenuItemDetails( self, title, profile );
+                                    
+                                } ).error( function() {
+                                    
+                                    profile = '<p><strong>' + res.name + '</strong></p>' + res.profile;
+                                    _renderMenuItemDetails( self, title, profile );
+                                    
+                                } ).attr( {
+                                    'src': file + '.jpg',
+                                    'border': 0
+                                } );
+                                
+                            },
+                            error: function() {
+                                
+                                var msg = '<p style="color:#f00;">No author profile found for ' + authorName + '.</p>';
+                                _renderMenuItemDetails( self, title, msg );
+                                
+                            }
+                        });
+                        
+                    } else {
+                        
+                        content = profile;
+                        
+                    }
+                    
+                } else {
+                    
+                    content = author.text();
+                    
+                }
                 
             break;
             

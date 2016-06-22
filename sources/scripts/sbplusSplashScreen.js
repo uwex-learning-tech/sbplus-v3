@@ -22,7 +22,7 @@ var sbplusSplashScreen = ( function () {
             } ).fail( function() {
                 
                 if ( context.postfix === '' ) {
-                    
+                                        
                     $.get( manifest.sbplus_splash_directory + $.fn.getProgramDirectory() + '.jpg' , function() {
                     
                         bg = this.url;
