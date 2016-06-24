@@ -118,7 +118,10 @@ var sbplusTableOfContents = ( function() {
         // hightlight new
         currentHeader.addClass( 'current' );
         currentPage.addClass( 'selected' );
-        sbplusControls.update( currentPage.data( 'order' ) );
+        
+        setTimeout(function() {
+            sbplusControls.update( currentPage.data( 'order' ) );
+        }, 250);
         
     }
     

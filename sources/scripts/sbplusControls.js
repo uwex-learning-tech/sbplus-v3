@@ -243,7 +243,6 @@ var sbplusControls = ( function() {
     function updateStatus( num ) {
         
         num = typeof num !== 'undefined' ? num : currentPage;
-        
         $( '.control_bar_wrapper .status .current' ).html( num + 1 );
         
     }
