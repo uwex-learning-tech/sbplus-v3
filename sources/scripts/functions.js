@@ -103,6 +103,13 @@ $.fn.colorLum = function( hex, lum ) {
     
 };
 
+$.fn.toSeconds = function( str ) {
+    
+    var arr = str.split( ':' );
+    return Number( arr[0] * 60 ) + Number( arr[1] );
+    
+};
+
 /***************************************
     COOKIE FUNCTIONS
 ****************************************/

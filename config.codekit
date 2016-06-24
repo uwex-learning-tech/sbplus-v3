@@ -11,6 +11,26 @@
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
+	"\/example\/assets\/html\/testing\/cat.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 82410,
+		"inputAbbreviatedPath": "\/example\/assets\/html\/testing\/cat.jpg",
+		"outputAbbreviatedPath": "\/example\/assets\/html\/testing\/cat.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/example\/assets\/html\/testing\/index.html": {
+		"fileType": 8192,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/example\/assets\/html\/testing\/index.html",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
 	"\/example\/assets\/slide\/slide01.jpg": {
 		"fileType": 16384,
 		"ignore": 0,
@@ -128,6 +148,39 @@
 		"initialSize": 90449,
 		"inputAbbreviatedPath": "\/example\/assets\/slide\/slide12.jpg",
 		"outputAbbreviatedPath": "\/example\/assets\/slide\/slide12.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/example\/assets\/slide\/slide13-1.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 132595,
+		"inputAbbreviatedPath": "\/example\/assets\/slide\/slide13-1.jpg",
+		"outputAbbreviatedPath": "\/example\/assets\/slide\/slide13-1.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/example\/assets\/slide\/slide13-2.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 684317,
+		"inputAbbreviatedPath": "\/example\/assets\/slide\/slide13-2.jpg",
+		"outputAbbreviatedPath": "\/example\/assets\/slide\/slide13-2.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/example\/assets\/slide\/slide13-3.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 727613,
+		"inputAbbreviatedPath": "\/example\/assets\/slide\/slide13-3.jpg",
+		"outputAbbreviatedPath": "\/example\/assets\/slide\/slide13-3.jpg",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
@@ -683,6 +736,17 @@
 		"outputStyle": 1,
 		"syntaxCheckerStyle": 1
 		},
+	"\/sources\/scripts\/libs\/videojs\/plugins\/cuepoint\/videojs.cuepoints.js": {
+		"fileType": 64,
+		"ignore": 1,
+		"ignoreWasSetByUser": 1,
+		"inputAbbreviatedPath": "\/sources\/scripts\/libs\/videojs\/plugins\/cuepoint\/videojs.cuepoints.js",
+		"outputAbbreviatedPath": "\/sources\/scripts\/libs\/videojs\/plugins\/cuepoint\/videojs.cuepoints.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 0,
+		"syntaxCheckerStyle": 0
+		},
 	"\/sources\/scripts\/libs\/videojs\/plugins\/resolution\/videojs-resolution-switcher.js": {
 		"fileType": 64,
 		"ignore": 1,
@@ -879,6 +943,12 @@
 			"followForSyntaxChecking": 1,
 			"linkedFileAbbreviatedPath": "\/sources\/scripts\/libs\/videojs\/plugins\/vimeo\/vimeo.js",
 			"position": 2,
+			"type": 1
+			},
+		{
+			"followForSyntaxChecking": 1,
+			"linkedFileAbbreviatedPath": "\/sources\/scripts\/libs\/videojs\/plugins\/cuepoint\/videojs.cuepoints.js",
+			"position": 3,
 			"type": 1
 			}
 		],

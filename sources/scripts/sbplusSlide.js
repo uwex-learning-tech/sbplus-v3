@@ -12,6 +12,7 @@ var sbplusSlide = ( function() {
     var settings;
     
     var $container;
+    var currentSlide;
     
     var directory;
     var pageType;
@@ -30,6 +31,9 @@ var sbplusSlide = ( function() {
     var isKaltura = false;
     var isYoutube = false;
     var isVimeo = false;
+    
+    var isBundle = false;
+    var cuepoints = [];
     
     var timeoutCookie;
     
@@ -54,20 +58,23 @@ var sbplusSlide = ( function() {
     
     function _showSlide( s, p ) {
         
-        var slide = $( context[s] ).find( 'page' )[p];
+        currentSlide = $( context[s] ).find( 'page' )[p];
        
-        pageType = $( slide ).attr( 'type' );
+        pageType = $( currentSlide ).attr( 'type' );
         
-        fileName = pageType !== 'quiz' ? $( slide ).attr( 'src' ) : '';
+        fileName = pageType !== 'quiz' ? $( currentSlide ).attr( 'src' ) : '';
         
         // resets
         _removeSlideErrorMsg();
         $( '.page_container .content' ).removeClass( 'img-only' );
+        $( '.page_container .content' ).removeClass( 'html' );
         if ( mediaPlayer !== null ) {
             
             isKaltura = false;
             isYoutube = false;
             isVimeo = false;
+            isBundle = false;
+            cuepoints = [];
             mediaPlayer.dispose();
             mediaPlayer = null;
             
@@ -214,6 +221,58 @@ var sbplusSlide = ( function() {
                 
             break;
             
+            case 'html':
+            
+                $container.addClass( 'html' ).html('<iframe src="assets/html/' + fileName + '/index.html"></iframe>');
+                
+            break;
+            
+            case 'bundle':
+            
+                var initialImg = '';
+                
+                directory = 'assets/audio/';
+                mediaMime = 'audio/mp3';
+                mediaFormat = '.mp3';
+                isBundle = true;
+                
+                var frames = $( currentSlide ).find( 'frame' );
+                
+                frames.each( function() {
+                    
+                    var cue = $( this ).attr( 'start' );
+                    cuepoints.push( $.fn.toSeconds( cue ) );
+                    
+                } );
+                
+                $.get( 'assets/slide/' + fileName + '-1.' + imgFormat, function() {
+                    
+                    initialImg = this.url;
+                    
+                } ).fail( function() {
+                    
+                    $container.before( '<div class="slideError">Slide image not found!<br>Expected image: assets/slide/' + fileName + '.' + imgFormat + '</div>' );
+                
+                } ).always( function() {
+                    
+                    $.get( directory + fileName + '.vtt', function() {
+                    
+                        subtitles = '<track kind="subtitles" label="English" srclang="en" src="' + directory + fileName + '.vtt" ' + ( subtitlesOn === true ? 'default' : '' ) + ' />';
+                    
+                    } ).always( function() {
+                        
+                    $container.html( '<video id="ap" class="video-js vjs-default-skin" poster="' + initialImg + '\">' + subtitles + '</video>' ).promise().done( function() {
+                    
+                            _renderVideoJsPlayer();
+                    
+                        } );
+                    
+                    } );
+                    
+                } );
+                
+            break;
+            
         }
         
     }
@@ -347,6 +406,53 @@ var sbplusSlide = ( function() {
                 	player.play();
                 	
             	}
+            	
+        	}
+        	
+        	if ( isBundle ) {
+            	
+            	var duration;
+            	
+            	player.on( 'loadedmetadata', function() {
+                            	
+                	duration = Math.floor(player.duration());
+                	
+            	} );
+            	
+            	player.cuepoints();
+            	
+            	$.each( cuepoints, function(i) {
+                	
+                	var nextCue;
+                    	
+                	if ( cuepoints[i+1] === undefined ) {
+                    	
+                    	nextCue = duration;
+                    	
+                	} else {
+                    	
+                    	nextCue = cuepoints[i+1];
+                    	
+                	}
+                	
+                	player.addCuepoint( {
+                    	
+                    	namespace: fileName + '-'  +(i+2),
+                    	start: cuepoints[i],
+                    	end: nextCue,
+                    	onStart: function() {
+                        	player.poster( 'assets/slide/' + fileName + '-'  +(i+2) + '.' + imgFormat );
+                    	},
+                    	onEnd: function() {},
+                    	params: ''
+                    	
+                	} );
+                	
+            	} );
+            	
+            	player.on( 'ended', function() {
+                	player.poster( 'assets/slide/' + fileName + '-1.' + imgFormat );
+            	} );
             	
         	}
             

@@ -175,6 +175,16 @@
             <note />
         </page>
         
+        <page type="html" src="testing" title="HTML Slide">
+            <note />
+        </page>
+        
+        <page type="bundle" src="slide13" title="Bundled Slide">
+            <frame start="00:18"></frame>
+            <frame start="00:26"></frame>
+            <note />
+        </page>
+        
     </section>
     
 </storybook>
