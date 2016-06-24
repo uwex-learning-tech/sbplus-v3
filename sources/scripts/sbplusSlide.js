@@ -47,7 +47,8 @@ var sbplusSlide = ( function() {
             
         }
 
-        _showSlide( section, page );       
+        _showSlide( section, page );
+        sbplusNotes.get( manifest, context, section, page );    
         
     }
     
@@ -61,6 +62,7 @@ var sbplusSlide = ( function() {
         
         // resets
         _removeSlideErrorMsg();
+        $( '.page_container .content' ).removeClass( 'img-only' );
         if ( mediaPlayer !== null ) {
             
             isKaltura = false;
@@ -97,7 +99,7 @@ var sbplusSlide = ( function() {
         
                 $( img ).load( function() {
     
-                    $container.html( img );
+                    $container.addClass( 'img-only' ).html( img );
     
                 } ).error( function() {
     

@@ -6,7 +6,7 @@ $link-color: #18b8f7;
 $gutter: 16px;
 $default-accent: #535cab;
 
-@import "compass/reset";
+@import "compass/reset/utilities";
 @import "compass/css3/box-sizing";
 @import "compass/utilities/general/clearfix";
 @import "compass/css3/flexbox";
@@ -559,11 +559,96 @@ noscript {
                     @include flex(2 1 75%);
                     
                     .notes {
+                        
                         width: 100%;
                         border: 1px solid $border-color;
                         border: rem( 1px ) solid $border-color;
                         border-bottom: none;
                         border-right: none;
+                        padding: 10px 10px 0;
+                        padding: rem( 10px ) rem( 10px ) 0;
+                        overflow-y: scroll;
+                        
+                        font-size: 14px;
+                        font-size: rem( 14px );
+                        line-height: 18px;
+                        line-height: rem( 18px );
+                        
+                        @include border-radius( 0 );
+                        @include nested-reset;
+                        
+                        strong {
+                            font-weight: bold;
+                        }
+                        
+                        em {
+                            font-style: italic;
+                        }
+                        
+                        h1, h2 {
+                            font-size: 18px;
+                            font-size: rem( 18px );
+                            font-weight: bold;
+                            line-height: 22px;
+                            line-height: rem( 22px );
+                        }
+                        
+                        h3 {
+                            font-size: 16px;
+                            font-size: rem( 16px );
+                            font-weight: bold;
+                            line-height: 20px;
+                            line-height: rem( 20px );
+                        }
+                        
+                        h4 {
+                            font-size: 14px;
+                            font-size: rem( 14px );
+                            font-weight: bold;
+                        }
+                        
+                        p {
+                            margin: rem( 12px ) 0;
+                        }
+                        
+                        p:first-child {
+                            margin-top: 0;
+                        }
+                        
+                        a {
+                            color: #00f;
+                        }
+                        
+                        ul {
+                            
+                            margin: rem( 12px ) 0;
+                            list-style: disc inside;
+                            padding-left: 10px;
+                            padding-left: rem( 10px );
+                            
+                            li {
+                                margin: rem( 5px ) 0;
+                            }
+                            
+                        }
+                        
+                        ol {
+                            @extend ul;
+                            list-style: decimal inside;
+                        }
+                        
+                    }
+                    
+                    .noNotes {
+                        
+                        @include display-flex();
+                        @include justify-content( center );
+                        background-color: #ebebeb;
+                        
+                        img {
+                            width: 30%;
+                        }
+                        
                     }
                     
                     .control_bar_wrapper {
@@ -617,6 +702,7 @@ noscript {
                             border-right: 1px solid $border-color;
                             border-right: rem( 1px ) solid $border-color;
                             background-color: transparent;
+                            margin: 0;
                             
                         }
                         
@@ -640,8 +726,10 @@ noscript {
                         .downloadsBtn {
                             
                             position: relative;
-                            width: 120px;
+                            width: 128px;
+                            width: rem( 128px );
                             font-size: 14px;
+                            font-size: rem( 14px );
                             
                             .download_items {
                                 
@@ -1115,6 +1203,7 @@ noscript {
                 width: 100%;
                 
                 .content {
+            
                     height: 100%;
                     
                     .video-js.vjs-default-skin {
@@ -1123,11 +1212,16 @@ noscript {
                         @include justify-content(center);
                         @include flex-flow( column nowrap );
                         
-                        .vjs-tech {
-                            position: static;
-                            height: auto;
-                        }
-                        
+                    }
+                    
+                }
+                
+                .img-only {
+                    
+                    @include display-flex();
+                    
+                    img {
+                        object-fit: contain;
                     }
                     
                 }
@@ -1143,15 +1237,17 @@ noscript {
                     position: relative;
                     
                     .notes {
+                        
                         position: absolute;
-                        min-height: 250px;
-                        background-color: rgba(255, 255, 255, .95);
+                        height: 250px;
+                        background-color: rgba(255, 255, 255, .96);
                         top: rem( 40px );
                         left: rem( 121px );
                         z-index: 0;
                         border-right: 1px solid $border-color;
                         border-right: rem( 1px ) solid $border-color;
                         @include border-radius( 4px 4px 0 0 );
+                        
                     }
                     
                     .control_bar_wrapper {

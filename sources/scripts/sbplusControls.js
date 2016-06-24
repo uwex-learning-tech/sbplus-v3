@@ -123,8 +123,7 @@ var sbplusControls = ( function() {
                 mainContainerWrapper.removeClass( 'full-view' );
                 
                 // reset note & toc
-                $( '.control_bar_wrapper .expandOnly .notesBtn' ).removeClass( 'active' );
-                $( '.widget_container .notes' ).css( 'top', '40px' );
+                resetNote();
                 $( '.control_bar_wrapper .expandOnly .tocBtn' ).removeClass( 'active' );
                 $( '.widget_container .side_panel' ).css( 'right', '' );
                 
@@ -249,6 +248,11 @@ var sbplusControls = ( function() {
         
     }
     
+    function resetNote() {
+        $( '.control_bar_wrapper .expandOnly .notesBtn' ).removeClass( 'active' );
+        $( '.full-view .widget_container .notes' ).css( 'top', '40px' ).addClass( 'hide' );
+    }
+    
     function _render() {
         
         updateStatus();
@@ -260,7 +264,8 @@ var sbplusControls = ( function() {
     return {
         
         init: init,
-        update: updateStatus
+        update: updateStatus,
+        resetNote: resetNote
         
     };
     

@@ -77,9 +77,17 @@ var sbplus = ( function() {
                 context.data = $( data );
                 loadPresentation();
                 
-            }).fail( function() {
+            }).fail( function( r, s ) {
                 
-                sbplusError.show( 'Table of Contents XML file (sbplus.xml) is not found!', 'Please make sure the XML file exists in the assets directory and compatible with Storybook Plus version 3.' );
+                if ( s === 'parsererror' ) {
+                    
+                    sbplusError.show( 'Something went wrong in the XML!', 'Validate the XML at <a href="https://validator.w3.org/" target="_blank">https://validator.w3.org/</a>.' );
+                    
+                } else {
+                    
+                    sbplusError.show( 'Table of Contents XML file (sbplus.xml) is not found!', 'Please make sure the XML file exists in the assets directory and compatible with Storybook Plus version 3.' );
+                    
+                }
                 
             } );
             
