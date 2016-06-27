@@ -888,6 +888,17 @@
 		"outputStyle": 0,
 		"syntaxCheckerStyle": 0
 		},
+	"\/sources\/scripts\/sbplusQuiz.js": {
+		"fileType": 64,
+		"ignore": 1,
+		"ignoreWasSetByUser": 1,
+		"inputAbbreviatedPath": "\/sources\/scripts\/sbplusQuiz.js",
+		"outputAbbreviatedPath": "\/sources\/scripts\/sbplusQuiz.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 0,
+		"syntaxCheckerStyle": 0
+		},
 	"\/sources\/scripts\/sbplusSlide.js": {
 		"fileType": 64,
 		"ignore": 1,
@@ -1003,8 +1014,14 @@
 			},
 		{
 			"followForSyntaxChecking": 1,
-			"linkedFileAbbreviatedPath": "\/sources\/scripts\/functions.js",
+			"linkedFileAbbreviatedPath": "\/sources\/scripts\/sbplusQuiz.js",
 			"position": 8,
+			"type": 1
+			},
+		{
+			"followForSyntaxChecking": 1,
+			"linkedFileAbbreviatedPath": "\/sources\/scripts\/functions.js",
+			"position": 9,
 			"type": 1
 			}
 		]
