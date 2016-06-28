@@ -83,7 +83,7 @@
         
         <page type="quiz" title="Question 1">
             
-            <mulitpleChoiceSingle>
+            <multipleChoiceSingle>
                 
                 <question image="" audio="">I'm not sure I was clear, should you burn the butter or not?</question>
                 <choices>
@@ -105,7 +105,7 @@
                     
                 </choices>
                 
-            </mulitpleChoiceSingle>
+            </multipleChoiceSingle>
             
         </page>
         
@@ -122,7 +122,7 @@
         
         <page type="quiz" title="Question 3">
             
-            <mulitpleChoiceSingle>
+            <multipleChoiceSingle>
                 
                 <question image="" audio="">In what year was the first Chocolate Chip Cookie recipe published?</question>
                 <choices>
@@ -149,7 +149,7 @@
                     
                 </choices>
                 
-            </mulitpleChoiceSingle>
+            </multipleChoiceSingle>
             
         </page>
         
@@ -183,6 +183,55 @@
             <frame start="00:18"></frame>
             <frame start="00:26"></frame>
             <note />
+        </page>
+        
+        <page type="quiz" src="slide13" title="Fill in the Blank Example">
+            <fillInTheBlank>
+                <question>256, 128, 64, 32, 16, ... what comes next?</question>
+                <answer>8</answer>
+                <correctFeedback>That's right. The next number can be determined by dividing the previous number by 2.</correctFeedback>
+                <incorrectFeedback>No, worries. Math is hard!</incorrectFeedback>
+            </fillInTheBlank>
+        </page>
+        
+        <page type="quiz" title="Multiple Chioce with Multiple Answers Example">
+            
+            <multipleChoiceMultiple>
+                
+                <question image="" audio="">What are the colors of the American's flag?</question>
+                <choices>
+                    
+                    <answer image="" audio="">
+                        <value>Green</value>
+                    </answer>
+                    
+                    <answer image="" audio="">
+                        <value>Pink</value>
+                    </answer>
+                    
+                    <answer image="" audio="" correct="yes">
+                        <value>Blue</value>
+                    </answer>
+                    
+                    <answer image="" audio="" correct="yes">
+                        <value>White</value>
+                    </answer>
+                    
+                    <answer image="" audio="" correct="yes">
+                        <value>Red</value>
+                    </answer>
+                    
+                    <answer image="" audio="">
+                        <value>Orange</value>
+                    </answer>
+                    
+                </choices>
+                
+                <correctFeedback>That's right!</correctFeedback>
+                <incorrectFeedback>No, worries...</incorrectFeedback>
+                
+            </multipleChoiceMultiple>
+            
         </page>
         
     </section>

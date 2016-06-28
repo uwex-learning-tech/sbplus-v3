@@ -257,6 +257,12 @@ var sbplus = ( function() {
         var slideHeight = $( '.page_container .content' ).outerHeight();
         var sidePanelTopBarHeight = $( '.side_panel .topbar' ).outerHeight();
         var isExpanded = $( '.page_container' ).hasClass( 'expanded' );
+        var isAssessment = $( '.main_content_wrapper' ).hasClass( 'assessment-view' );
+        
+        if ( isAssessment ) {
+            var h = windowHeight - titleBarHeight - controlBarHeight;
+            $( '.content .assessment' ).css( {'height': h + 'px'} );
+        }
         
         if ( isExpanded ) {
             

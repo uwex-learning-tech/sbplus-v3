@@ -66,8 +66,12 @@ var sbplusSlide = ( function() {
         
         // resets
         _removeSlideErrorMsg();
+        
+        $( '.main_content_wrapper' ).removeClass( 'assessment-view' );
         $( '.page_container .content' ).removeClass( 'img-only' );
+        $( '.page_container .content' ).removeClass( 'audio' );
         $( '.page_container .content' ).removeClass( 'html' );
+        
         if ( mediaPlayer !== null ) {
             
             isKaltura = false;
@@ -80,9 +84,9 @@ var sbplusSlide = ( function() {
             
         }
         
-        _renderMedia();
-        
         sbplusTableOfContents.update( s, p );
+        
+        _renderMedia();
         
         // update cookie value for resume after a delay
         window.clearTimeout( timeoutCookie );
@@ -142,8 +146,8 @@ var sbplusSlide = ( function() {
                         subtitles = '<track kind="subtitles" label="English" srclang="en" src="' + directory + fileName + '.vtt" ' + ( subtitlesOn === true ? 'default' : '' ) + ' />';
                     
                     } ).always( function() {
-                        
-                    $container.html( '<video id="ap" class="video-js vjs-default-skin" poster="' + slideImg + '\">' + subtitles + '</video>' ).promise().done( function() {
+                    
+                    $container.addClass( 'audio' ).html( '<video id="ap" class="video-js vjs-default-skin" poster="' + slideImg + '\">' + subtitles + '</video>' ).promise().done( function() {
                     
                             _renderVideoJsPlayer();
                     
@@ -273,6 +277,12 @@ var sbplusSlide = ( function() {
                 
             break;
             
+            case 'quiz':
+                var qID = Number( $('.selectable .selected').attr('data-order') );
+                $container.html ( sbplusQuiz.get( currentSlide, qID ) );
+                sbplus.resize();
+            break;
+            
         }
         
     }
@@ -330,7 +340,7 @@ var sbplusSlide = ( function() {
     }
     
     function _renderVideoJsPlayer() {
-        
+
         var options = {
             
             techOrder: ["html5"],

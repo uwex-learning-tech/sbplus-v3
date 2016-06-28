@@ -117,6 +117,7 @@ var sbplusControls = ( function() {
             if ( isExpanded ) {
                 
                 pageContainer.removeClass( 'expanded' ).addClass( 'aspect-ratio' ).css( 'height', 'auto' );
+                
                 expandedControls.addClass( 'hide' );
                 widgets.removeClass( 'hide' );
                 btnIcon.removeClass( 'icon-contract' ).addClass( 'icon-expand' );
