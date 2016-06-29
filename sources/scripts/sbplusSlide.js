@@ -431,6 +431,19 @@ var sbplusSlide = ( function() {
             	
             	player.cuepoints();
             	
+            	player.addCuepoint( {
+                    	
+                	namespace: fileName + '-1',
+                	start: 0,
+                	end: cuepoints[1],
+                	onStart: function() {
+                    	player.poster( 'assets/slide/' + fileName + '-1.' + imgFormat );
+                	},
+                	onEnd: function() {},
+                	params: ''
+                	
+            	} );
+            	
             	$.each( cuepoints, function(i) {
                 	
                 	var nextCue;
@@ -453,7 +466,9 @@ var sbplusSlide = ( function() {
                     	onStart: function() {
                         	player.poster( 'assets/slide/' + fileName + '-'  +(i+2) + '.' + imgFormat );
                     	},
-                    	onEnd: function() {},
+                    	onEnd: function() {
+                        	player.poster( 'assets/slide/' + fileName + '-1.' + imgFormat );
+                    	},
                     	params: ''
                     	
                 	} );

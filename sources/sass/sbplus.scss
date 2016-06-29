@@ -254,6 +254,10 @@ noscript {
             .splashinfo {
                 
                 max-width: 50%;
+                background-color: rgba( 255, 255, 255, 0.25 );
+                padding: 18px 30px 20px;
+                padding: rem( 18px ) rem( 30px ) rem( 20px );
+                @include border-radius( 5px );
                 
                 .title {
                     font-weight: bold;
@@ -296,8 +300,8 @@ noscript {
                     
                     height: 30px;
                     height: rem( 30px );
-                    margin: $gutter 0;
-                    margin: rem( $gutter ) 0;
+                    margin: $gutter 0 0;
+                    margin: rem( $gutter ) 0 0;
                     font-size: 12px;
                     font-size: rem( 12px );
                     
@@ -318,8 +322,6 @@ noscript {
                         
                         [class^="icon-"] {
                             position: absolute;
-                            top: 8px;
-                            top: rem( 8px );
                             left: 6px;
                             left: rem( 6px );
                         }
@@ -376,14 +378,14 @@ noscript {
                 
                 .author {
                     @extend .title;
-                    @include flex(2 1 20%);
+                    @include flex(2 1 21.5%);
                                         
                 }
                 
                 .menuBtn {
                     
                     @extend .title;
-                    @include flex(1 1 5%);
+                    @include flex(1 1 3.5%);
                     
                     //min-width: rem( 40px );
                     height: 30px;
@@ -809,17 +811,15 @@ noscript {
                         .downloadsBtn {
                             
                             position: relative;
-                            width: 128px;
-                            width: rem( 128px );
-                            font-size: 14px;
-                            font-size: rem( 14px );
                             
                             .download_items {
                                 
                                 position: absolute;
-                                width: 100%;
+                                width: 120px;
+                                font-size: 14px;
+                                font-size: rem( 14px );
                                 bottom: rem( 38px );
-                                left: 0;
+                                left: -30px;
                                 background-color: #fff;
                                 border: 1px solid $border-color;
                                 z-index: 10;
@@ -914,7 +914,7 @@ noscript {
                                 border-bottom: rem( 1px ) solid $border-color;
                                 
                                 .title {
-                                    @include flex(2 1 80%);
+                                    @include flex(2 1 87.5%);
                                     padding: 0 10px;
                                     padding: 0 rem( 10px );
                                     font-weight: bold;
@@ -923,7 +923,7 @@ noscript {
                                 }
                                 
                                 .expandCollapseIcon {
-                                    @include flex(1 1 20%);
+                                    @include flex(1 1 12.5%);
                                     line-height: 0;
                                     text-align: center;
                                     padding-left: 1px;
@@ -1201,6 +1201,12 @@ noscript {
                             width: 100%;
                             height: auto;
                             margin-top: rem(10px);
+                        }
+                        
+                        .name {
+                            font-size: 18px;
+                            font-size: rem( 18px );
+                            font-weight: bolder;
                         }
                         
                         .sbplus_settings {

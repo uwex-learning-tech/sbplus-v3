@@ -107,19 +107,19 @@ var sbplusQuiz = ( function() {
         switch ( type ) {
             
             case 'shortAnswer':
-                html += '<div class="header">Question for Self Assessment: Short Answer</div>';
+                html += '<div class="header"><span class="icon-assessment"></span> Question for Self Assessment: Short Answer</div>';
                 html += '<div class="title">'+currentQuestion.title.description+'</div>';
                 html += '<textarea></textarea>';
             break;
             
             case 'fillInTheBlank':
-                html += '<div class="header">Question for Self Assessment: Fill in the Blank</div>';
+                html += '<div class="header"><span class="icon-assessment"></span> Question for Self Assessment: Fill in the Blank</div>';
                 html += '<div class="title">'+currentQuestion.title.description+'</div>';
                 html += '<input type="text" />';
             break;
             
             case 'multipleChoiceSingle':
-                html += '<div class="header">Question for Self Assessment: Multiple Choice</div>';
+                html += '<div class="header"><span class="icon-assessment"></span> Question for Self Assessment: Multiple Choice</div>';
                 html += '<div class="title">'+currentQuestion.title.description+'</div>';
                 
                 $.each( currentQuestion.answer, function() {
@@ -132,7 +132,7 @@ var sbplusQuiz = ( function() {
             break;
             
             case 'multipleChoiceMultiple':
-                html += '<div class="header">Question for Self Assessment: Multiple Choice</div>';
+                html += '<div class="header"><span class="icon-assessment"></span> Question for Self Assessment: Multiple Choice</div>';
                 html += '<div class="title">'+currentQuestion.title.description+'</div>';
                 
                 $.each( currentQuestion.answer, function() {

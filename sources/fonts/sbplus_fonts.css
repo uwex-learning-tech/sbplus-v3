@@ -1,10 +1,10 @@
 @font-face {
     font-family: 'sbplus';
-    src:    url('sbplus.eot?fbtzap');
-    src:    url('sbplus.eot?fbtzap#iefix') format('embedded-opentype'),
-        url('sbplus.ttf?fbtzap') format('truetype'),
-        url('sbplus.woff?fbtzap') format('woff'),
-        url('sbplus.svg?fbtzap#sbplus') format('svg');
+    src:    url('sbplus.eot?z2fp6t');
+    src:    url('sbplus.eot?z2fp6t#iefix') format('embedded-opentype'),
+        url('sbplus.ttf?z2fp6t') format('truetype'),
+        url('sbplus.woff?z2fp6t') format('woff'),
+        url('sbplus.svg?z2fp6t#sbplus') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -57,9 +57,6 @@
 .icon-close:before {
     content: "\ed6b";
 }
-.icon-download:before {
-    content: "\ee36";
-}
 .icon-profile:before {
     content: "\eb0b";
 }
@@ -78,6 +75,7 @@
 .icon-left:before {
     content: "\edc2";
 }
-.icon-popout:before {
-    content: "\ea7e";
+.icon-download:before {
+    content: "\ec82";
 }
+

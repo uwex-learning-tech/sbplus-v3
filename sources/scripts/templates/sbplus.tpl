@@ -33,7 +33,7 @@
                         <button class="previous"><span class="icon-left"></span></button>
                         <button class="next"><span class="icon-right"></span></button>
                     </div>
-                    <div class="status">Slide <span class="current">#</span> of <span class="total">#</span></div>
+                    <div class="status">Page <span class="current">#</span> of <span class="total">#</span></div>
                     <div class="right_controls">
                         <button class="downloadsBtn">
                             <div class="download_items hide">
@@ -41,7 +41,7 @@
                                     
                                 </ul>
                             </div>
-                            <span class="icon-download"></span> Downloads
+                            <span class="icon-download"></span>
                         </button>
                         <div class="expandOnly hide">
                             <button class="tocBtn"><span class="icon-table-of-content"></span></button>

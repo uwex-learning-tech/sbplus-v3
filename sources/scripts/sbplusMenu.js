@@ -97,12 +97,12 @@ var sbplusMenu = ( function() {
                                 $( profileImage ).load( function() {
                                     
                                     profile = '<img class="profileImg" src="' + file + '.jpg" alt="Photo of ' + res.name + '" />';
-                                    profile += '<p><strong>' + res.name + '</strong></p>' + res.profile;
+                                    profile += '<p class="name">' + res.name + '</p>' + res.profile;
                                     _renderMenuItemDetails( self, title, profile );
                                     
                                 } ).error( function() {
                                     
-                                    profile = '<p><strong>' + res.name + '</strong></p>' + res.profile;
+                                    profile = '<p class="name">' + res.name + '</p>' + res.profile;
                                     _renderMenuItemDetails( self, title, profile );
                                     
                                 } ).attr( {
@@ -234,7 +234,7 @@ var sbplusMenu = ( function() {
         // volume
         var volumeVal = $.fn.getCookie('sbplus-vjs-volume');
         
-        $( '#volume' ).prop( 'value', volumeVal );
+        $( '#volume' ).prop( 'value', ( volumeVal * 100 ) );
         
         // playrate
         var rateVal = $.fn.getCookie('sbplus-vjs-playbackrate');
@@ -270,11 +270,11 @@ var sbplusMenu = ( function() {
             // volumne
             var vol = $( '#volume' ).val();
             
-            if ( vol < 0 || vol > 1 || vol === '' ) {
+            if ( vol < 0 || vol > 100 || vol === '' ) {
                 volError = true;
-                vol = 0.8;
+                vol = 8;
             } else {
-                $.fn.setCookie('sbplus-vjs-volume', vol );
+                $.fn.setCookie('sbplus-vjs-volume', ( vol / 100 ) );
             }
             
             // playrate
@@ -290,7 +290,7 @@ var sbplusMenu = ( function() {
             if ( volError ) {
                 
                 $( '#volume' ).parent().parent().addClass( 'invalid' );
-                $( '#volume' ).parent().after( '<p class="emsg">Must be between 0 to 1.</p>' );
+                $( '#volume' ).parent().after( '<p class="emsg">Must be between 0 to 100.</p>' );
                 
             } else {
                 

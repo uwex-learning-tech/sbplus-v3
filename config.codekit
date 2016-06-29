@@ -11,6 +11,70 @@
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
+	"\/example\/assets\/html\/aframe\/aframe.min.js": {
+		"fileType": 64,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/example\/assets\/html\/aframe\/aframe.min.js",
+		"outputAbbreviatedPath": "\/example\/assets\/html\/aframe\/aframe.min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 1
+		},
+	"\/example\/assets\/html\/aframe\/assets\/textures\/blue_tile-1024-12u_12u.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 5735,
+		"inputAbbreviatedPath": "\/example\/assets\/html\/aframe\/assets\/textures\/blue_tile-1024-12u_12u.png",
+		"outputAbbreviatedPath": "\/example\/assets\/html\/aframe\/assets\/textures\/blue_tile-1024-12u_12u.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/example\/assets\/html\/aframe\/assets\/textures\/dev_tex-6u.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 7273,
+		"inputAbbreviatedPath": "\/example\/assets\/html\/aframe\/assets\/textures\/dev_tex-6u.png",
+		"outputAbbreviatedPath": "\/example\/assets\/html\/aframe\/assets\/textures\/dev_tex-6u.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/example\/assets\/html\/aframe\/assets\/textures\/grain01.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 837452,
+		"inputAbbreviatedPath": "\/example\/assets\/html\/aframe\/assets\/textures\/grain01.png",
+		"outputAbbreviatedPath": "\/example\/assets\/html\/aframe\/assets\/textures\/grain01.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/example\/assets\/html\/aframe\/assets\/textures\/skysphere.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1.78033e+06,
+		"inputAbbreviatedPath": "\/example\/assets\/html\/aframe\/assets\/textures\/skysphere.png",
+		"outputAbbreviatedPath": "\/example\/assets\/html\/aframe\/assets\/textures\/skysphere.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/example\/assets\/html\/aframe\/index.html": {
+		"fileType": 8192,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/example\/assets\/html\/aframe\/index.html",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
 	"\/example\/assets\/html\/testing\/cat.jpg": {
 		"fileType": 16384,
 		"ignore": 0,

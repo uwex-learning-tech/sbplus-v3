@@ -329,35 +329,6 @@
 		{
 			"icon": {
 				"paths": [
-					"M320 0h384v64h-384zM320 128h384v64h-384zM320 256h384v64h-384zM512 1024l448-448h-256v-192h-384v192h-256z"
-				],
-				"attrs": [],
-				"isMulticolor": false,
-				"tags": [
-					"arrow-down",
-					"down",
-					"arrow-bottom",
-					"download"
-				],
-				"defaultCode": 58390,
-				"grid": 16
-			},
-			"attrs": [],
-			"properties": {
-				"id": 11,
-				"order": 28,
-				"prevSize": 32,
-				"code": 60982,
-				"ligatures": "arrow-down16, down23",
-				"name": "download"
-			},
-			"setIdx": 0,
-			"setId": 2,
-			"iconIdx": 11
-		},
-		{
-			"icon": {
-				"paths": [
 					"M320 256c0-106.039 85.961-192 192-192 106.039 0 192 85.961 192 192 0 106.039-85.961 192-192 192-106.039 0-192-85.961-192-192zM512 512c-212.078 0-384 200.578-384 448h128c0-176.73 114.614-320 256-320 141.382 0 256 143.27 256 320h128c0-247.422-171.924-448-384-448z"
 				],
 				"attrs": [],
@@ -535,34 +506,32 @@
 		{
 			"icon": {
 				"paths": [
-					"M192 64v768h768v-768h-768zM896 768h-640v-640h640v640zM128 896v-672l-64-64v800h800l-64-64h-672z",
-					"M352 256l160 160-192 192 96 96 192-192 160 160v-416z"
+					"M128 768h768v192h-768v-192z",
+					"M640 384v-320h-256v320h-224l352 352 352-352z"
 				],
+				"attrs": [],
+				"isMulticolor": false,
 				"tags": [
-					"new-tab",
-					"out",
-					"external",
-					"outside",
-					"popout",
-					"link",
-					"blank"
+					"download",
+					"save",
+					"store",
+					"arrow"
 				],
-				"defaultCode": 60030,
-				"grid": 16,
-				"attrs": []
+				"defaultCode": 58042,
+				"grid": 16
 			},
 			"attrs": [],
 			"properties": {
-				"ligatures": "new-tab, out2",
-				"name": "popout",
-				"order": 2,
-				"id": 383,
+				"id": 898,
+				"order": 35,
 				"prevSize": 32,
-				"code": 60030
+				"code": 60546,
+				"ligatures": "download5, save11",
+				"name": "download"
 			},
 			"setIdx": 1,
-			"setId": 1,
-			"iconIdx": 382
+			"setId": 3,
+			"iconIdx": 898
 		}
 	],
 	"height": 1024,

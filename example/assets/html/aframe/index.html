@@ -1,0 +1,53 @@
+<!doctype html> <meta charset="UTF-8">
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Untitled Document</title>
+    <script type="application/javascript" src="aframe.min.js"></script>
+</head>
+<body>
+    
+<a-scene>
+  <a-assets>
+    <img id="texture" src="assets/textures/grain01.png">
+    <img id="text" src="assets/textures/dev_tex-6u.png">
+    <img id="sky" src="assets/textures/skysphere.png">
+    <img id="ground" src="assets/textures/blue_tile-1024-12u_12u.png">
+    <a-asset-item id="table" src="assets/models/table.dae"></a-asset-item>
+    <a-asset-item id="graph" src="assets/models/basic_graph.dae" ></a-asset-item>
+  </a-assets>
+    
+    
+    <a-sky src="#sky"></a-sky>
+    
+    <a-light type="ambient" color="#fff" position="-1 1 0" intensity="1"></a-light>
+    
+    <a-box color="#E81818" shader="flat" width="6" height="6" depth="6"
+         position="-10 2 -5" rotation="0 0 45" src="#text">
+          <!--Spinning Box -->
+    <a-animation attribute="rotation" begin="click" repeat="indefinite" dur="10000" to="360 0 0"></a-animation>
+    </a-box>
+    
+    <a-collada-model src="#table" position="0 0 0" color="#fff">
+        <!-- table -->
+    </a-collada-model>
+    
+     <a-collada-model src="#graph" position="0 1.1 -0.4" rotation="0" color="#fff">
+        <!-- graph -->
+    </a-collada-model>   
+    
+    
+    <a-box color="#CCFF99" shader="flat" width="10" height="100" depth="10" position="0 -50 0">
+    
+    </a-box> 
+
+    
+    <a-camera position="0 1.8 5">
+    <a-cursor color="#2E3A87" />
+    </a-camera>
+    
+    
+  </a-scene>
+
+</body>
+</html>

@@ -4,13 +4,13 @@
     <div class="grid">
         
         <div class="row">
-            <div class="label"><label for="autoplay">Auto play on start?</label></div>
+            <div class="label"><label for="autoplay">Auto play on start</label></div>
             <div class="control"><input id="autoplay" type="checkbox" value="1" checked /></div>
         </div>
         
         <div class="row">
-            <div class="label"><label for="volume">Default volume level</label></div>
-            <div class="control"><input id="volume" type="number" value="0.8" /></div>
+            <div class="label"><label for="volume">Default volume level percentage</label></div>
+            <div class="control"><input id="volume" type="number" value="8" /></div>
         </div>
         
         <div class="row">
@@ -26,7 +26,7 @@
         </div>
         
         <div class="row">
-            <div class="label"><label for="subtitle">Display subtitle?</label></div>
+            <div class="label"><label for="subtitle">Always display subtitle</label></div>
             <div class="control"><input id="subtitle" type="checkbox" value="0" /></div>
         </div>
         
