@@ -150,6 +150,8 @@ var sbplusSplashScreen = ( function () {
         bindStartPresentationEvent();
         sbplusDownloadable.get();
         
+        // popout button
+/*
         if ( window.self !== window.top ) {
             $( '.popoutBtn' ).removeClass( 'hide' ).on( 'click', function() {
                 
@@ -157,6 +159,7 @@ var sbplusSplashScreen = ( function () {
                 
             } );
         }
+*/
         
     }
     

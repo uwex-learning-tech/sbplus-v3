@@ -48,7 +48,7 @@
                             <button class="notesBtn"><span class="icon-notes"></span></button>
                         </div>
                         <button class="expandContractBtn"><span class="icon-expand"></span></button>
-                        <button class="popoutBtn hide"><span class="icon-popout"></span></button>
+                        <!-- <button class="popoutBtn hide"><span class="icon-popout"></span></button> -->
                     </div>
                 </nav>
             
