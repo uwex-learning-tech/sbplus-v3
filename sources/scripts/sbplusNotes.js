@@ -22,11 +22,16 @@ var sbplusNotes = ( function() {
         var page = $( context[s] ).find( 'page' )[p];
         var note = $( page ).find( 'note' ).text();
         var region = $( '.widget_container .notes' );
-        var notesBtn = $( '.control_bar_wrapper .expandOnly .notesBtn' );
+        var notesBtn = $( '.control_bar_wrapper .notesBtn' );
         
         if ( !$.fn.isEmpty( note ) ) {
+            
             region.removeClass( 'noNotes' ).html( note );
-            notesBtn.removeClass( 'hide' );
+            
+            if ( $( '.main_content_wrapper' ).hasClass( 'full-view' ) ) {
+                notesBtn.removeClass( 'hide' );
+            }
+            
         } else {
             
             var logoSrc = manifest.sbplus_logo_directory + $.fn.getProgramDirectory() + '.svg';

@@ -43,10 +43,8 @@
                             </div>
                             <span class="icon-download"></span>
                         </button>
-                        <div class="expandOnly hide">
-                            <button class="tocBtn"><span class="icon-table-of-content"></span></button>
-                            <button class="notesBtn"><span class="icon-notes"></span></button>
-                        </div>
+                        <button class="tocBtn hide"><span class="icon-table-of-content"></span></button>
+                        <button class="notesBtn hide"><span class="icon-notes"></span></button>
                         <button class="expandContractBtn"><span class="icon-expand"></span></button>
                         <!-- <button class="popoutBtn hide"><span class="icon-popout"></span></button> -->
                     </div>

@@ -256,17 +256,20 @@ var sbplus = ( function() {
         var controlBarHeight = $( '.control_bar_wrapper' ).outerHeight();
         var slideHeight = $( '.page_container .content' ).outerHeight();
         var sidePanelTopBarHeight = $( '.side_panel .topbar' ).outerHeight();
-        var isExpanded = $( '.page_container' ).hasClass( 'expanded' );
+        var isExpanded = $( '.main_content_wrapper' ).hasClass( 'full-view' );
         var isAssessment = $( '.main_content_wrapper' ).hasClass( 'assessment-view' );
         
+        // is assessement view
         if ( isAssessment ) {
             var h = windowHeight - titleBarHeight - controlBarHeight;
             $( '.content .assessment' ).css( {'height': h + 'px'} );
         }
         
+        // is expanded view
         if ( isExpanded ) {
             
             var heightPercentage = 100 - ( ( controlBarHeight + titleBarHeight ) / windowHeight * 100 );
+            
             $( '.page_container.expanded' ).css( 'height', heightPercentage + '%'  );
             $( '.widget_container .notes' ).css( { 'height': '', 'width': $( '.status' ).outerWidth() + 'px' } );
             $( '.widget_container .side_panel' ).css( {
@@ -278,33 +281,67 @@ var sbplus = ( function() {
             
         } else {
             
-            var notesHeight = windowHeight - ( titleBarHeight + controlBarHeight + slideHeight );
-            
-            $( '.widget_container' ).css( 'height', windowHeight - ( titleBarHeight + slideHeight ) );
-            $( '.widget_container .notes' ).css( {
+            // notes minimized view
+            if ( windowHeight >= 630 ) {
                 
-                'height': windowHeight - ( titleBarHeight + controlBarHeight + slideHeight ),
-                'width': ''
-            
-            } );
-            
-            if ( widowWidth >= 888 ) {
-            
-                $( '.side_panel').css( {
+                $( '.page_container' ).css( 'height', '' );
+                $( '.main_content_wrapper' ).removeClass( 'notes-minimized-view' );
+                $( '.widget_container .notes' ).removeClass( 'hide' ).css( 'width', '' );
+                $( '.control_bar_wrapper .notesBtn' ).addClass( 'hide' );
+                
+                if ( widowWidth >= 888 ) {
                     
-                    'margin-top': slideHeight * -1,
+                    $( '.page_container' ).css( 'width', '' );
+                    $( '.side_panel').css( {
+                        
+                        'margin-top': slideHeight * -1,
+                        'border-top': 'none',
+                        'height': '',
+                        'top': '',
+                        'width': ''
+                        
+                    } );
+                    $( '.tableOfContents').css( 'height', windowHeight - titleBarHeight - sidePanelTopBarHeight - 1 );
+                    
+                } else {
+                    
+                    $( '.page_container' ).css( 'width', '100%' );
+                    $( '.side_panel').css( {'margin-top': 0, 'border-top': '1px solid #ccc'} );
+                    $( '.tableOfContents').css( 'height', notesHeight + controlBarHeight - sidePanelTopBarHeight - 2 );
+                    
+                }
+                
+                var currentSlideHeight = $( '.page_container .content' ).outerHeight();
+                var notesHeight = windowHeight - ( titleBarHeight + controlBarHeight + currentSlideHeight );
+                
+                $( '.widget_container' ).css( 'height', windowHeight - ( titleBarHeight + currentSlideHeight ) );
+                $( '.widget_container .notes' ).css( {
+                    
+                    'height': windowHeight - ( titleBarHeight + controlBarHeight + currentSlideHeight ),
+                    'width': ''
+                
+                } );
+                
+            } else {
+                
+                $( '.main_content_wrapper' ).addClass( 'notes-minimized-view' );
+                $( '.widget_container .notes' ).addClass( 'hide' ).css( {
+                    'width': $( '.status' ).outerWidth(), 
+                    'height': ''
+                } );
+                $( '.page_container' ).css( { 'width': '', 'height': windowHeight - titleBarHeight - controlBarHeight } );
+                $( '.control_bar_wrapper .notesBtn' ).removeClass( 'hide' );
+                
+                $( '.side_panel').css( {
+                        
+                    'margin-top': ( windowHeight - titleBarHeight - controlBarHeight) * -1,
                     'border-top': 'none',
-                    'height': '',
+                    'height': windowHeight - titleBarHeight,
                     'top': '',
                     'width': ''
                     
                 } );
-                $( '.tableOfContents').css( 'height', slideHeight + notesHeight + controlBarHeight - sidePanelTopBarHeight - 1 );
-                
-            } else {
-                    
-                $( '.side_panel').css( {'margin-top': 0, 'border-top': '1px solid #ccc'} );
-                $( '.tableOfContents').css( 'height', notesHeight + controlBarHeight - sidePanelTopBarHeight - 1 );
+                $( '.tableOfContents').css( 'height', windowHeight - titleBarHeight - sidePanelTopBarHeight - 1 );
                 
             }
             

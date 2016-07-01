@@ -883,7 +883,7 @@
 		"outputAbbreviatedPath": "\/sources\/scripts\/sbplus.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 1,
-		"outputStyle": 2,
+		"outputStyle": 1,
 		"syntaxCheckerStyle": 1
 		},
 	"\/sources\/scripts\/sbplus.js": {
@@ -1030,7 +1030,7 @@
 	"\/sources\/scripts\/sbplus-dev.js": [
 		{
 			"followForSyntaxChecking": 1,
-			"linkedFileAbbreviatedPath": "\/sources\/scripts\/sbplusDownloadable.js",
+			"linkedFileAbbreviatedPath": "\/sources\/scripts\/functions.js",
 			"position": 0,
 			"type": 1
 			},
@@ -1042,49 +1042,49 @@
 			},
 		{
 			"followForSyntaxChecking": 1,
-			"linkedFileAbbreviatedPath": "\/sources\/scripts\/sbplusControls.js",
+			"linkedFileAbbreviatedPath": "\/sources\/scripts\/sbplusSplashScreen.js",
 			"position": 2,
 			"type": 1
 			},
 		{
 			"followForSyntaxChecking": 1,
-			"linkedFileAbbreviatedPath": "\/sources\/scripts\/sbplusSplashScreen.js",
+			"linkedFileAbbreviatedPath": "\/sources\/scripts\/sbplusDownloadable.js",
 			"position": 3,
 			"type": 1
 			},
 		{
 			"followForSyntaxChecking": 1,
-			"linkedFileAbbreviatedPath": "\/sources\/scripts\/sbplusMenu.js",
+			"linkedFileAbbreviatedPath": "\/sources\/scripts\/sbplusSlide.js",
 			"position": 4,
 			"type": 1
 			},
 		{
 			"followForSyntaxChecking": 1,
-			"linkedFileAbbreviatedPath": "\/sources\/scripts\/sbplusTableOfContents.js",
+			"linkedFileAbbreviatedPath": "\/sources\/scripts\/sbplusQuiz.js",
 			"position": 5,
 			"type": 1
 			},
 		{
 			"followForSyntaxChecking": 1,
-			"linkedFileAbbreviatedPath": "\/sources\/scripts\/sbplusSlide.js",
+			"linkedFileAbbreviatedPath": "\/sources\/scripts\/sbplusTableOfContents.js",
 			"position": 6,
 			"type": 1
 			},
 		{
 			"followForSyntaxChecking": 1,
-			"linkedFileAbbreviatedPath": "\/sources\/scripts\/sbplusNotes.js",
+			"linkedFileAbbreviatedPath": "\/sources\/scripts\/sbplusControls.js",
 			"position": 7,
 			"type": 1
 			},
 		{
 			"followForSyntaxChecking": 1,
-			"linkedFileAbbreviatedPath": "\/sources\/scripts\/sbplusQuiz.js",
+			"linkedFileAbbreviatedPath": "\/sources\/scripts\/sbplusNotes.js",
 			"position": 8,
 			"type": 1
 			},
 		{
 			"followForSyntaxChecking": 1,
-			"linkedFileAbbreviatedPath": "\/sources\/scripts\/functions.js",
+			"linkedFileAbbreviatedPath": "\/sources\/scripts\/sbplusMenu.js",
 			"position": 9,
 			"type": 1
 			}

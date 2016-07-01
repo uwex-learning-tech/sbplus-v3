@@ -6,6 +6,9 @@ $link-color: #18b8f7;
 $gutter: 16px;
 $default-accent: #535cab;
 
+$leftWidth: 71.117%;
+$rightWidth: 28.883%;
+
 @import "compass/reset/utilities";
 @import "compass/css3/box-sizing";
 @import "compass/utilities/general/clearfix";
@@ -366,7 +369,7 @@ noscript {
                 
                 .title {
                     
-                    @include flex(3 1 75%);
+                    @include flex(3 1 $leftWidth);
                     line-height: 30px;
                     line-height: rem( 30px );
                     padding: 0 10px;
@@ -378,14 +381,14 @@ noscript {
                 
                 .author {
                     @extend .title;
-                    @include flex(2 1 21.5%);
+                    @include flex(2 1 ( 100% - $leftWidth - 3.5% ) );
                                         
                 }
                 
                 .menuBtn {
                     
                     @extend .title;
-                    @include flex(1 1 3.5%);
+                    @include flex(1 0 3.5%);
                     
                     //min-width: rem( 40px );
                     height: 30px;
@@ -417,7 +420,7 @@ noscript {
             
             .page_container {
                 
-                width: 75%;
+                width: $leftWidth;
                 
                 .slideError {
                     
@@ -481,6 +484,7 @@ noscript {
                             font-family: $default-font-family;
                             font-size: rem( 14px );
                             line-height: rem( 16px );
+                            margin-bottom: 0;
                         }
                         
                         textarea {
@@ -491,6 +495,7 @@ noscript {
                             font-size: rem( 14px );
                             line-height: rem( 16px );
                             resize: none;
+                            margin-bottom: 0;
                         }
                         
                         button {
@@ -641,7 +646,7 @@ noscript {
                     
                     @include display-flex( flex );
                     @include flex-flow( row wrap );
-                    @include flex(2 1 75%);
+                    @include flex(2 1 $leftWidth);
                     
                     .notes {
                         
@@ -652,7 +657,7 @@ noscript {
                         border-right: none;
                         padding: 10px 10px 0;
                         padding: rem( 10px ) rem( 10px ) 0;
-                        overflow-y: scroll;
+                        overflow-y: auto;
                         
                         font-size: 14px;
                         font-size: rem( 14px );
@@ -867,7 +872,7 @@ noscript {
                     border-right: rem( 1px ) solid $border-color;
                     border-bottom: 1px solid $border-color;
                     border-bottom: rem( 1px ) solid $border-color;
-                    @include flex(1 1 25%);
+                    @include flex(1 1 $rightWidth);
                     
                     .topbar {
                         
@@ -914,7 +919,7 @@ noscript {
                                 border-bottom: rem( 1px ) solid $border-color;
                                 
                                 .title {
-                                    @include flex(2 1 87.5%);
+                                    @include flex(2 1 88%);
                                     padding: 0 10px;
                                     padding: 0 rem( 10px );
                                     font-weight: bold;
@@ -923,7 +928,7 @@ noscript {
                                 }
                                 
                                 .expandCollapseIcon {
-                                    @include flex(1 1 12.5%);
+                                    @include flex(1 1 12%);
                                     line-height: 0;
                                     text-align: center;
                                     padding-left: 1px;
@@ -1021,7 +1026,7 @@ noscript {
             #menu_panel {
                 
                 position: absolute;
-                width: 25%;
+                width: $rightWidth;
                 height: 100%;
                 top: 0;
                 right: 0;
@@ -1045,7 +1050,7 @@ noscript {
                     
                     .closeBtn {
                         
-                        @include flex(1 1 15%);
+                        @include flex(1 1 12%);
                         height: 30px;
                         height: rem( 30px );
                         text-align: center;
@@ -1066,7 +1071,7 @@ noscript {
                     }
                     
                     .title {
-                        @include flex(2 1 85%);
+                        @include flex(2 1 88%);
                         padding-top: 8px;
                         padding-top: rem( 8px );
                         padding-left: 10px;
@@ -1383,6 +1388,36 @@ noscript {
             
         } // end full-view
         
+        .notes-minimized-view {
+            
+            .widget_container {
+                
+                position: relative;
+                
+                .left_side {
+                    
+                    position: relative;
+                    
+                    .notes {
+                        
+                        position: absolute;
+                        background-color: rgba(255, 255, 255, .96);
+                        height: 250px;
+                        top: rem( 40px );
+                        left: rem( 121px );
+                        z-index: 0;
+                        border-right: 1px solid $border-color;
+                        border-right: rem( 1px ) solid $border-color;
+                        @include border-radius( 4px 4px 0 0 );
+                        
+                    }
+                    
+                }
+                
+            }
+            
+        }
+        
         .assessment-view {
             
             .page_container {
@@ -1394,7 +1429,7 @@ noscript {
                         top:0;
                         left: 0;
                         border-left: rem( 1px ) solid $border-color;
-                        overflow-y: scroll;
+                        overflow-y: auto;
                     }
                 }
                 
@@ -1426,28 +1461,6 @@ noscript {
     } // end sbplus_wrapper
   
 }
-
-@media screen and (max-width: 888px) {
-    
-    .sbplus_wrapper {
-        
-        // main storybook
-        .sbplus {
-            
-            .main_content_wrapper {
-                
-                .page_container {
-                    width: 100%;
-                }
-                
-            } // end main content wrapper
-            
-        } // end sbplus
-        
-    } // end sbplus_wrapper
-  
-}
-
 
 /**************************
     MISC./HELPER RULES

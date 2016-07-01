@@ -108,7 +108,8 @@ var sbplusControls = ( function() {
         $( '.control_bar_wrapper .expandContractBtn' ).on( 'click', function() {
             
             var pageContainer = $( '.page_container' );
-            var expandedControls = $( '.control_bar_wrapper .expandOnly' );
+            var notesBtn = $( '.control_bar_wrapper .notesBtn' );
+            var tocBtn = $( '.control_bar_wrapper .tocBtn' );
             var isExpanded = pageContainer.hasClass( 'expanded' );
             var widgets = $( '.notes, .side_panel' );
             var btnIcon = $( this ).find( 'span' );
@@ -118,7 +119,8 @@ var sbplusControls = ( function() {
                 
                 pageContainer.removeClass( 'expanded' ).addClass( 'aspect-ratio' ).css( 'height', 'auto' );
                 
-                expandedControls.addClass( 'hide' );
+                notesBtn.addClass( 'hide' );
+                tocBtn.addClass( 'hide' );
                 widgets.removeClass( 'hide' );
                 btnIcon.removeClass( 'icon-contract' ).addClass( 'icon-expand' );
                 mainContainerWrapper.removeClass( 'full-view' );
@@ -131,7 +133,8 @@ var sbplusControls = ( function() {
             } else {
                 
                 pageContainer.addClass( 'expanded' ).removeClass( 'aspect-ratio' );
-                expandedControls.removeClass( 'hide' );
+                notesBtn.removeClass( 'hide' );
+                tocBtn.removeClass( 'hide' );
                 widgets.addClass( 'hide' );
                 btnIcon.removeClass( 'icon-expand' ).addClass( 'icon-contract' );
                 mainContainerWrapper.addClass( 'full-view' );
@@ -142,7 +145,7 @@ var sbplusControls = ( function() {
             
         } );
         
-        $( '.control_bar_wrapper .expandOnly .notesBtn' ).on( 'click', function() {
+        $( '.control_bar_wrapper .notesBtn' ).on( 'click', function() {
             
             var self = this;
             var notes = $( '.widget_container .notes' );
@@ -176,7 +179,7 @@ var sbplusControls = ( function() {
             
         } );
         
-        $( '.control_bar_wrapper .expandOnly .tocBtn' ).on( 'click', function() {
+        $( '.control_bar_wrapper .tocBtn' ).on( 'click', function() {
             
             var self = this;
             var toc = $( '.widget_container .side_panel' );
@@ -249,7 +252,7 @@ var sbplusControls = ( function() {
     }
     
     function resetNote() {
-        $( '.control_bar_wrapper .expandOnly .notesBtn' ).removeClass( 'active' );
+        $( '.control_bar_wrapper .notesBtn' ).removeClass( 'active' );
         $( '.full-view .widget_container .notes' ).css( 'top', '40px' ).addClass( 'hide' );
     }
     
