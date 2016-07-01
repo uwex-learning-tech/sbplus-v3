@@ -168,13 +168,14 @@ $.fn.setCookie = function( cname, cvalue, exdays ) {
     
     exdays = typeof exdays !== 'undefined' ? exdays : 30;
     
-    var d = new Date();
-    
-    d.setTime( d.getTime() + ( exdays * 24 * 60 * 60 * 1000 ) );
-    
-    var expires = 'expires=' + d.toUTCString();
-    
-    document.cookie = cname + '=' + cvalue + '; ' + expires;
+    if ( exdays === 0 ) {
+        document.cookie = cname + '=' + cvalue + ';';
+    } else {
+        var d = new Date();
+        d.setTime( d.getTime() + ( exdays * 24 * 60 * 60 * 1000 ) );
+        var expires = 'expires=' + d.toUTCString();
+        document.cookie = cname + '=' + cvalue + '; ' + expires;
+    }
     
 };
 

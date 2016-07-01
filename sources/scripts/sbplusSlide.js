@@ -486,14 +486,35 @@ var sbplusSlide = ( function() {
             	
         	}
             
-            // settings
+            // default settings
             if ( options.playbackRates !== null ) {
                 
-                player.playbackRate( $.fn.getCookie( 'sbplus-vjs-playbackrate' ) );
+                if ( $.fn.hasCookieValue( 'sbplus-vjs-playbackrate-temp' ) ) {
+                    player.playbackRate( Number( $.fn.getCookie( 'sbplus-vjs-playbackrate-temp' ) ) );
+                } else {
+                    player.playbackRate( Number( $.fn.getCookie( 'sbplus-vjs-playbackrate' ) ) );
+                }
                 
             }
             
-            player.volume( Number( $.fn.getCookie( 'sbplus-vjs-volume' ) ) );
+            if ( $.fn.hasCookieValue( 'sbplus-vjs-volume-temp' ) ) {
+                player.volume( Number( $.fn.getCookie( 'sbplus-vjs-volume-temp' ) ) );
+            } else {
+                player.volume( Number( $.fn.getCookie( 'sbplus-vjs-volume' ) ) );
+            }
+            
+            // session settings
+            player.on( 'volumechange', function() {
+                
+                $.fn.setCookie( 'sbplus-vjs-volume-temp', this.volume(), 0 );
+                
+            } );
+            
+            player.on( 'ratechange', function() {
+                
+                $.fn.setCookie( 'sbplus-vjs-playbackrate-temp', this.playbackRate(), 0 );
+                
+            } );
             
             player.textTracks().addEventListener( 'change', function() {
                 
