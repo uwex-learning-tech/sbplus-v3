@@ -627,6 +627,28 @@ noscript {
                     
                 }
                 
+                .audio {
+                    
+                    .vjs-has-started {
+                        
+                        .vjs-poster {
+                            display: block;
+                        }
+                        
+                    }
+                    
+                }
+                
+                .img-only {
+                    
+                    @include display-flex();
+                    
+                    img {
+                        object-fit: contain;
+                    }
+                    
+                }
+                
             }
             
             .aspect-ratio {
@@ -1311,24 +1333,6 @@ noscript {
                     .assessment {
                         top: rem(30px);
                         border-right: rem( 1px ) solid $border-color;
-                    }
-                    
-                }
-                
-                .audio {
-                    .vjs-has-started {
-                        .vjs-poster {
-                            display: block;
-                        }
-                    }
-                }
-                
-                .img-only {
-                    
-                    @include display-flex();
-                    
-                    img {
-                        object-fit: contain;
                     }
                     
                 }
