@@ -1469,7 +1469,21 @@ noscript {
 /**************************
     MISC./HELPER RULES
 **************************/
+.IIV::-webkit-media-controls-play-button,
+.IIV::-webkit-media-controls-start-playback-button,
+.IIV::-webkit-media-controls-panel,
+.IIV::-webkit-full-page-media::-webkit-media-controls-panel,
+.IIV::-webkit-media-controls {
+    opacity: 0 !important;
+    display: none !important;
+    -webkit-appearance: none !important;
+}
 
+.IIV::-webkit-media-controls-enclosure {
+    display: none !important;
+    opacity: 0 !important;
+    -webkit-appearance: none !important;
+}
 .hide {
     display: none !important;
 }

@@ -192,6 +192,10 @@ var sbplus = ( function() {
         
         _initVJSCookies();
         
+        if( (navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i)) ) {
+            _loadiPhoneInlineScript();
+        }
+        
     }
     
     function renderUnsupportedMessage( e ) {
@@ -245,6 +249,12 @@ var sbplus = ( function() {
             $.fn.setCookie( 'sbplus-vjs-enabledSubtitles', 0 );
             
         }
+        
+    }
+    
+    function _loadiPhoneInlineScript() {
+        
+        $.getScript( manifest.sbplus_root_directory + 'scripts/libs/iphone-inline-video.browser.js' );
         
     }
     

@@ -4,6 +4,7 @@
 
 /* global videojs */
 /* global kWidget */
+/* global makeVideoPlayableInline */
 
 var sbplusSlide = ( function() {
     
@@ -147,7 +148,7 @@ var sbplusSlide = ( function() {
                     
                     } ).always( function() {
                     
-                    $container.addClass( 'audio' ).html( '<video id="ap" class="video-js vjs-default-skin" poster="' + slideImg + '\">' + subtitles + '</video>' ).promise().done( function() {
+                    $container.addClass( 'audio' ).html( '<video id="ap" class="video-js vjs-default-skin" poster="' + slideImg + '\" webkit-playsinline>' + subtitles + '</video>' ).promise().done( function() {
                     
                             _renderVideoJsPlayer();
                     
@@ -171,7 +172,7 @@ var sbplusSlide = ( function() {
                 
                 } ).always( function() {
                     
-                $container.html( '<video id="ap" class="video-js vjs-default-skin">' + subtitles + '</video>' ).promise().done( function() {
+                $container.html( '<video id="ap" class="video-js vjs-default-skin" webkit-playsinline>' + subtitles + '</video>' ).promise().done( function() {
                 
                         _renderVideoJsPlayer();
                 
@@ -217,7 +218,7 @@ var sbplusSlide = ( function() {
                     
                 }
                 
-                $container.html( '<video id="ap" class="video-js vjs-default-skin"></video>' ).promise().done( function() {
+                $container.html( '<video id="ap" class="video-js vjs-default-skin" webkit-playsinline></video>' ).promise().done( function() {
                     
                     _renderVideoJsPlayer();
                 
@@ -327,7 +328,7 @@ var sbplusSlide = ( function() {
     
                 }
                 
-                $container.html( '<video id="ap" class="video-js vjs-default-skin" crossorigin="anonymous"><track kind="subtitles" label="English" srclang="en" src="https://www.kaltura.com/api_v3/?service=caption_captionasset&action=servewebvtt&captionAssetId=' + captionId + '&segmentDuration=' + videoDuration + '&segmentIndex=1" ' + ( subtitlesOn === true ? 'default' : '' ) + ' /></video>' ).promise().done( function() {
+                $container.html( '<video id="ap" class="video-js vjs-default-skin" crossorigin="anonymous" webkit-playsinline><track kind="subtitles" label="English" srclang="en" src="https://www.kaltura.com/api_v3/?service=caption_captionasset&action=servewebvtt&captionAssetId=' + captionId + '&segmentDuration=' + videoDuration + '&segmentIndex=1" ' + ( subtitlesOn === true ? 'default' : '' ) + ' /></video>' ).promise().done( function() {
                     
                     _renderVideoJsPlayer();
             
@@ -353,6 +354,10 @@ var sbplusSlide = ( function() {
             }
     
         };
+        
+        if( (navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i)) ) {
+            options.autoplay = false;
+        }
         
         if ( isKaltura ) {
                 
@@ -512,6 +517,13 @@ var sbplusSlide = ( function() {
             } );
                 
         } );
+        
+        if( (navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i)) ) {
+            var video = $('video').get(0);
+            makeVideoPlayableInline(video);
+            $( '.video-js' ).removeClass( 'vjs-using-native-controls' );
+            $( '.vjs-loading-spinner' ).hide();
+        }
         
     }
     
