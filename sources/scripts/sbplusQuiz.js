@@ -328,25 +328,26 @@ var sbplusQuiz = ( function() {
             
             case 'multipleChoiceMultiple':
                 
-                html += '<p><strong>Your answer:</strong><br>';
+                html += '<p><strong>Your answer:</strong></p><ul>';
+                
                 $.each( currentQuestion.stuAnswer, function() {
                         
-                    html += currentQuestion.answer[this.index].value + '<br>';
+                    html += '<li>' + currentQuestion.answer[this.index].value + '</li>';
                     
                 } );
-                html += '</p>';
+                html += '</ul>';
                 
-                html += '<p><strong>Correct answer:</strong><br>';
+                html += '<p><strong>Correct answer:</strong></p><ul>';
                 $.each( currentQuestion.answer, function() {
                         
                     if ( this.correct !== undefined ) {
                         
-                        html += this.value + '<br>';
+                        html += '<li>' + this.value + '</li>';
                         
                     }
                     
                 } );
-                html += '</p>';
+                html += '</ul>';
                 
                 if ( currentQuestion.correct ) {
                     html += '<p><strong>Feedback:</strong><br>' + currentQuestion.correctFeedback + '</p>';

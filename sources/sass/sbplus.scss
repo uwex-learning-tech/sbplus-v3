@@ -519,6 +519,21 @@ noscript {
                             line-height: 18px;
                             line-height: rem( 18px );
                             background-color: transparent;
+                            
+                            ul {
+                                
+                                margin-top: 0;
+                                padding: 0;
+                                
+                                li {
+                                    margin: 0 0 3px;
+                                }
+                                
+                                li:last-child {
+                                    margin: 0;
+                                }
+                                
+                            }
                 
                         }
                         

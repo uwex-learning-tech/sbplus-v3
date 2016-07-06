@@ -293,6 +293,8 @@ var sbplusSlide = ( function() {
             
         }
         
+        sbplus.resize();
+        
     }
     
     function _loadKalturaVideoData() {
