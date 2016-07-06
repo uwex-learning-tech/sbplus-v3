@@ -95,6 +95,28 @@
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
+	"\/example\/assets\/images\/lugia.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 158705,
+		"inputAbbreviatedPath": "\/example\/assets\/images\/lugia.png",
+		"outputAbbreviatedPath": "\/example\/assets\/images\/lugia.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/example\/assets\/images\/mrmime.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 61118,
+		"inputAbbreviatedPath": "\/example\/assets\/images\/mrmime.png",
+		"outputAbbreviatedPath": "\/example\/assets\/images\/mrmime.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
 	"\/example\/assets\/page\/slide01.jpg": {
 		"fileType": 16384,
 		"ignore": 0,

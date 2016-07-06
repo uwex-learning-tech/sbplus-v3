@@ -44,7 +44,7 @@ var sbplusSlide = ( function() {
         
         settings = _settings;
         context = _context;
-        imgFormat = settings.slideFormat;
+        imgFormat = settings.pageImgFormat;
         
         if ( Number( $.fn.getCookie( 'sbplus-vjs-enabledSubtitles' ) ) === 1 ) {
             

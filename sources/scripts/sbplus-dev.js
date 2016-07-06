@@ -36,7 +36,7 @@ var sbplus = ( function() {
     var settings = {
         
         accent: '#535cab',
-        slideFormat: 'jpg',
+        pageImgFormat: 'jpg',
         analytics: 'off',
         xmlVersion: '3',
         trackCount: 0
@@ -117,11 +117,11 @@ var sbplus = ( function() {
         context.author = setupCntxt.find( 'author' ).attr( 'name' );
         context.length = setupCntxt.find( 'length' ).text();
         context.generalInfo = setupCntxt.find( 'generalInfo' ).text();
-        context.postfix = setupCntxt.attr( 'postfix' );
+        context.course = setupCntxt.attr( 'course' );
         context.section = context.data.find( 'section' );
         
         settings.accent = $.fn.isEmpty( globalCntxt.attr( 'accent' ) ) ? settings.accent : globalCntxt.attr( 'accent' );
-        settings.slideFormat = $.fn.isEmpty( globalCntxt.attr( 'slideFormat' ) ) ? settings.slideFormat : globalCntxt.attr( 'slideFormat' );
+        settings.pageImgFormat = $.fn.isEmpty( globalCntxt.attr( 'pageImgFormat' ) ) ? settings.pageImgFormat : globalCntxt.attr( 'pageImgFormat' );
         settings.analytics = $.fn.isEmpty( globalCntxt.attr( 'analytics' ) ) ? settings.analytics : globalCntxt.attr( 'analytics' );
         
         $.get( manifest.sbplus_root_directory + 'scripts/templates/sbplus.tpl', function( e ) {

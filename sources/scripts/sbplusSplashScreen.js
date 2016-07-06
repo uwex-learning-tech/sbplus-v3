@@ -12,6 +12,8 @@ var sbplusSplashScreen = ( function () {
         context = _context;
         settings = _settings;
         
+        var program = $.fn.getProgramDirectory();
+        
         $.get( _manifest.sbplus_root_directory + 'scripts/templates/splashscreen.tpl', function( cntx ) {
             
             // get the splash screen image
@@ -21,9 +23,9 @@ var sbplusSplashScreen = ( function () {
                 
             } ).fail( function() {
                 
-                if ( context.postfix === '' ) {
+                if ( context.course === '' ) {
                                         
-                    $.get( manifest.sbplus_splash_directory + $.fn.getProgramDirectory() + '.jpg' , function() {
+                    $.get( manifest.sbplus_splash_directory + program + '/' + 'default.svg', function() {
                     
                         bg = this.url;
                         
@@ -31,13 +33,13 @@ var sbplusSplashScreen = ( function () {
                     
                 } else {
                     
-                    $.get( manifest.sbplus_splash_directory + $.fn.getProgramDirectory() + context.postfix + '.jpg' , function() {
+                    $.get( manifest.sbplus_splash_directory + program + '/' + context.course + '.svg', function() {
                 
                         bg = this.url;
                         
                     } ).fail( function() {
                         
-                        $.get( manifest.sbplus_splash_directory + $.fn.getProgramDirectory() + '.jpg' , function() {
+                        $.get( manifest.sbplus_splash_directory + program + '/' + 'default.svg', function() {
                     
                             bg = this.url;
                             

@@ -56,10 +56,14 @@ var sbplusQuiz = ( function() {
                     
                     if ( !$.fn.isEmpty( image ) ) {
                         answer.image = image;
+                        answer.value = $.fn.removeExtension( image );
                     }
                     
                     if ( !$.fn.isEmpty( audio ) ) {
+                        
                         answer.audio = audio;
+                        answer.value = $.fn.removeExtension( audio );
+                        
                     }
                     
                     if ( question.type === 'multipleChoiceSingle' ) {
@@ -127,28 +131,81 @@ var sbplusQuiz = ( function() {
                 break;
                 
                 case 'multipleChoiceSingle':
-                    html += '<div class="header"><span class="icon-assessment"></span> Question for Self Assessment: Multiple Choice</div>';
-                    html += '<div class="title">'+currentQuestion.title.description+'</div>';
-                    
-                    $.each( currentQuestion.answer, function() {
-                        
-                        var cleanValue = $.fn.cleanString( this.value );
-                        
-                        html += '<label for="'+ cleanValue +'"><input id="'+ cleanValue +'" type="radio" name="single" value="'+ cleanValue +'" /> ' + this.value + '</label>';
-                    } );
-                    
-                break;
-                
                 case 'multipleChoiceMultiple':
-                    html += '<div class="header"><span class="icon-assessment"></span> Question for Self Assessment: Multiple Choice</div>';
-                    html += '<div class="title">'+currentQuestion.title.description+'</div>';
+                
+                    html += '<div class="header"><span class="icon-assessment"></span> Question for Self Assessment: Multiple Choice</div>';    
+                    var isImage = false;
+                    var isAudio = false;
+                    var hasQuestionImage = false;
+                    var hasQuestionAudio = false;
+                    var multipleAnswers = false;
+                    var inputType = 'radio';
+                    var inputName = 'single';
+                    
+                    if ( currentQuestion.type === 'multipleChoiceMultiple' ) {
+                        multipleAnswers = true;
+                        inputType = 'checkbox';
+                        inputName = 'ma';
+                    }
+                    
+                    if ( currentQuestion.answer[0].image !== undefined ) {
+                        isImage = true;
+                    }
+                    
+                    if ( currentQuestion.answer[0].audio !== undefined ) {
+                        isAudio = true;
+                    }
+                    
+                    if ( currentQuestion.title.image !== undefined ) {
+                        hasQuestionImage = true;
+                    }
+                    
+                    if ( currentQuestion.title.audio !== undefined ) {
+                        hasQuestionAudio = true;
+                    }        
+                    
+                    html += '<div class="title">';
+                    html += currentQuestion.title.description;
+                    
+                    if ( hasQuestionImage ) {
+                        html += '<img src="assets/images/' + currentQuestion.title.image + '" />';
+                    }
+                    
+                    if ( hasQuestionAudio ) {
+                        html += '<audio controls><source src="assets/audio/' + currentQuestion.title.audio + '" type="audio/mpeg" /></audio>';             
+                    }
+                    
+                    html += '</div>';
+                    
+                    if ( isImage ) {
+                        
+                        html += '<div class="hasImages">';
+                        
+                    } else if ( isAudio ) {
+                        
+                        html += '<div class="hasAudio">';
+                        
+                    }
                     
                     $.each( currentQuestion.answer, function() {
                         
                         var cleanValue = $.fn.cleanString( this.value );
                         
-                        html += '<label for="'+ cleanValue +'"><input id="'+ cleanValue +'" type="checkbox" name="ma" value="'+ cleanValue +'" /> ' + this.value + '</label>';
+                        if ( isAudio ) {
+                            html += '<label for="'+ cleanValue +'"><input id="'+ cleanValue +'" type="'+inputType+'" name="'+inputName+'" value="'+ cleanValue +'" /><audio controls><source src="assets/audio/' + this.audio + '" type="audio/mpeg"/></audio></label>';
+                        } else if ( isImage ) {
+                            html += '<label for="'+ cleanValue +'"><input id="'+ cleanValue +'" type="'+inputType+'" name="'+inputName+'" value="'+ cleanValue +'" /><img src="assets/images/'+this.image+'" alt="'+this.value+'" /></label>';
+                        } else {
+                            html += '<label for="'+ cleanValue +'"><input id="'+ cleanValue +'" type="'+inputType+'" name="'+inputName+'" value="'+ cleanValue +'" /> ' + this.value + '</label>';
+                        }
+                        
                     } );
+                    
+                    if ( isImage || isAudio ) {
+                        
+                        html += '</div>';
+                        
+                    }
                     
                 break;
                 
@@ -284,7 +341,38 @@ var sbplusQuiz = ( function() {
             
         }
         
-        html += '<div class="title">'+currentQuestion.title.description+'</div>';
+        var hasQuestionImage = false;
+        var hasQuestionAudio = false;
+        
+        if ( currentQuestion.answer[0].image !== undefined ) {
+            isImage = true;
+        }
+        
+        if ( currentQuestion.title.image !== undefined ) {
+            hasQuestionImage = true;
+        }
+        
+        if ( currentQuestion.title.audio !== undefined ) {
+            hasQuestionAudio = true;
+        }        
+        
+        html += '<div class="title">';
+        html += currentQuestion.title.description;
+        
+        if ( hasQuestionImage ) {
+            
+            html += '<img src="assets/images/' + currentQuestion.title.image + '" />';
+            
+        }
+        
+        if ( hasQuestionAudio ) {
+            
+            html += '<audio controls><source src="assets/audio/' + currentQuestion.title.audio + '" type="audio/mpeg" /></audio>';
+            
+        }
+        
+        html += '</div>';
+        
         html += '<div class="content">';
         
         switch ( currentQuestion.type ) {
@@ -309,13 +397,37 @@ var sbplusQuiz = ( function() {
             
             case 'multipleChoiceSingle':
                 
-                html += '<p><strong>Your answer:</strong><br>' + currentQuestion.answer[currentQuestion.stuAnswer].value + '</p>';
+                var isImage = false;
+                var isAudio = false;
+                
+                if ( currentQuestion.answer[0].image !== undefined ) {
+                    isImage = true;
+                }
+                
+                if ( currentQuestion.answer[0].audio !== undefined ) {
+                    isAudio = true;
+                }
+                
+                if ( isImage ) {
+                    html += '<p><strong>Your answer:</strong><br><img src="assets/images/' + currentQuestion.answer[currentQuestion.stuAnswer].image + '" alt="'+currentQuestion.answer[currentQuestion.stuAnswer].value+'" /></p>';
+                } else if ( isAudio ) {
+                    html += '<p><strong>Your answer:</strong><br><audio controls><source src="assets/audio/' + currentQuestion.answer[currentQuestion.stuAnswer].audio + '" type="audio/mpeg" /></audio></p>';
+                } else {
+                    html += '<p><strong>Your answer:</strong><br>' + currentQuestion.answer[currentQuestion.stuAnswer].value + '</p>';
+                }
                 
                 $.each( currentQuestion.answer, function() {
                         
                     if ( this.correct !== undefined ) {
+
+                        if ( isImage ) {
+                            html += '<p><strong>Correct answer:</strong><br><img src="assets/images/' + this.image + '" alt="'+this.value+'" /></p>';
+                        } else if ( isAudio ) {
+                            html += '<p><strong>Correct answer:</strong><br><audio controls><source src="assets/audio/' + this.audio + '" type="audio/mpeg" /></audio></p>';
+                        } else {
+                            html += '<p><strong>Correct answer:</strong><br>' + this.value + '</p>';
+                        }
                         
-                        html += '<p><strong>Correct answer:</strong><br>' + this.value + '</p>';
                         return true;
                         
                     }
@@ -328,25 +440,71 @@ var sbplusQuiz = ( function() {
             
             case 'multipleChoiceMultiple':
                 
-                html += '<p><strong>Your answer:</strong></p><ul>';
+                var isImage = false;
+                var isAudio = false;
+                
+                if ( currentQuestion.answer[0].image !== undefined ) {
+                    isImage = true;
+                }
+                
+                if ( currentQuestion.answer[0].audio !== undefined ) {
+                    isAudio = true;
+                }
+                
+                html += '<p><strong>Your answer:</strong></p>';
+                
+                if ( isImage ) {
+                    html += '<ul class="images">';
+                } else if( isAudio ) {
+                    html += '<ul class="audio">';
+                } else {
+                    html += '<ul>';
+                }
                 
                 $.each( currentQuestion.stuAnswer, function() {
+                    
+                    if ( isImage ) {
                         
-                    html += '<li>' + currentQuestion.answer[this.index].value + '</li>';
+                        html += '<li><img src="assets/images/' + currentQuestion.answer[this.index].image + '" alt="'+ currentQuestion.answer[this.index].value +'" /></li>';
+                        
+                    } else if( isAudio ) {
+                        html += '<li><audio controls><source src="assets/audio/' + currentQuestion.answer[this.index].audio + '" type="audio/mpeg" /></audio></li>';
+                    } else {
+                        html += '<li>' + currentQuestion.answer[this.index].value + '</li>';
+                    }
                     
                 } );
+                
                 html += '</ul>';
                 
-                html += '<p><strong>Correct answer:</strong></p><ul>';
+                html += '<p><strong>Correct answer:</strong></p>';
+                
+                if ( isImage ) {
+                    html += '<ul class="images">';
+                } else if( isAudio ) {
+                    html += '<ul class="audio">';
+                } else {
+                    html += '<ul>';
+                }
+                
                 $.each( currentQuestion.answer, function() {
                         
                     if ( this.correct !== undefined ) {
                         
-                        html += '<li>' + this.value + '</li>';
+                        if ( isImage ) {
+                        
+                            html += '<li><img src="assets/images/' + this.image + '" alt="'+ this.value +'" /></li>';
+                            
+                        } else if( isAudio ) {
+                            html += '<li><audio controls><source src="assets/audio/' + this.audio + '" type="audio/mpeg" /></audio></li>';
+                        } else {
+                            html += '<li>' + this.value + '</li>';
+                        }
                         
                     }
                     
                 } );
+                
                 html += '</ul>';
                 
                 if ( currentQuestion.correct ) {

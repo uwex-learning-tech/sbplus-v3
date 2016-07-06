@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<storybook accent="#7b3009" slideFormat="jpg" analytics="off" xmlVersion="3">
+<storybook accent="#7b3009" pageImgFormat="jpg" analytics="off" xmlVersion="3">
     
-    <setup postfix="">
+    <setup course="">
         
         <title>BKN315 - Chocolate Chip Cookies</title>
         <subtitle>A Sample Storybook Plus Presentation</subtitle>
@@ -175,21 +175,21 @@
             <note />
         </page>
         
-        <page type="html" src="testing" title="HTML Slide">
+        <page type="html" src="testing" title="HTML">
             <note />
         </page>
         
-        <page type="html" src="aframe" title="A-Frame Example">
+        <page type="html" src="aframe" title="A-Frame">
             <note />
         </page>
         
-        <page type="bundle" src="slide13" title="Bundled Slide">
+        <page type="bundle" src="slide13" title="Bundled">
             <frame start="00:18"></frame>
             <frame start="00:26"></frame>
             <note />
         </page>
         
-        <page type="quiz" src="slide13" title="Fill in the Blank Example">
+        <page type="quiz" src="slide13" title="Fill in the Blank">
             <fillInTheBlank>
                 <question>256, 128, 64, 32, 16, ... what comes next?</question>
                 <answer>8</answer>
@@ -198,7 +198,7 @@
             </fillInTheBlank>
         </page>
         
-        <page type="quiz" title="Multiple Chioce with Multiple Answers Example">
+        <page type="quiz" title="Multiple Chioce with Multiple Answers">
             
             <multipleChoiceMultiple>
                 
@@ -233,6 +233,190 @@
                 
                 <correctFeedback>That's right!</correctFeedback>
                 <incorrectFeedback>No, worries...</incorrectFeedback>
+                
+            </multipleChoiceMultiple>
+            
+        </page>
+        
+        <page type="quiz" title="Multiple Chioce with Multiple Image Answers">
+            
+            <multipleChoiceMultiple>
+                
+                <question image="" audio=""><![CDATA[Which pokémon are Ethan's favorites?<small>Ethan is a pokémon fan ... sort of.</small>]]></question>
+                <choices>
+                    
+                    <answer image="pikachu.gif" audio="" correct="yes">
+                        <value></value>
+                    </answer>
+                    
+                    <answer image="mewtwo.gif" audio="" correct="yes">
+                        <value></value>
+                    </answer>
+                    
+                    <answer image="mew.gif" audio="">
+                        <value></value>
+                    </answer>
+                    
+                    <answer image="rattata.gif" audio="">
+                        <value></value>
+                    </answer>
+                    
+                    <answer image="krabby.gif" audio="">
+                        <value></value>
+                    </answer>
+                    
+                    <answer image="rayquaza.gif" audio="">
+                        <value></value>
+                    </answer>
+                    
+                </choices>
+                
+                <correctFeedback>Ethan thinks you are stalking him...</correctFeedback>
+                <incorrectFeedback>Heart broken...</incorrectFeedback>
+                
+            </multipleChoiceMultiple>
+            
+        </page>
+        
+        <page type="quiz" title="Multiple Choice with Image in Question">
+            
+            <multipleChoiceSingle>
+                
+                <question image="Mewtwo.gif" audio="">Who is that pokémon!?</question>
+                <choices>
+                    
+                    <answer image="" audio="" correct="yes">
+                        <value>Mewtwo</value>
+                        <feedback image="" audio="">It's MEWTWO!!!</feedback>
+                    </answer>
+                    
+                    <answer image="" audio="">
+                        <value>Mew</value>
+                        <feedback image="" audio="">Close but no.</feedback>
+                    </answer>
+                    
+                    <answer image="" audio="">
+                        <value>Pickachu</value>
+                        <feedback image="" audio="">Seriously...</feedback>
+                    </answer>
+                    
+                </choices>
+                
+            </multipleChoiceSingle>
+            
+        </page>
+        
+        <page type="quiz" title="Multiple Choice with Audio in Question">
+            
+            <multipleChoiceSingle>
+                
+                <question image="" audio="lugia.mp3">Which pokémon make this sound!?</question>
+                <choices>
+                    
+                    <answer image="" audio="">
+                        <value>Mew</value>
+                        <feedback image="" audio="">Are you sure? Refresh and answer again.</feedback>
+                    </answer>
+                    
+                    <answer image="" audio="" correct="yes">
+                        <value>Lugia</value>
+                        <feedback image="" audio="">Dang, must be a fan!</feedback>
+                    </answer>
+                    
+                    <answer image="" audio="">
+                        <value>Ethan</value>
+                        <feedback image="" audio="">Yes and no ... from time to time.</feedback>
+                    </answer>
+                    
+                </choices>
+                
+            </multipleChoiceSingle>
+            
+        </page>
+        
+        <page type="quiz" title="Multiple Choice with Audio in Answer">
+            
+            <multipleChoiceSingle>
+                
+                <question image="" audio="">Which sound does Lugia make!?</question>
+                <choices>
+                    
+                    <answer image="" audio="slide03.mp3">
+                        <value></value>
+                        <feedback image="" audio="">Cookies?</feedback>
+                    </answer>
+                    
+                    <answer image="" audio="slide07.mp3">
+                        <value></value>
+                        <feedback image="" audio="">Which tool sounds like that?</feedback>
+                    </answer>
+                    
+                    <answer image="" audio="lugia.mp3" correct="yes">
+                        <value></value>
+                        <feedback image="" audio="">wOoT!</feedback>
+                    </answer>
+                    
+                </choices>
+                
+            </multipleChoiceSingle>
+            
+        </page>
+        
+        <page type="quiz" title="Multiple Choice with Image Answer">
+            
+            <multipleChoiceSingle>
+                
+                <question image="" audio="">Which one is Mew?</question>
+                <choices>
+                    
+                    <answer image="mew.gif" audio="" correct="yes">
+                        <value></value>
+                        <feedback image="" audio="">Congratulation! You can't have it.</feedback>
+                    </answer>
+                    
+                    <answer image="mewtwo.gif" audio="">
+                        <value></value>
+                        <feedback image="" audio="">Close</feedback>
+                    </answer>
+                    
+                    <answer image="rattata.gif" audio="">
+                        <value></value>
+                        <feedback image="" audio="">It is not a rat!</feedback>
+                    </answer>
+                    
+                </choices>
+                
+            </multipleChoiceSingle>
+            
+        </page>
+        
+        <page type="quiz" title="Multiple Chioce with Multiple Audio Answers">
+            
+            <multipleChoiceMultiple>
+                
+                <question image="" audio="">Which audio below is not a pokémon cry? Select all that applies.</question>
+                <choices>
+                    
+                    <answer image="" audio="slide07.mp3" correct="yes">
+                        <value></value>
+                    </answer>
+                    
+                    <answer image="" audio="slide01.mp3" correct="yes">
+                        <value></value>
+                    </answer>
+                    
+                    <answer image="" audio="slide05.mp3" correct="yes">
+                        <value></value>
+                    </answer>
+                    
+                    <answer image="" audio="lugia.mp3">
+                        <value></value>
+                    </answer>
+                    
+                </choices>
+                
+                <correctFeedback>Bryan is not a pokémon.</correctFeedback>
+                <incorrectFeedback>That is a pokémon.</incorrectFeedback>
                 
             </multipleChoiceMultiple>
             

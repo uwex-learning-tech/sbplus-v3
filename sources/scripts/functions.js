@@ -68,6 +68,12 @@ $.fn.cleanString = function( str ) {
     
 };
 
+$.fn.removeExtension = function( str ) {
+    var pos = str.indexOf('.');
+    return str.substr(0, pos);
+    
+};
+
 $.fn.haveCoreFeatures = function() {
         
     if ( !Modernizr.audio || !Modernizr.video || !Modernizr.json || !Modernizr.flexbox ) {
