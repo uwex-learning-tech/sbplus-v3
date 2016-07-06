@@ -7,10 +7,13 @@ var sbplusQuiz = ( function() {
     var context;
     var questions = [];
     var currentQuestion = {};
+    var el;
     
-    function get( _context, id ) {
+    function get( _el, _context, id ) {
         
+        el = _el;
         context = _context;
+        
         var index;
         
         if ( ( index = hasID( id ) ) >= 0 ) {
@@ -28,6 +31,7 @@ var sbplusQuiz = ( function() {
                 description: q.text()
             };
             question.answer = [];
+            question.answered = false;
             
             if ( question.type === 'multipleChoiceSingle' || question.type === 'multipleChoiceMultiple' ) {
                 
@@ -72,14 +76,14 @@ var sbplusQuiz = ( function() {
                 
             }
             
-            if ( question.type === 'fileInTheBlank' || question.type === 'multipleChoiceMultiple' ) {
+            if ( question.type === 'fillInTheBlank' || question.type === 'multipleChoiceMultiple' ) {
                 
-                if ( question.type === 'fileInTheBlank' ) {
-                    question.answer = $( _context ).find( 'answer' );
+                if ( question.type === 'fillInTheBlank' ) {
+                    question.answer = $( _context ).find( 'answer' ).text();
                 }
                 
-                question.correctFeedback = $( _context ).find( 'correctFeedback' );
-                question.incorrectFeedback = $( _context ).find( 'incorrectFeedback' );
+                question.correctFeedback = $( _context ).find( 'correctFeedback' ).text();
+                question.incorrectFeedback = $( _context ).find( 'incorrectFeedback' ).text();
                 
             } else if ( question.type === 'shortAnswer' ) {
                 
@@ -100,54 +104,266 @@ var sbplusQuiz = ( function() {
         
         $( '.main_content_wrapper' ).addClass( 'assessment-view' );
         
-        var type = currentQuestion.type;
-        var html = '<div class="assessment">';
+        if ( currentQuestion.answered ) {
+            
+            showFeedback();
+            
+        } else {
+            
+            var html = '<div class="assessment">';
+            
+            switch ( currentQuestion.type ) {
+            
+                case 'shortAnswer':
+                    html += '<div class="header"><span class="icon-assessment"></span> Question for Self Assessment: Short Answer</div>';
+                    html += '<div class="title">'+currentQuestion.title.description+'</div>';
+                    html += '<textarea></textarea>';
+                break;
+                
+                case 'fillInTheBlank':
+                    html += '<div class="header"><span class="icon-assessment"></span> Question for Self Assessment: Fill in the Blank</div>';
+                    html += '<div class="title">'+currentQuestion.title.description+'</div>';
+                    html += '<input type="text" />';
+                break;
+                
+                case 'multipleChoiceSingle':
+                    html += '<div class="header"><span class="icon-assessment"></span> Question for Self Assessment: Multiple Choice</div>';
+                    html += '<div class="title">'+currentQuestion.title.description+'</div>';
+                    
+                    $.each( currentQuestion.answer, function() {
+                        
+                        var cleanValue = $.fn.cleanString( this.value );
+                        
+                        html += '<label for="'+ cleanValue +'"><input id="'+ cleanValue +'" type="radio" name="single" value="'+ cleanValue +'" /> ' + this.value + '</label>';
+                    } );
+                    
+                break;
+                
+                case 'multipleChoiceMultiple':
+                    html += '<div class="header"><span class="icon-assessment"></span> Question for Self Assessment: Multiple Choice</div>';
+                    html += '<div class="title">'+currentQuestion.title.description+'</div>';
+                    
+                    $.each( currentQuestion.answer, function() {
+                        
+                        var cleanValue = $.fn.cleanString( this.value );
+                        
+                        html += '<label for="'+ cleanValue +'"><input id="'+ cleanValue +'" type="checkbox" name="ma" value="'+ cleanValue +'" /> ' + this.value + '</label>';
+                    } );
+                    
+                break;
+                
+            }
+            
+            html += '<button id="assessmentSubmitBtn">Submit</button></div>';
+            
+            return html;
+            
+        }
         
+    }
+    
+    function check() {
         
-        switch ( type ) {
+        switch ( currentQuestion.type ) {
             
             case 'shortAnswer':
-                html += '<div class="header"><span class="icon-assessment"></span> Question for Self Assessment: Short Answer</div>';
-                html += '<div class="title">'+currentQuestion.title.description+'</div>';
-                html += '<textarea></textarea>';
+                currentQuestion.stuAnswer = $( 'textarea' ).val();
             break;
             
             case 'fillInTheBlank':
-                html += '<div class="header"><span class="icon-assessment"></span> Question for Self Assessment: Fill in the Blank</div>';
-                html += '<div class="title">'+currentQuestion.title.description+'</div>';
-                html += '<input type="text" />';
+            
+                currentQuestion.stuAnswer = $( 'input' ).val();
+                
+                if ( currentQuestion.stuAnswer !== currentQuestion.answer ) {
+                    currentQuestion.correct = false;
+                } else {
+                    currentQuestion.correct = true;
+                }
+                
             break;
             
             case 'multipleChoiceSingle':
-                html += '<div class="header"><span class="icon-assessment"></span> Question for Self Assessment: Multiple Choice</div>';
-                html += '<div class="title">'+currentQuestion.title.description+'</div>';
+            
+                var radioButtons = $( 'input:radio[name="single"]' );
+                var selectedIndex = radioButtons.index(radioButtons.filter(':checked'));
+                
+                currentQuestion.stuAnswer = $( 'input[type="radio"]:checked' ).val();
                 
                 $.each( currentQuestion.answer, function() {
+                        
+                    if ( this.correct !== undefined ) {
+                        
+                        if ( currentQuestion.stuAnswer === $.fn.cleanString( this.value ) ) {
+                            currentQuestion.correct = true;
+                        } else {
+                            currentQuestion.correct = false;
+                        }
+                        
+                        return true;
+                        
+                    }
                     
-                    var cleanValue = $.fn.cleanString( this.value );
-                    
-                    html += '<label for="'+ cleanValue +'"><input id="'+ cleanValue +'" type="radio" name="single" value="'+ cleanValue +'" /> ' + this.value + '</label>';
                 } );
+                
+                currentQuestion.stuAnswer = selectedIndex;
                 
             break;
             
             case 'multipleChoiceMultiple':
-                html += '<div class="header"><span class="icon-assessment"></span> Question for Self Assessment: Multiple Choice</div>';
-                html += '<div class="title">'+currentQuestion.title.description+'</div>';
                 
-                $.each( currentQuestion.answer, function() {
+                var checkboxes = $( 'input:checkbox[name="ma"]' );
+                var correctAnswers = [];
+                
+                currentQuestion.stuAnswer = [];
+                
+                checkboxes.each( function(i) {
                     
-                    var cleanValue = $.fn.cleanString( this.value );
+                    if ( this.checked ) {
+                        
+                        var ansObj = {};
+                        ansObj.value = $( this ).val();
+                        ansObj.index = i;
+                        currentQuestion.stuAnswer.push( ansObj );
+                        
+                    }
                     
-                    html += '<label for="'+ cleanValue +'"><input id="'+ cleanValue +'" type="checkbox" value="'+ cleanValue +'" /> ' + this.value + '</label>';
                 } );
+                
+                $.each( currentQuestion.answer, function(i) {
+                        
+                    if ( this.correct !== undefined ) {
+                        
+                        correctAnswers.push(i);
+                        
+                    }
+                    
+                } );
+                
+                if ( currentQuestion.stuAnswer.length < correctAnswers.length || currentQuestion.stuAnswer.length > correctAnswers.length ) {
+                    
+                    currentQuestion.correct = false;
+                    
+                } else if ( currentQuestion.stuAnswer.length === correctAnswers.length ) {
+                    
+                    for ( var i = 0; i < currentQuestion.stuAnswer.length; i++ ) {
+                        
+                        if ( $.inArray( currentQuestion.stuAnswer[i].index, correctAnswers ) >= 0 ) {
+                            currentQuestion.correct = true;
+                        } else {
+                            currentQuestion.correct = false;
+                            break;
+                        }
+                        
+                    }
+                    
+                }
                 
             break;
             
         }
         
-        html += '<button>Submit</button></div>';
-        return html;
+        currentQuestion.answered = true;
+        
+        _render();
+        
+    }
+    
+    function showFeedback() {
+        
+        var html = '<div class="assessment">';
+        
+        html += '<div class="header"><span class="icon-assessment"></span> Feedback for Self Assessment</div>';
+        
+        if ( currentQuestion.correct ) {
+            
+            html += '<div class="correctStatus">Correct!</div>';
+            
+        } else if ( currentQuestion.correct === false ) {
+            
+            html += '<div class="incorrectStatus">Incorrect!</div>';
+            
+        }
+        
+        html += '<div class="title">'+currentQuestion.title.description+'</div>';
+        html += '<div class="content">';
+        
+        switch ( currentQuestion.type ) {
+            
+            case 'shortAnswer':
+                html += '<p><strong>Your answer:</strong><br>' + currentQuestion.stuAnswer + '</p>';
+                html += '<p><strong>Feedback:</strong><br>' + currentQuestion.feedback + '</p>';
+            break;
+            
+            case 'fillInTheBlank':
+                
+                html += '<p><strong>Your answer:</strong><br>' + currentQuestion.stuAnswer + '</p>';
+                html += '<p><strong>Correct answer:</strong><br>' + currentQuestion.answer + '</p>';
+                
+                if ( currentQuestion.correct ) {
+                    html += '<p><strong>Feedback:</strong><br>' + currentQuestion.correctFeedback + '</p>';
+                } else {
+                    html += '<p><strong>Feedback:</strong><br>' + currentQuestion.incorrectFeedback + '</p>';
+                }
+                
+            break;
+            
+            case 'multipleChoiceSingle':
+                
+                html += '<p><strong>Your answer:</strong><br>' + currentQuestion.answer[currentQuestion.stuAnswer].value + '</p>';
+                
+                $.each( currentQuestion.answer, function() {
+                        
+                    if ( this.correct !== undefined ) {
+                        
+                        html += '<p><strong>Correct answer:</strong><br>' + this.value + '</p>';
+                        return true;
+                        
+                    }
+                    
+                } );
+                
+                html += '<p><strong>Feedback:</strong><br>' + currentQuestion.answer[currentQuestion.stuAnswer].feedback + '</p>';
+                
+            break;
+            
+            case 'multipleChoiceMultiple':
+                
+                html += '<p><strong>Your answer:</strong><br>';
+                $.each( currentQuestion.stuAnswer, function() {
+                        
+                    html += currentQuestion.answer[this.index].value + '<br>';
+                    
+                } );
+                html += '</p>';
+                
+                html += '<p><strong>Correct answer:</strong><br>';
+                $.each( currentQuestion.answer, function() {
+                        
+                    if ( this.correct !== undefined ) {
+                        
+                        html += this.value + '<br>';
+                        
+                    }
+                    
+                } );
+                html += '</p>';
+                
+                if ( currentQuestion.correct ) {
+                    html += '<p><strong>Feedback:</strong><br>' + currentQuestion.correctFeedback + '</p>';
+                } else {
+                    html += '<p><strong>Feedback:</strong><br>' + currentQuestion.incorrectFeedback + '</p>';
+                }
+                
+            break;
+            
+        }
+        
+        html += '</div></div>';
+        
+        el.html( html );
+        sbplus.resize();
+        
+        return false;
         
     }
     
@@ -170,7 +386,8 @@ var sbplusQuiz = ( function() {
     
     return {
         
-        get: get
+        get: get,
+        check: check
         
     };
     

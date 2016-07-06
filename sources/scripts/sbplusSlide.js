@@ -280,8 +280,15 @@ var sbplusSlide = ( function() {
             
             case 'quiz':
                 var qID = Number( $('.selectable .selected').attr('data-order') );
-                $container.html ( sbplusQuiz.get( currentSlide, qID ) );
+                $container.html( sbplusQuiz.get( $container, currentSlide, qID ) );
                 sbplus.resize();
+                $( "#assessmentSubmitBtn" ).on( 'click', function() {
+                    
+                    var id = $(this).data('id');
+                    
+                    sbplusQuiz.check( id );
+                    
+                } );
             break;
             
         }
