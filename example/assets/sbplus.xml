@@ -282,7 +282,7 @@
             
             <multipleChoiceSingle>
                 
-                <question image="Mewtwo.gif" audio="">Who is that pokémon!?</question>
+                <question image="mewtwo.gif" audio="">Who is that pokémon!?</question>
                 <choices>
                     
                     <answer image="" audio="" correct="yes">
@@ -401,7 +401,7 @@
                         <value></value>
                     </answer>
                     
-                    <answer image="" audio="slide01.mp3" correct="yes">
+                    <answer image="" audio="slide02.mp3" correct="yes">
                         <value></value>
                     </answer>
                     
