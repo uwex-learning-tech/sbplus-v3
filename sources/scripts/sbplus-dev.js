@@ -260,8 +260,6 @@ var sbplus = ( function() {
     
     function resizeDom() {
         
-        console.log('resize called');
-        
         var widowWidth = $( window ).outerWidth();
         var windowHeight = $( window ).outerHeight();
         var titleBarHeight = $( '.title_bar' ).outerHeight();

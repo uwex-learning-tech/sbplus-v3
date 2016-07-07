@@ -27,51 +27,51 @@
             <note><![CDATA[<h1>Heading Level 1 (and 2)</h1><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip <em>ex ea commodo consequat</em>. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p><ol><li>Hello</li><li>World</li></ol><h3>Heading Level 3</h3><p>Lorem ipsum dolor sit amet, <a href="#">consectetur adipisicing elit</a>, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p><ul><li>Hello</li><li>World</li></ul>]]></note>
         </page>
         
-        <page type="audio" src="slide02" title="Overview">
+        <page type="image-audio" src="slide02" title="Overview">
             <note />
         </page>
         
-        <page type="audio" src="slide03" title="Cookie Type">
+        <page type="image-audio" src="slide03" title="Cookie Type">
             <note />
         </page>
         
-        <page type="audio" src="slide04" title="History">
+        <page type="image-audio" src="slide04" title="History">
             <note />
         </page>
         
-        <page type="audio" src="slide05" title="A Cookie Timeline">
+        <page type="image-audio" src="slide05" title="A Cookie Timeline">
             <note><![CDATA[<p><strong>Link:</strong> <a href="https://en.wikipedia.org/wiki/Hydrox">Hydrox Cookie Brand - Wikipedia</a>]]></note>
         </page>
         
-        <page type="audio" src="slide06" title="The Recipe">
+        <page type="image-audio" src="slide06" title="The Recipe">
             <note />
         </page>
         
-        <page type="audio" src="slide07" title="Tools">
+        <page type="image-audio" src="slide07" title="Tools">
             <note />
         </page>
         
-        <page type="audio" src="slide08" title="Part 1 - Preheating and Melting">
+        <page type="image-audio" src="slide08" title="Part 1 - Preheating and Melting">
             <note />
         </page>
         
-        <page type="audio" src="slide09" title="Part 2 - Combining the Ingredients">
+        <page type="image-audio" src="slide09" title="Part 2 - Combining the Ingredients">
             <note />
         </page>
         
-        <page type="audio" src="slide10" title="Part 3 - Preparing for Baking">
+        <page type="image-audio" src="slide10" title="Part 3 - Preparing for Baking">
             <note />
         </page>
         
-        <page type="audio" src="slide11" title="Part 4 - Baking">
+        <page type="image-audio" src="slide11" title="Part 4 - Baking">
             <note />
         </page>
         
-        <page type="audio" src="slide12" title="Cookie Troubleshooting">
+        <page type="image-audio" src="slide12" title="Cookie Troubleshooting">
             <note />
         </page>
         
-        <page type="audio" src="slide13" title="Chocolate Chip Cookie Variants">
+        <page type="image-audio" src="slide13" title="Chocolate Chip Cookie Variants">
             <note />
         </page>
         

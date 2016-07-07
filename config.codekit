@@ -117,189 +117,189 @@
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
-	"\/example\/assets\/page\/slide01.jpg": {
+	"\/example\/assets\/pages\/slide01.jpg": {
 		"fileType": 16384,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
 		"initialSize": 263246,
-		"inputAbbreviatedPath": "\/example\/assets\/page\/slide01.jpg",
-		"outputAbbreviatedPath": "\/example\/assets\/page\/slide01.jpg",
+		"inputAbbreviatedPath": "\/example\/assets\/pages\/slide01.jpg",
+		"outputAbbreviatedPath": "\/example\/assets\/pages\/slide01.jpg",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
-	"\/example\/assets\/page\/slide03.jpg": {
+	"\/example\/assets\/pages\/slide03.jpg": {
 		"fileType": 16384,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
 		"initialSize": 56798,
-		"inputAbbreviatedPath": "\/example\/assets\/page\/slide03.jpg",
-		"outputAbbreviatedPath": "\/example\/assets\/page\/slide03.jpg",
+		"inputAbbreviatedPath": "\/example\/assets\/pages\/slide03.jpg",
+		"outputAbbreviatedPath": "\/example\/assets\/pages\/slide03.jpg",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
-	"\/example\/assets\/page\/slide04.jpg": {
+	"\/example\/assets\/pages\/slide04.jpg": {
 		"fileType": 16384,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
 		"initialSize": 0,
-		"inputAbbreviatedPath": "\/example\/assets\/page\/slide04.jpg",
-		"outputAbbreviatedPath": "\/example\/assets\/page\/slide04.jpg",
+		"inputAbbreviatedPath": "\/example\/assets\/pages\/slide04.jpg",
+		"outputAbbreviatedPath": "\/example\/assets\/pages\/slide04.jpg",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
-	"\/example\/assets\/page\/slide05.jpg": {
+	"\/example\/assets\/pages\/slide05.jpg": {
 		"fileType": 16384,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
 		"initialSize": 80816,
-		"inputAbbreviatedPath": "\/example\/assets\/page\/slide05.jpg",
-		"outputAbbreviatedPath": "\/example\/assets\/page\/slide05.jpg",
+		"inputAbbreviatedPath": "\/example\/assets\/pages\/slide05.jpg",
+		"outputAbbreviatedPath": "\/example\/assets\/pages\/slide05.jpg",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
-	"\/example\/assets\/page\/slide06.jpg": {
+	"\/example\/assets\/pages\/slide06.jpg": {
 		"fileType": 16384,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
 		"initialSize": 113632,
-		"inputAbbreviatedPath": "\/example\/assets\/page\/slide06.jpg",
-		"outputAbbreviatedPath": "\/example\/assets\/page\/slide06.jpg",
+		"inputAbbreviatedPath": "\/example\/assets\/pages\/slide06.jpg",
+		"outputAbbreviatedPath": "\/example\/assets\/pages\/slide06.jpg",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
-	"\/example\/assets\/page\/slide07.jpg": {
+	"\/example\/assets\/pages\/slide07.jpg": {
 		"fileType": 16384,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
 		"initialSize": 67276,
-		"inputAbbreviatedPath": "\/example\/assets\/page\/slide07.jpg",
-		"outputAbbreviatedPath": "\/example\/assets\/page\/slide07.jpg",
+		"inputAbbreviatedPath": "\/example\/assets\/pages\/slide07.jpg",
+		"outputAbbreviatedPath": "\/example\/assets\/pages\/slide07.jpg",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
-	"\/example\/assets\/page\/slide08.jpg": {
+	"\/example\/assets\/pages\/slide08.jpg": {
 		"fileType": 16384,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
 		"initialSize": 59865,
-		"inputAbbreviatedPath": "\/example\/assets\/page\/slide08.jpg",
-		"outputAbbreviatedPath": "\/example\/assets\/page\/slide08.jpg",
+		"inputAbbreviatedPath": "\/example\/assets\/pages\/slide08.jpg",
+		"outputAbbreviatedPath": "\/example\/assets\/pages\/slide08.jpg",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
-	"\/example\/assets\/page\/slide09.jpg": {
+	"\/example\/assets\/pages\/slide09.jpg": {
 		"fileType": 16384,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
 		"initialSize": 140598,
-		"inputAbbreviatedPath": "\/example\/assets\/page\/slide09.jpg",
-		"outputAbbreviatedPath": "\/example\/assets\/page\/slide09.jpg",
+		"inputAbbreviatedPath": "\/example\/assets\/pages\/slide09.jpg",
+		"outputAbbreviatedPath": "\/example\/assets\/pages\/slide09.jpg",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
-	"\/example\/assets\/page\/slide10.jpg": {
+	"\/example\/assets\/pages\/slide10.jpg": {
 		"fileType": 16384,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
 		"initialSize": 92197,
-		"inputAbbreviatedPath": "\/example\/assets\/page\/slide10.jpg",
-		"outputAbbreviatedPath": "\/example\/assets\/page\/slide10.jpg",
+		"inputAbbreviatedPath": "\/example\/assets\/pages\/slide10.jpg",
+		"outputAbbreviatedPath": "\/example\/assets\/pages\/slide10.jpg",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
-	"\/example\/assets\/page\/slide11.jpg": {
+	"\/example\/assets\/pages\/slide11.jpg": {
 		"fileType": 16384,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
 		"initialSize": 61846,
-		"inputAbbreviatedPath": "\/example\/assets\/page\/slide11.jpg",
-		"outputAbbreviatedPath": "\/example\/assets\/page\/slide11.jpg",
+		"inputAbbreviatedPath": "\/example\/assets\/pages\/slide11.jpg",
+		"outputAbbreviatedPath": "\/example\/assets\/pages\/slide11.jpg",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
-	"\/example\/assets\/page\/slide12.jpg": {
+	"\/example\/assets\/pages\/slide12.jpg": {
 		"fileType": 16384,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
 		"initialSize": 90449,
-		"inputAbbreviatedPath": "\/example\/assets\/page\/slide12.jpg",
-		"outputAbbreviatedPath": "\/example\/assets\/page\/slide12.jpg",
+		"inputAbbreviatedPath": "\/example\/assets\/pages\/slide12.jpg",
+		"outputAbbreviatedPath": "\/example\/assets\/pages\/slide12.jpg",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
-	"\/example\/assets\/page\/slide13-1.jpg": {
+	"\/example\/assets\/pages\/slide13-1.jpg": {
 		"fileType": 16384,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
 		"initialSize": 132595,
-		"inputAbbreviatedPath": "\/example\/assets\/page\/slide13-1.jpg",
-		"outputAbbreviatedPath": "\/example\/assets\/page\/slide13-1.jpg",
+		"inputAbbreviatedPath": "\/example\/assets\/pages\/slide13-1.jpg",
+		"outputAbbreviatedPath": "\/example\/assets\/pages\/slide13-1.jpg",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
-	"\/example\/assets\/page\/slide13-2.jpg": {
+	"\/example\/assets\/pages\/slide13-2.jpg": {
 		"fileType": 16384,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
 		"initialSize": 684317,
-		"inputAbbreviatedPath": "\/example\/assets\/page\/slide13-2.jpg",
-		"outputAbbreviatedPath": "\/example\/assets\/page\/slide13-2.jpg",
+		"inputAbbreviatedPath": "\/example\/assets\/pages\/slide13-2.jpg",
+		"outputAbbreviatedPath": "\/example\/assets\/pages\/slide13-2.jpg",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
-	"\/example\/assets\/page\/slide13-3.jpg": {
+	"\/example\/assets\/pages\/slide13-3.jpg": {
 		"fileType": 16384,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
 		"initialSize": 727613,
-		"inputAbbreviatedPath": "\/example\/assets\/page\/slide13-3.jpg",
-		"outputAbbreviatedPath": "\/example\/assets\/page\/slide13-3.jpg",
+		"inputAbbreviatedPath": "\/example\/assets\/pages\/slide13-3.jpg",
+		"outputAbbreviatedPath": "\/example\/assets\/pages\/slide13-3.jpg",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
-	"\/example\/assets\/page\/slide13.jpg": {
+	"\/example\/assets\/pages\/slide13.jpg": {
 		"fileType": 16384,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
 		"initialSize": 132595,
-		"inputAbbreviatedPath": "\/example\/assets\/page\/slide13.jpg",
-		"outputAbbreviatedPath": "\/example\/assets\/page\/slide13.jpg",
+		"inputAbbreviatedPath": "\/example\/assets\/pages\/slide13.jpg",
+		"outputAbbreviatedPath": "\/example\/assets\/pages\/slide13.jpg",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
-	"\/example\/assets\/page\/slide14.jpg": {
+	"\/example\/assets\/pages\/slide14.jpg": {
 		"fileType": 16384,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
 		"initialSize": 38841,
-		"inputAbbreviatedPath": "\/example\/assets\/page\/slide14.jpg",
-		"outputAbbreviatedPath": "\/example\/assets\/page\/slide14.jpg",
+		"inputAbbreviatedPath": "\/example\/assets\/pages\/slide14.jpg",
+		"outputAbbreviatedPath": "\/example\/assets\/pages\/slide14.jpg",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
-	"\/example\/assets\/page\/slide2.jpg": {
+	"\/example\/assets\/pages\/slide2.jpg": {
 		"fileType": 16384,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
 		"initialSize": 65162,
-		"inputAbbreviatedPath": "\/example\/assets\/page\/slide2.jpg",
-		"outputAbbreviatedPath": "\/example\/assets\/page\/slide2.jpg",
+		"inputAbbreviatedPath": "\/example\/assets\/pages\/slide2.jpg",
+		"outputAbbreviatedPath": "\/example\/assets\/pages\/slide2.jpg",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
@@ -916,7 +916,7 @@
 		"outputAbbreviatedPath": "\/sources\/scripts\/sbplus.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 1,
-		"outputStyle": 1,
+		"outputStyle": 2,
 		"syntaxCheckerStyle": 1
 		},
 	"\/sources\/scripts\/sbplus.js": {

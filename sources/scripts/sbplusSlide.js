@@ -116,16 +116,16 @@ var sbplusSlide = ( function() {
     
                 } ).error( function() {
     
-                    $container.before( '<div class="slideError">Image not found!<br>Expected image: assets/page/' + fileName + '.' + imgFormat + '</div>' );
+                    $container.before( '<div class="slideError">Image not found!<br>Expected image: assets/pages/' + fileName + '.' + imgFormat + '</div>' );
     
                 } ).attr( {
-                    'src': 'assets/page/' + fileName + '.' + imgFormat,
+                    'src': 'assets/pages/' + fileName + '.' + imgFormat,
                     'border': 0
                 } );
                 
             break;
             
-            case 'audio':
+            case 'image-audio':
                 
                 var slideImg = '';
                 
@@ -133,13 +133,13 @@ var sbplusSlide = ( function() {
                 mediaMime = 'audio/mp3';
                 mediaFormat = '.mp3';
                 
-                $.get( 'assets/page/' + fileName + '.' + imgFormat, function() {
+                $.get( 'assets/pages/' + fileName + '.' + imgFormat, function() {
                     
                     slideImg = this.url;
                     
                 } ).fail( function() {
                     
-                    $container.before( '<div class="slideError">Slide image not found!<br>Expected image: assets/page/' + fileName + '.' + imgFormat + '</div>' );
+                    $container.before( '<div class="slideError">Slide image not found!<br>Expected image: assets/pages/' + fileName + '.' + imgFormat + '</div>' );
                 
                 } ).always( function() {
                     
@@ -251,13 +251,13 @@ var sbplusSlide = ( function() {
                     
                 } );
                 
-                $.get( 'assets/page/' + fileName + '-1.' + imgFormat, function() {
+                $.get( 'assets/pages/' + fileName + '-1.' + imgFormat, function() {
                     
                     initialImg = this.url;
                     
                 } ).fail( function() {
                     
-                    $container.before( '<div class="slideError">Image not found!<br>Expected image: assets/page/' + fileName + '.' + imgFormat + '</div>' );
+                    $container.before( '<div class="slideError">Image not found!<br>Expected image: assets/pages/' + fileName + '.' + imgFormat + '</div>' );
                 
                 } ).always( function() {
                     
@@ -450,7 +450,7 @@ var sbplusSlide = ( function() {
                 	start: 0,
                 	end: cuepoints[1],
                 	onStart: function() {
-                    	player.poster( 'assets/page/' + fileName + '-1.' + imgFormat );
+                    	player.poster( 'assets/pages/' + fileName + '-1.' + imgFormat );
                 	},
                 	onEnd: function() {},
                 	params: ''
@@ -477,10 +477,10 @@ var sbplusSlide = ( function() {
                     	start: cuepoints[i],
                     	end: nextCue,
                     	onStart: function() {
-                        	player.poster( 'assets/page/' + fileName + '-'  +(i+2) + '.' + imgFormat );
+                        	player.poster( 'assets/pages/' + fileName + '-'  +(i+2) + '.' + imgFormat );
                     	},
                     	onEnd: function() {
-                        	player.poster( 'assets/page/' + fileName + '-1.' + imgFormat );
+                        	player.poster( 'assets/pages/' + fileName + '-1.' + imgFormat );
                     	},
                     	params: ''
                     	
@@ -489,7 +489,7 @@ var sbplusSlide = ( function() {
             	} );
             	
             	player.on( 'ended', function() {
-                	player.poster( 'assets/page/' + fileName + '-1.' + imgFormat );
+                	player.poster( 'assets/pages/' + fileName + '-1.' + imgFormat );
             	} );
             	
         	}
