@@ -4,7 +4,7 @@ $font-color: #333;
 $border-color: #ccc;
 $link-color: #18b8f7;
 $gutter: 16px;
-$default-accent: #535cab;
+$default-accent: #5b7196;
 
 $leftWidth: 71.117%;
 $rightWidth: 28.883%;
@@ -1116,11 +1116,12 @@ noscript {
                             
                             .header.current {
                                 
-                                color: #fff;
-                                background-color: #3b4381;
+                                //color: #fff;
+                                border-left: 5px solid #758fba;
                                 
                                 .title {
-                                    @include excerpt( rem( 12px ), 1.2, 2, #3b4381 );
+                                    padding-left: 5px;
+                                    padding-left: rem( 5px );
                                 }
                                 
                             }
@@ -1172,12 +1173,12 @@ noscript {
                                     
                                     li.selected {
                                         color: #fff;
-                                        background-color: $default-accent;
+                                        background-color: #758fba;
                                     }
                                     
                                     li:hover {
                                         color: #fff;
-                                        background-color: #5c68d5;
+                                        background-color: #5b7196;
                                     }
                                     
                                 }

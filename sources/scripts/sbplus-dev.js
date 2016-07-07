@@ -165,7 +165,7 @@ var sbplus = ( function() {
             sbplusMenu.get( manifest, context );
             
             // resize DOM
-            resizeDom();
+            //resizeDom();
             $( window ).resize( function() {
                 
                 resizeDom();
@@ -259,6 +259,8 @@ var sbplus = ( function() {
     }
     
     function resizeDom() {
+        
+        console.log('resize called');
         
         var widowWidth = $( window ).outerWidth();
         var windowHeight = $( window ).outerHeight();
@@ -363,14 +365,16 @@ var sbplus = ( function() {
                 
                 $( '.main_content_wrapper' ).addClass( 'notes-minimized-view' );
                 
-                if ( $( '.main_content_wrapper' ).hasClass( 'assessment-view' ) === false ) {
-                    $( '.control_bar_wrapper .notesBtn' ).removeClass( 'hide' );
-                }
-                
                 $( '.widget_container .notes' ).addClass( 'hide' ).css( {
                     'width': $( '.status' ).outerWidth(), 
                     'height': ''
                 } );
+                
+                if ( $( '.widget_container .notes' ).hasClass( 'noNotes' ) ) {
+                    $( '.control_bar_wrapper .notesBtn' ).addClass( 'hide' );
+                } else {
+                    $( '.control_bar_wrapper .notesBtn' ).removeClass( 'hide' );
+                }
                 
                 $( '.page_container' ).css( { 'width': '', 'height': windowHeight - titleBarHeight - controlBarHeight } );
                 

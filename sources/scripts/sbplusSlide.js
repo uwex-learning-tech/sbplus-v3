@@ -53,7 +53,8 @@ var sbplusSlide = ( function() {
         }
 
         _showSlide( section, page );
-        sbplusNotes.get( manifest, context, section, page );    
+        sbplusNotes.get( manifest, context, section, page );
+        sbplus.resize();  
         
     }
     
@@ -281,7 +282,7 @@ var sbplusSlide = ( function() {
             case 'quiz':
                 var qID = Number( $('.selectable .selected').attr('data-order') );
                 $container.html( sbplusQuiz.get( $container, currentSlide, qID ) );
-                sbplus.resize();
+                //sbplus.resize();
                 $( "#assessmentSubmitBtn" ).on( 'click', function() {
                     
                     var id = $(this).data('id');
@@ -292,8 +293,6 @@ var sbplusSlide = ( function() {
             break;
             
         }
-        
-        sbplus.resize();
         
     }
     

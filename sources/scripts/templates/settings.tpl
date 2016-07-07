@@ -26,7 +26,7 @@
         </div>
         
         <div class="row">
-            <div class="label"><label for="subtitle">Always display subtitle</label></div>
+            <div class="label"><label for="subtitle">Always display subtitles</label></div>
             <div class="control"><input id="subtitle" type="checkbox" value="0" /></div>
         </div>
         
