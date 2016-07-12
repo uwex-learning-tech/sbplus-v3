@@ -435,6 +435,9 @@ var sbplusSlide = ( function() {
         	if ( isBundle ) {
             	
             	var duration;
+            	var image = new Image();
+            	
+            	$( '.vjs-poster' ).after('<div class="sbplus-vjs-poster"></div>');
             	
             	player.on( 'loadedmetadata', function() {
                             	
@@ -450,7 +453,8 @@ var sbplusSlide = ( function() {
                 	start: 0,
                 	end: cuepoints[1],
                 	onStart: function() {
-                    	player.poster( 'assets/pages/' + fileName + '-1.' + imgFormat );
+                    	image.src = 'assets/pages/' + fileName + '-1.' + imgFormat;
+                    	player.poster( image.src );
                 	},
                 	onEnd: function() {},
                 	params: ''
@@ -477,20 +481,23 @@ var sbplusSlide = ( function() {
                     	start: cuepoints[i],
                     	end: nextCue,
                     	onStart: function() {
-                        	player.poster( 'assets/pages/' + fileName + '-'  +(i+2) + '.' + imgFormat );
-                    	},
-                    	onEnd: function() {
-                        	player.poster( 'assets/pages/' + fileName + '-1.' + imgFormat );
-                    	},
-                    	params: ''
+                        	image.src = 'assets/pages/' + fileName + '-'  +(i+2) + '.' + imgFormat;
+                        	$('.sbplus-vjs-poster').css( 'background-image', 'url(assets/pages/' + fileName + '-' + (i+1) + '.' + imgFormat );
+                        	player.poster( image.src );
+                    	}
                     	
                 	} );
                 	
             	} );
             	
-            	player.on( 'ended', function() {
-                	player.poster( 'assets/pages/' + fileName + '-1.' + imgFormat );
-            	} );
+            	player.on('seeking', function() {
+                    	
+                	if (player.currentTime() <= cuepoints[0]) {
+                    	$('.sbplus-vjs-poster').css( 'background-image', '');
+                    	player.poster( 'assets/pages/' + fileName + '-1.' + imgFormat );
+                	}
+                	
+            	});
             	
         	}
             
