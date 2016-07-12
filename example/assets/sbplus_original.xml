@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<storybook accent="#535cab" slideFormat="jpg" analytics="off" xmlVersion="3">
+<storybook accent="#535cab" pageImgFormat="jpg" analytics="off" xmlVersion="3">
     
-    <setup courseNumber="">
+    <setup course="">
         
-        <title>Understanding the Hierarchy and Interplay of Statutes, Regulations, and Case Law at the Federal and State Levels</title>
-        <subtitle>SMGT 340</subtitle>
-        <length>25 Minutes</length>
+        <title>Presentation Title</title>
+        <subtitle>Presentation Subtitle</subtitle>
+        <length>Estimated duration</length>
         <author name="Demo">
             <![CDATA[<p>Oh, hello! Hey! Hi! This is a demo of the Storyboard Player (SBP). Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ut purus augue. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae, praesentium, ipsam, ut, voluptatibus pariatur quasi esse adipisci dolorum laboriosam excepturi possimus minima libero atque consequuntur quidem reiciendis eligendi laborum vero? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat, accusamus, similique qui dicta libero dolorem culpa molestias necessitatibus voluptatibus nostrum rem illo corporis ipsam nulla cumque harum vero nemo voluptate. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestias, veritatis excepturi fuga quisquam dolorem nesciunt ea necessitatibus accusantium. Voluptatibus minima voluptatum harum laboriosam ex reiciendis praesentium. Quas, quia a quis. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic, rem, ipsa, reprehenderit quod quo eum sunt a eveniet ex excepturi soluta deleniti dicta est error perferendis tempora tenetur harum neque.</p>]]>
         </author>
@@ -17,8 +17,9 @@
     
     <!--
         table of contents
-        section title attribute defaults to "section #"
-        image default to jpg unless file extension (i.e., .png) is specified
+        - section title defaults to "section #" if not specified
+        - image default to jpg unless other format is specified above (pageImgFormat)
+        - <note /> can be expanded to <note></note> for notes. otherwise, use <note />
     -->
 
     <section title="Section 1">
@@ -30,7 +31,7 @@
             
         </page>
         
-        <!-- audio with assumption of image -->
+        <!-- image and audio -->
         <page type="image-audio" src="filename" title="">
             
             <note />
@@ -75,16 +76,20 @@
         <!-- bundle -->
         <page type="bundle" src="filename" title="">
             
-            <frame start="00:00"></frame>
             <frame start="00:30"></frame>
             <frame start="00:50"></frame>
-            <frame start="00:55"></frame>
             
             <note />
             
         </page>
         
-        <!-- quiz: multiple choice single -->
+        <!--
+            quiz: multiple choice single
+            - question can have an image, audio, and text
+            - if the answer is an image or audio, the value tag can be empty
+            - an answer cannot be an image and audio
+            - also use for true and false question
+        -->
         <page type="quiz" title="">
             
             <mulitpleChoiceSingle>
@@ -118,7 +123,10 @@
             
         </page>
         
-        <!-- quiz: multiple choice multiple -->
+        <!--
+            quiz: multiple choice multiple
+            - same as multiple choice single
+        -->
         <page type="quiz" title="">
             
             <mulitpleChoiceMultiple>
@@ -148,25 +156,6 @@
                 <incorrectFeedback image="" audio=""></incorrectFeedback>
                 
             </mulitpleChoiceMultiple>
-            
-        </page>
-        
-        <!-- quiz: true or false -->
-        <page type="quiz" title="">
-            
-            <trueFlase>
-                
-                <question>Lorem lorem</question>
-
-                <true image="" audio="" correct="yes">
-                    <feedback image="" audio=""></feedback>
-                </true>
-                
-                <false image="" audio="">
-                    <feedback image="" audio=""></feedback>
-                </false>
-                
-            </trueFlase>
             
         </page>
         
