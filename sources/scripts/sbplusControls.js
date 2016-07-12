@@ -217,29 +217,28 @@ var sbplusControls = ( function() {
         
     }
     
-    function getDownloadItems() {
+    function getDownloadItems(dl) {
         
-        var items = sbplusDownloadable.getDownloads();
         var files = $( '.download_items .files' );
         
-        if ( items.video !== undefined ) {
+        if ( dl.video !== undefined ) {
             
-            files.append( '<li><a href="'+items.video+'" download>Video</a></li>' );
+            files.append( '<li><a href="'+dl.video+'" download>Video</a></li>' );
         }
         
-        if ( items.audio !== undefined ) {
+        if ( dl.audio !== undefined ) {
             
-            files.append( '<li><a href="'+items.audio+'" download>Audio</a></li>' );
+            files.append( '<li><a href="'+dl.audio+'" download>Audio</a></li>' );
         }
         
-        if ( items.pdf !== undefined ) {
+        if ( dl.pdf !== undefined ) {
             
-            files.append( '<li><a href="'+items.pdf+'" download>Transcript</a></li>' );
+            files.append( '<li><a href="'+dl.pdf+'" download>Transcript</a></li>' );
         }
         
-        if ( items.zip !== undefined ) {
+        if ( dl.zip !== undefined ) {
             
-            files.append( '<li><a href="'+items.zip+'" download>Supplement</a></li>' );
+            files.append( '<li><a href="'+dl.zip+'" download>Supplement</a></li>' );
         }
         
     }
@@ -258,9 +257,16 @@ var sbplusControls = ( function() {
     
     function _render() {
         
+        var dlItems = sbplusDownloadable.getDownloads();
+        
         updateStatus();
         $( '.control_bar_wrapper .status .total' ).html( totalPages );
-        getDownloadItems();
+        
+        if ( dlItems.video === undefined && dlItems.pdf === undefined && dlItems.audio === undefined && dlItems.zip === undefined ) {
+            $( '.control_bar_wrapper .downloadsBtn' ).hide();
+        } else {
+            getDownloadItems(dlItems);
+        }
         
     }
     

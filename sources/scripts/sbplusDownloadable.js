@@ -89,7 +89,14 @@ var sbplusDownloadable = ( function() {
             
         }
         
-        $( '.download_files' ).hide().html( downloadables ).fadeIn( 500 );
+        if ( supplementPath === undefined && transcriptPath === undefined && audioPath === undefined && videoPath === undefined ) {
+            $( '.download_files' ).html('No downloadable file available.');
+            setTimeout(function() {
+                $( '.download_files' ).fadeOut();
+            }, 3000);
+        } else {
+            $( '.download_files' ).hide().html( downloadables ).fadeIn( 500 );
+        }
         
     }
     
