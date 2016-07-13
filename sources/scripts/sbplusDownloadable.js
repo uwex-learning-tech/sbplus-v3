@@ -9,7 +9,7 @@ var sbplusDownloadable = ( function() {
     
     function getItems() {
         
-        var fileName = $.fn.getProgramDirectory();
+        var fileName = $.fn.getRootDirectory();
         
         $.get( fileName + '.mp4', function() {
                 
