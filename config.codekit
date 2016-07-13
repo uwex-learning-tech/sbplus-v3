@@ -372,17 +372,6 @@
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 1
 		},
-	"\/sources\/images\/default.jpg": {
-		"fileType": 16384,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"initialSize": 11828,
-		"inputAbbreviatedPath": "\/sources\/images\/default.jpg",
-		"outputAbbreviatedPath": "\/sources\/images\/default.jpg",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"processed": 0
-		},
 	"\/sources\/manifest.json": {
 		"fileType": 524288,
 		"ignore": 1,
