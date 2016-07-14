@@ -92,7 +92,13 @@ var sbplusDownloadable = ( function() {
         if ( supplementPath === undefined && transcriptPath === undefined && audioPath === undefined && videoPath === undefined ) {
             $( '.download_files' ).html('No downloadable file available.');
             setTimeout(function() {
-                $( '.download_files' ).fadeOut();
+                
+                var parent = $( '.download_files' ).parent();
+                var target = $( '.download_files' );
+                
+                parent.animate({'height': (parent.outerHeight() - target.outerHeight(true)) }, 500, 'linear');
+                target.fadeOut();
+                
             }, 3000);
         } else {
             $( '.download_files' ).hide().html( downloadables ).fadeIn( 500 );

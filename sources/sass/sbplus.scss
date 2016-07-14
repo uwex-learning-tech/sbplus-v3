@@ -4,7 +4,7 @@ $font-color: #333;
 $border-color: #ccc;
 $link-color: #18b8f7;
 $gutter: 16px;
-$default-accent: #5b7196;
+$default-accent: #06498d;
 
 $leftWidth: 71.117%;
 $rightWidth: 28.883%;
@@ -18,6 +18,7 @@ $rightWidth: 28.883%;
 @import "compass/css3/background-size";
 @import "compass/css3/border-radius";
 @import "../fonts/sbplus_fonts.css";
+@import "../fonts/museo.css";
 
 @function rem( $px, $base: $default-font-size ) {
     
@@ -237,119 +238,136 @@ noscript {
         
         .splashscreen {
             
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: #ccc;
-            background-image: url(../images/default.svg);
-            background-position: center center;
-            background-repeat: no-repeat;
-            @include background-size( cover );
-            z-index: 0;
             
-            @include display-flex( flex );
-            @include align-items( center );
-            @include justify-content( center );
             
-            .splashinfo {
+            .splash_background {
                 
-                max-width: 50%;
-                background-color: rgba( 255, 255, 255, 0.25 );
-                padding: 18px 30px 20px;
-                padding: rem( 18px ) rem( 30px ) rem( 20px );
-                @include border-radius( 5px );
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: #fff;
+                background-position: center center;
+                background-repeat: no-repeat;
+                @include background-size( cover );
+                z-index: -1;
                 
-                .title {
-                    font-weight: bold;
-                    font-size: 20px;
-                    font-size: rem( 20px );
-                    line-height: 26px;
-                    line-height: rem( 26px );
-                    margin: 0;
-                }
+            }
+            
+            .splashinfo_wrapper {
                 
-                .subtitle {
-                    font-size: 18px;
-                    font-size: rem( 18px );
-                    line-height: 24px;
-                    line-height: rem( 24px );
-                    line-height: normal;
-                    margin: 0 0 $gutter;
-                    margin: 0 0 rem( $gutter );
-                }
+                @include display-flex( flex );
+                @include align-items( center );
+                @include justify-content( center );
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: transparent;
                 
-                .author {
-                    margin: 0 0 $gutter;
-                    margin: 0 0 rem( $gutter );
-                }
+                .splashinfo {
                 
-                .length {
-                    @extend .author;
-                }
-                
-                .startBtn {
-                    width: 49.3%;
-                    margin: 0;
-                    text-align: center;
-                    background-color: $default-accent;
-                    padding-right: 10px;
-                    padding-right: rem( 10px );
-                    padding-left: 10px;
-                    padding-left: rem( 10px );
-                }
-                
-                .resumeBtn {
-                    @extend .startBtn;
-                }
-                
-                .download_files {
+                    min-width: 33%;
+                    max-width: 50%;
+                    background-color: rgba( 255, 255, 255, 0.35 );
+                    padding: 18px 30px 20px;
+                    padding: rem( 18px ) rem( 30px ) rem( 20px );
+                    @include border-radius( 5px );
                     
-                    height: 30px;
-                    height: rem( 30px );
-                    margin: $gutter 0 0;
-                    margin: rem( $gutter ) 0 0;
-                    font-size: 12px;
-                    font-size: rem( 12px );
+                    .title {
+                        font-family: 'MuseoSans-700';
+                        font-weight: bold;
+                        font-size: 20px;
+                        font-size: rem( 20px );
+                        line-height: 26px;
+                        line-height: rem( 26px );
+                        margin: 0;
+                    }
                     
-                    .dl_item {
+                    .subtitle {
+                        font-size: 18px;
+                        font-size: rem( 18px );
+                        line-height: 24px;
+                        line-height: rem( 24px );
+                        line-height: normal;
+                        margin: 0 0 $gutter;
+                        margin: 0 0 rem( $gutter );
+                    }
+                    
+                    .author {
+                        margin: 0 0 $gutter;
+                        margin: 0 0 rem( $gutter );
+                    }
+                    
+                    .length {
+                        @extend .author;
+                    }
+                    
+                    .startBtn {
+                        width: 48.5%;
+                        margin: 0;
+                        text-align: center;
+                        background-color: $default-accent;
+                        padding-right: 10px;
+                        padding-right: rem( 10px );
+                        padding-left: 10px;
+                        padding-left: rem( 10px );
+                    }
+                    
+                    .resumeBtn {
+                        @extend .startBtn;
+                    }
+                    
+                    .download_files {
                         
-                        display: inline-block;
-                        position: relative;
-                        min-width: 106px;
-                        min-width: rem( 106px );
-                        color: $font-color;
-                        background-color: #fff;
-                        font-size: 14px;
-                        font-size: rem( 14px );
-                        padding: 6px 6px 6px 23px;
-                        padding: rem( 6px ) rem( 6px ) rem( 6px ) rem( 23px );
-                        border: 1px solid #888;
-                        border: rem( 1px ) solid #888;
+                        height: 30px;
+                        height: rem( 30px );
+                        margin: $gutter 0 0;
+                        margin: rem( $gutter ) 0 0;
+                        font-size: 12px;
+                        font-size: rem( 12px );
                         
-                        [class^="icon-"] {
-                            position: absolute;
-                            left: 5px;
-                            left: rem( 5px );
+                        .dl_item {
+                            
+                            display: inline-block;
+                            position: relative;
+                            min-width: 106px;
+                            min-width: rem( 106px );
+                            color: $font-color;
+                            background-color: #fff;
+                            font-size: 14px;
+                            font-size: rem( 14px );
+                            padding: 6px 6px 6px 23px;
+                            padding: rem( 6px ) rem( 6px ) rem( 6px ) rem( 23px );
+                            border: 1px solid #888;
+                            border: rem( 1px ) solid #888;
+                            
+                            [class^="icon-"] {
+                                position: absolute;
+                                left: 5px;
+                                left: rem( 5px );
+                            }
+                            
+                        }
+                        
+                        .dl_item:hover {
+                            text-decoration: none;
                         }
                         
                     }
                     
-                    .dl_item:hover {
-                        text-decoration: none;
+                    .popoutBtn {
+                        position: absolute;
+                        font-size: 200%;
+                        line-height: 0;
+                        bottom: 0;
+                        right: 0;
+                        color: #000;
+                        background-color: transparent;
                     }
                     
-                }
-                
-                .popoutBtn {
-                    position: absolute;
-                    font-size: 200%;
-                    line-height: 0;
-                    bottom: 0;
-                    right: 0;
-                    color: #000;
-                    background-color: transparent;
                 }
                 
             }
@@ -375,8 +393,9 @@ noscript {
                 .title {
                     
                     @include flex(3 1 $leftWidth);
-                    line-height: 30px;
-                    line-height: rem( 30px );
+                    font-family: 'MuseoSans-700';
+                    line-height: 33px;
+                    line-height: rem( 33px );
                     padding: 0 10px;
                     padding: 0 rem( 10px );
                     white-space: nowrap;
@@ -1154,7 +1173,7 @@ noscript {
                             .header.current {
                                 
                                 //color: #fff;
-                                border-left: 5px solid #758fba;
+                                border-left: 5px solid #06498d;
                                 
                                 .title {
                                     padding-left: 5px;
@@ -1210,12 +1229,12 @@ noscript {
                                     
                                     li.selected {
                                         color: #fff;
-                                        background-color: #758fba;
+                                        background-color: #06498d;
                                     }
                                     
                                     li:hover {
                                         color: #fff;
-                                        background-color: #5b7196;
+                                        background-color: #0c3b6b;
                                     }
                                     
                                 }
@@ -1666,32 +1685,36 @@ noscript {
             
             .splashscreen {
                 
-                .splashinfo {
-                    
-                    max-width: 75%;
-                    
-                    .startBtn {
-                        display: block;
-                        width: 100%;
-                        margin: 0 0 rem( 5px );
-                    }
-                    
-                    .resumeBtn {
-                        margin: 0;
-                    }
-                    
-                    .download_files {
+                .splashinfo_wrapper {
+                
+                    .splashinfo {
                         
-                        height: auto;
+                        max-width: 75%;
                         
-                        .dl_item {
+                        .startBtn {
                             display: block;
                             width: 100%;
-                            margin: 0 0 rem( 3px ); 
+                            margin: 0 0 rem( 5px );
                         }
                         
-                        .dl_item:last-child {
+                        .resumeBtn {
                             margin: 0;
+                        }
+                        
+                        .download_files {
+                            
+                            height: auto;
+                            
+                            .dl_item {
+                                display: block;
+                                width: 100%;
+                                margin: 0 0 rem( 3px ); 
+                            }
+                            
+                            .dl_item:last-child {
+                                margin: 0;
+                            }
+                            
                         }
                         
                     }

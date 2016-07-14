@@ -34,6 +34,11 @@ var sbplusSplashScreen = ( function () {
                         bg = this.url;
                         _updateSplashScreen();
                         
+                    } ).fail( function() {
+                        
+                        bg = manifest.sbplus_root_directory + 'images/default.svg';
+                        _updateSplashScreen();
+                        
                     } );
                     
                 } else {
@@ -48,6 +53,11 @@ var sbplusSplashScreen = ( function () {
                         $.get( manifest.sbplus_splash_directory + program + '/' + 'default.svg', function() {
                     
                             bg = this.url;
+                            _updateSplashScreen();
+                            
+                        } ).fail( function() {
+                            
+                            bg = manifest.sbplus_root_directory + 'images/default.svg';
                             _updateSplashScreen();
                             
                         } );
@@ -164,7 +174,12 @@ var sbplusSplashScreen = ( function () {
     }
     
     function _updateSplashScreen() {
-        $( '.splashscreen' ).css( 'background-image', 'url(' + bg + ')' );
+        $( '.splashscreen .splash_background' ).css( {
+            'background-image': 'url(' + bg + ')',
+            'opacity': 0
+        } ).animate({
+            'opacity': 1
+        }, 500, 'linear' );
     }
     
     return {
