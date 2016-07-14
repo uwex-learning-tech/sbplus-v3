@@ -19,7 +19,6 @@ $rightWidth: 28.883%;
 @import "compass/css3/border-radius";
 @import "../fonts/sbplus_fonts.css";
 
-
 @function rem( $px, $base: $default-font-size ) {
     
     @return ( $px / $base ) * 1rem;
@@ -291,12 +290,18 @@ noscript {
                 }
                 
                 .startBtn {
+                    width: 49.32%;
                     margin: 0;
+                    text-align: center;
                     background-color: $default-accent;
-                    padding-right: 24px;
-                    padding-right: rem( 24px );
-                    padding-left: 24px;
-                    padding-left: rem( 24px );
+                    padding-right: 10px;
+                    padding-right: rem( 10px );
+                    padding-left: 10px;
+                    padding-left: rem( 10px );
+                }
+                
+                .resumeBtn {
+                    @extend .startBtn;
                 }
                 
                 .download_files {
@@ -312,21 +317,21 @@ noscript {
                         
                         display: inline-block;
                         position: relative;
-                        min-width: 108px;
-                        min-width: rem( 108px );
+                        min-width: 106px;
+                        min-width: rem( 106px );
                         color: $font-color;
                         background-color: #fff;
                         font-size: 14px;
                         font-size: rem( 14px );
-                        padding: 6px 6px 6px 24px;
-                        padding: rem( 6px ) rem( 6px ) rem( 6px ) rem( 24px );
+                        padding: 6px 6px 6px 23px;
+                        padding: rem( 6px ) rem( 6px ) rem( 6px ) rem( 23px );
                         border: 1px solid #888;
                         border: rem( 1px ) solid #888;
                         
                         [class^="icon-"] {
                             position: absolute;
-                            left: 6px;
-                            left: rem( 6px );
+                            left: 5px;
+                            left: rem( 5px );
                         }
                         
                     }
@@ -1647,6 +1652,53 @@ noscript {
         
     } // end sbplus_wrapper
   
+}
+
+@media (max-width: 767px) {
+    .sbplus_wrapper {
+        
+        .sbplus {
+            
+            .splashscreen {
+                
+                .splashinfo {
+                    
+                    max-width: 75%;
+                    
+                    .startBtn {
+                        display: block;
+                        width: 100%;
+                        margin: 0 0 rem( 5px );
+                    }
+                    
+                    .resumeBtn {
+                        margin: 0;
+                    }
+                    
+                    .download_files {
+                        
+                        height: auto;
+                        
+                        .dl_item {
+                            display: block;
+                            width: 100%;
+                            margin: 0 0 rem( 3px ); 
+                        }
+                        
+                        .dl_item:last-child {
+                            margin: 0;
+                        }
+                        
+                    }
+                    
+                }
+                
+            }
+            
+        }
+        
+    }
+    
 }
 
 /**************************
