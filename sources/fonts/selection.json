@@ -354,7 +354,7 @@
 			},
 			"setIdx": 0,
 			"setId": 2,
-			"iconIdx": 12
+			"iconIdx": 11
 		},
 		{
 			"icon": {
@@ -386,7 +386,7 @@
 			},
 			"setIdx": 0,
 			"setId": 2,
-			"iconIdx": 13
+			"iconIdx": 12
 		},
 		{
 			"icon": {
@@ -416,7 +416,7 @@
 			},
 			"setIdx": 0,
 			"setId": 2,
-			"iconIdx": 14
+			"iconIdx": 13
 		},
 		{
 			"icon": {
@@ -445,7 +445,7 @@
 			},
 			"setIdx": 0,
 			"setId": 2,
-			"iconIdx": 15
+			"iconIdx": 14
 		},
 		{
 			"icon": {
@@ -473,7 +473,7 @@
 			},
 			"setIdx": 0,
 			"setId": 2,
-			"iconIdx": 16
+			"iconIdx": 15
 		},
 		{
 			"icon": {
@@ -501,7 +501,7 @@
 			},
 			"setIdx": 0,
 			"setId": 2,
-			"iconIdx": 17
+			"iconIdx": 16
 		},
 		{
 			"icon": {
@@ -532,6 +532,65 @@
 			"setIdx": 1,
 			"setId": 3,
 			"iconIdx": 898
+		},
+		{
+			"icon": {
+				"paths": [
+					"M1024 736 736 0h-448l-288 288v448l288 288h448l288-288v-448l-288-288zM576 832h-128v-128h128v128zM576 576h-128v-384h128v384z"
+				],
+				"attrs": [],
+				"isMulticolor": false,
+				"tags": [
+					"spam",
+					"notice",
+					"notification",
+					"exclamation"
+				],
+				"defaultCode": 58218,
+				"grid": 16
+			},
+			"attrs": [],
+			"properties": {
+				"id": 1128,
+				"order": 36,
+				"prevSize": 32,
+				"code": 60776,
+				"ligatures": "spam, notice",
+				"name": "warning"
+			},
+			"setIdx": 1,
+			"setId": 3,
+			"iconIdx": 1128
+		},
+		{
+			"icon": {
+				"paths": [
+					"M983.058 64c-334.5 253.166-655.302 591.8-655.302 591.8l-231.18-207.8-96.576 98.378c95.016 89.302 315.162 325.198 389.632 413.622 209.59-350.18 427.478-611.336 634.368-850.154l-40.942-45.846z"
+				],
+				"attrs": [],
+				"isMulticolor": false,
+				"tags": [
+					"checkmark",
+					"tick",
+					"correct",
+					"accept",
+					"ok"
+				],
+				"defaultCode": 58226,
+				"grid": 16
+			},
+			"attrs": [],
+			"properties": {
+				"id": 1135,
+				"order": 37,
+				"prevSize": 32,
+				"code": 60783,
+				"ligatures": "checkmark4, tick4",
+				"name": "check"
+			},
+			"setIdx": 1,
+			"setId": 3,
+			"iconIdx": 1135
 		}
 	],
 	"height": 1024,

@@ -352,11 +352,11 @@ var sbplusQuiz = ( function() {
         
         if ( currentQuestion.correct ) {
             
-            html += '<div class="correctStatus">Correct!</div>';
+            html += '<div class="correctStatus"><span class="icon-check"></span> Correct!</div>';
             
         } else if ( currentQuestion.correct === false ) {
             
-            html += '<div class="incorrectStatus">Incorrect!</div>';
+            html += '<div class="incorrectStatus"><span class="icon-warning"></span> Incorrect!</div>';
             
         }
         
@@ -567,7 +567,7 @@ var sbplusQuiz = ( function() {
     }
     
     function _showError() {
-        $( '.assessment .header' ).after( '<div class="error">Please answer the question before submitting.' );
+        $( '.assessment .header' ).after( '<div class="error"><span class="icon-warning"></span> Please answer the question before submitting.' );
         setTimeout( function() {
             $( '.assessment .error' ).remove();
         }, 5000 );

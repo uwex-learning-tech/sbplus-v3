@@ -290,7 +290,7 @@ noscript {
                 }
                 
                 .startBtn {
-                    width: 49.32%;
+                    width: 49.3%;
                     margin: 0;
                     text-align: center;
                     background-color: $default-accent;
@@ -659,7 +659,7 @@ noscript {
                         .correctStatus {
                             font-size: 14px;
                             line-height: 14px;
-                            background-color: #b6f1b6;
+                            background-color: #50de50;
                             padding: 10px;
                             padding: rem( 10px );
                             border-left: 5px solid #08b108;
@@ -668,7 +668,8 @@ noscript {
                         
                         .incorrectStatus {
                             @extend .correctStatus;
-                            background-color: #f2aaba;
+                            color: #141414;
+                            background-color: #ec91a5;
                             border-left-color: #b0092d;
                         }
                         

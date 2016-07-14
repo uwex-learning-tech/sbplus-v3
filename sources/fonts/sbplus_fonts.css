@@ -78,4 +78,10 @@
 .icon-download:before {
     content: "\ec82";
 }
+.icon-warning:before {
+    content: "\ed68";
+}
+.icon-check:before {
+    content: "\ed6f";
+}
 
