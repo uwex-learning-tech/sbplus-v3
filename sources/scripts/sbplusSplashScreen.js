@@ -29,25 +29,25 @@ var sbplusSplashScreen = ( function () {
                     $.get( manifest.sbplus_splash_directory + program + '/' + 'default.svg', function() {
                     
                         bg = this.url;
-                        //_render( cntx );
+                        _render( cntx );
                         
-                    } ).always( function() { _render( cntx ); } );
+                    } );
                     
                 } else {
                     
                     $.get( manifest.sbplus_splash_directory + program + '/' + context.course + '.svg', function() {
                 
                         bg = this.url;
-                        //_render( cntx );
+                        _render( cntx );
                         
                     } ).fail( function() {
                         
                         $.get( manifest.sbplus_splash_directory + program + '/' + 'default.svg', function() {
                     
                             bg = this.url;
-                            //_render( cntx );
+                            _render( cntx );
                             
-                        } ).always(function() { _render( cntx ); });
+                        } );
                         
                     } );
                     
