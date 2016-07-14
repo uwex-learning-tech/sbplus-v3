@@ -16,11 +16,14 @@ var sbplusSplashScreen = ( function () {
         
         $.get( _manifest.sbplus_root_directory + 'scripts/templates/splashscreen.tpl', function( cntx ) {
             
+            // render the splash screen HTML
+            _render( cntx );
+            
             // get the splash screen image
             $.get( 'assets/splash.svg', function() {
                 
                 bg = 'assets/splash.svg';
-                _render( cntx );
+                _updateSplashScreen();
                 
             } ).fail( function() {
                 
@@ -29,7 +32,7 @@ var sbplusSplashScreen = ( function () {
                     $.get( manifest.sbplus_splash_directory + program + '/' + 'default.svg', function() {
                     
                         bg = this.url;
-                        _render( cntx );
+                        _updateSplashScreen();
                         
                     } );
                     
@@ -38,14 +41,14 @@ var sbplusSplashScreen = ( function () {
                     $.get( manifest.sbplus_splash_directory + program + '/' + context.course + '.svg', function() {
                 
                         bg = this.url;
-                        _render( cntx );
+                        _updateSplashScreen();
                         
                     } ).fail( function() {
                         
                         $.get( manifest.sbplus_splash_directory + program + '/' + 'default.svg', function() {
                     
                             bg = this.url;
-                            _render( cntx );
+                            _updateSplashScreen();
                             
                         } );
                         
@@ -124,13 +127,6 @@ var sbplusSplashScreen = ( function () {
         var resumeCookieKey = 'sbplus-' + $.fn.getRootDirectory();
         
         $( '.splashscreen' ).html( cntx );
-        
-        if ( bg !== '' ) {
-            
-            $( '.splashscreen' ).css( 'background-image', 'url(' + bg + ')' );
-            
-        }
-    
         $( '.splashinfo .title' ).html( context.title );
         $( '.splashinfo .subtitle' ).html( context.subtitle );
         $( '.splashinfo .author' ).html( context.author );
@@ -165,6 +161,10 @@ var sbplusSplashScreen = ( function () {
         }
 */
         
+    }
+    
+    function _updateSplashScreen() {
+        $( '.splashscreen' ).css( 'background-image', 'url(' + bg + ')' );
     }
     
     return {
