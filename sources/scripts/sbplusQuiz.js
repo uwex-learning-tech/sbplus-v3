@@ -92,6 +92,7 @@ var sbplusQuiz = ( function() {
             } else if ( question.type === 'shortAnswer' ) {
                 
                 question.feedback = $( _context ).find( 'feedback' ).text();
+                question.answer = '';
                 
             }
             
@@ -221,6 +222,8 @@ var sbplusQuiz = ( function() {
     
     function check() {
         
+        currentQuestion.stuAnswer = '';
+        
         switch ( currentQuestion.type ) {
             
             case 'shortAnswer':
@@ -319,9 +322,25 @@ var sbplusQuiz = ( function() {
             
         }
         
-        currentQuestion.answered = true;
-        
-        _render();
+        if ( $.isArray( currentQuestion.stuAnswer ) ) {
+            
+            if ( currentQuestion.stuAnswer.length >= 1 ) {
+                currentQuestion.answered = true;
+                _render();
+            } else {
+                _showError();
+            }
+            
+        } else {
+            
+            if ( currentQuestion.stuAnswer !== '' && currentQuestion.stuAnswer !== -1 ) {
+                currentQuestion.answered = true;
+                _render();
+            } else {
+                _showError();
+            }
+            
+        }
         
     }
     
@@ -344,8 +363,12 @@ var sbplusQuiz = ( function() {
         var hasQuestionImage = false;
         var hasQuestionAudio = false;
         
-        if ( currentQuestion.answer[0].image !== undefined ) {
-            isImage = true;
+        if ( $.isArray(currentQuestion.answer) ) {
+            
+            if ( currentQuestion.answer[0].image !== undefined ) {
+                isImage = true;
+            }
+            
         }
         
         if ( currentQuestion.title.image !== undefined ) {
@@ -541,6 +564,13 @@ var sbplusQuiz = ( function() {
         
         return tracker;
         
+    }
+    
+    function _showError() {
+        $( '.assessment .header' ).after( '<div class="error">Please answer the question before submitting.' );
+        setTimeout( function() {
+            $( '.assessment .error' ).remove();
+        }, 5000 );
     }
     
     return {

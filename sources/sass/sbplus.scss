@@ -672,6 +672,10 @@ noscript {
                             border-left-color: #b0092d;
                         }
                         
+                        .error {
+                            @extend .incorrectStatus;
+                        }
+                        
                     }
                     
                     // videojs
@@ -1654,7 +1658,7 @@ noscript {
   
 }
 
-@media (max-width: 767px) {
+@media (max-width: 768px) {
     .sbplus_wrapper {
         
         .sbplus {
