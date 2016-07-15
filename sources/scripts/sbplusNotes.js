@@ -26,18 +26,21 @@ var sbplusNotes = ( function() {
         
         if ( !$.fn.isEmpty( note ) ) {
             
-            region.removeClass( 'noNotes' ).html( note );
+            region.removeClass( 'noNotes' ).attr( 'tabindex', 1 ).html( note );
             
             if ( $( '.main_content_wrapper' ).hasClass( 'full-view' ) ) {
                 notesBtn.removeClass( 'hide' );
             }
+            
+            $( '.sr-PageStatus .hasNotes' ).html('This page contains notes.');
             
         } else {
             
             var logoSrc = manifest.sbplus_logo_directory + $.fn.getProgramDirectory() + '.svg';
             var logo = new Image();
             
-            region.html( '' ).addClass( 'noNotes' );
+            region.html( '' ).addClass( 'noNotes' ).attr( 'tabindex', -1 );
+            $( '.sr-PageStatus .hasNotes' ).html('');
             
             if ( logoLoaded.length === 0 ) {
                 

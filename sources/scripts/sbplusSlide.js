@@ -139,7 +139,7 @@ var sbplusSlide = ( function() {
                     
                 } ).fail( function() {
                     
-                    $container.before( '<div class="slideError">Slide image not found!<br>Expected image: assets/pages/' + fileName + '.' + imgFormat + '</div>' );
+                    $container.before( '<div class="slideError">Image not found!<br>Expected image: assets/pages/' + fileName + '.' + imgFormat + '</div>' );
                 
                 } ).always( function() {
                     

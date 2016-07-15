@@ -314,7 +314,6 @@ noscript {
                         .startBtn {
                             
                             @include flex(1);
-                            margin-right: rem( 5px );
                             
                             button {
                                 width: 100%;
@@ -331,7 +330,7 @@ noscript {
                         
                         .resumeBtn {
                             @extend .startBtn;
-                            margin-right: 0;
+                            margin-left: rem( 5px );
                         }
                         
                     }
@@ -481,7 +480,7 @@ noscript {
                     left: 0;
                     color: #fff;
                     padding: rem( $gutter );
-                    z-index: 1;
+                    z-index: 2;
                     background-color: #f00;
                     
                 }
@@ -1766,6 +1765,14 @@ noscript {
 /**************************
     MISC./HELPER RULES
 **************************/
+[class^="sr-"],
+.sr-only {
+    position: absolute !important;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(1px, 1px, 1px, 1px);
+}
 .IIV::-webkit-media-controls-play-button,
 .IIV::-webkit-media-controls-start-playback-button,
 .IIV::-webkit-media-controls-panel,

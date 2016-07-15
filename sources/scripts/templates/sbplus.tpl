@@ -12,10 +12,12 @@
             
         </div>
         
-        <!-- page/slide container -->
+        <div class="sr-PageStatus" tabindex="1">You are currently on page <span class="currentPage" >#</span> of <span class="totalPages">#</span>. <span class="pageTitle">Page title</span>. <span class="hasNotes"></span></div>
         
+        <!-- page/slide container -->
+    
         <div class="page_container aspect-ratio" aria-live="polite">
-            <div class="content"></div>
+            <div class="content" tabindex="1"></div>
         </div>
         
         <div class="widget_container">
@@ -24,28 +26,28 @@
             
             <div class="left_side">
                 
-                <div class="notes">
+                <div class="notes" tabindex="-1">
                     <div class="content"></div>
                 </div>
                 
                 <nav class="control_bar_wrapper">
                     <div class="left_controls">
-                        <button class="previous"><span class="icon-left"></span></button>
-                        <button class="next"><span class="icon-right"></span></button>
+                        <button class="previous" tabindex="1" aria-label="previous" title="Previous page"><span class="icon-left"></span></button>
+                        <button class="next" tabindex="1" title="Next page" aria-label="next"><span class="icon-right"></span></button>
                     </div>
-                    <div class="status">Page <span class="current">#</span> of <span class="total">#</span></div>
+                    <div class="status" tabindex="1">Page <span class="current">#</span> of <span class="total">#</span></div>
                     <div class="right_controls">
-                        <button class="downloadsBtn">
+                        <button class="downloadsBtn" title="Download files" tabindex="1" aria-expanded="false" aria-label="download files">
                             <div class="download_items hide">
-                                <ul class="files">
+                                <ul class="files" aria-expanded="false">
                                     
                                 </ul>
                             </div>
                             <span class="icon-download"></span>
                         </button>
-                        <button class="notesBtn hide"><span class="icon-notes"></span></button>
-                        <button class="tocBtn hide"><span class="icon-table-of-content"></span></button>
-                        <button class="expandContractBtn"><span class="icon-expand"></span></button>
+                        <button tabindex="1" class="notesBtn hide" title="Show notes" aria-label="Notes"><span class="icon-notes"></span></button>
+                        <button tabindex="1" class="tocBtn hide" title="Show table of contents" aria-label="Table of Contents"><span class="icon-table-of-content"></span></button>
+                        <button tabindex="1" class="expandContractBtn" title="Expand or contract" aria-label="Expand or contract toggle"><span class="icon-expand"></span></button>
                         <!-- <button class="popoutBtn hide"><span class="icon-popout"></span></button> -->
                     </div>
                 </nav>
@@ -56,11 +58,11 @@
         
             <div class="side_panel">
                 
-                <div class="topbar">
-                    <div class="title">Table of Contents</div>
+                <div class="topbar" tabindex="-1">
+                    <div class="title" id="tocLabel">Table of Contents</div>
                 </div>
                 
-                <div class="tableOfContents"></div>
+                <div class="tableOfContents" role="navigation" aria-labelledby="tocLabel" tabindex="1"></div>
                 
             </div>
             
@@ -85,7 +87,7 @@
             
             <div id="menu_item_details" class="menu_item_details hide" aria-expanded="false">
                 <div class="navbar">
-                    <button class="backBtn" aria-label="Back to menu list"><span class="icon-left"></span></button>
+                    <button class="backBtn" aria-label="Back to menu list" title="Back"><span class="icon-left"></span></button>
                     <div class="title">Title</div>
                 </div>
                 <div class="menu_item_content"></div>

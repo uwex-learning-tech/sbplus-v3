@@ -257,10 +257,11 @@ var sbplusControls = ( function() {
     
     function _render() {
         
-        var dlItems = sbplusDownloadable.getDownloads();
-        
         updateStatus();
         $( '.control_bar_wrapper .status .total' ).html( totalPages );
+        $( '.sr-PageStatus .totalPages' ).html( totalPages );
+        
+        var dlItems = sbplusDownloadable.getDownloads();
         
         if ( dlItems.video === undefined && dlItems.pdf === undefined && dlItems.audio === undefined && dlItems.zip === undefined ) {
             $( '.control_bar_wrapper .downloadsBtn' ).hide();

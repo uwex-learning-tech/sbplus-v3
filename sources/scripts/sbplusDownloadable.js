@@ -66,6 +66,8 @@ var sbplusDownloadable = ( function() {
     function _render() {
         
         var downloadables = '';
+        var parent = $( '.download_files' ).parent();
+        var target = $( '.download_files' );
         
         if ( typeof videoPath !== 'undefined' ) {
             
@@ -92,18 +94,18 @@ var sbplusDownloadable = ( function() {
         }
         
         if ( supplementPath === undefined && transcriptPath === undefined && audioPath === undefined && videoPath === undefined ) {
-            $( '.download_files' ).html('No downloadable file available.');
+            target.html('No downloadable file available.');
             setTimeout(function() {
-                
-                var parent = $( '.download_files' ).parent();
-                var target = $( '.download_files' );
                 
                 parent.animate({'height': (parent.outerHeight() - target.outerHeight(true)) }, 500, 'linear');
                 target.fadeOut();
                 
             }, 3000);
         } else {
-            $( '.download_files' ).hide().html( downloadables ).fadeIn( 500 );
+            
+            parent.animate({'height': (parent.outerHeight() + target.outerHeight(false)) }, 500, 'linear');
+            target.html( downloadables );
+            
             $( '.dl_item' ).css('background-color', $.fn.colorLum( accent, 0.4 ));
             
             $( '.dl_item' ).on( 'mouseover', function() {

@@ -138,7 +138,13 @@ var sbplusSplashScreen = ( function () {
         
         $( '.splashscreen' ).html( cntx );
         $( '.splashinfo .title' ).html( context.title );
-        $( '.splashinfo .subtitle' ).html( context.subtitle );
+        
+        if ( $.fn.isEmpty(context.subtitle) ) {
+            $( '.splashinfo .subtitle' ).attr('tabindex', -1);
+        } else {
+            $( '.splashinfo .subtitle' ).html( context.subtitle );
+        }
+        
         $( '.splashinfo .author' ).html( context.author );
         $( '.splashinfo .length' ).html( context.length );
         $( '.splashinfo .startBtn button' ).css( 'background-color', settings.accent );

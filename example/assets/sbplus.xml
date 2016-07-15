@@ -338,7 +338,7 @@
             
             <multipleChoiceSingle>
                 
-                <question image="" audio="">Which sound does Lugia make!?</question>
+                <question image="" audio="">Which sound does Lugia make?</question>
                 <choices>
                     
                     <answer image="" audio="slide03.mp3">
@@ -348,7 +348,7 @@
                     
                     <answer image="" audio="slide07.mp3">
                         <value></value>
-                        <feedback image="" audio="">Which tool sounds like that?</feedback>
+                        <feedback image="" audio="">Someone is looking for you...</feedback>
                     </answer>
                     
                     <answer image="" audio="lugia.mp3" correct="yes">
