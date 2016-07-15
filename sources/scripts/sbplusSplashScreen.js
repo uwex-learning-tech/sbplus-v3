@@ -86,11 +86,11 @@ var sbplusSplashScreen = ( function () {
         
         startBtn.on( 'mouseover', function() {
             
-            $( this ).css( "background-color", $.fn.colorLum( settings.accent, 0.2 ) );
+            $( this ).children().css( "background-color", $.fn.colorLum( settings.accent, 0.2 ) );
             
         } ).on( 'mouseout', function() {
             
-            $( this ).css( "background-color", settings.accent );
+            $( this ).children().css( "background-color", settings.accent );
             
         } );
         
@@ -106,11 +106,11 @@ var sbplusSplashScreen = ( function () {
         
         resumeBtn.on( 'mouseover', function() {
             
-            $( this ).css( "background-color", $.fn.colorLum( settings.accent, 0.2 ) );
+            $( this ).children().css( "background-color", $.fn.colorLum( settings.accent, 0.2 ) );
             
         } ).on( 'mouseout', function() {
             
-            $( this ).css( "background-color", settings.accent );
+            $( this ).children().css( "background-color", settings.accent );
             
         } );
         
@@ -141,7 +141,8 @@ var sbplusSplashScreen = ( function () {
         $( '.splashinfo .subtitle' ).html( context.subtitle );
         $( '.splashinfo .author' ).html( context.author );
         $( '.splashinfo .length' ).html( context.length );
-        $( '.splashinfo .startBtn' ).css( 'background-color', settings.accent );
+        $( '.splashinfo .startBtn button' ).css( 'background-color', settings.accent );
+        $( '.splashinfo .resumeBtn button' ).css( 'background-color', settings.accent );
         
         if ( navigator.cookieEnabled && $.fn.hasCookieValue( resumeCookieKey ) ) {
             
@@ -158,7 +159,7 @@ var sbplusSplashScreen = ( function () {
         
         startBtn = $( '.splashinfo .startBtn' );
         bindStartPresentationEvent();
-        sbplusDownloadable.get();
+        sbplusDownloadable.get(settings.accent);
         
         // popout button
 /*

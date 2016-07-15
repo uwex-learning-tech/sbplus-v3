@@ -4,10 +4,12 @@
 
 var sbplusDownloadable = ( function() {
     
-    var videoPath, audioPath, transcriptPath, supplementPath;
+    var videoPath, audioPath, transcriptPath, supplementPath, accent;
     var downloads = {};
     
-    function getItems() {
+    function getItems( _accent ) {
+        
+        accent = _accent;
         
         var fileName = $.fn.getRootDirectory();
         
@@ -53,7 +55,7 @@ var sbplusDownloadable = ( function() {
     
     function getEl( type, path ) {
         
-        return '<a class="dl_item ' + type + '" href="' + path + '" role="button" tabindex="1" aria-label="Download ' + type + ' file" download><span class="icon-download"></span> ' + type.capitalize() + '</a> ';
+        return '<div class="dl_item"><a class="' + type + '" href="' + path + '" role="button" tabindex="1" aria-label="Download ' + type + ' file" download><span class="icon-download"></span> ' + type.capitalize() + '</a></div>';
         
     }
     
@@ -102,6 +104,18 @@ var sbplusDownloadable = ( function() {
             }, 3000);
         } else {
             $( '.download_files' ).hide().html( downloadables ).fadeIn( 500 );
+            $( '.dl_item' ).css('background-color', $.fn.colorLum( accent, 0.4 ));
+            
+            $( '.dl_item' ).on( 'mouseover', function() {
+            
+                $( this ).css( "background-color", $.fn.colorLum( accent, 0.5 ) );
+                
+            } ).on( 'mouseout', function() {
+                
+                $( this ).css( "background-color", $.fn.colorLum( accent, 0.4 ) );
+                
+            } );
+            
         }
         
     }
