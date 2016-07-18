@@ -23,6 +23,8 @@ var sbplusNotes = ( function() {
         var note = $( page ).find( 'note' ).text();
         var region = $( '.widget_container .notes' );
         var notesBtn = $( '.control_bar_wrapper .notesBtn' );
+        var docWidth = $(document).width();
+        var docHeight = $(document).height();
         
         if ( !$.fn.isEmpty( note ) ) {
             
@@ -30,6 +32,13 @@ var sbplusNotes = ( function() {
             
             if ( $( '.main_content_wrapper' ).hasClass( 'full-view' ) ) {
                 notesBtn.removeClass( 'hide' );
+            }
+
+            if ( docWidth <= 414 && docHeight <= 628 ) {
+                
+                region.addClass('hide');
+                notesBtn.removeClass( 'hide' );
+                
             }
             
             $( '.sr-PageStatus .hasNotes' ).html('This page contains notes.');
@@ -64,8 +73,13 @@ var sbplusNotes = ( function() {
                 
             }
             
+            if ( docWidth <= 414 && docHeight <= 628 ) {
+                region.addClass('hide');
+            }
+            
             notesBtn.addClass( 'hide' );
             sbplusControls.resetNote();
+            
         }
         
     }

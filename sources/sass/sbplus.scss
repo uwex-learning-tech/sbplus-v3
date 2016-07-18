@@ -238,8 +238,6 @@ noscript {
         
         .splashscreen {
             
-            
-            
             .splash_background {
                 
                 position: absolute;
@@ -766,6 +764,7 @@ noscript {
                             top: 50%;
                             margin-left: -1.5em;
                             margin-top: -0.75em;
+                            z-index: 1;
                         }
                         
                         .vjs-control-bar {
@@ -1716,6 +1715,7 @@ noscript {
                     .splashinfo {
                         
                         max-width: 75%;
+                        height: auto !important;
                         
                         .playControls {
                             
@@ -1760,6 +1760,153 @@ noscript {
         
     }
     
+}
+
+/*** iPhone 6+ portrait ***/
+
+@media only screen and (min-device-width : 414px) and (max-device-width : 736px) 
+and (orientation : portrait) { 
+    
+    * {
+        outline: none !important;
+    }
+    
+    .sbplus_wrapper {
+        
+        .sbplus {
+        
+            .main_content_wrapper {
+                
+                .title_bar {
+                    
+                    .author {
+                        display: none;
+                    }
+                    
+                }
+                
+                .widget_container {
+                
+                    display: block !important;
+                    height: 58.1401% !important;
+                    
+                    .left_side {
+                        
+                        position: relative;
+                        width: 100% !important;
+                        
+                        .notes {
+                            position: absolute;
+                            height: 812.8%;
+                            top: 40px !important;
+                            top: rem( 40px ) !important;
+                            left: 0;
+                            z-index: 1;
+                            background-color: #fff;
+                            overflow-y: auto;
+                            border: 1px solid #ccc;
+                            border: rem( 1px ) solid #ccc;
+                        }
+                        
+                        .control_bar_wrapper {
+                            
+                            button:hover {
+                                color: $font-color;
+                            }
+                            
+                            .right_controls {
+                                
+                                .downloadsBtn {
+                                    display: none;
+                                }
+                                .expandContractBtn {
+                                    display: none;
+                                }
+                                
+                            }
+                        }
+                        
+                    }
+                    
+                    .side_panel {
+                        
+                        width: 100% !important;
+                        height: 89.0447% !important;
+                        
+                        .tableOfContents {
+                            
+                            height: 92.3105% !important;
+                            
+                            .section {
+                                
+                                .content {
+                                    
+                                    ul {
+                                        
+                                        li:hover {
+                                            color: $font-color;
+                                            background-color: transparent;
+                                        }
+                                        
+                                    }
+                                    
+                                }
+                                
+                            }
+                            
+                        }
+                        
+                    }
+                
+                }
+                
+                #menu_panel {
+                    width: 100% !important;
+                }
+                
+            }
+            
+        }
+        
+    }
+    
+}
+
+/*** iPhone 6+ lanscape ***/
+
+@media only screen 
+and (min-device-width : 414px) 
+and (max-device-width : 736px) 
+and (orientation : landscape) {
+    
+    * {
+        outline: none !important;
+    }
+    
+    .sbplus_wrapper {
+        
+        .sbplus {
+        
+            .main_content_wrapper {
+                
+                position: relative;
+                
+                .title_bar {
+                    display: none;
+                }
+                
+                .page_container {
+                    width: 100%;
+                }
+                
+                .widget_container {
+                    display: none;
+                }
+                
+            }
+        }
+        
+    }
 }
 
 /**************************

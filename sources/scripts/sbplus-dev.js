@@ -58,6 +58,7 @@ var sbplus = ( function() {
         $.getJSON( $.fn.getConfigFileUrl(), function( e ) {
         
             manifest = e;
+            
             loadSBPlusData();
             
         } ).fail( function() {
@@ -260,132 +261,143 @@ var sbplus = ( function() {
     
     function resizeDom() {
         
-        var widowWidth = $( window ).outerWidth();
-        var windowHeight = $( window ).outerHeight();
-        var titleBarHeight = $( '.title_bar' ).outerHeight();
-        var controlBarHeight = $( '.control_bar_wrapper' ).outerHeight();
-        var slideHeight = $( '.page_container .content' ).outerHeight();
-        var sidePanelTopBarHeight = $( '.side_panel .topbar' ).outerHeight();
-        var isExpanded = $( '.main_content_wrapper' ).hasClass( 'full-view' );
-        var isAssessment = $( '.main_content_wrapper' ).hasClass( 'assessment-view' );
+        var docWidth = $(document).width();
+        var docHeight = $(document).height();
         
-        // is assessement view
-        if ( isAssessment ) {
-            var h = windowHeight - titleBarHeight - controlBarHeight;
-            $( '.content .assessment' ).css( {'height': h + 'px'} );
-        }
-        
-        // is expanded view
-        if ( isExpanded ) {
+        if ( docWidth <= 414 && docHeight <= 628 ) {
             
-            var heightPercentage = 100 - ( ( controlBarHeight + titleBarHeight ) / windowHeight * 100 );
-            
-            $( '.page_container.expanded' ).css( 'height', heightPercentage + '%'  );
-            $( '.widget_container .notes' ).css( { 'height': '', 'width': $( '.status' ).outerWidth() + 'px' } );
-            $( '.widget_container .side_panel' ).css( {
-                'top': ( ( windowHeight - controlBarHeight - titleBarHeight ) * -1 ) + 'px',
-                'height': ( windowHeight - controlBarHeight - titleBarHeight ) + 'px',
-                'width': $( '.right_controls' ).outerWidth() + 'px'
-            } );
-            $( '.tableOfContents').css( 'height', ( $( '.widget_container .side_panel' ).outerHeight() - sidePanelTopBarHeight ) + 'px' );
+        } else if ( docWidth <= 736 && docHeight <= 414 ) {
             
         } else {
             
-            // notes minimized view
-            if ( windowHeight >= 630 ) {
+            var widowWidth = $( window ).outerWidth();
+            var windowHeight = $( window ).outerHeight();
+            var titleBarHeight = $( '.title_bar' ).outerHeight();
+            var controlBarHeight = $( '.control_bar_wrapper' ).outerHeight();
+            var slideHeight = $( '.page_container .content' ).outerHeight();
+            var sidePanelTopBarHeight = $( '.side_panel .topbar' ).outerHeight();
+            var isExpanded = $( '.main_content_wrapper' ).hasClass( 'full-view' );
+            var isAssessment = $( '.main_content_wrapper' ).hasClass( 'assessment-view' );
+            
+            // is assessement view
+            if ( isAssessment ) {
+                var h = windowHeight - titleBarHeight - controlBarHeight;
+                $( '.content .assessment' ).css( {'height': h + 'px'} );
+            }
+            
+            // is expanded view
+            if ( isExpanded ) {
                 
-                $( '.page_container' ).css( 'height', '' );
-                $( '.main_content_wrapper' ).removeClass( 'notes-minimized-view' );
+                var heightPercentage = 100 - ( ( controlBarHeight + titleBarHeight ) / windowHeight * 100 );
                 
-                if ( $( '.main_content_wrapper' ).hasClass( 'assessment-view' ) === false ) {
-                    $( '.control_bar_wrapper .notesBtn' ).addClass( 'hide' );
-                }
+                $( '.page_container.expanded' ).css( 'height', heightPercentage + '%'  );
+                $( '.widget_container .notes' ).css( { 'height': '', 'width': $( '.status' ).outerWidth() + 'px' } );
+                $( '.widget_container .side_panel' ).css( {
+                    'top': ( ( windowHeight - controlBarHeight - titleBarHeight ) * -1 ) + 'px',
+                    'height': ( windowHeight - controlBarHeight - titleBarHeight ) + 'px',
+                    'width': $( '.right_controls' ).outerWidth() + 'px'
+                } );
+                $( '.tableOfContents').css( 'height', ( $( '.widget_container .side_panel' ).outerHeight() - sidePanelTopBarHeight ) + 'px' );
                 
-                $( '.widget_container .notes' ).removeClass( 'hide' ).css( 'width', '' );
+            } else {
                 
-                if ( widowWidth >= 888 ) {
+                // notes minimized view
+                if ( windowHeight >= 630 ) {
                     
-                    $( '.page_container' ).css( 'width', '' );
-                    $( '.side_panel').css( {
-                        
-                        'margin-top': slideHeight * -1,
-                        'border-top': 'none',
-                        'height': '',
-                        'top': '',
-                        'width': ''
-                        
-                    } );
-                    $( '.tableOfContents').css( 'height', windowHeight - titleBarHeight - sidePanelTopBarHeight - 1 );
+                    $( '.page_container' ).css( 'height', '' );
+                    $( '.main_content_wrapper' ).removeClass( 'notes-minimized-view' );
                     
-                } else {
+                    if ( $( '.main_content_wrapper' ).hasClass( 'assessment-view' ) === false ) {
+                        $( '.control_bar_wrapper .notesBtn' ).addClass( 'hide' );
+                    }
                     
-                    if ( isAssessment === false ) {
+                    $( '.widget_container .notes' ).removeClass( 'hide' ).css( 'width', '' );
+                    
+                    if ( widowWidth >= 888 ) {
                         
-                        $( '.widget_container .notes' ).removeClass( 'hide' );
-                        
-                        $( '.page_container' ).css( 'width', '100%' );
-                        $( '.side_panel').css( {'margin-top': 0, 'border-top': '1px solid #ccc'} );
-                        $( '.tableOfContents').css( 'height', notesHeight + controlBarHeight - sidePanelTopBarHeight - 2 );
-                        
-                    } else {
-                        
-                        $( '.widget_container .notes' ).addClass( 'hide' );
-                        
-                        $( '.page_container' ).css( { 'width': '', 'height': windowHeight - titleBarHeight - controlBarHeight } );
-                
+                        $( '.page_container' ).css( 'width', '' );
                         $( '.side_panel').css( {
-                                
-                            'margin-top': ( windowHeight - titleBarHeight - controlBarHeight) * -1,
+                            
+                            'margin-top': slideHeight * -1,
                             'border-top': 'none',
-                            'height': windowHeight - titleBarHeight,
+                            'height': '',
                             'top': '',
                             'width': ''
                             
                         } );
                         $( '.tableOfContents').css( 'height', windowHeight - titleBarHeight - sidePanelTopBarHeight - 1 );
                         
+                    } else {
+                        
+                        if ( isAssessment === false ) {
+                            
+                            $( '.widget_container .notes' ).removeClass( 'hide' );
+                            
+                            $( '.page_container' ).css( 'width', '100%' );
+                            $( '.side_panel').css( {'margin-top': 0, 'border-top': '1px solid #ccc'} );
+                            $( '.tableOfContents').css( 'height', notesHeight + controlBarHeight - sidePanelTopBarHeight - 2 );
+                            
+                        } else {
+                            
+                            $( '.widget_container .notes' ).addClass( 'hide' );
+                            
+                            $( '.page_container' ).css( { 'width': '', 'height': windowHeight - titleBarHeight - controlBarHeight } );
+                    
+                            $( '.side_panel').css( {
+                                    
+                                'margin-top': ( windowHeight - titleBarHeight - controlBarHeight) * -1,
+                                'border-top': 'none',
+                                'height': windowHeight - titleBarHeight,
+                                'top': '',
+                                'width': ''
+                                
+                            } );
+                            $( '.tableOfContents').css( 'height', windowHeight - titleBarHeight - sidePanelTopBarHeight - 1 );
+                            
+                        }
+                        
                     }
                     
-                }
-                
-                var currentSlideHeight = $( '.page_container .content' ).outerHeight();
-                var notesHeight = windowHeight - ( titleBarHeight + controlBarHeight + currentSlideHeight );
-                
-                $( '.widget_container' ).css( 'height', windowHeight - ( titleBarHeight + currentSlideHeight ) );
-                $( '.widget_container .notes' ).css( {
+                    var currentSlideHeight = $( '.page_container .content' ).outerHeight();
+                    var notesHeight = windowHeight - ( titleBarHeight + controlBarHeight + currentSlideHeight );
                     
-                    'height': windowHeight - ( titleBarHeight + controlBarHeight + currentSlideHeight ),
-                    'width': ''
-                
-                } );
-                
-            } else {
-                
-                $( '.main_content_wrapper' ).addClass( 'notes-minimized-view' );
-                
-                $( '.widget_container .notes' ).addClass( 'hide' ).css( {
-                    'width': $( '.status' ).outerWidth(), 
-                    'height': ''
-                } );
-                
-                if ( $( '.widget_container .notes' ).hasClass( 'noNotes' ) ) {
-                    $( '.control_bar_wrapper .notesBtn' ).addClass( 'hide' );
-                } else {
-                    $( '.control_bar_wrapper .notesBtn' ).removeClass( 'hide' );
-                }
-                
-                $( '.page_container' ).css( { 'width': '', 'height': windowHeight - titleBarHeight - controlBarHeight } );
-                
-                $( '.side_panel').css( {
+                    $( '.widget_container' ).css( 'height', windowHeight - ( titleBarHeight + currentSlideHeight ) );
+                    $( '.widget_container .notes' ).css( {
                         
-                    'margin-top': ( windowHeight - titleBarHeight - controlBarHeight) * -1,
-                    'border-top': 'none',
-                    'height': windowHeight - titleBarHeight,
-                    'top': '',
-                    'width': ''
+                        'height': windowHeight - ( titleBarHeight + controlBarHeight + currentSlideHeight ),
+                        'width': ''
                     
-                } );
-                $( '.tableOfContents').css( 'height', windowHeight - titleBarHeight - sidePanelTopBarHeight - 1 );
+                    } );
+                    
+                } else {
+                    
+                    $( '.main_content_wrapper' ).addClass( 'notes-minimized-view' );
+                    
+                    $( '.widget_container .notes' ).addClass( 'hide' ).css( {
+                        'width': $( '.status' ).outerWidth(), 
+                        'height': ''
+                    } );
+                    
+                    if ( $( '.widget_container .notes' ).hasClass( 'noNotes' ) ) {
+                        $( '.control_bar_wrapper .notesBtn' ).addClass( 'hide' );
+                    } else {
+                        $( '.control_bar_wrapper .notesBtn' ).removeClass( 'hide' );
+                    }
+                    
+                    $( '.page_container' ).css( { 'width': '', 'height': windowHeight - titleBarHeight - controlBarHeight } );
+                    
+                    $( '.side_panel').css( {
+                            
+                        'margin-top': ( windowHeight - titleBarHeight - controlBarHeight) * -1,
+                        'border-top': 'none',
+                        'height': windowHeight - titleBarHeight,
+                        'top': '',
+                        'width': ''
+                        
+                    } );
+                    $( '.tableOfContents').css( 'height', windowHeight - titleBarHeight - sidePanelTopBarHeight - 1 );
+                    
+                }
                 
             }
             

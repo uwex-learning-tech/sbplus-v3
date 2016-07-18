@@ -269,6 +269,16 @@ var sbplusControls = ( function() {
             getDownloadItems(dlItems);
         }
         
+        window.addEventListener('orientationchange', doOnOrientationChange);
+        
+    }
+    
+    function doOnOrientationChange() {
+        
+        if ( $(document).width() <= 736 && $(document).height() <= 414 ) {
+            console.log('landscape');
+        }
+        
     }
     
     return {
