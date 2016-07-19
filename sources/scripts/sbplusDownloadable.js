@@ -14,12 +14,12 @@ var sbplusDownloadable = ( function() {
         var fileName = $.fn.getRootDirectory();
         
        $.ajax({
-           url: fileName + '.mp4',
+           url: fileName + '.pdf',
            type: 'HEAD',
            cache: false,
            success: function() {
-               videoPath = this.url;
-               downloads.video = videoPath;
+               transcriptPath = this.url;
+               downloads.pdf = transcriptPath;
            }
        }).always( function() {
            
@@ -34,12 +34,12 @@ var sbplusDownloadable = ( function() {
            }).always( function() {
                
                $.ajax({
-                   url: fileName + '.pdf',
+                   url: fileName + '.mp4',
                    type: 'HEAD',
                    cache: false,
                    success: function() {
-                       transcriptPath = this.url;
-                       downloads.pdf = transcriptPath;
+                       videoPath = this.url;
+                       downloads.video = videoPath;
                    }
                }).always( function() {
                    
