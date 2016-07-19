@@ -13,43 +13,55 @@ var sbplusDownloadable = ( function() {
         
         var fileName = $.fn.getRootDirectory();
         
-        $.get( fileName + '.mp4', function() {
-                
-            videoPath = this.url;
-            downloads.video = videoPath;
-            
-        } ).always( function() {
-            
-            $.get( fileName + '.mp3', function() {
-            
-                audioPath = this.url;
-                downloads.audio = audioPath;
-                
-            } ).always( function() {
-                
-                $.get( fileName + '.pdf', function() {
-            
-                    transcriptPath = this.url;
-                    downloads.pdf = transcriptPath;
-                    
-                } ).always( function() {
-                    
-                    $.get( fileName + '.zip', function() {
-            
-                        supplementPath = this.url;
-                        downloads.zip = supplementPath;
-                        
-                    } ).always( function() {
-                        
-                        _render();
-                        
-                    } );
-                    
-                } );
-                
-            } );
-            
-        } );
+       $.ajax({
+           url: fileName + '.mp4',
+           type: 'HEAD',
+           cache: false,
+           success: function() {
+               videoPath = this.url;
+               downloads.video = videoPath;
+           }
+       }).always( function() {
+           
+           $.ajax({
+               url: fileName + '.mp3',
+               type: 'HEAD',
+               cache: false,
+               success: function() {
+                   audioPath = this.url;
+                   downloads.audio = audioPath;
+               }
+           }).always( function() {
+               
+               $.ajax({
+                   url: fileName + '.pdf',
+                   type: 'HEAD',
+                   cache: false,
+                   success: function() {
+                       transcriptPath = this.url;
+                       downloads.pdf = transcriptPath;
+                   }
+               }).always( function() {
+                   
+                   $.ajax({
+                       url: fileName + '.zip',
+                       type: 'HEAD',
+                       cache: false,
+                       success: function() {
+                           supplementPath = this.url;
+                           downloads.zip = supplementPath;
+                       }
+                   }).always( function() {
+                       
+                       _render();
+                       
+                   } );
+                   
+               } );
+               
+           } );
+           
+       } );
         
     }
     
