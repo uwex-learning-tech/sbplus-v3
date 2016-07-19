@@ -3,7 +3,7 @@
 ****************************************/
 var sbplusSplashScreen = ( function () {
     
-    var manifest, context, settings, bg = '';
+    var manifest, context, settings;
     var startBtn, resumeBtn;
     
     function get( _manifest, _context, _settings ) {
@@ -13,6 +13,8 @@ var sbplusSplashScreen = ( function () {
         settings = _settings;
         
         var program = $.fn.getProgramDirectory();
+        var appDefaultSplash = manifest.sbplus_root_directory + 'images/default.svg',
+            localSplash, programDefaultSplash, courseSplash;
         
         $.get( _manifest.sbplus_root_directory + 'scripts/templates/splashscreen.tpl', function( cntx ) {
             
@@ -20,54 +22,60 @@ var sbplusSplashScreen = ( function () {
             _render( cntx );
             
             // get the splash screen image
-            $.get( 'assets/splash.svg', function() {
-                
-                bg = 'assets/splash.svg';
-                _updateSplashScreen();
-                
-            } ).fail( function() {
-                
-                if ( context.course === '' ) {
-                                        
-                    $.get( manifest.sbplus_splash_directory + program + '/' + 'default.svg', function() {
+            $.ajax( {
+                url: 'assets/splash.svg',
+                type: 'HEAD',
+                success: function() {
+                    localSplash = this.url;
+                    _updateSplashScreen( localSplash );
+                },
+                error: function() {
                     
-                        bg = this.url;
-                        _updateSplashScreen();
+                    if ( context.course === '' ) {
                         
-                    } ).fail( function() {
-                        
-                        bg = manifest.sbplus_root_directory + 'images/default.svg';
-                        _updateSplashScreen();
-                        
-                    } );
-                    
-                } else {
-                    
-                    $.get( manifest.sbplus_splash_directory + program + '/' + context.course + '.svg', function() {
-                
-                        bg = this.url;
-                        _updateSplashScreen();
-                        
-                    } ).fail( function() {
-                        
-                        $.get( manifest.sbplus_splash_directory + program + '/' + 'default.svg', function() {
-                    
-                            bg = this.url;
-                            _updateSplashScreen();
-                            
-                        } ).fail( function() {
-                            
-                            bg = manifest.sbplus_root_directory + 'images/default.svg';
-                            _updateSplashScreen();
-                            
+                        $.ajax( {
+                            url: manifest.sbplus_splash_directory + program + '/' + 'default.svg',
+                            type: 'HEAD',
+                            success: function() {
+                                programDefaultSplash = this.url;
+                                _updateSplashScreen( programDefaultSplash );
+                            },
+                            error: function() {
+                                _updateSplashScreen( appDefaultSplash );
+                            }
                         } );
                         
-                    } );
+                    } else {
+                        
+                        $.ajax( {
+                            url: manifest.sbplus_splash_directory + program + '/' + context.course + '.svg',
+                            type: 'HEAD',
+                            success: function() {
+                                courseSplash = this.url;
+                                _updateSplashScreen( courseSplash );
+                            },
+                            error: function() {
+
+                                $.ajax( {
+                                    url: manifest.sbplus_splash_directory + program + '/' + 'default.svg',
+                                    type: 'HEAD',
+                                    success: function() {
+                                        programDefaultSplash = this.url;
+                                        _updateSplashScreen( programDefaultSplash );
+                                    },
+                                    error: function() {
+                                        _updateSplashScreen( appDefaultSplash );
+                                    }
+                                } );   
+                                
+                            }
+                        } );
+                        
+                    }
                     
                 }
-                
             } );
-            
+                        
         } ).fail( function() {
             
             sbplusError.show( 'Template file not found!', 'splashscreen.tpl file not found in the templates directory.' );
@@ -180,13 +188,19 @@ var sbplusSplashScreen = ( function () {
         
     }
     
-    function _updateSplashScreen() {
-        $( '.splashscreen .splash_background' ).css( {
-            'background-image': 'url(' + bg + ')',
-            'opacity': 0
-        } ).animate({
-            'opacity': 1
-        }, 500, 'linear' );
+    function _updateSplashScreen( bg ) {
+        
+        if ( bg !== undefined ) {
+            
+            $( '.splashscreen .splash_background' ).css( {
+                'background-image': 'url(' + bg + ')',
+                'opacity': 0
+            } ).animate({
+                'opacity': 1
+            }, 500, 'linear' );
+            
+        }
+        
     }
     
     return {
