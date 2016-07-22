@@ -1355,6 +1355,9 @@ noscript {
                     padding: 0;
                     background-color: #fff;
                     border-right: 1px solid $border-color;
+                    border-right: rem( 1px ) solid $border-color;
+                    border-left: 1px solid $border-color;
+                    border-left: rem( 1px ) solid $border-color;
                     
                     .menu_item {
                         
@@ -1852,7 +1855,13 @@ and (orientation : portrait) {
                 }
                 
                 #menu_panel {
+                    
                     width: 100% !important;
+                    
+                    .menu {
+                        border: none !important;
+                    }
+                    
                 }
                 
             }
