@@ -147,7 +147,7 @@ var sbplusSlide = ( function() {
                     
                         subtitles = '<track kind="subtitles" label="English" srclang="en" src="' + directory + fileName + '.vtt" ' + ( subtitlesOn === true ? 'default' : '' ) + ' />';
                     
-                    } ).always( function() {
+                    } ).fail(function(){ subtitles = ''; }).always( function() {
                     
                     $container.html( '<video id="ap" class="video-js vjs-default-skin" webkit-playsinline>' + subtitles + '</video>' ).promise().done( function() {
                     
