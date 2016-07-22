@@ -133,7 +133,10 @@ var sbplusControls = ( function() {
             } else {
                 
                 pageContainer.addClass( 'expanded' ).removeClass( 'aspect-ratio' );
-                notesBtn.removeClass( 'hide' );
+                
+                if ( $('.left_side .notes').hasClass( 'noNotes' ) === false ) {
+                    notesBtn.removeClass( 'hide' );
+                }
                 tocBtn.removeClass( 'hide' );
                 widgets.addClass( 'hide' );
                 btnIcon.removeClass( 'icon-expand' ).addClass( 'icon-contract' );
@@ -267,16 +270,6 @@ var sbplusControls = ( function() {
             $( '.control_bar_wrapper .downloadsBtn' ).hide();
         } else {
             getDownloadItems(dlItems);
-        }
-        
-        window.addEventListener('orientationchange', doOnOrientationChange);
-        
-    }
-    
-    function doOnOrientationChange() {
-        
-        if ( $(document).width() <= 736 && $(document).height() <= 414 ) {
-            console.log('landscape');
         }
         
     }

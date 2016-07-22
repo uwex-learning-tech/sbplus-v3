@@ -264,7 +264,7 @@ var sbplus = ( function() {
         var docWidth = $(document).width();
         var docHeight = $(document).height();
         
-        if ( docWidth <= 414 && docHeight <= 628 ) {
+        if ( docWidth <= 414 && docHeight <= 736 ) {
             
         } else if ( docWidth <= 736 && docHeight <= 414 ) {
             
@@ -295,7 +295,7 @@ var sbplus = ( function() {
                 $( '.widget_container .side_panel' ).css( {
                     'top': ( ( windowHeight - controlBarHeight - titleBarHeight ) * -1 ) + 'px',
                     'height': ( windowHeight - controlBarHeight - titleBarHeight ) + 'px',
-                    'width': $( '.right_controls' ).outerWidth() + 'px'
+                    'width': 300
                 } );
                 $( '.tableOfContents').css( 'height', ( $( '.widget_container .side_panel' ).outerHeight() - sidePanelTopBarHeight ) + 'px' );
                 
@@ -313,7 +313,7 @@ var sbplus = ( function() {
                     
                     $( '.widget_container .notes' ).removeClass( 'hide' ).css( 'width', '' );
                     
-                    if ( widowWidth >= 888 ) {
+                    if ( widowWidth > 888 ) {
                         
                         $( '.page_container' ).css( 'width', '' );
                         $( '.side_panel').css( {
@@ -325,6 +325,7 @@ var sbplus = ( function() {
                             'width': ''
                             
                         } );
+                        
                         $( '.tableOfContents').css( 'height', windowHeight - titleBarHeight - sidePanelTopBarHeight - 1 );
                         
                     } else {
@@ -335,7 +336,8 @@ var sbplus = ( function() {
                             
                             $( '.page_container' ).css( 'width', '100%' );
                             $( '.side_panel').css( {'margin-top': 0, 'border-top': '1px solid #ccc'} );
-                            $( '.tableOfContents').css( 'height', notesHeight + controlBarHeight - sidePanelTopBarHeight - 2 );
+                            
+                            $( '.tableOfContents').css( 'height', windowHeight - titleBarHeight - sidePanelTopBarHeight - $('.page_container').outerHeight() - 1 );
                             
                         } else {
                             
@@ -352,6 +354,7 @@ var sbplus = ( function() {
                                 'width': ''
                                 
                             } );
+                            
                             $( '.tableOfContents').css( 'height', windowHeight - titleBarHeight - sidePanelTopBarHeight - 1 );
                             
                         }
@@ -359,7 +362,7 @@ var sbplus = ( function() {
                     }
                     
                     var currentSlideHeight = $( '.page_container .content' ).outerHeight();
-                    var notesHeight = windowHeight - ( titleBarHeight + controlBarHeight + currentSlideHeight );
+//                     var notesHeight = windowHeight - ( titleBarHeight + controlBarHeight + currentSlideHeight );
                     
                     $( '.widget_container' ).css( 'height', windowHeight - ( titleBarHeight + currentSlideHeight ) );
                     $( '.widget_container .notes' ).css( {
@@ -395,9 +398,16 @@ var sbplus = ( function() {
                         'width': ''
                         
                     } );
+                    
                     $( '.tableOfContents').css( 'height', windowHeight - titleBarHeight - sidePanelTopBarHeight - 1 );
                     
                 }
+                
+                var menuPanel = $( '#menu_panel' ).outerHeight();
+                var menuTitle = $( '.menu_item_details .navbar .title' ).outerHeight();
+                var menuContent = $( '.menu_item_details .menu_item_content' );
+                
+                menuContent.css('height', menuPanel - titleBarHeight - menuTitle );
                 
             }
             

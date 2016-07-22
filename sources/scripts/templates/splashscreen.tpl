@@ -12,6 +12,6 @@
         <div class="download_files">Loading downloadable files...</div>
         <!-- <button tabindex="1" class="popoutBtn hide" aria-label="Open presentation in a new window.">
             <span class="icon-popout"></span>
-        </button> -->
+    </button> -->
     </div>
 </div>

@@ -266,12 +266,12 @@ noscript {
                 background-color: transparent;
                 
                 .splashinfo {
-                
+                    
                     min-width: 33%;
                     max-width: 50%;
-                    background-color: rgba( 255, 255, 255, 0.35 );
                     padding: 18px 30px 20px;
                     padding: rem( 18px ) rem( 30px ) rem( 20px );
+                    background-color: rgba( 255, 255, 255, 0.60 );
                     @include border-radius( 5px );
                     
                     .title {
@@ -390,8 +390,15 @@ noscript {
                         right: 0;
                         color: #000;
                         background-color: transparent;
-                    }
+                    }                       
                     
+                }
+                
+                @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
+                    .splashinfo {
+                        -webkit-backdrop-filter: blur( 8px );
+                        backdrop-filter: blur( 8px );
+                    }
                 }
                 
             }
@@ -869,6 +876,7 @@ noscript {
                         
                         .vjs-poster {
                             display: block;
+                            z-index: 1;
                         }
                         
                     }
@@ -1292,7 +1300,7 @@ noscript {
                 background-color: $border-color;
                 border-bottom: 1px solid $border-color;
                 border-bottom: rem( 1px ) solid $border-color;
-                z-index: 1;
+                z-index: 3;
                 overflow: hidden;
                 
                 .menu_bar {
@@ -1393,7 +1401,8 @@ noscript {
                     
                     position: absolute;
                     width: 100%;
-                    height: 96.6%;
+                    //height: 96.6%;
+                    height: 100%;
                     top: 30px;
                     top: rem( 30px );
                     right: -258px;
@@ -1411,8 +1420,8 @@ noscript {
                         @include flex-wrap( nowrap );
                         
                         width: 100%;
-                        height: 25px;
-                        height: rem( 25px );
+                        height: 2.882%;
+                        min-height: rem( 25px );
                         background-color: #e4e4e4;
                         border-bottom: 1px solid $border-color;
                         border-bottom: rem( 1px ) solid $border-color;
@@ -1445,13 +1454,13 @@ noscript {
                     
                     .menu_item_content {
                         
-                        height: 97.29%;
+                        height: 97.1180%;
                         font-size: 14px;
                         font-size: rem( 14px );
                         line-height: 18px;
                         line-height: rem( 18px );
-                        padding: 0 10px;
-                        padding: 0 rem( 10px );
+                        padding: 10px;
+                        padding: rem( 10px );
                         overflow-y: auto;
                         
                         p:first-child {
@@ -1464,7 +1473,6 @@ noscript {
                             display: block;
                             width: 100%;
                             height: auto;
-                            margin-top: rem(10px);
                         }
                         
                         .name {
@@ -1595,7 +1603,7 @@ noscript {
                         background-color: rgba(255, 255, 255, .96);
                         top: rem( 40px );
                         left: rem( 121px );
-                        z-index: 0;
+                        z-index: 2;
                         border-right: 1px solid $border-color;
                         border-right: rem( 1px ) solid $border-color;
                         @include border-radius( 4px 4px 0 0 );
@@ -1616,7 +1624,7 @@ noscript {
                     top: -50px;
                     right: -30%;
                     margin: 0 !important;
-                    z-index: 1;
+                    z-index: 2;
                     border-bottom: none;
                     
                     .tableOfContents {
@@ -1681,27 +1689,6 @@ noscript {
     } // end sbplus
     
 } // end sbplus_wrapper
-
-@media screen and (orientation: portrait) {
-    
-    .sbplus_wrapper {
-        
-        // main storybook
-        .sbplus {
-            
-            .main_content_wrapper {
-                
-                .page_container {
-                    width: 100%;
-                }
-                
-            } // end main content wrapper
-            
-        } // end sbplus
-        
-    } // end sbplus_wrapper
-  
-}
 
 @media (max-width: 768px) {
     .sbplus_wrapper {
@@ -1783,6 +1770,10 @@ and (orientation : portrait) {
                         display: none;
                     }
                     
+                }
+                
+                .page_container {
+                    width: 100%;
                 }
                 
                 .widget_container {

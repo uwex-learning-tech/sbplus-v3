@@ -191,11 +191,16 @@ var sbplusMenu = ( function() {
     
     function _renderMenuItemDetails( el, title, content ) {
         
+        var menuPanel = $( '#menu_panel' );
+        var menuItem = $( '.menu_item_details' );
+        var menuTitle = $( '.menu_item_details .navbar .title' );
+        var menuContent = $( '.menu_item_details .menu_item_content' );
+        
         if ( typeof el === 'undefined' ) {
             
             $( '.menu_item a' ).attr( 'aria-expanded', 'false' );
         
-            $( '.menu_item_details' ).attr( 'aria-expanded', 'false' ).animate( { right: '-100%' }, 250, function() {
+            menuItem.attr( 'aria-expanded', 'false' ).animate( { right: '-100%' }, 250, function() {
                 
                 $( this ).addClass( 'hide' );
             
@@ -209,14 +214,16 @@ var sbplusMenu = ( function() {
         
         $( el ).attr( 'aria-expanded', 'true' );
         
-        $( '.menu_item_details' ).attr( 'aria-expanded', 'true' );
-        $( '.menu_item_details .navbar .title' ).html( title );
-        $( '.menu_item_details .menu_item_content' ).html( content );
-        $( '.menu_item_details' ).removeClass( 'hide' ).animate( { right: '0px' }, 250 );
+        menuItem.attr( 'aria-expanded', 'true' );
+        menuTitle.html( title );
+        menuContent.html( content );
+        menuItem.removeClass( 'hide' ).animate( { right: '0px' }, 250 );
         
         if ( $(el)[0].id === 'showSettings' ) {
             _bindSaveBtn();
         }
+        
+        menuContent.css('height', menuPanel.outerHeight() - $( '.title_bar' ).outerHeight() - menuTitle.outerHeight());
         
     }
     

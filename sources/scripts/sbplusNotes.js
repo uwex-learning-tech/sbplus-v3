@@ -34,7 +34,7 @@ var sbplusNotes = ( function() {
                 notesBtn.removeClass( 'hide' );
             }
 
-            if ( docWidth <= 414 && docHeight <= 628 ) {
+            if ( docWidth <= 414 && docHeight <= 736 ) {
                 
                 region.addClass('hide');
                 notesBtn.removeClass( 'hide' );
@@ -73,7 +73,8 @@ var sbplusNotes = ( function() {
                 
             }
             
-            if ( docWidth <= 414 && docHeight <= 628 ) {
+            if ( docWidth <= 414 && docHeight <= 736 ) {
+                notesBtn.addClass( 'hide' );
                 region.addClass('hide');
             }
             
