@@ -149,7 +149,7 @@ var sbplusSlide = ( function() {
                     
                     } ).always( function() {
                     
-                    $container.addClass( 'audio' ).html( '<video id="ap" class="video-js vjs-default-skin" poster="' + slideImg + '\" webkit-playsinline>' + subtitles + '</video>' ).promise().done( function() {
+                    $container.html( '<video id="ap" class="video-js vjs-default-skin" webkit-playsinline>' + subtitles + '</video>' ).promise().done( function() {
                     
                             _renderVideoJsPlayer();
                     
@@ -389,6 +389,8 @@ var sbplusSlide = ( function() {
         mediaPlayer = videojs( 'ap', options, function() {
             
             var player = this;
+            
+            player.poster( 'assets/pages/' + fileName + '.' +imgFormat );
             
             if ( isKaltura ) {
                 

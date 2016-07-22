@@ -756,6 +756,10 @@ noscript {
                             z-index: 0;
                         }
                         
+                        .vjs-text-track-display {
+                            z-index: 1;
+                        }
+                        
                         .vjs-tech {
                             z-index: 1;
                         }
@@ -870,9 +874,14 @@ noscript {
                     
                 }
                 
+/*
                 .audio {
                     
                     .vjs-has-started {
+                        
+                        .vjs-tech::-webkit-media-text-track-display {
+                            z-index: 2;
+                        }
                         
                         .vjs-poster {
                             display: block;
@@ -882,6 +891,7 @@ noscript {
                     }
                     
                 }
+*/
                 
                 .img-only {
                     
