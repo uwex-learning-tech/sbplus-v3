@@ -32,6 +32,7 @@ var sbplusSlide = ( function() {
     var isKaltura = false;
     var isYoutube = false;
     var isVimeo = false;
+    var isVideoAudio = false;
     
     var isBundle = false;
     var cuepoints = [];
@@ -80,6 +81,7 @@ var sbplusSlide = ( function() {
             isYoutube = false;
             isVimeo = false;
             isBundle = false;
+            isVideoAudio = false;
             cuepoints = [];
             mediaPlayer.dispose();
             mediaPlayer = null;
@@ -132,6 +134,7 @@ var sbplusSlide = ( function() {
                 directory = 'assets/audio/';
                 mediaMime = 'audio/mp3';
                 mediaFormat = '.mp3';
+                isVideoAudio = true;
                 
                 $.get( 'assets/pages/' + fileName + '.' + imgFormat, function() {
                     
@@ -147,7 +150,7 @@ var sbplusSlide = ( function() {
                     
                         subtitles = '<track kind="subtitles" label="English" srclang="en" src="' + directory + fileName + '.vtt" ' + ( subtitlesOn === true ? 'default' : '' ) + ' />';
                     
-                    } ).fail(function(){ subtitles = ''; }).always( function() {
+                    } ).fail( function(){ subtitles = ''; } ).always( function() {
                     
                     $container.html( '<video id="ap" class="video-js vjs-default-skin" webkit-playsinline>' + subtitles + '</video>' ).promise().done( function() {
                     
@@ -166,6 +169,7 @@ var sbplusSlide = ( function() {
                 directory = 'assets/video/';
                 mediaMime = 'video/mp4';
                 mediaFormat = '.mp4';
+                isVideoAudio = true;
                 
                 $.get( directory + fileName + '.vtt', function() {
                     
@@ -267,7 +271,7 @@ var sbplusSlide = ( function() {
                     
                     } ).always( function() {
                         
-                    $container.html( '<video id="ap" class="video-js vjs-default-skin" poster="' + initialImg + '\">' + subtitles + '</video>' ).promise().done( function() {
+                    $container.html( '<video id="ap" class="video-js vjs-default-skin">' + subtitles + '</video>' ).promise().done( function() {
                     
                             _renderVideoJsPlayer();
                     
@@ -390,7 +394,11 @@ var sbplusSlide = ( function() {
             
             var player = this;
             
-            player.poster( 'assets/pages/' + fileName + '.' +imgFormat );
+            if ( isVideoAudio || isBundle ) {
+                
+                player.poster( 'assets/pages/' + fileName + '.' + imgFormat );
+                
+            }
             
             if ( isKaltura ) {
                 
