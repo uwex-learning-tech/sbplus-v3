@@ -302,7 +302,7 @@ var sbplusSlide = ( function() {
     
     function _loadKalturaVideoData() {
         
-        var entryId, captionId, videoDuration;
+        var entryId, captionId, videoDuration, captionTrack = "";
         
         isKaltura = true;
     
@@ -340,7 +340,13 @@ var sbplusSlide = ( function() {
     
                 }
                 
-                $container.html( '<video id="ap" class="video-js vjs-default-skin" crossorigin="anonymous" webkit-playsinline><track kind="subtitles" label="English" srclang="en" src="https://www.kaltura.com/api_v3/?service=caption_captionasset&action=servewebvtt&captionAssetId=' + captionId + '&segmentDuration=' + videoDuration + '&segmentIndex=1" ' + ( subtitlesOn === true ? 'default' : '' ) + ' /></video>' ).promise().done( function() {
+                if ( captionId !== null ) {
+                    
+                    captionTrack = '<track kind="subtitles" label="English" srclang="en" src="https://www.kaltura.com/api_v3/?service=caption_captionasset&action=servewebvtt&captionAssetId=' + captionId + '&segmentDuration=' + videoDuration + '&segmentIndex=1" ' + ( subtitlesOn === true ? 'default' : '' ) + ' />';
+                    
+                }
+                
+                $container.html( '<video id="ap" class="video-js vjs-default-skin" crossorigin="anonymous" webkit-playsinline>'+captionTrack+'</video>' ).promise().done( function() {
                     
                     _renderVideoJsPlayer();
             
