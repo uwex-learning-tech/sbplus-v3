@@ -421,8 +421,8 @@
 		},
 	"\/sources\/scripts\/libs\/iphone-inline-video.browser.js": {
 		"fileType": 64,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
+		"ignore": 1,
+		"ignoreWasSetByUser": 1,
 		"inputAbbreviatedPath": "\/sources\/scripts\/libs\/iphone-inline-video.browser.js",
 		"outputAbbreviatedPath": "\/sources\/scripts\/libs\/iphone-inline-video.browser.js",
 		"outputPathIsOutsideProject": 0,
