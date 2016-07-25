@@ -158,17 +158,13 @@ var sbplusSplashScreen = ( function () {
         $( '.splashinfo .startBtn button' ).css( 'background-color', settings.accent );
         $( '.splashinfo .resumeBtn button' ).css( 'background-color', settings.accent );
         
-        if ( navigator.cookieEnabled && $.fn.hasCookieValue( resumeCookieKey ) ) {
+        if ( $.fn.getLSItem( resumeCookieKey ) !== '0:0' ) {
+                
+            $( '.splashinfo .resumeBtn' ).css( 'background-color', settings.accent )
+                                     .removeClass( 'hide' );
+            resumeBtn = $( '.splashinfo .resumeBtn' );
+            bindResumePresentationEvent();
             
-            if ( $.fn.getCookie( resumeCookieKey ) !== '0:0' ) {
-                
-                $( '.splashinfo .resumeBtn' ).css( 'background-color', settings.accent )
-                                         .removeClass( 'hide' );
-                resumeBtn = $( '.splashinfo .resumeBtn' );
-                bindResumePresentationEvent();
-                
-            }
-
         }
         
         startBtn = $( '.splashinfo .startBtn' );

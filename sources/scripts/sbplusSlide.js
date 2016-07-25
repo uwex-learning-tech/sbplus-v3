@@ -47,7 +47,7 @@ var sbplusSlide = ( function() {
         context = _context;
         imgFormat = settings.pageImgFormat;
         
-        if ( Number( $.fn.getCookie( 'sbplus-vjs-enabledSubtitles' ) ) === 1 ) {
+        if ( Number( $.fn.getLSItem( 'sbplus-vjs-enabledSubtitles' ) ) === 1 ) {
             
             subtitlesOn = true;
             
@@ -92,11 +92,11 @@ var sbplusSlide = ( function() {
         
         _renderMedia();
         
-        // update cookie value for resume after a delay
+        // update local storage value for resume after a delay
         window.clearTimeout( timeoutCookie );
         timeoutCookie = window.setTimeout( function() {
             
-            $.fn.setCookie( 'sbplus-' + $.fn.getRootDirectory(), s + ':' + p );
+            $.fn.setLSItem( 'sbplus-' + $.fn.getRootDirectory(), s + ':' + p );
             
         }, 3000 );
         
@@ -364,7 +364,7 @@ var sbplusSlide = ( function() {
             
             techOrder: ["html5"],
             controls: true,
-            autoplay: Number( $.fn.getCookie( 'sbplus-vjs-autoplay' ) ) === 1 ? true : false,
+            autoplay: Number( $.fn.getLSItem( 'sbplus-vjs-autoplay' ) ) === 1 ? true : false,
             preload: "auto",
             playbackRates: [0.5, 1, 1.5, 2],
             controlBar: {
@@ -520,30 +520,30 @@ var sbplusSlide = ( function() {
             // default settings
             if ( options.playbackRates !== null ) {
                 
-                if ( $.fn.hasCookieValue( 'sbplus-vjs-playbackrate-temp' ) ) {
-                    player.playbackRate( Number( $.fn.getCookie( 'sbplus-vjs-playbackrate-temp' ) ) );
+                if ( $.fn.hasLSItem( 'sbplus-vjs-playbackrate-temp' ) ) {
+                    player.playbackRate( Number( $.fn.getLSItem( 'sbplus-vjs-playbackrate-temp' ) ) );
                 } else {
-                    player.playbackRate( Number( $.fn.getCookie( 'sbplus-vjs-playbackrate' ) ) );
+                    player.playbackRate( Number( $.fn.getLSItem( 'sbplus-vjs-playbackrate' ) ) );
                 }
                 
             }
             
-            if ( $.fn.hasCookieValue( 'sbplus-vjs-volume-temp' ) ) {
-                player.volume( Number( $.fn.getCookie( 'sbplus-vjs-volume-temp' ) ) );
+            if ( $.fn.hasLSItem( 'sbplus-vjs-volume-temp' ) ) {
+                player.volume( Number( $.fn.getLSItem( 'sbplus-vjs-volume-temp' ) ) );
             } else {
-                player.volume( Number( $.fn.getCookie( 'sbplus-vjs-volume' ) ) );
+                player.volume( Number( $.fn.getLSItem( 'sbplus-vjs-volume' ) ) );
             }
             
             // session settings
             player.on( 'volumechange', function() {
                 
-                $.fn.setCookie( 'sbplus-vjs-volume-temp', this.volume(), 0 );
+                $.fn.setLSItem( 'sbplus-vjs-volume-temp', this.volume() );
                 
             } );
             
             player.on( 'ratechange', function() {
                 
-                $.fn.setCookie( 'sbplus-vjs-playbackrate-temp', this.playbackRate(), 0 );
+                $.fn.setLSItem( 'sbplus-vjs-playbackrate-temp', this.playbackRate() );
                 
             } );
             

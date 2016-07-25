@@ -67,6 +67,8 @@ var sbplus = ( function() {
             
         } );
         
+        $( window ).unload( closingCode );
+        
     } );
     
     function loadSBPlusData() {
@@ -151,7 +153,7 @@ var sbplus = ( function() {
             
             if ( resume ) {
                 
-                var leftOfAt = $.fn.getCookie( 'sbplus-' + $.fn.getRootDirectory() ).split( ':' );
+                var leftOfAt = $.fn.getLSItem( 'sbplus-' + $.fn.getRootDirectory() ).split( ':' );
                 var s = Number(leftOfAt[0]), p = leftOfAt[1];
                 
                 sbplusSlide.get( context.section, settings, s, p, manifest );
@@ -191,7 +193,7 @@ var sbplus = ( function() {
         $sbplus.html( e );
         sbplusSplashScreen.get( manifest, context, settings );
         
-        _initVJSCookies();
+        _initVJSLocalStore();
         
         if( (navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i)) ) {
             _loadiPhoneInlineScript();
@@ -205,49 +207,49 @@ var sbplus = ( function() {
         
     }
     
-    function _initVJSCookies() {
+    function _initVJSLocalStore() {
         
         // set autoplay
-        if ( $.fn.hasCookieValue('sbplus-vjs-autoplay') ) {
+        if ( $.fn.hasLSItem('sbplus-vjs-autoplay') ) {
             
-            $.fn.setCookie( 'sbplus-vjs-autoplay', $.fn.getCookie('sbplus-vjs-autoplay') );
+            $.fn.setLSItem( 'sbplus-vjs-autoplay', $.fn.getLSItem('sbplus-vjs-autoplay') );
             
         } else {
             
-            $.fn.setCookie( 'sbplus-vjs-autoplay', 1 );
+            $.fn.setLSItem( 'sbplus-vjs-autoplay', 1 );
             
         }
         
         // set volume level
-        if ( $.fn.hasCookieValue('sbplus-vjs-volume') ) {
+        if ( $.fn.hasLSItem('sbplus-vjs-volume') ) {
             
-            $.fn.setCookie( 'sbplus-vjs-volume', $.fn.getCookie('sbplus-vjs-volume') );
+            $.fn.setLSItem( 'sbplus-vjs-volume', $.fn.getLSItem('sbplus-vjs-volume') );
             
         } else {
             
-            $.fn.setCookie( 'sbplus-vjs-volume', 0.8 );
+            $.fn.setLSItem( 'sbplus-vjs-volume', 0.8 );
             
         }
         
         // set playback rate
-        if ( $.fn.hasCookieValue('sbplus-vjs-playbackrate') ) {
+        if ( $.fn.hasLSItem('sbplus-vjs-playbackrate') ) {
             
-            $.fn.setCookie( 'sbplus-vjs-playbackrate', $.fn.getCookie('sbplus-vjs-playbackrate') );
+            $.fn.setLSItem( 'sbplus-vjs-playbackrate', $.fn.getLSItem('sbplus-vjs-playbackrate') );
             
         } else {
             
-            $.fn.setCookie( 'sbplus-vjs-playbackrate', 1 );
+            $.fn.setLSItem( 'sbplus-vjs-playbackrate', 1 );
             
         }
         
         // display subtitle
-        if ( $.fn.hasCookieValue('sbplus-vjs-enabledSubtitles') ) {
+        if ( $.fn.hasLSItem('sbplus-vjs-enabledSubtitles') ) {
             
-            $.fn.setCookie( 'sbplus-vjs-enabledSubtitles', $.fn.getCookie('sbplus-vjs-enabledSubtitles') );
+            $.fn.setLSItem( 'sbplus-vjs-enabledSubtitles', $.fn.getLSItem('sbplus-vjs-enabledSubtitles') );
             
         } else {
             
-            $.fn.setCookie( 'sbplus-vjs-enabledSubtitles', 0 );
+            $.fn.setLSItem( 'sbplus-vjs-enabledSubtitles', 0 );
             
         }
         
@@ -414,6 +416,14 @@ var sbplus = ( function() {
         }
         
     }
+    
+    function closingCode() {
+        
+        $.fn.removeLSItem( 'sbplus-vjs-volume-temp' );
+        $.fn.removeLSItem( 'sbplus-vjs-playbackrate-temp' );
+        
+        return null;
+    };
         
     return {
         
