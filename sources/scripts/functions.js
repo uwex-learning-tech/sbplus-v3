@@ -119,51 +119,17 @@ $.fn.toSeconds = function( str ) {
 $.fn.autoscroll = function( parent ) {
  
     var currentItemPos = Math.floor( $( this ).position().top );
+    var halfParentHeight = parent[0].clientHeight / 2;
+    var scrollY = this[0].offsetTop - halfParentHeight;
     
-    if ( currentItemPos < 165 || currentItemPos >= ( parent[0].clientHeight / 2 ) ) {
-        
-        parent.scrollTo( $(this), { duration: 500, offsetTop : ( parent[0].clientHeight / 2 + $( this ).height() ) } );
-           
-    }
-
-};
-
-$.fn.scrollTo = function( target, options, callback ) {
-     
-    if ( typeof options === 'function' && arguments.length === 2 ) {
-        
-        callback = options;
-        options = target;
-      
+    if ( scrollY < 0 ) {
+        scrollY = 0;
     }
     
-    var settings = $.extend( {
-        
-        scrollTarget  : target,
-        offsetTop     : 50,
-        duration      : 500,
-        easing        : 'linear'
-        
-    }, options );
-  
-  return this.each( function() {
-      
-    var scrollPane = $( this );
-    var scrollTarget = ( typeof settings.scrollTarget === "number" ) ? settings.scrollTarget : $( settings.scrollTarget );
-    var scrollY = ( typeof scrollTarget === "number" ) ? scrollTarget : scrollTarget.offset().top + scrollPane.scrollTop() - parseInt( settings.offsetTop );
-    
-    scrollPane.animate({scrollTop : scrollY }, parseInt(settings.duration), settings.easing, function() {
-        
-        if ( typeof callback === 'function' ) {
-          
-          callback.call(this);
-          
-        }
-      
-    } );
-    
-  });
-  
+    parent.animate( {
+        scrollTop : scrollY
+    }, 500, 'linear' );
+
 };
 
 /***************************************
