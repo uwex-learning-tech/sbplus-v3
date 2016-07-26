@@ -24,56 +24,60 @@ var sbplusSplashScreen = ( function () {
             // get the splash screen image
             $.ajax( {
                 url: 'assets/splash.svg',
-                type: 'HEAD',
-                success: function() {
-                    localSplash = this.url;
-                    _updateSplashScreen( localSplash );
-                },
-                error: function() {
+                type: 'HEAD'
+            } ).done( function() {
+                
+                localSplash = this.url;
+                _updateSplashScreen( localSplash );
+                
+            } ).fail( function() {
+                
+                if ( context.course === '' ) {
+                        
+                    $.ajax( {
+                        url: manifest.sbplus_splash_directory + program + '/' + 'default.svg',
+                        type: 'HEAD',
+                    } ).done( function() {
+                        
+                        programDefaultSplash = this.url;
+                        _updateSplashScreen( programDefaultSplash );
+                        
+                    } ).fail( function() {
+                        
+                        _updateSplashScreen( appDefaultSplash );
+                        
+                    } );
                     
-                    if ( context.course === '' ) {
+                } else {
+                    
+                    $.ajax( {
+                        url: manifest.sbplus_splash_directory + program + '/' + context.course + '.svg',
+                        type: 'HEAD',
+                    } ).done( function() {
+                        
+                        courseSplash = this.url;
+                        _updateSplashScreen( courseSplash );
+                        
+                    } ).fail( function() {
                         
                         $.ajax( {
                             url: manifest.sbplus_splash_directory + program + '/' + 'default.svg',
                             type: 'HEAD',
-                            success: function() {
-                                programDefaultSplash = this.url;
-                                _updateSplashScreen( programDefaultSplash );
-                            },
-                            error: function() {
-                                _updateSplashScreen( appDefaultSplash );
-                            }
-                        } );
+                        } ).done( function() {
+                            
+                            programDefaultSplash = this.url;
+                            _updateSplashScreen( programDefaultSplash );
+                            
+                        } ).fail( function() {
+                            
+                            _updateSplashScreen( appDefaultSplash );
+                            
+                        } ); 
                         
-                    } else {
-                        
-                        $.ajax( {
-                            url: manifest.sbplus_splash_directory + program + '/' + context.course + '.svg',
-                            type: 'HEAD',
-                            success: function() {
-                                courseSplash = this.url;
-                                _updateSplashScreen( courseSplash );
-                            },
-                            error: function() {
-
-                                $.ajax( {
-                                    url: manifest.sbplus_splash_directory + program + '/' + 'default.svg',
-                                    type: 'HEAD',
-                                    success: function() {
-                                        programDefaultSplash = this.url;
-                                        _updateSplashScreen( programDefaultSplash );
-                                    },
-                                    error: function() {
-                                        _updateSplashScreen( appDefaultSplash );
-                                    }
-                                } );   
-                                
-                            }
-                        } );
-                        
-                    }
+                    } );
                     
                 }
+                
             } );
                         
         } ).fail( function() {

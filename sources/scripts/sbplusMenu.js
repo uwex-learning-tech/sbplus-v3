@@ -82,42 +82,42 @@ var sbplusMenu = ( function() {
                         
                         var file = manifest.sbplus_author_directory + $.fn.cleanString( authorName );
                         
-                        $.ajax({
+                        $.ajax( {
+                            
                             crossDomain: true,
                             type: 'GET',
                             dataType: 'jsonp',
                             jsonpCallback: 'author',
-                            url: file + '.json',
-                            success: function( res ) {
+                            url: file + '.json'
+                            
+                        } ).done( function(res) {
+                            
+                            profileLoaded = res;
                                 
-                                profileLoaded = res;
+                            var profileImage = new Image();
+                            profileImage.src = file + '.jpg';
+                            
+                            $( profileImage ).on( 'load', function() {
                                 
-                                var profileImage = new Image();
+                                profile = '<img class="profileImg" src="' + file + '.jpg" alt="Photo of ' + res.name + '" />';
+                                profile += '<p class="name">' + res.name + '</p>' + res.profile;
+                                _renderMenuItemDetails( self, title, profile );
                                 
-                                $( profileImage ).load( function() {
-                                    
-                                    profile = '<img class="profileImg" src="' + file + '.jpg" alt="Photo of ' + res.name + '" />';
-                                    profile += '<p class="name">' + res.name + '</p>' + res.profile;
-                                    _renderMenuItemDetails( self, title, profile );
-                                    
-                                } ).error( function() {
-                                    
-                                    profile = '<p class="name">' + res.name + '</p>' + res.profile;
-                                    _renderMenuItemDetails( self, title, profile );
-                                    
-                                } ).attr( {
-                                    'src': file + '.jpg',
-                                    'border': 0
-                                } );
+                            } );
+                            
+                            $( profileImage ).on( 'error', function() {
                                 
-                            },
-                            error: function() {
+                                profile = '<p class="name">' + res.name + '</p>' + res.profile;
+                                _renderMenuItemDetails( self, title, profile );
                                 
-                                var msg = '<p style="color:#f00;">No author profile found for ' + authorName + '.</p>';
-                                _renderMenuItemDetails( self, title, msg );
-                                
-                            }
-                        });
+                            } );
+                            
+                        } ).fail( function() {
+                            
+                            var msg = '<p style="color:#f00;">No author profile found for ' + authorName + '.</p>';
+                            _renderMenuItemDetails( self, title, msg );
+                            
+                        } );
                         
                     } else {
                         

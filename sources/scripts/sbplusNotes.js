@@ -53,18 +53,20 @@ var sbplusNotes = ( function() {
             
             if ( logoLoaded.length === 0 ) {
                 
-                $( logo ).load( function() {
+                logo.src = logoSrc;
                 
+                $( logo ).on( 'load', function() {
+                    
                     logoLoaded = logo;
                     region.html( logo );
                     
-                } ).error( function() {
+                } );
+                
+                $( logo ).on( 'error', function() {
                     
                     logoLoaded = '<img src="' + manifest.sbplus_logo_directory + manifest.sbplus_logo_default + '.svg" />';
                     region.html( logoLoaded );
                     
-                } ).attr( {
-                    'src': logoSrc
                 } );
                 
             } else {

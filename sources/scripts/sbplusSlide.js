@@ -32,7 +32,8 @@ var sbplusSlide = ( function() {
     var isKaltura = false;
     var isYoutube = false;
     var isVimeo = false;
-    var isVideoAudio = false;
+    var isAudio = false;
+    var isVideo = false;
     
     var isBundle = false;
     var cuepoints = [];
@@ -81,7 +82,8 @@ var sbplusSlide = ( function() {
             isYoutube = false;
             isVimeo = false;
             isBundle = false;
-            isVideoAudio = false;
+            isAudio = false;
+            isVideo = false;
             cuepoints = [];
             mediaPlayer.dispose();
             mediaPlayer = null;
@@ -115,18 +117,16 @@ var sbplusSlide = ( function() {
             case 'image':
                 
                 var img = new Image();
-        
-                $( img ).load( function() {
-    
+                img.src = 'assets/pages/' + fileName + '.' + imgFormat;
+                
+                $( img ).on( 'load', function() {
                     $container.addClass( 'img-only' ).html( img );
-    
-                } ).error( function() {
+                } );
+                
+                $( img ).on( 'error', function() {
     
                     $container.before( '<div class="slideError">Image not found!<br>Expected image: assets/pages/' + fileName + '.' + imgFormat + '</div>' );
     
-                } ).attr( {
-                    'src': 'assets/pages/' + fileName + '.' + imgFormat,
-                    'border': 0
                 } );
                 
             break;
@@ -138,7 +138,7 @@ var sbplusSlide = ( function() {
                 directory = 'assets/audio/';
                 mediaMime = 'audio/mp3';
                 mediaFormat = '.mp3';
-                isVideoAudio = true;
+                isAudio = true;
                 
                 $.get( 'assets/pages/' + fileName + '.' + imgFormat, function() {
                     
@@ -173,7 +173,7 @@ var sbplusSlide = ( function() {
                 directory = 'assets/video/';
                 mediaMime = 'video/mp4';
                 mediaFormat = '.mp4';
-                isVideoAudio = true;
+                isVideo = true;
                 
                 $.get( directory + fileName + '.vtt', function() {
                     
@@ -411,10 +411,12 @@ var sbplusSlide = ( function() {
             
             var player = this;
             
-            if ( isVideoAudio || isBundle ) {
-                
+            if ( isAudio || isBundle ) {
                 player.poster( 'assets/pages/' + fileName + '.' + imgFormat );
-                
+            }
+            
+            if ( isVideo ) {
+                player.poster( 'assets/video/' + fileName + '.' + imgFormat );
             }
             
             if ( isKaltura ) {

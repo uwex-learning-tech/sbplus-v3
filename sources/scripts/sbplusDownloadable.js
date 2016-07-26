@@ -16,42 +16,46 @@ var sbplusDownloadable = ( function() {
        $.ajax({
            url: fileName + '.pdf',
            type: 'HEAD',
-           cache: false,
-           success: function() {
-               transcriptPath = this.url;
-               downloads.pdf = transcriptPath;
-           }
-       }).always( function() {
+           cache: false
+       }).done( function() {
+           
+           transcriptPath = this.url;
+           downloads.pdf = transcriptPath;
+           
+       } ).always( function() {
            
            $.ajax({
                url: fileName + '.mp3',
                type: 'HEAD',
-               cache: false,
-               success: function() {
-                   audioPath = this.url;
-                   downloads.audio = audioPath;
-               }
-           }).always( function() {
+               cache: false
+           }).done( function() {
+               
+               audioPath = this.url;
+               downloads.audio = audioPath;
+               
+           } ).always( function() {
                
                $.ajax({
                    url: fileName + '.mp4',
                    type: 'HEAD',
-                   cache: false,
-                   success: function() {
-                       videoPath = this.url;
-                       downloads.video = videoPath;
-                   }
-               }).always( function() {
+                   cache: false
+               }).done( function() {
+                   
+                   videoPath = this.url;
+                   downloads.video = videoPath;
+                   
+               } ).always( function() {
                    
                    $.ajax({
                        url: fileName + '.zip',
                        type: 'HEAD',
-                       cache: false,
-                       success: function() {
-                           supplementPath = this.url;
-                           downloads.zip = supplementPath;
-                       }
-                   }).always( function() {
+                       cache: false
+                   }).done( function() {
+                       
+                       supplementPath = this.url;
+                       downloads.zip = supplementPath;
+                       
+                   } ).always( function() {
                        
                        _render();
                        
