@@ -120,8 +120,8 @@ $.fn.autoscroll = function( parent ) {
  
     var currentItemPos = Math.floor( $( this ).position().top );
     
-    if ( currentItemPos < 30 || currentItemPos >= ( parent.parent().outerHeight() / 2 ) ) {
-
+    if ( currentItemPos < 165 || currentItemPos >= ( parent[0].clientHeight / 2 ) ) {
+        
         parent.scrollTo( $(this), { duration: 500, offsetTop : ( parent[0].clientHeight / 2 + $( this ).height() ) } );
            
     }
@@ -142,7 +142,7 @@ $.fn.scrollTo = function( target, options, callback ) {
         scrollTarget  : target,
         offsetTop     : 50,
         duration      : 500,
-        easing        : 'swing'
+        easing        : 'linear'
         
     }, options );
   

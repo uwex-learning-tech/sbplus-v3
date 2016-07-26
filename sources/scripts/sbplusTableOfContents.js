@@ -124,11 +124,8 @@ var sbplusTableOfContents = ( function() {
         
         setTimeout(function() {
             sbplusControls.update( currentPage.data( 'order' ) );
-        }, 250);
-        
-        if ( $(document).width() > 414 && $(document).height() > 736) {
             $( ".selectable .selectee.selected" ).autoscroll( $( '.side_panel .tableOfContents' ) );
-        }
+        }, 250);
         
     }
     
