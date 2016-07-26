@@ -119,8 +119,13 @@ var sbplusDownloadable = ( function() {
             }, 3000);
         } else {
             
-            parent.animate({'height': (parent.outerHeight() + target.outerHeight(false)) }, 500, 'linear');
-            target.html( downloadables );
+            parent.animate( {
+                'height': ( parent.outerHeight() + target.outerHeight(false) )
+            }, 500, 'linear', function() {
+                $(this).css('height', '');
+            }); 
+            
+            target.html( downloadables );           
             
             $( '.dl_item' ).css('background-color', $.fn.colorLum( accent, 0.4 ));
             
