@@ -67,8 +67,6 @@ var sbplus = ( function() {
             
         } );
         
-        $( window ).unload( closingCode );
-        
     } );
     
     function loadSBPlusData() {
@@ -193,7 +191,11 @@ var sbplus = ( function() {
         $sbplus.html( e );
         sbplusSplashScreen.get( manifest, context, settings );
         
-        _initVJSLocalStore();
+        if ( Modernizr.localstorage ) {
+            
+            _initVJSLocalStore();
+            
+        }
         
         if( (navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i)) ) {
             _loadiPhoneInlineScript();
@@ -416,14 +418,6 @@ var sbplus = ( function() {
         }
         
     }
-    
-    function closingCode() {
-        
-        $.fn.removeLSItem( 'sbplus-vjs-volume-temp' );
-        $.fn.removeLSItem( 'sbplus-vjs-playbackrate-temp' );
-        
-        return null;
-    };
         
     return {
         

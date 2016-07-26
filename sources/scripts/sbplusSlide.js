@@ -37,7 +37,7 @@ var sbplusSlide = ( function() {
     var isBundle = false;
     var cuepoints = [];
     
-    var timeoutCookie;
+    var delayStorage;
     
     function get( _context, _settings, section, page, _manifest ) {
         
@@ -93,12 +93,16 @@ var sbplusSlide = ( function() {
         _renderMedia();
         
         // update local storage value for resume after a delay
-        window.clearTimeout( timeoutCookie );
-        timeoutCookie = window.setTimeout( function() {
+        if ( Modernizr.localstorage ) {
             
-            $.fn.setLSItem( 'sbplus-' + $.fn.getRootDirectory(), s + ':' + p );
+            window.clearTimeout( delayStorage );
+            delayStorage = window.setTimeout( function() {
+                
+                $.fn.setLSItem( 'sbplus-' + $.fn.getRootDirectory(), s + ':' + p );
+                
+            }, 3000 );
             
-        }, 3000 );
+        }
         
     }
     
@@ -359,12 +363,18 @@ var sbplusSlide = ( function() {
     }
     
     function _renderVideoJsPlayer() {
-
+        
+        var toAutoplay = true;
+        
+        if ( Modernizr.localstorage ) {
+            toAutoplay = Number( $.fn.getLSItem( 'sbplus-vjs-autoplay' ) ) === 1 ? true : false;
+        }
+        
         var options = {
             
             techOrder: ["html5"],
             controls: true,
-            autoplay: Number( $.fn.getLSItem( 'sbplus-vjs-autoplay' ) ) === 1 ? true : false,
+            autoplay: toAutoplay,
             preload: "auto",
             playbackRates: [0.5, 1, 1.5, 2],
             controlBar: {
@@ -396,6 +406,7 @@ var sbplusSlide = ( function() {
             
         }
         
+        // initiate videojs 
         mediaPlayer = videojs( 'ap', options, function() {
             
             var player = this;
@@ -508,7 +519,7 @@ var sbplusSlide = ( function() {
             	
             	player.on('seeking', function() {
                     	
-                	if (player.currentTime() <= cuepoints[0]) {
+                	if ( player.currentTime() <= cuepoints[0] ) {
                     	$('.sbplus-vjs-poster').css( 'background-image', '');
                     	player.poster( 'assets/pages/' + fileName + '-1.' + imgFormat );
                 	}
@@ -518,34 +529,48 @@ var sbplusSlide = ( function() {
         	}
             
             // default settings
-            if ( options.playbackRates !== null ) {
+            if ( Modernizr.localstorage && Modernizr.sessionstorage ) {
                 
-                if ( $.fn.hasLSItem( 'sbplus-vjs-playbackrate-temp' ) ) {
-                    player.playbackRate( Number( $.fn.getLSItem( 'sbplus-vjs-playbackrate-temp' ) ) );
-                } else {
-                    player.playbackRate( Number( $.fn.getLSItem( 'sbplus-vjs-playbackrate' ) ) );
+                if ( options.playbackRates !== null ) {
+                
+                    if ( $.fn.ssHas( 'sbplus-vjs-playbackrate-temp' ) ) {
+                        player.playbackRate( Number( $.fn.ssGet( 'sbplus-vjs-playbackrate-temp' ) ) );
+                    } else {
+                        player.playbackRate( Number( $.fn.getLSItem( 'sbplus-vjs-playbackrate' ) ) );
+                    }
+                    
                 }
                 
+                if ( $.fn.ssHas( 'sbplus-vjs-volume-temp' ) ) {
+                    player.volume( Number( $.fn.ssGet( 'sbplus-vjs-volume-temp' ) ) );
+                } else {
+                    player.volume( Number( $.fn.getLSItem( 'sbplus-vjs-volume' ) ) );
+                }
+                
+            } else {
+                
+                player.playbackRate( 1 );
+                player.volume( 0.8 );
+                
             }
             
-            if ( $.fn.hasLSItem( 'sbplus-vjs-volume-temp' ) ) {
-                player.volume( Number( $.fn.getLSItem( 'sbplus-vjs-volume-temp' ) ) );
-            } else {
-                player.volume( Number( $.fn.getLSItem( 'sbplus-vjs-volume' ) ) );
-            }
             
             // session settings
-            player.on( 'volumechange', function() {
+            if ( Modernizr.sessionstorage ) {
                 
-                $.fn.setLSItem( 'sbplus-vjs-volume-temp', this.volume() );
+                player.on( 'volumechange', function() {
                 
-            } );
-            
-            player.on( 'ratechange', function() {
+                    $.fn.ssSet( 'sbplus-vjs-volume-temp', this.volume() );
+                    
+                } );
                 
-                $.fn.setLSItem( 'sbplus-vjs-playbackrate-temp', this.playbackRate() );
+                player.on( 'ratechange', function() {
+                    
+                    $.fn.ssSet( 'sbplus-vjs-playbackrate-temp', this.playbackRate() );
+                    
+                } );
                 
-            } );
+            }
             
             player.textTracks().addEventListener( 'change', function() {
                 
@@ -570,6 +595,7 @@ var sbplusSlide = ( function() {
                 
         } );
         
+        // if the device is an iPhone or iPod
         if( (navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i)) ) {
             var video = $('video').get(0);
             makeVideoPlayableInline(video);
@@ -577,7 +603,7 @@ var sbplusSlide = ( function() {
             $( '.vjs-loading-spinner' ).hide();
         }
         
-    }
+    } // end _renderVideoJSPlayer
     
     function _removeSlideErrorMsg() {
         

@@ -172,13 +172,13 @@ $.fn.scrollTo = function( target, options, callback ) {
 
 $.fn.setLSItem = function( name, value ) {
     
-    localStorage.setItem( name, value )
+    localStorage.setItem( name, value );
     
 };
 
 $.fn.getLSItem = function( name ) {
     
-    return localStorage.getItem( name )
+    return localStorage.getItem( name );
     
 };
 
@@ -195,6 +195,42 @@ $.fn.hasLSItem = function( name ) {
   }
   
   if ( $.fn.isEmpty( localStorage.getItem( name ) ) ) {
+      return false;
+  }
+
+  return true;
+    
+};
+
+/***************************************
+    SESSION STORAGE FUNCTIONS
+****************************************/
+
+$.fn.ssSet = function( name, value ) {
+    
+    sessionStorage.setItem( name, value );
+    
+};
+
+$.fn.ssGet = function( name ) {
+    
+    return sessionStorage.getItem( name );
+    
+};
+
+$.fn.ssRemove = function( name ) {
+    
+    sessionStorage.removeItem( name );
+    
+};
+
+$.fn.ssHas = function( name ) {
+  
+  if ( sessionStorage.getItem( name ) === null ) {
+      return false;
+  }
+  
+  if ( $.fn.isEmpty( sessionStorage.getItem( name ) ) ) {
       return false;
   }
 

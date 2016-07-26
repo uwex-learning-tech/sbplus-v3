@@ -151,20 +151,28 @@ var sbplusMenu = ( function() {
                 
                 title = 'Settings';
                 
-                if ( settingLoaded.length === 0 ) {
+                if ( Modernizr.localstorage ) {
                     
-                    $.get( manifest.sbplus_root_directory + 'scripts/templates/settings.tpl', function( data ) {
+                    if ( settingLoaded.length === 0 ) {
                     
-                        settingLoaded = data;
-                        _renderMenuItemDetails( self, title, data );
+                        $.get( manifest.sbplus_root_directory + 'scripts/templates/settings.tpl', function( data ) {
+                        
+                            settingLoaded = data;
+                            _renderMenuItemDetails( self, title, data );
+                            _syncSettings();
+                            
+                        } );
+                        
+                    } else {
+                        
+                        content = settingLoaded;
                         _syncSettings();
                         
-                    } );
+                    }
                     
                 } else {
                     
-                    content = settingLoaded;
-                    _syncSettings();
+                    content = '<p style="color:#f00;">Your web browser does not local storage to store setting data.</p>';
                     
                 }
                 
