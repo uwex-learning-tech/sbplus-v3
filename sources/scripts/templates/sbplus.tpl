@@ -32,19 +32,24 @@
                 
                 <nav class="control_bar_wrapper">
                     <div class="left_controls">
-                        <button class="previous" tabindex="1" aria-label="previous" title="Previous page"><span class="icon-left"></span></button>
-                        <button class="next" tabindex="1" title="Next page" aria-label="next"><span class="icon-right"></span></button>
+                        <button class="previous" tabindex="1" title="Previous page" aria-label="Previous"><span class="icon-left"></span></button>
+                        <button class="next" tabindex="1" title="Next page" aria-label="Next"><span class="icon-right"></span></button>
                     </div>
                     <div class="status" tabindex="1">Page <span class="current">#</span> of <span class="total">#</span></div>
+                    <div role="application" class="downloadsMenu_wrapper">
+                        
+                        <ul id="mb1" class="root-level" role="menubar" aria-label="Downloads">
+                            
+                            <li id="mb1_menu1" class="menu-parent" role="menuitem" tabindex="1" aria-haspopup="true" >
+                                <span class="icon-download"></span>
+                                <ul class="downloadFiles menu" role="menu" aria-hidden="true"></ul>
+                            </li>
+                            
+                        </ul>
+                        
+                    </div>
+                    
                     <div class="right_controls">
-                        <button class="downloadsBtn" title="Download files" tabindex="1" aria-expanded="false" aria-label="download files">
-                            <div class="download_items hide">
-                                <ul class="files" aria-expanded="false">
-                                    
-                                </ul>
-                            </div>
-                            <span class="icon-download"></span>
-                        </button>
                         <button tabindex="1" class="notesBtn hide" title="Show notes" aria-label="Notes"><span class="icon-notes"></span></button>
                         <button tabindex="1" class="tocBtn hide" title="Show table of contents" aria-label="Table of Contents"><span class="icon-table-of-content"></span></button>
                         <button tabindex="1" class="expandContractBtn" title="Expand or contract" aria-label="Expand or contract toggle"><span class="icon-expand"></span></button>

@@ -89,22 +89,6 @@ var sbplusControls = ( function() {
             
         } );
         
-        $( '.control_bar_wrapper .downloadsBtn' ).on( 'click', function() {
-            
-            var items = $( '.download_items' );
-            
-            if ( items.hasClass( 'hide' ) ) {
-                
-                items.removeClass( 'hide' );
-                
-            } else {
-                
-                items.addClass( 'hide' );
-                
-            }
-            
-        } );
-        
         $( '.control_bar_wrapper .expandContractBtn' ).on( 'click', function() {
             
             var pageContainer = $( '.page_container' );
@@ -222,27 +206,33 @@ var sbplusControls = ( function() {
     
     function getDownloadItems(dl) {
         
-        var files = $( '.download_items .files' );
+        var files = $( '.downloadFiles' );
         
         if ( dl.video !== undefined ) {
             
-            files.append( '<li><a href="'+dl.video+'" download>Video</a></li>' );
+            files.append( '<li class="menu-item" tabindex="-1"><a id="dl-video" role="button" href="'+dl.video+'" target="_blank" download>Video</a></li>' );
+            
         }
         
         if ( dl.audio !== undefined ) {
             
-            files.append( '<li><a href="'+dl.audio+'" download>Audio</a></li>' );
+            files.append( '<li class="menu-item" tabindex="-1"><a id="dl-audio" role="button" href="'+dl.audio+'" target="_blank" download>Audio</a></li>' );
+            
         }
         
         if ( dl.pdf !== undefined ) {
             
-            files.append( '<li><a href="'+dl.pdf+'" download>Transcript</a></li>' );
+            files.append( '<li class="menu-item" tabindex="-1"><a id="dl-pdf" role="button" href="'+dl.pdf+'" target="_blank" download>Transcript</a></li>' );
         }
         
         if ( dl.zip !== undefined ) {
             
-            files.append( '<li><a href="'+dl.zip+'" download>Supplement</a></li>' );
+            files.append( '<li class="menu-item" tabindex="-1"><a id="dl-zip" role="button" href="'+dl.zip+'" target="_blank" download>Supplement</a></li>' );
+            
         }
+        
+        var downloadsMenu = new MenuBar('mb1', false);
+        downloadsMenu = downloadsMenu;
         
     }
     
@@ -267,7 +257,7 @@ var sbplusControls = ( function() {
         var dlItems = sbplusDownloadable.getDownloads();
         
         if ( dlItems.video === undefined && dlItems.pdf === undefined && dlItems.audio === undefined && dlItems.zip === undefined ) {
-            $( '.control_bar_wrapper .downloadsBtn' ).hide();
+            $( '.control_bar_wrapper .downloadsMenu_wrapper' ).hide();
         } else {
             getDownloadItems(dlItems);
         }

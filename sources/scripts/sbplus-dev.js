@@ -166,8 +166,14 @@ var sbplus = ( function() {
             sbplusMenu.get( manifest, context );
             
             // resize DOM
-            //resizeDom();
             $( window ).resize( function() {
+                
+                resizeDom();
+                
+            } );
+            
+            // listen for orientation change
+            $( window ).on( 'orientationchange', function() {
                 
                 resizeDom();
                 

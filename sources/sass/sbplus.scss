@@ -1089,50 +1089,89 @@ noscript {
                             background-color: #eee;
                         }
                         
-                        .downloadsBtn {
+                        .downloadsMenu_wrapper {
                             
-                            position: relative;
+                            .root-level {
+                                
+                                margin: 0;
+                                padding: 0;
+                                list-style: none;
+                                border-left: 1px solid $border-color;
+                                border-left: rem( 1px ) solid $border-color;
+                                background-color: transparent;
                             
-                            .download_items {
-                                
-                                position: absolute;
-                                width: 120px;
-                                font-size: 14px;
-                                font-size: rem( 14px );
-                                bottom: rem( 38px );
-                                left: -30px;
-                                background-color: #fff;
-                                border: 1px solid $border-color;
-                                z-index: 10;
-                                
-                                .files {
+                                .menu-parent {
                                     
-                                    list-style: none;
+                                    position: relative;
+                                    width: 60px;
+                                    width: rem( 60px );
+                                    padding-top: rem( 11px );
                                     margin: 0;
-                                    padding: 0;
+                                    text-align: center;
+                                    height: 38px;
+                                    cursor: pointer;
                                     
-                                    li {
-                                        
+                                    .menu {
+                                    
+                                        position: absolute;
+                                        left: -20px;
+                                        bottom: 38px;
+                                        list-style: none;
                                         margin: 0;
+                                        padding: 0;
+                                        width: 100px;
+                                        border: 1px solid $border-color;
+                                        background-color: #fff;
                                         
-                                        a {
-                                            display: block;
-                                            color: $font-color;
-                                            padding: rem( 7px ) rem( 5px );
-                                            text-decoration: none;
+                                        .menu-item {
+                                            
+                                            font-size: rem( 14px );
+                                            margin: 0;
+                                            padding: rem( 5px ) 0;
+                                            height: auto;
+                                            
+                                            a {
+                                                display: block;
+                                                color: $font-color;
+                                                text-decoration: none;
+                                            }
+                                            
                                         }
                                         
-                                        a:hover {
-                                            color: #fff;
-                                            background-color: $default-accent;
+                                        .menu-item:hover {
+                                            
+                                            background-color: #0c3b6b;
+                                            
+                                            a {
+                                                color: #fff;
+                                            }
+                                            
                                         }
                                         
+                                        .menu-item:focus {
+                                            
+                                            background-color: #0c3b6b;
+                                            
+                                            a {
+                                                color: #fff;
+                                            }
+                                            
+                                        }
+                                                                            
                                     }
                                     
                                 }
                                 
+                                .menu-parent:hover {
+                                    color: #0c3b6b;
+                                }
+                                
                             }
                             
+                            ul[aria-hidden="true"] {
+                                display: none;
+                            }
+                                                    
                         }
                         
                     }
@@ -1272,7 +1311,7 @@ noscript {
                                     
                                     li.selected {
                                         color: #fff;
-                                        background-color: #06498d;
+                                        background-color: $default-accent;
                                     }
                                     
                                     li:hover {
