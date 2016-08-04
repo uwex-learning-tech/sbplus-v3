@@ -244,6 +244,10 @@ var sbplusMenu = ( function() {
             _bindSaveBtn();
         }
         
+        if ( $(el)[0].id === 'showHelp' ) {
+            menuContent.append( '<div class=\"sbplus-info\">Powered by Storybook Plus version 3.0.0.</div>' );
+        }
+        
         menuContent.css('height', menuPanel.outerHeight() - $( '.title_bar' ).outerHeight() - menuTitle.outerHeight());
         
     }

@@ -1510,18 +1510,14 @@ noscript {
                     
                     .menu_item_content {
                         
+                        position: relative;
+                        
                         height: 97.1180%;
                         font-size: 14px;
                         font-size: rem( 14px );
                         line-height: 18px;
                         line-height: rem( 18px );
                         overflow-y: auto;
-                        
-                        p:first-child {
-                            margin-top: 8px;
-                            margin-top: rem( 8px );
-                            margin-bottom: 0;
-                        }
                         
                         .profileImg {
                             display: block;
@@ -1532,6 +1528,7 @@ noscript {
                             img {
                                 margin: 0 auto;
                                 display: block;
+                                max-height: 300px;
                             }
                             
                         }
@@ -1540,6 +1537,12 @@ noscript {
                             
                             padding: 10px;
                             padding: rem( 10px );
+                            
+                            p:first-child {
+                                margin-top: 8px;
+                                margin-top: rem( 8px );
+                                margin-bottom: 0;
+                            }
                             
                             .name {
                                 font-size: 18px;
@@ -1611,6 +1614,18 @@ noscript {
                                 }
                                 
                             }
+                            
+                        }
+                        
+                        .sbplus-info {
+                            
+                            position: absolute;
+                            width: 100%;
+                            font-size: 12px;
+                            bottom: 0;
+                            padding: 5px;
+                            padding: rem( 5px );
+                            background-color: #ececec;
                             
                         }
                         
