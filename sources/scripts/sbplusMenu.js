@@ -9,6 +9,7 @@ var sbplusMenu = ( function() {
     var settingLoaded = '';
     var profileLoaded = '';
     var profile;
+    var img = '';
     
     function get( _manifest, _context ) {
         
@@ -99,8 +100,8 @@ var sbplusMenu = ( function() {
                             
                             $( profileImage ).on( 'load', function() {
                                 
-                                profile = '<img class="profileImg" src="' + file + '.jpg" alt="Photo of ' + res.name + '" />';
-                                profile += '<p class="name">' + res.name + '</p>' + res.profile;
+                                img = '<div class="profileImg"><img src="' + file + '.jpg" alt="Photo of ' + res.name + '" /></div>';
+                                profile = '<p class="name">' + res.name + '</p>' + res.profile;
                                 _renderMenuItemDetails( self, title, profile );
                                 
                             } );
@@ -224,7 +225,19 @@ var sbplusMenu = ( function() {
         
         menuItem.attr( 'aria-expanded', 'true' );
         menuTitle.html( title );
-        menuContent.html( content );
+        
+        menuContent.html( '<div class="content">' + content + '</div>' );
+        
+        if ( $(el)[0].id === 'showProfile' ) {
+            
+            menuContent.html( img + '<div class="content">' + content + '</div>' );
+            
+        } else {
+            
+            menuContent.html( '<div class="content">' + content + '</div>' );
+            
+        }
+        
         menuItem.removeClass( 'hide' ).animate( { right: '0px' }, 250 );
         
         if ( $(el)[0].id === 'showSettings' ) {
