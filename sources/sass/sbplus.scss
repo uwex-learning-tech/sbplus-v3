@@ -1389,8 +1389,11 @@ noscript {
                     
                     .title {
                         @include flex(2 1 88%);
-                        padding-top: 8px;
-                        padding-top: rem( 8px );
+                        font-family: 'MuseoSans-700';
+                        font-size: 16px;
+                        font-size: rem( 16px );
+                        line-height: 33px;
+                        line-height: rem( 33px );
                         padding-left: 10px;
                         padding-left: rem( 10px );
                         text-align: left;
