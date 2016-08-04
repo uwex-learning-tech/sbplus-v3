@@ -210,24 +210,24 @@ var sbplusControls = ( function() {
         
         if ( dl.video !== undefined ) {
             
-            files.append( '<li class="menu-item" tabindex="-1"><a id="dl-video" role="button" href="'+dl.video+'" target="_blank" download>Video</a></li>' );
+            files.append( '<li class="menu-item" tabindex="-1" role="menuitem" aria-live="polite"><a id="dl-video" href="'+dl.video+'" target="_blank" download>Video</a></li>' );
             
         }
         
         if ( dl.audio !== undefined ) {
             
-            files.append( '<li class="menu-item" tabindex="-1"><a id="dl-audio" role="button" href="'+dl.audio+'" target="_blank" download>Audio</a></li>' );
+            files.append( '<li class="menu-item" tabindex="-1" role="menuitem" aria-live="polite"><a id="dl-audio" href="'+dl.audio+'" target="_blank" download>Audio</a></li>' );
             
         }
         
         if ( dl.pdf !== undefined ) {
             
-            files.append( '<li class="menu-item" tabindex="-1"><a id="dl-pdf" role="button" href="'+dl.pdf+'" target="_blank" download>Transcript</a></li>' );
+            files.append( '<li class="menu-item" tabindex="-1" role="menuitem" aria-live="polite"><a id="dl-pdf" href="'+dl.pdf+'" target="_blank" download>Transcript</a></li>' );
         }
         
         if ( dl.zip !== undefined ) {
             
-            files.append( '<li class="menu-item" tabindex="-1"><a id="dl-zip" role="button" href="'+dl.zip+'" target="_blank" download>Supplement</a></li>' );
+            files.append( '<li class="menu-item" tabindex="-1" role="menuitem" aria-live="polite"><a id="dl-zip" href="'+dl.zip+'" target="_blank" download>Supplement</a></li>' );
             
         }
         

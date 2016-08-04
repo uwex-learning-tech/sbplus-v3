@@ -30,19 +30,19 @@
                     <div class="content"></div>
                 </div>
                 
-                <nav class="control_bar_wrapper">
+                <div class="control_bar_wrapper">
                     <div class="left_controls">
                         <button class="previous" tabindex="1" title="Previous page" aria-label="Previous"><span class="icon-left"></span></button>
                         <button class="next" tabindex="1" title="Next page" aria-label="Next"><span class="icon-right"></span></button>
                     </div>
                     <div class="status" tabindex="1">Page <span class="current">#</span> of <span class="total">#</span></div>
-                    <div role="application" class="downloadsMenu_wrapper">
+                    <div class="downloadsMenu_wrapper">
                         
-                        <ul id="mb1" class="root-level" role="menubar" aria-label="Downloads">
+                        <ul id="mb1" class="root-level" role="menubar">
                             
-                            <li id="mb1_menu1" class="menu-parent" role="menuitem" tabindex="1" aria-haspopup="true" >
+                            <li id="mb1_menu1" class="menu-parent" role="menuitem" aria-label="Downloads Menu" tabindex="1" aria-haspopup="true" aria-expanded="false">
                                 <span class="icon-download"></span>
-                                <ul class="downloadFiles menu" role="menu" aria-hidden="true"></ul>
+                                <ul class="downloadFiles menu" role="menu" aria-hidden="true" aria-expanded="false"></ul>
                             </li>
                             
                         </ul>
@@ -55,7 +55,8 @@
                         <button tabindex="1" class="expandContractBtn" title="Expand or contract" aria-label="Expand or contract toggle"><span class="icon-expand"></span></button>
                         <!-- <button class="popoutBtn hide"><span class="icon-popout"></span></button> -->
                     </div>
-                </nav>
+                    
+                </div>
             
             </div>
             
