@@ -1520,15 +1520,22 @@ noscript {
                         overflow-y: auto;
                         
                         .profileImg {
-                            display: block;
+                            
+                            @include display-flex();
+                            @include flex-flow(column nowrap);
+                            @include align-items(flex-start);
                             width: 100%;
-                            background-color: $border-color;
                             height: auto;
+                            //max-height: 300px;
+                            background-color: $border-color;
                             
                             img {
-                                margin: 0 auto;
                                 display: block;
+                                margin: 0 auto;
+                                width: 100%;
+                                height: auto;
                                 max-height: 300px;
+                                object-fit: contain;
                             }
                             
                         }

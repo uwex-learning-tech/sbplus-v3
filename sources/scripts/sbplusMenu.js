@@ -36,11 +36,9 @@ var sbplusMenu = ( function() {
         
         } );
         
-        
         $( '.backBtn' ).on( 'click', function() {
         
             _renderMenuItemDetails();
-            
             return false;
         
         } );
@@ -77,7 +75,7 @@ var sbplusMenu = ( function() {
                 var author = context.data.find( 'setup' ).find( 'author' );
                 var authorName = author.attr( 'name' );
                 var cleanedName = $.fn.cleanString( authorName );
-                var file = '';
+                var photo = '';
                 
                 $.ajax( {
 
@@ -86,16 +84,13 @@ var sbplusMenu = ( function() {
                     
                 } ).done( function() {
                     
-                    file = 'assets/' + cleanedName;
+                    photo = this.url;
                     
                 } ).fail( function() {
                     
-                    file = manifest.sbplus_author_directory + cleanedName;
+                    photo = manifest.sbplus_author_directory + cleanedName + '.jpg';
                     
                 } ).always( function() {
-                    
-                    var profileImage = new Image();
-                    profileImage.src = file + '.jpg';
                     
                     if ( $.fn.isEmpty( author.text() ) ) {
                         
@@ -107,18 +102,22 @@ var sbplusMenu = ( function() {
                                 type: 'GET',
                                 dataType: 'jsonp',
                                 jsonpCallback: 'author',
-                                url: file + '.json'
+                                url: manifest.sbplus_author_directory + cleanedName + '.json'
                                 
                             } ).done( function(res) {
                                 
-                                $( profileImage ).on( 'load', function() {
-                        
-                                    img = '<div class="profileImg"><img src="' + file + '.jpg" alt="Photo of ' + authorName + '" /></div>';
+                                var profileImage = new Image();
+                                profileImage.src = photo;
+                                
+                                $( profileImage ).one( 'load', function() {
+                                                                        
+                                    img = '<div class="profileImg"><img src="' + photo + '" alt="Photo of ' + authorName + '" /></div>';
                                     profile = '<p class="name">' + res.name + '</p>' + res.profile;
                                     _renderMenuItemDetails( self, title, profile );
                                     profileLoaded = res;
                                     
                                 } );
+                                
                                 
                             } ).fail( function() {
                                 
@@ -129,15 +128,19 @@ var sbplusMenu = ( function() {
                             
                         } else {
                             
-                            content =  profile;
+                            content = profile;
+                            _renderMenuItemDetails( self, title, content );
                             
                         }
                         
                     } else {
                         
-                        $( profileImage ).on( 'load', function() {
+                        var profileImage = new Image();
+                        profileImage.src = photo;
                         
-                            img = '<div class="profileImg"><img src="' + file + '.jpg" alt="Photo of ' + authorName + '" /></div>';
+                        $( profileImage ).one( 'load', function() {
+                            
+                            img = '<div class="profileImg"><img src="' + photo + '" alt="Photo of ' + authorName + '" /></div>';
                             content = '<p class="name">' + authorName + '</p>' +  author.text();
                             
                             _renderMenuItemDetails( self, title, content );
@@ -154,6 +157,7 @@ var sbplusMenu = ( function() {
                 
                 title = 'General Information';
                 content = context.generalInfo;
+                _renderMenuItemDetails( self, title, content );
                 
             break;
             
@@ -161,6 +165,7 @@ var sbplusMenu = ( function() {
                 
                 title = 'Help';
                 content = manifest.sbplus_help_information;
+                _renderMenuItemDetails( self, title, content );
                 
             break;
             
@@ -183,6 +188,7 @@ var sbplusMenu = ( function() {
                     } else {
                         
                         content = settingLoaded;
+                        _renderMenuItemDetails( self, title, content );
                         _syncSettings();
                         
                     }
@@ -190,6 +196,7 @@ var sbplusMenu = ( function() {
                 } else {
                     
                     content = '<p style="color:#f00;">Your web browser does not local storage to store setting data.</p>';
+                    _renderMenuItemDetails( self, title, content );
                     
                 }
                 
@@ -201,12 +208,6 @@ var sbplusMenu = ( function() {
                 content ='';
                 
             break;
-            
-        }
-        
-        if ( title !== '' && content !== '' ) {
-            
-            _renderMenuItemDetails( self, title, content );
             
         }
         
@@ -242,8 +243,6 @@ var sbplusMenu = ( function() {
         menuItem.attr( 'aria-expanded', 'true' );
         menuTitle.html( title );
         
-        menuContent.html( '<div class="content">' + content + '</div>' );
-        
         if ( $(el)[0].id === 'showProfile' ) {
             
             menuContent.html( img + '<div class="content">' + content + '</div>' );
@@ -254,8 +253,6 @@ var sbplusMenu = ( function() {
             
         }
         
-        menuItem.removeClass( 'hide' ).animate( { right: '0px' }, 250 );
-        
         if ( $(el)[0].id === 'showSettings' ) {
             _bindSaveBtn();
         }
@@ -265,6 +262,8 @@ var sbplusMenu = ( function() {
         }
         
         menuContent.css('height', menuPanel.outerHeight() - $( '.title_bar' ).outerHeight() - menuTitle.outerHeight());
+        
+        menuItem.removeClass( 'hide' ).animate( { right: '0px' }, 250 );
         
     }
     
