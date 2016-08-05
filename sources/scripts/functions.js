@@ -1139,7 +1139,7 @@ MenuBar.prototype.handleKeypress = function( $item, e ) {
 MenuBar.prototype.handleDocumentClick = function() {
     
     // get the list of all child menus
-    var $childMenus = this.$id.find( 'ul' ).not( '.root-level' );
+    //var $childMenus = this.$id.find( 'ul' ).not( '.root-level' );
     
     // hide the child menus
 /*

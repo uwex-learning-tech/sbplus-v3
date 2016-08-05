@@ -463,15 +463,15 @@ var sbplusQuiz = ( function() {
             
             case 'multipleChoiceMultiple':
                 
-                var isImage = false;
-                var isAudio = false;
+                var isMCMImage = false;
+                var isMCMAudio = false;
                 
                 if ( currentQuestion.answer[0].image !== undefined ) {
-                    isImage = true;
+                    isMCMImage = true;
                 }
                 
                 if ( currentQuestion.answer[0].audio !== undefined ) {
-                    isAudio = true;
+                    isMCMAudio = true;
                 }
                 
                 html += '<p><strong>Your answer:</strong></p>';
@@ -486,11 +486,11 @@ var sbplusQuiz = ( function() {
                 
                 $.each( currentQuestion.stuAnswer, function() {
                     
-                    if ( isImage ) {
+                    if ( isMCMImage ) {
                         
                         html += '<li><img src="assets/images/' + currentQuestion.answer[this.index].image + '" alt="'+ currentQuestion.answer[this.index].value +'" /></li>';
                         
-                    } else if( isAudio ) {
+                    } else if( isMCMAudio ) {
                         html += '<li><audio controls><source src="assets/audio/' + currentQuestion.answer[this.index].audio + '" type="audio/mpeg" /></audio></li>';
                     } else {
                         html += '<li>' + currentQuestion.answer[this.index].value + '</li>';
@@ -502,9 +502,9 @@ var sbplusQuiz = ( function() {
                 
                 html += '<p><strong>Correct answer:</strong></p>';
                 
-                if ( isImage ) {
+                if ( isMCMImage ) {
                     html += '<ul class="images">';
-                } else if( isAudio ) {
+                } else if( isMCMAudio ) {
                     html += '<ul class="audio">';
                 } else {
                     html += '<ul>';
@@ -514,11 +514,11 @@ var sbplusQuiz = ( function() {
                         
                     if ( this.correct !== undefined ) {
                         
-                        if ( isImage ) {
+                        if ( isMCMImage ) {
                         
                             html += '<li><img src="assets/images/' + this.image + '" alt="'+ this.value +'" /></li>';
                             
-                        } else if( isAudio ) {
+                        } else if( isMCMAudio ) {
                             html += '<li><audio controls><source src="assets/audio/' + this.audio + '" type="audio/mpeg" /></audio></li>';
                         } else {
                             html += '<li>' + this.value + '</li>';
