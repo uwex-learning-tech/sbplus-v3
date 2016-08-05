@@ -326,7 +326,7 @@ var sbplus = ( function() {
                     if ( widowWidth > 888 ) {
                         
                         $( '.page_container' ).css( 'width', '' );
-                        $( '.side_panel').css( {
+                        $( '.widget_container .side_panel').css( {
                             
                             'margin-top': slideHeight * -1,
                             'border-top': 'none',
@@ -345,7 +345,7 @@ var sbplus = ( function() {
                             $( '.widget_container .notes' ).removeClass( 'hide' );
                             
                             $( '.page_container' ).css( 'width', '100%' );
-                            $( '.side_panel').css( {'margin-top': 0, 'border-top': '1px solid #ccc'} );
+                            $( '.side_panel').css( {'margin-top': 0, 'border-top': '1px solid #ccc', 'top': ''} );
                             
                             $( '.tableOfContents').css( 'height', windowHeight - titleBarHeight - sidePanelTopBarHeight - $('.page_container').outerHeight() - 1 );
                             
@@ -355,7 +355,7 @@ var sbplus = ( function() {
                             
                             $( '.page_container' ).css( { 'width': '', 'height': windowHeight - titleBarHeight - controlBarHeight } );
                     
-                            $( '.side_panel').css( {
+                            $( '.widget_container .side_panel').css( {
                                     
                                 'margin-top': ( windowHeight - titleBarHeight - controlBarHeight) * -1,
                                 'border-top': 'none',
