@@ -1091,20 +1091,22 @@ noscript {
                         
                         .downloadsMenu_wrapper {
                             
+                            width: 60px;
+                            width: rem( 60px );
+                            border-left: 1px solid $border-color;
+                            border-left: rem( 1px ) solid $border-color;
+                            
                             .root-level {
                                 
                                 margin: 0;
                                 padding: 0;
                                 list-style: none;
-                                border-left: 1px solid $border-color;
-                                border-left: rem( 1px ) solid $border-color;
                                 background-color: transparent;
                             
                                 .menu-parent {
                                     
                                     position: relative;
-                                    width: 60px;
-                                    width: rem( 60px );
+                                    
                                     padding-top: rem( 11px );
                                     margin: 0;
                                     text-align: center;

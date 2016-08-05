@@ -38,9 +38,9 @@
                     <div class="status" tabindex="1">Page <span class="current">#</span> of <span class="total">#</span></div>
                     <div class="downloadsMenu_wrapper">
                         
-                        <ul id="mb1" class="root-level" role="menubar">
+                        <ul id="download-menu-btn" class="root-level" role="menubar">
                             
-                            <li id="mb1_menu1" class="menu-parent" role="menuitem" aria-label="Downloads Menu" tabindex="1" aria-haspopup="true" aria-expanded="false">
+                            <li class="menu-parent" role="menuitem" aria-label="Downloads Menu" tabindex="1" aria-haspopup="true" aria-expanded="false">
                                 <span class="icon-download"></span>
                                 <ul class="downloadFiles menu" role="menu" aria-hidden="true" aria-expanded="false"></ul>
                             </li>
