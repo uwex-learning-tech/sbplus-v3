@@ -16,8 +16,8 @@
         
         <!-- page/slide container -->
     
-        <div class="page_container aspect-ratio" aria-live="polite">
-            <div class="content" tabindex="1"></div>
+        <div class="page_container aspect-ratio">
+            <div id="page_content" class="content" tabindex="1"></div>
         </div>
         
         <div class="widget_container">
@@ -32,24 +32,26 @@
                 
                 <div class="control_bar_wrapper">
                     <div class="left_controls">
-                        <button class="previous" tabindex="1" title="Previous page" aria-label="Previous"><span class="icon-left"></span></button>
-                        <button class="next" tabindex="1" title="Next page" aria-label="Next"><span class="icon-right"></span></button>
+                        <button class="previous" tabindex="1" title="Previous page" aria-label="Previous" aria-controls="page_content"><span class="icon-left"></span></button>
+                        <button class="next" tabindex="1" title="Next page" aria-label="Next" aria-controls="page_content"><span class="icon-right"></span></button>
                     </div>
                     <div class="status" tabindex="1">Page <span class="current">#</span> of <span class="total">#</span></div>
-                    <div class="downloadsMenu_wrapper">
-                        
-                        <ul id="download-menu-btn" class="root-level" role="menubar">
-                            
-                            <li class="menu-parent" role="menuitem" aria-label="Downloads Menu" tabindex="1" aria-haspopup="true" aria-expanded="false">
-                                <span class="icon-download"></span>
-                                <ul class="downloadFiles menu" role="menu" aria-hidden="true" aria-expanded="false"></ul>
-                            </li>
-                            
-                        </ul>
-                        
-                    </div>
                     
                     <div class="right_controls">
+                        
+                        <div class="downloadsMenu_wrapper">
+                        
+                            <ul id="download-menu-btn" class="root-level" role="menubar">
+                                
+                                <li class="menu-parent" role="menuitem" aria-label="Downloads Menu" tabindex="1" aria-haspopup="true" aria-expanded="false">
+                                    <span class="icon-download"></span>
+                                    <ul class="downloadFiles menu" role="menu" aria-hidden="true" aria-expanded="false"></ul>
+                                </li>
+                                
+                            </ul>
+                            
+                        </div>
+                        
                         <button tabindex="1" class="notesBtn hide" title="Show notes" aria-label="Notes"><span class="icon-notes"></span></button>
                         <button tabindex="1" class="tocBtn hide" title="Show table of contents" aria-label="Table of Contents"><span class="icon-table-of-content"></span></button>
                         <button tabindex="1" class="expandContractBtn" title="Expand or contract" aria-label="Expand or contract toggle"><span class="icon-expand"></span></button>
@@ -104,4 +106,6 @@
         <!-- end menu panel -->
         
     </div>
+    <div id="pageHasNotes" class="sr-only" aria-live="polite" tabindex="-1"></div>
+    <div id="endPresentation" class="sr-only" aria-live="polite" tabindex="-1"></div>
 </div>

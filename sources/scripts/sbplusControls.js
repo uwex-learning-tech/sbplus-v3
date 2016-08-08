@@ -241,6 +241,14 @@ var sbplusControls = ( function() {
         num = typeof num !== 'undefined' ? num : currentPage;
         $( '.control_bar_wrapper .status .current' ).html( num + 1 );
         
+        if ( currentPage === totalPages ) {
+            $( '#endPresentation' ).html('You are on the last page. Next button will take you back to page 1.');
+        } else {
+            $( '#endPresentation' ).empty();
+        }
+        
+        
+        
     }
     
     function resetNote() {

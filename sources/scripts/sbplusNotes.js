@@ -41,7 +41,8 @@ var sbplusNotes = ( function() {
                 
             }
             
-            $( '.sr-PageStatus .hasNotes' ).html('This page contains notes.');
+            $( '.sr-PageStatus .hasNotes' ).html( 'This page contains notes.');
+            $( '#pageHasNotes' ).html( 'This page contains notes.' );
             
         } else {
             
@@ -49,7 +50,8 @@ var sbplusNotes = ( function() {
             var logo = new Image();
             
             region.html( '' ).addClass( 'noNotes' ).attr( 'tabindex', -1 );
-            $( '.sr-PageStatus .hasNotes' ).html('');
+            $( '.sr-PageStatus .hasNotes' ).empty();
+            $( '#pageHasNotes' ).empty();
             
             if ( logoLoaded.length === 0 ) {
                 
