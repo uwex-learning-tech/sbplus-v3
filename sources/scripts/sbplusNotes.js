@@ -20,7 +20,7 @@ var sbplusNotes = ( function() {
     function _render( s, p ) {
         
         var page = $( context[s] ).find( 'page' )[p];
-        var note = $( page ).find( 'note' ).text();
+        var note = $.fn.stripScript( $( page ).find( 'note' ).text() );
         var region = $( '.widget_container .notes' );
         var notesBtn = $( '.control_bar_wrapper .notesBtn' );
         var docWidth = $(document).width();
@@ -29,6 +29,16 @@ var sbplusNotes = ( function() {
         if ( !$.fn.isEmpty( note ) ) {
             
             region.removeClass( 'noNotes' ).attr( 'tabindex', 1 ).html( note );
+            
+            if ( region.find( 'a' ).length ) {
+
+        		region.find( 'a' ).each( function() {
+            		
+        			$( this ).attr( "target", "_blank" );
+        
+                } );
+        
+            }
             
             if ( $( '.main_content_wrapper' ).hasClass( 'full-view' ) ) {
                 notesBtn.removeClass( 'hide' );

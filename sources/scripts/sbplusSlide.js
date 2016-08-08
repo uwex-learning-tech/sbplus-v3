@@ -544,9 +544,13 @@ var sbplusSlide = ( function() {
                 }
                 
                 if ( $.fn.ssHas( 'sbplus-vjs-volume-temp' ) ) {
+                    
                     player.volume( Number( $.fn.ssGet( 'sbplus-vjs-volume-temp' ) ) );
+                    
                 } else {
+                    
                     player.volume( Number( $.fn.getLSItem( 'sbplus-vjs-volume' ) ) );
+                    
                 }
                 
             } else {

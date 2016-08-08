@@ -131,6 +131,34 @@ $.fn.autoscroll = function( parent ) {
 
 };
 
+$.fn.stripScript = function ( str ) {
+
+   if ( str !== "" || str !== undefined ) {
+
+       var results = $( "<span>" +  $.trim( str ) + "</span>" );
+
+       results.find( "script,noscript,style" ).remove().end();
+
+       return results.html();
+
+   }
+
+   return str;
+
+ };
+
+$.fn.isMobile = function() {
+    
+    if ( (navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i)) || (navigator.userAgent.match(/iPad/i)) || (navigator.userAgent.match(/Android/i))) {
+        
+        return true;
+        
+    }
+    
+    return false;
+    
+};
+
 /***************************************
     Menu Bar Accessibility Friendly
     http://oaa-accessibility.org/example/26/

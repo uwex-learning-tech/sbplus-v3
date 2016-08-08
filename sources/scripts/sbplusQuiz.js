@@ -28,7 +28,7 @@ var sbplusQuiz = ( function() {
             question.id = id;
             question.type = $( _context ).children()[0].nodeName;
             question.title = {
-                description: q.text()
+                description: $.fn.stripScript( q.text() )
             };
             question.answer = [];
             question.answered = false;
@@ -52,7 +52,7 @@ var sbplusQuiz = ( function() {
                     
                     var answer = {};
                     
-                    answer.value = $( this ).find('value').text();
+                    answer.value = $.fn.stripScript( $( this ).find('value').text() );
                     
                     if ( !$.fn.isEmpty( image ) ) {
                         answer.image = image;
@@ -67,7 +67,7 @@ var sbplusQuiz = ( function() {
                     }
                     
                     if ( question.type === 'multipleChoiceSingle' ) {
-                        answer.feedback = $( this ).find('feedback').text();
+                        answer.feedback = $.fn.stripScript( $( this ).find('feedback').text() );
                     }
                     
                     if ( $( this ).attr('correct') === 'yes' ) {
@@ -83,15 +83,15 @@ var sbplusQuiz = ( function() {
             if ( question.type === 'fillInTheBlank' || question.type === 'multipleChoiceMultiple' ) {
                 
                 if ( question.type === 'fillInTheBlank' ) {
-                    question.answer = $( _context ).find( 'answer' ).text();
+                    question.answer = $.fn.stripScript( $( _context ).find( 'answer' ).text() );
                 }
                 
-                question.correctFeedback = $( _context ).find( 'correctFeedback' ).text();
-                question.incorrectFeedback = $( _context ).find( 'incorrectFeedback' ).text();
+                question.correctFeedback = $.fn.stripScript( $( _context ).find( 'correctFeedback' ).text() );
+                question.incorrectFeedback = $.fn.stripScript( $( _context ).find( 'incorrectFeedback' ).text() );
                 
             } else if ( question.type === 'shortAnswer' ) {
                 
-                question.feedback = $( _context ).find( 'feedback' ).text();
+                question.feedback = $.fn.stripScript( $( _context ).find( 'feedback' ).text() );
                 question.answer = '';
                 
             }

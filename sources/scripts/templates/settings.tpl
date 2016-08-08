@@ -4,7 +4,7 @@
     <div class="grid">
         
         <div class="row">
-            <div class="label"><label for="autoplay">Auto play on start</label></div>
+            <div class="label"><label for="autoplay">Autoplay on start</label></div>
             <div class="control"><input id="autoplay" type="checkbox" value="1" checked /></div>
         </div>
         

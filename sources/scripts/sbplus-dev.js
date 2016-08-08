@@ -413,11 +413,11 @@ var sbplus = ( function() {
                     
                 }
                 
-                var menuPanel = $( '#menu_panel' ).outerHeight();
-                var menuTitle = $( '.menu_item_details .navbar .title' ).outerHeight();
+                var menuPanel = $( '.menu_item_details' ).outerHeight();
+                var menuTitle = $( '.menu_item_details .navbar' ).outerHeight();
                 var menuContent = $( '.menu_item_details .menu_item_content' );
                 
-                menuContent.css('height', menuPanel - titleBarHeight - menuTitle );
+                menuContent.css( 'height', menuPanel - menuTitle - 1 );
                 
             }
             

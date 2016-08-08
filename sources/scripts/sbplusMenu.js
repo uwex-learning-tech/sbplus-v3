@@ -112,7 +112,7 @@ var sbplusMenu = ( function() {
                                 $( profileImage ).one( 'load', function() {
                                                                         
                                     img = '<div class="profileImg"><img src="' + photo + '" alt="Photo of ' + authorName + '" /></div>';
-                                    profile = '<p class="name">' + res.name + '</p>' + res.profile;
+                                    profile = '<p class="name">' + $.fn.stripScript( res.name ) + '</p>' + $.fn.stripScript( res.profile );
                                     _renderMenuItemDetails( self, title, profile );
                                     profileLoaded = res;
                                     
@@ -141,7 +141,7 @@ var sbplusMenu = ( function() {
                         $( profileImage ).one( 'load', function() {
                             
                             img = '<div class="profileImg"><img src="' + photo + '" alt="Photo of ' + authorName + '" /></div>';
-                            content = '<p class="name">' + authorName + '</p>' +  author.text();
+                            content = '<p class="name">' + authorName + '</p>' +  $.fn.stripScript( author.text() );
                             
                             _renderMenuItemDetails( self, title, content );
                             
@@ -156,7 +156,7 @@ var sbplusMenu = ( function() {
             case '#showGeneralInfo':
                 
                 title = 'General Information';
-                content = context.generalInfo;
+                content = $.fn.stripScript( context.generalInfo );
                 _renderMenuItemDetails( self, title, content );
                 
             break;
@@ -164,7 +164,7 @@ var sbplusMenu = ( function() {
             case '#showHelp':
                 
                 title = 'Help';
-                content = manifest.sbplus_help_information;
+                content = $.fn.stripScript( manifest.sbplus_help_information );
                 _renderMenuItemDetails( self, title, content );
                 
             break;
@@ -254,7 +254,16 @@ var sbplusMenu = ( function() {
         }
         
         if ( $(el)[0].id === 'showSettings' ) {
+            
+            if( $.fn.isMobile() ) {
+                
+                $( '#autoplay' ).prop( 'checked', false ).attr( 'disabled', true );
+                $( '#autoplay' ).parent().after( '<em style="color:red">Mobile devices do not support autoplay.</em>' );
+                
+            }
+            
             _bindSaveBtn();
+            
         }
         
         if ( $(el)[0].id === 'showHelp' ) {
@@ -272,10 +281,14 @@ var sbplusMenu = ( function() {
         // autoplay
         var autoplayVal = $.fn.getLSItem('sbplus-vjs-autoplay');
         
-        if ( autoplayVal === '1') {
-            $( '#autoplay' ).prop( 'checked', true );
-        } else {
-            $( '#autoplay' ).prop( 'checked', false );
+        if ( $.fn.isMobile() === false ) {
+            
+            if ( autoplayVal === '1') {
+                $( '#autoplay' ).prop( 'checked', true );
+            } else {
+                $( '#autoplay' ).prop( 'checked', false );
+            }
+            
         }
         
         // volume
@@ -322,10 +335,12 @@ var sbplusMenu = ( function() {
                 vol = 8;
             } else {
                 $.fn.setLSItem('sbplus-vjs-volume', ( vol / 100 ) );
+                $.fn.ssSet( 'sbplus-vjs-volume-temp', $.fn.getLSItem( 'sbplus-vjs-volume' ) );
             }
             
             // playrate
             $.fn.setLSItem('sbplus-vjs-playbackrate', $( '#playback option:selected' ).val() );
+            $.fn.ssSet( 'sbplus-vjs-playbackrate-temp', $.fn.getLSItem( 'sbplus-vjs-playbackrate' ) );
             
             //subtitle
             if ( $( '#subtitle' ).is( ':checked' ) ) {
