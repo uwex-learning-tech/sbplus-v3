@@ -383,6 +383,7 @@ var sbplusSlide = ( function() {
     
         };
         
+        // autoplay is off for iPhone or iPod
         if( (navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i)) ) {
             options.autoplay = false;
         }
@@ -474,8 +475,8 @@ var sbplusSlide = ( function() {
                 	
             	} );
             	
+            	// add the first cue at 00:00
             	player.cuepoints();
-            	
             	player.addCuepoint( {
                     	
                 	namespace: fileName + '-1',
@@ -490,6 +491,7 @@ var sbplusSlide = ( function() {
                 	
             	} );
             	
+            	// add each cue
             	$.each( cuepoints, function(i) {
                 	
                 	var nextCue;
@@ -519,16 +521,32 @@ var sbplusSlide = ( function() {
                 	
             	} );
             	
+            	// show first cue image if seeking to first cue duration
             	player.on('seeking', function() {
                     	
                 	if ( player.currentTime() <= cuepoints[0] ) {
+                    	
                     	$('.sbplus-vjs-poster').css( 'background-image', '');
                     	player.poster( 'assets/pages/' + fileName + '-1.' + imgFormat );
+                    	
                 	}
                 	
             	});
             	
         	}
+            
+            // when video ended
+            player.on( 'ended', function() {
+                
+                $( '.vjs-ended.vjs-has-started .vjs-big-play-button' ).removeClass('vjs-hidden').show();
+                
+                player.one( 'play', function() {
+                    
+                    this.bigPlayButton.hide();
+                    
+                } );
+                
+            } );
             
             // default settings
             if ( Modernizr.localstorage && Modernizr.sessionstorage ) {
@@ -601,7 +619,7 @@ var sbplusSlide = ( function() {
                 
         } );
         
-        // if the device is an iPhone or iPod
+        // if the device is an iPhone or iPod, make it play inline
         if( (navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i)) ) {
             var video = $('video').get(0);
             makeVideoPlayableInline(video);
