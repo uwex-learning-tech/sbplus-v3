@@ -212,14 +212,18 @@ MenuBar.prototype.bindHandlers = function() {
     } );
     
     // mouseenter handler for the menu parents
+/*
     this.$parents.on( 'mouseenter', function( e ) {
         return thisObj.handleMouseEnter( $(this), e );
     } );
+*/
     
     // mouselease handler for the menu parents
+/*
     this.$parents.on( 'mouseleave', function( e ) {
         return thisObj.handleMouseLeave( $(this), e );
     } );
+*/
     
     // click handler for all items
     this.$allItems.on( 'click', function() {

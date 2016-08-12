@@ -17,6 +17,9 @@
         <!-- page/slide container -->
     
         <div class="page_container aspect-ratio">
+            <div class="pageError hide">
+                <div class="content"></div>
+            </div>
             <div id="page_content" class="content" tabindex="1"></div>
         </div>
         

@@ -38,12 +38,15 @@ var sbplusSlide = ( function() {
     var isBundle = false;
     var cuepoints = [];
     
+    var hasImage = false;
+    
     var delayStorage;
     
     function get( _context, _settings, section, page, _manifest ) {
         
         manifest = typeof _manifest !== 'undefined' ? _manifest : manifest;
         
+        $container = $( '#page_content' );
         settings = _settings;
         context = _context;
         imgFormat = settings.pageImgFormat;
@@ -72,9 +75,9 @@ var sbplusSlide = ( function() {
         _removeSlideErrorMsg();
         
         $( '.main_content_wrapper' ).removeClass( 'assessment-view' );
-        $( '.page_container .content' ).removeClass( 'img-only' );
-        $( '.page_container .content' ).removeClass( 'audio' );
-        $( '.page_container .content' ).removeClass( 'html' );
+        $container.removeClass( 'img-only' );
+        $container.removeClass( 'audio' );
+        $container.removeClass( 'html' );
         
         if ( mediaPlayer !== null ) {
             
@@ -87,6 +90,8 @@ var sbplusSlide = ( function() {
             cuepoints = [];
             mediaPlayer.dispose();
             mediaPlayer = null;
+            
+            hasImage = false;
             
         }
         
@@ -110,8 +115,6 @@ var sbplusSlide = ( function() {
     
     function _renderMedia() {
         
-        $container = $( '.page_container .content' );
-        
         switch ( pageType ) {
             
             case 'image':
@@ -120,13 +123,13 @@ var sbplusSlide = ( function() {
                 img.src = 'assets/pages/' + fileName + '.' + imgFormat;
                 
                 $( img ).on( 'load', function() {
+                    hasImage = true;
                     $container.addClass( 'img-only' ).html( img );
                 } );
                 
                 $( img ).on( 'error', function() {
-    
-                    $container.before( '<div class="slideError">Image not found!<br>Expected image: assets/pages/' + fileName + '.' + imgFormat + '</div>' );
-    
+                    hasImage = false;
+                    _showSlideErrorMsg( 'NO_IMG' );
                 } );
                 
             break;
@@ -142,11 +145,13 @@ var sbplusSlide = ( function() {
                 
                 $.get( 'assets/pages/' + fileName + '.' + imgFormat, function() {
                     
+                    hasImage = true;
                     slideImg = this.url;
                     
                 } ).fail( function() {
                     
-                    $container.before( '<div class="slideError">Image not found!<br>Expected image: assets/pages/' + fileName + '.' + imgFormat + '</div>' );
+                    hasImage = false;
+                    _showSlideErrorMsg( 'NO_IMG' );
                 
                 } ).always( function() {
                     
@@ -261,11 +266,13 @@ var sbplusSlide = ( function() {
                 
                 $.get( 'assets/pages/' + fileName + '-1.' + imgFormat, function() {
                     
+                    hasImage = true;
                     initialImg = this.url;
                     
                 } ).fail( function() {
                     
-                    $container.before( '<div class="slideError">Image not found!<br>Expected image: assets/pages/' + fileName + '.' + imgFormat + '</div>' );
+                    hasImage = false;
+                    _showSlideErrorMsg( 'NO_IMG' );
                 
                 } ).always( function() {
                     
@@ -412,12 +419,8 @@ var sbplusSlide = ( function() {
             
             var player = this;
             
-            if ( isAudio || isBundle ) {
+            if ( ( isAudio || isBundle ) && hasImage ) {
                 player.poster( 'assets/pages/' + fileName + '.' + imgFormat );
-            }
-            
-            if ( isVideo ) {
-                player.poster( 'assets/video/' + fileName + '.' + imgFormat );
             }
             
             if ( isKaltura ) {
@@ -535,7 +538,7 @@ var sbplusSlide = ( function() {
             	
         	}
             
-            // when video ended
+            // when player ended
             player.on( 'ended', function() {
                 
                 $( '.vjs-ended.vjs-has-started .vjs-big-play-button' ).removeClass('vjs-hidden').show();
@@ -545,6 +548,13 @@ var sbplusSlide = ( function() {
                     this.bigPlayButton.hide();
                     
                 } );
+                
+            } );
+            
+            // when player encountered errors
+            player.on( 'error', function() {
+                
+                _showSlideErrorMsg( this.error() );
                 
             } );
             
@@ -629,13 +639,68 @@ var sbplusSlide = ( function() {
         
     } // end _renderVideoJSPlayer
     
-    function _removeSlideErrorMsg() {
+    function _showSlideErrorMsg( error ) {
         
-        if ( $( '.slideError' ).length ) {
+        var msg;
+        
+        if ( typeof error !== 'string' ) {
+            
+            if ( hasImage ) {
                         
-            $( '.slideError' ).remove();
+                msg = '<p>The audio for this Storybook Page could not be loaded. Please try refreshing your browser. Contact support if you continue to have issues.</p><p>Expected image: assets/pages/' + fileName + '.' + imgFormat + '</p>';
+                
+            } else {
+                
+                if ( isAudio || isBundle ) {
+                    
+                    msg = '<p>The audio and image for this Storybook Page could not be loaded. Please try refreshing your browser. Contact support if you continue to have issues.</p><p>Expected audio: assets/audio/' + fileName + '.mp3<br>Expected image: assets/pages/' + fileName + '.' + imgFormat + '</p>';
+                    
+                } else {
+                    
+                    var vidSrc = '';
+                    
+                    if ( isVideo ) {
+                        
+                        vidSrc = 'assets/video/' + fileName + '.mp4';
+                        
+                    } else if ( isYoutube ) {
+                        
+                        vidSrc = 'YouTube video ID ' + fileName;
+                        
+                    } else if ( isKaltura ) {
+                        
+                        vidSrc = 'Kaltura video ID ' + fileName;
+                        
+                    }
+                    
+                    msg = '<p>The video for this Storybook Page could not be loaded. Please try refreshing your browser. Contact support if you continue to have issues.</p><p>Expected video source: ' + vidSrc + '</p>';
+                    
+                }
+                
+            }
+            
+        } else {
+            
+            switch ( error ) {
+                
+                case 'NO_IMG':
+                    msg = '<p>The image for this Storybook Page could not be loaded. Please try refreshing your browser. Contact support if you continue to have issues.</p><p>Expected image: assets/pages/' + fileName + '.' + imgFormat + '</p>';
+
+                break;
+                
+            }
             
         }
+        
+        $( '.pageError .content' ).html( msg );
+        $( '.pageError' ).removeClass( 'hide' );
+        
+    }
+    
+    function _removeSlideErrorMsg() {
+        
+        $( '.pageError .content' ).empty();
+        $( '.pageError' ).addClass( 'hide' );
         
     }
     

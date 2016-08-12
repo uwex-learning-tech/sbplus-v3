@@ -284,7 +284,7 @@ var sbplus = ( function() {
             var windowHeight = $( window ).outerHeight();
             var titleBarHeight = $( '.title_bar' ).outerHeight();
             var controlBarHeight = $( '.control_bar_wrapper' ).outerHeight();
-            var slideHeight = $( '.page_container .content' ).outerHeight();
+            var slideHeight = $( '#page_content' ).outerHeight();
             var sidePanelTopBarHeight = $( '.side_panel .topbar' ).outerHeight();
             var isExpanded = $( '.main_content_wrapper' ).hasClass( 'full-view' );
             var isAssessment = $( '.main_content_wrapper' ).hasClass( 'assessment-view' );
@@ -303,6 +303,7 @@ var sbplus = ( function() {
                 $( '.page_container.expanded' ).css( 'height', heightPercentage + '%'  );
                 $( '.widget_container .notes' ).css( { 'height': '', 'width': $( '.status' ).outerWidth() + 'px' } );
                 $( '.widget_container .side_panel' ).css( {
+                    'margin-top': '',
                     'top': ( ( windowHeight - controlBarHeight - titleBarHeight ) * -1 ) + 'px',
                     'height': ( windowHeight - controlBarHeight - titleBarHeight ) + 'px',
                     'width': 300
@@ -371,13 +372,10 @@ var sbplus = ( function() {
                         
                     }
                     
-                    var currentSlideHeight = $( '.page_container .content' ).outerHeight();
-//                     var notesHeight = windowHeight - ( titleBarHeight + controlBarHeight + currentSlideHeight );
-                    
-                    $( '.widget_container' ).css( 'height', windowHeight - ( titleBarHeight + currentSlideHeight ) );
+                    $( '.widget_container' ).css( 'height', windowHeight - ( titleBarHeight + slideHeight ) );
                     $( '.widget_container .notes' ).css( {
                         
-                        'height': windowHeight - ( titleBarHeight + controlBarHeight + currentSlideHeight ),
+                        'height': windowHeight - ( titleBarHeight + controlBarHeight + slideHeight ),
                         'width': ''
                     
                     } );

@@ -477,17 +477,48 @@ noscript {
                 
                 width: $leftWidth;
                 
-                .slideError {
+                .pageError {
                     
                     position: absolute;
-                    width: 100%;
+                    width: 75%;
+                    height: 50%;
+                    margin: auto;
+                    overflow: auto;
                     top: 0;
                     left: 0;
-                    color: #fff;
+                    bottom: 0;
+                    right: 0;
                     padding: rem( $gutter );
                     z-index: 2;
-                    background-color: #f00;
+                    background-color: rgba( 255, 255, 255, 0.90 );
+                    @include border-radius( 5px );
                     
+                    .content {
+                        
+                        font-size: 14px;
+                        font-size: rem( 14px );
+                        line-height: 20px;
+                        line-height: rem( 20px );
+                        color: $font-color;
+                        background-color: transparent;
+                        
+                        p:first-child {
+                            margin-top: 0;
+                        }
+                        
+                        p:last-child {
+                            margin-bottom: 0;
+                        }
+                        
+                    }
+                    
+                }
+                
+                @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
+                    .slideError {
+                        -webkit-backdrop-filter: blur( 8px );
+                        backdrop-filter: blur( 8px );
+                    }
                 }
                 
                 .content {
@@ -754,6 +785,10 @@ noscript {
                             left: 0;
                             height: 100%;
                             z-index: 0;
+                        }
+                        
+                        .vjs-error-display {
+                            display: none;
                         }
                         
                         .vjs-text-track-display {
