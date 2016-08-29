@@ -53,7 +53,7 @@ For questions, please also post them under the "**[Issues](https://github.com/oe
 
 ---
 ###Version Change Log
-###3.0.0-BETA (08/29/2016)
+####3.0.0-BETA (08/29/2016)
 * initial beta release
 
 ---
