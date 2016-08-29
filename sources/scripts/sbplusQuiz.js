@@ -91,6 +91,9 @@ var sbplusQuiz = ( function() {
                 
             } else if ( question.type === 'shortAnswer' ) {
                 
+                if ( !$.fn.isEmpty( q.attr( 'audio' ) ) ) {
+                    question.title.audio = q.attr( 'audio' );
+                }
                 question.feedback = $.fn.stripScript( $( _context ).find( 'feedback' ).text() );
                 question.answer = '';
                 
@@ -121,7 +124,13 @@ var sbplusQuiz = ( function() {
             
                 case 'shortAnswer':
                     html += '<div class="header"><span class="icon-assessment"></span> Question for Self Assessment: Short Answer</div>';
-                    html += '<div class="title">'+currentQuestion.title.description+'</div>';
+                    
+                    if ( currentQuestion.title.audio ) {
+                        html += '<div class="title">' + currentQuestion.title.description + '<br><audio controls><source src="assets/audio/' + currentQuestion.title.audio + '" type="audio/mpeg" /></audion></div>';
+                    } else {
+                        html += '<div class="title">' + currentQuestion.title.description + '</div>';
+                    }
+                    
                     html += '<textarea></textarea>';
                 break;
                 

@@ -127,7 +127,7 @@ legend("topleft", legend=c("Student", "Non-student"), lty=c(1,2), col=c("blue","
             
             <shortAnswer>
                 
-                <question>What are your main take aways from this presentation?</question>
+                <question audio="lugia.mp3">What are your main take aways from this presentation?</question>
                 <feedback>I was hoping you would be surprised to hear how relatively young the Chocolate Chip cookie is. I am also hoping you noticed how important getting the ingredients right is to having good results.</feedback>
                 
             </shortAnswer>
