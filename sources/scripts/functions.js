@@ -52,7 +52,7 @@ $.fn.getConfigFileUrl = function() {
 
 $.fn.isEmpty = function( str ) {
     
-    return ( !str.trim() || str.trim().length === 0 );
+    return ( str === undefined || !str.trim() || str.trim().length === 0 );
     
 };
 
