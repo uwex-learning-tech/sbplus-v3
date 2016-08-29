@@ -516,6 +516,9 @@ var sbplusSlide = ( function() {
                     	end: nextCue,
                     	onStart: function() {
                         	image.src = 'assets/pages/' + fileName + '-'  +(i+2) + '.' + imgFormat;
+                        	$(image).on( 'error', function() {
+                            	_showSlideErrorMsg( 'NO_IMG', image.src );
+                        	} );
                         	$('.sbplus-vjs-poster').css( 'background-image', 'url(assets/pages/' + fileName + '-' + (i+1) + '.' + imgFormat );
                         	player.poster( image.src );
                     	}
@@ -639,7 +642,9 @@ var sbplusSlide = ( function() {
         
     } // end _renderVideoJSPlayer
     
-    function _showSlideErrorMsg( error ) {
+    function _showSlideErrorMsg( error, inBundle ) {
+        
+        inBundle = typeof inBundle === 'undefined' ? '' : inBundle;
         
         var msg;
         
@@ -647,13 +652,13 @@ var sbplusSlide = ( function() {
             
             if ( hasImage ) {
                         
-                msg = '<p>The audio for this Storybook Page could not be loaded. Please try refreshing your browser. Contact support if you continue to have issues.</p><p>Expected image: assets/pages/' + fileName + '.' + imgFormat + '</p>';
+                msg = '<p>The audio for this Storybook Page could not be loaded. Please try refreshing your browser. Contact support if you continue to have issues.</p><p><strong>Expected audio</strong>: assets/audio/' + fileName + '.mp3</p>';
                 
             } else {
                 
                 if ( isAudio || isBundle ) {
                     
-                    msg = '<p>The audio and image for this Storybook Page could not be loaded. Please try refreshing your browser. Contact support if you continue to have issues.</p><p>Expected audio: assets/audio/' + fileName + '.mp3<br>Expected image: assets/pages/' + fileName + '.' + imgFormat + '</p>';
+                    msg = '<p>The audio and image for this Storybook Page could not be loaded. Please try refreshing your browser. Contact support if you continue to have issues.</p><p><strong>Expected audio</strong>: assets/audio/' + fileName + '.mp3<br>Expected image: assets/pages/' + fileName + '.' + imgFormat + '</p>';
                     
                 } else {
                     
@@ -673,7 +678,7 @@ var sbplusSlide = ( function() {
                         
                     }
                     
-                    msg = '<p>The video for this Storybook Page could not be loaded. Please try refreshing your browser. Contact support if you continue to have issues.</p><p>Expected video source: ' + vidSrc + '</p>';
+                    msg = '<p>The video for this Storybook Page could not be loaded. Please try refreshing your browser. Contact support if you continue to have issues.</p><p><strong>Expected video source</strong>: ' + vidSrc + '</p>';
                     
                 }
                 
@@ -684,7 +689,14 @@ var sbplusSlide = ( function() {
             switch ( error ) {
                 
                 case 'NO_IMG':
-                    msg = '<p>The image for this Storybook Page could not be loaded. Please try refreshing your browser. Contact support if you continue to have issues.</p><p>Expected image: assets/pages/' + fileName + '.' + imgFormat + '</p>';
+                
+                    msg = '<p>The image for this Storybook Page could not be loaded. Please try refreshing your browser. Contact support if you continue to have issues.</p>';
+                    
+                    if ( inBundle.length ) {
+                        msg += '<p><strong>Expected bundled image</strong>: ' + inBundle + '</p>';
+                    } else {
+                        msg += '<p><strong>Expected image</strong>: assets/pages/' + fileName + '.' + imgFormat + '</p>';
+                    }
 
                 break;
                 

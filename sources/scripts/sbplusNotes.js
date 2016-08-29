@@ -2,6 +2,8 @@
     Get Notes Module
 ****************************************/
 
+/* global hljs */
+
 var sbplusNotes = ( function() {
     
     var context;
@@ -110,7 +112,7 @@ var sbplusNotes = ( function() {
         
         if ( codeHighlightLoaded === true ) {
             
-            $( 'pre' ).each(function(block) {
+            $( 'pre' ).each(function(i,block) {
                 hljs.highlightBlock(block);
             });
             
