@@ -959,6 +959,8 @@ noscript {
                     @include flex-flow( row wrap );
                     @include flex(2 1 $leftWidth);
                     
+                    overflow-y: auto;
+                    
                     .notes {
                         
                         width: 100%;
@@ -976,7 +978,7 @@ noscript {
                         line-height: rem( 18px );
                         
                         @include border-radius( 0 );
-                        @include nested-reset;
+                        //@include nested-reset;
                         
                         strong {
                             font-weight: bold;
@@ -1037,7 +1039,7 @@ noscript {
                             @extend ul;
                             list-style: decimal inside;
                         }
-                        
+                                               
                     }
                     
                     .noNotes {
@@ -1724,6 +1726,7 @@ noscript {
                 .left_side {
                     
                     position: relative;
+                    overflow-y: inherit;
                     
                     .notes {
                         
@@ -1775,6 +1778,7 @@ noscript {
                 .left_side {
                     
                     position: relative;
+                    overflow-y: inherit;
                     
                     .notes {
                         
@@ -1787,6 +1791,7 @@ noscript {
                         border-right: 1px solid $border-color;
                         border-right: rem( 1px ) solid $border-color;
                         @include border-radius( 4px 4px 0 0 );
+                        z-index: 10;
                         
                     }
                     

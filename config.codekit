@@ -419,6 +419,26 @@
 		"outputStyle": 0,
 		"syntaxCheckerStyle": 0
 		},
+	"\/sources\/scripts\/libs\/highlight\/default.css": {
+		"fileType": 16,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/sources\/scripts\/libs\/highlight\/default.css",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
+	"\/sources\/scripts\/libs\/highlight\/highlight.pack.js": {
+		"fileType": 64,
+		"ignore": 1,
+		"ignoreWasSetByUser": 1,
+		"inputAbbreviatedPath": "\/sources\/scripts\/libs\/highlight\/highlight.pack.js",
+		"outputAbbreviatedPath": "\/sources\/scripts\/libs\/highlight\/highlight.pack.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 0,
+		"syntaxCheckerStyle": 0
+		},
 	"\/sources\/scripts\/libs\/iphone-inline-video.browser.js": {
 		"fileType": 64,
 		"ignore": 1,

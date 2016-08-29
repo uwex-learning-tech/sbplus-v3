@@ -36,7 +36,21 @@
         </page>
         
         <page type="image-audio" src="slide04" title="History">
-            <note />
+            <note><![CDATA[<p><strong>R Code:</strong><br /><pre>n = length(Default$default)
+y = rep(0, n)
+y[which(Default$default=="Yes")] = 1
+mycol = rep("red", n)
+mycol[which(Default$student=="Yes")] = "blue"
+mypch = rep(21, n)
+mypch[which(Default$student=="Yes")] = 2
+plot(Default$balance, y, col=mycol, pch=mypch, xlim=c(0,2650), ylim=c(0,1), xlab="Balance", ylab="Default", cex.axis=1.2)
+
+xvals = seq(min(Default$balance), max(Default$balance), length = 200)
+yvals.student = predict(fit, newdata = data.frame(balance=xvals, student="Yes"), type="response")
+yvals.nonStudent = predict(fit, newdata = data.frame(balance=xvals, student="No"), type="response")
+par(new = T)
+matplot(cbind(xvals, xvals), cbind(yvals.student, yvals.nonStudent), xlim=c(0,2650), ylim=c(0,1), xlab="", ylab="", type="l", col=c("blue", "red"), lwd=2, lty=c(1,2), cex.axis=1.2)
+legend("topleft", legend=c("Student", "Non-student"), lty=c(1,2), col=c("blue","red"))</pre></p>]]></note>
         </page>
         
         <page type="image-audio" src="slide05" title="A Cookie Timeline">

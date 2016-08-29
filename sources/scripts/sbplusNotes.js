@@ -7,6 +7,7 @@ var sbplusNotes = ( function() {
     var context;
     var manifest;
     var logoLoaded = '';
+    var codeHighlightLoaded = false;
     
     function get( _manifest, _context, section, page ) {
         
@@ -38,6 +39,12 @@ var sbplusNotes = ( function() {
         
                 } );
         
+            }
+            
+            if ( region.find( 'pre' ).length ) {
+                
+                _loadCodeHighlightScript();
+                
             }
             
             if ( $( '.main_content_wrapper' ).hasClass( 'full-view' ) ) {
@@ -97,6 +104,37 @@ var sbplusNotes = ( function() {
             
         }
         
+    }
+    
+    function _loadCodeHighlightScript() {
+        
+        if ( codeHighlightLoaded === true ) {
+            
+            $( 'pre' ).each(function(block) {
+                hljs.highlightBlock(block);
+            });
+            
+        } else {
+            
+            $.getScript( manifest.sbplus_root_directory + 'scripts/libs/highlight/highlight.pack.js', function() {
+            
+                var link = document.createElement( 'link' );
+                link.href = manifest.sbplus_root_directory + 'scripts/libs/highlight/default.css';
+                link.type = 'text/css';
+                link.rel = 'stylesheet';
+                link.media = 'all';
+                $( 'head' ).append( link );
+                
+                $( 'pre' ).each(function(i,block) {
+                    hljs.highlightBlock(block);
+                });
+                
+                codeHighlightLoaded = true;
+                
+            } );
+            
+        }
+    
     }
     
     return {
