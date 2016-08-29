@@ -401,8 +401,13 @@ var sbplusQuiz = ( function() {
         switch ( currentQuestion.type ) {
             
             case 'shortAnswer':
+            
                 html += '<p><strong>Your answer:</strong><br>' + currentQuestion.stuAnswer + '</p>';
-                html += '<p><strong>Feedback:</strong><br>' + currentQuestion.feedback + '</p>';
+                
+                if (currentQuestion.feedback.length) {
+                    html += '<p><strong>Feedback:</strong><br>' + currentQuestion.feedback + '</p>';
+                }
+                
             break;
             
             case 'fillInTheBlank':
@@ -411,9 +416,13 @@ var sbplusQuiz = ( function() {
                 html += '<p><strong>Correct answer:</strong><br>' + currentQuestion.answer + '</p>';
                 
                 if ( currentQuestion.correct ) {
-                    html += '<p><strong>Feedback:</strong><br>' + currentQuestion.correctFeedback + '</p>';
+                    if (currentQuestion.correctFeedback.length) {
+                        html += '<p><strong>Feedback:</strong><br>' + currentQuestion.correctFeedback + '</p>';
+                    }
                 } else {
-                    html += '<p><strong>Feedback:</strong><br>' + currentQuestion.incorrectFeedback + '</p>';
+                    if (currentQuestion.incorrectFeedback.length) {
+                        html += '<p><strong>Feedback:</strong><br>' + currentQuestion.incorrectFeedback + '</p>';
+                    }
                 }
                 
             break;
@@ -457,7 +466,9 @@ var sbplusQuiz = ( function() {
                     
                 } );
                 
-                html += '<p><strong>Feedback:</strong><br>' + currentQuestion.answer[currentQuestion.stuAnswer].feedback + '</p>';
+                if ( currentQuestion.answer[currentQuestion.stuAnswer].feedback.length ) {
+                    html += '<p><strong>Feedback:</strong><br>' + currentQuestion.answer[currentQuestion.stuAnswer].feedback + '</p>';
+                } 
                 
             break;
             
@@ -531,9 +542,13 @@ var sbplusQuiz = ( function() {
                 html += '</ul>';
                 
                 if ( currentQuestion.correct ) {
-                    html += '<p><strong>Feedback:</strong><br>' + currentQuestion.correctFeedback + '</p>';
+                    if (currentQuestion.correctFeedback.length) {
+                        html += '<p><strong>Feedback:</strong><br>' + currentQuestion.correctFeedback + '</p>';
+                    }
                 } else {
-                    html += '<p><strong>Feedback:</strong><br>' + currentQuestion.incorrectFeedback + '</p>';
+                    if (currentQuestion.incorrectFeedback.length) {
+                        html += '<p><strong>Feedback:</strong><br>' + currentQuestion.incorrectFeedback + '</p>';
+                    }
                 }
                 
             break;
