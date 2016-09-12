@@ -1568,7 +1568,6 @@ noscript {
                             @include align-items(flex-start);
                             width: 100%;
                             height: auto;
-                            //max-height: 300px;
                             background-color: $border-color;
                             
                             img {
@@ -1578,6 +1577,10 @@ noscript {
                                 height: auto;
                                 max-height: 300px;
                                 object-fit: contain;
+                            }
+                            
+                            .noPhoto {
+                                max-height: 100px;
                             }
                             
                         }

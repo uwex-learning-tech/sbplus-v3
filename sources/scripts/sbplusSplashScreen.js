@@ -13,7 +13,7 @@ var sbplusSplashScreen = ( function () {
         settings = _settings;
         
         var program = $.fn.getProgramDirectory();
-        var appDefaultSplash = manifest.sbplus_root_directory + 'images/default.svg',
+        var appDefaultSplash = manifest.sbplus_root_directory + 'images/default_splash.svg',
             localSplash, programDefaultSplash, courseSplash;
         
         $.get( _manifest.sbplus_root_directory + 'scripts/templates/splashscreen.tpl', function( cntx ) {

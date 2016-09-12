@@ -6,3 +6,6 @@
 
 *.js.map
 **/*.js.map
+
+.DS_Store
+**/.DS_Store
