@@ -171,10 +171,6 @@ var sbplusMenu = ( function() {
             break;
             
             default:
-            
-                title = '';
-                content ='';
-                
             break;
             
         }

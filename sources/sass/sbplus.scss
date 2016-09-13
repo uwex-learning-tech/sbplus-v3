@@ -1525,6 +1525,14 @@ noscript {
                         border-bottom: rem( 1px ) solid $border-color;
                         
                         .backBtn {
+                            
+/*
+                            @include display-flex( flex );
+                            @include flex-direction( column );
+                            @include flex-wrap( nowrap );
+                            @include justify-content(center);
+                            @include align-items(center);
+*/
                             display: block;
                             width: 5%;
                             min-width: rem( 44px );
@@ -1535,17 +1543,27 @@ noscript {
                             color: #535cab;
                             background-color: transparent;
                             text-align: left;
-                            padding: 1px 5px 0;
-                            padding: rem( 1px ) rem( 5px ) 0;
+                            padding: 0 0 0 5px;
+                            padding: 0 0 0 rem( 5px );
                         }
                         
                         .title {
+                            
+                            @include display-flex( flex );
+                            @include flex-direction( column );
+                            @include flex-wrap( nowrap );
+                            @include justify-content(center);
+                            
                             width: 95%;
-                            padding-top: 5px;
-                            padding-top: rem( 5px );
+                            padding-top: 1px;
+                            padding-top: rem( 1px );
                             text-indent: -44px;
                             text-indent: rem( -44px );
                             text-align: center;
+                            font-size: 16px;
+                            font-size: rem(16px);
+                            line-height: 14px;
+                            line-height: rem(14px);
                         }
                         
                     }
