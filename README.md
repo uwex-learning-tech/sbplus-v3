@@ -1,5 +1,5 @@
 #Storybook Plus (SB+)
-**_version 3.0.0-beta_**
+**_version 3.0.1_**
 
 ---
 ###Requirements
@@ -53,7 +53,16 @@ For questions, please also post them under the "**[Issues](https://github.com/oe
 
 ---
 ###Version Change Log
-####3.0.0-BETA (08/29/2016)
+#### PENDING
+__none__
+
+#### 3.0.1 (10/06/2016)
+* Proper error reporting for author profile
+* For author profile, show what is available
+* Fixed menu title bar alignment
+* Added a new XML attribute to load MathJax 
+
+####3.0.0 (08/29/2016)
 * initial beta release
 
 ---

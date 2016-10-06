@@ -6,15 +6,17 @@ var sbplusMenu = ( function() {
     
     var context;
     var manifest;
+    var settings;
     var settingLoaded = '';
-    var profileLoaded = '';
+    var profileLoaded = false;
     var profile;
-    var img = '';
+    var photo = '';
     
-    function get( _manifest, _context ) {
+    function get( _manifest, _context, _settings ) {
         
         manifest = _manifest;
         context = _context;
+        settings = _settings;
         _render();
         
     }
@@ -75,81 +77,49 @@ var sbplusMenu = ( function() {
                 var author = context.data.find( 'setup' ).find( 'author' );
                 var authorName = author.attr( 'name' );
                 var cleanedName = $.fn.cleanString( authorName );
-                var photo = '';
                 
-                $.ajax( {
-
-                    type: 'HEAD',
-                    url: 'assets/' + cleanedName + '.jpg'
+                // get local author photo
+                // 1st failed - local photo does not exist; check server
+                // 2nd failed - server photo does not exist; use default
+                
+                if ( profileLoaded === false ) {
                     
-                } ).done( function() {
-                    
-                    photo = this.url;
-                    
-                } ).fail( function() {
-                    
-                    photo = manifest.sbplus_author_directory + cleanedName + '.jpg';
-                    
-                } ).always( function() {
-                    
-                    if ( $.fn.isEmpty( author.text() ) ) {
+                    $.ajax( {
+    
+                        type: 'HEAD',
+                        url: 'assets/' + cleanedName + '.jpg'
                         
-                        if ( profileLoaded.length === 0 ) {
-                            
-                            $.ajax( {
-                                
-                                crossDomain: true,
-                                type: 'GET',
-                                dataType: 'jsonp',
-                                jsonpCallback: 'author',
-                                url: manifest.sbplus_author_directory + cleanedName + '.json'
-                                
-                            } ).done( function(res) {
-                                
-                                var profileImage = new Image();
-                                profileImage.src = photo;
-                                
-                                $( profileImage ).one( 'load', function() {
-                                                                        
-                                    img = '<div class="profileImg"><img src="' + photo + '" alt="Photo of ' + authorName + '" /></div>';
-                                    profile = '<p class="name">' + $.fn.stripScript( res.name ) + '</p>' + $.fn.stripScript( res.profile );
-                                    _renderMenuItemDetails( self, title, profile );
-                                    profileLoaded = res;
-                                    
-                                } );
-                                
-                                
-                            } ).fail( function() {
-                                
-                                var msg = '<p style="color:#f00;">No author profile found for ' + authorName + '.</p>';
-                                _renderMenuItemDetails( self, title, msg );
-                                
-                            } );
-                            
-                        } else {
-                            
-                            content = profile;
-                            _renderMenuItemDetails( self, title, content );
-                            
-                        }
+                    } ).done( function() {
                         
-                    } else {
+                        photo = '<div class="profileImg"><img src="' + this.url + '" alt="Photo of ' + authorName + '" /></div>';
+                        _setAuthorBio( title, self, authorName, cleanedName, author );
                         
-                        var profileImage = new Image();
-                        profileImage.src = photo;
+                    } ).fail( function() {
                         
-                        $( profileImage ).one( 'load', function() {
+                        $.ajax( {
                             
-                            img = '<div class="profileImg"><img src="' + photo + '" alt="Photo of ' + authorName + '" /></div>';
-                            content = '<p class="name">' + authorName + '</p>' +  $.fn.stripScript( author.text() );
+                            type: 'HEAD',
+                            url: manifest.sbplus_author_directory + cleanedName + '.jpg'
+                        
+                        } ).done( function() {
                             
-                            _renderMenuItemDetails( self, title, content );
+                            photo = '<div class="profileImg"><img src="' + this.url + '" alt="Photo of ' + authorName + '" /></div>';
+                            _setAuthorBio( title, self, authorName, cleanedName, author );
+                            
+                        } ).fail( function() {
+                            
+                            photo = '<div class="profileImg"><img class="noPhoto" src="' + manifest.sbplus_root_directory + 'images/default_photo.png" alt="Photo of ' + authorName + '" /></div>';
+                            _setAuthorBio( title, self, authorName, cleanedName, author );
                             
                         } );
                         
-                    }
+                    } );
+                
+                } else {
                     
-                } );
+                    _setAuthorBio( title, self, authorName, cleanedName, author );
+                    
+                }
                 
             break;
             
@@ -203,15 +173,63 @@ var sbplusMenu = ( function() {
             break;
             
             default:
-            
-                title = '';
-                content ='';
-                
             break;
             
         }
         
         return false;
+        
+    }
+    
+    function _setAuthorBio( title, self, authorName, cleanedName, author ) {
+        
+        // get author bio
+        if ( $.fn.isEmpty( author.text() ) ) {
+            
+            if ( profileLoaded === false ) {
+                
+                $.ajax( {
+                    
+                    crossDomain: true,
+                    type: 'GET',
+                    dataType: 'jsonp',
+                    jsonpCallback: 'author',
+                    url: manifest.sbplus_author_directory + cleanedName + '.json'
+                    
+                } ).done( function(res) {
+                                                  
+                    profile = '<p class="name">' + $.fn.stripScript( res.name ) + '</p>' + $.fn.stripScript( res.profile );
+                     _renderMenuItemDetails( self, title, profile );
+                    
+                } ).fail( function( xhr, status ) {
+                    
+                    profile = '<p style="font-size:18px;font-weight:bold;">Author profile not available.</p>';
+                    
+                    if ( status === 'parsererror' ) {
+                        
+                        profile = '<p style="color:#f00;">Author profile failed to load. Syntax error.</p>';
+                        
+                    }
+                    
+                    _renderMenuItemDetails( self, title, profile );
+                    
+                } ).always( function() {
+                    
+                    profileLoaded = true;
+                    
+                } );
+                
+            } else {
+                
+                _renderMenuItemDetails( self, title, profile );
+                
+            }
+            
+        } else {
+            
+                _renderMenuItemDetails( self, title, '<p class="name">' + authorName + '</p>' +  $.fn.stripScript( author.text() ) );
+            
+        }
         
     }
     
@@ -245,7 +263,7 @@ var sbplusMenu = ( function() {
         
         if ( $(el)[0].id === 'showProfile' ) {
             
-            menuContent.html( img + '<div class="content">' + content + '</div>' );
+            menuContent.html( photo + '<div class="content">' + content + '</div>' );
             
         } else {
             
@@ -273,6 +291,10 @@ var sbplusMenu = ( function() {
         menuContent.css('height', menuPanel.outerHeight() - $( '.title_bar' ).outerHeight() - menuTitle.outerHeight());
         
         menuItem.removeClass( 'hide' ).animate( { right: '0px' }, 250 );
+        
+        if ( settings.mathjax === 'on' ) {
+            MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+        }
         
     }
     
