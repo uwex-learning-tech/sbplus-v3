@@ -113,7 +113,7 @@ legend("topleft", legend=c("Student", "Non-student"), lty=c(1,2), col=c("blue","
             
             <multipleChoiceSingle>
                 
-                <question image="" audio="">I'm not sure I was clear, should you burn the butter or not?</question>
+                <question image="" audio=""><![CDATA[<p>I'm not sure I was clear, should you burn the butter or not? \(\frac{-b\pm\sqrt{b^2-4ac}}{2a}\)</p>]]></question>
                 <choices>
                     
                     <answer image="" audio="">

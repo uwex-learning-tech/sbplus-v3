@@ -281,7 +281,17 @@ var sbplus = ( function() {
     
     function _loadMathJaxScript() {
 
-        $.getScript("https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML");
+        $.getScript("https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML", function() {
+            
+            MathJax.Hub.Config({
+                
+              "HTML-CSS": {
+                matchFontHeight: true
+              }
+              
+            });
+            
+        });
         
     }
     

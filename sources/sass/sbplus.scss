@@ -538,7 +538,7 @@ noscript {
                         padding: rem( $gutter );
                         
                         * {
-                            margin-bottom: rem( $gutter );
+                            //margin-bottom: rem( $gutter );
                         }
                         
                         .header {
@@ -550,6 +550,8 @@ noscript {
                         .title {
                             
                             font-weight: bold;
+                            margin: rem($gutter) 0;
+                            line-height: 22px;
                             
                             small {
                                 display: block;
