@@ -25,6 +25,7 @@
  */
  
  /* global Modernizr */
+ /* global MathJax */
 
 /***************************************
     Storybook Plus Module
@@ -39,7 +40,7 @@ var sbplus = ( function() {
         pageImgFormat: 'jpg',
         analytics: 'off',
         xmlVersion: '3',
-        trackCount: 0
+        mathjax: 'off'
         
     };
     var context = {
@@ -124,6 +125,7 @@ var sbplus = ( function() {
         settings.accent = $.fn.isEmpty( globalCntxt.attr( 'accent' ) ) ? settings.accent : globalCntxt.attr( 'accent' );
         settings.pageImgFormat = $.fn.isEmpty( globalCntxt.attr( 'pageImgFormat' ) ) ? settings.pageImgFormat : globalCntxt.attr( 'pageImgFormat' );
         settings.analytics = $.fn.isEmpty( globalCntxt.attr( 'analytics' ) ) ? settings.analytics : globalCntxt.attr( 'analytics' );
+        settings.mathjax = $.fn.isEmpty( globalCntxt.attr( 'mathjax' ) ) ? settings.mathjax : globalCntxt.attr( 'mathjax' );
         
         $.get( manifest.sbplus_root_directory + 'scripts/templates/sbplus.tpl', function( e ) {
             
@@ -163,7 +165,7 @@ var sbplus = ( function() {
             }
             
             sbplusControls.init( context.section, settings );
-            sbplusMenu.get( manifest, context );
+            sbplusMenu.get( manifest, context, settings );
             
             // resize DOM
             $( window ).resize( function() {
@@ -185,7 +187,11 @@ var sbplus = ( function() {
                 
             }
             
-            sbplusSplashScreen.unbindStartPresentationBtn();            
+            sbplusSplashScreen.unbindStartPresentationBtn();
+            
+            if ( settings.mathjax === 'on' ) {
+                MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+            }        
             
         } );
         
@@ -205,6 +211,10 @@ var sbplus = ( function() {
         
         if( (navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i)) ) {
             _loadiPhoneInlineScript();
+        }
+        
+        if ( settings.mathjax === "on" ) {
+            _loadMathJaxScript();
         }
         
     }
@@ -266,6 +276,12 @@ var sbplus = ( function() {
     function _loadiPhoneInlineScript() {
         
         $.getScript( manifest.sbplus_root_directory + 'scripts/libs/iphone-inline-video.browser.js' );
+        
+    }
+    
+    function _loadMathJaxScript() {
+
+        $.getScript("https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML");
         
     }
     

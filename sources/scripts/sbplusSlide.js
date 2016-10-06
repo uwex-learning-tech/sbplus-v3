@@ -59,6 +59,9 @@ var sbplusSlide = ( function() {
 
         _showSlide( section, page );
         sbplusNotes.get( manifest, context, section, page );
+        if ( settings.mathjax === 'on' ) {
+            MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+        }
         sbplus.resize();  
         
     }

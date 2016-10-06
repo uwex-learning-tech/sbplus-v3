@@ -6,15 +6,17 @@ var sbplusMenu = ( function() {
     
     var context;
     var manifest;
+    var settings;
     var settingLoaded = '';
     var profileLoaded = false;
     var profile;
     var photo = '';
     
-    function get( _manifest, _context ) {
+    function get( _manifest, _context, _settings ) {
         
         manifest = _manifest;
         context = _context;
+        settings = _settings;
         _render();
         
     }
@@ -289,6 +291,10 @@ var sbplusMenu = ( function() {
         menuContent.css('height', menuPanel.outerHeight() - $( '.title_bar' ).outerHeight() - menuTitle.outerHeight());
         
         menuItem.removeClass( 'hide' ).animate( { right: '0px' }, 250 );
+        
+        if ( settings.mathjax === 'on' ) {
+            MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+        }
         
     }
     
