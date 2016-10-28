@@ -36,7 +36,7 @@ var sbplusSplashScreen = ( function () {
                         
                     $.ajax( {
                         url: manifest.sbplus_splash_directory + program + '/' + 'default.svg',
-                        type: 'HEAD',
+                        type: 'HEAD'
                     } ).done( function() {
                         
                         programDefaultSplash = this.url;
@@ -52,7 +52,7 @@ var sbplusSplashScreen = ( function () {
                     
                     $.ajax( {
                         url: manifest.sbplus_splash_directory + program + '/' + context.course + '.svg',
-                        type: 'HEAD',
+                        type: 'HEAD'
                     } ).done( function() {
                         
                         courseSplash = this.url;
@@ -62,7 +62,7 @@ var sbplusSplashScreen = ( function () {
                         
                         $.ajax( {
                             url: manifest.sbplus_splash_directory + program + '/' + 'default.svg',
-                            type: 'HEAD',
+                            type: 'HEAD'
                         } ).done( function() {
                             
                             programDefaultSplash = this.url;

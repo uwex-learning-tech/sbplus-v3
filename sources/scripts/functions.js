@@ -52,7 +52,7 @@ $.fn.getConfigFileUrl = function() {
 
 $.fn.isEmpty = function( str ) {
     
-    return ( str === undefined || !str.trim() || str.trim().length === 0 );
+    return str === undefined || !str.trim() || str.trim().length === 0;
     
 };
 
@@ -149,7 +149,7 @@ $.fn.stripScript = function ( str ) {
 
 $.fn.isMobile = function() {
     
-    if ( (navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i)) || (navigator.userAgent.match(/iPad/i)) || (navigator.userAgent.match(/Android/i))) {
+    if ( navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPod/i) || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/Android/i)) {
         
         return true;
         
@@ -1142,8 +1142,6 @@ MenuBar.prototype.handleKeypress = function( $item, e ) {
         }
         
         case this.keys.esc:
-        //case this.keys.enter:
-        //case this.keys.space:
         case this.keys.up:
         case this.keys.down:
         case this.keys.left:
@@ -1162,8 +1160,6 @@ MenuBar.prototype.handleKeypress = function( $item, e ) {
         }
     
     } // end switch
-    
-    return true;
 
 };
 

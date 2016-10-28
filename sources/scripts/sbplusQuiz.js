@@ -4,7 +4,6 @@
 
 var sbplusQuiz = ( function() { 
     
-    var context;
     var questions = [];
     var currentQuestion = {};
     var el;
@@ -12,7 +11,6 @@ var sbplusQuiz = ( function() {
     function get( _el, _context, id ) {
         
         el = _el;
-        context = _context;
         
         var index;
         
@@ -148,12 +146,12 @@ var sbplusQuiz = ( function() {
                     var isAudio = false;
                     var hasQuestionImage = false;
                     var hasQuestionAudio = false;
-                    var multipleAnswers = false;
+//                     var multipleAnswers = false;
                     var inputType = 'radio';
                     var inputName = 'single';
                     
                     if ( currentQuestion.type === 'multipleChoiceMultiple' ) {
-                        multipleAnswers = true;
+//                         multipleAnswers = true;
                         inputType = 'checkbox';
                         inputName = 'ma';
                     }

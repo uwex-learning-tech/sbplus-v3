@@ -316,7 +316,7 @@ var sbplusMenu = ( function() {
         // volume
         var volumeVal = $.fn.getLSItem('sbplus-vjs-volume');
         
-        $( '#volume' ).prop( 'value', ( volumeVal * 100 ) );
+        $( '#volume' ).prop( 'value', volumeVal * 100 );
         
         // playrate
         var rateVal = $.fn.getLSItem('sbplus-vjs-playbackrate');
@@ -356,7 +356,7 @@ var sbplusMenu = ( function() {
                 volError = true;
                 vol = 8;
             } else {
-                $.fn.setLSItem('sbplus-vjs-volume', ( vol / 100 ) );
+                $.fn.setLSItem('sbplus-vjs-volume', vol / 100 );
                 $.fn.ssSet( 'sbplus-vjs-volume-temp', $.fn.getLSItem( 'sbplus-vjs-volume' ) );
             }
             

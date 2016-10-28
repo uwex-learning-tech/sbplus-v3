@@ -209,7 +209,7 @@ var sbplus = ( function() {
             
         }
         
-        if( (navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i)) ) {
+        if( navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPod/i) ) {
             _loadiPhoneInlineScript();
         }
         
@@ -300,11 +300,7 @@ var sbplus = ( function() {
         var docWidth = $(document).width();
         var docHeight = $(document).height();
         
-        if ( docWidth <= 414 && docHeight <= 736 ) {
-            
-        } else if ( docWidth <= 736 && docHeight <= 414 ) {
-            
-        } else {
+        if ( ( docWidth > 414 && docHeight > 736 ) || ( docWidth > 736 && docHeight > 414 ) ) {
             
             var widowWidth = $( window ).outerWidth();
             var windowHeight = $( window ).outerHeight();

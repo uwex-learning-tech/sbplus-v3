@@ -21,13 +21,13 @@ var sbplusTableOfContents = ( function() {
         $.each( context.section, function( s ) {
             
             var page = $( this ).find( 'page' );
-            var sectionTitle = ( $.fn.isEmpty( $( this ).attr( 'title' ) ) ) ? 'Section ' + ( s + 1 ) : $( this ).attr( 'title' );
+            var sectionTitle = $.fn.isEmpty( $( this ).attr( 'title' ) ) ? 'Section ' + ( s + 1 ) : $( this ).attr( 'title' );
             
             toc.append( '<div class="section"><div class="header"><div class="title" tabindex="1">' + sectionTitle + '</div><div class="expandCollapseIcon"><span class="icon-collapse"></span></div></div><div class="content"><ul class="selectable">' );
             
             $.each( page, function( p ) {
                 
-                $( '.selectable:eq(' + s + ')' ).append( '<li tabindex="1" class="selectee" data-section="' + s + '" data-page="' + p + '" data-order="' + context.trackCount + '">' + ( ( $( this ).attr( 'type' ) !== 'quiz' ) ? '<span class="num">' + ( context.trackCount + 1 ) + '.</span> ' : '<span class="icon-assessment"></span> ' ) + $( this ).attr('title') + '</li>' );
+                $( '.selectable:eq(' + s + ')' ).append( '<li tabindex="1" class="selectee" data-section="' + s + '" data-page="' + p + '" data-order="' + context.trackCount + '">' + ( $( this ).attr( 'type' ) !== 'quiz' ? '<span class="num">' + ( context.trackCount + 1 ) + '.</span> ' : '<span class="icon-assessment"></span> ' ) + $( this ).attr('title') + '</li>' );
                 
                 context.trackCount++;
                 

@@ -153,7 +153,7 @@ var sbplusSlide = ( function() {
             
             case 'image-audio':
                 
-                var slideImg = '';
+//                 var slideImg;
                 
                 directory = 'assets/audio/';
                 mediaMime = 'audio/mp3';
@@ -163,7 +163,7 @@ var sbplusSlide = ( function() {
                 $.get( 'assets/pages/' + fileName + '.' + imgFormat, function() {
                     
                     hasImage = true;
-                    slideImg = this.url;
+//                     slideImg = this.url;
                     
                 } ).fail( function() {
                     
@@ -265,7 +265,7 @@ var sbplusSlide = ( function() {
             
             case 'bundle':
             
-                var initialImg = '';
+//                 var initialImg;
                 
                 directory = 'assets/audio/';
                 mediaMime = 'audio/mp3';
@@ -284,7 +284,7 @@ var sbplusSlide = ( function() {
                 $.get( 'assets/pages/' + fileName + '-1.' + imgFormat, function() {
                     
                     hasImage = true;
-                    initialImg = this.url;
+//                     initialImg = this.url;
                     
                 } ).fail( function() {
                     
@@ -334,7 +334,7 @@ var sbplusSlide = ( function() {
     
     function _loadKalturaVideoData() {
         
-        var entryId, captionId, videoDuration, captionTrack = "";
+        var /* entryId, */ captionId, videoDuration, captionTrack = "";
     
         kWidget.getSources( {
     
@@ -343,7 +343,7 @@ var sbplusSlide = ( function() {
             'callback': function( data ) {
                 
                 kalturaStatusCode.entry = data.status;
-                entryId = data.entryId;
+//                 entryId = data.entryId;
                 captionId = data.captionId;
                 videoDuration = data.duration;
                 
@@ -427,7 +427,7 @@ var sbplusSlide = ( function() {
         };
         
         // autoplay is off for iPhone or iPod
-        if( (navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i)) ) {
+        if( navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPod/i) ) {
             options.autoplay = false;
         }
         
@@ -669,7 +669,7 @@ var sbplusSlide = ( function() {
         } );
         
         // if the device is an iPhone or iPod, make it play inline
-        if( (navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i)) ) {
+        if( navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPod/i) ) {
             var video = $('video').get(0);
             makeVideoPlayableInline(video);
             $( '.video-js' ).removeClass( 'vjs-using-native-controls' );
