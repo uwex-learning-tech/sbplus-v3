@@ -83,7 +83,7 @@ var sbplus = ( function() {
                 
                 if ( s === 'parsererror' ) {
                     
-                    sbplusError.show( 'Something went wrong in the XML!', 'Validate the XML at <a href="https://validator.w3.org/" target="_blank">https://validator.w3.org/</a>.' );
+                    sbplusError.show( 'Something went wrong in the XML!', '<a href="https://validator.w3.org/' + window.location.href + 'asets/sbplus.xml&charset=%28detect+automatically%29&doctype=Inline&group=0" target="_blank">Validate the XML at the WC3 Markup Validation Service</a>.' );
                     
                 } else {
                     
