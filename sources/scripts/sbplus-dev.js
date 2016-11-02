@@ -83,7 +83,7 @@ var sbplus = ( function() {
                 
                 if ( s === 'parsererror' ) {
                     
-                    sbplusError.show( 'Something went wrong in the XML!', '<a href="https://validator.w3.org/' + window.location.href + 'assets/sbplus.xml&charset=%28detect+automatically%29&doctype=Inline&group=0" target="_blank">Validate the XML at the WC3 Markup Validation Service</a>.' );
+                    sbplusError.show( 'Something went wrong in the XML!', '<a href="https://validator.w3.org/check?uri=' + window.location.href + 'assets/sbplus.xml&charset=%28detect+automatically%29&doctype=Inline&group=0" target="_blank">Validate the XML at the WC3 Markup Validation Service</a>.' );
                     
                 } else {
                     
