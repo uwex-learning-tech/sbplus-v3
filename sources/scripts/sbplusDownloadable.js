@@ -113,14 +113,14 @@ var sbplusDownloadable = ( function() {
             target.html('No downloadable file available.');
             setTimeout(function() {
                 
-                parent.animate({'height': (parent.outerHeight() - target.outerHeight(true)) }, 500, 'linear');
+                parent.animate({ 'height': parent.outerHeight() - target.outerHeight(true) }, 500, 'linear');
                 target.fadeOut();
                 
             }, 3000);
         } else {
             
             parent.animate( {
-                'height': ( parent.outerHeight() + target.outerHeight(false) )
+                'height': parent.outerHeight() + target.outerHeight(false)
             }, 500, 'linear', function() {
                 $(this).css('height', '');
             }); 

@@ -28,6 +28,12 @@ var sbplusSlide = ( function() {
     var subtitlesOn = false;
     
     var kalturaLoaded = 0;
+    var kalturaStatusCode = {
+        entry: 0,
+        low: 0,
+        normal: 0,
+        high: 0
+    };
     var flavors = {};
     var isKaltura = false;
     var isYoutube = false;
@@ -93,6 +99,12 @@ var sbplusSlide = ( function() {
             isAudio = false;
             isVideo = false;
             cuepoints = [];
+            kalturaStatusCode = {
+                entry: 0,
+                low: 0,
+                normal: 0,
+                high: 0
+            };
             mediaPlayer.dispose();
             mediaPlayer = null;
             
@@ -141,7 +153,7 @@ var sbplusSlide = ( function() {
             
             case 'image-audio':
                 
-                var slideImg = '';
+//                 var slideImg;
                 
                 directory = 'assets/audio/';
                 mediaMime = 'audio/mp3';
@@ -151,7 +163,7 @@ var sbplusSlide = ( function() {
                 $.get( 'assets/pages/' + fileName + '.' + imgFormat, function() {
                     
                     hasImage = true;
-                    slideImg = this.url;
+//                     slideImg = this.url;
                     
                 } ).fail( function() {
                     
@@ -253,7 +265,7 @@ var sbplusSlide = ( function() {
             
             case 'bundle':
             
-                var initialImg = '';
+//                 var initialImg;
                 
                 directory = 'assets/audio/';
                 mediaMime = 'audio/mp3';
@@ -272,7 +284,7 @@ var sbplusSlide = ( function() {
                 $.get( 'assets/pages/' + fileName + '-1.' + imgFormat, function() {
                     
                     hasImage = true;
-                    initialImg = this.url;
+//                     initialImg = this.url;
                     
                 } ).fail( function() {
                     
@@ -322,55 +334,70 @@ var sbplusSlide = ( function() {
     
     function _loadKalturaVideoData() {
         
-        var entryId, captionId, videoDuration, captionTrack = "";
-        
-        isKaltura = true;
+        var /* entryId, */ captionId, videoDuration, captionTrack = "";
     
         kWidget.getSources( {
     
             'partnerId': manifest.sbplus_kaltura.id,
             'entryId': fileName,
             'callback': function( data ) {
-    
-                entryId = data.entryId;
+                
+                kalturaStatusCode.entry = data.status;
+//                 entryId = data.entryId;
                 captionId = data.captionId;
                 videoDuration = data.duration;
-    
+                
                 for( var i in data.sources ) {
     
                     var source = data.sources[i];
     
                     if ( source.flavorParamsId === manifest.sbplus_kaltura.low ) {
-    
+                        
                         flavors.low = source.src;
+                        kalturaStatusCode.low = source.status;
     
                     }
     
                     if ( source.flavorParamsId === manifest.sbplus_kaltura.normal ) {
     
                         flavors.normal = source.src;
+                        kalturaStatusCode.normal = source.status;
     
                     }
     
                     if ( source.flavorParamsId === manifest.sbplus_kaltura.high ) {
     
                         flavors.high = source.src;
+                        kalturaStatusCode.high = source.status;
     
                     }
     
                 }
                 
-                if ( captionId !== null ) {
+                if ( kalturaStatusCode.entry >= 1 && kalturaStatusCode.entry <= 2 ) {
                     
-                    captionTrack = '<track kind="subtitles" label="English" srclang="en" src="https://www.kaltura.com/api_v3/?service=caption_captionasset&action=servewebvtt&captionAssetId=' + captionId + '&segmentDuration=' + videoDuration + '&segmentIndex=1" ' + ( subtitlesOn === true ? 'default' : '' ) + ' />';
+                    if ( kalturaStatusCode.low === 2 && kalturaStatusCode.normal === 2 && kalturaStatusCode.high === 2 ) {
                     
+                        if ( captionId !== null ) {
+                        
+                            captionTrack = '<track kind="subtitles" label="English" srclang="en" src="https://www.kaltura.com/api_v3/?service=caption_captionasset&action=servewebvtt&captionAssetId=' + captionId + '&segmentDuration=' + videoDuration + '&segmentIndex=1" ' + ( subtitlesOn === true ? 'default' : '' ) + ' />';
+                            
+                        }
+                        
+                        $container.html( '<video id="ap" class="video-js vjs-default-skin" crossorigin="anonymous" webkit-playsinline>'+captionTrack+'</video>' ).promise().done( function() {
+                            
+                            isKaltura = true;
+                            _renderVideoJsPlayer();
+                        
+                        } );
+                        
+                    } else {
+                        _showSlideErrorMsg( 'KAL_NOT_READY' );
+                    }
+                    
+                } else {
+                    _showSlideErrorMsg( 'KAL_ENTRY_NOT_READY' );
                 }
-                
-                $container.html( '<video id="ap" class="video-js vjs-default-skin" crossorigin="anonymous" webkit-playsinline>'+captionTrack+'</video>' ).promise().done( function() {
-                    
-                    _renderVideoJsPlayer();
-            
-                } );
                 
             }
     
@@ -400,7 +427,7 @@ var sbplusSlide = ( function() {
         };
         
         // autoplay is off for iPhone or iPod
-        if( (navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i)) ) {
+        if( navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPod/i) ) {
             options.autoplay = false;
         }
         
@@ -642,7 +669,7 @@ var sbplusSlide = ( function() {
         } );
         
         // if the device is an iPhone or iPod, make it play inline
-        if( (navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i)) ) {
+        if( navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPod/i) ) {
             var video = $('video').get(0);
             makeVideoPlayableInline(video);
             $( '.video-js' ).removeClass( 'vjs-using-native-controls' );
@@ -709,6 +736,22 @@ var sbplusSlide = ( function() {
 
                 break;
                 
+                case 'KAL_NOT_READY':
+                    msg = '<p>The video for this Storybook Page is still processing and could not be loaded at the moment. Please try again later. Contact support if you continue to have issues.</p><p><strong>Expected video source</strong>: Kaltura video ID ' + fileName + '<br><strong>Status Code</strong>: ';
+                    
+                    msg += 'Low: ' + getKalturaStatus(kalturaStatusCode.low) + ' | ';
+                    msg += 'Normal: ' + getKalturaStatus(kalturaStatusCode.normal) + ' | ';
+                    msg += 'High: ' + getKalturaStatus(kalturaStatusCode.high) + '</p>';
+                    
+                break;
+                
+                case 'KAL_ENTRY_NOT_READY':
+                    msg = '<p>The video for this Storybook Page is still processing and could not be loaded at the moment. Please try again later. Contact support if you continue to have issues.</p><p><strong>Expected video source</strong>: Kaltura video ID ' + fileName + '<br><strong>Status Code</strong>: ';
+                    
+                    msg += getEntryKalturaStatus(kalturaStatusCode.entry) + '</p>';
+                    
+                break;
+                
             }
             
         }
@@ -716,6 +759,73 @@ var sbplusSlide = ( function() {
         $( '.pageError .content' ).html( msg );
         $( '.pageError' ).removeClass( 'hide' );
         
+    }
+    
+    function getKalturaStatus( code ) {
+        var msg = '';
+        switch( code ) {
+            case -1:
+            msg = 'ERROR';
+            break;
+            case 0:
+            msg = 'QUEUED - queued for conversion';
+            break;
+            case 1:
+            msg = 'CONVERTING';
+            break;
+            case 2:
+            msg = 'READY';
+            break;
+            case 3:
+            msg = 'DELETED - ready state';
+            break;
+            case 4:
+            msg = 'NOT APPLICABLE';
+            break;
+            default:
+            msg = 'UNKNOWN ERROR - check main entry';
+            break;
+            
+        }
+        return msg;
+    }
+    
+    function getEntryKalturaStatus( code ) {
+        var msg = '';
+        switch( code ) {
+            case -2:
+            msg = 'ERROR IMPORTING';
+            break;
+            case -1:
+            msg = 'ERROR CONVERTING';
+            break;
+            case 0:
+            msg = 'IMPORTING';
+            break;
+            case 1:
+            msg = 'PRECONVERT';
+            break;
+            case 2:
+            msg = 'READY';
+            break;
+            case 3:
+            msg = 'DELETED';
+            break;
+            case 4:
+            msg = 'PENDING MODERATION';
+            break;
+            case 5:
+            msg = 'MODERATE';
+            break;
+            case 6:
+            msg = 'BLOCKED';
+            break;
+            default:
+            msg = 'UNKNOWN ERROR - check entry ID';
+            break;
+            
+        }
+        return msg;
     }
     
     function _removeSlideErrorMsg() {

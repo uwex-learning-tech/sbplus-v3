@@ -1,0 +1,8 @@
+*.mp3
+*.mp4
+*.pdf
+*.zip
+*.html
+assets/*
+!assets/sbplus.xml
+!.gitignore
