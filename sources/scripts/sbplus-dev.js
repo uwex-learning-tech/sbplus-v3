@@ -1,455 +1,415 @@
-/**
- * Storybook Plus
- *
- * @author: Ethan S. Lin
- * @url: https://github.com/oel-mediateam/sbplus_v3
- * @version: 3.0.0
- * Released MM/DD/2016
- *
-   Storybook Plus Web Application Version 3
-   Copyright (C) 2013-2016  Ethan S. Lin
-
-   This program is free software: you can redistribute it and/or modify
-   it under the terms of the GNU General Public License as published by
-   the Free Software Foundation, either version 3 of the License, or
-   (at your option) any later version.
-
-   This program is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-   GNU General Public License for more details.
-
-   You should have received a copy of the GNU General Public License
-   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
- */
- 
- /* global Modernizr */
- /* global MathJax */
-
-/***************************************
-    Storybook Plus Module
-****************************************/
-
-var sbplus = ( function() {
+var SBPLUS = SBPLUS || {
     
-    var manifest;
-    var settings = {
-        
-        accent: '#535cab',
-        pageImgFormat: 'jpg',
-        analytics: 'off',
-        xmlVersion: '3',
-        mathjax: 'off'
-        
-    };
-    var context = {
-        
-        data: '',
-        trackCount: 0
-        
-    };
+    /***************************************************************************
+        VARIABLES / CONSTANTS / OBJECTS
+    ***************************************************************************/
     
-    var $sbplus;
+    layout: null,
+    menu : null,
     
-    $( document ).ready( function() {
-        
-        $sbplus = $( '.sbplus_wrapper' );
-        
-        $.getJSON( $.fn.getConfigFileUrl(), function( e ) {
-        
-            manifest = e;
-            
-            loadSBPlusData();
-            
-        } ).fail( function() {
-            
-            sbplusError.show( 'Configuration file (manifest.json) is not found!', 'Please make sure the index.html file is compatible with Storybook Plus version 3.');
-            
-        } );
-        
-    } );
+    /***************************************************************************
+        CORE FUNCTIONS
+    ***************************************************************************/
     
-    function loadSBPlusData() {
+    ready: function() {
+    
+        this.layout = {
+            isMobile: false,
+            wrapper: $( '#sbplus' ),
+            errorScreen: $( '#sbplus_error_screen' ),
+            splashScreen: $( '#sbplus_splash_screen' ),
+            widget: $( '#sbplus_widget' ),
+            media: $( '#sbplus_media_wrapper' ),
+            sidebar: $( '#sbplus_right_col' ),
+            dwnldMenu: null
+        };
         
-        if ( $.fn.haveCoreFeatures() ) {
+        this.button = {
+            start: $( '#sbplus_start_btn' ),
+            resume: $( '#sbplus_resume_btn' ),
+            download: $( '#sbplus_download_btn' ),
+            widget: $( '#sbplus_widget_btn' ),
+            sidebar: $( '#sbplus_sidebar_btn' ),
+            author: $( '#sbplus_author_name' ),
+            menu: $( '#sbplus_menu_btn' )
+        };
+        
+        this.menu = {
+            menuPanel: $( '#sbplus_menu_items_wrapper' ),
+            menuBar: $( '#sbplus_sub_bar' ),
+            menuList: $( '#sbplus_menu_items_wrapper .list' ),
+            menuItem: $( '#sbplus_menu_items_wrapper .menu.item' ),
+            menuContent: $( '#menu_item_content' )
+        };
+        
+        if ( this.checkForSupport() === 0 ) {
+            this.showErrorScreen();
+            return false;
+        }
+        
+        // calculate the layout initially
+        this.resize();
+        
+        // button click events
+        this.button.sidebar.on( 'click', this.toggleSidebar.bind( this ) );
+        this.button.widget.on( 'click',  this.toggleWidget.bind( this ) );
+        this.button.menu.on( 'click', this.toggleMenu.bind( this ) );
+        this.button.author.on( 'click', this.showAthrPrfl.bind( this ) );
+        this.button.start.on( 'click', this.hideSplash.bind( this ) );
+        this.button.resume.on( 'click', this.hideSplash.bind( this ) );
+        this.layout.dwnldMenu = new MenuBar(this.button.download[0].id, false);
+        
+        // set options from url parameters
+        this.setURLOptions();
+        
+        // calculate the layout on window resize
+        $( window ).on( 'resize', this.resize.bind( this ) );
+        
+    },
+    
+    /***************************************************************************
+        CORE EVENTS FUNCTIONS
+    ***************************************************************************/
+    
+    hideSplash: function() {
+        this.layout.splashScreen.addClass( 'fadeOut' )
+            .one( 'webkitAnimationEnd mozAnimationEnd animationend', 
+                 function() {
+                     $( this ).removeClass( 'fadeOut' ).hide();
+                     $( this ).off();
+                 }
+            );
+    },
+    
+    toggleSidebar: function() {
+        
+        if ( this.layout.sidebar.is( ':visible' ) ) {
+            this.hideSidebar();
+        } else {
+           this.showSidebar();
+        }
+        
+    },
+    
+    hideSidebar: function() {
+        
+        var widget = this.layout.widget;
+        var media = this.layout.media;
+        
+        this.layout.sidebar.hide();
+        this.button.sidebar.removeClass( 'sb_active' );
+        
+        if ( widget.is( ':visible' ) && widget.outerHeight() <= 190 ) {
+            media.removeClass( 'aspect_ratio' ).addClass( 'non_aspect_ratio' );
+        }
+        
+    },
+    
+    showSidebar: function() {
+        
+        var widget = this.layout.widget;
+        var media = this.layout.media;
+        
+        this.layout.sidebar.show();
+        this.button.sidebar.addClass( 'sb_active' );
+        
+        if ( widget.is( ':visible' ) && widget.outerHeight() <= 190 ) {
+            media.removeClass( 'non_aspect_ratio' ).addClass( 'aspect_ratio' );
+        }
+        
+    },
+    
+    toggleWidget: function() {
+        
+        if ( this.layout.widget.is( ':visible' ) ) {
+            this.hideWidget();
+        } else {
+            this.showWidget();
+        }
+        
+    },
+    
+    hideWidget: function() {
+        
+        this.layout.widget.hide();
+        this.button.widget.removeClass( 'sb_active' );
+        
+        if ( this.layout.isMobile ) {
+            this.layout.media.addClass( 'aspect_ratio' );
+            this.resize();
+        } else {
+            this.layout.media.removeClass( 'aspect_ratio' )
+                    .addClass( 'non_aspect_ratio' ).css( 'height', '100%');
+        }
+        
+    },
+    
+    showWidget: function() {
+        
+        this.layout.widget.show();
+        this.button.widget.addClass( 'sb_active' );
+        this.layout.media.removeClass( 'non_aspect_ratio' )
+                .addClass( 'aspect_ratio' ).css( 'height', '' );
+        this.resize();
+        
+    },
+    
+    toggleMenu: function() {
+        if ( this.menu.menuPanel.is( ':visible' ) ) {
+            this.hideMenu();
+        } else {
+            this.showMenu();
+        }
+        
+    },
+    
+    showMenu: function() {
+        
+        if ( !this.layout.sidebar.is( ':visible' ) ) {
+           this.showSidebar();
+        }
+        
+        var menuPanel = this.menu.menuPanel;
+        
+        this.button.menu.html( '<span class="icon-close"></span>' )
+            .css( {
+                'color': '#f00',
+                'padding-top': '4px'
+            } );
+        this.menu.menuBar.find( '.title' ).html( 'Menu' );
+        
+        menuPanel.show().addClass( 'slideInRight' )
+            .one( 'webkitAnimationEnd mozAnimationEnd animationend', 
+                 function() {
+                     $( this ).removeClass( 'slideInRight' );
+                 }
+            );
             
-            $.get( 'assets/sbplus.xml', function( data ) {
-                
-                context.data = $( data );
-                loadPresentation();
-                
-            }).fail( function( r, s ) {
-                
-                if ( s === 'parsererror' ) {
-                    
-                    sbplusError.show( 'Something went wrong in the XML!', 'Validate the XML at <a href="https://validator.w3.org/" target="_blank">https://validator.w3.org/</a>.' );
-                    
-                } else {
-                    
-                    sbplusError.show( 'Table of Contents XML file (sbplus.xml) is not found!', 'Please make sure the XML file exists in the assets directory and compatible with Storybook Plus version 3.' );
-                    
+        this.menu.menuItem.on( 'click', this.openMenuItem.bind( this ) );
+        
+    },
+    
+    hideMenu: function() {
+        
+        var menuPanel = this.menu.menuPanel;
+        var menuBar = this.menu.menuBar;
+        
+        this.button.menu.html( 'Menu' )
+            .css( {
+                'color': '',
+                'padding-top': ''
+            } );
+        
+        menuBar.find( '.title' ).html( 'Table of Contents' );
+        
+        menuPanel.addClass( 'slideOutRight' )
+            .one( 'webkitAnimationEnd mozAnimationEnd animationend', 
+                function() {
+                    menuPanel.hide().removeClass( 'slideOutRight' );
+                    $( this ).off();
                 }
-                
-            } );
-            
-        } else {
-            
-            $.get( manifest.sbplus_root_directory + 'scripts/templates/nosupport.tpl', function( e ) {
-                
-                renderUnsupportedMessage( e );
-                
-            } ).fail( function() {
-                
-                sbplusError.show( 'Unsupported web browser!', 'Your web browser does not support current version of Storybook Plus. In addition, nosupport.tpl file is not found. nosuppory.tpl file contains information to display in regard to unsupported web browsers.');
-                
-            } );
-            
-        }
+             );
         
-    }
-    
-    function loadPresentation() {
-        
-        var globalCntxt = context.data.find( 'storybook' );
-        var setupCntxt = context.data.find( 'setup' );
-        
-        context.title = setupCntxt.find( 'title' ).text();
-        context.subtitle = setupCntxt.find( 'subtitle' ).text();
-        context.author = setupCntxt.find( 'author' ).attr( 'name' );
-        context.length = setupCntxt.find( 'length' ).text();
-        context.generalInfo = setupCntxt.find( 'generalInfo' ).text();
-        context.course = setupCntxt.attr( 'course' );
-        context.section = context.data.find( 'section' );
-        
-        settings.accent = $.fn.isEmpty( globalCntxt.attr( 'accent' ) ) ? settings.accent : globalCntxt.attr( 'accent' );
-        settings.pageImgFormat = $.fn.isEmpty( globalCntxt.attr( 'pageImgFormat' ) ) ? settings.pageImgFormat : globalCntxt.attr( 'pageImgFormat' );
-        settings.analytics = $.fn.isEmpty( globalCntxt.attr( 'analytics' ) ) ? settings.analytics : globalCntxt.attr( 'analytics' );
-        settings.mathjax = $.fn.isEmpty( globalCntxt.attr( 'mathjax' ) ) ? settings.mathjax : globalCntxt.attr( 'mathjax' );
-        
-        $.get( manifest.sbplus_root_directory + 'scripts/templates/sbplus.tpl', function( e ) {
-            
-            renderSBPlus( e );
-            
-        } ).fail( function() {
-            
-            sbplusError.show( 'Template file not found!', 'sbplus.tpl file not found in the templates directory.' );
-            
-        } );
-        
-    }
-    
-    function renderPresentation( resume ) {
-        
-        resume = typeof resume !== 'undefined' ? true : false;
-        
-        $( '.splashscreen' ).fadeOut( 'fast', function() {
-                
-            $( '.main_content_wrapper' ).removeClass( 'hide' );
-            $( '.title_bar .title' ).html( context.title );
-            $( '.author' ).html( context.author );
-            
-            sbplusTableOfContents.get( context, settings );
-            
-            if ( resume ) {
-                
-                var leftOfAt = $.fn.getLSItem( 'sbplus-' + $.fn.getRootDirectory() ).split( ':' );
-                var s = Number(leftOfAt[0]), p = leftOfAt[1];
-                
-                sbplusSlide.get( context.section, settings, s, p, manifest );
-                
-            } else {
-                
-                sbplusSlide.get( context.section, settings, 0, 0, manifest );
-                
-            }
-            
-            sbplusControls.init( context.section, settings );
-            sbplusMenu.get( manifest, context, settings );
-            
-            // resize DOM
-            $( window ).resize( function() {
-                
-                resizeDom();
-                
-            } );
-            
-            // listen for orientation change
-            $( window ).on( 'orientationchange', function() {
-                
-                resizeDom();
-                
-            } );
-            
-            if ( resume ) {
-                
-                sbplusSplashScreen.unbindResumePresentationBtn();
-                
-            }
-            
-            sbplusSplashScreen.unbindStartPresentationBtn();
-            
-            if ( settings.mathjax === 'on' ) {
-                MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
-            }        
-            
-        } );
-        
-    }
-    
-    function renderSBPlus( e ) {
+        this.resetMenu();
 
-        $( document ).attr( "title", context.title );
-        $sbplus.html( e );
-        sbplusSplashScreen.get( manifest, context, settings );
-        
-        if ( Modernizr.localstorage ) {
-            
-            _initVJSLocalStore();
-            
-        }
-        
-        if( navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPod/i) ) {
-            _loadiPhoneInlineScript();
-        }
-        
-        if ( settings.mathjax === "on" ) {
-            _loadMathJaxScript();
-        }
-        
-    }
+    },
     
-    function renderUnsupportedMessage( e ) {
+    openMenuItem: function( e ) {
         
-        $sbplus.html( e );
+        var itemId = '';
         
-    }
-    
-    function _initVJSLocalStore() {
-        
-        // set autoplay
-        if ( $.fn.hasLSItem('sbplus-vjs-autoplay') ) {
-            
-            $.fn.setLSItem( 'sbplus-vjs-autoplay', $.fn.getLSItem('sbplus-vjs-autoplay') );
-            
+        if ( typeof e === 'string' ) {
+            itemId = e;
         } else {
-            
-            $.fn.setLSItem( 'sbplus-vjs-autoplay', 1 );
-            
+            itemId = '#' + e.currentTarget.id;
         }
         
-        // set volume level
-        if ( $.fn.hasLSItem('sbplus-vjs-volume') ) {
-            
-            $.fn.setLSItem( 'sbplus-vjs-volume', $.fn.getLSItem('sbplus-vjs-volume') );
-            
-        } else {
-            
-            $.fn.setLSItem( 'sbplus-vjs-volume', 0.8 );
-            
-        }
+        var menuBar = this.menu.menuBar;
+        var menuList = this.menu.menuList;
+        var menuContent = this.menu.menuContent;
+        var target = $( itemId );
+        var backBtn = menuBar.find( '.backBtn' );
         
-        // set playback rate
-        if ( $.fn.hasLSItem('sbplus-vjs-playbackrate') ) {
-            
-            $.fn.setLSItem( 'sbplus-vjs-playbackrate', $.fn.getLSItem('sbplus-vjs-playbackrate') );
-            
-        } else {
-            
-            $.fn.setLSItem( 'sbplus-vjs-playbackrate', 1 );
-            
-        }
+        menuBar.removeClass( 'full' );
+        menuBar.find( '.title' ).html( target.html() );
         
-        // display subtitle
-        if ( $.fn.hasLSItem('sbplus-vjs-enabledSubtitles') ) {
-            
-            $.fn.setLSItem( 'sbplus-vjs-enabledSubtitles', $.fn.getLSItem('sbplus-vjs-enabledSubtitles') );
-            
-        } else {
-            
-            $.fn.setLSItem( 'sbplus-vjs-enabledSubtitles', 0 );
-            
-        }
+        menuList.addClass( 'fadeOutLeft' )
+            .one( 'webkitAnimationEnd mozAnimationEnd animationend', 
+                function() {
+                    $(this).hide().removeClass( 'fadeOutLeft' );
+                    menuContent.show()
+                        .html( '<p>External template data here...</p>' );
+                    $( this ).off();
+                }
+            );
         
-    }
-    
-    function _loadiPhoneInlineScript() {
-        
-        $.getScript( manifest.sbplus_root_directory + 'scripts/libs/iphone-inline-video.browser.js' );
-        
-    }
-    
-    function _loadMathJaxScript() {
-
-        $.getScript("https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML", function() {
-            
-            MathJax.Hub.Config({
+        backBtn.html( '<span class="icon-left"></span>' ).prop( 'disabled', false ).on( 'click', 
+            function() {
                 
-              "HTML-CSS": {
-                matchFontHeight: true
-              }
-              
-            });
-            
-        });
-        
-    }
-    
-    function resizeDom() {
-        
-        var docWidth = $(document).width();
-        var docHeight = $(document).height();
-        
-        if ( ( docWidth > 414 && docHeight > 736 ) || ( docWidth > 736 && docHeight > 414 ) ) {
-            
-            var widowWidth = $( window ).outerWidth();
-            var windowHeight = $( window ).outerHeight();
-            var titleBarHeight = $( '.title_bar' ).outerHeight();
-            var controlBarHeight = $( '.control_bar_wrapper' ).outerHeight();
-            var slideHeight = $( '#page_content' ).outerHeight();
-            var sidePanelTopBarHeight = $( '.side_panel .topbar' ).outerHeight();
-            var isExpanded = $( '.main_content_wrapper' ).hasClass( 'full-view' );
-            var isAssessment = $( '.main_content_wrapper' ).hasClass( 'assessment-view' );
-            
-            // is assessement view
-            if ( isAssessment ) {
-                var h = windowHeight - titleBarHeight - controlBarHeight;
-                $( '.content .assessment' ).css( {'height': h + 'px'} );
-            }
-            
-            // is expanded view
-            if ( isExpanded ) {
+                menuBar.addClass( 'full' ).find( '.title' ).html( 'Menu' );
                 
-                var heightPercentage = 100 - ( ( controlBarHeight + titleBarHeight ) / windowHeight * 100 );
-                
-                $( '.page_container.expanded' ).css( 'height', heightPercentage + '%'  );
-                $( '.widget_container .notes' ).css( { 'height': '', 'width': $( '.status' ).outerWidth() + 'px' } );
-                $( '.widget_container .side_panel' ).css( {
-                    'margin-top': '',
-                    'top': ( ( windowHeight - controlBarHeight - titleBarHeight ) * -1 ) + 'px',
-                    'height': ( windowHeight - controlBarHeight - titleBarHeight ) + 'px',
-                    'width': 300
-                } );
-                $( '.tableOfContents').css( 'height', ( $( '.widget_container .side_panel' ).outerHeight() - sidePanelTopBarHeight ) + 'px' );
-                
-            } else {
-                
-                // notes minimized view
-                if ( windowHeight >= 630 ) {
-                    
-                    $( '.page_container' ).css( 'height', '' );
-                    $( '.main_content_wrapper' ).removeClass( 'notes-minimized-view' );
-                    
-                    if ( $( '.main_content_wrapper' ).hasClass( 'assessment-view' ) === false ) {
-                        $( '.control_bar_wrapper .notesBtn' ).addClass( 'hide' );
-                    }
-                    
-                    $( '.widget_container .notes' ).removeClass( 'hide' ).css( 'width', '' );
-                    
-                    if ( widowWidth > 888 ) {
-                        
-                        $( '.page_container' ).css( 'width', '' );
-                        $( '.widget_container .side_panel').css( {
-                            
-                            'margin-top': slideHeight * -1,
-                            'border-top': 'none',
-                            'height': '',
-                            'top': '',
-                            'width': ''
-                            
+                menuList.show().addClass( 'fadeInLeft' )
+                    .one( 'webkitAnimationEnd mozAnimationEnd animationend', 
+                        function() {
+                            $( this ).removeClass( 'fadeInLeft' );
+                            $( this ).off();
                         } );
-                        
-                        $( '.tableOfContents').css( 'height', windowHeight - titleBarHeight - sidePanelTopBarHeight - 1 );
-                        
-                    } else {
-                        
-                        if ( isAssessment === false ) {
-                            
-                            $( '.widget_container .notes' ).removeClass( 'hide' );
-                            
-                            $( '.page_container' ).css( 'width', '100%' );
-                            $( '.side_panel').css( {'margin-top': 0, 'border-top': '1px solid #ccc', 'top': ''} );
-                            
-                            $( '.tableOfContents').css( 'height', windowHeight - titleBarHeight - sidePanelTopBarHeight - $('.page_container').outerHeight() - 1 );
-                            
-                        } else {
-                            
-                            $( '.widget_container .notes' ).addClass( 'hide' );
-                            
-                            $( '.page_container' ).css( { 'width': '', 'height': windowHeight - titleBarHeight - controlBarHeight } );
-                    
-                            $( '.widget_container .side_panel').css( {
-                                    
-                                'margin-top': ( windowHeight - titleBarHeight - controlBarHeight) * -1,
-                                'border-top': 'none',
-                                'height': windowHeight - titleBarHeight,
-                                'top': '',
-                                'width': ''
-                                
-                            } );
-                            
-                            $( '.tableOfContents').css( 'height', windowHeight - titleBarHeight - sidePanelTopBarHeight - 1 );
-                            
-                        }
-                        
-                    }
-                    
-                    $( '.widget_container' ).css( 'height', windowHeight - ( titleBarHeight + slideHeight ) );
-                    $( '.widget_container .notes' ).css( {
-                        
-                        'height': windowHeight - ( titleBarHeight + controlBarHeight + slideHeight ),
-                        'width': ''
-                    
-                    } );
-                    
-                } else {
-                    
-                    $( '.main_content_wrapper' ).addClass( 'notes-minimized-view' );
-                    
-                    $( '.widget_container .notes' ).addClass( 'hide' ).css( {
-                        'width': $( '.status' ).outerWidth(), 
-                        'height': ''
-                    } );
-                    
-                    if ( $( '.widget_container .notes' ).hasClass( 'noNotes' ) ) {
-                        $( '.control_bar_wrapper .notesBtn' ).addClass( 'hide' );
-                    } else {
-                        $( '.control_bar_wrapper .notesBtn' ).removeClass( 'hide' );
-                    }
-                    
-                    $( '.page_container' ).css( { 'width': '', 'height': windowHeight - titleBarHeight - controlBarHeight } );
-                    
-                    $( '.side_panel').css( {
-                            
-                        'margin-top': ( windowHeight - titleBarHeight - controlBarHeight) * -1,
-                        'border-top': 'none',
-                        'height': windowHeight - titleBarHeight,
-                        'top': '',
-                        'width': ''
-                        
-                    } );
-                    
-                    $( '.tableOfContents').css( 'height', windowHeight - titleBarHeight - sidePanelTopBarHeight - 1 );
-                    
-                }
                 
-                var menuPanel = $( '.menu_item_details' ).outerHeight();
-                var menuTitle = $( '.menu_item_details .navbar' ).outerHeight();
-                var menuContent = $( '.menu_item_details .menu_item_content' );
+                menuContent.hide().empty();
+                $( this ).empty().prop( 'disabled', true );
+                $( this ).off( 'click' );
                 
-                menuContent.css( 'height', menuPanel - menuTitle - 1 );
-                
-            }
+        } );
             
+    },
+    
+    resetMenu: function() {
+        
+        var menuBar = this.menu.menuBar;
+        
+        menuBar.addClass( 'full' )
+            .find( '.backBtn' ).html( '' ).prop( 'disabled', true );
+        menuBar.find( '.title' ).html( 'Table of Contents' );
+        
+        this.menu.menuList.show();
+        this.menu.menuContent.empty().hide();
+        this.menu.menuItem.off( 'click' );
+        
+    },
+    
+    showAthrPrfl: function() {
+        
+        if ( !this.menu.menuPanel.is( ':visible' ) ) {
+            this.showMenu();
         }
+        
+        this.openMenuItem( '#sbplus_author_profile' );
+        
+    },
+    
+    showErrorScreen: function() {
+        
+        this.layout.wrapper.hide();
+        this.layout.errorScreen.show().addClass( 'shake' )
+            .css( 'display', 'flex' );
+        
+    },
+    
+    /***************************************************************************
+        HELPER FUNCTIONS
+    ***************************************************************************/
+    
+    checkForSupport: function() {
+        
+        if ( Modernizr.video && Modernizr.eventlistener && Modernizr.json && 
+             Modernizr.flexbox && Modernizr.flexwrap && Modernizr.csscalc ) {
+            return 1;
+        }
+        
+        return 0;
+        
+    },
+    
+    calcLayout: function() {
+        
+        var media = this.layout.media;
+        var widget = this.layout.widget;
+        var sidebar = this.layout.sidebar;
+        
+        if ( window.innerWidth >= 1826 ) {
+            media.removeClass( 'aspect_ratio' ).addClass( 'non_aspect_ratio' );
+        } else {
+            media.removeClass( 'non_aspect_ratio' ).addClass( 'aspect_ratio' );
+        }
+        
+        if ( !widget.is( ':visible' ) ) {
+            media.css( 'height', '100%' );
+        }
+        
+        if ( window.innerWidth <= 740 || window.screen.width <= 414 ) {
+            this.layout.isMobile = true;
+        } else {
+            this.layout.isMobile = false;
+        }
+        
+        if ( this.layout.isMobile === false && widget.outerHeight() <= 190 ) {
+            media.removeClass( 'aspect_ratio' ).addClass( 'non_aspect_ratio' );
+        }
+        
+        if ( this.layout.isMobile === true ) {
+            sidebar.css( 'height', 'calc( 100% - ' + media.height() + 'px)'  );
+        } else {
+            sidebar.css( 'height', ''  );
+        }
+        
+        this.calcWidgetHeight();
+        
+    },
+    
+    calcWidgetHeight: function() {
+        
+        var sidebar = this.layout.sidebar;
+        var widget = this.layout.widget;
+        
+        if ( this.layout.isMobile === true ) {  
+            widget.css( {
+                'height': sidebar.outerHeight(),
+                'bottom': sidebar.outerHeight() * -1
+            } );
+        } else {
+            widget.css( {
+                'height': '',
+                'bottom': ''
+            } );
+        }
+        
+    },
+    
+    resize: function() {
+        
+        this.calcLayout();
+            
+        if ( this.layout.isMobile ) {
+            this.showSidebar();
+        }
+        
+    },
+    
+    setURLOptions: function() {
+        
+        if ( this.urlParam( 'fullview' ) === '1' ) {
+            this.layout.wrapper.removeClass( 'sbplus_boxed' )
+                        .addClass( 'sbplus_full' );
+        }    
+            
+    },
+    
+    urlParam: function( name ) {
+        
+        var results = new RegExp('[\?&]' + name + '=([^&#]*)')
+                        .exec(window.location.href);
+        
+    	if ( results === null ) {
+           return null;
+        }
+        
+        return results[1] || 0;
         
     }
         
-    return {
-        
-        render: renderPresentation,
-        resize: resizeDom
-        
-    };
+};
+
+/*******************************************************************************
+        ON DOM READY
+*******************************************************************************/
+
+$( function() {
     
-} )();
+    SBPLUS.ready();
+    
+} );
+
+
+
+
+

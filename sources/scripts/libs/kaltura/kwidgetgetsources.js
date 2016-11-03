@@ -65,8 +65,7 @@ if( ! window.kWidget ){
 					'data-width' : asset.width,
 					'data-height' : asset.height,
 					'flavorParamsId': asset.flavorParamsId,
-					'flavorId': asset.id,
-					'status': asset.status
+					'flavorId': asset.id
 				};
 
 
@@ -183,7 +182,6 @@ if( ! window.kWidget ){
 			// callback with device sources, poster
 			if( settings.callback ){
 				settings.callback({
-    				'status': result[1]['status'],
 					'poster': result[1]['thumbnailUrl'],
 					'duration': result[1]['duration'],
 					'name': result[1]['name'],

@@ -125,13 +125,15 @@
 		"plM": 3758088159,
 		"prP": 0
 		},
-	"\/sources\/manifest.json": {
-		"ft": 524288,
+	"\/sources\/sass\/animate.css": {
+		"aP": 0,
+		"bl": 0,
+		"ft": 16,
+		"ma": 0,
 		"oA": 2,
-		"oAP": "\/build\/sources\/manifest.json",
+		"oAP": "\/build\/sources\/css\/animate.css",
 		"oF": 3,
-		"oO": 0,
-		"oS": 1
+		"oS": 0
 		},
 	"\/sources\/sass\/sbplus.scss": {
 		"aP": 0,
@@ -146,30 +148,21 @@
 		"oS": 0,
 		"uL": 1
 		},
-	"\/sources\/scripts\/functions.js": {
-		"ft": 64,
-		"mi": 1,
-		"oA": 1,
-		"oAP": "\/build\/scripts\/functions.js",
-		"oF": 1,
-		"sC": 0,
-		"tS": 0
-		},
 	"\/sources\/scripts\/libs\/highlight\/default.css": {
 		"aP": 0,
 		"bl": 0,
 		"ft": 16,
 		"ma": 0,
 		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/libs\/highlight\/default.css",
-		"oF": 3,
+		"oAP": "\/build\/sources\/libs\/highlight\/default.css",
+		"oF": 2,
 		"oS": 0
 		},
 	"\/sources\/scripts\/libs\/highlight\/highlight.pack.js": {
 		"ft": 64,
 		"mi": 0,
 		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/libs\/highlight\/highlight.pack.js",
+		"oAP": "\/build\/sources\/libs\/highlight\/highlight.pack.js",
 		"oF": 3,
 		"sC": 0,
 		"tS": 0
@@ -178,7 +171,7 @@
 		"ft": 64,
 		"mi": 0,
 		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/libs\/iphone-inline-video.browser.js",
+		"oAP": "\/build\/sources\/libs\/iphone-inline-video.browser.js",
 		"oF": 3,
 		"sC": 0,
 		"tS": 0
@@ -187,7 +180,7 @@
 		"ft": 64,
 		"mi": 0,
 		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/libs\/jquery.js",
+		"oAP": "\/build\/sources\/libs\/jquery.js",
 		"oF": 3,
 		"sC": 0,
 		"tS": 0
@@ -196,7 +189,7 @@
 		"ft": 64,
 		"mi": 1,
 		"oA": 0,
-		"oAP": "\/build\/sources\/scripts\/libs\/kaltura\/kwidgetgetsources.js",
+		"oAP": "\/build\/sources\/libs\/kaltura\/kwidgetgetsources.js",
 		"oF": 2,
 		"sC": 0,
 		"tS": 0
@@ -205,7 +198,7 @@
 		"ft": 64,
 		"mi": 0,
 		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/libs\/kaltura\/mwembedloader.js",
+		"oAP": "\/build\/sources\/libs\/kaltura\/mwembedloader.js",
 		"oF": 3,
 		"sC": 0,
 		"tS": 0
@@ -214,378 +207,19 @@
 		"ft": 64,
 		"mi": 0,
 		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/libs\/modernizr.js",
+		"oAP": "\/build\/sources\/libs\/modernizr.js",
 		"oF": 3,
 		"sC": 0,
 		"tS": 0
 		},
-	"\/sources\/scripts\/libs\/videojs\/font\/VideoJS.eot": {
-		"ft": 8192,
-		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/font\/VideoJS.eot",
-		"oF": 2
-		},
-	"\/sources\/scripts\/libs\/videojs\/font\/VideoJS.svg": {
-		"ft": 2097152,
-		"miP": 0,
-		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/font\/VideoJS.svg",
-		"oF": 2,
-		"opt": 0,
-		"plM": 3758088159,
-		"prP": 0
-		},
-	"\/sources\/scripts\/libs\/videojs\/font\/VideoJS.ttf": {
-		"ft": 8192,
-		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/font\/VideoJS.ttf",
-		"oF": 2
-		},
-	"\/sources\/scripts\/libs\/videojs\/font\/VideoJS.woff": {
-		"ft": 8192,
-		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/font\/VideoJS.woff",
-		"oF": 2
-		},
-	"\/sources\/scripts\/libs\/videojs\/lang\/ar.js": {
-		"ft": 64,
-		"mi": 0,
-		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/lang\/ar.js",
-		"oF": 3,
-		"sC": 0,
-		"tS": 0
-		},
-	"\/sources\/scripts\/libs\/videojs\/lang\/ba.js": {
-		"ft": 64,
-		"mi": 0,
-		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/lang\/ba.js",
-		"oF": 3,
-		"sC": 0,
-		"tS": 0
-		},
-	"\/sources\/scripts\/libs\/videojs\/lang\/bg.js": {
-		"ft": 64,
-		"mi": 0,
-		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/lang\/bg.js",
-		"oF": 3,
-		"sC": 0,
-		"tS": 0
-		},
-	"\/sources\/scripts\/libs\/videojs\/lang\/ca.js": {
-		"ft": 64,
-		"mi": 0,
-		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/lang\/ca.js",
-		"oF": 3,
-		"sC": 0,
-		"tS": 0
-		},
-	"\/sources\/scripts\/libs\/videojs\/lang\/cs.js": {
-		"ft": 64,
-		"mi": 0,
-		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/lang\/cs.js",
-		"oF": 3,
-		"sC": 0,
-		"tS": 0
-		},
-	"\/sources\/scripts\/libs\/videojs\/lang\/da.js": {
-		"ft": 64,
-		"mi": 0,
-		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/lang\/da.js",
-		"oF": 3,
-		"sC": 0,
-		"tS": 0
-		},
-	"\/sources\/scripts\/libs\/videojs\/lang\/de.js": {
-		"ft": 64,
-		"mi": 0,
-		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/lang\/de.js",
-		"oF": 3,
-		"sC": 0,
-		"tS": 0
-		},
-	"\/sources\/scripts\/libs\/videojs\/lang\/el.js": {
-		"ft": 64,
-		"mi": 0,
-		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/lang\/el.js",
-		"oF": 3,
-		"sC": 0,
-		"tS": 0
-		},
-	"\/sources\/scripts\/libs\/videojs\/lang\/en.js": {
-		"ft": 64,
-		"mi": 0,
-		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/lang\/en.js",
-		"oF": 3,
-		"sC": 0,
-		"tS": 0
-		},
-	"\/sources\/scripts\/libs\/videojs\/lang\/es.js": {
-		"ft": 64,
-		"mi": 0,
-		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/lang\/es.js",
-		"oF": 3,
-		"sC": 0,
-		"tS": 0
-		},
-	"\/sources\/scripts\/libs\/videojs\/lang\/fa.js": {
-		"ft": 64,
-		"mi": 0,
-		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/lang\/fa.js",
-		"oF": 3,
-		"sC": 0,
-		"tS": 0
-		},
-	"\/sources\/scripts\/libs\/videojs\/lang\/fi.js": {
-		"ft": 64,
-		"mi": 0,
-		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/lang\/fi.js",
-		"oF": 3,
-		"sC": 0,
-		"tS": 0
-		},
-	"\/sources\/scripts\/libs\/videojs\/lang\/fr.js": {
-		"ft": 64,
-		"mi": 0,
-		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/lang\/fr.js",
-		"oF": 3,
-		"sC": 0,
-		"tS": 0
-		},
-	"\/sources\/scripts\/libs\/videojs\/lang\/hr.js": {
-		"ft": 64,
-		"mi": 0,
-		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/lang\/hr.js",
-		"oF": 3,
-		"sC": 0,
-		"tS": 0
-		},
-	"\/sources\/scripts\/libs\/videojs\/lang\/hu.js": {
-		"ft": 64,
-		"mi": 0,
-		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/lang\/hu.js",
-		"oF": 3,
-		"sC": 0,
-		"tS": 0
-		},
-	"\/sources\/scripts\/libs\/videojs\/lang\/it.js": {
-		"ft": 64,
-		"mi": 0,
-		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/lang\/it.js",
-		"oF": 3,
-		"sC": 0,
-		"tS": 0
-		},
-	"\/sources\/scripts\/libs\/videojs\/lang\/ja.js": {
-		"ft": 64,
-		"mi": 0,
-		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/lang\/ja.js",
-		"oF": 3,
-		"sC": 0,
-		"tS": 0
-		},
-	"\/sources\/scripts\/libs\/videojs\/lang\/ko.js": {
-		"ft": 64,
-		"mi": 0,
-		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/lang\/ko.js",
-		"oF": 3,
-		"sC": 0,
-		"tS": 0
-		},
-	"\/sources\/scripts\/libs\/videojs\/lang\/nb.js": {
-		"ft": 64,
-		"mi": 0,
-		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/lang\/nb.js",
-		"oF": 3,
-		"sC": 0,
-		"tS": 0
-		},
-	"\/sources\/scripts\/libs\/videojs\/lang\/nl.js": {
-		"ft": 64,
-		"mi": 0,
-		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/lang\/nl.js",
-		"oF": 3,
-		"sC": 0,
-		"tS": 0
-		},
-	"\/sources\/scripts\/libs\/videojs\/lang\/nn.js": {
-		"ft": 64,
-		"mi": 0,
-		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/lang\/nn.js",
-		"oF": 3,
-		"sC": 0,
-		"tS": 0
-		},
-	"\/sources\/scripts\/libs\/videojs\/lang\/pl.js": {
-		"ft": 64,
-		"mi": 0,
-		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/lang\/pl.js",
-		"oF": 3,
-		"sC": 0,
-		"tS": 0
-		},
-	"\/sources\/scripts\/libs\/videojs\/lang\/pt-BR.js": {
-		"ft": 64,
-		"mi": 0,
-		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/lang\/pt-BR.js",
-		"oF": 3,
-		"sC": 0,
-		"tS": 0
-		},
-	"\/sources\/scripts\/libs\/videojs\/lang\/ru.js": {
-		"ft": 64,
-		"mi": 0,
-		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/lang\/ru.js",
-		"oF": 3,
-		"sC": 0,
-		"tS": 0
-		},
-	"\/sources\/scripts\/libs\/videojs\/lang\/sr.js": {
-		"ft": 64,
-		"mi": 0,
-		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/lang\/sr.js",
-		"oF": 3,
-		"sC": 0,
-		"tS": 0
-		},
-	"\/sources\/scripts\/libs\/videojs\/lang\/sv.js": {
-		"ft": 64,
-		"mi": 0,
-		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/lang\/sv.js",
-		"oF": 3,
-		"sC": 0,
-		"tS": 0
-		},
-	"\/sources\/scripts\/libs\/videojs\/lang\/tr.js": {
-		"ft": 64,
-		"mi": 0,
-		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/lang\/tr.js",
-		"oF": 3,
-		"sC": 0,
-		"tS": 0
-		},
-	"\/sources\/scripts\/libs\/videojs\/lang\/uk.js": {
-		"ft": 64,
-		"mi": 0,
-		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/lang\/uk.js",
-		"oF": 3,
-		"sC": 0,
-		"tS": 0
-		},
-	"\/sources\/scripts\/libs\/videojs\/lang\/vi.js": {
-		"ft": 64,
-		"mi": 0,
-		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/lang\/vi.js",
-		"oF": 3,
-		"sC": 0,
-		"tS": 0
-		},
-	"\/sources\/scripts\/libs\/videojs\/lang\/zh-CN.js": {
-		"ft": 64,
-		"mi": 0,
-		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/lang\/zh-CN.js",
-		"oF": 3,
-		"sC": 0,
-		"tS": 0
-		},
-	"\/sources\/scripts\/libs\/videojs\/lang\/zh-TW.js": {
-		"ft": 64,
-		"mi": 0,
-		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/lang\/zh-TW.js",
-		"oF": 3,
-		"sC": 0,
-		"tS": 0
-		},
-	"\/sources\/scripts\/libs\/videojs\/plugins\/cuepoint\/videojs.cuepoints.js": {
+	"\/sources\/scripts\/menubar.js": {
 		"ft": 64,
 		"mi": 0,
 		"oA": 1,
-		"oAP": "\/build\/scripts\/libs\/videojs\/plugins\/cuepoint\/videojs.cuepoints.js",
-		"oF": 1,
+		"oAP": "\/build\/scripts\/menubar.js",
+		"oF": 0,
 		"sC": 0,
 		"tS": 0
-		},
-	"\/sources\/scripts\/libs\/videojs\/plugins\/resolution\/videojs-resolution-switcher.js": {
-		"ft": 64,
-		"mi": 0,
-		"oA": 1,
-		"oAP": "\/build\/scripts\/libs\/videojs\/plugins\/resolution\/videojs-resolution-switcher.js",
-		"oF": 1,
-		"sC": 0,
-		"tS": 0
-		},
-	"\/sources\/scripts\/libs\/videojs\/plugins\/vimeo\/vimeo.js": {
-		"ft": 64,
-		"mi": 0,
-		"oA": 1,
-		"oAP": "\/build\/scripts\/libs\/videojs\/plugins\/vimeo\/vimeo.js",
-		"oF": 1,
-		"sC": 0,
-		"tS": 0
-		},
-	"\/sources\/scripts\/libs\/videojs\/plugins\/youtube\/youtube.js": {
-		"ft": 64,
-		"mi": 0,
-		"oA": 1,
-		"oAP": "\/build\/scripts\/libs\/videojs\/plugins\/youtube\/youtube.js",
-		"oF": 1,
-		"sC": 0,
-		"tS": 0
-		},
-	"\/sources\/scripts\/libs\/videojs\/video-dev.js": {
-		"ft": 64,
-		"mi": 1,
-		"oA": 0,
-		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/video.js",
-		"oF": 3,
-		"sC": 0,
-		"tS": 0
-		},
-	"\/sources\/scripts\/libs\/videojs\/video-js.min.css": {
-		"aP": 0,
-		"bl": 0,
-		"ft": 16,
-		"ma": 0,
-		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/video-js.min.css",
-		"oF": 2,
-		"oS": 0
-		},
-	"\/sources\/scripts\/libs\/videojs\/video-js.swf": {
-		"ft": 8192,
-		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/video-js.swf",
-		"oF": 2
 		},
 	"\/sources\/scripts\/sbplus-dev.js": {
 		"ft": 64,
@@ -595,202 +229,17 @@
 		"oF": 3,
 		"sC": 3,
 		"tS": 0
-		},
-	"\/sources\/scripts\/sbplusControls.js": {
-		"ft": 64,
-		"mi": 1,
-		"oA": 1,
-		"oAP": "\/build\/scripts\/sbplusControls.js",
-		"oF": 1,
-		"sC": 0,
-		"tS": 0
-		},
-	"\/sources\/scripts\/sbplusDownloadable.js": {
-		"ft": 64,
-		"mi": 1,
-		"oA": 1,
-		"oAP": "\/build\/scripts\/sbplusDownloadable.js",
-		"oF": 1,
-		"sC": 0,
-		"tS": 0
-		},
-	"\/sources\/scripts\/sbplusError.js": {
-		"ft": 64,
-		"mi": 1,
-		"oA": 1,
-		"oAP": "\/build\/scripts\/sbplusError.js",
-		"oF": 1,
-		"sC": 0,
-		"tS": 0
-		},
-	"\/sources\/scripts\/sbplusMenu.js": {
-		"ft": 64,
-		"mi": 1,
-		"oA": 1,
-		"oAP": "\/build\/scripts\/sbplusMenu.js",
-		"oF": 1,
-		"sC": 0,
-		"tS": 0
-		},
-	"\/sources\/scripts\/sbplusNotes.js": {
-		"ft": 64,
-		"mi": 1,
-		"oA": 1,
-		"oAP": "\/build\/scripts\/sbplusNotes.js",
-		"oF": 1,
-		"sC": 0,
-		"tS": 0
-		},
-	"\/sources\/scripts\/sbplusQuiz.js": {
-		"ft": 64,
-		"mi": 1,
-		"oA": 1,
-		"oAP": "\/build\/scripts\/sbplusQuiz.js",
-		"oF": 1,
-		"sC": 0,
-		"tS": 0
-		},
-	"\/sources\/scripts\/sbplusSlide.js": {
-		"ft": 64,
-		"mi": 1,
-		"oA": 1,
-		"oAP": "\/build\/scripts\/sbplusSlide.js",
-		"oF": 1,
-		"sC": 0,
-		"tS": 0
-		},
-	"\/sources\/scripts\/sbplusSplashScreen.js": {
-		"ft": 64,
-		"mi": 1,
-		"oA": 1,
-		"oAP": "\/build\/scripts\/sbplusSplashScreen.js",
-		"oF": 1,
-		"sC": 0,
-		"tS": 0
-		},
-	"\/sources\/scripts\/sbplusTableOfContents.js": {
-		"ft": 64,
-		"mi": 0,
-		"oA": 1,
-		"oAP": "\/build\/scripts\/sbplusTableOfContents.js",
-		"oF": 1,
-		"sC": 0,
-		"tS": 0
-		},
-	"\/sources\/scripts\/templates\/nosupport.tpl": {
-		"ft": 8192,
-		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/templates\/nosupport.tpl",
-		"oF": 2
-		},
-	"\/sources\/scripts\/templates\/sbplus.tpl": {
-		"ft": 8192,
-		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/templates\/sbplus.tpl",
-		"oF": 2
-		},
-	"\/sources\/scripts\/templates\/settings.tpl": {
-		"ft": 8192,
-		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/templates\/settings.tpl",
-		"oF": 2
-		},
-	"\/sources\/scripts\/templates\/splashscreen.tpl": {
-		"ft": 8192,
-		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/templates\/splashscreen.tpl",
-		"oF": 2
 		}
 	},
 "hooks": [
 	],
 "manualImportLinks": {
-	"\/sources\/scripts\/libs\/videojs\/video-dev.js": [
-		{
-			"followForSyntaxChecking": 1,
-			"linkedFileAbbreviatedPath": "\/sources\/scripts\/libs\/videojs\/plugins\/resolution\/videojs-resolution-switcher.js",
-			"position": 0,
-			"type": 1
-			},
-		{
-			"followForSyntaxChecking": 1,
-			"linkedFileAbbreviatedPath": "\/sources\/scripts\/libs\/videojs\/plugins\/cuepoint\/videojs.cuepoints.js",
-			"position": 1,
-			"type": 1
-			},
-		{
-			"followForSyntaxChecking": 1,
-			"linkedFileAbbreviatedPath": "\/sources\/scripts\/libs\/videojs\/plugins\/youtube\/youtube.js",
-			"position": 2,
-			"type": 1
-			},
-		{
-			"followForSyntaxChecking": 1,
-			"linkedFileAbbreviatedPath": "\/sources\/scripts\/libs\/videojs\/plugins\/vimeo\/vimeo.js",
-			"position": 3,
-			"type": 1
-			}
-		],
 	"\/sources\/scripts\/sbplus-dev.js": [
 		{
 			"followForSyntaxChecking": 1,
-			"linkedFileAbbreviatedPath": "\/sources\/scripts\/functions.js",
+			"linkedFileAbbreviatedPath": "\/sources\/scripts\/menubar.js",
 			"position": 0,
-			"type": 1
-			},
-		{
-			"followForSyntaxChecking": 1,
-			"linkedFileAbbreviatedPath": "\/sources\/scripts\/sbplusError.js",
-			"position": 1,
-			"type": 1
-			},
-		{
-			"followForSyntaxChecking": 1,
-			"linkedFileAbbreviatedPath": "\/sources\/scripts\/sbplusSplashScreen.js",
-			"position": 2,
-			"type": 1
-			},
-		{
-			"followForSyntaxChecking": 1,
-			"linkedFileAbbreviatedPath": "\/sources\/scripts\/sbplusDownloadable.js",
-			"position": 3,
-			"type": 1
-			},
-		{
-			"followForSyntaxChecking": 1,
-			"linkedFileAbbreviatedPath": "\/sources\/scripts\/sbplusSlide.js",
-			"position": 4,
-			"type": 1
-			},
-		{
-			"followForSyntaxChecking": 1,
-			"linkedFileAbbreviatedPath": "\/sources\/scripts\/sbplusQuiz.js",
-			"position": 5,
-			"type": 1
-			},
-		{
-			"followForSyntaxChecking": 1,
-			"linkedFileAbbreviatedPath": "\/sources\/scripts\/sbplusControls.js",
-			"position": 6,
-			"type": 1
-			},
-		{
-			"followForSyntaxChecking": 1,
-			"linkedFileAbbreviatedPath": "\/sources\/scripts\/sbplusNotes.js",
-			"position": 7,
-			"type": 1
-			},
-		{
-			"followForSyntaxChecking": 1,
-			"linkedFileAbbreviatedPath": "\/sources\/scripts\/sbplusMenu.js",
-			"position": 8,
-			"type": 1
-			},
-		{
-			"followForSyntaxChecking": 1,
-			"linkedFileAbbreviatedPath": "\/sources\/scripts\/sbplusTableOfContents.js",
-			"position": 9,
-			"type": 1
+			"type": 0
 			}
 		]
 	},
@@ -799,7 +248,7 @@
 	"displayValue": "sbplus_v3",
 	"displayValueWasSetByUser": 0,
 	"iconImageName": "meme-soon",
-	"lastBuiltDate": 499901986
+	"lastBuiltDate": 499904917
 	},
 "projectSettings": {
 	"abortBuildOnError": 1,
@@ -2112,7 +1561,7 @@
 	"externalServerAddress": "http:\/\/localhost\/",
 	"gitIgnoreBuildFolder": 0,
 	"hideConfigFile": 0,
-	"jsCheckerReservedNamesString": "",
+	"jsCheckerReservedNamesString": "Modernizr",
 	"jsHintFlags2": {
 		"asi": {
 			"active": 0,
