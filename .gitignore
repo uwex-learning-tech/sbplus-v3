@@ -3,3 +3,11 @@
 
 .DS_Store
 **/.DS_Store
+
+build/*
+!build/index.html
+
+build/sources/.DS_Store
+!build/sources/*
+build/assets/*
+!build/assets/sbplus.xml

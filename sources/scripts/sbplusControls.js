@@ -231,10 +231,7 @@ var sbplusControls = ( function() {
             
         }
         
-/*
         var downloadsMenu = new MenuBar('download-menu-btn', false);
-        downloadsMenu = downloadsMenu;
-*/
         
     }
     

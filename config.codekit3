@@ -7,8 +7,14 @@
 		"uuidString": "A55265B6-3CAC-4E30-9611-2EA711C82108"
 		}
 	],
-"creatorBuild": "25378",
+"creatorBuild": "25428",
 "files": {
+	"\/.gitignore": {
+		"ft": 8192,
+		"oA": 1,
+		"oAP": "\/build\/.gitignore",
+		"oF": 1
+		},
 	"\/build": {
 		"ft": 65536,
 		"oA": 1,
@@ -16,14 +22,14 @@
 		"oF": 0
 		},
 	"\/config.rb": {
-		"ft": 8192,
-		"oA": 1,
+		"ft": 131072,
+		"oA": 0,
 		"oAP": "\/config.rb",
-		"oF": 1
+		"oF": 0
 		},
 	"\/LICENSE": {
 		"ft": 8192,
-		"oA": 2,
+		"oA": 1,
 		"oAP": "\/build\/LICENSE.txt",
 		"oF": 3
 		},
@@ -104,9 +110,9 @@
 	"\/sources\/images\/default_photo.png": {
 		"ft": 32768,
 		"iS": 4668,
-		"oA": 0,
+		"oA": 2,
 		"oAP": "\/build\/sources\/images\/default_photo.png",
-		"oF": 2,
+		"oF": 3,
 		"opt": 1
 		},
 	"\/sources\/images\/default_splash.svg": {
@@ -114,7 +120,7 @@
 		"miP": 0,
 		"oA": 2,
 		"oAP": "\/build\/sources\/images\/default_splash.svg",
-		"oF": 2,
+		"oF": 3,
 		"opt": 0,
 		"plM": 3758088159,
 		"prP": 0
@@ -154,15 +160,15 @@
 		"bl": 0,
 		"ft": 16,
 		"ma": 0,
-		"oA": 0,
+		"oA": 2,
 		"oAP": "\/build\/sources\/scripts\/libs\/highlight\/default.css",
 		"oF": 3,
-		"oS": 3
+		"oS": 0
 		},
 	"\/sources\/scripts\/libs\/highlight\/highlight.pack.js": {
 		"ft": 64,
 		"mi": 0,
-		"oA": 0,
+		"oA": 2,
 		"oAP": "\/build\/sources\/scripts\/libs\/highlight\/highlight.pack.js",
 		"oF": 3,
 		"sC": 0,
@@ -198,9 +204,9 @@
 	"\/sources\/scripts\/libs\/kaltura\/mwembedloader.js": {
 		"ft": 64,
 		"mi": 0,
-		"oA": 0,
+		"oA": 2,
 		"oAP": "\/build\/sources\/scripts\/libs\/kaltura\/mwembedloader.js",
-		"oF": 2,
+		"oF": 3,
 		"sC": 0,
 		"tS": 0
 		},
@@ -793,7 +799,7 @@
 	"displayValue": "sbplus_v3",
 	"displayValueWasSetByUser": 0,
 	"iconImageName": "meme-soon",
-	"lastBuiltDate": 499378271
+	"lastBuiltDate": 499901986
 	},
 "projectSettings": {
 	"abortBuildOnError": 1,
@@ -810,6 +816,9 @@
 	"babelModuleID": "",
 	"babelNoComments": 0,
 	"babelPlugins": {
+		"async-generator-functions": {
+			"active": 0
+			},
 		"async-to-generator": {
 			"active": 0
 			},
@@ -1898,6 +1907,10 @@
 			"active": 0,
 			"optionString": "{'ignoreDestructuring': false, 'ignoreImport': false, 'ignoreExport': false}"
 			},
+		"no-useless-return": {
+			"active": 0,
+			"optionString": ""
+			},
 		"no-var": {
 			"active": 0,
 			"optionString": ""
@@ -1965,10 +1978,6 @@
 		"prefer-numeric-literals": {
 			"active": 0,
 			"optionString": ""
-			},
-		"prefer-reflect": {
-			"active": 0,
-			"optionString": "{'exceptions': []}"
 			},
 		"prefer-rest-params": {
 			"active": 0,
@@ -2101,7 +2110,7 @@
 		},
 	"esLintSourceType": 0,
 	"externalServerAddress": "http:\/\/localhost\/",
-	"gitIgnoreBuildFolder": 1,
+	"gitIgnoreBuildFolder": 0,
 	"hideConfigFile": 0,
 	"jsCheckerReservedNamesString": "",
 	"jsHintFlags2": {
