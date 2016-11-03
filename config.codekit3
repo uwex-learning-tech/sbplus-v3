@@ -2111,7 +2111,7 @@
 	"esLintSourceType": 0,
 	"externalServerAddress": "http:\/\/localhost\/",
 	"gitIgnoreBuildFolder": 0,
-	"hideConfigFile": 1,
+	"hideConfigFile": 0,
 	"jsCheckerReservedNamesString": "",
 	"jsHintFlags2": {
 		"asi": {
