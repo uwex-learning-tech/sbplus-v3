@@ -1,5 +1,5 @@
 #Storybook Plus (SB+)
-**_version 3.1.0-aplha_**
+**_version 3.1.0-alpha_**
 
 ---
 ###Requirements
@@ -54,7 +54,7 @@ For questions, please also post them under the "**[Issues](https://github.com/oe
 ---
 ###Version Change Log
 #### PENDING
-__see project list__
+_see project list_
 
 #### 3.0.1 (10/06/2016)
 * Proper error reporting for author profile
