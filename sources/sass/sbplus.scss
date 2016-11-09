@@ -1,4 +1,4 @@
-@import "compass/reset";
+@import "compass/reset/utilities";
 @import "compass/css3/animation";
 @import "compass/css3/box-sizing";
 @import "compass/css3/border-radius";
@@ -50,630 +50,696 @@ $border-color: #ccc;
 }
 
 /* general */
-
-* {
-    @include box-sizing( border-box );
-}
-
 html {
-    width: 100%;
-    height: 100%;
     font-size: 16px;
 }
 
 body {
-    width: 100%;
-    height: 100%;
     @include font-size( 14px );
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-button {
-    display: block;
-    border: none;
+.sbplus_pop_full {
+    position: relative;
     width: 100%;
-    min-width: 60px;
-    min-height: 100%;
-    text-align: center;
-    background-color: transparent;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: inherit;
-    margin: 0;
-    padding: 0;
-    cursor: pointer;
-}
-
-button:hover {
-    color: $default-accent-hover;
+    height: 100%;
 }
 
 /* sbplus */
 
-#sbplus_error_screen {
-    width: 100%;
-    height: 100%;
-    display: none;
-    position: absolute;
-    z-index: 10;
-    background-color: #ac3030;
+.sbplus_wrapper {
     
-    @include align-items( center );
-    @include justify-content( center );
+    @include nested-reset();
     
-    #sbplus_error_info {
-        
-        min-width: 33%;
-        max-width: 50%;
-        color: #fff;
-        font-weight: normal;
-        line-height: 1.2;
-        
-        .center_icon {
-            text-align: center;
-            font-size: 1000%;
-        }
-        
-        h1 {
-            font-size: 150%;
-            font-weight: bold;
-            margin: $gutter 0;
-        }
-        
-        p {
-            margin: $gutter 0;
-        }
-        
-        ul {
-            list-style: disc outside;
-            margin-left: 25px;
-        }
-        
-        a {
-            color: #799fff;
-        }
-        
+    * {
+        @include box-sizing( border-box );
     }
     
-}
-
-#sbplus {
+    button {
+        display: block;
+        border: none;
+        width: 100%;
+        min-width: 60px;
+        min-height: 100%;
+        text-align: center;
+        background-color: transparent;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-size: inherit;
+        margin: 0;
+        padding: 0;
+        cursor: pointer;
+    }
     
-    @include display-flex();
-    @include flex-flow( column nowrap );
+    button:hover {
+        color: $default-accent-hover;
+    }
     
-    #sbplus_splash_screen {
+    #sbplus_error_screen {
         
+        display: none;
         position: absolute;
-        z-index: 9;
-        background-color: #fff;
-        @include animation-duration( 0.5s );
+        z-index: 10;
+        background-color: #ac3030;
         
-        @include display-flex( flex );
         @include align-items( center );
         @include justify-content( center );
         
-        #sbplus_presentation_info {
+        #sbplus_error_info {
             
             min-width: 33%;
             max-width: 50%;
-            padding: 5px $gutter;
-            padding: rem( 18px ) rem( 30px ) rem( 20px );
-            background-color: rgba( 255, 255, 255, 0.60 );
-            @include border-radius( 5px );
-            -webkit-backdrop-filter: blur( 8px );
-            backdrop-filter: blur( 8px );
-            
-            .common {
-                margin: 5px 0 $gutter;
-                line-height: 1.25;
-                font-size: 110%;
-            }
-            
-            .sb_title {
-                @extend .common;
-                font-size: 140%;
-                font-weight: bold;
-                margin-bottom: 0;
-            }
-            
-            .sb_subtitle {
-                @extend .common;
-                font-size: 130%;
-                margin-top: 0;
-            }
-            
-            .sb_cta {
-                
-                button {
-                    color: #fff;
-                    padding: $gutter 0;
-                    @include border-radius( $gutter );
-                    margin-bottom: $gutter;
-                    font-weight: bold;
-                    text-transform: uppercase;
-                    background-color: $default-accent;
-                }
-                
-                button:hover {
-                    background-color: $default-accent-hover;
-                }
-                
-            }
-            
-            .sb_author,
-            .sb_duration {
-                @extend .common;
-            }
-            
-            .sb_downloads {
-                
-                @extend .common;
-                margin-bottom: 0;
-                font-size: 80%;
-                color: #333;
-                
-                a {
-                    position: relative;
-                    display: block;
-                    font-size: 130%;
-                    text-decoration: none;
-                    padding: 5px 0;
-                    text-align: center;
-                    color: $default-accent-hover;
-                    @include border-radius( $gutter );
-                    border: 1px solid $default-accent-hover;
-                    margin-bottom: $gutter;
-                }
-                
-                a:hover {
-                    color: #fff;
-                    background-color: $default-accent-hover;
-                }
-                
-            }
-            
-        }
-        
-        #sb_splash_bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url( '../images/default_splash.svg' );
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
-            @include animation-duration( 1.5s );
-            z-index: -1;
-        }
-        
-    }
-    
-    #sbplus_banner_bar {
-        
-        @include display-flex();
-        @include flex-flow( row nowrap );
-        @include order(1);
-        @include justify-content(center);
-        height: $titleBarHeight * 2;
-        background-color: #333;
-        font-size: 140%;
-        font-weight: bold;
-        
-        #sbplus_lession_title {
-            @include display-flex();
-            @include flex-flow( row nowrap );
-            @include flex( 2 1 71.11% );
-            @include align-items(center);
             color: #fff;
-            padding: 0 $gutter;
-            line-height: 1.25;
-        }
-        
-        #sbplus_menu_area {
-    
-            @include display-flex();
-            @include flex-flow( row nowrap );
-            @include flex( 1 0 28.89% );
-            @include justify-content( flex-end );
+            font-weight: normal;
+            line-height: 1.2;
             
-            #sbplus_author_name {
-                display: none;
-                color: #fff;
+            .center_icon {
+                text-align: center;
+                font-size: 1000%;
             }
             
-            #sbplus_menu_btn {
-                width: 100%;
-                padding: 0 $gutter;
-                min-height: 0;
-                color: #fff;
-                background-color: #4c4c4c;
+            h1 {
+                font-size: 150%;
+                font-weight: bold;
+                margin: $gutter 0;
+            }
+            
+            p {
+                margin: $gutter 0;
+            }
+            
+            ul {
+                list-style: disc outside;
+                margin-left: 25px;
+            }
+            
+            a {
+                color: #799fff;
             }
             
         }
         
     }
     
-    #sbplus_main_wrapper {
+    .error {
+        
+        color: #f00;
+        
+        strong {
+            font-weight: bold;
+        }
+        
+        code {
+            font-family: monospace;
+        }
+        
+    }
+    
+    #sbplus {
         
         @include display-flex();
         @include flex-flow( column nowrap );
-        @include order(2);
-        height: 88.8889%;
-        @include calc( height, '100% - ' + $offset );
         
-        #sbplus_left_col {
+        #sbplus_splash_screen {
             
-            @include display-flex();
-            @include flex-flow( column nowrap );
-            @include order(1);
-            position: relative;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 9;
+            background-color: #fff;
+            @include animation-duration( 0.5s );
             
-            #sbplus_media_wrapper {
+            @include display-flex( flex );
+            @include align-items( center );
+            @include justify-content( center );
+            
+            #sbplus_presentation_info {
                 
-                background-color: #000;
+                min-width: 33%;
+                max-width: 50%;
+                padding: 5px $gutter;
+                padding: rem( 18px ) rem( 30px ) rem( 20px );
+                background-color: rgba( 255, 255, 255, 0.60 );
+                @include border-radius( 5px );
+                -webkit-backdrop-filter: blur( 8px );
+                backdrop-filter: blur( 8px );
                 
-                .sbplus_media_content {
-                    color: #fff !important;
-                    /* videoJS customization goes here */
+                .common {
+                    margin: 5px 0 $gutter;
+                    line-height: 1.25;
+                    font-size: 110%;
+                }
+                
+                .sb_title {
+                    @extend .common;
+                    font-size: 140%;
+                    font-weight: bold;
+                    margin-bottom: 0;
+                }
+                
+                .sb_subtitle {
+                    @extend .common;
+                    font-size: 130%;
+                    margin-top: 0;
+                }
+                
+                .sb_cta {
+                    
+                    button {
+                        color: #fff;
+                        padding: $gutter 0;
+                        @include border-radius( $gutter );
+                        margin-bottom: $gutter;
+                        font-weight: bold;
+                        text-transform: uppercase;
+                        background-color: $default-accent;
+                    }
+                    
+                    button:hover {
+                        background-color: $default-accent-hover;
+                    }
+                    
+                }
+                
+                .sb_author,
+                .sb_duration {
+                    @extend .common;
+                }
+                
+                .sb_downloads {
+                    
+                    @extend .common;
+                    margin-bottom: 0;
+                    font-size: 80%;
+                    color: #333;
+                    
+                    a {
+                        position: relative;
+                        display: block;
+                        font-size: 130%;
+                        text-decoration: none;
+                        padding: 5px 0;
+                        text-align: center;
+                        color: $default-accent-hover;
+                        @include border-radius( $gutter );
+                        border: 1px solid $default-accent-hover;
+                        margin-bottom: $gutter;
+                    }
+                    
+                    a:hover {
+                        color: #fff;
+                        background-color: $default-accent-hover;
+                    }
+                    
                 }
                 
             }
             
-            #sbplus_media_wrapper.non_aspect_ratio {
-                height: calc( 100% - 190px );
-            }
-            
-            #sbplus_media_wrapper.aspect_ratio {
-                @include aspect-ratio( 16, 9 );
-            }
-            
-            #sbplus_widget {
+            #sb_splash_bg {
                 position: absolute;
+                top: 0;
+                left: 0;
                 width: 100%;
-                height: 190px;
-                bottom: -190px;
-                z-index: 1;
-                background-color: #fff;
+                height: 100%;
+                background-image: url( '../images/default_splash.svg' );
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: cover;
+                @include animation-duration( 1.5s );
+                z-index: -1;
             }
             
         }
         
-        #sbplus_right_col {
+        #sbplus_banner_bar {
+            
+            @include display-flex();
+            @include flex-flow( row nowrap );
+            @include order(1);
+            @include justify-content(center);
+            height: $titleBarHeight * 2;
+            background-color: #333;
+            font-size: 140%;
+            font-weight: bold;
+            
+            #sbplus_lession_title {
+                @include display-flex();
+                @include flex-flow( row nowrap );
+                @include flex( 2 1 71.11% );
+                @include align-items(center);
+                color: #fff;
+                padding: 0 $gutter;
+                line-height: 1.25;
+            }
+            
+            #sbplus_menu_area {
+        
+                @include display-flex();
+                @include flex-flow( row nowrap );
+                @include flex( 1 0 28.89% );
+                @include justify-content( flex-end );
+                
+                #sbplus_author_name {
+                    display: none;
+                    color: #fff;
+                }
+                
+                #sbplus_menu_btn {
+                    width: 100%;
+                    padding: 0 $gutter;
+                    min-height: 0;
+                    color: #fff;
+                    background-color: #4c4c4c;
+                }
+                
+            }
+            
+        }
+        
+        #sbplus_content_wrapper {
             
             @include display-flex();
             @include flex-flow( column nowrap );
-            @include flex( 1 0 auto );
             @include order(2);
-            position: relative;
-            overflow: hidden;
+            height: 88.8889%;
+            @include calc( height, '100% - ' + $offset );
             
-            #sbplus_sub_bar {
+            #sbplus_left_col {
                 
                 @include display-flex();
-                @include flex-flow( row nowrap );
-                @include align-items( center );
-                @include flex( 1 0 auto );
-                height: 30px;
-                max-height: 30px;
-                background-color: $border-color;
+                @include flex-flow( column nowrap );
+                @include order(1);
+                position: relative;
                 
-                .backBtn {
-                    @include flex( 1 0 10% );
-                    width: auto;
-                    min-width: 0;
-                    min-height: 100%;
-                    background-color: transparent;
-                    text-align: center;
-                }
-                
-                .backBtn:disabled {
-                    cursor: default;
-                }
-                
-                .title {
-                    @include flex( 2 0 90% );
-                    padding-top: 9px;
-                    text-align: center;
-                    text-indent: -10%;
-                    font-weight: bold;
-                    font-size: 12px;
-                    line-height: 12px;
-                    min-height: 100%;
-                }
-                
-            }
-            
-            #sbplus_sub_bar.full {
-                
-                .backBtn {
-                    display: none;
-                }
-                
-                .title {
-                    @include flex( 1 0 100% );
-                    text-align: left;
-                    text-indent: 0;
-                    padding: $gutter;
-                }
-                   
-            }
-            
-            .list {
+                #sbplus_media_wrapper {
                     
-                max-height: 100%;
-                overflow-y: scroll;
-                @include animation-duration( 0.5s );
+                    background-color: #000;
+                    
+                    .sbplus_media_content {
+                        color: #fff !important;
+                        /* videoJS customization goes here */
+                    }
+                    
+                }
                 
-                .item {
+                #sbplus_media_wrapper.non_aspect_ratio {
+                    height: calc( 100% - 190px );
+                }
+                
+                #sbplus_media_wrapper.aspect_ratio {
+                    @include aspect-ratio( 16, 9 );
+                }
+                
+                #sbplus_widget {
+                    position: absolute;
+                    width: 100%;
+                    height: 190px;
+                    bottom: -190px;
+                    z-index: 1;
+                    background-color: #fff;
+                }
+                
+            }
+            
+            #sbplus_right_col {
+                
+                @include display-flex();
+                @include flex-flow( column nowrap );
+                @include flex( 1 0 auto );
+                @include order(2);
+                position: relative;
+                overflow: hidden;
+                
+                #sbplus_sub_bar {
+                    
                     @include display-flex();
                     @include flex-flow( row nowrap );
                     @include align-items( center );
-                    height: 40px;
-                    padding: 0 ($gutter + 5);
-                    border-bottom: 1px solid #e8e8e8;
-                    cursor: pointer;
+                    @include flex( 1 0 auto );
+                    height: 30px;
+                    max-height: 30px;
+                    background-color: $border-color;
+                    
+                    .backBtn {
+                        @include flex( 1 0 10% );
+                        width: auto;
+                        min-width: 0;
+                        min-height: 100%;
+                        background-color: transparent;
+                        text-align: center;
+                    }
+                    
+                    .backBtn:disabled {
+                        cursor: default;
+                    }
+                    
+                    .title {
+                        @include flex( 2 0 90% );
+                        padding-top: 9px;
+                        text-align: center;
+                        text-indent: -10%;
+                        font-weight: bold;
+                        font-size: 12px;
+                        line-height: 12px;
+                        min-height: 100%;
+                    }
+                    
                 }
                 
-                .item:hover {
-                    color: #fff;
-                    background-color: $default-accent-hover;
+                #sbplus_sub_bar.full {
+                    
+                    .backBtn {
+                        display: none;
+                    }
+                    
+                    .title {
+                        @include flex( 1 0 100% );
+                        text-align: left;
+                        text-indent: 0;
+                        padding: $gutter;
+                    }
+                       
                 }
-                
-                .sb_selected {
-                    color: #fff;
-                    background-color: $default-accent;
-                }
-                
-            }
-            
-            #sbplus_table_of_contents_wrapper {
-                @include display-flex();
-                @include flex-flow( column nowrap );
-                @include flex( 2 0 auto );
-                height: calc(100% - 30px);
-            }
-            
-            #sbplus_menu_items_wrapper {
-                
-                display: none;
-                position: absolute;
-                top: 30px;
-                width: 100%;
-                height: calc(100% - 30px);
-                background-color: #fff;
-                @include animation-duration( 0.25s );
                 
                 .list {
-                    
-                    [class^="icon-"], [class*=" icon-"] {
-                        display: inline-block;
-                        margin-right: 8px;
-                        font-size: 130%;
-                    }
-                    
-                }
-                
-                #menu_item_content {
-                    
-                    display: none;
+                        
                     max-height: 100%;
-                    padding: 0 $gutter;
                     overflow-y: scroll;
-                    @include animation-delay( 0.3s );
                     @include animation-duration( 0.5s );
                     
-                    * {
-                        margin: $gutter 0;
+                    .item {
+                        @include display-flex();
+                        @include flex-flow( row nowrap );
+                        @include align-items( center );
+                        height: 40px;
+                        padding: 0 ($gutter + 5);
+                        border-bottom: 1px solid #e8e8e8;
+                        cursor: pointer;
+                    }
+                    
+                    .item:hover {
+                        color: #fff;
+                        background-color: $default-accent-hover;
+                    }
+                    
+                    .sb_selected {
+                        color: #fff;
+                        background-color: $default-accent;
                     }
                     
                 }
                 
-            }
-            
-        }
-        
-    }
-    
-    #sbplus_control_bar {
-        
-        @include display-flex();
-        @include flex-flow( row nowrap );
-        @include order(3);
-        height: $cntrlBarHeight * 2;
-        font-size: 140%;
-        border-top: 1px solid $border-color;
-        
-        .common {
-            @include display-flex();
-            @include flex-flow(row nowrap);
-        }
-        
-        #sbplus_left_controls {
-            
-            @extend .common;
-            @include flex( 1 0 71.11% );
-            
-            #sbplus_previous_btn {
-                @include flex( 1 0 30% );
-                border-right: 1px solid $border-color;
-                font-size: 145%;
-                line-height: 1;
-            }
-            
-            #sbplus_next_btn {
-                @include flex( 1 0 30% );
-                border-right: 1px solid $border-color;
-                font-size: 145%;
-                line-height: 1;
-            }
-            
-            #sbplus_page_status {
-                @include display-flex();
-                @include flex-flow(row nowrap);
-                @include flex( 1 0 40% );
-                @include align-items(center);
-                @include justify-content(center);
-                @include align-self(center);
-                height: 100%;
-                padding: 0 $gutter;
-                font-weight: bold;
-            }
-            
-        }
-        
-        #sbplus_right_controls {
-            
-            @extend .common;
-            @include justify-content( flex-end );
-            @include flex( 1 0 28.89% );
-            
-            #sbplus_download_btn_wrapper {
+                #sbplus_table_of_contents_wrapper {
+                    @include display-flex();
+                    @include flex-flow( column nowrap );
+                    @include flex( 2 0 auto );
+                    height: calc(100% - 30px);
+                    overflow-y: scroll;
+                }
                 
-                display: none;
-                width: 100%;
-                min-width: 60px;
-                border-left: 1px solid $border-color;
-                margin: 0;
-                padding: 0;
-                
-                #sbplus_download_btn,
-                .root-level {
+                #sbplus_menu_items_wrapper {
                     
-                    list-style: none;
-                    height: 100%;
-                    text-align: center;
-                    font-size: 145%;
-                    line-height: 1;
-                    cursor: pointer;
-                
-                    .menu-parent {
+                    display: none;
+                    position: absolute;
+                    top: 30px;
+                    width: 100%;
+                    height: calc(100% - 30px);
+                    background-color: #fff;
+                    @include animation-duration( 0.25s );
+                    
+                    .list {
                         
-                        @include display-flex();
-                        @include justify-content( center );
-                        @include align-items( center );
-                        position: relative;
-                        height: 100%;
-                        cursor: pointer;
-                        
-                        .menu {
-                        
-                            position: absolute;
-                            width: 140%;
-                            left: -20%;
-                            bottom: 100%;
-                            list-style: none;
-                            margin: 0;
-                            padding: 0;
-                            border: 1px solid $border-color;
-                            background-color: #fff;
-                            z-index: 9;
-                            
-                            .span {
-                                @include display-flex();
-                                @include flex-flow(column nowrap);
-                                @include justify-content(center);
-                            }
-                            
-                            .menu-item {
-                                
-                                @include display-flex();
-                                @include flex-flow(column nowrap);
-                                @include justify-content(center);
-                                margin: 0;
-                                padding: rem( 5px ) 0;
-                                height: 30px;
-                                
-                                a {
-                                    display: block;
-                                    font-size: 14px;
-                                    color: #000;
-                                    text-decoration: none;
-                                }
-                                
-                            }
-                            
-                            .menu-item:hover {
-                                
-                                background-color: $default-accent;
-                                
-                                a {
-                                    color: #fff;
-                                }
-                                
-                            }
-                            
-                            .menu-item:focus {
-                                
-                                background-color: $default-accent;
-                                
-                                a {
-                                    color: #fff;
-                                }
-                                
-                            }
-                                                                
+                        [class^="icon-"], [class*=" icon-"] {
+                            display: inline-block;
+                            margin-right: 8px;
+                            font-size: 130%;
                         }
                         
                     }
                     
-                    .menu-parent:hover {
-                        color: $default-accent-hover;
+                    #menu_item_content {
+                        
+                        display: none;
+                        max-height: 100%;
+                        padding: 0 $gutter;
+                        overflow-y: scroll;
+                        @include animation-delay( 0.3s );
+                        @include animation-duration( 0.5s );
+                        
+                        * {
+                            margin: $gutter 0;
+                        }
+                        
                     }
                     
                 }
                 
-                ul[aria-hidden="true"] {
-                    display: none;
-                }
-                                        
-            }
-            
-            #sbplus_widget_btn {
-                border-left: 1px solid $border-color;
-                border-right: 1px solid $border-color;
-                font-size: 145%;
-                line-height: 1;
-            }
-            
-            #sbplus_sidebar_btn {
-                display: none;
-                font-size: 145%;
-                line-height: 1;
             }
             
         }
         
+        #sbplus_control_bar {
+            
+            @include display-flex();
+            @include flex-flow( row nowrap );
+            @include order(3);
+            height: $cntrlBarHeight * 2;
+            font-size: 140%;
+            border-top: 1px solid $border-color;
+            
+            .common {
+                @include display-flex();
+                @include flex-flow(row nowrap);
+            }
+            
+            #sbplus_left_controls {
+                
+                @extend .common;
+                @include flex( 1 0 71.11% );
+                
+                #sbplus_previous_btn {
+                    @include flex( 1 0 30% );
+                    border-right: 1px solid $border-color;
+                    font-size: 145%;
+                    line-height: 1;
+                }
+                
+                #sbplus_next_btn {
+                    @include flex( 1 0 30% );
+                    border-right: 1px solid $border-color;
+                    font-size: 145%;
+                    line-height: 1;
+                }
+                
+                #sbplus_page_status {
+                    @include display-flex();
+                    @include flex-flow(row nowrap);
+                    @include flex( 1 0 40% );
+                    @include align-items(center);
+                    @include justify-content(center);
+                    @include align-self(center);
+                    height: 100%;
+                    padding: 0 $gutter;
+                    font-weight: bold;
+                }
+                
+            }
+            
+            #sbplus_right_controls {
+                
+                @extend .common;
+                @include justify-content( flex-end );
+                @include flex( 1 0 28.89% );
+                
+                #sbplus_download_btn_wrapper {
+                    
+                    display: none;
+                    width: 100%;
+                    min-width: 60px;
+                    border-left: 1px solid $border-color;
+                    margin: 0;
+                    padding: 0;
+                    
+                    #sbplus_download_btn,
+                    .root-level {
+                        
+                        list-style: none;
+                        height: 100%;
+                        text-align: center;
+                        font-size: 145%;
+                        line-height: 1;
+                        cursor: pointer;
+                    
+                        .menu-parent {
+                            
+                            @include display-flex();
+                            @include justify-content( center );
+                            @include align-items( center );
+                            position: relative;
+                            height: 100%;
+                            cursor: pointer;
+                            
+                            .menu {
+                            
+                                position: absolute;
+                                width: 140%;
+                                left: -20%;
+                                bottom: 100%;
+                                list-style: none;
+                                margin: 0;
+                                padding: 0;
+                                border: 1px solid $border-color;
+                                background-color: #fff;
+                                z-index: 9;
+                                
+                                .span {
+                                    @include display-flex();
+                                    @include flex-flow(column nowrap);
+                                    @include justify-content(center);
+                                }
+                                
+                                .menu-item {
+                                    
+                                    @include display-flex();
+                                    @include flex-flow(column nowrap);
+                                    @include justify-content(center);
+                                    margin: 0;
+                                    padding: rem( 5px ) 0;
+                                    height: 30px;
+                                    
+                                    a {
+                                        display: block;
+                                        font-size: 14px;
+                                        color: #000;
+                                        text-decoration: none;
+                                    }
+                                    
+                                }
+                                
+                                .menu-item:hover {
+                                    
+                                    background-color: $default-accent;
+                                    
+                                    a {
+                                        color: #fff;
+                                    }
+                                    
+                                }
+                                
+                                .menu-item:focus {
+                                    
+                                    background-color: $default-accent;
+                                    
+                                    a {
+                                        color: #fff;
+                                    }
+                                    
+                                }
+                                                                    
+                            }
+                            
+                        }
+                        
+                        .menu-parent:hover {
+                            color: $default-accent-hover;
+                        }
+                        
+                    }
+                    
+                    ul[aria-hidden="true"] {
+                        display: none;
+                    }
+                                            
+                }
+                
+                #sbplus_widget_btn {
+                    border-left: 1px solid $border-color;
+                    border-right: 1px solid $border-color;
+                    font-size: 145%;
+                    line-height: 1;
+                }
+                
+                #sbplus_sidebar_btn {
+                    display: none;
+                    font-size: 145%;
+                    line-height: 1;
+                }
+                
+            }
+            
+        }
+        
+        .sb_active {
+            color: $default-accent-hover;
+        }
+        
     }
     
-    .sb_active {
-        color: $default-accent-hover;
+} // end main wrapper
+
+.sbplus_full,
+.sbplus_boxed {
+    
+    @include flex( 1 0 100% );
+    width: 100%;
+    height: 100%;
+
+    #sbplus {
+        
+        width: 100%;
+        height: 100%;
+        
+        #sbplus_splash_screen {
+            width: 100%;
+            height: 100%;
+        }
+        
     }
     
 }
 
 .sbplus_full {
-    height: 100%;
-    @include flex( 1 0 100% );
-    
-    #sbplus_error_screen,
-    #sbplus_splash_screen {
-        width: 100%;
-        height: 100%;
-    }
-    
+    position: absolute;
+    z-index: 99;
+    top: 0;
+    left: 0;
 }
 
 .sbplus_boxed {
-    
-    width: 100%;
-    height: 100%;
-    
-    #sbplus_error_screen,
-    #sbplus_splash_screen {
-        width: 100%;
-        height: 100%;
+
+    #sbplus {
+        
+        #sbplus_content_wrapper {
+            
+            #sbplus_left_col {
+                
+                #sbplus_widget {
+                    border-left: 1px solid $border-color;
+                    border-right: 1px solid $border-color;
+                }
+                
+            }
+            
+            #sbplus_right_col {
+                border-right: 1px solid $border-color;
+                max-height: 400px;
+                
+                #sbplus_table_of_contents_wrapper {
+                    max-height: 400px;
+                    border-left: 1px solid $border-color;
+                }
+                
+            }
+            
+        }
+        
+        #sbplus_control_bar {
+            
+            border-left: 1px solid $border-color;
+            border-top: 1px solid $border-color;
+            border-bottom: 1px solid $border-color;
+            
+        }
+        
     }
     
 }
@@ -682,209 +748,227 @@ button:hover {
     and ( min-device-width: 737px )
     and ( min-width: 737px ) {
     
-    body {
-        @include display-flex();
-        @include flex-flow(row nowrap);
-        @include align-items(center);
-        @include justify-content(center);
-    }
-    
     .sbplus_boxed {
 
         width: 900px;
         height: 630px;
+        margin: 0 auto;
         
-        #sbplus_error_screen,
-        #sbplus_splash_screen {
+        #sbplus_error_screen {
             width: 900px;
             height: 630px;
         }
         
-        #sbplus_main_wrapper {
+        #sbplus {
             
-            #sbplus_left_col {
-                                        
-                #sbplus_media_wrapper {
-                    border-left: 1px solid $border-color;
-                }
-                    
-                #sbplus_widget {
-                    border-left: 1px solid $border-color;
-                }
-                    
-            }
-                
-            #sbplus_right_col {
-                border-right: 1px solid $border-color;
+            width: 900px;
+            height: 630px;
+            
+            #sbplus_splash_screen {
+                width: 900px;
+                height: 630px;
             }
             
-        }
-        
-        #sbplus_control_bar {
-            border-left: 1px solid $border-color;
-            border-right: 1px solid $border-color;
-            border-bottom: 1px solid $border-color;
-        }
-    
-    }
-    
-    #sbplus {
-        
-        #sbplus_splash_screen {
+            #sbplus_content_wrapper {
             
-            #sbplus_presentation_info {
-                
-                .sb_cta {
-                    
-                    @include display-flex();
-                    @include flex-flow(row nowrap);
-                    @include justify-content( space-between );
-                    
-                    button:first-child {
-                        margin-right: 2%;
+                #sbplus_left_col {
+                                            
+                    #sbplus_media_wrapper {
+                        border-left: 1px solid $border-color;
                     }
-                    
-                    button {
-                        @include flex(1 0 49%);
-                        margin-bottom: 0;
+                        
+                    #sbplus_widget {
+                        border-left: 1px solid $border-color;
+                        border-right: none;
                     }
-                    
+                        
                 }
-                
-                .sb_downloads {
                     
-                    @include display-flex();
-                    @include flex-flow(row nowrap);
-                    margin: $gutter 0 5px;
+                #sbplus_right_col {
                     
-                    a:first-child {
-                        @include border-radius( 5px 0 0 5px);
-                        border-left: 1px solid $default-accent-hover;
-                    }
+                    max-height: none;
+                    border-right: 1px solid $border-color;
                     
-                    a {
-                        @include flex(1 0 25%);
-                        display: block;
-                        font-size: 120%;
-                        margin-bottom: 0;
-                        @include border-radius( 0 );
+                    #sbplus_table_of_contents_wrapper {
+                        max-height: none;
                         border-left: none;
                     }
                     
-                    a:last-child {
-                        @include border-radius( 0 5px 5px 0);
+                }
+                
+            }
+            
+            #sbplus_control_bar {
+                border-left: 1px solid $border-color;
+                border-right: 1px solid $border-color;
+                border-bottom: 1px solid $border-color;
+            }
+            
+        }
+        
+    }
+    
+    .sbplus_wrapper {
+        
+        #sbplus {
+        
+            #sbplus_splash_screen {
+                
+                #sbplus_presentation_info {
+                    
+                    .sb_cta {
+                        
+                        @include display-flex();
+                        @include flex-flow(row nowrap);
+                        @include justify-content( space-between );
+                        
+                        button:first-child {
+                            margin-right: 2%;
+                        }
+                        
+                        button {
+                            @include flex(1 0 49%);
+                            margin-bottom: 0;
+                        }
+                        
+                    }
+                    
+                    .sb_downloads {
+                        
+                        @include display-flex();
+                        @include flex-flow(row nowrap);
+                        margin: $gutter 0 5px;
+                        
+                        a:first-child {
+                            @include border-radius( 5px 0 0 5px);
+                            border-left: 1px solid $default-accent-hover;
+                        }
+                        
+                        a {
+                            @include flex(1 0 25%);
+                            display: block;
+                            font-size: 120%;
+                            margin-bottom: 0;
+                            @include border-radius( 0 );
+                            border-left: none;
+                        }
+                        
+                        a:last-child {
+                            @include border-radius( 0 5px 5px 0);
+                        }
+                        
                     }
                     
                 }
                 
             }
             
-        }
-        
-        #sbplus_banner_bar {
-            
-            height: $titleBarHeight;
-            font-size: 120%;
-            
-            #sbplus_lession_title {
-                display: block;
-                width: 60%;
-                white-space: nowrap;
-                text-overflow: ellipsis;
-                overflow: hidden;
-                @include align-self( center );
-            }
-            
-            #sbplus_menu_area {
+            #sbplus_banner_bar {
                 
-                width: 40px;
+                height: $titleBarHeight;
+                font-size: 120%;
                 
-                #sbplus_author_name {
+                #sbplus_lession_title {
                     display: block;
-                    height: 100%;
-                    text-align: left;
-                    font-weight: bold;
-                    min-height: 0;
-                    @include align-self( center );
-                    padding: 0 ($gutter * 2) 0 $gutter;
+                    width: 60%;
                     white-space: nowrap;
                     text-overflow: ellipsis;
                     overflow: hidden;
-                    background-color: transparent;
+                    @include align-self( center );
                 }
                 
-                #sbplus_menu_btn {
-                    max-width: 70px;
-                }
-                
-            }
-            
-        }
-        
-        #sbplus_main_wrapper {
-            
-            @include flex-flow( row nowrap );
-            
-            #sbplus_left_col {
-                
-                @include flex( 1 0 71.11% );
-                height: 100%;
-                border-right: 1px solid $border-color;
-                
-                #sbplus_media_wrapper {
-
-                    .sbplus_media_content {
-                        /* videoJS customization goes here if any */
+                #sbplus_menu_area {
+                    
+                    width: 40px;
+                    
+                    #sbplus_author_name {
+                        display: block;
+                        height: 100%;
+                        text-align: left;
+                        font-weight: bold;
+                        min-height: 0;
+                        @include align-self( center );
+                        padding: 0 ($gutter * 2) 0 $gutter;
+                        white-space: nowrap;
+                        text-overflow: ellipsis;
+                        overflow: hidden;
+                        background-color: transparent;
+                    }
+                    
+                    #sbplus_menu_btn {
+                        max-width: 70px;
                     }
                     
                 }
                 
-                #sbplus_widget {
-                    @include display-flex();
-                    @include flex( 1 0 auto );
-                    position: relative;
-                    height: auto;
-                    bottom: 0;
-                    border-top: 1px solid $border-color;
+            }
+            
+            #sbplus_content_wrapper {
+                
+                @include flex-flow( row nowrap );
+                
+                #sbplus_left_col {
+                    
+                    @include flex( 1 0 71.11% );
+                    height: 100%;
+                    border-right: 1px solid $border-color;
+                    
+                    #sbplus_media_wrapper {
+    
+                        .sbplus_media_content {
+                            /* videoJS customization goes here if any */
+                        }
+                        
+                    }
+                    
+                    #sbplus_widget {
+                        @include display-flex();
+                        @include flex( 1 0 auto );
+                        position: relative;
+                        height: auto;
+                        bottom: 0;
+                        border-top: 1px solid $border-color;
+                    }
+                    
+                }
+                
+                #sbplus_right_col {
+                    @include flex( 1 0 28.89% );
                 }
                 
             }
             
-            #sbplus_right_col {
-                @include flex( 1 0 28.89% );
-            }
-            
-        }
-        
-        #sbplus_control_bar {
-            
-            height: $cntrlBarHeight;
-            font-size: 100%;
-            
-            #sbplus_left_controls {
+            #sbplus_control_bar {
                 
-                #sbplus_previous_btn {
-                    max-width: 100px;
+                height: $cntrlBarHeight;
+                font-size: 100%;
+                
+                #sbplus_left_controls {
+                    
+                    #sbplus_previous_btn {
+                        max-width: 100px;
+                    }
+                    
+                    #sbplus_next_btn {
+                        max-width: 100px;
+                    }
+                    
+                    #sbplus_page_status {
+                         @include justify-content(flex-start);
+                    }
+                    
                 }
                 
-                #sbplus_next_btn {
-                    max-width: 100px;
-                }
-                
-                #sbplus_page_status {
-                     @include justify-content(flex-start);
-                }
-                
-            }
-            
-            #sbplus_right_controls {
-                
-                #sbplus_download_btn_wrapper {
-                    display: block;
-                }
-                
-                #sbplus_sidebar_btn {
-                    display: block;
+                #sbplus_right_controls {
+                    
+                    #sbplus_download_btn_wrapper {
+                        display: block;
+                    }
+                    
+                    #sbplus_sidebar_btn {
+                        display: block;
+                    }
+                    
                 }
                 
             }

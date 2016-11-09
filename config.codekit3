@@ -7,7 +7,7 @@
 		"uuidString": "A55265B6-3CAC-4E30-9611-2EA711C82108"
 		}
 	],
-"creatorBuild": "25428",
+"creatorBuild": "25444",
 "files": {
 	"\/.gitignore": {
 		"ft": 8192,
@@ -22,9 +22,9 @@
 		"oF": 0
 		},
 	"\/config.rb": {
-		"ft": 131072,
+		"ft": 8192,
 		"oA": 0,
-		"oAP": "\/config.rb",
+		"oAP": "\/build\/config.rb",
 		"oF": 0
 		},
 	"\/LICENSE": {
@@ -56,8 +56,8 @@
 		"bl": 0,
 		"ft": 16,
 		"ma": 0,
-		"oA": 1,
-		"oAP": "\/sources\/museo-ck.css",
+		"oA": 2,
+		"oAP": "\/build\/sources\/fonts\/museo.css",
 		"oF": 3,
 		"oS": 0
 		},
@@ -94,9 +94,9 @@
 		"bl": 0,
 		"ft": 16,
 		"ma": 0,
-		"oA": 1,
-		"oAP": "\/build\/fonts\/sbplus_fonts-ck.css",
-		"oF": 1,
+		"oA": 2,
+		"oAP": "\/build\/sources\/fonts\/sbplus_fonts.css",
+		"oF": 3,
 		"oS": 0
 		},
 	"\/sources\/fonts\/selection.json": {
@@ -124,6 +124,14 @@
 		"opt": 0,
 		"plM": 3758088159,
 		"prP": 0
+		},
+	"\/sources\/manifest.json": {
+		"ft": 524288,
+		"oA": 2,
+		"oAP": "\/build\/sources\/manifest.json",
+		"oF": 3,
+		"oO": 0,
+		"oS": 0
 		},
 	"\/sources\/sass\/animate.css": {
 		"aP": 0,
@@ -154,15 +162,15 @@
 		"ft": 16,
 		"ma": 0,
 		"oA": 2,
-		"oAP": "\/build\/sources\/libs\/highlight\/default.css",
-		"oF": 2,
+		"oAP": "\/build\/sources\/scripts\/libs\/highlight\/default.css",
+		"oF": 3,
 		"oS": 0
 		},
 	"\/sources\/scripts\/libs\/highlight\/highlight.pack.js": {
 		"ft": 64,
 		"mi": 0,
 		"oA": 2,
-		"oAP": "\/build\/sources\/libs\/highlight\/highlight.pack.js",
+		"oAP": "\/build\/sources\/scripts\/libs\/highlight\/highlight.pack.js",
 		"oF": 3,
 		"sC": 0,
 		"tS": 0
@@ -171,7 +179,7 @@
 		"ft": 64,
 		"mi": 0,
 		"oA": 2,
-		"oAP": "\/build\/sources\/libs\/iphone-inline-video.browser.js",
+		"oAP": "\/build\/sources\/scripts\/libs\/iphone-inline-video.browser.js",
 		"oF": 3,
 		"sC": 0,
 		"tS": 0
@@ -180,7 +188,7 @@
 		"ft": 64,
 		"mi": 0,
 		"oA": 2,
-		"oAP": "\/build\/sources\/libs\/jquery.js",
+		"oAP": "\/build\/sources\/scripts\/libs\/jquery.js",
 		"oF": 3,
 		"sC": 0,
 		"tS": 0
@@ -188,9 +196,9 @@
 	"\/sources\/scripts\/libs\/kaltura\/kwidgetgetsources.js": {
 		"ft": 64,
 		"mi": 1,
-		"oA": 0,
-		"oAP": "\/build\/sources\/libs\/kaltura\/kwidgetgetsources.js",
-		"oF": 2,
+		"oA": 2,
+		"oAP": "\/build\/sources\/scripts\/libs\/kaltura\/kwidgetgetsources.js",
+		"oF": 3,
 		"sC": 0,
 		"tS": 0
 		},
@@ -198,7 +206,7 @@
 		"ft": 64,
 		"mi": 0,
 		"oA": 2,
-		"oAP": "\/build\/sources\/libs\/kaltura\/mwembedloader.js",
+		"oAP": "\/build\/sources\/scripts\/libs\/kaltura\/mwembedloader.js",
 		"oF": 3,
 		"sC": 0,
 		"tS": 0
@@ -207,7 +215,7 @@
 		"ft": 64,
 		"mi": 0,
 		"oA": 2,
-		"oAP": "\/build\/sources\/libs\/modernizr.js",
+		"oAP": "\/build\/sources\/scripts\/libs\/modernizr.js",
 		"oF": 3,
 		"sC": 0,
 		"tS": 0
@@ -229,6 +237,32 @@
 		"oF": 3,
 		"sC": 3,
 		"tS": 0
+		},
+	"\/sources\/scripts\/templates\/sbplus.tpl": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/build\/sources\/scripts\/templates\/sbplus.tpl",
+		"oF": 2
+		},
+	"\/test\/assets\/sbplus.xml": {
+		"ft": 8192,
+		"oA": 1,
+		"oAP": "\/build\/test\/assets\/sbplus.xml",
+		"oF": 1
+		},
+	"\/test\/index.html": {
+		"ft": 8192,
+		"oA": 1,
+		"oAP": "\/build\/test\/index.html",
+		"oF": 1
+		},
+	"\/test\/manifest.json": {
+		"ft": 524288,
+		"oA": 1,
+		"oAP": "\/build\/test\/manifest-min.json",
+		"oF": 0,
+		"oO": 0,
+		"oS": 1
 		}
 	},
 "hooks": [
@@ -248,7 +282,7 @@
 	"displayValue": "sbplus_v3",
 	"displayValueWasSetByUser": 0,
 	"iconImageName": "meme-soon",
-	"lastBuiltDate": 499904917
+	"lastBuiltDate": 500425285
 	},
 "projectSettings": {
 	"abortBuildOnError": 1,
@@ -1561,7 +1595,7 @@
 	"externalServerAddress": "http:\/\/localhost\/",
 	"gitIgnoreBuildFolder": 0,
 	"hideConfigFile": 0,
-	"jsCheckerReservedNamesString": "Modernizr",
+	"jsCheckerReservedNamesString": "Modernizr,",
 	"jsHintFlags2": {
 		"asi": {
 			"active": 0,

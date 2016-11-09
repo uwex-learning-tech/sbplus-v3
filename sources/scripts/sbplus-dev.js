@@ -6,84 +6,156 @@ var SBPLUS = SBPLUS || {
     
     layout: null,
     menu : null,
+    button: null,
+    manifest: null,
+    isReady: false,
+    alreadyLoaded: false,
     
     /***************************************************************************
         CORE FUNCTIONS
     ***************************************************************************/
     
     ready: function() {
-    
-        this.layout = {
-            isMobile: false,
-            wrapper: $( '#sbplus' ),
-            errorScreen: $( '#sbplus_error_screen' ),
-            splashScreen: $( '#sbplus_splash_screen' ),
-            widget: $( '#sbplus_widget' ),
-            media: $( '#sbplus_media_wrapper' ),
-            sidebar: $( '#sbplus_right_col' ),
-            dwnldMenu: null
-        };
         
-        this.button = {
-            start: $( '#sbplus_start_btn' ),
-            resume: $( '#sbplus_resume_btn' ),
-            download: $( '#sbplus_download_btn' ),
-            widget: $( '#sbplus_widget_btn' ),
-            sidebar: $( '#sbplus_sidebar_btn' ),
-            author: $( '#sbplus_author_name' ),
-            menu: $( '#sbplus_menu_btn' )
-        };
+        if ( this.manifest === null ) {
+            
+            var self = this;
         
-        this.menu = {
-            menuPanel: $( '#sbplus_menu_items_wrapper' ),
-            menuBar: $( '#sbplus_sub_bar' ),
-            menuList: $( '#sbplus_menu_items_wrapper .list' ),
-            menuItem: $( '#sbplus_menu_items_wrapper .menu.item' ),
-            menuContent: $( '#menu_item_content' )
-        };
-        
-        if ( this.checkForSupport() === 0 ) {
-            this.showErrorScreen();
-            return false;
+            this.layout = {
+                isMobile: false,
+                html: 'html',
+                wrapper: '.sbplus_wrapper',
+                sbplus: '#sbplus',
+                errorScreen: '#sbplus_error_screen',
+                splashScreen: '#sbplus_splash_screen',
+                widget: '#sbplus_widget',
+                media: '#sbplus_media_wrapper',
+                sidebar: '#sbplus_right_col',
+                dwnldMenu: null
+            };
+            
+            this.button = {
+                start: '#sbplus_start_btn',
+                resume: '#sbplus_resume_btn',
+                download: '#sbplus_download_btn',
+                widget: '#sbplus_widget_btn',
+                sidebar: '#sbplus_sidebar_btn',
+                author: '#sbplus_author_name',
+                menu: '#sbplus_menu_btn'
+            };
+            
+            this.menu = {
+                menuPanel: '#sbplus_menu_items_wrapper',
+                menuBar: '#sbplus_sub_bar',
+                menuList: '#sbplus_menu_items_wrapper .list',
+                menuItem: '#sbplus_menu_items_wrapper .menu.item',
+                menuContent: '#menu_item_content'
+            };
+            
+            $.getJSON( this.getManifestUrl(), function( data ) {
+                
+                self.isReady = true;
+                self.manifest = data;
+                self.loadTemplate();
+                
+            } ).fail( function() {
+                
+                var msg = '<div class="error">';
+                msg += '<p><strong>Storybook Plus Error:</strong> ';
+                msg += 'failed to load the manifest file.<br>'
+                msg += 'Expecting: <code>' + this.url + '</code></p>';
+                msg += '</div>';
+                
+                $( self.layout.wrapper ).html( msg );
+                
+            } );
+            
+        } else {
+            
+            return 'Storybook Plus is already in ready state.';
+            
         }
-        
-        // calculate the layout initially
-        this.resize();
-        
-        // button click events
-        this.button.sidebar.on( 'click', this.toggleSidebar.bind( this ) );
-        this.button.widget.on( 'click',  this.toggleWidget.bind( this ) );
-        this.button.menu.on( 'click', this.toggleMenu.bind( this ) );
-        this.button.author.on( 'click', this.showAthrPrfl.bind( this ) );
-        this.button.start.on( 'click', this.hideSplash.bind( this ) );
-        this.button.resume.on( 'click', this.hideSplash.bind( this ) );
-        this.layout.dwnldMenu = new MenuBar(this.button.download[0].id, false);
-        
-        // set options from url parameters
-        this.setURLOptions();
-        
-        // calculate the layout on window resize
-        $( window ).on( 'resize', this.resize.bind( this ) );
-        
+             
     },
     
     /***************************************************************************
         CORE EVENTS FUNCTIONS
     ***************************************************************************/
     
+    loadTemplate: function() {
+        
+        if ( this.isReady && this.alreadyLoaded === false ) {
+            
+            var self = this;
+            var manifestUrl = this.manifest.sbplus_root_directory;
+            manifestUrl += 'scripts/templates/sbplus.tpl';
+            
+            // call and set the template frame
+            $.get( manifestUrl, function( data ) {
+                
+                self.alreadyLoaded = true;
+                
+                $( self.layout.wrapper ).html( data );
+                
+                // calculate the layout initially
+                self.resize();
+                
+                // set options from url parameters
+                self.setURLOptions();
+                
+                if ( self.checkForSupport() === 0 ) {
+                    self.showErrorScreen();
+                    return false;
+                }
+                
+                // button click events
+                $( self.button.sidebar ).on( 'click', self.toggleSidebar.bind( self ) );
+                $( self.button.widget ).on( 'click',  self.toggleWidget.bind( self ) );
+                $( self.button.menu ).on( 'click', self.toggleMenu.bind( self ) );
+                $( self.button.author ).on( 'click', self.showAthrPrfl.bind( self ) );
+                $( self.button.start ).on( 'click', self.hideSplash.bind( self ) );
+                $( self.button.resume ).on( 'click', self.hideSplash.bind( self ) );
+                
+                self.layout.dwnldMenu = new MenuBar( $( self.button.download )[0].id, false );
+                
+                // calculate the layout on window resize
+                $( window ).on( 'resize', self.resize.bind( self ) );
+                
+            } ).fail( function() {
+                
+                var msg = '<div class="error">';
+                msg += '<p><strong>Storybook Plus Error:</strong> ';
+                msg += 'failed to load template.<br>'
+                msg += 'Expecting: <code>' + this.url + '</code></p>';
+                msg += '</div>';
+                
+                $( self.layout.wrapper ).html( msg );
+                
+            } );
+            
+        } else {
+            
+            return 'Storybook Plus template already loaded.';
+            
+        }
+        
+    },
+    
     hideSplash: function() {
-        this.layout.splashScreen.addClass( 'fadeOut' )
+        
+        $( this.layout.splashScreen ).addClass( 'fadeOut' )
             .one( 'webkitAnimationEnd mozAnimationEnd animationend', 
                  function() {
                      $( this ).removeClass( 'fadeOut' ).hide();
                      $( this ).off();
                  }
             );
+            
     },
     
     toggleSidebar: function() {
         
-        if ( this.layout.sidebar.is( ':visible' ) ) {
+        if ( $( this.layout.sidebar ).is( ':visible' ) ) {
             this.hideSidebar();
         } else {
            this.showSidebar();
@@ -93,11 +165,11 @@ var SBPLUS = SBPLUS || {
     
     hideSidebar: function() {
         
-        var widget = this.layout.widget;
-        var media = this.layout.media;
+        var widget = $( this.layout.widget );
+        var media = $( this.layout.media );
         
-        this.layout.sidebar.hide();
-        this.button.sidebar.removeClass( 'sb_active' );
+        $( this.layout.sidebar ).hide();
+        $( this.button.sidebar ).removeClass( 'sb_active' );
         
         if ( widget.is( ':visible' ) && widget.outerHeight() <= 190 ) {
             media.removeClass( 'aspect_ratio' ).addClass( 'non_aspect_ratio' );
@@ -107,11 +179,11 @@ var SBPLUS = SBPLUS || {
     
     showSidebar: function() {
         
-        var widget = this.layout.widget;
-        var media = this.layout.media;
+        var widget = $( this.layout.widget );
+        var media = $( this.layout.media );
         
-        this.layout.sidebar.show();
-        this.button.sidebar.addClass( 'sb_active' );
+        $( this.layout.sidebar ).show();
+        $( this.button.sidebar ).addClass( 'sb_active' );
         
         if ( widget.is( ':visible' ) && widget.outerHeight() <= 190 ) {
             media.removeClass( 'non_aspect_ratio' ).addClass( 'aspect_ratio' );
@@ -121,7 +193,7 @@ var SBPLUS = SBPLUS || {
     
     toggleWidget: function() {
         
-        if ( this.layout.widget.is( ':visible' ) ) {
+        if ( $( this.layout.widget ).is( ':visible' ) ) {
             this.hideWidget();
         } else {
             this.showWidget();
@@ -131,14 +203,16 @@ var SBPLUS = SBPLUS || {
     
     hideWidget: function() {
         
-        this.layout.widget.hide();
-        this.button.widget.removeClass( 'sb_active' );
+        var media = $( this.layout.media );
+        
+        $( this.layout.widget ).hide();
+        $( this.button.widget ).removeClass( 'sb_active' );
         
         if ( this.layout.isMobile ) {
-            this.layout.media.addClass( 'aspect_ratio' );
+            media.addClass( 'aspect_ratio' );
             this.resize();
         } else {
-            this.layout.media.removeClass( 'aspect_ratio' )
+            media.removeClass( 'aspect_ratio' )
                     .addClass( 'non_aspect_ratio' ).css( 'height', '100%');
         }
         
@@ -146,16 +220,17 @@ var SBPLUS = SBPLUS || {
     
     showWidget: function() {
         
-        this.layout.widget.show();
-        this.button.widget.addClass( 'sb_active' );
-        this.layout.media.removeClass( 'non_aspect_ratio' )
+        $( this.layout.widget ).show();
+        $( this.button.widget ).addClass( 'sb_active' );
+        $( this.layout.media ).removeClass( 'non_aspect_ratio' )
                 .addClass( 'aspect_ratio' ).css( 'height', '' );
         this.resize();
         
     },
     
     toggleMenu: function() {
-        if ( this.menu.menuPanel.is( ':visible' ) ) {
+        
+        if ( $( this.menu.menuPanel ).is( ':visible' ) ) {
             this.hideMenu();
         } else {
             this.showMenu();
@@ -165,18 +240,18 @@ var SBPLUS = SBPLUS || {
     
     showMenu: function() {
         
-        if ( !this.layout.sidebar.is( ':visible' ) ) {
+        if ( !$( this.layout.sidebar ).is( ':visible' ) ) {
            this.showSidebar();
         }
         
-        var menuPanel = this.menu.menuPanel;
+        var menuPanel = $( this.menu.menuPanel );
         
-        this.button.menu.html( '<span class="icon-close"></span>' )
+        $( this.button.menu ).html( '<span class="icon-close"></span>' )
             .css( {
                 'color': '#f00',
                 'padding-top': '4px'
             } );
-        this.menu.menuBar.find( '.title' ).html( 'Menu' );
+        $( this.menu.menuBar ).find( '.title' ).html( 'Menu' );
         
         menuPanel.show().addClass( 'slideInRight' )
             .one( 'webkitAnimationEnd mozAnimationEnd animationend', 
@@ -185,16 +260,16 @@ var SBPLUS = SBPLUS || {
                  }
             );
             
-        this.menu.menuItem.on( 'click', this.openMenuItem.bind( this ) );
+        $( this.menu.menuItem ).on( 'click', this.openMenuItem.bind( this ) );
         
     },
     
     hideMenu: function() {
         
-        var menuPanel = this.menu.menuPanel;
-        var menuBar = this.menu.menuBar;
+        var menuPanel = $( this.menu.menuPanel );
+        var menuBar = $( this.menu.menuBar );
         
-        this.button.menu.html( 'Menu' )
+        $( this.button.menu ).html( 'Menu' )
             .css( {
                 'color': '',
                 'padding-top': ''
@@ -224,9 +299,9 @@ var SBPLUS = SBPLUS || {
             itemId = '#' + e.currentTarget.id;
         }
         
-        var menuBar = this.menu.menuBar;
-        var menuList = this.menu.menuList;
-        var menuContent = this.menu.menuContent;
+        var menuBar = $( this.menu.menuBar );
+        var menuList = $( this.menu.menuList );
+        var menuContent = $( this.menu.menuContent );
         var target = $( itemId );
         var backBtn = menuBar.find( '.backBtn' );
         
@@ -265,21 +340,21 @@ var SBPLUS = SBPLUS || {
     
     resetMenu: function() {
         
-        var menuBar = this.menu.menuBar;
+        var menuBar = $( this.menu.menuBar );
         
         menuBar.addClass( 'full' )
             .find( '.backBtn' ).html( '' ).prop( 'disabled', true );
         menuBar.find( '.title' ).html( 'Table of Contents' );
         
-        this.menu.menuList.show();
-        this.menu.menuContent.empty().hide();
-        this.menu.menuItem.off( 'click' );
+        $( this.menu.menuList ).show();
+        $( this.menu.menuContent ).empty().hide();
+        $( this.menu.menuItem ).off( 'click' );
         
     },
     
     showAthrPrfl: function() {
         
-        if ( !this.menu.menuPanel.is( ':visible' ) ) {
+        if ( !$( this.menu.menuPanel ).is( ':visible' ) ) {
             this.showMenu();
         }
         
@@ -289,8 +364,8 @@ var SBPLUS = SBPLUS || {
     
     showErrorScreen: function() {
         
-        this.layout.wrapper.hide();
-        this.layout.errorScreen.show().addClass( 'shake' )
+        $( this.layout.sbplus ).hide();
+        $( this.layout.errorScreen ).show().addClass( 'shake' )
             .css( 'display', 'flex' );
         
     },
@@ -312,9 +387,9 @@ var SBPLUS = SBPLUS || {
     
     calcLayout: function() {
         
-        var media = this.layout.media;
-        var widget = this.layout.widget;
-        var sidebar = this.layout.sidebar;
+        var media = $( this.layout.media );
+        var widget = $( this.layout.widget );
+        var sidebar = $( this.layout.sidebar );
         
         if ( window.innerWidth >= 1826 ) {
             media.removeClass( 'aspect_ratio' ).addClass( 'non_aspect_ratio' );
@@ -348,8 +423,8 @@ var SBPLUS = SBPLUS || {
     
     calcWidgetHeight: function() {
         
-        var sidebar = this.layout.sidebar;
-        var widget = this.layout.widget;
+        var sidebar = $( this.layout.sidebar );
+        var widget = $( this.layout.widget );
         
         if ( this.layout.isMobile === true ) {  
             widget.css( {
@@ -377,14 +452,20 @@ var SBPLUS = SBPLUS || {
     
     setURLOptions: function() {
         
-        if ( this.urlParam( 'fullview' ) === '1' ) {
-            this.layout.wrapper.removeClass( 'sbplus_boxed' )
-                        .addClass( 'sbplus_full' );
-        }    
+        var html = $( this.layout.html );
+        var wrapper = $( this.layout.wrapper );
+        
+        if ( this.getUrlParam( 'fullview' ) === '1' ) {
+            html.addClass( 'sbplus_pop_full' );
+            wrapper.removeClass( 'sbplus_boxed' ).addClass( 'sbplus_full' );
+        } else {
+            html.removeClass( '.sbplus_pop_full' );
+            wrapper.addClass( 'sbplus_boxed' ).removeClass( 'sbplus_full' );
+        }  
             
     },
     
-    urlParam: function( name ) {
+    getUrlParam: function( name ) {
         
         var results = new RegExp('[\?&]' + name + '=([^&#]*)')
                         .exec(window.location.href);
@@ -394,6 +475,18 @@ var SBPLUS = SBPLUS || {
         }
         
         return results[1] || 0;
+        
+    },
+    
+    getManifestUrl: function() {
+        
+        var manifest = $( '#sbplus_configs' );
+        
+        if ( manifest.length ) {
+            return manifest[0].href;
+        }
+        
+        return '';
         
     }
         

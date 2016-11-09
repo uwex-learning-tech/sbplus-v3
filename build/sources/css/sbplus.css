@@ -1,72 +1,59 @@
 @import "animate.css" screen, projection;
 @import url(../fonts/sbplus_fonts.css);
 @import url(../fonts/museo.css);
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed,
-figure, figcaption, footer, header, hgroup,
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
+/* general */
+html {
+  font-size: 16px; }
+
+body {
+  font-size: 14px;
+  font-size: 0.875rem;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
+
+.sbplus_pop_full {
+  position: relative;
+  width: 100%;
+  height: 100%; }
+
+/* sbplus */
+.sbplus_wrapper div, .sbplus_wrapper span, .sbplus_wrapper applet, .sbplus_wrapper object, .sbplus_wrapper iframe,
+.sbplus_wrapper h1, .sbplus_wrapper h2, .sbplus_wrapper h3, .sbplus_wrapper h4, .sbplus_wrapper h5, .sbplus_wrapper h6, .sbplus_wrapper p, .sbplus_wrapper blockquote, .sbplus_wrapper pre,
+.sbplus_wrapper a, .sbplus_wrapper abbr, .sbplus_wrapper acronym, .sbplus_wrapper address, .sbplus_wrapper big, .sbplus_wrapper cite, .sbplus_wrapper code,
+.sbplus_wrapper del, .sbplus_wrapper dfn, .sbplus_wrapper em, .sbplus_wrapper img, .sbplus_wrapper ins, .sbplus_wrapper kbd, .sbplus_wrapper q, .sbplus_wrapper s, .sbplus_wrapper samp,
+.sbplus_wrapper small, .sbplus_wrapper strike, .sbplus_wrapper strong, .sbplus_wrapper sub, .sbplus_wrapper sup, .sbplus_wrapper tt, .sbplus_wrapper var,
+.sbplus_wrapper b, .sbplus_wrapper u, .sbplus_wrapper i, .sbplus_wrapper center,
+.sbplus_wrapper dl, .sbplus_wrapper dt, .sbplus_wrapper dd, .sbplus_wrapper ol, .sbplus_wrapper ul, .sbplus_wrapper li,
+.sbplus_wrapper fieldset, .sbplus_wrapper form, .sbplus_wrapper label, .sbplus_wrapper legend,
+.sbplus_wrapper table, .sbplus_wrapper caption, .sbplus_wrapper tbody, .sbplus_wrapper tfoot, .sbplus_wrapper thead, .sbplus_wrapper tr, .sbplus_wrapper th, .sbplus_wrapper td,
+.sbplus_wrapper article, .sbplus_wrapper aside, .sbplus_wrapper canvas, .sbplus_wrapper details, .sbplus_wrapper embed,
+.sbplus_wrapper figure, .sbplus_wrapper figcaption, .sbplus_wrapper footer, .sbplus_wrapper header, .sbplus_wrapper hgroup,
+.sbplus_wrapper menu, .sbplus_wrapper nav, .sbplus_wrapper output, .sbplus_wrapper ruby, .sbplus_wrapper section, .sbplus_wrapper summary,
+.sbplus_wrapper time, .sbplus_wrapper mark, .sbplus_wrapper audio, .sbplus_wrapper video {
   margin: 0;
   padding: 0;
   border: 0;
   font: inherit;
   font-size: 100%;
   vertical-align: baseline; }
-
-html {
-  line-height: 1; }
-
-ol, ul {
-  list-style: none; }
-
-table {
+.sbplus_wrapper table {
   border-collapse: collapse;
   border-spacing: 0; }
-
-caption, th, td {
+.sbplus_wrapper caption, .sbplus_wrapper th, .sbplus_wrapper td {
   text-align: left;
   font-weight: normal;
   vertical-align: middle; }
-
-q, blockquote {
+.sbplus_wrapper q, .sbplus_wrapper blockquote {
   quotes: none; }
-  q:before, q:after, blockquote:before, blockquote:after {
+  .sbplus_wrapper q:before, .sbplus_wrapper q:after, .sbplus_wrapper blockquote:before, .sbplus_wrapper blockquote:after {
     content: "";
     content: none; }
-
-a img {
+.sbplus_wrapper a img {
   border: none; }
-
-article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
-  display: block; }
-
-/* general */
-* {
+.sbplus_wrapper * {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box; }
-
-html {
-  width: 100%;
-  height: 100%;
-  font-size: 16px; }
-
-body {
-  width: 100%;
-  height: 100%;
-  font-size: 14px;
-  font-size: 0.875rem;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
-
-button {
+.sbplus_wrapper button {
   display: block;
   border: none;
   width: 100%;
@@ -79,14 +66,9 @@ button {
   margin: 0;
   padding: 0;
   cursor: pointer; }
-
-button:hover {
+.sbplus_wrapper button:hover {
   color: #06498d; }
-
-/* sbplus */
-#sbplus_error_screen {
-  width: 100%;
-  height: 100%;
+.sbplus_wrapper #sbplus_error_screen {
   display: none;
   position: absolute;
   z-index: 10;
@@ -95,34 +77,41 @@ button:hover {
   align-items: center;
   -webkit-justify-content: center;
   justify-content: center; }
-  #sbplus_error_screen #sbplus_error_info {
+  .sbplus_wrapper #sbplus_error_screen #sbplus_error_info {
     min-width: 33%;
     max-width: 50%;
     color: #fff;
     font-weight: normal;
     line-height: 1.2; }
-    #sbplus_error_screen #sbplus_error_info .center_icon {
+    .sbplus_wrapper #sbplus_error_screen #sbplus_error_info .center_icon {
       text-align: center;
       font-size: 1000%; }
-    #sbplus_error_screen #sbplus_error_info h1 {
+    .sbplus_wrapper #sbplus_error_screen #sbplus_error_info h1 {
       font-size: 150%;
       font-weight: bold;
       margin: 10px 0; }
-    #sbplus_error_screen #sbplus_error_info p {
+    .sbplus_wrapper #sbplus_error_screen #sbplus_error_info p {
       margin: 10px 0; }
-    #sbplus_error_screen #sbplus_error_info ul {
+    .sbplus_wrapper #sbplus_error_screen #sbplus_error_info ul {
       list-style: disc outside;
       margin-left: 25px; }
-    #sbplus_error_screen #sbplus_error_info a {
+    .sbplus_wrapper #sbplus_error_screen #sbplus_error_info a {
       color: #799fff; }
-
-#sbplus {
+.sbplus_wrapper .error {
+  color: #f00; }
+  .sbplus_wrapper .error strong {
+    font-weight: bold; }
+  .sbplus_wrapper .error code {
+    font-family: monospace; }
+.sbplus_wrapper #sbplus {
   display: -webkit-flex;
   display: flex;
   -webkit-flex-flow: column nowrap;
   flex-flow: column nowrap; }
-  #sbplus #sbplus_splash_screen {
+  .sbplus_wrapper #sbplus #sbplus_splash_screen {
     position: absolute;
+    width: 100%;
+    height: 100%;
     z-index: 9;
     background-color: #fff;
     -moz-animation-duration: 0.5s;
@@ -134,7 +123,7 @@ button:hover {
     align-items: center;
     -webkit-justify-content: center;
     justify-content: center; }
-    #sbplus #sbplus_splash_screen #sbplus_presentation_info {
+    .sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info {
       min-width: 33%;
       max-width: 50%;
       padding: 5px 10px;
@@ -145,19 +134,19 @@ button:hover {
       border-radius: 5px;
       -webkit-backdrop-filter: blur(8px);
       backdrop-filter: blur(8px); }
-      #sbplus #sbplus_splash_screen #sbplus_presentation_info .common, #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_title, #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_subtitle, #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_author,
-      #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_duration, #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_downloads, #sbplus #sbplus_splash_screen #sbplus_presentation_info #sbplus_control_bar #sbplus_left_controls, #sbplus #sbplus_control_bar #sbplus_splash_screen #sbplus_presentation_info #sbplus_left_controls, #sbplus #sbplus_splash_screen #sbplus_presentation_info #sbplus_control_bar #sbplus_right_controls, #sbplus #sbplus_control_bar #sbplus_splash_screen #sbplus_presentation_info #sbplus_right_controls {
+      .sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .common, .sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_title, .sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_subtitle, .sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_author,
+      .sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_duration, .sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_downloads, .sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info #sbplus_control_bar #sbplus_left_controls, .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_splash_screen #sbplus_presentation_info #sbplus_left_controls, .sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info #sbplus_control_bar #sbplus_right_controls, .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_splash_screen #sbplus_presentation_info #sbplus_right_controls {
         margin: 5px 0 10px;
         line-height: 1.25;
         font-size: 110%; }
-      #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_title {
+      .sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_title {
         font-size: 140%;
         font-weight: bold;
         margin-bottom: 0; }
-      #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_subtitle {
+      .sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_subtitle {
         font-size: 130%;
         margin-top: 0; }
-      #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_cta button {
+      .sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_cta button {
         color: #fff;
         padding: 10px 0;
         -moz-border-radius: 10px;
@@ -167,13 +156,13 @@ button:hover {
         font-weight: bold;
         text-transform: uppercase;
         background-color: #0c3b6b; }
-      #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_cta button:hover {
+      .sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_cta button:hover {
         background-color: #06498d; }
-      #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_downloads {
+      .sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_downloads {
         margin-bottom: 0;
         font-size: 80%;
         color: #333; }
-        #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_downloads a {
+        .sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_downloads a {
           position: relative;
           display: block;
           font-size: 130%;
@@ -186,10 +175,10 @@ button:hover {
           border-radius: 10px;
           border: 1px solid #06498d;
           margin-bottom: 10px; }
-        #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_downloads a:hover {
+        .sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_downloads a:hover {
           color: #fff;
           background-color: #06498d; }
-    #sbplus #sbplus_splash_screen #sb_splash_bg {
+    .sbplus_wrapper #sbplus #sbplus_splash_screen #sb_splash_bg {
       position: absolute;
       top: 0;
       left: 0;
@@ -203,7 +192,7 @@ button:hover {
       -webkit-animation-duration: 1.5s;
       animation-duration: 1.5s;
       z-index: -1; }
-  #sbplus #sbplus_banner_bar {
+  .sbplus_wrapper #sbplus #sbplus_banner_bar {
     display: -webkit-flex;
     display: flex;
     -webkit-flex-flow: row nowrap;
@@ -216,7 +205,7 @@ button:hover {
     background-color: #333;
     font-size: 140%;
     font-weight: bold; }
-    #sbplus #sbplus_banner_bar #sbplus_lession_title {
+    .sbplus_wrapper #sbplus #sbplus_banner_bar #sbplus_lession_title {
       display: -webkit-flex;
       display: flex;
       -webkit-flex-flow: row nowrap;
@@ -228,7 +217,7 @@ button:hover {
       color: #fff;
       padding: 0 10px;
       line-height: 1.25; }
-    #sbplus #sbplus_banner_bar #sbplus_menu_area {
+    .sbplus_wrapper #sbplus #sbplus_banner_bar #sbplus_menu_area {
       display: -webkit-flex;
       display: flex;
       -webkit-flex-flow: row nowrap;
@@ -237,16 +226,16 @@ button:hover {
       flex: 1 0 28.89%;
       -webkit-justify-content: flex-end;
       justify-content: flex-end; }
-      #sbplus #sbplus_banner_bar #sbplus_menu_area #sbplus_author_name {
+      .sbplus_wrapper #sbplus #sbplus_banner_bar #sbplus_menu_area #sbplus_author_name {
         display: none;
         color: #fff; }
-      #sbplus #sbplus_banner_bar #sbplus_menu_area #sbplus_menu_btn {
+      .sbplus_wrapper #sbplus #sbplus_banner_bar #sbplus_menu_area #sbplus_menu_btn {
         width: 100%;
         padding: 0 10px;
         min-height: 0;
         color: #fff;
         background-color: #4c4c4c; }
-  #sbplus #sbplus_main_wrapper {
+  .sbplus_wrapper #sbplus #sbplus_content_wrapper {
     display: -webkit-flex;
     display: flex;
     -webkit-flex-flow: column nowrap;
@@ -257,7 +246,7 @@ button:hover {
     height: -moz-calc(100% - 80px);
     height: -webkit-calc(100% - 80px);
     height: calc(100% - 80px); }
-    #sbplus #sbplus_main_wrapper #sbplus_left_col {
+    .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col {
       display: -webkit-flex;
       display: flex;
       -webkit-flex-flow: column nowrap;
@@ -265,34 +254,34 @@ button:hover {
       -webkit-order: 1;
       order: 1;
       position: relative; }
-      #sbplus #sbplus_main_wrapper #sbplus_left_col #sbplus_media_wrapper {
+      .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper {
         background-color: #000; }
-        #sbplus #sbplus_main_wrapper #sbplus_left_col #sbplus_media_wrapper .sbplus_media_content {
+        .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper .sbplus_media_content {
           color: #fff !important;
           /* videoJS customization goes here */ }
-      #sbplus #sbplus_main_wrapper #sbplus_left_col #sbplus_media_wrapper.non_aspect_ratio {
+      .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper.non_aspect_ratio {
         height: calc( 100% - 190px ); }
-      #sbplus #sbplus_main_wrapper #sbplus_left_col #sbplus_media_wrapper.aspect_ratio {
+      .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper.aspect_ratio {
         position: relative; }
-        #sbplus #sbplus_main_wrapper #sbplus_left_col #sbplus_media_wrapper.aspect_ratio:before {
+        .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper.aspect_ratio:before {
           display: block;
           content: "";
           width: 100%;
           padding-top: 56.25%; }
-        #sbplus #sbplus_main_wrapper #sbplus_left_col #sbplus_media_wrapper.aspect_ratio > .sbplus_media_content {
+        .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper.aspect_ratio > .sbplus_media_content {
           position: absolute;
           top: 0;
           left: 0;
           right: 0;
           bottom: 0; }
-      #sbplus #sbplus_main_wrapper #sbplus_left_col #sbplus_widget {
+      .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_widget {
         position: absolute;
         width: 100%;
         height: 190px;
         bottom: -190px;
         z-index: 1;
         background-color: #fff; }
-    #sbplus #sbplus_main_wrapper #sbplus_right_col {
+    .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col {
       display: -webkit-flex;
       display: flex;
       -webkit-flex-flow: column nowrap;
@@ -303,7 +292,7 @@ button:hover {
       order: 2;
       position: relative;
       overflow: hidden; }
-      #sbplus #sbplus_main_wrapper #sbplus_right_col #sbplus_sub_bar {
+      .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col #sbplus_sub_bar {
         display: -webkit-flex;
         display: flex;
         -webkit-flex-flow: row nowrap;
@@ -315,7 +304,7 @@ button:hover {
         height: 30px;
         max-height: 30px;
         background-color: #ccc; }
-        #sbplus #sbplus_main_wrapper #sbplus_right_col #sbplus_sub_bar .backBtn {
+        .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col #sbplus_sub_bar .backBtn {
           -webkit-flex: 1 0 10%;
           flex: 1 0 10%;
           width: auto;
@@ -323,9 +312,9 @@ button:hover {
           min-height: 100%;
           background-color: transparent;
           text-align: center; }
-        #sbplus #sbplus_main_wrapper #sbplus_right_col #sbplus_sub_bar .backBtn:disabled {
+        .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col #sbplus_sub_bar .backBtn:disabled {
           cursor: default; }
-        #sbplus #sbplus_main_wrapper #sbplus_right_col #sbplus_sub_bar .title {
+        .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col #sbplus_sub_bar .title {
           -webkit-flex: 2 0 90%;
           flex: 2 0 90%;
           padding-top: 9px;
@@ -335,21 +324,21 @@ button:hover {
           font-size: 12px;
           line-height: 12px;
           min-height: 100%; }
-      #sbplus #sbplus_main_wrapper #sbplus_right_col #sbplus_sub_bar.full .backBtn {
+      .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col #sbplus_sub_bar.full .backBtn {
         display: none; }
-      #sbplus #sbplus_main_wrapper #sbplus_right_col #sbplus_sub_bar.full .title {
+      .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col #sbplus_sub_bar.full .title {
         -webkit-flex: 1 0 100%;
         flex: 1 0 100%;
         text-align: left;
         text-indent: 0;
         padding: 10px; }
-      #sbplus #sbplus_main_wrapper #sbplus_right_col .list {
+      .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col .list {
         max-height: 100%;
         overflow-y: scroll;
         -moz-animation-duration: 0.5s;
         -webkit-animation-duration: 0.5s;
         animation-duration: 0.5s; }
-        #sbplus #sbplus_main_wrapper #sbplus_right_col .list .item {
+        .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col .list .item {
           display: -webkit-flex;
           display: flex;
           -webkit-flex-flow: row nowrap;
@@ -360,21 +349,22 @@ button:hover {
           padding: 0 15px;
           border-bottom: 1px solid #e8e8e8;
           cursor: pointer; }
-        #sbplus #sbplus_main_wrapper #sbplus_right_col .list .item:hover {
+        .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col .list .item:hover {
           color: #fff;
           background-color: #06498d; }
-        #sbplus #sbplus_main_wrapper #sbplus_right_col .list .sb_selected {
+        .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col .list .sb_selected {
           color: #fff;
           background-color: #0c3b6b; }
-      #sbplus #sbplus_main_wrapper #sbplus_right_col #sbplus_table_of_contents_wrapper {
+      .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col #sbplus_table_of_contents_wrapper {
         display: -webkit-flex;
         display: flex;
         -webkit-flex-flow: column nowrap;
         flex-flow: column nowrap;
         -webkit-flex: 2 0 auto;
         flex: 2 0 auto;
-        height: calc(100% - 30px); }
-      #sbplus #sbplus_main_wrapper #sbplus_right_col #sbplus_menu_items_wrapper {
+        height: calc(100% - 30px);
+        overflow-y: scroll; }
+      .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col #sbplus_menu_items_wrapper {
         display: none;
         position: absolute;
         top: 30px;
@@ -384,11 +374,11 @@ button:hover {
         -moz-animation-duration: 0.25s;
         -webkit-animation-duration: 0.25s;
         animation-duration: 0.25s; }
-        #sbplus #sbplus_main_wrapper #sbplus_right_col #sbplus_menu_items_wrapper .list [class^="icon-"], #sbplus #sbplus_main_wrapper #sbplus_right_col #sbplus_menu_items_wrapper .list [class*=" icon-"] {
+        .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col #sbplus_menu_items_wrapper .list [class^="icon-"], .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col #sbplus_menu_items_wrapper .list [class*=" icon-"] {
           display: inline-block;
           margin-right: 8px;
           font-size: 130%; }
-        #sbplus #sbplus_main_wrapper #sbplus_right_col #sbplus_menu_items_wrapper #menu_item_content {
+        .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col #sbplus_menu_items_wrapper #menu_item_content {
           display: none;
           max-height: 100%;
           padding: 0 10px;
@@ -399,9 +389,9 @@ button:hover {
           -moz-animation-duration: 0.5s;
           -webkit-animation-duration: 0.5s;
           animation-duration: 0.5s; }
-          #sbplus #sbplus_main_wrapper #sbplus_right_col #sbplus_menu_items_wrapper #menu_item_content * {
+          .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col #sbplus_menu_items_wrapper #menu_item_content * {
             margin: 10px 0; }
-  #sbplus #sbplus_control_bar {
+  .sbplus_wrapper #sbplus #sbplus_control_bar {
     display: -webkit-flex;
     display: flex;
     -webkit-flex-flow: row nowrap;
@@ -411,29 +401,29 @@ button:hover {
     height: 100px;
     font-size: 140%;
     border-top: 1px solid #ccc; }
-    #sbplus #sbplus_control_bar .common, #sbplus #sbplus_control_bar #sbplus_splash_screen #sbplus_presentation_info .sb_title, #sbplus #sbplus_splash_screen #sbplus_presentation_info #sbplus_control_bar .sb_title, #sbplus #sbplus_control_bar #sbplus_splash_screen #sbplus_presentation_info .sb_subtitle, #sbplus #sbplus_splash_screen #sbplus_presentation_info #sbplus_control_bar .sb_subtitle, #sbplus #sbplus_control_bar #sbplus_splash_screen #sbplus_presentation_info .sb_author, #sbplus #sbplus_splash_screen #sbplus_presentation_info #sbplus_control_bar .sb_author,
-    #sbplus #sbplus_control_bar #sbplus_splash_screen #sbplus_presentation_info .sb_duration,
-    #sbplus #sbplus_splash_screen #sbplus_presentation_info #sbplus_control_bar .sb_duration, #sbplus #sbplus_control_bar #sbplus_splash_screen #sbplus_presentation_info .sb_downloads, #sbplus #sbplus_splash_screen #sbplus_presentation_info #sbplus_control_bar .sb_downloads, #sbplus #sbplus_control_bar #sbplus_left_controls, #sbplus #sbplus_control_bar #sbplus_right_controls {
+    .sbplus_wrapper #sbplus #sbplus_control_bar .common, .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_splash_screen #sbplus_presentation_info .sb_title, .sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info #sbplus_control_bar .sb_title, .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_splash_screen #sbplus_presentation_info .sb_subtitle, .sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info #sbplus_control_bar .sb_subtitle, .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_splash_screen #sbplus_presentation_info .sb_author, .sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info #sbplus_control_bar .sb_author,
+    .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_splash_screen #sbplus_presentation_info .sb_duration,
+    .sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info #sbplus_control_bar .sb_duration, .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_splash_screen #sbplus_presentation_info .sb_downloads, .sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info #sbplus_control_bar .sb_downloads, .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_left_controls, .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls {
       display: -webkit-flex;
       display: flex;
       -webkit-flex-flow: row nowrap;
       flex-flow: row nowrap; }
-    #sbplus #sbplus_control_bar #sbplus_left_controls {
+    .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_left_controls {
       -webkit-flex: 1 0 71.11%;
       flex: 1 0 71.11%; }
-      #sbplus #sbplus_control_bar #sbplus_left_controls #sbplus_previous_btn {
+      .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_left_controls #sbplus_previous_btn {
         -webkit-flex: 1 0 30%;
         flex: 1 0 30%;
         border-right: 1px solid #ccc;
         font-size: 145%;
         line-height: 1; }
-      #sbplus #sbplus_control_bar #sbplus_left_controls #sbplus_next_btn {
+      .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_left_controls #sbplus_next_btn {
         -webkit-flex: 1 0 30%;
         flex: 1 0 30%;
         border-right: 1px solid #ccc;
         font-size: 145%;
         line-height: 1; }
-      #sbplus #sbplus_control_bar #sbplus_left_controls #sbplus_page_status {
+      .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_left_controls #sbplus_page_status {
         display: -webkit-flex;
         display: flex;
         -webkit-flex-flow: row nowrap;
@@ -449,28 +439,28 @@ button:hover {
         height: 100%;
         padding: 0 10px;
         font-weight: bold; }
-    #sbplus #sbplus_control_bar #sbplus_right_controls {
+    .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls {
       -webkit-justify-content: flex-end;
       justify-content: flex-end;
       -webkit-flex: 1 0 28.89%;
       flex: 1 0 28.89%; }
-      #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper {
+      .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper {
         display: none;
         width: 100%;
         min-width: 60px;
         border-left: 1px solid #ccc;
         margin: 0;
         padding: 0; }
-        #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn,
-        #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level {
+        .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn,
+        .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level {
           list-style: none;
           height: 100%;
           text-align: center;
           font-size: 145%;
           line-height: 1;
           cursor: pointer; }
-          #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent,
-          #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent {
+          .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent,
+          .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent {
             display: -webkit-flex;
             display: flex;
             -webkit-justify-content: center;
@@ -480,8 +470,8 @@ button:hover {
             position: relative;
             height: 100%;
             cursor: pointer; }
-            #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu,
-            #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu {
+            .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu,
+            .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu {
               position: absolute;
               width: 140%;
               left: -20%;
@@ -492,16 +482,16 @@ button:hover {
               border: 1px solid #ccc;
               background-color: #fff;
               z-index: 9; }
-              #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu .span,
-              #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu .span {
+              .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu .span,
+              .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu .span {
                 display: -webkit-flex;
                 display: flex;
                 -webkit-flex-flow: column nowrap;
                 flex-flow: column nowrap;
                 -webkit-justify-content: center;
                 justify-content: center; }
-              #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu .menu-item,
-              #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu .menu-item {
+              .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu .menu-item,
+              .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu .menu-item {
                 display: -webkit-flex;
                 display: flex;
                 -webkit-flex-flow: column nowrap;
@@ -511,112 +501,131 @@ button:hover {
                 margin: 0;
                 padding: rem(5px) 0;
                 height: 30px; }
-                #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu .menu-item a,
-                #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu .menu-item a {
+                .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu .menu-item a,
+                .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu .menu-item a {
                   display: block;
                   font-size: 14px;
                   color: #000;
                   text-decoration: none; }
-              #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu .menu-item:hover,
-              #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu .menu-item:hover {
+              .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu .menu-item:hover,
+              .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu .menu-item:hover {
                 background-color: #0c3b6b; }
-                #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu .menu-item:hover a,
-                #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu .menu-item:hover a {
+                .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu .menu-item:hover a,
+                .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu .menu-item:hover a {
                   color: #fff; }
-              #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu .menu-item:focus,
-              #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu .menu-item:focus {
+              .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu .menu-item:focus,
+              .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu .menu-item:focus {
                 background-color: #0c3b6b; }
-                #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu .menu-item:focus a,
-                #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu .menu-item:focus a {
+                .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu .menu-item:focus a,
+                .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu .menu-item:focus a {
                   color: #fff; }
-          #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent:hover,
-          #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent:hover {
+          .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent:hover,
+          .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent:hover {
             color: #06498d; }
-        #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper ul[aria-hidden="true"] {
+        .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper ul[aria-hidden="true"] {
           display: none; }
-      #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_widget_btn {
+      .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_widget_btn {
         border-left: 1px solid #ccc;
         border-right: 1px solid #ccc;
         font-size: 145%;
         line-height: 1; }
-      #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_sidebar_btn {
+      .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_sidebar_btn {
         display: none;
         font-size: 145%;
         line-height: 1; }
-  #sbplus .sb_active {
+  .sbplus_wrapper #sbplus .sb_active {
     color: #06498d; }
 
-.sbplus_full {
-  height: 100%;
-  -webkit-flex: 1 0 100%;
-  flex: 1 0 100%; }
-  .sbplus_full #sbplus_error_screen,
-  .sbplus_full #sbplus_splash_screen {
-    width: 100%;
-    height: 100%; }
-
+.sbplus_full,
 .sbplus_boxed {
+  -webkit-flex: 1 0 100%;
+  flex: 1 0 100%;
   width: 100%;
   height: 100%; }
-  .sbplus_boxed #sbplus_error_screen,
-  .sbplus_boxed #sbplus_splash_screen {
+  .sbplus_full #sbplus,
+  .sbplus_boxed #sbplus {
     width: 100%;
     height: 100%; }
+    .sbplus_full #sbplus #sbplus_splash_screen,
+    .sbplus_boxed #sbplus #sbplus_splash_screen {
+      width: 100%;
+      height: 100%; }
+
+.sbplus_full {
+  position: absolute;
+  z-index: 99;
+  top: 0;
+  left: 0; }
+
+.sbplus_boxed #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_widget {
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc; }
+.sbplus_boxed #sbplus #sbplus_content_wrapper #sbplus_right_col {
+  border-right: 1px solid #ccc;
+  max-height: 400px; }
+  .sbplus_boxed #sbplus #sbplus_content_wrapper #sbplus_right_col #sbplus_table_of_contents_wrapper {
+    max-height: 400px;
+    border-left: 1px solid #ccc; }
+.sbplus_boxed #sbplus #sbplus_control_bar {
+  border-left: 1px solid #ccc;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc; }
 
 @media only screen and (min-device-width: 737px) and (min-width: 737px) {
-  body {
-    display: -webkit-flex;
-    display: flex;
-    -webkit-flex-flow: row nowrap;
-    flex-flow: row nowrap;
-    -webkit-align-items: center;
-    align-items: center;
-    -webkit-justify-content: center;
-    justify-content: center; }
-
   .sbplus_boxed {
     width: 900px;
-    height: 630px; }
-    .sbplus_boxed #sbplus_error_screen,
-    .sbplus_boxed #sbplus_splash_screen {
+    height: 630px;
+    margin: 0 auto; }
+    .sbplus_boxed #sbplus_error_screen {
       width: 900px;
       height: 630px; }
-    .sbplus_boxed #sbplus_main_wrapper #sbplus_left_col #sbplus_media_wrapper {
-      border-left: 1px solid #ccc; }
-    .sbplus_boxed #sbplus_main_wrapper #sbplus_left_col #sbplus_widget {
-      border-left: 1px solid #ccc; }
-    .sbplus_boxed #sbplus_main_wrapper #sbplus_right_col {
-      border-right: 1px solid #ccc; }
-    .sbplus_boxed #sbplus_control_bar {
-      border-left: 1px solid #ccc;
-      border-right: 1px solid #ccc;
-      border-bottom: 1px solid #ccc; }
+    .sbplus_boxed #sbplus {
+      width: 900px;
+      height: 630px; }
+      .sbplus_boxed #sbplus #sbplus_splash_screen {
+        width: 900px;
+        height: 630px; }
+      .sbplus_boxed #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper {
+        border-left: 1px solid #ccc; }
+      .sbplus_boxed #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_widget {
+        border-left: 1px solid #ccc;
+        border-right: none; }
+      .sbplus_boxed #sbplus #sbplus_content_wrapper #sbplus_right_col {
+        max-height: none;
+        border-right: 1px solid #ccc; }
+        .sbplus_boxed #sbplus #sbplus_content_wrapper #sbplus_right_col #sbplus_table_of_contents_wrapper {
+          max-height: none;
+          border-left: none; }
+      .sbplus_boxed #sbplus #sbplus_control_bar {
+        border-left: 1px solid #ccc;
+        border-right: 1px solid #ccc;
+        border-bottom: 1px solid #ccc; }
 
-  #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_cta {
+  .sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_cta {
     display: -webkit-flex;
     display: flex;
     -webkit-flex-flow: row nowrap;
     flex-flow: row nowrap;
     -webkit-justify-content: space-between;
     justify-content: space-between; }
-    #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_cta button:first-child {
+    .sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_cta button:first-child {
       margin-right: 2%; }
-    #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_cta button {
+    .sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_cta button {
       -webkit-flex: 1 0 49%;
       flex: 1 0 49%;
       margin-bottom: 0; }
-  #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_downloads {
+  .sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_downloads {
     display: -webkit-flex;
     display: flex;
     -webkit-flex-flow: row nowrap;
     flex-flow: row nowrap;
     margin: 10px 0 5px; }
-    #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_downloads a:first-child {
+    .sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_downloads a:first-child {
       -moz-border-radius: 5px 0 0 5px;
       -webkit-border-radius: 5px;
       border-radius: 5px 0 0 5px;
       border-left: 1px solid #06498d; }
-    #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_downloads a {
+    .sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_downloads a {
       -webkit-flex: 1 0 25%;
       flex: 1 0 25%;
       display: block;
@@ -626,14 +635,14 @@ button:hover {
       -webkit-border-radius: 0;
       border-radius: 0;
       border-left: none; }
-    #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_downloads a:last-child {
+    .sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_downloads a:last-child {
       -moz-border-radius: 0 5px 5px 0;
       -webkit-border-radius: 0;
       border-radius: 0 5px 5px 0; }
-  #sbplus #sbplus_banner_bar {
+  .sbplus_wrapper #sbplus #sbplus_banner_bar {
     height: 30px;
     font-size: 120%; }
-    #sbplus #sbplus_banner_bar #sbplus_lession_title {
+    .sbplus_wrapper #sbplus #sbplus_banner_bar #sbplus_lession_title {
       display: block;
       width: 60%;
       white-space: nowrap;
@@ -641,9 +650,9 @@ button:hover {
       overflow: hidden;
       -webkit-align-self: center;
       align-self: center; }
-    #sbplus #sbplus_banner_bar #sbplus_menu_area {
+    .sbplus_wrapper #sbplus #sbplus_banner_bar #sbplus_menu_area {
       width: 40px; }
-      #sbplus #sbplus_banner_bar #sbplus_menu_area #sbplus_author_name {
+      .sbplus_wrapper #sbplus #sbplus_banner_bar #sbplus_menu_area #sbplus_author_name {
         display: block;
         height: 100%;
         text-align: left;
@@ -656,19 +665,19 @@ button:hover {
         text-overflow: ellipsis;
         overflow: hidden;
         background-color: transparent; }
-      #sbplus #sbplus_banner_bar #sbplus_menu_area #sbplus_menu_btn {
+      .sbplus_wrapper #sbplus #sbplus_banner_bar #sbplus_menu_area #sbplus_menu_btn {
         max-width: 70px; }
-  #sbplus #sbplus_main_wrapper {
+  .sbplus_wrapper #sbplus #sbplus_content_wrapper {
     -webkit-flex-flow: row nowrap;
     flex-flow: row nowrap; }
-    #sbplus #sbplus_main_wrapper #sbplus_left_col {
+    .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col {
       -webkit-flex: 1 0 71.11%;
       flex: 1 0 71.11%;
       height: 100%;
       border-right: 1px solid #ccc; }
-      #sbplus #sbplus_main_wrapper #sbplus_left_col #sbplus_media_wrapper .sbplus_media_content {
+      .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper .sbplus_media_content {
         /* videoJS customization goes here if any */ }
-      #sbplus #sbplus_main_wrapper #sbplus_left_col #sbplus_widget {
+      .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_widget {
         display: -webkit-flex;
         display: flex;
         -webkit-flex: 1 0 auto;
@@ -677,22 +686,22 @@ button:hover {
         height: auto;
         bottom: 0;
         border-top: 1px solid #ccc; }
-    #sbplus #sbplus_main_wrapper #sbplus_right_col {
+    .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col {
       -webkit-flex: 1 0 28.89%;
       flex: 1 0 28.89%; }
-  #sbplus #sbplus_control_bar {
+  .sbplus_wrapper #sbplus #sbplus_control_bar {
     height: 50px;
     font-size: 100%; }
-    #sbplus #sbplus_control_bar #sbplus_left_controls #sbplus_previous_btn {
+    .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_left_controls #sbplus_previous_btn {
       max-width: 100px; }
-    #sbplus #sbplus_control_bar #sbplus_left_controls #sbplus_next_btn {
+    .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_left_controls #sbplus_next_btn {
       max-width: 100px; }
-    #sbplus #sbplus_control_bar #sbplus_left_controls #sbplus_page_status {
+    .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_left_controls #sbplus_page_status {
       -webkit-justify-content: flex-start;
       justify-content: flex-start; }
-    #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper {
+    .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper {
       display: block; }
-    #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_sidebar_btn {
+    .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_sidebar_btn {
       display: block; } }
 
 /*# sourceMappingURL=sbplus.css.map */
