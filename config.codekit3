@@ -24,7 +24,7 @@
 	"\/config.rb": {
 		"ft": 8192,
 		"oA": 0,
-		"oAP": "\/build\/config.rb",
+		"oAP": "\/config.rb",
 		"oF": 0
 		},
 	"\/LICENSE": {

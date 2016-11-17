@@ -377,7 +377,8 @@ body {
                     @include flex( 1 0 auto );
                     height: 30px;
                     max-height: 30px;
-                    background-color: $border-color;
+                    background-color: #ececed;
+                    border-bottom: 2px solid $border-color;
                     
                     .backBtn {
                         @include flex( 1 0 10% );
@@ -430,8 +431,8 @@ body {
                         @include display-flex();
                         @include flex-flow( row nowrap );
                         @include align-items( center );
-                        height: 40px;
-                        padding: 0 ($gutter + 5);
+                        min-height: 35px;
+                        padding: 5px ($gutter + 5);
                         border-bottom: 1px solid #e8e8e8;
                         cursor: pointer;
                     }
@@ -449,11 +450,90 @@ body {
                 }
                 
                 #sbplus_table_of_contents_wrapper {
+                    
                     @include display-flex();
                     @include flex-flow( column nowrap );
                     @include flex( 2 0 auto );
                     height: calc(100% - 30px);
                     overflow-y: scroll;
+                    
+                    .section {
+                        
+                        .header {
+                            
+                            @include display-flex();
+                            @include flex-flow( row nowrap );
+                            @include align-items( center );
+                            min-height: 40px;
+                            background-color: #ececed;
+                            border-top: 1px solid $border-color;
+                            cursor: pointer;
+                            
+                            .title {
+                                font-weight: bold;
+                                padding: 5px 10px;
+                                line-height: 1;
+                                @include flex( 2 0 89.5% );
+                            }
+                            
+                            .icon {
+                                @include flex( 1 0 10.5% );
+                            }
+                            
+                        }
+                        
+                        .current {
+                            
+                            border-left: 5px solid $default-accent;
+                            
+                            .title {
+                                padding-left: 5px;
+                            }
+                            
+                        }
+                        
+                        .list {
+                            
+                            .item:first-child {
+                                border-top: 1px solid $border-color;
+                            }
+                            
+                            .item:last-child {
+                                border-bottom: none;
+                            }
+                            
+                        }
+                        
+                    }
+                    
+                    .section:first-child {
+                        
+                        .header {
+                            border-top: none;
+                        }
+                        
+                    }
+                    
+                    .section:last-child {
+                        
+                        .header {
+                            border-bottom: 1px solid $border-color;
+                        }
+                        
+                        .list {
+                            
+                            .item:first-child {
+                                border-top: none;
+                            }
+                            
+                            .item:last-child {
+                                border-bottom: 1px solid #e8e8e8;
+                            }
+                            
+                        }
+                        
+                    }
+                    
                 }
                 
                 #sbplus_menu_items_wrapper {

@@ -80,7 +80,7 @@
             <div id="sbplus_table_of_contents_wrapper">
                 
                 <div class="section">
-                    <div class="header">
+                    <div class="header current">
                         <div class="title">Section 1</div>
                         <div class="icon"><span class="icon-collapse"></span></div>
                     </div>
@@ -108,45 +108,6 @@
                 <div class="section">
                     <div class="header">
                         <div class="title">Section 3</div>
-                        <div class="icon"><span class="icon-collapse"></span></div>
-                    </div>
-                    <ul class="list">
-                        <li class="item">Item 1</li>
-                        <li class="item">Item 2</li>
-                        <li class="item">Item 3</li>
-                    </ul>
-                
-                </div>
-                
-                <div class="section">
-                    <div class="header">
-                        <div class="title">Section 4</div>
-                        <div class="icon"><span class="icon-collapse"></span></div>
-                    </div>
-                    <ul class="list">
-                        <li class="item">Item 1</li>
-                        <li class="item">Item 2</li>
-                        <li class="item">Item 3</li>
-                    </ul>
-                
-                </div>
-                
-                <div class="section">
-                    <div class="header">
-                        <div class="title">Section 5</div>
-                        <div class="icon"><span class="icon-collapse"></span></div>
-                    </div>
-                    <ul class="list">
-                        <li class="item">Item 1</li>
-                        <li class="item">Item 2</li>
-                        <li class="item">Item 3</li>
-                    </ul>
-                
-                </div>
-                
-                <div class="section">
-                    <div class="header">
-                        <div class="title">Section 5</div>
                         <div class="icon"><span class="icon-collapse"></span></div>
                     </div>
                     <ul class="list">

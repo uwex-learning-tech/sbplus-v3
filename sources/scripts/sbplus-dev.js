@@ -5,6 +5,7 @@ var SBPLUS = SBPLUS || {
     ***************************************************************************/
     
     layout: null,
+    tableOfContents: null,
     menu : null,
     button: null,
     manifest: null,
@@ -33,6 +34,11 @@ var SBPLUS = SBPLUS || {
                 sidebar: '#sbplus_right_col',
                 dwnldMenu: null
             };
+            
+            this.tableOfContents = {
+                header: '.section .header',
+                item: '.section .list .item'
+            },
             
             this.button = {
                 start: '#sbplus_start_btn',
@@ -103,6 +109,8 @@ var SBPLUS = SBPLUS || {
                 // set options from url parameters
                 self.setURLOptions();
                 
+                // show error is any
+                
                 if ( self.checkForSupport() === 0 ) {
                     self.showErrorScreen();
                     return false;
@@ -115,6 +123,8 @@ var SBPLUS = SBPLUS || {
                 $( self.button.author ).on( 'click', self.showAthrPrfl.bind( self ) );
                 $( self.button.start ).on( 'click', self.hideSplash.bind( self ) );
                 $( self.button.resume ).on( 'click', self.hideSplash.bind( self ) );
+                $( self.tableOfContents.header ).on( 'click', self.toggleSection.bind(self) );
+                $( self.tableOfContents.item ).on( 'click', self.selectItem.bind(self) );
                 
                 self.layout.dwnldMenu = new MenuBar( $( self.button.download )[0].id, false );
                 
@@ -136,6 +146,45 @@ var SBPLUS = SBPLUS || {
         } else {
             
             return 'Storybook Plus template already loaded.';
+            
+        }
+        
+    },
+    
+    toggleSection: function( e ) {
+        
+        var current = $( e.currentTarget );
+        var target = $( current.siblings( '.list' ) );
+        var icon = current.find( '.icon' );
+        
+        console.log(icon);
+        
+        if ( target.is( ':visible' ) ) {
+            target.slideUp();
+            icon.html( '<span class="icon-open"></span>' );
+        } else {
+            target.slideDown();
+            icon.html( '<span class="icon-collapse"></span>' );
+        }
+        
+    },
+    
+    selectItem: function( e ) {
+        
+        var current = $( e.currentTarget );
+        
+        if ( !current.hasClass( 'sb_selected' ) ) {
+            
+            var item = $( this.tableOfContents.item );
+            var parentSection = $( e.currentTarget ).parent().siblings( '.header' );
+            
+            if ( !parentSection.hasClass( 'current' ) ) {
+                $( this.tableOfContents.header ).removeClass( 'current' );
+                parentSection.addClass( 'current' );
+            }
+            
+            item.removeClass( 'sb_selected' );
+            current.addClass( 'sb_selected' );
             
         }
         
@@ -340,15 +389,19 @@ var SBPLUS = SBPLUS || {
     
     resetMenu: function() {
         
-        var menuBar = $( this.menu.menuBar );
+        if ( !$( this.menu.menuPanel ).is( ':visible' ) ) {
+            
+            var menuBar = $( this.menu.menuBar );
         
-        menuBar.addClass( 'full' )
-            .find( '.backBtn' ).html( '' ).prop( 'disabled', true );
-        menuBar.find( '.title' ).html( 'Table of Contents' );
-        
-        $( this.menu.menuList ).show();
-        $( this.menu.menuContent ).empty().hide();
-        $( this.menu.menuItem ).off( 'click' );
+            menuBar.addClass( 'full' )
+                .find( '.backBtn' ).html( '' ).prop( 'disabled', true );
+            menuBar.find( '.title' ).html( 'Table of Contents' );
+            
+            $( this.menu.menuList ).show();
+            $( this.menu.menuContent ).empty().hide();
+            $( this.menu.menuItem ).off( 'click' );
+            
+        }
         
     },
     
@@ -364,9 +417,13 @@ var SBPLUS = SBPLUS || {
     
     showErrorScreen: function() {
         
-        $( this.layout.sbplus ).hide();
-        $( this.layout.errorScreen ).show().addClass( 'shake' )
-            .css( 'display', 'flex' );
+        if ( this.checkForSupport() === 0 ) {
+            $( this.layout.sbplus ).hide();
+            $( this.layout.errorScreen ).show().addClass( 'shake' )
+                .css( 'display', 'flex' );
+        } else {
+            return 'No errors!';
+        }
         
     },
     
