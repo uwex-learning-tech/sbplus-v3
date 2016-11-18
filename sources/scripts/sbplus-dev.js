@@ -120,7 +120,9 @@ var SBPLUS = SBPLUS || {
                 $( self.button.sidebar ).on( 'click', self.toggleSidebar.bind( self ) );
                 $( self.button.widget ).on( 'click',  self.toggleWidget.bind( self ) );
                 $( self.button.menu ).on( 'click', self.toggleMenu.bind( self ) );
-                $( self.button.author ).on( 'click', self.showAthrPrfl.bind( self ) );
+                $( self.button.author ).on( 'click', function() {
+                    self.openMenuItem( '#sbplus_author_profile' );
+                } );
                 $( self.button.start ).on( 'click', self.hideSplash.bind( self ) );
                 $( self.button.resume ).on( 'click', self.hideSplash.bind( self ) );
                 $( self.tableOfContents.header ).on( 'click', self.toggleSection.bind(self) );
@@ -153,18 +155,28 @@ var SBPLUS = SBPLUS || {
     
     toggleSection: function( e ) {
         
-        var current = $( e.currentTarget );
-        var target = $( current.siblings( '.list' ) );
-        var icon = current.find( '.icon' );
+        if ( $( this.tableOfContents.header ).length > 1 ) {
+            
+            var current;
         
-        console.log(icon);
-        
-        if ( target.is( ':visible' ) ) {
-            target.slideUp();
-            icon.html( '<span class="icon-open"></span>' );
-        } else {
-            target.slideDown();
-            icon.html( '<span class="icon-collapse"></span>' );
+            if ( e instanceof Object ) {
+                current = $( e.currentTarget );
+                
+            } else {
+                current = $( '.header:eq(' + ( Number( e ) - 1 ) + ')' );
+            }
+            
+            var target = $( current.siblings( '.list' ) );
+            var icon = current.find( '.icon' );
+            
+            if ( target.is( ':visible' ) ) {
+                target.slideUp();
+                icon.html( '<span class="icon-open"></span>' );
+            } else {
+                target.slideDown();
+                icon.html( '<span class="icon-collapse"></span>' );
+            }
+            
         }
         
     },
@@ -306,6 +318,7 @@ var SBPLUS = SBPLUS || {
             .one( 'webkitAnimationEnd mozAnimationEnd animationend', 
                  function() {
                      $( this ).removeClass( 'slideInRight' );
+                     $( this ).off();
                  }
             );
             
@@ -340,6 +353,10 @@ var SBPLUS = SBPLUS || {
     
     openMenuItem: function( e ) {
         
+        if ( !$( this.menu.menuPanel ).is( ':visible' ) ) {
+            this.showMenu();
+        }
+        
         var itemId = '';
         
         if ( typeof e === 'string' ) {
@@ -357,33 +374,52 @@ var SBPLUS = SBPLUS || {
         menuBar.removeClass( 'full' );
         menuBar.find( '.title' ).html( target.html() );
         
-        menuList.addClass( 'fadeOutLeft' )
-            .one( 'webkitAnimationEnd mozAnimationEnd animationend', 
+        if ( menuContent.is( ':visible' ) ) {
+            
+            menuList.off();
+            
+        } else {
+            
+            if ( !menuList.hasClass( 'fadeOutLeft' ) ) {
+                menuList.addClass( 'fadeOutLeft' );
+            }
+            
+            menuList.one( 'webkitAnimationEnd mozAnimationEnd animationend', 
                 function() {
+                    
                     $(this).hide().removeClass( 'fadeOutLeft' );
                     menuContent.show()
                         .html( '<p>External template data here...</p>' );
                     $( this ).off();
+                    
                 }
             );
-        
-        backBtn.html( '<span class="icon-left"></span>' ).prop( 'disabled', false ).on( 'click', 
-            function() {
-                
-                menuBar.addClass( 'full' ).find( '.title' ).html( 'Menu' );
-                
-                menuList.show().addClass( 'fadeInLeft' )
-                    .one( 'webkitAnimationEnd mozAnimationEnd animationend', 
+            
+            backBtn.html( '<span class="icon-left"></span>' )
+                   .prop( 'disabled', false ).one( 'click', function() {
+                    
+                        menuBar.addClass( 'full' ).find( '.title' ).html( 'Menu' );
+                        
+                        menuList.show();
+                        
+                        if ( !menuList.hasClass( 'fadeInLeft' ) ) {
+                            menuList.addClass( 'fadeInLeft' );
+                        }
+                        
+                        menuList.one( 'webkitAnimationEnd mozAnimationEnd animationend', 
                         function() {
                             $( this ).removeClass( 'fadeInLeft' );
                             $( this ).off();
                         } );
-                
-                menuContent.hide().empty();
-                $( this ).empty().prop( 'disabled', true );
-                $( this ).off( 'click' );
-                
-        } );
+                        
+                        menuContent.hide().empty();
+                        
+                        $( this ).empty().prop( 'disabled', true );
+                        $( this ).off( 'click' );
+                    
+                    } );
+            
+        }
             
     },
     
@@ -402,16 +438,6 @@ var SBPLUS = SBPLUS || {
             $( this.menu.menuItem ).off( 'click' );
             
         }
-        
-    },
-    
-    showAthrPrfl: function() {
-        
-        if ( !$( this.menu.menuPanel ).is( ':visible' ) ) {
-            this.showMenu();
-        }
-        
-        this.openMenuItem( '#sbplus_author_profile' );
         
     },
     
