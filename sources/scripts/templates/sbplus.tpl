@@ -85,9 +85,9 @@
                         <div class="icon"><span class="icon-collapse"></span></div>
                     </div>
                     <ul class="list">
-                        <li class="item sb_selected">Item 1</li>
-                        <li class="item">Item 2</li>
-                        <li class="item">Item 3</li>
+                        <li class="item sb_selected" data-page="0,0">Item 1</li>
+                        <li class="item" data-page="0,1">Item 2</li>
+                        <li class="item" data-page="0,2">Item 3</li>
                     </ul>
                 
                 </div>
@@ -98,9 +98,9 @@
                         <div class="icon"><span class="icon-collapse"></span></div>
                     </div>
                     <ul class="list">
-                        <li class="item">Item 1</li>
-                        <li class="item">Item 2</li>
-                        <li class="item">Item 3</li>
+                        <li class="item" data-page="1,0">Item 1</li>
+                        <li class="item" data-page="1,1">Item 2</li>
+                        <li class="item" data-page="1,2">Item 3</li>
                     </ul>
                 
                 </div>
@@ -111,9 +111,9 @@
                         <div class="icon"><span class="icon-collapse"></span></div>
                     </div>
                     <ul class="list">
-                        <li class="item">Item 1</li>
-                        <li class="item">Item 2</li>
-                        <li class="item">Item 3</li>
+                        <li class="item" data-page="2,0">Item 1</li>
+                        <li class="item" data-page="2,1">Item 2</li>
+                        <li class="item" data-page="2,2">Item 3</li>
                     </ul>
                 
                 </div>

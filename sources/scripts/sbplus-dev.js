@@ -10,13 +10,14 @@ var SBPLUS = SBPLUS || {
     button: null,
     manifest: null,
     isReady: false,
-    alreadyLoaded: false,
+    templateLoaded: false,
+    beforePresentingDone: false,
     
     /***************************************************************************
         CORE FUNCTIONS
     ***************************************************************************/
     
-    ready: function() {
+    go: function() {
         
         if ( this.manifest === null ) {
             
@@ -37,7 +38,7 @@ var SBPLUS = SBPLUS || {
             
             this.tableOfContents = {
                 header: '.section .header',
-                item: '.section .list .item'
+                page: '.section .list .item'
             },
             
             this.button = {
@@ -90,27 +91,23 @@ var SBPLUS = SBPLUS || {
     
     loadTemplate: function() {
         
-        if ( this.isReady && this.alreadyLoaded === false ) {
+        if ( this.isReady && this.templateLoaded === false ) {
             
             var self = this;
-            var manifestUrl = this.manifest.sbplus_root_directory;
-            manifestUrl += 'scripts/templates/sbplus.tpl';
+            var templateUrl = this.manifest.sbplus_root_directory;
+            templateUrl += 'scripts/templates/sbplus.tpl';
             
             // call and set the template frame
-            $.get( manifestUrl, function( data ) {
+            $.get( templateUrl, function( data ) {
                 
-                self.alreadyLoaded = true;
+                self.templateLoaded = true;
                 
                 $( self.layout.wrapper ).html( data );
                 
-                // calculate the layout initially
-                self.resize();
-                
-                // set options from url parameters
-                self.setURLOptions();
+                // do initial setup before presenting
+                self.beforePresenting();
                 
                 // show error is any
-                
                 if ( self.checkForSupport() === 0 ) {
                     self.showErrorScreen();
                     return false;
@@ -126,7 +123,7 @@ var SBPLUS = SBPLUS || {
                 $( self.button.start ).on( 'click', self.hideSplash.bind( self ) );
                 $( self.button.resume ).on( 'click', self.hideSplash.bind( self ) );
                 $( self.tableOfContents.header ).on( 'click', self.toggleSection.bind(self) );
-                $( self.tableOfContents.item ).on( 'click', self.selectItem.bind(self) );
+                $( self.tableOfContents.page ).on( 'click', self.selectPage.bind(self) );
                 
                 self.layout.dwnldMenu = new MenuBar( $( self.button.download )[0].id, false );
                 
@@ -153,21 +150,45 @@ var SBPLUS = SBPLUS || {
         
     },
     
-    toggleSection: function( e ) {
+    beforePresenting: function() {
         
-        if ( $( this.tableOfContents.header ).length > 1 ) {
+        if ( this.isReady && this.templateLoaded && this.beforePresentingDone === false ) {
             
-            var current;
-        
-            if ( e instanceof Object ) {
-                current = $( e.currentTarget );
-                
-            } else {
-                current = $( '.header:eq(' + ( Number( e ) - 1 ) + ')' );
+            this.beforePresentingDone = true;
+            this.resize();
+            this.setURLOptions();
+            
+            var pageSectionHeader = $( this.tableOfContents.header );
+            if ( pageSectionHeader.length === 1 ) {
+                pageSectionHeader.hide().off( 'click' );
             }
             
-            var target = $( current.siblings( '.list' ) );
-            var icon = current.find( '.icon' );
+        }
+        
+    },
+    
+    toggleSection: function( e ) {
+        
+        var totalHeaderCount = $( this.tableOfContents.header ).length;
+        
+        if ( totalHeaderCount > 1 ) {
+            
+            var targetSectionHeader;
+        
+            if ( e instanceof Object ) {
+                targetSectionHeader = $( e.currentTarget );
+            } else {
+                
+                if ( Number( e ) > totalHeaderCount - 1 ) {
+                    return false;
+                }
+                
+                targetSectionHeader = $( '.header:eq(' + e + ')' );
+                
+            }
+            
+            var target = $( targetSectionHeader.siblings( '.list' ) );
+            var icon = targetSectionHeader.find( '.icon' );
             
             if ( target.is( ':visible' ) ) {
                 target.slideUp();
@@ -181,22 +202,40 @@ var SBPLUS = SBPLUS || {
         
     },
     
-    selectItem: function( e ) {
+    selectPage: function( e ) {
         
-        var current = $( e.currentTarget );
+        var targetPage;
         
-        if ( !current.hasClass( 'sb_selected' ) ) {
+        if ( e instanceof Object ) {
+            targetPage = $( e.currentTarget );
+        } else {
             
-            var item = $( this.tableOfContents.item );
-            var parentSection = $( e.currentTarget ).parent().siblings( '.header' );
+            targetPage = $( '.item[data-page="' + e + '"]' );
             
-            if ( !parentSection.hasClass( 'current' ) ) {
-                $( this.tableOfContents.header ).removeClass( 'current' );
-                parentSection.addClass( 'current' );
+            if ( targetPage.length === 0 ) {
+                return false;
             }
             
-            item.removeClass( 'sb_selected' );
-            current.addClass( 'sb_selected' );
+        }
+        
+        if ( !targetPage.hasClass( 'sb_selected' ) ) {
+            
+            var previousPage = $( this.tableOfContents.page );
+            var sectionHeader = $( this.tableOfContents.header );
+            
+            if ( sectionHeader.length > 1 ) {
+                
+                var targetHeader = targetPage.parent().siblings( '.header' );
+            
+                if ( !targetHeader.hasClass( 'current' ) ) {
+                    sectionHeader.removeClass( 'current' );
+                    targetHeader.addClass( 'current' );
+                }
+                
+            }
+            
+            previousPage.removeClass( 'sb_selected' );
+            targetPage.addClass( 'sb_selected' );
             
         }
         
@@ -581,7 +620,7 @@ var SBPLUS = SBPLUS || {
 
 $( function() {
     
-    SBPLUS.ready();
+    SBPLUS.go();
     
 } );
 
