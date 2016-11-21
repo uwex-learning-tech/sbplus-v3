@@ -367,6 +367,7 @@ var SBPLUS = SBPLUS || {
     
     hideMenu: function() {
         
+        var self = this;
         var menuPanel = $( this.menu.menuPanel );
         var menuBar = $( this.menu.menuBar );
         
@@ -382,11 +383,10 @@ var SBPLUS = SBPLUS || {
             .one( 'webkitAnimationEnd mozAnimationEnd animationend', 
                 function() {
                     menuPanel.hide().removeClass( 'slideOutRight' );
+                    self.resetMenu();
                     $( this ).off();
                 }
              );
-        
-        this.resetMenu();
 
     },
     
@@ -434,29 +434,28 @@ var SBPLUS = SBPLUS || {
                 }
             );
             
-            backBtn.html( '<span class="icon-left"></span>' )
-                   .prop( 'disabled', false ).one( 'click', function() {
+            backBtn.prop( 'disabled', false ).one( 'click', function() {
                     
-                        menuBar.addClass( 'full' ).find( '.title' ).html( 'Menu' );
-                        
-                        menuList.show();
-                        
-                        if ( !menuList.hasClass( 'fadeInLeft' ) ) {
-                            menuList.addClass( 'fadeInLeft' );
-                        }
-                        
-                        menuList.one( 'webkitAnimationEnd mozAnimationEnd animationend', 
-                        function() {
-                            $( this ).removeClass( 'fadeInLeft' );
-                            $( this ).off();
-                        } );
-                        
-                        menuContent.hide().empty();
-                        
-                        $( this ).empty().prop( 'disabled', true );
-                        $( this ).off( 'click' );
-                    
-                    } );
+                menuBar.addClass( 'full' ).find( '.title' ).html( 'Menu' );
+                
+                menuList.show();
+                
+                if ( !menuList.hasClass( 'fadeInLeft' ) ) {
+                    menuList.addClass( 'fadeInLeft' );
+                }
+                
+                menuList.one( 'webkitAnimationEnd mozAnimationEnd animationend', 
+                function() {
+                    $( this ).removeClass( 'fadeInLeft' );
+                    $( this ).off();
+                } );
+                
+                menuContent.hide().empty();
+                
+                $( this ).prop( 'disabled', true );
+                $( this ).off( 'click' );
+            
+            } );
             
         }
             
@@ -468,9 +467,9 @@ var SBPLUS = SBPLUS || {
             
             var menuBar = $( this.menu.menuBar );
         
-            menuBar.addClass( 'full' )
-                .find( '.backBtn' ).html( '' ).prop( 'disabled', true );
             menuBar.find( '.title' ).html( 'Table of Contents' );
+            menuBar.addClass( 'full' );
+            menuBar.find( '.backBtn' ).hide().prop( 'disabled', true );
             
             $( this.menu.menuList ).show();
             $( this.menu.menuContent ).empty().hide();

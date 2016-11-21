@@ -73,7 +73,7 @@
         <div id="sbplus_right_col">
             
             <div id="sbplus_sub_bar" class="full">
-                <button class="backBtn"></button>
+                <button class="backBtn"><span class="icon-left"></span></button>
                 <div class="title">Table of Contents</div>
             </div>
             

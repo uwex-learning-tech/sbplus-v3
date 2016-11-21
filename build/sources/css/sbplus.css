@@ -312,7 +312,8 @@ body {
           min-width: 0;
           min-height: 100%;
           background-color: transparent;
-          text-align: center; }
+          text-align: center;
+          padding-top: 2px; }
         .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col #sbplus_sub_bar .backBtn:disabled {
           cursor: default; }
         .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col #sbplus_sub_bar .title {
