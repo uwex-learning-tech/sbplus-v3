@@ -26,10 +26,35 @@
         <script src="sources/scripts/libs/modernizr.js" type="text/javascript"></script>
         <script src="sources/scripts/libs/jquery.js" type="text/javascript"></script>
         <script src="sources/scripts/sbplus.js" type="text/javascript"></script>
+        <script>
+            $( document ).ready( function() {
+                $( '#startBtn' ).on( 'click', function() {
+                    SBPLUS.hideSplash();
+                } );
+                $( '#goToPageDemo' ).on( 'click', function() {
+                    SBPLUS.selectPage('2,0');
+                    return false;
+                } );
+                $( '#goToIns' ).on( 'click', function() {
+                    SBPLUS.openMenuItem('#sbplus_author_profile');
+                    return false;
+                } );
+                $( '#collapseDemo' ).on( 'click', function() {
+                    SBPLUS.toggleSection('1');
+                    return false;
+                } );
+            } );
+        </script>
     </head>
     <body>
         
+        <h1>Demo</h1>
+        
         <div class="sbplus_wrapper"></div>
+        
+        <p><strong>Event Exposed!</strong></p>
+        <p> Click this <button id="startBtn">Start</button> button to start. <a id="goToPageDemo" href="#">Section 3, Item 1</a> is very interesting. So is the <a id="goToIns" href="#">instructor</a>.</p>
+        <p>Section 2 is not interesting, <a id="collapseDemo" href="#">let's collapse it</a>.</p>
         
     </body>
 </html>

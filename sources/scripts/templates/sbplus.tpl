@@ -66,7 +66,26 @@
                 <div class="sbplus_media_content"></div>
             </div>
             
-            <div id="sbplus_widget"></div>
+            <div id="sbplus_widget">
+                
+                <div class="tab_segment">
+                    <button class="active">Notes</button>
+                    <button>Live Transcript</button>
+                </div>
+                
+                <div class="segment_content">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Praesentium eius inventore dicta adipisci molestias libero, aut corrupti, dolore cupiditate vitae voluptatum odio obcaecati rerum odit? Recusandae ipsam architecto harum eos.</p>
+                    <p>Aspernatur maiores ullam possimus, voluptas inventore debitis, amet hic accusamus voluptate sequi repellat repellendus, perferendis sunt deleniti nostrum laudantium dolorem. Laudantium provident rerum dicta reprehenderit excepturi in omnis sunt nesciunt.</p>
+                    <p>Adipisci, quis et blanditiis perspiciatis nulla velit dolorum aut nihil harum quidem nisi, sit doloribus dolore autem porro id totam assumenda quos consequuntur reprehenderit itaque alias? Odit, nemo corrupti ratione.</p>
+                    <p>Tempora accusantium mollitia a, adipisci eveniet eum nemo repellendus perferendis aliquam aperiam aut nulla esse enim voluptate minima at quasi laborum deserunt ipsam unde corrupti, nisi quaerat necessitatibus saepe error.</p>
+                    <p>Perspiciatis nam ipsam iste, eos qui dolorem ea non commodi fugiat. Nobis doloribus suscipit porro sequi, in dolorem quaerat accusantium alias quo natus, corporis repellat error cupiditate quos reiciendis aliquam.</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facilis doloremque numquam aut eius exercitationem totam autem eum, sequi architecto, similique eos consectetur ipsa quod, aperiam consequatur dolor maiores. Officia, tenetur.</p>
+                    <p>Non provident optio, repellat pariatur eaque eum? Culpa pariatur voluptatum sit optio ab necessitatibus porro non hic, quam obcaecati molestiae, saepe repellendus! Ab, vitae velit cupiditate sint, officiis neque obcaecati!</p>
+                    <p>Dignissimos vel minus debitis accusantium libero dolor. Magni sunt quos hic aperiam quae minus ut iure eveniet, dolores incidunt reprehenderit provident eos, dicta deserunt distinctio sed! Fugiat fuga pariatur beatae.</p>
+                    <p>Ipsa, ipsum, distinctio! Nisi totam natus vel alias, dicta! Sint doloremque distinctio nam, quidem, omnis, soluta quae aspernatur esse, eos consectetur ipsum laboriosam tempora incidunt ullam. Sit deleniti assumenda ut?</p>
+                </div>
+                
+            </div>
             
         </div>
         
@@ -114,6 +133,19 @@
                         <li class="item" data-page="2,0">Item 1</li>
                         <li class="item" data-page="2,1">Item 2</li>
                         <li class="item" data-page="2,2">Item 3</li>
+                    </ul>
+                
+                </div>
+                
+                <div class="section">
+                    <div class="header">
+                        <div class="title">Section 4</div>
+                        <div class="icon"><span class="icon-collapse"></span></div>
+                    </div>
+                    <ul class="list">
+                        <li class="item" data-page="3,0">Item 1</li>
+                        <li class="item" data-page="3,1">Item 2</li>
+                        <li class="item" data-page="3,2">Item 3</li>
                     </ul>
                 
                 </div>

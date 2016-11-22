@@ -350,12 +350,57 @@ body {
                 }
                 
                 #sbplus_widget {
+                    
                     position: absolute;
                     width: 100%;
                     height: 190px;
                     bottom: -190px;
                     z-index: 1;
                     background-color: #fff;
+                    overflow: hidden;
+                    
+                    .tab_segment {
+                        
+                        @include display-flex();
+                        @include flex-flow( row nowrap );
+                        @include justify-content( center );
+                        width: 100%;
+                        margin: $gutter auto;
+                        
+                        button {
+                            border: 1px solid $default-accent;
+                            width: auto;
+                            min-width: 90px;
+                            min-height: 0;
+                            padding: 2px 5px;
+                            font-size: 11px;
+                            line-height: 1;
+                            color: $default-accent;
+                        }
+                        
+                        button:first-child {
+                            @include border-radius( 5px 0 0 5px );
+                            border-right: none;
+                        }
+                        
+                        button:last-child {
+                            @include border-radius( 0 5px 5px 0 );
+                        }
+                        
+                        .active {
+                            color: #fff;
+                            background: $default-accent;
+                        }
+                        
+                    }
+                    
+                    .segment_content {
+                        padding: 0 10px 10px;
+                        width: 100%;
+                        height: calc( 100% - 35px );
+                        overflow: scroll;
+                    }
+                    
                 }
                 
             }
@@ -805,7 +850,7 @@ body {
                 max-height: 400px;
                 
                 #sbplus_table_of_contents_wrapper {
-                    max-height: 400px;
+                    max-height: 370px;
                     border-left: 1px solid $border-color;
                 }
                 
@@ -1004,9 +1049,10 @@ body {
                     
                     #sbplus_widget {
                         @include display-flex();
+                        @include flex-flow( column nowrap );
                         @include flex( 1 0 auto );
                         position: relative;
-                        height: auto;
+                        height: 190px;
                         bottom: 0;
                         border-top: 1px solid $border-color;
                     }

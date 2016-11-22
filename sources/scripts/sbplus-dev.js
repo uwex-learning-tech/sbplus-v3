@@ -205,7 +205,7 @@ var SBPLUS = SBPLUS || {
     selectPage: function( e ) {
         
         var targetPage;
-        
+
         if ( e instanceof Object ) {
             targetPage = $( e.currentTarget );
         } else {
@@ -216,6 +216,10 @@ var SBPLUS = SBPLUS || {
                 return false;
             }
             
+        }
+        
+        if ( $( this.layout.splashScreen ).is( ':visible' ) ) {
+            this.hideSplash();
         }
         
         if ( !targetPage.hasClass( 'sb_selected' ) ) {
@@ -392,6 +396,10 @@ var SBPLUS = SBPLUS || {
     
     openMenuItem: function( e ) {
         
+        if ( $( this.layout.splashScreen ).is( ':visible' ) ) {
+            this.hideSplash();
+        }
+        
         if ( !$( this.menu.menuPanel ).is( ':visible' ) ) {
             this.showMenu();
         }
@@ -533,9 +541,9 @@ var SBPLUS = SBPLUS || {
         }
         
         if ( this.layout.isMobile === true ) {
-            sidebar.css( 'height', 'calc( 100% - ' + media.height() + 'px)'  );
+            sidebar.css( 'max-height', '400px'  );
         } else {
-            sidebar.css( 'height', ''  );
+            sidebar.css( 'max-height', ''  );
         }
         
         this.calcWidgetHeight();
@@ -549,12 +557,12 @@ var SBPLUS = SBPLUS || {
         
         if ( this.layout.isMobile === true ) {  
             widget.css( {
-                'height': sidebar.outerHeight(),
+                'min-height': sidebar.outerHeight(),
                 'bottom': sidebar.outerHeight() * -1
             } );
         } else {
             widget.css( {
-                'height': '',
+                'min-height': '',
                 'bottom': ''
             } );
         }
