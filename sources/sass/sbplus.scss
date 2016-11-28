@@ -540,6 +540,26 @@ body {
                         
                         .list {
                             
+                            .item {
+                                
+                                display: block;
+                                text-indent: -35px;
+                                padding: 10px 10px 10px 35px;
+                                
+                                [class^="icon-"],
+                                .numbering {
+                                    display: inline-block;
+                                    width: 20px;
+                                    margin: 0 0 0 10px;
+                                    text-align: right;
+                                }
+                                
+                                [class^="icon-"] {
+                                    margin: 0 5px 0 10px;
+                                }
+                                
+                            }
+                            
                             .item:first-child {
                                 border-top: 1px solid $border-color;
                             }

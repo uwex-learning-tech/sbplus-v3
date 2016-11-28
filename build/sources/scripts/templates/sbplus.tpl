@@ -104,9 +104,15 @@
                         <div class="icon"><span class="icon-collapse"></span></div>
                     </div>
                     <ul class="list">
-                        <li class="item sb_selected" data-page="0,0">Item 1</li>
-                        <li class="item" data-page="0,1">Item 2</li>
-                        <li class="item" data-page="0,2">Item 3</li>
+                        <li class="item sb_selected" data-page="0,0">
+                            <span class="numbering">1.</span> Item 1
+                        </li>
+                        <li class="item" data-page="0,1">
+                            <span class="numbering">2.</span> Item 2
+                        </li>
+                        <li class="item" data-page="0,2">
+                            <span class="icon-assessment"></span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                        </li>
                     </ul>
                 
                 </div>
@@ -117,9 +123,24 @@
                         <div class="icon"><span class="icon-collapse"></span></div>
                     </div>
                     <ul class="list">
-                        <li class="item" data-page="1,0">Item 1</li>
-                        <li class="item" data-page="1,1">Item 2</li>
-                        <li class="item" data-page="1,2">Item 3</li>
+                        <li class="item" data-page="1,0">
+                            <span class="title">
+                                <span class="numbering">4.</span>
+                                Item 1
+                            </span>
+                        </li>
+                        <li class="item" data-page="1,1">
+                            <span class="title">
+                                <span class="numbering">5.</span>
+                                Item 2
+                            </span>
+                        </li>
+                        <li class="item" data-page="1,2">
+                            <span class="title">
+                                <span class="numbering">6.</span>
+                                Item 3
+                            </span>
+                        </li>
                     </ul>
                 
                 </div>
@@ -130,9 +151,24 @@
                         <div class="icon"><span class="icon-collapse"></span></div>
                     </div>
                     <ul class="list">
-                        <li class="item" data-page="2,0">Item 1</li>
-                        <li class="item" data-page="2,1">Item 2</li>
-                        <li class="item" data-page="2,2">Item 3</li>
+                        <li class="item" data-page="2,0">
+                            <span class="title">
+                                <span class="numbering">7.</span>
+                                Item 1
+                            </span>
+                        </li>
+                        <li class="item" data-page="2,1">
+                            <span class="title">
+                                <span class="numbering">8.</span>
+                                Item 2
+                            </span>
+                        </li>
+                        <li class="item" data-page="2,2">
+                            <span class="title">
+                                <span class="numbering">9.</span>
+                                Item 3
+                            </span>
+                        </li>
                     </ul>
                 
                 </div>
@@ -143,9 +179,30 @@
                         <div class="icon"><span class="icon-collapse"></span></div>
                     </div>
                     <ul class="list">
-                        <li class="item" data-page="3,0">Item 1</li>
-                        <li class="item" data-page="3,1">Item 2</li>
-                        <li class="item" data-page="3,2">Item 3</li>
+                        <li class="item" data-page="3,0">
+                            <span class="title">
+                                <span class="numbering">10.</span>
+                                Item 1
+                            </span>
+                        </li>
+                        <li class="item" data-page="3,1">
+                            <span class="title">
+                                <span class="numbering">11.</span>
+                                Item 2
+                            </span>
+                        </li>
+                        <li class="item" data-page="3,2">
+                            <span class="title">
+                                <span class="numbering">12.</span>
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                            </span>
+                        </li>
+                        <li class="item" data-page="3,3">
+                            <span class="title">
+                                <span class="numbering">13.</span>
+                                Item 4
+                            </span>
+                        </li>
                     </ul>
                 
                 </div>
