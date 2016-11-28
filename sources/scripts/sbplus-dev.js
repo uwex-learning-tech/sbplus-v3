@@ -442,7 +442,7 @@ var SBPLUS = SBPLUS || {
                 }
             );
             
-            backBtn.prop( 'disabled', false ).one( 'click', function() {
+            backBtn.show().prop( 'disabled', false ).one( 'click', function() {
                     
                 menuBar.addClass( 'full' ).find( '.title' ).html( 'Menu' );
                 
