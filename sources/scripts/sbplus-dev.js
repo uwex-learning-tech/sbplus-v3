@@ -6,10 +6,12 @@ var SBPLUS = SBPLUS || {
     
     layout: null,
     tableOfContents: null,
-    menu : null,
+    widget: null,
     button: null,
+    menu : null,
     manifest: null,
-    isReady: false,
+    manifestLoaded: false,
+    manifestOptionsLoaded: false,
     templateLoaded: false,
     beforePresentingDone: false,
     
@@ -41,6 +43,12 @@ var SBPLUS = SBPLUS || {
                 page: '.section .list .item'
             },
             
+            this.widget = {
+                bar: '#sbplus_widget .tab_segment',
+                segment: '#sbplus_widget button',
+                segments: []
+            },
+            
             this.button = {
                 start: '#sbplus_start_btn',
                 resume: '#sbplus_resume_btn',
@@ -61,7 +69,7 @@ var SBPLUS = SBPLUS || {
             
             $.getJSON( this.getManifestUrl(), function( data ) {
                 
-                self.isReady = true;
+                self.manifestLoaded = true;
                 self.manifest = data;
                 self.loadTemplate();
                 
@@ -85,13 +93,9 @@ var SBPLUS = SBPLUS || {
              
     },
     
-    /***************************************************************************
-        CORE EVENTS FUNCTIONS
-    ***************************************************************************/
-    
     loadTemplate: function() {
         
-        if ( this.isReady && this.templateLoaded === false ) {
+        if ( this.manifestLoaded && this.templateLoaded === false ) {
             
             var self = this;
             var templateUrl = this.manifest.sbplus_root_directory;
@@ -122,8 +126,9 @@ var SBPLUS = SBPLUS || {
                 } );
                 $( self.button.start ).on( 'click', self.hideSplash.bind( self ) );
                 $( self.button.resume ).on( 'click', self.hideSplash.bind( self ) );
-                $( self.tableOfContents.header ).on( 'click', self.toggleSection.bind(self) );
-                $( self.tableOfContents.page ).on( 'click', self.selectPage.bind(self) );
+                $( self.tableOfContents.header ).on( 'click', self.toggleSection.bind( self ) );
+                $( self.tableOfContents.page ).on( 'click', self.selectPage.bind( self ) );
+                $( self.widget.segment ).on( 'click', self.changeSegment.bind( self ) );
                 
                 self.layout.dwnldMenu = new MenuBar( $( self.button.download )[0].id, false );
                 
@@ -152,17 +157,91 @@ var SBPLUS = SBPLUS || {
     
     beforePresenting: function() {
         
-        if ( this.isReady && this.templateLoaded && this.beforePresentingDone === false ) {
+        if ( this.manifestLoaded && this.templateLoaded && this.beforePresentingDone === false ) {
             
             this.beforePresentingDone = true;
             this.resize();
             this.setURLOptions();
             
             var pageSectionHeader = $( this.tableOfContents.header );
+            
             if ( pageSectionHeader.length === 1 ) {
                 pageSectionHeader.hide().off( 'click' );
             }
             
+            // setup any additional data from the manifest
+            this.setManifestOptions();
+            
+        }
+        
+    },
+    
+    showErrorScreen: function() {
+        
+        if ( this.checkForSupport() === 0 ) {
+            $( this.layout.sbplus ).hide();
+            $( this.layout.errorScreen ).show().addClass( 'shake' )
+                .css( 'display', 'flex' );
+        } else {
+            return 'No errors!';
+        }
+        
+    },
+    
+    /***************************************************************************
+        SPLASH SCREEN FUNCTIONS
+    ***************************************************************************/
+    
+    hideSplash: function() {
+        
+        $( this.layout.splashScreen ).addClass( 'fadeOut' )
+            .one( 'webkitAnimationEnd mozAnimationEnd animationend', 
+                 function() {
+                     $( this ).removeClass( 'fadeOut' ).hide();
+                     $( this ).off();
+                 }
+            );
+            
+    },
+    
+    /***************************************************************************
+        TABLE OF CONTENT (SIDEBAR) FUNCTIONS
+    ***************************************************************************/
+    
+    toggleSidebar: function() {
+        
+        if ( $( this.layout.sidebar ).is( ':visible' ) ) {
+            this.hideSidebar();
+        } else {
+           this.showSidebar();
+        }
+        
+    },
+    
+    hideSidebar: function() {
+        
+        var widget = $( this.layout.widget );
+        var media = $( this.layout.media );
+        
+        $( this.layout.sidebar ).hide();
+        $( this.button.sidebar ).removeClass( 'sb_active' );
+        
+        if ( widget.is( ':visible' ) && widget.outerHeight() <= 190 ) {
+            media.removeClass( 'aspect_ratio' ).addClass( 'non_aspect_ratio' );
+        }
+        
+    },
+    
+    showSidebar: function() {
+        
+        var widget = $( this.layout.widget );
+        var media = $( this.layout.media );
+        
+        $( this.layout.sidebar ).show();
+        $( this.button.sidebar ).addClass( 'sb_active' );
+        
+        if ( widget.is( ':visible' ) && widget.outerHeight() <= 190 ) {
+            media.removeClass( 'non_aspect_ratio' ).addClass( 'aspect_ratio' );
         }
         
     },
@@ -245,92 +324,9 @@ var SBPLUS = SBPLUS || {
         
     },
     
-    hideSplash: function() {
-        
-        $( this.layout.splashScreen ).addClass( 'fadeOut' )
-            .one( 'webkitAnimationEnd mozAnimationEnd animationend', 
-                 function() {
-                     $( this ).removeClass( 'fadeOut' ).hide();
-                     $( this ).off();
-                 }
-            );
-            
-    },
-    
-    toggleSidebar: function() {
-        
-        if ( $( this.layout.sidebar ).is( ':visible' ) ) {
-            this.hideSidebar();
-        } else {
-           this.showSidebar();
-        }
-        
-    },
-    
-    hideSidebar: function() {
-        
-        var widget = $( this.layout.widget );
-        var media = $( this.layout.media );
-        
-        $( this.layout.sidebar ).hide();
-        $( this.button.sidebar ).removeClass( 'sb_active' );
-        
-        if ( widget.is( ':visible' ) && widget.outerHeight() <= 190 ) {
-            media.removeClass( 'aspect_ratio' ).addClass( 'non_aspect_ratio' );
-        }
-        
-    },
-    
-    showSidebar: function() {
-        
-        var widget = $( this.layout.widget );
-        var media = $( this.layout.media );
-        
-        $( this.layout.sidebar ).show();
-        $( this.button.sidebar ).addClass( 'sb_active' );
-        
-        if ( widget.is( ':visible' ) && widget.outerHeight() <= 190 ) {
-            media.removeClass( 'non_aspect_ratio' ).addClass( 'aspect_ratio' );
-        }
-        
-    },
-    
-    toggleWidget: function() {
-        
-        if ( $( this.layout.widget ).is( ':visible' ) ) {
-            this.hideWidget();
-        } else {
-            this.showWidget();
-        }
-        
-    },
-    
-    hideWidget: function() {
-        
-        var media = $( this.layout.media );
-        
-        $( this.layout.widget ).hide();
-        $( this.button.widget ).removeClass( 'sb_active' );
-        
-        if ( this.layout.isMobile ) {
-            media.addClass( 'aspect_ratio' );
-            this.resize();
-        } else {
-            media.removeClass( 'aspect_ratio' )
-                    .addClass( 'non_aspect_ratio' ).css( 'height', '100%');
-        }
-        
-    },
-    
-    showWidget: function() {
-        
-        $( this.layout.widget ).show();
-        $( this.button.widget ).addClass( 'sb_active' );
-        $( this.layout.media ).removeClass( 'non_aspect_ratio' )
-                .addClass( 'aspect_ratio' ).css( 'height', '' );
-        this.resize();
-        
-    },
+    /***************************************************************************
+        MENU FUNCTIONS
+    ***************************************************************************/
     
     toggleMenu: function() {
         
@@ -396,6 +392,8 @@ var SBPLUS = SBPLUS || {
     
     openMenuItem: function( e ) {
         
+        var self = this;
+        
         if ( $( this.layout.splashScreen ).is( ':visible' ) ) {
             this.hideSplash();
         }
@@ -409,13 +407,13 @@ var SBPLUS = SBPLUS || {
         if ( typeof e === 'string' ) {
             itemId = e;
         } else {
-            itemId = '#' + e.currentTarget.id;
+            itemId = e.currentTarget.id;
         }
         
         var menuBar = $( this.menu.menuBar );
         var menuList = $( this.menu.menuList );
         var menuContent = $( this.menu.menuContent );
-        var target = $( itemId );
+        var target = $( '#' + itemId );
         var backBtn = menuBar.find( '.backBtn' );
         
         menuBar.removeClass( 'full' );
@@ -435,8 +433,37 @@ var SBPLUS = SBPLUS || {
                 function() {
                     
                     $(this).hide().removeClass( 'fadeOutLeft' );
-                    menuContent.show()
-                        .html( '<p>External template data here...</p>' );
+                    
+                    var content = "";
+                    
+                    switch ( itemId ) {
+                        
+                        case 'sbplus_author_profile':
+                        content = '<p>Author\'s profile goes here...</p>';
+                        break;
+                        
+                        case 'sbplus_general_info':
+                        content = '<p>General information goes here...</p>';
+                        break;
+                        
+                        case 'sbplus_settings':
+                        content = '<p>Settings go here...</p>';
+                        break;
+                        
+                        default:
+                        var customMenuItems = self.manifest.sbplus_custom_menu_items;
+                        for ( var key in customMenuItems ) {
+                            var menuId = 'sbplus_' + self.sanitize( customMenuItems[key].name );
+                            if ( itemId === menuId ) {
+                                content = customMenuItems[key].content;
+                                break;
+                            }
+                        }
+                        break;
+                        
+                    }
+                    
+                    menuContent.fadeIn().html( content );
                     $( this ).off();
                     
                 }
@@ -487,14 +514,98 @@ var SBPLUS = SBPLUS || {
         
     },
     
-    showErrorScreen: function() {
+    /***************************************************************************
+        WIDGET FUNCTIONS
+    ***************************************************************************/
+    
+    toggleWidget: function() {
         
-        if ( this.checkForSupport() === 0 ) {
-            $( this.layout.sbplus ).hide();
-            $( this.layout.errorScreen ).show().addClass( 'shake' )
-                .css( 'display', 'flex' );
+        if ( $( this.layout.widget ).is( ':visible' ) ) {
+            this.hideWidget();
         } else {
-            return 'No errors!';
+            this.showWidget();
+        }
+        
+    },
+    
+    hideWidget: function() {
+        
+        var media = $( this.layout.media );
+        
+        $( this.layout.widget ).hide();
+        $( this.button.widget ).removeClass( 'sb_active' );
+        
+        if ( this.layout.isMobile ) {
+            media.addClass( 'aspect_ratio' );
+            this.resize();
+        } else {
+            media.removeClass( 'aspect_ratio' )
+                    .addClass( 'non_aspect_ratio' ).css( 'height', '100%');
+        }
+        
+    },
+    
+    showWidget: function() {
+        
+        $( this.layout.widget ).show();
+        $( this.button.widget ).addClass( 'sb_active' );
+        $( this.layout.media ).removeClass( 'non_aspect_ratio' )
+                .addClass( 'aspect_ratio' ).css( 'height', '' );
+        this.resize();
+        
+    },
+    
+    changeSegment: function( e ) {
+        
+        var button = $( this.widget.segment );
+        var target = $( e.currentTarget );
+        
+        button.removeClass( 'active' );
+        target.addClass( 'active' );
+        
+        // TODO: pull and structure content from the XML data
+        
+        
+    },
+    
+    addSegment: function( str ) {
+        
+        var btn = '<button id="' + this.sanitize( str ) + '">' + str + '</button>';
+        
+        this.widget.segments.push( str );
+        $( this.widget.bar ).append( btn );
+        
+    },
+    
+    /***************************************************************************
+        ADDITIONAL MANIFEST OPTION FUNCTIONS
+    ***************************************************************************/
+    
+    setManifestOptions: function() {
+        
+        if ( this.manifestOptionsLoaded === false ) {
+            
+            this.manifestOptionsLoaded = true;
+            var customMenuItems = this.manifest.sbplus_custom_menu_items;
+            
+            if ( customMenuItems.length ) {
+                
+                for ( var key in customMenuItems ) {
+                    
+                    var name = customMenuItems[key].name;
+                    var sanitizedName = this.sanitize( name );
+                    var item = '<li class="menu item" id="sbplus_' + sanitizedName + '"><span class="icon-' + sanitizedName + '"></span> ' + name + '</li>';
+                    
+                    $( this.menu.menuList ).append( item );
+                    
+                }
+                
+            }
+            
+        } else {
+            
+            return 'Manifest options already loaded.';
+            
         }
         
     },
@@ -617,6 +728,12 @@ var SBPLUS = SBPLUS || {
         
         return '';
         
+    },
+    
+    sanitize: function( str ) {
+    
+        return str.replace(/[^\w]/gi, '').toLowerCase();
+    
     }
         
 };

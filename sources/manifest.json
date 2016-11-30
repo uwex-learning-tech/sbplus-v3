@@ -4,7 +4,20 @@
     "sbplus_author_directory": "https://media.uwex.edu/content/media/storybook_support/author/",
     "sbplus_logo_directory": "https://media.uwex.edu/content/media/storybook_support/logo/",
     "sbplus_logo_default": "ceoel",
-    "sbplus_help_information": "<p class=\"name\">Technical Support</p><p>Toll-free: <a href=\"tel:18777247883\">1-877-724-7883</a><br>Email: <a href=\"mailto:techsupport@uwex.edu\">techsupport@uwex.edu</a><br>We are available 7 days per week between 7:00 a.m. and 11:00 p.m. Except legal holidays. All times are U.S. Central Time.</p>",
-    "sbplus_kaltura": { "id": 1660872, "high": 487081, "normal": 487071, "low": 487061 }
+    "sbplus_kaltura": {
+        "id": 1660872,
+        "high": 487081,
+        "normal": 487071,
+        "low": 487061
+    },
+    "sbplus_custom_menu_items": [
+        
+        {
+            "name": "Help",
+            "icon": "help",
+            "content": "<p class=\"name\">Technical Support</p><p>Toll-free: <a href=\"tel:18777247883\">1-877-724-7883</a><br>Email: <a href=\"mailto:techsupport@uwex.edu\">techsupport@uwex.edu</a><br>We are available 7 days per week between 7:00 a.m. and 11:00 p.m. Except legal holidays. All times are U.S. Central Time.</p>"
+        }
+        
+    ]
        
 }

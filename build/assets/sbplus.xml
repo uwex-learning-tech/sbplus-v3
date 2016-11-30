@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <storybook accent="#7b3009" pageImgFormat="jpg" analytics="off" mathjax="on" xmlVersion="3">
     
-    <setup course="">
+    <setup program="" course="">
         
         <title>BKN315 - Chocolate Chip Cookies</title>
         <subtitle>A Sample Storybook Plus Presentation \(\frac{-b\pm\sqrt{b^2-4ac}}{2a}\)</subtitle>
@@ -35,7 +35,11 @@
         </page>
         
         <page type="image-audio" src="slide02" title="Overview">
-            <note />
+            <note></note>
+            <widget>
+                <segment name="Demo One"></segment>
+                <segment name="Demo Two"></segment>
+            </widget>
         </page>
         
         <page type="image-audio" src="slide03" title="Cookie Type \[\left( \sum_{k=1}^n a_k b_k \right)^{\!\!2} \leq\left( \sum_{k=1}^n a_k^2 \right) \left( \sum_{k=1}^n b_k^2 \right)\]">

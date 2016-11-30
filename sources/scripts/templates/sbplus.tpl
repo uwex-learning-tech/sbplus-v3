@@ -69,8 +69,8 @@
             <div id="sbplus_widget">
                 
                 <div class="tab_segment">
-                    <button class="active">Notes</button>
-                    <button>Live Transcript</button>
+                    <button id="notes" class="active">Notes</button>
+                    <button id="live_transcript">Live Transcript</button>
                 </div>
                 
                 <div class="segment_content">
@@ -221,11 +221,6 @@
                     <li class="menu item" id="sbplus_general_info">
                         <span class="icon-info"></span>
                         General Info
-                    </li>
-                    
-                    <li class="menu item" id="sbplus_hello">
-                        <span class="icon-help"></span>
-                        Help
                     </li>
                     
                     <li class="menu item" id="sbplus_settings">
