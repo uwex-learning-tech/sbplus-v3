@@ -15,6 +15,7 @@ var SBPLUS = SBPLUS || {
     templateLoaded: false,
     xml: null,
     xmlLoaded: false,
+    xmlParsed: false,
     beforePresentingDone: false,
     hasError: false,
     
@@ -191,8 +192,8 @@ var SBPLUS = SBPLUS || {
             
             $.get( xmlUrl, function( data ) {
                 
-                self.xml = data;
-                this.xmlLoaded === true;
+                self.xmlLoaded = true;
+                self.parseXMLData( data );
                 
             } ).fail( function( res, status ) {
                 
@@ -208,6 +209,72 @@ var SBPLUS = SBPLUS || {
             
         } else {
             return 'XML already loaded.';
+        }
+        
+    },
+    
+    parseXMLData: function( d ) {
+        
+        if ( this.xmlLoaded && this.xmlParsed === false ) {
+            
+            var data = $( d );
+            var xSb = data.find( 'storybook' );
+            var xSetup = data.find( 'setup' );
+            var xAccent = xSb.attr( 'accent' ).trim();
+            var xImgType = xSb.attr( 'pageImgFormat' ).toLowerCase().trim();
+            var xAnalytics = xSb.attr( 'analytics' ).toLowerCase().trim();
+            var xMathjax = xSb.attr( 'mathjax' ).toLowerCase().trim();
+            var xVersion = xSb.attr( 'xmlVersion' );
+            var xProgram = xSetup.attr( 'program' ).toLowerCase().trim();
+            var xCourse = xSetup.attr( 'course' ).toLowerCase().trim();
+            var xTitle = xSetup.find( 'title' ).text().trim();
+            var xSubtitle = xSetup.find( 'subtitle' ).text().trim();
+            var xLength = xSetup.find( 'length' ).text().trim();
+            var xAuthor = xSetup.find( 'author' );
+            var xGeneralInfo = xSetup.find( 'generalInfo' ).text().trim();
+            var xSections = data.find( 'section' );
+            
+            if ( this.isEmpty( xAccent ) ) {
+                xAccent = '#0c3b6b';
+            }
+            
+            if ( this.isEmpty( xImgType ) ) {
+                xImgType = 'jpg';
+            }
+            
+            if ( xAnalytics !== 'on' ) {
+                xAnalytics = 'off';
+            }
+            
+            if ( xMathjax !== 'on' ) {
+                xMathjax = 'off';
+            }
+            
+            this.xml = {
+                settings: {
+                    accent: xAccent,
+                    imgType: xImgType,
+                    analytics: xAnalytics,
+                    mathjax: xMathjax,
+                    version: xVersion
+                },
+                setup: {
+                    program: xProgram,
+                    course: xCourse,
+                    title: xTitle,
+                    subtitle: xSubtitle,
+                    length: xLength,
+                    author: xAuthor.attr( 'name' ).trim(),
+                    profile: xAuthor.text().trim(),
+                    generalInfo: xGeneralInfo
+                },
+                sections: xSections
+            };
+            
+            this.xmlParsed = true;
+            
+        } else {
+            return 'XML already parsed.';
         }
         
     },
@@ -803,6 +870,12 @@ var SBPLUS = SBPLUS || {
     
         return str.replace(/[^\w]/gi, '').toLowerCase();
     
+    },
+    
+    isEmpty: function( str ) {
+        
+        return str === undefined || !str.trim() || str.trim().length === 0;
+        
     }
         
 };
