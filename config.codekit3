@@ -244,6 +244,24 @@
 		"oAP": "\/build\/sources\/scripts\/templates\/sbplus.tpl",
 		"oF": 2
 		},
+	"\/sources\/scripts\/templates\/support_error.tpl": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/build\/sources\/scripts\/templates\/support_error.tpl",
+		"oF": 2
+		},
+	"\/sources\/scripts\/templates\/xml_error.tpl": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/build\/sources\/scripts\/templates\/xml_error.tpl",
+		"oF": 2
+		},
+	"\/sources\/scripts\/templates\/xml_parse_error.tpl": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/build\/sources\/scripts\/templates\/xml_parse_error.tpl",
+		"oF": 2
+		},
 	"\/test\/index.html": {
 		"ft": 8192,
 		"oA": 1,
@@ -276,7 +294,7 @@
 	"displayValue": "sbplus_v3",
 	"displayValueWasSetByUser": 0,
 	"iconImageName": "meme-soon",
-	"lastBuiltDate": 500425285
+	"lastBuiltDate": 502226176
 	},
 "projectSettings": {
 	"abortBuildOnError": 1,

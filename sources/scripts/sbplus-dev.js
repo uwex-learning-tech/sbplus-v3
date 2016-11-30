@@ -13,7 +13,10 @@ var SBPLUS = SBPLUS || {
     manifestLoaded: false,
     manifestOptionsLoaded: false,
     templateLoaded: false,
+    xml: null,
+    xmlLoaded: false,
     beforePresentingDone: false,
+    hasError: false,
     
     /***************************************************************************
         CORE FUNCTIONS
@@ -113,9 +116,12 @@ var SBPLUS = SBPLUS || {
                 
                 // show error is any
                 if ( self.checkForSupport() === 0 ) {
-                    self.showErrorScreen();
+                    self.hasError = true;
+                    self.showErrorScreen( 'support' );
                     return false;
                 }
+                
+                self.loadXML();
                 
                 // button click events
                 $( self.button.sidebar ).on( 'click', self.toggleSidebar.bind( self ) );
@@ -176,14 +182,32 @@ var SBPLUS = SBPLUS || {
         
     },
     
-    showErrorScreen: function() {
+    loadXML: function() {
         
-        if ( this.checkForSupport() === 0 ) {
-            $( this.layout.sbplus ).hide();
-            $( this.layout.errorScreen ).show().addClass( 'shake' )
-                .css( 'display', 'flex' );
+        if ( this.beforePresentingDone === true && this.xmlLoaded === false ) {
+            
+            var self = this;
+            var xmlUrl = 'assets/sbplus.xml';
+            
+            $.get( xmlUrl, function( data ) {
+                
+                self.xml = data;
+                this.xmlLoaded === true;
+                
+            } ).fail( function( res, status ) {
+                
+                self.hasError = true;
+                
+                if ( status === 'parsererror' ) {
+                    self.showErrorScreen( 'parser' );
+                } else {
+                    self.showErrorScreen( 'xml' );
+                }
+                
+            } );
+            
         } else {
-            return 'No errors!';
+            return 'XML already loaded.';
         }
         
     },
@@ -622,6 +646,51 @@ var SBPLUS = SBPLUS || {
         }
         
         return 0;
+        
+    },
+    
+    showErrorScreen: function( type ) {
+        
+        if ( this.hasError && type.length ) {
+            
+            var errorTemplateUrl = this.manifest.sbplus_root_directory;
+        
+            $( this.layout.sbplus ).hide();
+            
+            switch ( type ) {
+                
+                case 'support':
+                    errorTemplateUrl += 'scripts/templates/support_error.tpl';
+                break;
+                
+                case 'xml':
+                    errorTemplateUrl += 'scripts/templates/xml_error.tpl';
+                break;
+                
+                case 'parser':
+                    errorTemplateUrl += 'scripts/templates/xml_parse_error.tpl';
+                break;
+                
+                default:
+                    errorTemplateUrl = '';
+                break;
+                
+            }
+            
+            if ( errorTemplateUrl.length ) {
+                
+                var self = this;
+                
+                $.get( errorTemplateUrl, function( data ) {
+                    
+                    $( self.layout.errorScreen ).html( data ).show().addClass( 'shake' )
+                        .css( 'display', 'flex' );
+                    
+                } );
+                
+            }
+            
+        }
         
     },
     
