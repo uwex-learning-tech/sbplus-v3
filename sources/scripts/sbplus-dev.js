@@ -5,6 +5,8 @@ var SBPLUS = SBPLUS || {
     ***************************************************************************/
     
     layout: null,
+    splash: null,
+    banner: null,
     tableOfContents: null,
     widget: null,
     button: null,
@@ -16,7 +18,9 @@ var SBPLUS = SBPLUS || {
     xml: null,
     xmlLoaded: false,
     xmlParsed: false,
+    presentationRendered: false,
     beforePresentingDone: false,
+    presentationStarted: false,
     hasError: false,
     
     /***************************************************************************
@@ -35,12 +39,24 @@ var SBPLUS = SBPLUS || {
                 wrapper: '.sbplus_wrapper',
                 sbplus: '#sbplus',
                 errorScreen: '#sbplus_error_screen',
-                splashScreen: '#sbplus_splash_screen',
                 widget: '#sbplus_widget',
                 media: '#sbplus_media_wrapper',
                 sidebar: '#sbplus_right_col',
                 dwnldMenu: null
             };
+            
+            this.banner = {
+                title: '#sbplus_lession_title',
+                author: '#sbplus_author_name'
+            }
+            
+            this.splash = {
+                screen: '#sbplus_splash_screen',
+                title: '#sbplus_presentation_info .sb_title',
+                subtitle: '#sbplus_presentation_info .sb_subtitle',
+                author: '#sbplus_presentation_info .sb_author',
+                duration: '#sbplus_presentation_info .sb_duration'
+            },
             
             this.tableOfContents = {
                 header: '.section .header',
@@ -68,7 +84,8 @@ var SBPLUS = SBPLUS || {
                 menuBar: '#sbplus_sub_bar',
                 menuList: '#sbplus_menu_items_wrapper .list',
                 menuItem: '#sbplus_menu_items_wrapper .menu.item',
-                menuContent: '#menu_item_content'
+                menuContentWrapper: '#menu_item_content',
+                menuContent: '#menu_item_content .content'
             };
             
             $.getJSON( this.getManifestUrl(), function( data ) {
@@ -123,21 +140,6 @@ var SBPLUS = SBPLUS || {
                 }
                 
                 self.loadXML();
-                
-                // button click events
-                $( self.button.sidebar ).on( 'click', self.toggleSidebar.bind( self ) );
-                $( self.button.widget ).on( 'click',  self.toggleWidget.bind( self ) );
-                $( self.button.menu ).on( 'click', self.toggleMenu.bind( self ) );
-                $( self.button.author ).on( 'click', function() {
-                    self.openMenuItem( '#sbplus_author_profile' );
-                } );
-                $( self.button.start ).on( 'click', self.hideSplash.bind( self ) );
-                $( self.button.resume ).on( 'click', self.hideSplash.bind( self ) );
-                $( self.tableOfContents.header ).on( 'click', self.toggleSection.bind( self ) );
-                $( self.tableOfContents.page ).on( 'click', self.selectPage.bind( self ) );
-                $( self.widget.segment ).on( 'click', self.changeSegment.bind( self ) );
-                
-                self.layout.dwnldMenu = new MenuBar( $( self.button.download )[0].id, false );
                 
                 // calculate the layout on window resize
                 $( window ).on( 'resize', self.resize.bind( self ) );
@@ -217,6 +219,7 @@ var SBPLUS = SBPLUS || {
         
         if ( this.xmlLoaded && this.xmlParsed === false ) {
             
+            var self = this;
             var data = $( d );
             var xSb = data.find( 'storybook' );
             var xSetup = data.find( 'setup' );
@@ -263,18 +266,129 @@ var SBPLUS = SBPLUS || {
                     course: xCourse,
                     title: xTitle,
                     subtitle: xSubtitle,
-                    length: xLength,
-                    author: xAuthor.attr( 'name' ).trim(),
-                    profile: xAuthor.text().trim(),
+                    authorPhoto: '',
+                    duration: xLength,
                     generalInfo: xGeneralInfo
                 },
                 sections: xSections
             };
             
-            this.xmlParsed = true;
+            var sanitizedAuthor = this.sanitize( xAuthor.attr( 'name' ).trim() );
+            var profileUrl = this.manifest.sbplus_author_directory + sanitizedAuthor + '.json';
+            
+            // get centralized author name and profile
+            $.ajax( {
+                    
+                crossDomain: true,
+                type: 'GET',
+                dataType: 'jsonp',
+                jsonpCallback: 'author',
+                url: profileUrl
+                
+            } ).done( function( res ) {
+                
+                self.xml.setup.author = res.name;
+                self.xml.setup.profile = res.profile;
+                
+            } ).fail( function() {
+                
+                self.xml.setup.author = xAuthor.attr( 'name' ).trim();
+                self.xml.setup.profile = xAuthor.text().trim();
+                
+            } ).always( function() {
+                
+                self.xmlParsed = true;
+                self.renderPresentation();
+                
+            } );
             
         } else {
             return 'XML already parsed.';
+        }
+        
+    },
+    
+    renderPresentation: function() {
+        
+        if ( this.xmlParsed && this.presentationRendered === false ) {
+            
+            var self = this;
+            
+            // local storage settings
+            
+            // accent
+            var style = '.sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_cta button, ';
+            style += '.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_widget .tab_segment .active,';
+            style += '.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col .list .sb_selected,';
+            style += '.sbplus_wrapper #sbplus #sbplus_banner_bar, .sbplus_wrapper #sbplus #sbplus_banner_bar #sbplus_menu_area #sbplus_author_name {';
+            style += 'color: ' + this.colorContrast( this.xml.settings.accent )  + ';';
+            style += 'background-color:' + this.xml.settings.accent + ';';
+            style += 'border-color:' + this.xml.settings.accent + ';}';
+            style += '.sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_cta button:hover,';
+            style += '.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col .list .item:hover,';
+            style += '.sbplus_wrapper #sbplus #sbplus_banner_bar #sbplus_menu_area #sbplus_menu_btn,';
+            style += '.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu .menu-item:hover, .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu .menu-item:hover {';
+            style += 'background-color: ' + this.colorLum( this.xml.settings.accent, 0.2 ) + '}';
+            style += '.sbplus_wrapper button:hover, .sbplus_wrapper #sbplus .sb_active, ';
+            style += '.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent:hover, .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent:hover {';
+            style += 'color: ' + this.colorLum( this.xml.settings.accent, 0.2 ) + ';}';
+            style += '.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_widget .tab_segment button, ';
+            style += '.sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_downloads a {';
+            style += 'border-color: ' + this.xml.settings.accent + '; color: ' + this.xml.settings.accent + ';}';
+            style += '.sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_downloads a:hover{';
+            style += ' background-color: ' + this.xml.settings.accent + ';}';
+            style += '.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col #sbplus_table_of_contents_wrapper .section .current,';
+            style += '.sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_downloads a:first-child {'
+            style += 'border-color: ' + this.xml.settings.accent + ';}';
+            //style += '.sbplus_wrapper #sbplus #sbplus_banner_bar #sbplus_menu_area #sbplus_menu_btn {';
+            //style += 'color: ' + this.colorContrast( this.colorLum( this.xml.settings.accent, 0.2 ) ) + ';}';
+            $( 'head' ).append( '<style type="text/css">' + style + '</style>' );
+            
+            // splash screen
+            $( this.splash.title ).html( this.xml.setup.title );
+            $( this.splash.subtitle ).html( this.xml.setup.subtitle );
+            $( this.splash.author ).html( this.xml.setup.author );
+            $( this.splash.duration ).html( this.xml.setup.duration );
+            
+            // presentation
+            $( this.banner.title ).html( this.xml.setup.title );
+            $( this.banner.author ).html( this.xml.setup.author );
+            
+            // menu
+            
+            // event listeners
+            $( this.button.sidebar ).on( 'click', this.toggleSidebar.bind( this ) );
+            $( this.button.widget ).on( 'click',  this.toggleWidget.bind( this ) );
+            $( this.button.menu ).on( 'click', this.toggleMenu.bind( this ) );
+            $( this.button.author ).on( 'click', function() {
+                self.openMenuItem( 'sbplus_author_profile' );
+            } );
+            $( this.button.start ).on( 'click', this.startPresentation.bind( this ) );
+            $( this.button.resume ).on( 'click', this.resumePresentation.bind( this ) );
+            $( this.tableOfContents.header ).on( 'click', this.toggleSection.bind( this ) );
+            $( this.tableOfContents.page ).on( 'click', this.selectPage.bind( this ) );
+            $( this.widget.segment ).on( 'click', this.changeSegment.bind( this ) );
+            this.layout.dwnldMenu = new MenuBar( $( this.button.download )[0].id, false );
+            
+            // get mathjax if turned on
+            if ( this.xml.settings.mathjax === 'on' ) {
+                
+                $.getScript( 'https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML', function() {
+            
+                    MathJax.Hub.Config({
+                        
+                      'HTML-CSS': {
+                        matchFontHeight: true
+                      }
+                      
+                    });
+                    
+                });
+                
+            }
+            
+        } else {
+            return 'Presentation already rendered.';
         }
         
     },
@@ -285,7 +399,7 @@ var SBPLUS = SBPLUS || {
     
     hideSplash: function() {
         
-        $( this.layout.splashScreen ).addClass( 'fadeOut' )
+        $( this.splash.screen ).addClass( 'fadeOut' )
             .one( 'webkitAnimationEnd mozAnimationEnd animationend', 
                  function() {
                      $( this ).removeClass( 'fadeOut' ).hide();
@@ -293,6 +407,28 @@ var SBPLUS = SBPLUS || {
                  }
             );
             
+    },
+    
+    startPresentation: function() {
+        
+        if ( this.presentationStarted === false ) {
+            
+            this.hideSplash();
+            this.presentationStarted = true;
+            
+        }
+        
+    },
+    
+    resumePresentation: function() {
+        
+        if ( this.presentationStarted === false ) {
+            
+            this.hideSplash();
+            this.presentationStarted = true;
+            
+        }
+        
     },
     
     /***************************************************************************
@@ -388,7 +524,7 @@ var SBPLUS = SBPLUS || {
             
         }
         
-        if ( $( this.layout.splashScreen ).is( ':visible' ) ) {
+        if ( $( this.splash.screen ).is( ':visible' ) ) {
             this.hideSplash();
         }
         
@@ -485,7 +621,7 @@ var SBPLUS = SBPLUS || {
         
         var self = this;
         
-        if ( $( this.layout.splashScreen ).is( ':visible' ) ) {
+        if ( $( this.splash.screen ).is( ':visible' ) ) {
             this.hideSplash();
         }
         
@@ -503,6 +639,7 @@ var SBPLUS = SBPLUS || {
         
         var menuBar = $( this.menu.menuBar );
         var menuList = $( this.menu.menuList );
+        var menuContentWrapper = $( this.menu.menuContentWrapper );
         var menuContent = $( this.menu.menuContent );
         var target = $( '#' + itemId );
         var backBtn = menuBar.find( '.backBtn' );
@@ -510,7 +647,7 @@ var SBPLUS = SBPLUS || {
         menuBar.removeClass( 'full' );
         menuBar.find( '.title' ).html( target.html() );
         
-        if ( menuContent.is( ':visible' ) ) {
+        if ( menuContentWrapper.is( ':visible' ) ) {
             
             menuList.off();
             
@@ -530,11 +667,72 @@ var SBPLUS = SBPLUS || {
                     switch ( itemId ) {
                         
                         case 'sbplus_author_profile':
-                        content = '<p>Author\'s profile goes here...</p>';
+                        
+                        if ( self.xml.setup.authorPhoto.length === 0 ) {
+                            
+                            var author = self.xml.setup.author;
+                            var sanitizedAuthor = self.sanitize( author );
+                            var profileUrl = self.manifest.sbplus_author_directory + sanitizedAuthor + '.jpg';
+                            
+                            $.ajax( {
+                    
+                                type: 'HEAD',
+                                url: 'assets/' + sanitizedAuthor + '.jpg'
+                                
+                            } ).done( function() {
+                                
+                                self.xml.setup.authorPhoto = this.url;
+                                
+                                var img = '<div class="profileImg"><img src="';
+                                img += this.url +'" alt="Photo of ' + author + '" /></div>';
+                                
+                                menuContentWrapper.prepend( img );
+                                
+                            } ).fail( function() {
+                                
+                                $.ajax( {
+                                    
+                                    type: 'HEAD',
+                                    url: profileUrl
+                                
+                                } ).done( function() {
+                                    
+                                    self.xml.setup.authorPhoto = this.url;
+                                    
+                                    var img = '<div class="profileImg"><img src="';
+                                    img += this.url +'" alt="Photo of ' + author + '" /></div>';
+                                    
+                                    menuContentWrapper.prepend( img );
+                                    
+                                } ).fail( function() {
+                                    
+                                    self.xml.setup.authorPhoto = self.manifest.sbplus_root_directory;
+                                    self.xml.setup.authorPhoto += 'images/default_photo.png';
+                                    
+                                    var img = '<div class="profileImg"><img src="';
+                                    img += self.xml.setup.authorPhoto +'" alt="No Photo" /><div>';
+                            
+                                    menuContentWrapper.prepend( img );
+                                    
+                                } );
+                                
+                            } );
+                            
+                        } else {
+                            
+                            var img = '<div class="profileImg"><img src="';
+                            img += self.xml.setup.authorPhoto +'" alt="No Photo" /><div>';
+                            
+                            menuContentWrapper.prepend( img );
+                            
+                        }
+                        
+                        content = '<p class="author">' + self.xml.setup.author + '</p>';
+                        content += self.xml.setup.profile;
                         break;
                         
                         case 'sbplus_general_info':
-                        content = '<p>General information goes here...</p>';
+                        content = self.xml.setup.generalInfo;
                         break;
                         
                         case 'sbplus_settings':
@@ -554,7 +752,13 @@ var SBPLUS = SBPLUS || {
                         
                     }
                     
-                    menuContent.fadeIn().html( content );
+                    menuContentWrapper.fadeIn();
+                    menuContent.append( content );
+                    
+                    if ( self.xml.settings.mathjax === 'on' ) {
+                        MathJax.Hub.Queue( ['Typeset', MathJax.Hub] );
+                    }
+                    
                     $( this ).off();
                     
                 }
@@ -576,7 +780,7 @@ var SBPLUS = SBPLUS || {
                     $( this ).off();
                 } );
                 
-                menuContent.hide().empty();
+                menuContentWrapper.hide().html( '<div class="content"></div>' );
                 
                 $( this ).prop( 'disabled', true );
                 $( this ).off( 'click' );
@@ -598,7 +802,7 @@ var SBPLUS = SBPLUS || {
             menuBar.find( '.backBtn' ).hide().prop( 'disabled', true );
             
             $( this.menu.menuList ).show();
-            $( this.menu.menuContent ).empty().hide();
+            $( this.menu.menuContentWrapper ).hide().html( '<div class="content"></div>' );
             $( this.menu.menuItem ).off( 'click' );
             
         }
@@ -875,6 +1079,36 @@ var SBPLUS = SBPLUS || {
     isEmpty: function( str ) {
         
         return str === undefined || !str.trim() || str.trim().length === 0;
+        
+    },
+    
+    colorLum: function( hex, lum ) {
+    
+        // validate hex string
+        hex = String(hex).replace(/[^0-9a-f]/gi, '');
+        
+        if (hex.length < 6) {
+        	hex = hex[0]+hex[0]+hex[1]+hex[1]+hex[2]+hex[2];
+        }
+        
+        lum = lum || 0;
+        
+        // convert to decimal and change luminosity
+        var rgb = "#", c, i;
+        for (i = 0; i < 3; i++) {
+        	c = parseInt(hex.substr(i*2,2), 16);
+        	c = Math.round(Math.min(Math.max(0, c + (c * lum)), 255)).toString(16);
+        	rgb += ("00"+c).substr(c.length);
+        }
+        
+        return rgb;
+        
+    },
+    
+    colorContrast: function( hex ) {
+
+        hex = parseInt( hex.slice( 1 ), 16 );
+        return ( hex > 0xffffff / 2 ) ? '#000' : '#fff';
         
     }
         

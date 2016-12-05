@@ -8,14 +8,7 @@
         <length>7 Minutes</length>
         <author name="Bryan Bortz"></author>
         <generalInfo>
-            <![CDATA[<p>This an sample Storybook Plus presentation on chocolate chip cookies.</p><p>
-\begin{align}
-  \nabla \times \vec{\mathbf{B}} -\, \frac1c\, \frac{\partial\vec{\mathbf{E}}}{\partial t} & = \frac{4\pi}{c}\vec{\mathbf{j}} \\
-  \nabla \cdot \vec{\mathbf{E}} & = 4 \pi \rho \\
-  \nabla \times \vec{\mathbf{E}}\, +\, \frac1c\, \frac{\partial\vec{\mathbf{B}}}{\partial t} & = \vec{\mathbf{0}} \\
-  \nabla \cdot \vec{\mathbf{B}} & = 0
-\end{align}
-</p>]]>
+            <![CDATA[<p>This an sample Storybook Plus presentation on chocolate chip cookies.</p><p>\(\frac{-b\pm\sqrt{b^2-4ac}}{2a}\)</p>]]>
         </generalInfo>
         
     </setup>

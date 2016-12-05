@@ -6,26 +6,27 @@
         
         <div id="sbplus_presentation_info">
             
-            <p class="sb_title">A Really Really Really Long Lesson Title Limited To Two Lines Goes Here</p>
-            <p class="sb_subtitle">Subtitle Goes Here</p>
-            <p class="sb_author">Firstname Lastname</p>
-            <p class="sb_duration">~999 Minutes</p>
+            <p class="sb_title"></p>
+            <p class="sb_subtitle"></p>
+            <p class="sb_author"></p>
+            <p class="sb_duration"></p>
             <p class="sb_cta">
                 <button id="sbplus_start_btn">Start</button>
                 <button id="sbplus_resume_btn">Resume</button>
             </p>
             <p class="sb_downloads animated">
-                <a href="#" download="">
+                <a href="#" download>
                     <span class="icon-download"></span> Transcript
                 </a>
-                <a href="#" download="">
+                <a href="#" download>
                     <span class="icon-download"></span> Video
                 </a>
-                <a href="#" download="">
+                <a href="#" download>
                     <span class="icon-download"></span> Audio
                 </a>
-                <a href="#" download="">
-                    <span class="icon-download"></span> Supplement</a>
+                <a href="#" download>
+                    <span class="icon-download"></span> Supplement
+                </a>
             </p>
                 
         </div>
@@ -35,9 +36,9 @@
     </div>
     
     <div id="sbplus_banner_bar">
-        <div id="sbplus_lession_title">A Really Really Really Long Lesson Title Limited To Two Lines Goes Here</div>
+        <div id="sbplus_lession_title"></div>
         <div id="sbplus_menu_area">
-            <button id="sbplus_author_name">Firstname Lastname</button>
+            <button id="sbplus_author_name"></button>
             <button id="sbplus_menu_btn">Menu</button>
         </div>
     </div>
@@ -214,7 +215,9 @@
                     
                 </ul>
                 
-                <div id="menu_item_content" class="animated"></div>
+                <div id="menu_item_content" class="animated">
+                    <div class="content"></div>
+                </div>
                 
             </div>
             

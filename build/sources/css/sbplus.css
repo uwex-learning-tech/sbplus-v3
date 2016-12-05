@@ -16,40 +16,10 @@ body {
   height: 100%; }
 
 /* sbplus */
-.sbplus_wrapper div, .sbplus_wrapper span, .sbplus_wrapper applet, .sbplus_wrapper object, .sbplus_wrapper iframe,
-.sbplus_wrapper h1, .sbplus_wrapper h2, .sbplus_wrapper h3, .sbplus_wrapper h4, .sbplus_wrapper h5, .sbplus_wrapper h6, .sbplus_wrapper p, .sbplus_wrapper blockquote, .sbplus_wrapper pre,
-.sbplus_wrapper a, .sbplus_wrapper abbr, .sbplus_wrapper acronym, .sbplus_wrapper address, .sbplus_wrapper big, .sbplus_wrapper cite, .sbplus_wrapper code,
-.sbplus_wrapper del, .sbplus_wrapper dfn, .sbplus_wrapper em, .sbplus_wrapper img, .sbplus_wrapper ins, .sbplus_wrapper kbd, .sbplus_wrapper q, .sbplus_wrapper s, .sbplus_wrapper samp,
-.sbplus_wrapper small, .sbplus_wrapper strike, .sbplus_wrapper strong, .sbplus_wrapper sub, .sbplus_wrapper sup, .sbplus_wrapper tt, .sbplus_wrapper var,
-.sbplus_wrapper b, .sbplus_wrapper u, .sbplus_wrapper i, .sbplus_wrapper center,
-.sbplus_wrapper dl, .sbplus_wrapper dt, .sbplus_wrapper dd, .sbplus_wrapper ol, .sbplus_wrapper ul, .sbplus_wrapper li,
-.sbplus_wrapper fieldset, .sbplus_wrapper form, .sbplus_wrapper label, .sbplus_wrapper legend,
-.sbplus_wrapper table, .sbplus_wrapper caption, .sbplus_wrapper tbody, .sbplus_wrapper tfoot, .sbplus_wrapper thead, .sbplus_wrapper tr, .sbplus_wrapper th, .sbplus_wrapper td,
-.sbplus_wrapper article, .sbplus_wrapper aside, .sbplus_wrapper canvas, .sbplus_wrapper details, .sbplus_wrapper embed,
-.sbplus_wrapper figure, .sbplus_wrapper figcaption, .sbplus_wrapper footer, .sbplus_wrapper header, .sbplus_wrapper hgroup,
-.sbplus_wrapper menu, .sbplus_wrapper nav, .sbplus_wrapper output, .sbplus_wrapper ruby, .sbplus_wrapper section, .sbplus_wrapper summary,
-.sbplus_wrapper time, .sbplus_wrapper mark, .sbplus_wrapper audio, .sbplus_wrapper video {
+.sbplus_wrapper * {
   margin: 0;
   padding: 0;
   border: 0;
-  font: inherit;
-  font-size: 100%;
-  vertical-align: baseline; }
-.sbplus_wrapper table {
-  border-collapse: collapse;
-  border-spacing: 0; }
-.sbplus_wrapper caption, .sbplus_wrapper th, .sbplus_wrapper td {
-  text-align: left;
-  font-weight: normal;
-  vertical-align: middle; }
-.sbplus_wrapper q, .sbplus_wrapper blockquote {
-  quotes: none; }
-  .sbplus_wrapper q:before, .sbplus_wrapper q:after, .sbplus_wrapper blockquote:before, .sbplus_wrapper blockquote:after {
-    content: "";
-    content: none; }
-.sbplus_wrapper a img {
-  border: none; }
-.sbplus_wrapper * {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box; }
@@ -214,7 +184,6 @@ body {
       flex: 2 1 71.11%;
       -webkit-align-items: center;
       align-items: center;
-      color: #fff;
       padding: 0 10px;
       line-height: 1.25; }
     .sbplus_wrapper #sbplus #sbplus_banner_bar #sbplus_menu_area {
@@ -227,8 +196,7 @@ body {
       -webkit-justify-content: flex-end;
       justify-content: flex-end; }
       .sbplus_wrapper #sbplus #sbplus_banner_bar #sbplus_menu_area #sbplus_author_name {
-        display: none;
-        color: #fff; }
+        display: none; }
       .sbplus_wrapper #sbplus #sbplus_banner_bar #sbplus_menu_area #sbplus_menu_btn {
         width: 100%;
         padding: 0 10px;
@@ -467,7 +435,6 @@ body {
         .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col #sbplus_menu_items_wrapper #menu_item_content {
           display: none;
           max-height: 100%;
-          padding: 0 10px;
           overflow-y: scroll;
           -moz-animation-delay: 0.3s;
           -webkit-animation-delay: 0.3s;
@@ -475,8 +442,24 @@ body {
           -moz-animation-duration: 0.5s;
           -webkit-animation-duration: 0.5s;
           animation-duration: 0.5s; }
-          .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col #sbplus_menu_items_wrapper #menu_item_content * {
-            margin: 10px 0; }
+          .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col #sbplus_menu_items_wrapper #menu_item_content .profileImg {
+            display: block;
+            margin: 0;
+            background-color: #ccc; }
+            .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col #sbplus_menu_items_wrapper #menu_item_content .profileImg img {
+              display: block;
+              width: 100%;
+              max-width: 500px;
+              height: auto;
+              margin: 0 auto; }
+          .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col #sbplus_menu_items_wrapper #menu_item_content .content {
+            padding: 0 10px; }
+            .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col #sbplus_menu_items_wrapper #menu_item_content .content ol, .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col #sbplus_menu_items_wrapper #menu_item_content .content ul, .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col #sbplus_menu_items_wrapper #menu_item_content .content div, .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col #sbplus_menu_items_wrapper #menu_item_content .content h1, .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col #sbplus_menu_items_wrapper #menu_item_content .content h2,
+            .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col #sbplus_menu_items_wrapper #menu_item_content .content h3, .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col #sbplus_menu_items_wrapper #menu_item_content .content h4, .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col #sbplus_menu_items_wrapper #menu_item_content .content h5, .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col #sbplus_menu_items_wrapper #menu_item_content .content h6, .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col #sbplus_menu_items_wrapper #menu_item_content .content p, .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col #sbplus_menu_items_wrapper #menu_item_content .content blockquote {
+              margin: 10px 0; }
+            .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col #sbplus_menu_items_wrapper #menu_item_content .content .author {
+              font-weight: bold;
+              font-size: 120%; }
   .sbplus_wrapper #sbplus #sbplus_control_bar {
     display: -webkit-flex;
     display: flex;

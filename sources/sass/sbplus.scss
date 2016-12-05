@@ -69,9 +69,8 @@ body {
 
 .sbplus_wrapper {
     
-    @include nested-reset();
-    
     * {
+        @include reset-box-model();
         @include box-sizing( border-box );
     }
     
@@ -286,7 +285,7 @@ body {
                 @include flex-flow( row nowrap );
                 @include flex( 2 1 71.11% );
                 @include align-items(center);
-                color: #fff;
+//                 color: #fff;
                 padding: 0 $gutter;
                 line-height: 1.25;
             }
@@ -300,7 +299,7 @@ body {
                 
                 #sbplus_author_name {
                     display: none;
-                    color: #fff;
+//                     color: #fff;
                 }
                 
                 #sbplus_menu_btn {
@@ -626,13 +625,40 @@ body {
                         
                         display: none;
                         max-height: 100%;
-                        padding: 0 $gutter;
                         overflow-y: scroll;
                         @include animation-delay( 0.3s );
                         @include animation-duration( 0.5s );
                         
-                        * {
-                            margin: $gutter 0;
+                        .profileImg {
+                            
+                            display: block;
+                            margin: 0;
+                            background-color: #ccc;
+                            
+                            img {
+                                display: block;
+                                width: 100%;
+                                max-width: 500px;
+                                height: auto;
+                                margin: 0 auto;
+                            }
+                            
+                        }
+                        
+                        .content {
+                            
+                            padding: 0 $gutter;
+                            
+                            ol, ul, div, h1, h2,
+                            h3, h4, h5, h6, p, blockquote {
+                                margin: $gutter 0;
+                            }
+                            
+                            .author {
+                                font-weight: bold;
+                                font-size: 120%
+                            }
+                            
                         }
                         
                     }
