@@ -719,7 +719,7 @@ var SBPLUS = SBPLUS || {
                             
                         }
                         
-                        content = '<p class="author">' + self.xml.setup.author + '</p>';
+                        content = '<p class="name">' + self.xml.setup.author + '</p>';
                         content += self.xml.setup.profile;
                         break;
                         
