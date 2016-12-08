@@ -445,13 +445,20 @@ body {
           .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col #sbplus_menu_items_wrapper #menu_item_content .profileImg {
             display: block;
             margin: 0;
-            background-color: #ccc; }
+            width: 100%;
+            height: auto;
+            min-height: 259px;
+            background-color: #ccc;
+            background-image: url("../images/default_photo.png");
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center center; }
             .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col #sbplus_menu_items_wrapper #menu_item_content .profileImg img {
               display: block;
-              width: 100%;
+              margin: 0 auto;
               max-width: 500px;
-              height: auto;
-              margin: 0 auto; }
+              width: 100%;
+              height: auto; }
           .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col #sbplus_menu_items_wrapper #menu_item_content .content {
             padding: 0 10px; }
             .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col #sbplus_menu_items_wrapper #menu_item_content .content ol, .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col #sbplus_menu_items_wrapper #menu_item_content .content ul, .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col #sbplus_menu_items_wrapper #menu_item_content .content div, .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col #sbplus_menu_items_wrapper #menu_item_content .content h1, .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col #sbplus_menu_items_wrapper #menu_item_content .content h2,

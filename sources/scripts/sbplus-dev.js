@@ -668,6 +668,8 @@ var SBPLUS = SBPLUS || {
                         
                         case 'sbplus_author_profile':
                         
+                        menuContentWrapper.prepend( '<div class="profileImg"></div>' );
+                        
                         if ( self.xml.setup.authorPhoto.length === 0 ) {
                             
                             var author = self.xml.setup.author;
@@ -683,10 +685,10 @@ var SBPLUS = SBPLUS || {
                                 
                                 self.xml.setup.authorPhoto = this.url;
                                 
-                                var img = '<div class="profileImg"><img src="';
-                                img += this.url +'" alt="Photo of ' + author + '" /></div>';
+                                var img = '<img src="';
+                                img += this.url +'" alt="Photo of ' + author + '" crossorigin="Anonymous" />';
                                 
-                                menuContentWrapper.prepend( img );
+                                $( '.profileImg' ).html( img );
                                 
                             } ).fail( function() {
                                 
@@ -699,20 +701,10 @@ var SBPLUS = SBPLUS || {
                                     
                                     self.xml.setup.authorPhoto = this.url;
                                     
-                                    var img = '<div class="profileImg"><img src="';
-                                    img += this.url +'" alt="Photo of ' + author + '" /></div>';
+                                    var img = '<img src="';
+                                    img += this.url +'" alt="Photo of ' + author + '" crossorigin="Anonymous" />';
                                     
-                                    menuContentWrapper.prepend( img );
-                                    
-                                } ).fail( function() {
-                                    
-                                    self.xml.setup.authorPhoto = self.manifest.sbplus_root_directory;
-                                    self.xml.setup.authorPhoto += 'images/default_photo.png';
-                                    
-                                    var img = '<div class="profileImg"><img src="';
-                                    img += self.xml.setup.authorPhoto +'" alt="No Photo" /><div>';
-                            
-                                    menuContentWrapper.prepend( img );
+                                    $( '.profileImg' ).html( img );
                                     
                                 } );
                                 
@@ -720,10 +712,10 @@ var SBPLUS = SBPLUS || {
                             
                         } else {
                             
-                            var img = '<div class="profileImg"><img src="';
-                            img += self.xml.setup.authorPhoto +'" alt="No Photo" /><div>';
+                            var img = '<img src="';
+                            img += self.xml.setup.authorPhoto +'" alt="Photo of ' + author + '" crossorigin="Anonymous" />';
                             
-                            menuContentWrapper.prepend( img );
+                            $( '.profileImg' ).prepend( img );
                             
                         }
                         
@@ -1108,7 +1100,7 @@ var SBPLUS = SBPLUS || {
     colorContrast: function( hex ) {
 
         hex = parseInt( hex.slice( 1 ), 16 );
-        return ( hex > 0xffffff / 2 ) ? '#000' : '#fff';
+        return hex > 0xffffff / 2 ? '#000' : '#fff';
         
     }
         

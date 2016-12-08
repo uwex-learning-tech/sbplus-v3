@@ -633,14 +633,21 @@ body {
                             
                             display: block;
                             margin: 0;
+                            width: 100%;
+                            height: auto;
+                            min-height: 259px;
                             background-color: #ccc;
+                            background-image: url('../images/default_photo.png');
+                            background-size: contain;
+                            background-repeat: no-repeat;
+                            background-position: center center;
                             
                             img {
                                 display: block;
-                                width: 100%;
-                                max-width: 500px;
-                                height: auto;
                                 margin: 0 auto;
+                                max-width: 500px;
+                                width: 100%;
+                                height: auto;
                             }
                             
                         }
