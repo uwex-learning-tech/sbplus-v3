@@ -4,6 +4,7 @@
     "sbplus_author_directory": "https://media.uwex.edu/content/media/storybook_support/author/",
     "sbplus_logo_directory": "https://media.uwex.edu/content/media/storybook_support/logo/",
     "sbplus_logo_default": "ceoel",
+    "sbplus_default_accent": "#0c3b6b",
     "sbplus_kaltura": {
         "id": 1660872,
         "high": 487081,

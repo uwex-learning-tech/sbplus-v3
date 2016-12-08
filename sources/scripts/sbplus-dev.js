@@ -238,7 +238,7 @@ var SBPLUS = SBPLUS || {
             var xSections = data.find( 'section' );
             
             if ( this.isEmpty( xAccent ) ) {
-                xAccent = '#0c3b6b';
+                xAccent = this.manifest.sbplus_default_accent;
             }
             
             if ( this.isEmpty( xImgType ) ) {
@@ -317,32 +317,34 @@ var SBPLUS = SBPLUS || {
             // local storage settings
             
             // accent
-            var style = '.sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_cta button, ';
-            style += '.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_widget .tab_segment .active,';
-            style += '.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col .list .sb_selected,';
-            style += '.sbplus_wrapper #sbplus #sbplus_banner_bar, .sbplus_wrapper #sbplus #sbplus_banner_bar #sbplus_menu_area #sbplus_author_name {';
-            style += 'color: ' + this.colorContrast( this.xml.settings.accent )  + ';';
-            style += 'background-color:' + this.xml.settings.accent + ';';
-            style += 'border-color:' + this.xml.settings.accent + ';}';
-            style += '.sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_cta button:hover,';
-            style += '.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col .list .item:hover,';
-            style += '.sbplus_wrapper #sbplus #sbplus_banner_bar #sbplus_menu_area #sbplus_menu_btn,';
-            style += '.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu .menu-item:hover, .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu .menu-item:hover {';
-            style += 'background-color: ' + this.colorLum( this.xml.settings.accent, 0.2 ) + '}';
-            style += '.sbplus_wrapper button:hover, .sbplus_wrapper #sbplus .sb_active, ';
-            style += '.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent:hover, .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent:hover {';
-            style += 'color: ' + this.colorLum( this.xml.settings.accent, 0.2 ) + ';}';
-            style += '.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_widget .tab_segment button, ';
-            style += '.sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_downloads a {';
-            style += 'border-color: ' + this.xml.settings.accent + '; color: ' + this.xml.settings.accent + ';}';
-            style += '.sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_downloads a:hover{';
-            style += ' background-color: ' + this.xml.settings.accent + ';}';
-            style += '.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col #sbplus_table_of_contents_wrapper .section .current,';
-            style += '.sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_downloads a:first-child {'
-            style += 'border-color: ' + this.xml.settings.accent + ';}';
-            //style += '.sbplus_wrapper #sbplus #sbplus_banner_bar #sbplus_menu_area #sbplus_menu_btn {';
-            //style += 'color: ' + this.colorContrast( this.colorLum( this.xml.settings.accent, 0.2 ) ) + ';}';
-            $( 'head' ).append( '<style type="text/css">' + style + '</style>' );
+            if ( this.xml.settings.accent !== this.manifest.sbplus_default_accent ) {
+            
+                var style = '.sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_cta button, ';
+                style += '.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_widget .tab_segment .active,';
+                style += '.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col .list .sb_selected,';
+                style += '.sbplus_wrapper #sbplus #sbplus_banner_bar, .sbplus_wrapper #sbplus #sbplus_banner_bar #sbplus_menu_area #sbplus_author_name {';
+                style += 'color: ' + this.colorContrast( this.xml.settings.accent )  + ';';
+                style += 'background-color:' + this.xml.settings.accent + ';';
+                style += 'border-color:' + this.xml.settings.accent + ';}';
+                style += '.sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_cta button:hover,';
+                style += '.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col .list .item:hover,';
+                style += '.sbplus_wrapper #sbplus #sbplus_banner_bar #sbplus_menu_area #sbplus_menu_btn,';
+                style += '.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu .menu-item:hover, .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu .menu-item:hover {';
+                style += 'background-color: ' + this.colorLum( this.xml.settings.accent, 0.2 ) + '}';
+                style += '.sbplus_wrapper button:hover, .sbplus_wrapper #sbplus .sb_active, ';
+                style += '.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent:hover, .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent:hover {';
+                style += 'color: ' + this.colorLum( this.xml.settings.accent, 0.2 ) + ';}';
+                style += '.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_widget .tab_segment button, ';
+                style += '.sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_downloads a {';
+                style += 'border-color: ' + this.xml.settings.accent + '; color: ' + this.xml.settings.accent + ';}';
+                style += '.sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_downloads a:hover{';
+                style += ' background-color: ' + this.xml.settings.accent + ';}';
+                style += '.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col #sbplus_table_of_contents_wrapper .section .current,';
+                style += '.sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_downloads a:first-child {'
+                style += 'border-color: ' + this.xml.settings.accent + ';}';
+                $( 'head' ).append( '<style type="text/css">' + style + '</style>' );
+                
+            }
             
             // splash screen
             $( this.splash.title ).html( this.xml.setup.title );
