@@ -410,7 +410,8 @@ body {
             margin: 0 0 0 10px;
             text-align: right; }
           .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col #sbplus_table_of_contents_wrapper .section .list .item [class^="icon-"] {
-            margin: 0 5px 0 10px; }
+            margin: 0 5px 0 10px;
+            padding-right: 4px; }
         .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col #sbplus_table_of_contents_wrapper .section .list .item:first-child {
           border-top: 1px solid #ccc; }
         .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col #sbplus_table_of_contents_wrapper .section .list .item:last-child {

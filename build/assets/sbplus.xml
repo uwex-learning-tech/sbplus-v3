@@ -35,7 +35,7 @@
             </widget>
         </page>
         
-        <page type="image-audio" src="slide03" title="Cookie Type \[\left( \sum_{k=1}^n a_k b_k \right)^{\!\!2} \leq\left( \sum_{k=1}^n a_k^2 \right) \left( \sum_{k=1}^n b_k^2 \right)\]">
+        <page type="image-audio" src="slide03" title="Cookie Type \(\frac{-b\pm\sqrt{b^2-4ac}}{2a}\)">
             <note />
         </page>
         

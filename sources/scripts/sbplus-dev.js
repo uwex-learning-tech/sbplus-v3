@@ -8,6 +8,7 @@ var SBPLUS = SBPLUS || {
     splash: null,
     banner: null,
     tableOfContents: null,
+    totalPages: 0,
     widget: null,
     button: null,
     menu : null,
@@ -42,6 +43,7 @@ var SBPLUS = SBPLUS || {
                 widget: '#sbplus_widget',
                 media: '#sbplus_media_wrapper',
                 sidebar: '#sbplus_right_col',
+                pageStatus: '#sbplus_page_status',
                 dwnldMenu: null
             };
             
@@ -59,6 +61,7 @@ var SBPLUS = SBPLUS || {
             },
             
             this.tableOfContents = {
+                container: '#sbplus_table_of_contents_wrapper',
                 header: '.section .header',
                 page: '.section .list .item'
             },
@@ -76,7 +79,9 @@ var SBPLUS = SBPLUS || {
                 widget: '#sbplus_widget_btn',
                 sidebar: '#sbplus_sidebar_btn',
                 author: '#sbplus_author_name',
-                menu: '#sbplus_menu_btn'
+                menu: '#sbplus_menu_btn',
+                next: '#sbplus_next_btn',
+                prev: '#sbplus_previous_btn'
             };
             
             this.menu = {
@@ -339,9 +344,10 @@ var SBPLUS = SBPLUS || {
                 style += 'border-color: ' + this.xml.settings.accent + '; color: ' + this.xml.settings.accent + ';}';
                 style += '.sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_downloads a:hover{';
                 style += ' background-color: ' + this.xml.settings.accent + ';}';
-                style += '.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col #sbplus_table_of_contents_wrapper .section .current,';
                 style += '.sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_downloads a:first-child {'
                 style += 'border-color: ' + this.xml.settings.accent + ';}';
+                style += '.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col #sbplus_table_of_contents_wrapper .section .current {';
+                style += 'border-left-color: ' + this.xml.settings.accent + ';}'
                 $( 'head' ).append( '<style type="text/css">' + style + '</style>' );
                 
             }
@@ -356,7 +362,64 @@ var SBPLUS = SBPLUS || {
             $( this.banner.title ).html( this.xml.setup.title );
             $( this.banner.author ).html( this.xml.setup.author );
             
-            // menu
+            // table of contents
+            $( this.xml.sections ).each( function( i ) {
+                
+                var sectionHead = $( this ).attr( 'title' );
+                var pages = $( this ).find( 'page' );
+                var sectionHTML = '<div class="section">';
+                var first = false;
+                
+                if ( i === 0 ) {
+                    first = true;
+                }
+                
+                if ( first ) {
+                    sectionHTML += '<div class="header current">';
+                } else {
+                    sectionHTML += '<div class="header">';
+                }
+                
+                sectionHTML += '<div class="title">';
+                sectionHTML += sectionHead +'</div>';
+                sectionHTML += '<div class="icon"><span class="icon-collapse"></span></div></div>';
+                sectionHTML += '<ul class="list">';
+                
+                if ( self.isEmpty( sectionHead ) ) {
+                    sectionHead = 'Section ' + ( i + 1 );
+                }
+                
+                $.each( pages, function( j ) {
+                    
+                    ++self.totalPages;
+                    
+                    if ( first && j === 0 ) {
+                        sectionHTML += '<li class="item sb_selected" data-count="';
+                        sectionHTML += self.totalPages + '" data-page="' + i + ',' + j + '">';
+                    } else {
+                        sectionHTML += '<li class="item" data-count="';
+                        sectionHTML += self.totalPages + '" data-page="' + i + ',' + j + '">';
+                    }
+                    
+                    if ( $( this ).attr( 'type' ) === 'quiz' ) {
+                        sectionHTML += '<span class="icon-assessment"></span>';
+                    } else {
+                        sectionHTML += '<span class="numbering">' + self.totalPages + '.</span> ';
+                    }
+                    
+                    sectionHTML += $( this ).attr( 'title' ) + '</li>';
+                    
+                } );
+                
+                sectionHTML += '</ul></div>';
+                
+                $( self.tableOfContents.container ).append( sectionHTML );
+                
+            } );
+            
+            // page status
+            $( this.layout.pageStatus ).find( 'span.total' ).html( this.totalPages );
+            this.updatePageStatus( 1 );
             
             // event listeners
             $( this.button.sidebar ).on( 'click', this.toggleSidebar.bind( this ) );
@@ -367,6 +430,8 @@ var SBPLUS = SBPLUS || {
             } );
             $( this.button.start ).on( 'click', this.startPresentation.bind( this ) );
             $( this.button.resume ).on( 'click', this.resumePresentation.bind( this ) );
+            $( this.button.next ).on( 'click', this.goToNextPage.bind( this ) );
+            $( this.button.prev ).on( 'click', this.goToPreviousPage.bind( this ) );
             $( this.tableOfContents.header ).on( 'click', this.toggleSection.bind( this ) );
             $( this.tableOfContents.page ).on( 'click', this.selectPage.bind( this ) );
             $( this.widget.segment ).on( 'click', this.changeSegment.bind( this ) );
@@ -392,6 +457,69 @@ var SBPLUS = SBPLUS || {
         } else {
             return 'Presentation already rendered.';
         }
+        
+    },
+    
+    /***************************************************************************
+        MAIN NAVIGATION FUNCTIONS
+    ***************************************************************************/
+    
+    goToNextPage: function() {
+        
+        var currentPage = $( '.sb_selected' ).data( 'page' ).split(',');
+        var tSection = Number( currentPage[0] );
+        var tPage = Number( currentPage[1] );
+        
+        var totalSections = this.xml.sections.length;
+        var totalPagesInSection = $( this.xml.sections[tSection] ).find( 'page' ).length;
+        
+        tPage++;
+        
+        if ( tPage > totalPagesInSection - 1 ) {
+            
+            tSection++;
+            
+            if ( tSection > totalSections - 1 ) {
+                tSection = 0;
+            }
+            
+            tPage = 0;
+            
+        }
+        
+        this.selectPage( tSection + ',' + tPage );
+        
+    },
+    
+    goToPreviousPage: function() {
+        
+        var currentPage = $( '.sb_selected' ).data( 'page' ).split(',');
+        var tSection = Number( currentPage[0] );
+        var tPage = Number( currentPage[1] );
+        
+        tPage--;
+        
+        if ( tPage < 0 ) {
+            
+            tSection--;
+            
+            if ( tSection < 0 ) {
+                
+                tSection = this.xml.sections.length - 1;
+                
+            }
+            
+            tPage = $( this.xml.sections[tSection] ).find( 'page' ).length - 1;
+            
+        }
+        
+        this.selectPage( tSection + ',' + tPage );
+        
+    },
+    
+    updatePageStatus: function( num ) {
+        
+        $( this.layout.pageStatus ).find( 'span.current' ).html( num );
         
     },
     
@@ -548,6 +676,7 @@ var SBPLUS = SBPLUS || {
             
             previousPage.removeClass( 'sb_selected' );
             targetPage.addClass( 'sb_selected' );
+            this.updatePageStatus( targetPage.data( 'count' ) );
             
         }
         
