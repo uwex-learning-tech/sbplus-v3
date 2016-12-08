@@ -190,6 +190,7 @@ body {
                 
                 .sb_title {
                     @extend .common;
+                    font-family: 'MuseoSans-700';
                     font-size: 140%;
                     font-weight: bold;
                     margin-bottom: 0;
@@ -277,7 +278,7 @@ body {
             @include justify-content(center);
             height: $titleBarHeight * 2;
             background-color: #333;
-            font-size: 140%;
+            font-size: 145%;
             font-weight: bold;
             
             #sbplus_lession_title {
@@ -285,8 +286,8 @@ body {
                 @include flex-flow( row nowrap );
                 @include flex( 2 1 71.11% );
                 @include align-items(center);
-//                 color: #fff;
-                padding: 0 $gutter;
+                font-family: 'MuseoSans-700';
+                padding: 4px $gutter 0;
                 line-height: 1.25;
             }
             
@@ -299,13 +300,15 @@ body {
                 
                 #sbplus_author_name {
                     display: none;
-//                     color: #fff;
+                    font-family: 'MuseoSans-700';
                 }
                 
                 #sbplus_menu_btn {
                     width: 100%;
                     padding: 0 $gutter;
                     min-height: 0;
+                    padding-top: 4px;
+                    font-family: 'MuseoSans-700';
                     color: #fff;
                     background-color: #4c4c4c;
                 }
@@ -1067,7 +1070,7 @@ body {
                         font-weight: bold;
                         min-height: 0;
                         @include align-self( center );
-                        padding: 0 ($gutter * 2) 0 $gutter;
+                        padding: 4px ($gutter * 2) 0 $gutter;
                         white-space: nowrap;
                         text-overflow: ellipsis;
                         overflow: hidden;

@@ -110,6 +110,7 @@ body {
         line-height: 1.25;
         font-size: 110%; }
       .sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_title {
+        font-family: 'MuseoSans-700';
         font-size: 140%;
         font-weight: bold;
         margin-bottom: 0; }
@@ -173,7 +174,7 @@ body {
     justify-content: center;
     height: 60px;
     background-color: #333;
-    font-size: 140%;
+    font-size: 145%;
     font-weight: bold; }
     .sbplus_wrapper #sbplus #sbplus_banner_bar #sbplus_lession_title {
       display: -webkit-flex;
@@ -184,7 +185,8 @@ body {
       flex: 2 1 71.11%;
       -webkit-align-items: center;
       align-items: center;
-      padding: 0 10px;
+      font-family: 'MuseoSans-700';
+      padding: 4px 10px 0;
       line-height: 1.25; }
     .sbplus_wrapper #sbplus #sbplus_banner_bar #sbplus_menu_area {
       display: -webkit-flex;
@@ -196,11 +198,14 @@ body {
       -webkit-justify-content: flex-end;
       justify-content: flex-end; }
       .sbplus_wrapper #sbplus #sbplus_banner_bar #sbplus_menu_area #sbplus_author_name {
-        display: none; }
+        display: none;
+        font-family: 'MuseoSans-700'; }
       .sbplus_wrapper #sbplus #sbplus_banner_bar #sbplus_menu_area #sbplus_menu_btn {
         width: 100%;
         padding: 0 10px;
         min-height: 0;
+        padding-top: 4px;
+        font-family: 'MuseoSans-700';
         color: #fff;
         background-color: #4c4c4c; }
   .sbplus_wrapper #sbplus #sbplus_content_wrapper {
@@ -736,7 +741,7 @@ body {
         min-height: 0;
         -webkit-align-self: center;
         align-self: center;
-        padding: 0 20px 0 10px;
+        padding: 4px 20px 0 10px;
         white-space: nowrap;
         text-overflow: ellipsis;
         overflow: hidden;
