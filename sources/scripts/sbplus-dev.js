@@ -677,6 +677,7 @@ var SBPLUS = SBPLUS || {
             previousPage.removeClass( 'sb_selected' );
             targetPage.addClass( 'sb_selected' );
             this.updatePageStatus( targetPage.data( 'count' ) );
+            $( '.sb_selected' )[0].scrollIntoView( false );
             
         }
         

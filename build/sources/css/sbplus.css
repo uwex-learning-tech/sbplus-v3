@@ -344,8 +344,6 @@ body {
         text-indent: 0;
         padding: 10px; }
       .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col .list {
-        max-height: 100%;
-        overflow-y: scroll;
         -moz-animation-duration: 0.5s;
         -webkit-animation-duration: 0.5s;
         animation-duration: 0.5s; }

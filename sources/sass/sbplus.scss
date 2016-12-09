@@ -471,8 +471,6 @@ body {
                 
                 .list {
                         
-                    max-height: 100%;
-                    overflow-y: scroll;
                     @include animation-duration( 0.5s );
                     
                     .item {
