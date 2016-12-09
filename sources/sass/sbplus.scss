@@ -287,7 +287,7 @@ body {
                 @include flex( 2 1 71.11% );
                 @include align-items(center);
                 font-family: 'MuseoSans-700';
-                padding: 4px $gutter 0;
+                padding: 0 $gutter;
                 line-height: 1.25;
             }
             
@@ -307,7 +307,6 @@ body {
                     width: 100%;
                     padding: 0 $gutter;
                     min-height: 0;
-                    padding-top: 4px;
                     font-family: 'MuseoSans-700';
                     color: #fff;
                     background-color: #4c4c4c;
@@ -400,7 +399,7 @@ body {
                         padding: 0 10px 10px;
                         width: 100%;
                         height: calc( 100% - 35px );
-                        overflow: scroll;
+                        overflow-y: auto;
                     }
                     
                 }
@@ -431,7 +430,7 @@ body {
                         @include flex( 1 0 10% );
                         width: auto;
                         min-width: 0;
-                        min-height: 100%;
+                        min-height: 28px;
                         background-color: transparent;
                         text-align: center;
                         padding-top: 2px;
@@ -501,7 +500,7 @@ body {
                     @include flex-flow( column nowrap );
                     @include flex( 2 0 auto );
                     height: calc(100% - 30px);
-                    overflow-y: scroll;
+                    overflow-y: auto;
                     
                     .section {
                         
@@ -626,8 +625,8 @@ body {
                     #menu_item_content {
                         
                         display: none;
-                        max-height: 100%;
-                        overflow-y: scroll;
+                        height: 100%;
+                        overflow-y: auto;
                         @include animation-delay( 0.3s );
                         @include animation-duration( 0.5s );
                         
@@ -748,13 +747,9 @@ body {
                         text-align: center;
                         font-size: 145%;
                         line-height: 1;
-                        cursor: pointer;
                     
                         .menu-parent {
                             
-                            @include display-flex();
-                            @include justify-content( center );
-                            @include align-items( center );
                             position: relative;
                             height: 100%;
                             cursor: pointer;
@@ -772,17 +767,8 @@ body {
                                 background-color: #fff;
                                 z-index: 9;
                                 
-                                .span {
-                                    @include display-flex();
-                                    @include flex-flow(column nowrap);
-                                    @include justify-content(center);
-                                }
-                                
                                 .menu-item {
                                     
-                                    @include display-flex();
-                                    @include flex-flow(column nowrap);
-                                    @include justify-content(center);
                                     margin: 0;
                                     padding: rem( 5px ) 0;
                                     height: 30px;
@@ -1069,7 +1055,7 @@ body {
                         font-weight: bold;
                         min-height: 0;
                         @include align-self( center );
-                        padding: 4px ($gutter * 2) 0 $gutter;
+                        padding: 0 ($gutter * 2) 0 $gutter;
                         white-space: nowrap;
                         text-overflow: ellipsis;
                         overflow: hidden;
@@ -1144,7 +1130,39 @@ body {
                 #sbplus_right_controls {
                     
                     #sbplus_download_btn_wrapper {
+                        
                         display: block;
+                        height: 48px;
+                        
+                        #sbplus_download_btn,
+                        .root-level {
+                            
+                            width: 100%;
+                            
+                            .menu-parent {
+                                
+                                @include display-flex();
+                                @include align-items( center );
+                                
+                                span {
+                                    display: block;
+                                    margin: 0 auto;
+                                }
+                                
+                                .menu {
+                                    
+                                    .menu-item {
+                                        @include display-flex();
+                                        @include align-items( center );
+                                        @include justify-content( center );
+                                    }
+                                    
+                                }
+                                
+                            }
+                            
+                        }
+                        
                     }
                     
                     #sbplus_sidebar_btn {

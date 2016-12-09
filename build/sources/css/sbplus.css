@@ -186,7 +186,7 @@ body {
       -webkit-align-items: center;
       align-items: center;
       font-family: 'MuseoSans-700';
-      padding: 4px 10px 0;
+      padding: 0 10px;
       line-height: 1.25; }
     .sbplus_wrapper #sbplus #sbplus_banner_bar #sbplus_menu_area {
       display: -webkit-flex;
@@ -204,7 +204,6 @@ body {
         width: 100%;
         padding: 0 10px;
         min-height: 0;
-        padding-top: 4px;
         font-family: 'MuseoSans-700';
         color: #fff;
         background-color: #4c4c4c; }
@@ -289,7 +288,7 @@ body {
           padding: 0 10px 10px;
           width: 100%;
           height: calc( 100% - 35px );
-          overflow: scroll; }
+          overflow-y: auto; }
     .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col {
       display: -webkit-flex;
       display: flex;
@@ -319,7 +318,7 @@ body {
           flex: 1 0 10%;
           width: auto;
           min-width: 0;
-          min-height: 100%;
+          min-height: 28px;
           background-color: transparent;
           text-align: center;
           padding-top: 2px; }
@@ -372,7 +371,7 @@ body {
         -webkit-flex: 2 0 auto;
         flex: 2 0 auto;
         height: calc(100% - 30px);
-        overflow-y: scroll; }
+        overflow-y: auto; }
         .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col #sbplus_table_of_contents_wrapper .section .header {
           display: -webkit-flex;
           display: flex;
@@ -438,8 +437,8 @@ body {
           font-size: 130%; }
         .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col #sbplus_menu_items_wrapper #menu_item_content {
           display: none;
-          max-height: 100%;
-          overflow-y: scroll;
+          height: 100%;
+          overflow-y: auto;
           -moz-animation-delay: 0.3s;
           -webkit-animation-delay: 0.3s;
           animation-delay: 0.3s;
@@ -537,16 +536,9 @@ body {
           height: 100%;
           text-align: center;
           font-size: 145%;
-          line-height: 1;
-          cursor: pointer; }
+          line-height: 1; }
           .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent,
           .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent {
-            display: -webkit-flex;
-            display: flex;
-            -webkit-justify-content: center;
-            justify-content: center;
-            -webkit-align-items: center;
-            align-items: center;
             position: relative;
             height: 100%;
             cursor: pointer; }
@@ -562,22 +554,8 @@ body {
               border: 1px solid #ccc;
               background-color: #fff;
               z-index: 9; }
-              .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu .span,
-              .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu .span {
-                display: -webkit-flex;
-                display: flex;
-                -webkit-flex-flow: column nowrap;
-                flex-flow: column nowrap;
-                -webkit-justify-content: center;
-                justify-content: center; }
               .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu .menu-item,
               .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu .menu-item {
-                display: -webkit-flex;
-                display: flex;
-                -webkit-flex-flow: column nowrap;
-                flex-flow: column nowrap;
-                -webkit-justify-content: center;
-                justify-content: center;
                 margin: 0;
                 padding: rem(5px) 0;
                 height: 30px; }
@@ -740,7 +718,7 @@ body {
         min-height: 0;
         -webkit-align-self: center;
         align-self: center;
-        padding: 4px 20px 0 10px;
+        padding: 0 20px 0 10px;
         white-space: nowrap;
         text-overflow: ellipsis;
         overflow: hidden;
@@ -782,7 +760,29 @@ body {
       -webkit-justify-content: flex-start;
       justify-content: flex-start; }
     .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper {
-      display: block; }
+      display: block;
+      height: 48px; }
+      .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn,
+      .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level {
+        width: 100%; }
+        .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent,
+        .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent {
+          display: -webkit-flex;
+          display: flex;
+          -webkit-align-items: center;
+          align-items: center; }
+          .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent span,
+          .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent span {
+            display: block;
+            margin: 0 auto; }
+          .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu .menu-item,
+          .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu .menu-item {
+            display: -webkit-flex;
+            display: flex;
+            -webkit-align-items: center;
+            align-items: center;
+            -webkit-justify-content: center;
+            justify-content: center; }
     .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_sidebar_btn {
       display: block; } }
 
