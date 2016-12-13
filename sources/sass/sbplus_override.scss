@@ -1,0 +1,200 @@
+.sbplus_wrapper {
+    
+    button:hover {
+        color: #f00;
+    }
+    
+    #sbplus {
+        
+        #sbplus_splash_screen {
+            
+            #sbplus_presentation_info {
+                
+                .sb_cta {
+                    
+                    button {
+                        color: #000;
+                        background-color: #f00;
+                    }
+                    
+                    button:hover {
+                        background-color: #0f0;
+                    }
+                    
+                }
+                
+                .sb_downloads {
+                    
+                    a {
+                        color: #f00;
+                        border-color: #f00;
+                    }
+                                        
+                    a:hover {
+                        color: #000;
+                        background-color: #0f0;
+                    }
+                    
+                }
+                
+            }
+            
+        }
+        
+        #sbplus_banner_bar {
+            
+            color: #000;
+            background-color: #f00;
+            
+            #sbplus_menu_area {
+                
+                #sbplus_menu_btn {
+                    background-color: #fc3b3b;
+                }
+                
+            }
+            
+        }
+        
+        #sbplus_content_wrapper {
+            
+            #sbplus_left_col {
+                
+                #sbplus_widget {
+                    
+                    .tab_segment {
+                        
+                        button {
+                            color: #f00;
+                            border-color: #f00;
+                        }
+                        
+                        .active {
+                            color: #000;
+                            background: #f00;
+                        }
+                        
+                    }
+                    
+                }
+                
+            }
+            
+            #sbplus_right_col {
+                
+                .list {
+                    
+                    .item:hover {
+                        color: #000;
+                        background-color: #0f0;
+                    }
+                    
+                    .sb_selected {
+                        color: #000;
+                        background-color: #f00;
+                    }
+                    
+                }
+                
+                #sbplus_table_of_contents_wrapper {
+                    
+                    .section {
+                        
+                        .current {
+                            border-left-color: #f00;
+                        }
+                        
+                    }
+                    
+                }
+                
+            }
+            
+        }
+        
+        #sbplus_control_bar {
+            
+            #sbplus_right_controls {
+                
+                #sbplus_download_btn_wrapper {
+                    
+                    #sbplus_download_btn,
+                    .root-level {
+
+                        .menu-parent {
+
+                            .menu {
+                                
+                                .menu-item:hover {
+                                    
+                                    background-color: #f00;
+                                    
+                                    a {
+                                        color: #000;
+                                    }
+                                    
+                                }
+                                
+                                .menu-item:focus {
+                                    
+                                    background-color: #f00;
+                                    
+                                    a {
+                                        color: #000;
+                                    }
+                                    
+                                }
+                                                                    
+                            }
+                            
+                        }
+                        
+                        .menu-parent:hover {
+                            color: #f00;
+                        }
+                        
+                    }
+                                            
+                }
+                
+            }
+            
+        }
+        
+        .sb_active {
+            color: #f00;
+        }
+        
+    }
+    
+}
+
+@media only screen
+    and ( min-device-width: 737px )
+    and ( min-width: 737px ) {
+    
+    .sbplus_wrapper {
+        
+        #sbplus {
+        
+            #sbplus_splash_screen {
+                
+                #sbplus_presentation_info {
+                    
+                    .sb_downloads {
+                        
+                        a:first-child {
+                            border-left-color: #f00;
+                        }
+                        
+                    }
+                    
+                }
+                
+            }
+            
+        }
+        
+    }
+    
+}

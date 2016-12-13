@@ -153,6 +153,19 @@
 		"oA": 0,
 		"oAP": "\/build\/sources\/css\/sbplus.css",
 		"oF": 1,
+		"oS": 3,
+		"uL": 1
+		},
+	"\/sources\/sass\/sbplus_override.scss": {
+		"aP": 0,
+		"bl": 0,
+		"dP": 10,
+		"dS": 0,
+		"ft": 4,
+		"ma": 0,
+		"oA": 1,
+		"oAP": "\/build\/sources\/css\/sbplus_override.css",
+		"oF": 1,
 		"oS": 0,
 		"uL": 1
 		},
@@ -294,7 +307,7 @@
 	"displayValue": "sbplus_v3",
 	"displayValueWasSetByUser": 0,
 	"iconImageName": "meme-soon",
-	"lastBuiltDate": 502226176
+	"lastBuiltDate": 503345872
 	},
 "projectSettings": {
 	"abortBuildOnError": 1,

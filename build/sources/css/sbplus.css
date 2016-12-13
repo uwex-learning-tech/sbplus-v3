@@ -131,8 +131,7 @@ body {
         background-color: #06498d; }
       .sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_downloads {
         margin-bottom: 0;
-        font-size: 80%;
-        color: #333; }
+        font-size: 80%; }
         .sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_downloads a {
           position: relative;
           display: block;
@@ -172,6 +171,7 @@ body {
     order: 1;
     -webkit-justify-content: center;
     justify-content: center;
+    color: #fff;
     height: 60px;
     background-color: #333;
     font-size: 145%;
@@ -199,13 +199,14 @@ body {
       justify-content: flex-end; }
       .sbplus_wrapper #sbplus #sbplus_banner_bar #sbplus_menu_area #sbplus_author_name {
         display: none;
+        color: inherit;
         font-family: 'MuseoSans-700'; }
       .sbplus_wrapper #sbplus #sbplus_banner_bar #sbplus_menu_area #sbplus_menu_btn {
         width: 100%;
         padding: 0 10px;
         min-height: 0;
         font-family: 'MuseoSans-700';
-        color: #fff;
+        color: inherit;
         background-color: #4c4c4c; }
   .sbplus_wrapper #sbplus #sbplus_content_wrapper {
     display: -webkit-flex;

@@ -321,37 +321,6 @@ var SBPLUS = SBPLUS || {
             
             // local storage settings
             
-            // accent
-            if ( this.xml.settings.accent !== this.manifest.sbplus_default_accent ) {
-            
-                var style = '.sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_cta button, ';
-                style += '.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_widget .tab_segment .active,';
-                style += '.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col .list .sb_selected,';
-                style += '.sbplus_wrapper #sbplus #sbplus_banner_bar, .sbplus_wrapper #sbplus #sbplus_banner_bar #sbplus_menu_area #sbplus_author_name {';
-                style += 'color: ' + this.colorContrast( this.xml.settings.accent )  + ';';
-                style += 'background-color:' + this.xml.settings.accent + ';';
-                style += 'border-color:' + this.xml.settings.accent + ';}';
-                style += '.sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_cta button:hover,';
-                style += '.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col .list .item:hover,';
-                style += '.sbplus_wrapper #sbplus #sbplus_banner_bar #sbplus_menu_area #sbplus_menu_btn,';
-                style += '.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu .menu-item:hover, .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu .menu-item:hover {';
-                style += 'background-color: ' + this.colorLum( this.xml.settings.accent, 0.2 ) + '}';
-                style += '.sbplus_wrapper button:hover, .sbplus_wrapper #sbplus .sb_active, ';
-                style += '.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent:hover, .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent:hover {';
-                style += 'color: ' + this.colorLum( this.xml.settings.accent, 0.2 ) + ';}';
-                style += '.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_widget .tab_segment button, ';
-                style += '.sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_downloads a {';
-                style += 'border-color: ' + this.xml.settings.accent + '; color: ' + this.xml.settings.accent + ';}';
-                style += '.sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_downloads a:hover{';
-                style += ' background-color: ' + this.xml.settings.accent + ';}';
-                style += '.sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_downloads a:first-child {'
-                style += 'border-color: ' + this.xml.settings.accent + ';}';
-                style += '.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col #sbplus_table_of_contents_wrapper .section .current {';
-                style += 'border-left-color: ' + this.xml.settings.accent + ';}'
-                $( 'head' ).append( '<style type="text/css">' + style + '</style>' );
-                
-            }
-            
             // splash screen
             $( this.splash.title ).html( this.xml.setup.title );
             $( this.splash.subtitle ).html( this.xml.setup.subtitle );
@@ -436,6 +405,17 @@ var SBPLUS = SBPLUS || {
             $( this.tableOfContents.page ).on( 'click', this.selectPage.bind( this ) );
             $( this.widget.segment ).on( 'click', this.changeSegment.bind( this ) );
             this.layout.dwnldMenu = new MenuBar( $( this.button.download )[0].id, false );
+            
+            // accent
+            if ( this.xml.settings.accent !== this.manifest.sbplus_default_accent ) {
+                
+                var hover = this.colorLum( this.xml.settings.accent, 0.2 );
+                var textColor = this.colorContrast( this.xml.settings.accent );
+                var style = '.sbplus_wrapper button:hover{color:' + this.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_cta button{color:' + textColor  + ';background-color:' + this.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_cta button:hover{background-color:' + hover + '}.sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_downloads a{color:' + this.xml.settings.accent + ';border-color:' + this.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_downloads a:hover{color:' + textColor + ';background-color:' + hover + '}.sbplus_wrapper #sbplus #sbplus_banner_bar{color:' + textColor + ';background-color:' + this.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_banner_bar #sbplus_menu_area #sbplus_menu_btn{background-color:' + hover + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_widget .tab_segment button{color:' + this.xml.settings.accent + ';border-color:' + this.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_widget .tab_segment .active{color:' + textColor + ';background:' + this.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col .list .item:hover{color:' + textColor + ';background-color:' + hover + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col .list .sb_selected{color:' + textColor + ';background-color:' + this.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col #sbplus_table_of_contents_wrapper .section .current{border-left-color:' + this.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu .menu-item:hover,.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu .menu-item:hover{background-color:' + this.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu .menu-item:hover a,.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu .menu-item:hover a{color:' + textColor + '}.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu .menu-item:focus,.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu .menu-item:focus{background-color:' + this.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu .menu-item:focus a,.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu .menu-item:focus a{color:' + textColor + '}.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent:hover,.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent:hover{color:' + this.xml.settings.accent + '}.sbplus_wrapper #sbplus .sb_active{color:' + this.xml.settings.accent + '}@media only screen and (min-device-width: 737px) and (min-width: 737px){.sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_downloads a:first-child{border-left-color:' + this.xml.settings.accent + '}}';
+                
+                $( 'head' ).append( '<style type="text/css">' + style + '</style>' );
+                
+            }
             
             // get mathjax if turned on
             if ( this.xml.settings.mathjax === 'on' ) {

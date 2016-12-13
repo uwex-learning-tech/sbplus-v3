@@ -230,7 +230,6 @@ body {
                     @extend .common;
                     margin-bottom: 0;
                     font-size: 80%;
-                    color: #333;
                     
                     a {
                         position: relative;
@@ -276,6 +275,7 @@ body {
             @include flex-flow( row nowrap );
             @include order(1);
             @include justify-content(center);
+            color: #fff;
             height: $titleBarHeight * 2;
             background-color: #333;
             font-size: 145%;
@@ -300,6 +300,7 @@ body {
                 
                 #sbplus_author_name {
                     display: none;
+                    color: inherit;
                     font-family: 'MuseoSans-700';
                 }
                 
@@ -308,7 +309,7 @@ body {
                     padding: 0 $gutter;
                     min-height: 0;
                     font-family: 'MuseoSans-700';
-                    color: #fff;
+                    color: inherit;
                     background-color: #4c4c4c;
                 }
                 
