@@ -677,8 +677,24 @@ var SBPLUS = SBPLUS || {
             previousPage.removeClass( 'sb_selected' );
             targetPage.addClass( 'sb_selected' );
             this.updatePageStatus( targetPage.data( 'count' ) );
-            $( '.sb_selected' )[0].scrollIntoView( false );
+            this.updateScroll( targetPage[0] );
             
+        }
+        
+    },
+    
+    updateScroll: function( target ) {
+        
+        var scrollHeight = $( this.tableOfContents.container ).height();
+        var targetHeight = $( target ).outerHeight();
+        var targetTop = $( target ).offset().top - targetHeight;
+        
+        if ( targetTop > scrollHeight ) {
+            target.scrollIntoView( false );
+        }
+        
+        if ( targetTop < targetHeight ) {
+            target.scrollIntoView( true );
         }
         
     },
