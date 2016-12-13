@@ -397,10 +397,30 @@ body {
                     }
                     
                     .segment_content {
+                        
                         padding: 0 10px 10px;
                         width: 100%;
                         height: calc( 100% - 35px );
                         overflow-y: auto;
+                        
+                        h1, h2, h3, h4, h5, h6, p, blockquote {
+                            margin: 6px 0;
+                            line-height: 1.5;
+                        }
+                        
+                        ol, ul {
+                            
+                            list-style-position: outside;
+                            margin-left: 25px;
+                            
+                            li {
+                                margin: 6px 0;
+                                line-height: 1.5;
+                            }
+                            
+                        }
+                        
+                        
                     }
                     
                 }
