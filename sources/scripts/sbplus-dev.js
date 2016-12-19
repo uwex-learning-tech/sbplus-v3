@@ -19,9 +19,12 @@ var SBPLUS = SBPLUS || {
     xml: null,
     xmlLoaded: false,
     xmlParsed: false,
-    presentationRendered: false,
+    splashScreenRendered: false,
     beforePresentingDone: false,
     presentationStarted: false,
+    currentPage: null,
+    kalturaLoaded: false,
+    externalContentLoaded: false,
     hasError: false,
     
     /***************************************************************************
@@ -42,6 +45,7 @@ var SBPLUS = SBPLUS || {
                 errorScreen: '#sbplus_error_screen',
                 widget: '#sbplus_widget',
                 media: '#sbplus_media_wrapper',
+                mediaContent: '#sbplus_media_wrapper .sbplus_media_content',
                 sidebar: '#sbplus_right_col',
                 pageStatus: '#sbplus_page_status',
                 dwnldMenu: null
@@ -68,8 +72,9 @@ var SBPLUS = SBPLUS || {
             
             this.widget = {
                 bar: '#sbplus_widget .tab_segment',
-                segment: '#sbplus_widget button',
-                segments: []
+                segment: '#sbplus_widget .widget_controls_bar .tab_segment',
+                segments: [],
+                content: '#sbplus_widget .segment_content'
             },
             
             this.button = {
@@ -235,11 +240,11 @@ var SBPLUS = SBPLUS || {
             var xVersion = xSb.attr( 'xmlVersion' );
             var xProgram = xSetup.attr( 'program' ).toLowerCase().trim();
             var xCourse = xSetup.attr( 'course' ).toLowerCase().trim();
-            var xTitle = xSetup.find( 'title' ).text().trim();
-            var xSubtitle = xSetup.find( 'subtitle' ).text().trim();
+            var xTitle = this.stripScript( xSetup.find( 'title' ).text().trim() );
+            var xSubtitle = this.stripScript( xSetup.find( 'subtitle' ).text().trim() );
             var xLength = xSetup.find( 'length' ).text().trim();
             var xAuthor = xSetup.find( 'author' );
-            var xGeneralInfo = xSetup.find( 'generalInfo' ).text().trim();
+            var xGeneralInfo = this.stripScript( xSetup.find( 'generalInfo' ).text().trim() );
             var xSections = data.find( 'section' );
             
             if ( this.isEmpty( xAccent ) ) {
@@ -293,17 +298,17 @@ var SBPLUS = SBPLUS || {
             } ).done( function( res ) {
                 
                 self.xml.setup.author = res.name;
-                self.xml.setup.profile = res.profile;
+                self.xml.setup.profile = self.stripScript( res.profile );
                 
             } ).fail( function() {
                 
                 self.xml.setup.author = xAuthor.attr( 'name' ).trim();
-                self.xml.setup.profile = xAuthor.text().trim();
+                self.xml.setup.profile = self.stripScript( xAuthor.text().trim() );
                 
             } ).always( function() {
                 
                 self.xmlParsed = true;
-                self.renderPresentation();
+                self.renderSplashscreen();
                 
             } );
             
@@ -313,11 +318,9 @@ var SBPLUS = SBPLUS || {
         
     },
     
-    renderPresentation: function() {
+    renderSplashscreen: function() {
         
-        if ( this.xmlParsed && this.presentationRendered === false ) {
-            
-            var self = this;
+        if ( this.xmlParsed && this.splashScreenRendered === false ) {
             
             // local storage settings
             
@@ -327,91 +330,17 @@ var SBPLUS = SBPLUS || {
             $( this.splash.author ).html( this.xml.setup.author );
             $( this.splash.duration ).html( this.xml.setup.duration );
             
-            // presentation
-            $( this.banner.title ).html( this.xml.setup.title );
-            $( this.banner.author ).html( this.xml.setup.author );
-            
-            // table of contents
-            $( this.xml.sections ).each( function( i ) {
-                
-                var sectionHead = $( this ).attr( 'title' );
-                var pages = $( this ).find( 'page' );
-                var sectionHTML = '<div class="section">';
-                var first = false;
-                
-                if ( i === 0 ) {
-                    first = true;
-                }
-                
-                if ( first ) {
-                    sectionHTML += '<div class="header current">';
-                } else {
-                    sectionHTML += '<div class="header">';
-                }
-                
-                sectionHTML += '<div class="title">';
-                sectionHTML += sectionHead +'</div>';
-                sectionHTML += '<div class="icon"><span class="icon-collapse"></span></div></div>';
-                sectionHTML += '<ul class="list">';
-                
-                if ( self.isEmpty( sectionHead ) ) {
-                    sectionHead = 'Section ' + ( i + 1 );
-                }
-                
-                $.each( pages, function( j ) {
-                    
-                    ++self.totalPages;
-                    
-                    if ( first && j === 0 ) {
-                        sectionHTML += '<li class="item sb_selected" data-count="';
-                        sectionHTML += self.totalPages + '" data-page="' + i + ',' + j + '">';
-                    } else {
-                        sectionHTML += '<li class="item" data-count="';
-                        sectionHTML += self.totalPages + '" data-page="' + i + ',' + j + '">';
-                    }
-                    
-                    if ( $( this ).attr( 'type' ) === 'quiz' ) {
-                        sectionHTML += '<span class="icon-assessment"></span>';
-                    } else {
-                        sectionHTML += '<span class="numbering">' + self.totalPages + '.</span> ';
-                    }
-                    
-                    sectionHTML += $( this ).attr( 'title' ) + '</li>';
-                    
-                } );
-                
-                sectionHTML += '</ul></div>';
-                
-                $( self.tableOfContents.container ).append( sectionHTML );
-                
-            } );
-            
-            // page status
-            $( this.layout.pageStatus ).find( 'span.total' ).html( this.totalPages );
-            this.updatePageStatus( 1 );
-            
             // event listeners
-            $( this.button.sidebar ).on( 'click', this.toggleSidebar.bind( this ) );
-            $( this.button.widget ).on( 'click',  this.toggleWidget.bind( this ) );
-            $( this.button.menu ).on( 'click', this.toggleMenu.bind( this ) );
-            $( this.button.author ).on( 'click', function() {
-                self.openMenuItem( 'sbplus_author_profile' );
-            } );
             $( this.button.start ).on( 'click', this.startPresentation.bind( this ) );
             $( this.button.resume ).on( 'click', this.resumePresentation.bind( this ) );
-            $( this.button.next ).on( 'click', this.goToNextPage.bind( this ) );
-            $( this.button.prev ).on( 'click', this.goToPreviousPage.bind( this ) );
-            $( this.tableOfContents.header ).on( 'click', this.toggleSection.bind( this ) );
-            $( this.tableOfContents.page ).on( 'click', this.selectPage.bind( this ) );
-            $( this.widget.segment ).on( 'click', this.changeSegment.bind( this ) );
-            this.layout.dwnldMenu = new MenuBar( $( this.button.download )[0].id, false );
+            
             
             // accent
             if ( this.xml.settings.accent !== this.manifest.sbplus_default_accent ) {
                 
                 var hover = this.colorLum( this.xml.settings.accent, 0.2 );
                 var textColor = this.colorContrast( this.xml.settings.accent );
-                var style = '.sbplus_wrapper button:hover{color:' + this.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_cta button{color:' + textColor  + ';background-color:' + this.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_cta button:hover{background-color:' + hover + '}.sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_downloads a{color:' + this.xml.settings.accent + ';border-color:' + this.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_downloads a:hover{color:' + textColor + ';background-color:' + hover + '}.sbplus_wrapper #sbplus #sbplus_banner_bar{color:' + textColor + ';background-color:' + this.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_banner_bar #sbplus_menu_area #sbplus_menu_btn{background-color:' + hover + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_widget .tab_segment button{color:' + this.xml.settings.accent + ';border-color:' + this.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_widget .tab_segment .active{color:' + textColor + ';background:' + this.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col .list .item:hover{color:' + textColor + ';background-color:' + hover + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col .list .sb_selected{color:' + textColor + ';background-color:' + this.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col #sbplus_table_of_contents_wrapper .section .current{border-left-color:' + this.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu .menu-item:hover,.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu .menu-item:hover{background-color:' + this.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu .menu-item:hover a,.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu .menu-item:hover a{color:' + textColor + '}.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu .menu-item:focus,.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu .menu-item:focus{background-color:' + this.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu .menu-item:focus a,.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu .menu-item:focus a{color:' + textColor + '}.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent:hover,.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent:hover{color:' + this.xml.settings.accent + '}.sbplus_wrapper #sbplus .sb_active{color:' + this.xml.settings.accent + '}@media only screen and (min-device-width: 737px) and (min-width: 737px){.sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_downloads a:first-child{border-left-color:' + this.xml.settings.accent + '}}';
+                var style = '.sbplus_wrapper button:hover{color:' + this.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_cta button{color:' + textColor  + ';background-color:' + this.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_cta button:hover{background-color:' + hover + '}.sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_downloads a{color:' + this.xml.settings.accent + ';border-color:' + this.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_downloads a:hover{color:' + textColor + ';background-color:' + hover + '}.sbplus_wrapper #sbplus #sbplus_banner_bar{color:' + textColor + ';background-color:' + this.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_banner_bar #sbplus_menu_area #sbplus_menu_btn{background-color:' + hover + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_widget .widget_controls_bar .tab_segment button{color:' + this.xml.settings.accent + ';border-color:' + this.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_widget .widget_controls_bar .tab_segment .active{color:' + textColor + ';background:' + this.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col .list .item:hover{color:' + textColor + ';background-color:' + hover + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col .list .sb_selected{color:' + textColor + ';background-color:' + this.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col #sbplus_table_of_contents_wrapper .section .current{border-left-color:' + this.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu .menu-item:hover,.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu .menu-item:hover{background-color:' + this.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu .menu-item:hover a,.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu .menu-item:hover a{color:' + textColor + '}.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu .menu-item:focus,.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu .menu-item:focus{background-color:' + this.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu .menu-item:focus a,.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu .menu-item:focus a{color:' + textColor + '}.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent:hover,.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent:hover{color:' + this.xml.settings.accent + '}.sbplus_wrapper #sbplus .sb_active{color:' + this.xml.settings.accent + '}@media only screen and (min-device-width: 737px) and (min-width: 737px){.sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_downloads a:first-child{border-left-color:' + this.xml.settings.accent + '}}';
                 
                 $( 'head' ).append( '<style type="text/css">' + style + '</style>' );
                 
@@ -435,7 +364,80 @@ var SBPLUS = SBPLUS || {
             }
             
         } else {
-            return 'Presentation already rendered.';
+            return 'Splash screen already rendered.';
+        }
+        
+    },
+    
+    renderPresentation: function() {
+        
+        var self = this;
+        
+        // presentation
+        $( this.banner.title ).html( this.xml.setup.title );
+        $( this.banner.author ).html( this.xml.setup.author );
+        
+        // table of contents
+        $( this.xml.sections ).each( function( i ) {
+            
+            var sectionHead = $( this ).attr( 'title' );
+            var pages = $( this ).find( 'page' );
+            
+            var sectionHTML = '<div class="section">';
+            sectionHTML += '<div class="header">';
+            sectionHTML += '<div class="title">';
+            sectionHTML += sectionHead +'</div>';
+            sectionHTML += '<div class="icon"><span class="icon-collapse"></span></div></div>';
+            sectionHTML += '<ul class="list">';
+            
+            if ( self.isEmpty( sectionHead ) ) {
+                sectionHead = 'Section ' + ( i + 1 );
+            }
+            
+            $.each( pages, function( j ) {
+                
+                ++self.totalPages;
+                
+                sectionHTML += '<li class="item" data-count="';
+                sectionHTML += self.totalPages + '" data-page="' + i + ',' + j + '">';
+                
+                if ( $( this ).attr( 'type' ) === 'quiz' ) {
+                    sectionHTML += '<span class="icon-assessment"></span>';
+                } else {
+                    sectionHTML += '<span class="numbering">' + self.totalPages + '.</span> ';
+                }
+                
+                sectionHTML += $( this ).attr( 'title' ) + '</li>';
+                
+            } );
+            
+            sectionHTML += '</ul></div>';
+            
+            $( self.tableOfContents.container ).append( sectionHTML );
+            
+        } );
+        
+        // page status
+        $( this.layout.pageStatus ).find( 'span.total' ).html( this.totalPages );
+        this.selectPage( '0,0' );
+            
+        // event listeners
+        $( this.button.sidebar ).on( 'click', this.toggleSidebar.bind( this ) );
+        $( this.button.widget ).on( 'click',  this.toggleWidget.bind( this ) );
+        $( this.button.menu ).on( 'click', this.toggleMenu.bind( this ) );
+        $( this.button.author ).on( 'click', function() {
+            self.openMenuItem( 'sbplus_author_profile' );
+        } );
+        
+        $( this.button.next ).on( 'click', this.goToNextPage.bind( this ) );
+        $( this.button.prev ).on( 'click', this.goToPreviousPage.bind( this ) );
+        $( this.tableOfContents.header ).on( 'click', this.toggleSection.bind( this ) );
+        $( this.tableOfContents.page ).on( 'click', this.selectPage.bind( this ) );
+        $( this.widget.segment ).on( 'click', 'button', this.selectSegment.bind( this ) );
+        this.layout.dwnldMenu = new MenuBar( $( this.button.download )[0].id, false );
+        
+        if ( this.xml.settings.mathjax === 'on' ) {
+            MathJax.Hub.Queue( ['Typeset', MathJax.Hub] );
         }
         
     },
@@ -516,15 +518,22 @@ var SBPLUS = SBPLUS || {
                      $( this ).off();
                  }
             );
-            
+        
+        return $( this.splash.screen );
+        
     },
     
     startPresentation: function() {
         
-        if ( this.presentationStarted === false ) {
+        var self = this;
+        
+        if ( self.presentationStarted === false ) {
             
-            this.hideSplash();
-            this.presentationStarted = true;
+            self.hideSplash().promise().done( function() {
+                self.renderPresentation();
+            } );
+            self.presentationStarted = true;
+            
             
         }
         
@@ -532,10 +541,15 @@ var SBPLUS = SBPLUS || {
     
     resumePresentation: function() {
         
-        if ( this.presentationStarted === false ) {
+        var self = this;
+        
+        if ( self.presentationStarted === false ) {
             
-            this.hideSplash();
-            this.presentationStarted = true;
+            self.hideSplash().promise().done( function() {
+                self.renderPresentation();
+            } );
+            
+            self.presentationStarted = true;
             
         }
         
@@ -634,10 +648,13 @@ var SBPLUS = SBPLUS || {
             
         }
         
+        // TODO rework this code so it does not hide splash when the presentation is not started
+/*
         if ( $( this.splash.screen ).is( ':visible' ) ) {
             this.hideSplash();
         }
-        
+*/
+              
         if ( !targetPage.hasClass( 'sb_selected' ) ) {
             
             var previousPage = $( this.tableOfContents.page );
@@ -656,6 +673,7 @@ var SBPLUS = SBPLUS || {
             
             previousPage.removeClass( 'sb_selected' );
             targetPage.addClass( 'sb_selected' );
+            this.getPage( targetPage.data('page') );
             this.updatePageStatus( targetPage.data( 'count' ) );
             this.updateScroll( targetPage[0] );
             
@@ -663,7 +681,34 @@ var SBPLUS = SBPLUS || {
         
     },
     
+    getPage: function ( page ) {
+        
+        page = page.split( ',' );
+        
+        var section = page[0];
+        var item = page[1];
+        var target =$( $( this.xml.sections[section] ).find( 'page' )[item] );
+        var pageData = {
+            title: target.attr( 'title' ).trim(),
+            type: target.attr( 'type' ).trim().toLowerCase(),
+            transition: target[0].hasAttribute( 'transition' ) ? 
+                target.attr( 'transition' ).trim() : ''
+        };
+        
+        if ( pageData.type !== 'quiz' ) {
+            pageData.src = target.attr( 'src' ).trim();
+            pageData.notes = this.stripScript( target.find( 'note' ).text().trim() );
+            pageData.widget = target.find( 'widget' );
+        }
+        
+        this.currentPage = new Page( pageData );
+        this.currentPage.getPageMedia();
+        
+    },
+    
     updateScroll: function( target ) {
+        
+        // TODO: scroll to header if target is not visible
         
         var scrollHeight = $( this.tableOfContents.container ).height();
         var targetHeight = $( target ).outerHeight();
@@ -970,26 +1015,67 @@ var SBPLUS = SBPLUS || {
         
     },
     
-    changeSegment: function( e ) {
+    selectSegment: function( e ) {
         
-        var button = $( this.widget.segment );
-        var target = $( e.currentTarget );
+        var button = $( this.widget.segment ).find( 'button' );
+        var target = '';
+        var targetId = '';
+        
+        if ( typeof e === 'string' ) {
+            target = $( '#' + e );
+            targetId = e;
+        } else {
+            target = $( e.currentTarget );
+            targetId = target[0].id;
+        }
         
         button.removeClass( 'active' );
         target.addClass( 'active' );
+        this.currentPage.getWidgetContent( targetId );
         
-        // TODO: pull and structure content from the XML data
+    },
+    
+    selectFirstSegment: function() {
         
+        var button = $( this.widget.segment ).find( 'button' )[0];
+        var target = $( button ).attr( 'id' );
+        
+        this.selectSegment( target );
         
     },
     
     addSegment: function( str ) {
         
-        var btn = '<button id="' + this.sanitize( str ) + '">' + str + '</button>';
+        var btn = '<button id="sbplus_' + this.sanitize( str ) + '">' + str + '</button>';
         
         this.widget.segments.push( str );
-        $( this.widget.bar ).append( btn );
         
+        if ( str === 'Notes' ) {
+            $( this.widget.bar ).prepend( btn );
+        } else {
+            $( this.widget.bar ).append( btn );
+        }
+        
+    },
+    
+    showWidgetSegment: function() {
+        if ( this.widget.segments.length >= 2 ) {
+            $( this.widget.segment ).show();
+        }
+        
+    },
+    
+    hideWidgetSegment: function() {
+        if ( this.widget.segments.length < 2 ) {
+            $( this.widget.segment ).hide();
+        }
+        
+    },
+    
+    clearWidgetSegment: function() {
+        $( this.widget.segment ).empty();
+        $( this.widget.content ).empty();
+        this.widget.segments = [];
     },
     
     /***************************************************************************
@@ -1229,6 +1315,22 @@ var SBPLUS = SBPLUS || {
 
         hex = parseInt( hex.slice( 1 ), 16 );
         return hex > 0xffffff / 2 ? '#000' : '#fff';
+        
+    },
+    
+    stripScript: function( str ) {
+        
+        if ( str !== "" || str !== undefined ) {
+
+           var results = $( "<span>" +  $.trim( str ) + "</span>" );
+    
+           results.find( "script,noscript,style" ).remove().end();
+    
+           return results.html();
+    
+       }
+    
+       return str;
         
     }
         

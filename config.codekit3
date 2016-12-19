@@ -7,7 +7,7 @@
 		"uuidString": "A55265B6-3CAC-4E30-9611-2EA711C82108"
 		}
 	],
-"creatorBuild": "25444",
+"creatorBuild": "25479",
 "files": {
 	"\/.gitignore": {
 		"ft": 8192,
@@ -163,10 +163,10 @@
 		"dS": 0,
 		"ft": 4,
 		"ma": 0,
-		"oA": 1,
+		"oA": 0,
 		"oAP": "\/build\/sources\/css\/sbplus_override.css",
 		"oF": 1,
-		"oS": 0,
+		"oS": 2,
 		"uL": 1
 		},
 	"\/sources\/scripts\/libs\/highlight\/default.css": {
@@ -233,6 +233,73 @@
 		"sC": 0,
 		"tS": 0
 		},
+	"\/sources\/scripts\/libs\/videojs\/font": {
+		"ft": 65536,
+		"oA": 2,
+		"oAP": "\/build\/sources\/scripts\/libs\/videojs",
+		"oF": 3
+		},
+	"\/sources\/scripts\/libs\/videojs\/lang": {
+		"ft": 65536,
+		"oA": 2,
+		"oAP": "\/build\/sources\/scripts\/libs\/videojs",
+		"oF": 3
+		},
+	"\/sources\/scripts\/libs\/videojs\/plugins\/cuepoint\/videojs.cuepoints.js": {
+		"ft": 64,
+		"mi": 0,
+		"oA": 2,
+		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/plugins\/cuepoint\/videojs.cuepoints.js",
+		"oF": 3,
+		"sC": 0,
+		"tS": 0
+		},
+	"\/sources\/scripts\/libs\/videojs\/plugins\/resolution\/videojs-resolution-switcher.js": {
+		"ft": 64,
+		"mi": 0,
+		"oA": 2,
+		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/plugins\/resolution\/videojs-resolution-switcher.js",
+		"oF": 3,
+		"sC": 0,
+		"tS": 0
+		},
+	"\/sources\/scripts\/libs\/videojs\/plugins\/vimeo\/vimeo.js": {
+		"ft": 64,
+		"mi": 0,
+		"oA": 2,
+		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/plugins\/vimeo\/vimeo.js",
+		"oF": 3,
+		"sC": 0,
+		"tS": 0
+		},
+	"\/sources\/scripts\/libs\/videojs\/plugins\/youtube\/youtube.js": {
+		"ft": 64,
+		"mi": 0,
+		"oA": 2,
+		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/plugins\/youtube\/youtube.js",
+		"oF": 3,
+		"sC": 0,
+		"tS": 0
+		},
+	"\/sources\/scripts\/libs\/videojs\/video-dev.js": {
+		"ft": 64,
+		"mi": 0,
+		"oA": 0,
+		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/video.js",
+		"oF": 3,
+		"sC": 0,
+		"tS": 0
+		},
+	"\/sources\/scripts\/libs\/videojs\/video-js.min.css": {
+		"aP": 0,
+		"bl": 0,
+		"ft": 16,
+		"ma": 0,
+		"oA": 2,
+		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/video-js.min.css",
+		"oF": 3,
+		"oS": 0
+		},
 	"\/sources\/scripts\/menubar.js": {
 		"ft": 64,
 		"mi": 0,
@@ -240,6 +307,15 @@
 		"oAP": "\/build\/scripts\/menubar.js",
 		"oF": 0,
 		"sC": 0,
+		"tS": 0
+		},
+	"\/sources\/scripts\/page.js": {
+		"ft": 64,
+		"mi": 0,
+		"oA": 1,
+		"oAP": "\/build\/scripts\/page.js",
+		"oF": 1,
+		"sC": 3,
 		"tS": 0
 		},
 	"\/sources\/scripts\/sbplus-dev.js": {
@@ -293,11 +369,43 @@
 "hooks": [
 	],
 "manualImportLinks": {
+	"\/sources\/scripts\/libs\/videojs\/video-dev.js": [
+		{
+			"followForSyntaxChecking": 1,
+			"linkedFileAbbreviatedPath": "\/sources\/scripts\/libs\/videojs\/plugins\/cuepoint\/videojs.cuepoints.js",
+			"position": 0,
+			"type": 1
+			},
+		{
+			"followForSyntaxChecking": 1,
+			"linkedFileAbbreviatedPath": "\/sources\/scripts\/libs\/videojs\/plugins\/resolution\/videojs-resolution-switcher.js",
+			"position": 1,
+			"type": 1
+			},
+		{
+			"followForSyntaxChecking": 1,
+			"linkedFileAbbreviatedPath": "\/sources\/scripts\/libs\/videojs\/plugins\/youtube\/youtube.js",
+			"position": 2,
+			"type": 1
+			},
+		{
+			"followForSyntaxChecking": 1,
+			"linkedFileAbbreviatedPath": "\/sources\/scripts\/libs\/videojs\/plugins\/vimeo\/vimeo.js",
+			"position": 3,
+			"type": 1
+			}
+		],
 	"\/sources\/scripts\/sbplus-dev.js": [
 		{
 			"followForSyntaxChecking": 1,
-			"linkedFileAbbreviatedPath": "\/sources\/scripts\/menubar.js",
+			"linkedFileAbbreviatedPath": "\/sources\/scripts\/page.js",
 			"position": 0,
+			"type": 0
+			},
+		{
+			"followForSyntaxChecking": 1,
+			"linkedFileAbbreviatedPath": "\/sources\/scripts\/menubar.js",
+			"position": 1,
 			"type": 0
 			}
 		]
@@ -305,9 +413,9 @@
 "projectAttributes": {
 	"creationDate": 499371907,
 	"displayValue": "sbplus_v3",
-	"displayValueWasSetByUser": 0,
+	"displayValueWasSetByUser": 1,
 	"iconImageName": "meme-soon",
-	"lastBuiltDate": 503345872
+	"lastBuiltDate": 503857752
 	},
 "projectSettings": {
 	"abortBuildOnError": 1,
@@ -751,6 +859,10 @@
 			"active": 0,
 			"optionString": "{'properties': 'always'}"
 			},
+		"capitalized-comments": {
+			"active": 0,
+			"optionString": "'always', {'ignoreInlineComments': false, 'ignoreConsecutiveComments': false}"
+			},
 		"class-methods-use-this": {
 			"active": 0,
 			"optionString": "{'exceptMethods': []}"
@@ -914,6 +1026,10 @@
 		"max-statements": {
 			"active": 0,
 			"optionString": "{'max': 10}, {'ignoreTopLevelFunctions': true}"
+			},
+		"max-statements-per-line": {
+			"active": 0,
+			"optionString": "{'max': 1}"
 			},
 		"multiline-ternary": {
 			"active": 0,
@@ -1279,6 +1395,10 @@
 			"active": 0,
 			"optionString": "'except-parens'"
 			},
+		"no-return-await": {
+			"active": 0,
+			"optionString": ""
+			},
 		"no-script-url": {
 			"active": 0,
 			"optionString": ""
@@ -1511,6 +1631,10 @@
 			"active": 0,
 			"optionString": "'always'"
 			},
+		"require-await": {
+			"active": 0,
+			"optionString": ""
+			},
 		"require-jsdoc": {
 			"active": 0,
 			"optionString": "{'require': {'FunctionDeclaration': true, 'MethodDefinition': false, 'ClassDeclaration': false}}"
@@ -1620,7 +1744,7 @@
 	"externalServerAddress": "http:\/\/localhost\/",
 	"gitIgnoreBuildFolder": 0,
 	"hideConfigFile": 0,
-	"jsCheckerReservedNamesString": "Modernizr,MathJax",
+	"jsCheckerReservedNamesString": "Modernizr,MathJax,kWidget,videojs",
 	"jsHintFlags2": {
 		"asi": {
 			"active": 0,
@@ -2201,7 +2325,7 @@
 	"languageDefaultsUserDefined": [
 		],
 	"previewPathAddition": "",
-	"skippedFoldersString": "log, _logs, logs, _cache, cache, \/storage\/framework\/sessions, node_modules",
+	"skippedFoldersString": "log, _logs, logs, _cache, cache, \/storage\/framework\/sessions, node_modules, \/sources\/scripts\/libs\/videojs\/lang, \/sources\/scripts\/libs\/videojs\/font",
 	"sourceFolderName": "sources",
 	"uglifyDefinesString": "",
 	"uglifyFlags2": {
@@ -2343,6 +2467,10 @@
 			},
 		"space-colon": {
 			"active": 1,
+			"flagValue": -1
+			},
+		"support-ie8": {
+			"active": 0,
 			"flagValue": -1
 			},
 		"toplevel": {

@@ -15,6 +15,7 @@ $gutter: 10px;
 $font-size-base: 16px;
 $default-accent: #0c3b6b;
 $default-accent-hover: #06498d;
+$default-font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 $border-color: #ccc;
 
 @mixin calc( $property, $expression ) {
@@ -56,7 +57,7 @@ html {
 
 body {
     @include font-size( 14px );
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: $default-font-family;
 }
 
 .sbplus_pop_full {
@@ -82,7 +83,7 @@ body {
         min-height: 100%;
         text-align: center;
         background-color: transparent;
-        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-family: $default-font-family;
         font-size: inherit;
         margin: 0;
         padding: 0;
@@ -334,11 +335,147 @@ body {
                 
                 #sbplus_media_wrapper {
                     
+                    width: 100%;
+                    height: 100%;
                     background-color: #000;
                     
                     .sbplus_media_content {
-                        color: #fff !important;
-                        /* videoJS customization goes here */
+                        
+                        width: 100%;
+                        height: 100%;
+                        color: #fff;
+                        
+                        .video-js.vjs-default-skin {
+                        
+                            width: 100%;
+                            height: 100%;
+                            font-size: 11px;
+                            color: #fff;
+                            
+                            .sbplus-vjs-poster {
+                                display: inline-block;
+                                vertical-align: middle;
+                                background-repeat: no-repeat;
+                                background-position: center center;
+                                background-size: contain;
+                                background-color: #000;
+                                cursor: pointer;
+                                margin: 0;
+                                padding: 0;
+                                position: absolute;
+                                top: 0;
+                                right: 0;
+                                bottom: 0;
+                                left: 0;
+                                height: 100%;
+                                z-index: 0;
+                            }
+                            
+                            .vjs-error-display {
+                                display: none;
+                            }
+                            
+                            .vjs-text-track-display {
+                                z-index: 1;
+                            }
+                            
+                            .vjs-tech {
+                                z-index: 1;
+                            }
+                            
+                            .vjs-big-play-button {
+                                font-size: 3em;
+                                line-height: 1.5em;
+                                height: 1.5em;
+                                width: 3em;
+                                border: 0.06666em solid #fff;
+                                border-radius: 0.3em;
+                                left: 50%;
+                                top: 50%;
+                                margin-left: -1.5em;
+                                margin-top: -0.75em;
+                                z-index: 1;
+                            }
+                            
+                            .vjs-control-bar {
+                                z-index: 2;
+                            }
+                            
+                            .vjs-menu {
+                                
+                                font-family: $default-font-family;
+                                
+                                .vjs-menu-content {
+                                    
+                                    .vjs-menu-item.vjs-selected {
+                                        position: relative;
+                                        color: #fff;
+                                        background-color: rgba( 255, 255, 255, 0.25);
+                                    }
+                                    
+                                    .vjs-menu-item.vjs-selected:before {
+                                        position: absolute;
+                                        top: 3px;
+                                        top: rem( 3px );
+                                        left: 4px;
+                                        left: rem( 4px );
+                                        width: 10px;
+                                        width: rem( 10px );
+                                        height: 10px;
+                                        height: rem( 10px );
+                                        font-family: 'sbplus';
+                                        content: '\edba';
+                                        font-size: 10px;
+                                        font-size: rem( 10px );
+                                    }
+                                    
+                                }
+                                
+                            }
+                            
+                            /* subtitles button */
+                            .vjs-subtitles-button.vjs-menu-button-popup {
+                                
+                                .vjs-menu {
+                                    left: -6em;
+                                }
+                                
+                            }
+                            
+                            /* resolution plugin */
+    
+                            .vjs-resolution-button {
+                                font-family: VideoJS;
+                            }
+                            
+                            .vjs-resolution-button .vjs-resolution-button-staticlabel:before {
+                                content: '\f110';
+                                font-size: 1.8em;
+                                line-height: 1.67;
+                            }
+                            
+                            .vjs-resolution-button .vjs-resolution-button-label {
+                                font-size: 1.2em;
+                                line-height: 2.50em;
+                                position: absolute;
+                                top: 0;
+                                left: 0;
+                                width: 100%;
+                                height: 100%;
+                                text-align: center;
+                                box-sizing: inherit;
+                            }
+                            
+                            .vjs-resolution-button ul.vjs-menu-content {
+                                width: 7em;
+                            }
+                            
+                            .vjs-resolution-button .vjs-menu {
+                                left: -1.8em;
+                            }
+                            
+                        } 
+                        
                     }
                     
                 }
@@ -361,46 +498,61 @@ body {
                     background-color: #fff;
                     overflow: hidden;
                     
-                    .tab_segment {
+                    .widget_controls_bar {
                         
-                        @include display-flex();
-                        @include flex-flow( row nowrap );
-                        @include justify-content( center );
+                        position: absolute;
+                        top: 0;
+                        left: 0;
                         width: 100%;
-                        margin: $gutter auto;
+                        height: 35px;
+                        z-index: 80;
                         
-                        button {
-                            border: 1px solid $default-accent;
-                            width: auto;
-                            min-width: 90px;
-                            min-height: 0;
-                            padding: 2px 5px;
-                            font-size: 11px;
-                            line-height: 1;
-                            color: $default-accent;
-                        }
+                        .tab_segment {
                         
-                        button:first-child {
-                            @include border-radius( 5px 0 0 5px );
-                            border-right: none;
-                        }
-                        
-                        button:last-child {
-                            @include border-radius( 0 5px 5px 0 );
-                        }
-                        
-                        .active {
-                            color: #fff;
-                            background: $default-accent;
+                            @include display-flex();
+                            @include flex-flow( row nowrap );
+                            @include justify-content( center );
+                            width: 100%;
+                            padding: $gutter 0;
+                            border-bottom: 1px solid $border-color;
+                            background-color: rgba( 255, 255, 255, 0.96 );
+                            
+                            button {
+                                border: 1px solid $default-accent;
+                                border-right: none;
+                                width: auto;
+                                min-width: 90px;
+                                min-height: 0;
+                                padding: 2px 5px;
+                                font-size: 11px;
+                                line-height: 1;
+                                color: $default-accent;
+                            }
+                            
+                            button:first-child {
+                                @include border-radius( 5px 0 0 5px );
+                                border-right: none;
+                            }
+                            
+                            button:last-child {
+                                @include border-radius( 0 5px 5px 0 );
+                                border-right: 1px solid $default-accent;
+                            }
+                            
+                            .active {
+                                color: #fff;
+                                background: $default-accent;
+                            }
+                            
                         }
                         
                     }
                     
                     .segment_content {
                         
-                        padding: 0 10px 10px;
+                        padding: 35px 10px 10px;
                         width: 100%;
-                        height: calc( 100% - 35px );
+                        height: 100%;
                         overflow-y: auto;
                         
                         h1, h2, h3, h4, h5, h6, p, blockquote {
@@ -749,7 +901,8 @@ body {
                 
                 @extend .common;
                 @include justify-content( flex-end );
-                @include flex( 1 0 28.89% );
+                //@include flex( 1 0 28.89% );
+                width: 258px;
                 
                 #sbplus_download_btn_wrapper {
                     
@@ -960,7 +1113,7 @@ body {
             #sbplus_content_wrapper {
             
                 #sbplus_left_col {
-                                            
+                                
                     #sbplus_media_wrapper {
                         border-left: 1px solid $border-color;
                     }
@@ -1097,7 +1250,8 @@ body {
                 
                 #sbplus_left_col {
                     
-                    @include flex( 1 0 71.11% );
+                    //@include flex( 1 0 71.11% );
+                    width: 100%;
                     height: 100%;
                     border-right: 1px solid $border-color;
                     
@@ -1122,7 +1276,8 @@ body {
                 }
                 
                 #sbplus_right_col {
-                    @include flex( 1 0 28.89% );
+                    width: 258px;
+                    //@include flex( 1 0 28.89% );
                 }
                 
             }

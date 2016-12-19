@@ -14,3 +14,4 @@ build/*
 !build/assets/sbplus.xml
 build/sources/.DS_Store
 build/sources/*/.DS_Store
+build/sources/scripts/*/.DS_Store
