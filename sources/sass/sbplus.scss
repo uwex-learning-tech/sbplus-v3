@@ -502,7 +502,15 @@ body {
                                 left: -1.8em;
                             }
                             
-                        } 
+                        }
+                        
+                        .video-js.vjs-replay {
+
+                          & .vjs-play-control:before {
+                            content: "\f116";
+                          }
+                          
+                        }
                         
                     }
                     

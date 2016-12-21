@@ -15,3 +15,4 @@ build/*
 build/sources/.DS_Store
 build/sources/*/.DS_Store
 build/sources/scripts/*/.DS_Store
+build/sources/scripts/libs/*/.DS_Store

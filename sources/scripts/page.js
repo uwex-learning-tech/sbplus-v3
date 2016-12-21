@@ -213,6 +213,7 @@ Page.prototype.loadKalturaVideoData = function () {
 Page.prototype.renderVideoJS = function() {
     
     var self = this;
+    var plugins = null;
     var options = {
         
         techOrder: ["html5"],
@@ -222,12 +223,15 @@ Page.prototype.renderVideoJS = function() {
         playbackRates: [0.5, 1, 1.5, 2],
         controlBar: {
             fullscreenToggle: false
+        },
+        plugins: {
+            replayButton: {}
         }
 
     };
     
     if ( self.isKaltura ) {
-        options.plugins = { videoJsResolutionSwitcher: { 'default': 720 } };
+        options.plugins = Object.assign( options.plugins, { videoJsResolutionSwitcher: { 'default': 720 } } );
     }
     
     self.mediaPlayer = videojs( 'ap', options, function() {
