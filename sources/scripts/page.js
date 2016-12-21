@@ -6,10 +6,14 @@ var Page = function ( obj ) {
     this.transition = obj.transition;
     this.notes = obj.notes;
     this.widget = obj.widget;
+    this.imgType = obj.imageFormat;
+
     this.isKaltura = false;
+    this.isAudio = false;
     this.mediaPlayer = null;
     this.video = null;
     this.transcript = null;
+    this.hasImage = false;
     
     this.root = SBPLUS.manifest.sbplus_root_directory;
     this.kaltura = {
@@ -23,14 +27,19 @@ var Page = function ( obj ) {
     };
     
     this.mediaContent = SBPLUS.layout.mediaContent;
+    this.mediaError = SBPLUS.layout.mediaError;
+    
+    if ( $( '#ap' ).length ) {
+        videojs( 'ap' ).dispose();
+    }
     
 };
 
 Page.prototype.getPageMedia = function() {
     
-    SBPLUS.externalContentLoaded = false;
-    
     var self = this;
+    
+    SBPLUS.externalContentLoaded = false;
     
     switch ( self.type ) {
         
@@ -59,8 +68,41 @@ Page.prototype.getPageMedia = function() {
             
         break;
         
+        case 'image-audio':
+            
+            self.isAudio = true;
+            var caption = '';
+            
+            $.get( 'assets/pages/' + self.src + '.' + self.imgType, function() {
+                self.hasImage = true;
+            } ).fail( function() {
+                self.showPageError( 'NO_IMG' );
+            } ).always( function() {
+                
+                $.get( 'assets/audio/' + self.src + '.vtt', function() {
+                    caption = '<track kind="subtitles" label="English" srclang="en" src="' + this.url + '" />';
+                } ).fail( function() { 
+                    caption = '';
+                } ).always( function() {
+                    
+                    var html = '<video id="ap" class="video-js vjs-default-skin" webkit-playsinline>' + caption + '</video>';
+                    
+                    $( self.mediaContent ).html( html ).promise().done( function() {
+                
+                        self.renderVideoJS();
+                
+                    } );
+                
+                } );
+                
+                self.setWidgets();
+                
+            } );
+            
+        break;
+        
         default:
-        self.setWidgets();
+            self.setWidgets();
         break;
         
     }
@@ -104,7 +146,8 @@ Page.prototype.loadKalturaVideoData = function () {
                 if ( source.flavorParamsId === self.kaltura.flavors.low ) {
                     
                     self.video.flavors.low = source.src;
-                    self.video.status.low = source.status;
+                    self.video.status.low = 0;
+                    //self.video.status.low = source.status;
 
                 }
 
@@ -136,25 +179,31 @@ Page.prototype.loadKalturaVideoData = function () {
                         
                     }
                     
+                    // inject HTML5 Video Tag
+                    if ( self.video.captionUrl.length > 0 ) {
+                        captionTrack = '<track kind="subtitles" label="English" srclang="en" src="' + self.video.captionUrl + '">';
+                    }
+                    
+                    html = '<video id="ap" class="video-js vjs-default-skin" crossorigin="anonymous" width="100%" height="100%" webkit-playsinline>'+captionTrack+'</video>';
+                
+                    $( self.mediaContent ).html( html ).promise().done( function() {
+                        
+                        // call video js
+                        self.isKaltura = true;
+                        self.renderVideoJS();
+                        
+                    } );
+                    
+                    
+                } else {
+                    self.showPageError( 'KAL_NOT_READY' );
                 }
                     
+            } else {
+                self.showPageError( 'KAL_ENTRY_NOT_READY' );
             }
             
-            // inject HTML5 Video Tag
-            if ( self.video.captionUrl.length > 0 ) {
-                captionTrack = '<track kind="subtitles" label="English" srclang="en" src="' + self.video.captionUrl + '">';
-            }
-            
-            html = '<video id="ap" class="video-js vjs-default-skin" crossorigin="anonymous" width="100%" height="100%" webkit-playsinline>'+captionTrack+'</video>';
-        
-            $( self.mediaContent ).html( html ).promise().done( function() {
-                
-                // call video js
-                self.isKaltura = true;
-                self.renderVideoJS();
-                self.setWidgets();
-                
-            } );
+            self.setWidgets();
             
         }
 
@@ -182,7 +231,6 @@ Page.prototype.renderVideoJS = function() {
         options.plugins = { videoJsResolutionSwitcher: { 'default': 720 } };
     }
     
-    
     self.mediaPlayer = videojs( 'ap', options, function() {
         
         var player = this;
@@ -196,6 +244,16 @@ Page.prototype.renderVideoJS = function() {
     			{ src: self.video.flavors.high, type: "video/mp4", label: "high", res: 1080 }
     			
     		] );
+            
+        }
+        
+        if ( self.isAudio ) {
+            
+            if ( self.hasImage ) {
+                player.poster( 'assets/pages/' + self.src + '.' + self.imgType );
+            }
+            
+            player.src( { type: 'audio/mp3', src: 'assets/audio/' + self.src + '.mp3' } );
             
         }
             
@@ -278,4 +336,107 @@ Page.prototype.getWidgetContent = function( id ) {
         
     }
     
+}
+
+Page.prototype.showPageError = function( type ) {
+    
+    var self = this;
+    
+    var msg = '';
+    
+    switch ( type ) {
+                
+        case 'NO_IMG':
+        
+            msg = '<p>The image for this Storybook Page could not be loaded. Please try refreshing your browser. Contact support if you continue to have issues.</p>';
+
+        break;
+        
+        case 'KAL_NOT_READY':
+            msg = '<p>The video for this Storybook Page is still processing and could not be loaded at the moment. Please try again later. Contact support if you continue to have issues.</p><p><strong>Expected video source</strong>: Kaltura video ID  ' + self.src + '<br><strong>Status</strong>:<br>';
+            
+            msg += 'Low &mdash; ' + getKalturaStatus( self.video.status.low ) + '<br>';
+            msg += 'Normal &mdash; ' + getKalturaStatus( self.video.status.normal ) + '<br>';
+            msg += 'High &mdash; ' + getKalturaStatus( self.video.status.high ) + '</p>';
+            
+        break;
+        
+        case 'KAL_ENTRY_NOT_READY':
+            msg = '<p>The video for this Storybook Page is still processing and could not be loaded at the moment. Please try again later. Contact support if you continue to have issues.</p><p><strong>Expected video source</strong>: Kaltura video ID ' + self.src + '<br><strong>Status</strong>: ';
+            
+            msg += getEntryKalturaStatus( self.video.status.entry ) + '</p>';
+            
+        break;
+        
+    }
+    
+    $( self.mediaError ).html( msg );
+    
+}
+
+function getKalturaStatus( code ) {
+    var msg = '';
+    switch( code ) {
+        case -1:
+        msg = 'ERROR';
+        break;
+        case 0:
+        msg = 'QUEUED (queued for conversion)';
+        break;
+        case 1:
+        msg = 'CONVERTING';
+        break;
+        case 2:
+        msg = 'READY';
+        break;
+        case 3:
+        msg = 'DELETED';
+        break;
+        case 4:
+        msg = 'NOT APPLICABLE';
+        break;
+        default:
+        msg = 'UNKNOWN ERROR (check main entry)';
+        break;
+        
+    }
+    return msg;
+}
+
+function getEntryKalturaStatus( code ) {
+    var msg = '';
+    switch( code ) {
+        case -2:
+        msg = 'ERROR IMPORTING';
+        break;
+        case -1:
+        msg = 'ERROR CONVERTING';
+        break;
+        case 0:
+        msg = 'IMPORTING';
+        break;
+        case 1:
+        msg = 'PRECONVERT';
+        break;
+        case 2:
+        msg = 'READY';
+        break;
+        case 3:
+        msg = 'DELETED';
+        break;
+        case 4:
+        msg = 'PENDING MODERATION';
+        break;
+        case 5:
+        msg = 'MODERATE';
+        break;
+        case 6:
+        msg = 'BLOCKED';
+        break;
+        default:
+        msg = 'UNKNOWN ERROR (check entry ID)';
+        break;
+        
+    }
+    return msg;
 }

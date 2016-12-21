@@ -46,6 +46,7 @@ var SBPLUS = SBPLUS || {
                 widget: '#sbplus_widget',
                 media: '#sbplus_media_wrapper',
                 mediaContent: '#sbplus_media_wrapper .sbplus_media_content',
+                mediaError: '#sbplus_media_wrapper .sbplus_media_error',
                 sidebar: '#sbplus_right_col',
                 pageStatus: '#sbplus_page_status',
                 dwnldMenu: null
@@ -694,7 +695,8 @@ var SBPLUS = SBPLUS || {
             title: target.attr( 'title' ).trim(),
             type: target.attr( 'type' ).trim().toLowerCase(),
             transition: target[0].hasAttribute( 'transition' ) ? 
-                target.attr( 'transition' ).trim() : ''
+                target.attr( 'transition' ).trim() : '',
+            imageFormat: this.xml.settings.imgType
         };
         
         if ( pageData.type !== 'quiz' ) {
