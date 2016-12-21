@@ -581,6 +581,8 @@ var SBPLUS = SBPLUS || {
             media.removeClass( 'aspect_ratio' ).addClass( 'non_aspect_ratio' );
         }
         
+        this.resetMenu();
+        
     },
     
     showSidebar: function() {
@@ -747,10 +749,7 @@ var SBPLUS = SBPLUS || {
         var menuPanel = $( this.menu.menuPanel );
         
         $( this.button.menu ).html( '<span class="icon-close"></span>' )
-            .css( {
-                'color': '#f00',
-                'padding-top': '4px'
-            } );
+            .addClass( 'menu_opened' );
         $( this.menu.menuBar ).find( '.title' ).html( 'Menu' );
         
         menuPanel.show().addClass( 'slideInRight' )
@@ -770,12 +769,6 @@ var SBPLUS = SBPLUS || {
         var self = this;
         var menuPanel = $( this.menu.menuPanel );
         var menuBar = $( this.menu.menuBar );
-        
-        $( this.button.menu ).html( 'Menu' )
-            .css( {
-                'color': '',
-                'padding-top': ''
-            } );
         
         menuBar.find( '.title' ).html( 'Table of Contents' );
         
@@ -966,6 +959,7 @@ var SBPLUS = SBPLUS || {
             menuBar.addClass( 'full' );
             menuBar.find( '.backBtn' ).hide().prop( 'disabled', true );
             
+            $( this.button.menu ).html( 'Menu' ).removeClass( 'menu_opened' );
             $( this.menu.menuList ).show();
             $( this.menu.menuContentWrapper ).hide().html( '<div class="content"></div>' );
             $( this.menu.menuItem ).off( 'click' );
