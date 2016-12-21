@@ -39,6 +39,8 @@ Page.prototype.getPageMedia = function() {
     
     var self = this;
     
+    $( this.mediaError ).empty();
+    
     SBPLUS.externalContentLoaded = false;
     
     switch ( self.type ) {
@@ -47,17 +49,15 @@ Page.prototype.getPageMedia = function() {
             
             if ( self.kaltura.loaded === false ) {
                 
-                $.when(
-                    $.getScript( self.root + '/scripts/libs/kaltura/mwembedloader.js' ),
-                    $.getScript( self.root +  '/scripts/libs/kaltura/kwidgetgetsources.js' ),
-                    $.Deferred( function( deferred ) {
-                        $( deferred.resolve );
-                    } )
-                ).done( function() {
-                
-                    SBPLUS.kalturaLoaded = true;
-                    self.loadKalturaVideoData();
-                
+                $.getScript( self.root + '/scripts/libs/kaltura/mwembedloader.js', function() {
+                    
+                    $.getScript( self.root +  '/scripts/libs/kaltura/kwidgetgetsources.js', function() {
+                        
+                        SBPLUS.kalturaLoaded = true;
+                        self.loadKalturaVideoData();
+                        
+                    } );
+                    
                 } );
                 
             } else {

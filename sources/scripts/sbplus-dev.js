@@ -1032,6 +1032,10 @@ var SBPLUS = SBPLUS || {
             target.addClass( 'active' );
             this.currentPage.getWidgetContent( targetId );
             
+            if ( this.xml.settings.mathjax === 'on' ) {
+                MathJax.Hub.Queue( ['Typeset', MathJax.Hub] );
+            }
+            
         }
         
     },
