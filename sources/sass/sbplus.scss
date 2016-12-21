@@ -372,6 +372,15 @@ body {
                             font-size: 11px;
                             color: #fff;
                             
+                            button:hover {
+                                color: #fff;
+                            }
+                            
+                            .vjs-control-bar {
+                                z-index: 2;
+                                background-color: rgba( $default-accent, 0.7);
+                            }
+                            
                             .sbplus-vjs-poster {
                                 display: inline-block;
                                 vertical-align: middle;
@@ -417,15 +426,13 @@ body {
                                 z-index: 1;
                             }
                             
-                            .vjs-control-bar {
-                                z-index: 2;
-                            }
-                            
                             .vjs-menu {
                                 
                                 font-family: $default-font-family;
                                 
                                 .vjs-menu-content {
+                                    
+                                    background-color: rgba( $default-accent, 0.7);
                                     
                                     .vjs-menu-item.vjs-selected {
                                         position: relative;
@@ -534,7 +541,6 @@ body {
                             @include justify-content( center );
                             width: 100%;
                             padding: $gutter 0;
-                            border-bottom: 1px solid $border-color;
                             background-color: rgba( 255, 255, 255, 0.96 );
                             
                             button {
@@ -570,10 +576,12 @@ body {
                     
                     .segment_content {
                         
-                        padding: 35px 10px 10px;
+                        padding: 35px 10px 0;
                         width: 100%;
                         height: 100%;
                         overflow-y: auto;
+                        
+                        @include animation-duration( 0.5s );
                         
                         h1, h2, h3, h4, h5, h6, p, blockquote {
                             margin: 6px 0;
@@ -593,6 +601,10 @@ body {
                         }
                         
                         
+                    }
+                    
+                    .segment_content.noBar {
+                        padding-top: 0;
                     }
                     
                 }

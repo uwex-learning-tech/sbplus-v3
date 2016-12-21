@@ -146,8 +146,7 @@ Page.prototype.loadKalturaVideoData = function () {
                 if ( source.flavorParamsId === self.kaltura.flavors.low ) {
                     
                     self.video.flavors.low = source.src;
-                    self.video.status.low = 0;
-                    //self.video.status.low = source.status;
+                    self.video.status.low = source.status;
 
                 }
 
@@ -295,10 +294,11 @@ Page.prototype.setWidgets = function() {
         
         if ( segmentCount >= 2 ) {
             SBPLUS.showWidgetSegment();
-            SBPLUS.selectFirstSegment();
         } else {
             SBPLUS.hideWidgetSegment();
         }
+        
+        SBPLUS.selectFirstSegment();
         
     }
     
@@ -312,7 +312,12 @@ Page.prototype.getWidgetContent = function( id ) {
         
         case 'sbplus_notes':
         
-            $( SBPLUS.widget.content ).html( this.notes );
+            $( SBPLUS.widget.content ).html( this.notes ).addClass( 'fadeIn' )
+                .one( 'webkitAnimationEnd mozAnimationEnd animationend', 
+                    function() {
+                        $( this ).removeClass( 'fadeIn' ).off();
+                    }
+             );
             
         break;
         
@@ -324,11 +329,21 @@ Page.prototype.getWidgetContent = function( id ) {
                     $.get( this.video.captionUrl, function( data ) {
                         SBPLUS.externalContentLoaded = true;
                         self.transcript = data;
-                        $( SBPLUS.widget.content ).html( data );
+                        $( SBPLUS.widget.content ).html( data ).addClass( 'fadeIn' )
+                            .one( 'webkitAnimationEnd mozAnimationEnd animationend', 
+                                function() {
+                                    $( this ).removeClass( 'fadeIn' ).off();
+                                }
+                            );
                     } );
                     
                 } else {
-                    $( SBPLUS.widget.content ).html( self.transcript );
+                    $( SBPLUS.widget.content ).html( self.transcript )
+                        .addClass( 'fadeIn' ).one( 'webkitAnimationEnd mozAnimationEnd animationend', 
+                        function() {
+                            $( this ).removeClass( 'fadeIn' ).off();
+                        }
+                     );
                 }
                 
             }

@@ -60,6 +60,30 @@
             
             #sbplus_left_col {
                 
+                #sbplus_media_wrapper {
+                    
+                    .sbplus_media_content {
+                        
+                        .video-js.vjs-default-skin {
+                            
+                            .vjs-control-bar {
+                                background-color: rgba( #f00, 0.7);
+                            }
+                            
+                            .vjs-menu {
+
+                                .vjs-menu-content {
+                                    background-color: rgba( #f00, 0.7);
+                                }
+                                
+                            }
+                            
+                        } 
+                        
+                    }
+                    
+                }
+                
                 #sbplus_widget {
                     
                     .widget_controls_bar {
