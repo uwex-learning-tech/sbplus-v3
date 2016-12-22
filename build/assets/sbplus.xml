@@ -30,8 +30,8 @@
         <page type="image-audio" src="slide02" title="Overview">
             <note></note>
             <widget>
-                <segment name="Demo One"></segment>
-                <segment name="Demo Two"></segment>
+                <segment name="Demo One">Demo one texts here...</segment>
+                <segment name="Demo Two">Demo two texts here...</segment>
             </widget>
         </page>
         
@@ -66,6 +66,9 @@ legend("topleft", legend=c("Student", "Non-student"), lty=c(1,2), col=c("blue","
         
         <page type="image-audio" src="slide05" title="A Cookie Timeline">
             <note><![CDATA[<p><strong>Link:</strong> <a href="https://en.wikipedia.org/wiki/Hydrox">Hydrox Cookie Brand - Wikipedia</a>]]></note>
+            <widget>
+                <segment name="Demo Three">Demo three texts here...</segment>
+            </widget>
         </page>
         
         <page type="image-audio" src="slide06" title="The Recipe">

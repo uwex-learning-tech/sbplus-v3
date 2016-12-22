@@ -6,12 +6,13 @@ var Page = function ( obj ) {
     this.transition = obj.transition;
     this.notes = obj.notes;
     this.widget = obj.widget;
+    this.widgetSegments = {};
     this.imgType = obj.imageFormat;
 
     this.isKaltura = false;
     this.isAudio = false;
     this.mediaPlayer = null;
-    this.video = null;
+    this.isVideo = null;
     this.transcript = null;
     this.hasImage = false;
     
@@ -79,8 +80,9 @@ Page.prototype.getPageMedia = function() {
                 self.showPageError( 'NO_IMG' );
             } ).always( function() {
                 
-                $.get( 'assets/audio/' + self.src + '.vtt', function() {
+                $.get( 'assets/audio/' + self.src + '.vtt', function( data ) {
                     caption = '<track kind="subtitles" label="English" srclang="en" src="' + this.url + '" />';
+                    self.transcript = SBPLUS.stripScript( data );
                 } ).fail( function() { 
                     caption = '';
                 } ).always( function() {
@@ -90,12 +92,11 @@ Page.prototype.getPageMedia = function() {
                     $( self.mediaContent ).html( html ).promise().done( function() {
                 
                         self.renderVideoJS();
+                        self.setWidgets();
                 
                     } );
                 
                 } );
-                
-                self.setWidgets();
                 
             } );
             
@@ -112,7 +113,7 @@ Page.prototype.getPageMedia = function() {
 Page.prototype.loadKalturaVideoData = function () {
     
     var self = this;
-    self.video = {
+    self.isVideo = {
         
         flavors: {},
         status: {
@@ -136,8 +137,8 @@ Page.prototype.loadKalturaVideoData = function () {
             var captionTrack = '';
             var html = '';
             
-            self.video.status.entry = data.status;
-            self.video.duration = data.duration;
+            self.isVideo.status.entry = data.status;
+            self.isVideo.duration = data.duration;
             
             for( var i in data.sources ) {
 
@@ -145,42 +146,43 @@ Page.prototype.loadKalturaVideoData = function () {
 
                 if ( source.flavorParamsId === self.kaltura.flavors.low ) {
                     
-                    self.video.flavors.low = source.src;
-                    self.video.status.low = source.status;
+                    self.isVideo.flavors.low = source.src;
+                    self.isVideo.status.low = source.status;
 
                 }
 
                 if ( source.flavorParamsId === self.kaltura.flavors.normal ) {
 
-                    self.video.flavors.normal = source.src;
-                    self.video.status.normal = source.status;
+                    self.isVideo.flavors.normal = source.src;
+                    self.isVideo.status.normal = source.status;
 
                 }
 
                 if ( source.flavorParamsId === self.kaltura.flavors.high ) {
 
-                    self.video.flavors.high = source.src;
-                    self.video.status.high = source.status;
+                    self.isVideo.flavors.high = source.src;
+                    self.isVideo.status.high = source.status;
 
                 }
 
             }
             
             // entry video
-            if ( self.video.status.entry >= 1 && self.video.status.entry <= 2 ) {
+            if ( self.isVideo.status.entry >= 1 && self.isVideo.status.entry <= 2 ) {
                 
                 // flavor videos
-                if ( self.video.status.low === 2 && self.video.status.normal === 2 && self.video.status.high === 2 ) {
+                if ( self.isVideo.status.low === 2 && self.isVideo.status.normal === 2 
+                && self.isVideo.status.high === 2 ) {
                 
                     if ( captionId !== null ) {
                     
-                        self.video.captionUrl = 'https://www.kaltura.com/api_v3/?service=caption_captionasset&action=servewebvtt&captionAssetId=' + captionId + '&segmentDuration=' + self.video.duration + '&segmentIndex=1';
+                        self.isVideo.captionUrl = 'https://www.kaltura.com/api_v3/?service=caption_captionasset&action=servewebvtt&captionAssetId=' + captionId + '&segmentDuration=' + self.isVideo.duration + '&segmentIndex=1';
                         
                     }
                     
                     // inject HTML5 Video Tag
-                    if ( self.video.captionUrl.length > 0 ) {
-                        captionTrack = '<track kind="subtitles" label="English" srclang="en" src="' + self.video.captionUrl + '">';
+                    if ( self.isVideo.captionUrl.length > 0 ) {
+                        captionTrack = '<track kind="subtitles" label="English" srclang="en" src="' + self.isVideo.captionUrl + '">';
                     }
                     
                     html = '<video id="ap" class="video-js vjs-default-skin" crossorigin="anonymous" width="100%" height="100%" webkit-playsinline>'+captionTrack+'</video>';
@@ -213,7 +215,6 @@ Page.prototype.loadKalturaVideoData = function () {
 Page.prototype.renderVideoJS = function() {
     
     var self = this;
-    var plugins = null;
     var options = {
         
         techOrder: ["html5"],
@@ -242,9 +243,9 @@ Page.prototype.renderVideoJS = function() {
             
             player.updateSrc( [
 			
-    			{ src: self.video.flavors.low, type: "video/mp4", label: "low", res: 360 },
-    			{ src: self.video.flavors.normal, type: "video/mp4", label: "normal", res: 720 },
-    			{ src: self.video.flavors.high, type: "video/mp4", label: "high", res: 1080 }
+    			{ src: self.isVideo.flavors.low, type: "video/mp4", label: "low", res: 360 },
+    			{ src: self.isVideo.flavors.normal, type: "video/mp4", label: "normal", res: 720 },
+    			{ src: self.isVideo.flavors.high, type: "video/mp4", label: "high", res: 1080 }
     			
     		] );
             
@@ -266,6 +267,7 @@ Page.prototype.renderVideoJS = function() {
 
 Page.prototype.setWidgets = function() {
     
+    var self = this;
     SBPLUS.clearWidgetSegment();
     
     if ( this.type != 'quiz' ) {
@@ -279,9 +281,9 @@ Page.prototype.setWidgets = function() {
             
         }
         
-        if ( this.video !== null ) {
+        if ( this.isVideo !== null ) {
             
-            if ( !SBPLUS.isEmpty( this.video.captionUrl ) ) {
+            if ( !SBPLUS.isEmpty( this.isVideo.captionUrl ) ) {
             
                 SBPLUS.addSegment( 'Live Transcript' );
                 segmentCount++;
@@ -290,9 +292,32 @@ Page.prototype.setWidgets = function() {
             
         }
         
+        if ( this.isAudio ) {
+            
+            if ( !SBPLUS.isEmpty( this.transcript ) ) {
+                SBPLUS.addSegment( 'Live Transcript' );
+                segmentCount++;
+            }
+            
+        }
+        
         if ( this.widget.length ) {
             
-            segmentCount += this.widget.length;
+            var segments = $( $( this.widget ).find( 'segment' ) );
+            
+            segments.each( function() {
+                
+                var name = $( this ).attr( 'name' );
+                var content = SBPLUS.stripScript( $( this ).text() );
+                var key = 'sbplus_' + SBPLUS.sanitize( name );
+                
+                self.widgetSegments[key] = content;
+                
+                SBPLUS.addSegment( name );
+                
+                segmentCount++;
+                
+            } );
             
         }
         
@@ -326,31 +351,64 @@ Page.prototype.getWidgetContent = function( id ) {
         break;
         
         case 'sbplus_livetranscript':
-            if ( !SBPLUS.isEmpty( this.video.captionUrl ) ) {
+        
+            if ( this.isVideo ) {
                 
-                if ( SBPLUS.externalContentLoaded === false ) {
+                if ( !SBPLUS.isEmpty( this.isVideo.captionUrl ) ) {
+                
+                    if ( SBPLUS.externalContentLoaded === false ) {
+                        
+                        $.get( this.isVideo.captionUrl, function( data ) {
+                            
+                            SBPLUS.externalContentLoaded = true;
+                            self.transcript = SBPLUS.stripScript( data );
+                            
+                            $( SBPLUS.widget.content ).html( self.transcript ).addClass( 'fadeIn' )
+                                .one( 'webkitAnimationEnd mozAnimationEnd animationend', 
+                                    function() {
+                                        $( this ).removeClass( 'fadeIn' ).off();
+                                    }
+                                );
+                                
+                        } );
+                        
+                    } else {
+                        
+                        $( SBPLUS.widget.content ).html( self.transcript )
+                            .addClass( 'fadeIn' ).one( 'webkitAnimationEnd mozAnimationEnd animationend', 
+                            function() {
+                                $( this ).removeClass( 'fadeIn' ).off();
+                            }
+                         );
+                         
+                    }
                     
-                    $.get( this.video.captionUrl, function( data ) {
-                        SBPLUS.externalContentLoaded = true;
-                        self.transcript = data;
-                        $( SBPLUS.widget.content ).html( data ).addClass( 'fadeIn' )
-                            .one( 'webkitAnimationEnd mozAnimationEnd animationend', 
-                                function() {
-                                    $( this ).removeClass( 'fadeIn' ).off();
-                                }
-                            );
-                    } );
-                    
-                } else {
-                    $( SBPLUS.widget.content ).html( self.transcript )
-                        .addClass( 'fadeIn' ).one( 'webkitAnimationEnd mozAnimationEnd animationend', 
-                        function() {
-                            $( this ).removeClass( 'fadeIn' ).off();
-                        }
-                     );
                 }
                 
+            } 
+            
+            if ( this.isAudio ) {
+                
+                $( SBPLUS.widget.content ).html( self.transcript )
+                    .addClass( 'fadeIn' ).one( 'webkitAnimationEnd mozAnimationEnd animationend', 
+                    function() {
+                        $( this ).removeClass( 'fadeIn' ).off();
+                    }
+                 );
+                
             }
+            
+        break;
+        
+        default:
+            
+            $( SBPLUS.widget.content ).html( self.widgetSegments[id] )
+                .addClass( 'fadeIn' ).one( 'webkitAnimationEnd mozAnimationEnd animationend', 
+                function() {
+                    $( this ).removeClass( 'fadeIn' ).off();
+                }
+             );
+            
         break;
         
     }
@@ -374,16 +432,16 @@ Page.prototype.showPageError = function( type ) {
         case 'KAL_NOT_READY':
             msg = '<p>The video for this Storybook Page is still processing and could not be loaded at the moment. Please try again later. Contact support if you continue to have issues.</p><p><strong>Expected video source</strong>: Kaltura video ID  ' + self.src + '<br><strong>Status</strong>:<br>';
             
-            msg += 'Low &mdash; ' + getKalturaStatus( self.video.status.low ) + '<br>';
-            msg += 'Normal &mdash; ' + getKalturaStatus( self.video.status.normal ) + '<br>';
-            msg += 'High &mdash; ' + getKalturaStatus( self.video.status.high ) + '</p>';
+            msg += 'Low &mdash; ' + getKalturaStatus( self.isVideo.status.low ) + '<br>';
+            msg += 'Normal &mdash; ' + getKalturaStatus( self.isVideo.status.normal ) + '<br>';
+            msg += 'High &mdash; ' + getKalturaStatus( self.isVideo.status.high ) + '</p>';
             
         break;
         
         case 'KAL_ENTRY_NOT_READY':
             msg = '<p>The video for this Storybook Page is still processing and could not be loaded at the moment. Please try again later. Contact support if you continue to have issues.</p><p><strong>Expected video source</strong>: Kaltura video ID ' + self.src + '<br><strong>Status</strong>: ';
             
-            msg += getEntryKalturaStatus( self.video.status.entry ) + '</p>';
+            msg += getEntryKalturaStatus( self.isVideo.status.entry ) + '</p>';
             
         break;
         

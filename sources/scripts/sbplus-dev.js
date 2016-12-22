@@ -1295,7 +1295,7 @@ var SBPLUS = SBPLUS || {
     
     isEmpty: function( str ) {
         
-        return str === undefined || !str.trim() || str.trim().length === 0;
+        return str === undefined || str === null || !str.trim() || str.trim().length === 0;
         
     },
     
