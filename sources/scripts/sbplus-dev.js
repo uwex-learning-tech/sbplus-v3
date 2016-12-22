@@ -1017,6 +1017,8 @@ var SBPLUS = SBPLUS || {
         
         if ( button.length > 0 ) {
             
+            $( this.layout.widget ).removeClass('noSegments');
+            
             var target = '';
             var targetId = '';
             
@@ -1036,6 +1038,8 @@ var SBPLUS = SBPLUS || {
                 MathJax.Hub.Queue( ['Typeset', MathJax.Hub] );
             }
             
+        } else {
+            $( this.layout.widget ).addClass('noSegments');
         }
         
     },
