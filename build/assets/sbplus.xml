@@ -200,7 +200,6 @@ legend("topleft", legend=c("Student", "Non-student"), lty=c(1,2), col=c("blue","
         </page>
         
         <page type="image" src="slide03" title="Image from Assets Directory">
-            <note />
         </page>
         
         <page type="html" src="testing" title="HTML">

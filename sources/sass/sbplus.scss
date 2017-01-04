@@ -17,6 +17,8 @@ $default-accent: #0c3b6b;
 $default-accent-hover: #06498d;
 $default-font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 $border-color: #ccc;
+$box-height: 586px;
+$widget-height: 146px;
 
 @mixin calc( $property, $expression ) {
     #{$property}: -moz-calc(#{$expression});
@@ -346,6 +348,7 @@ body {
                     background-color: #000;
                     
                     .sbplus_media_error {
+                        display: none;
                         position: absolute;
                         width: 100%;
                         height: calc( 100% - 33px );
@@ -365,6 +368,19 @@ body {
                         height: 100%;
                         color: #fff;
                         
+                        @include display-flex();
+                        @include flex-flow( column nowrap );
+                        
+                        // Image
+                        .img_only {
+                            display: block;
+                            width: auto;
+                            max-width: 100%;
+                            height: 100%;
+                            margin: 0 auto;
+                        }
+                        
+                        // VideoJS
                         .video-js.vjs-default-skin {
                         
                             width: 100%;
@@ -516,8 +532,47 @@ body {
                     
                 }
                 
+                #sbplus_media_wrapper.sidebar_on {
+                        
+                }
+                
+                #sbplus_media_wrapper.sidebar_off {
+                    
+                }
+                
+                #sbplus_media_wrapper.widget_on {
+                    
+                }
+                
+                #sbplus_media_wrapper.widget_off {
+                    
+                    .sbplus_media_content {
+                        
+                        @include justify-content( center );
+                        
+                        .img_only {
+                            
+                            height: auto;
+                        }
+                        
+                    }
+                    
+                }
+                
+                #sbplus_media_wrapper.widget_off.sidebar_off {
+                    
+                    .sbplus_media_content {
+                        
+                        .img_only {
+                            height: 100%;
+                        }
+                        
+                    }
+                    
+                }
+                
                 #sbplus_media_wrapper.non_aspect_ratio {
-                    height: calc( 100% - 146px );
+                    height: calc( 100% - #{$widget-height} );
                 }
                 
                 #sbplus_media_wrapper.aspect_ratio {
@@ -528,8 +583,8 @@ body {
                     
                     position: absolute;
                     width: 100%;
-                    height: 146px;
-                    bottom: -146px;
+                    height: $widget-height;
+                    bottom: $widget-height * -1;
                     z-index: 1;
                     background-color: #fff;
                     overflow: hidden;
@@ -1155,22 +1210,22 @@ body {
     .sbplus_boxed {
 
         width: 900px;
-        height: 586px;
+        height: $box-height;
         margin: 0 auto;
         
         #sbplus_error_screen {
             width: 900px;
-            height: 586px;
+            height: $box-height;
         }
         
         #sbplus {
             
             width: 900px;
-            height: 586px;
+            height: $box-height;
             
             #sbplus_splash_screen {
                 width: 900px;
-                height: 586px;
+                height: $box-height;
             }
             
             #sbplus_content_wrapper {
@@ -1331,7 +1386,7 @@ body {
                         @include flex-flow( column nowrap );
                         @include flex( 1 0 auto );
                         position: relative;
-                        height: 146px;
+                        height: $widget-height;
                         bottom: 0;
                         border-top: 1px solid $border-color;
                     }

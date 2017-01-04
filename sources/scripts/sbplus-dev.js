@@ -24,7 +24,6 @@ var SBPLUS = SBPLUS || {
     presentationStarted: false,
     currentPage: null,
     kalturaLoaded: false,
-    externalContentLoaded: false,
     hasError: false,
     
     /***************************************************************************
@@ -582,6 +581,8 @@ var SBPLUS = SBPLUS || {
             media.removeClass( 'aspect_ratio' ).addClass( 'non_aspect_ratio' );
         }
         
+        media.removeClass( 'sidebar_on' ).addClass( 'sidebar_off' );
+        
         this.resetMenu();
         
     },
@@ -597,6 +598,8 @@ var SBPLUS = SBPLUS || {
         if ( widget.is( ':visible' ) && widget.outerHeight() <= 190 ) {
             media.removeClass( 'non_aspect_ratio' ).addClass( 'aspect_ratio' );
         }
+        
+        media.removeClass( 'sidebar_off' ).addClass( 'sidebar_on' );
         
     },
     
@@ -676,6 +679,7 @@ var SBPLUS = SBPLUS || {
             
             previousPage.removeClass( 'sb_selected' );
             targetPage.addClass( 'sb_selected' );
+            
             this.getPage( targetPage.data('page') );
             this.updatePageStatus( targetPage.data( 'count' ) );
             this.updateScroll( targetPage[0] );
@@ -999,14 +1003,19 @@ var SBPLUS = SBPLUS || {
                     .addClass( 'non_aspect_ratio' ).css( 'height', '100%');
         }
         
+        media.removeClass( 'widget_on' ).addClass( 'widget_off' );
+        
     },
     
     showWidget: function() {
         
+        var media = $( this.layout.media );
+        
         $( this.layout.widget ).show();
         $( this.button.widget ).addClass( 'sb_active' );
-        $( this.layout.media ).removeClass( 'non_aspect_ratio' )
+        media.removeClass( 'non_aspect_ratio' )
                 .addClass( 'aspect_ratio' ).css( 'height', '' );
+        media.removeClass( 'widget_off' ).addClass( 'widget_on' );
         this.resize();
         
     },
@@ -1032,6 +1041,7 @@ var SBPLUS = SBPLUS || {
             
             button.removeClass( 'active' );
             target.addClass( 'active' );
+            clearInterval(transcriptInterval);
             this.currentPage.getWidgetContent( targetId );
             
             if ( this.xml.settings.mathjax === 'on' ) {

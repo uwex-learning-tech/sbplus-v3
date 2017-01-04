@@ -1,3 +1,4 @@
+var transcriptInterval = null;
 var Page = function ( obj ) {
     
     this.title = obj.title;
@@ -16,7 +17,7 @@ var Page = function ( obj ) {
     this.isPlaying = false;
     this.transcript = null;
     this.transcriptLoaded = false;
-    this.transcriptInterval = null;
+    this.transcriptIntervalStarted = false;
     this.hasImage = false;
     
     this.root = SBPLUS.manifest.sbplus_root_directory;
@@ -43,9 +44,13 @@ Page.prototype.getPageMedia = function() {
     
     var self = this;
     
-    $( this.mediaError ).empty();
-    
-    SBPLUS.externalContentLoaded = false;
+    // reset
+    $( this.mediaError ).empty().hide();
+    clearInterval( transcriptInterval );
+    if ( $( '#mp' ).length ) {
+        videojs('mp').dispose();
+    }
+    // end reset
     
     switch ( self.type ) {
         
@@ -90,7 +95,7 @@ Page.prototype.getPageMedia = function() {
                     caption = '';
                 } ).always( function() {
                     
-                    var html = '<video id="ap" class="video-js vjs-default-skin" webkit-playsinline>' + caption + '</video>';
+                    var html = '<video id="mp" class="video-js vjs-default-skin" webkit-playsinline>' + caption + '</video>';
                     
                     $( self.mediaContent ).html( html ).promise().done( function() {
                 
@@ -101,6 +106,28 @@ Page.prototype.getPageMedia = function() {
                 
                 } );
                 
+            } );
+            
+        break;
+        
+        case 'image':
+            
+            var img = new Image();
+            img.src = 'assets/pages/' + self.src + '.' + self.imgType;
+            img.alt = self.title;
+            img.className = 'img_only';
+            
+            $( img ).on( 'load', function() {
+                self.hasImage = true;
+                
+                $( self.mediaContent ).html( img ).promise().done( function() {
+                    self.setWidgets();
+                } );
+            } );
+            
+            $( img ).on( 'error', function() {
+                self.hasImage = false;
+                self.showPageError( 'NO_IMG' );
             } );
             
         break;
@@ -188,7 +215,7 @@ Page.prototype.loadKalturaVideoData = function () {
                         captionTrack = '<track kind="subtitles" label="English" srclang="en" src="' + self.isVideo.captionUrl + '">';
                     }
                     
-                    html = '<video id="ap" class="video-js vjs-default-skin" crossorigin="anonymous" width="100%" height="100%" webkit-playsinline>'+captionTrack+'</video>';
+                    html = '<video id="mp" class="video-js vjs-default-skin" crossorigin="anonymous" width="100%" height="100%" webkit-playsinline>'+captionTrack+'</video>';
                 
                     $( self.mediaContent ).html( html ).promise().done( function() {
                         
@@ -206,8 +233,6 @@ Page.prototype.loadKalturaVideoData = function () {
             } else {
                 self.showPageError( 'KAL_ENTRY_NOT_READY' );
             }
-            
-            self.setWidgets();
             
         }
 
@@ -238,7 +263,7 @@ Page.prototype.renderVideoJS = function() {
         options.plugins = Object.assign( options.plugins, { videoJsResolutionSwitcher: { 'default': 720 } } );
     }
     
-    self.mediaPlayer = videojs( 'ap', options, function() {
+    self.mediaPlayer = videojs( 'mp', options, function() {
         
         var player = this;
         
@@ -265,11 +290,38 @@ Page.prototype.renderVideoJS = function() {
         }
         
         player.on(['waiting', 'pause'], function() {
+            
           self.isPlaying = false;
+          clearInterval( transcriptInterval );
+          self.transcriptIntervalStarted = false;
+          
+        });
+        
+        player.on('ended', function() {
+            
+          self.isPlaying = false;
+          
+          if ( $( '#sbplus_livetranscript' ).hasClass( 'active' ) ) {
+              $( '.lt-wrapper .lt-line' ).removeClass( 'current' );
+          }
+          
+          clearInterval( transcriptInterval );
+          self.transcriptIntervalStarted = false;
+          
         });
         
         player.on('playing', function() {
+            
           self.isPlaying = true;
+          if ( $( '#sbplus_livetranscript' ).hasClass( 'active' )
+          && self.transcriptIntervalStarted === false ) {
+            self.startLiveTranscript();
+          }
+          
+        });
+        
+        player.on('loadstart', function() {
+          self.setWidgets();
         });
             
     } );
@@ -292,11 +344,15 @@ Page.prototype.setWidgets = function() {
             
         }
         
-        if ( !SBPLUS.isEmpty( self.transcript )
-        || !SBPLUS.isEmpty( self.isVideo.captionUrl ) ) {
+        if ( self.isAudio || self.isVideo ) {
             
-            SBPLUS.addSegment( 'Live Transcript' );
-            segmentCount++;
+            if ( !SBPLUS.isEmpty( self.transcript )
+            || !SBPLUS.isEmpty( self.isVideo.captionUrl ) ) {
+                
+                SBPLUS.addSegment( 'Live Transcript' );
+                segmentCount++;
+                
+            }
             
         }
         
@@ -349,7 +405,10 @@ Page.prototype.getWidgetContent = function( id ) {
             if ( self.isAudio ) {
                 
                 displayWidgetContent( parseTranscript( self.transcript ) );
-                self.startLiveTranscript();
+                
+                if ( $( '#sbplus_livetranscript' ).hasClass( 'active' ) ) {
+                    self.startLiveTranscript();
+                }
                     
             } else {
                 
@@ -363,14 +422,18 @@ Page.prototype.getWidgetContent = function( id ) {
                         self.transcript = parseTranscript( SBPLUS.stripScript( d ) );
                         
                         displayWidgetContent( self.transcript );
-                        self.startLiveTranscript();
+                        if ( $( '#sbplus_livetranscript' ).hasClass( 'active' ) ) {
+                            self.startLiveTranscript();
+                        }
                         
                     } );
                     
                 } else {
                      
                      displayWidgetContent( self.transcript );
-                     self.startLiveTranscript();
+                     if ( $( '#sbplus_livetranscript' ).hasClass( 'active' ) ) {
+                        self.startLiveTranscript();
+                     }
                     
                 }
              
@@ -392,31 +455,34 @@ Page.prototype.startLiveTranscript = function() {
     
     var self = this;
     
-    var ltArray = $( '.lt-wrapper .lt-line' );
-    
-    self.transcriptInterval = setInterval( function() {
-            
-        if ( self.isPlaying ) {
-            
-            ltArray.removeClass( 'current' );
-            
-            // TO DO: Refine loop to binary search
-            ltArray.each( function() {
-                
-                if ( self.mediaPlayer.currentTime() >= $( this ).data('start') 
-                && self.mediaPlayer.currentTime() <= $( this ).data('end') ) {
-                    $( this ).addClass( 'current' );
-                    return;
-                }      
-                
-            } );
-            
-        } else {
-            ltArray.removeClass( 'current' );
-            window.clearInterval( this );
-        }
+    if ( self.mediaPlayer ) {
         
-    }, 500 );
+        var ltArray = $( '.lt-wrapper .lt-line' );
+        
+        transcriptInterval = setInterval( function() {
+            
+            if ( self.isPlaying ) {
+                
+                ltArray.removeClass( 'current' );
+                
+                // TO DO: Refine loop to binary search
+                ltArray.each( function() {
+
+                    if ( self.mediaPlayer.currentTime() >= $( this ).data('start') 
+                    && self.mediaPlayer.currentTime() <= $( this ).data('end') ) {
+                        $( this ).addClass( 'current' );
+                        return;
+                    }
+                    
+                } );
+                
+            }
+            
+        }, 500 );
+        
+        self.transcriptIntervalStarted = true;
+    
+    }
     
 }
 
@@ -452,7 +518,7 @@ Page.prototype.showPageError = function( type ) {
         
     }
     
-    $( self.mediaError ).html( msg );
+    $( self.mediaError ).html( msg ).show();
     
 }
 
