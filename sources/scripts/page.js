@@ -13,7 +13,10 @@ var Page = function ( obj ) {
     this.isAudio = false;
     this.mediaPlayer = null;
     this.isVideo = null;
+    this.isPlaying = false;
     this.transcript = null;
+    this.transcriptLoaded = false;
+    this.transcriptInterval = null;
     this.hasImage = false;
     
     this.root = SBPLUS.manifest.sbplus_root_directory;
@@ -260,6 +263,14 @@ Page.prototype.renderVideoJS = function() {
             player.src( { type: 'audio/mp3', src: 'assets/audio/' + self.src + '.mp3' } );
             
         }
+        
+        player.on(['waiting', 'pause'], function() {
+          self.isPlaying = false;
+        });
+        
+        player.on('playing', function() {
+          self.isPlaying = true;
+        });
             
     } );
 
@@ -281,23 +292,11 @@ Page.prototype.setWidgets = function() {
             
         }
         
-        if ( this.isVideo !== null ) {
+        if ( !SBPLUS.isEmpty( self.transcript )
+        || !SBPLUS.isEmpty( self.isVideo.captionUrl ) ) {
             
-            if ( !SBPLUS.isEmpty( this.isVideo.captionUrl ) ) {
-            
-                SBPLUS.addSegment( 'Live Transcript' );
-                segmentCount++;
-                
-            }
-            
-        }
-        
-        if ( this.isAudio ) {
-            
-            if ( !SBPLUS.isEmpty( this.transcript ) ) {
-                SBPLUS.addSegment( 'Live Transcript' );
-                segmentCount++;
-            }
+            SBPLUS.addSegment( 'Live Transcript' );
+            segmentCount++;
             
         }
         
@@ -340,78 +339,84 @@ Page.prototype.getWidgetContent = function( id ) {
     switch( id ) {
         
         case 'sbplus_notes':
-        
-            $( SBPLUS.widget.content ).html( this.notes ).addClass( 'fadeIn' )
-                .one( 'webkitAnimationEnd mozAnimationEnd animationend', 
-                    function() {
-                        $( this ).removeClass( 'fadeIn' ).off();
-                    }
-             );
+            
+            displayWidgetContent( this.notes );
             
         break;
         
         case 'sbplus_livetranscript':
         
-            if ( this.isVideo ) {
+            if ( self.isAudio ) {
                 
-                if ( !SBPLUS.isEmpty( this.isVideo.captionUrl ) ) {
+                displayWidgetContent( parseTranscript( self.transcript ) );
+                self.startLiveTranscript();
+                    
+            } else {
                 
-                    if ( SBPLUS.externalContentLoaded === false ) {
+                if ( self.transcriptLoaded === false ) {
+                    
+                    $.get( self.isVideo.captionUrl, function( d ) {
+                    
+                        self.transcriptLoaded = true;
+                        self.transcript = SBPLUS.stripScript( d );
                         
-                        $.get( this.isVideo.captionUrl, function( data ) {
-                            
-                            SBPLUS.externalContentLoaded = true;
-                            self.transcript = SBPLUS.stripScript( data );
-                            
-                            $( SBPLUS.widget.content ).html( self.transcript ).addClass( 'fadeIn' )
-                                .one( 'webkitAnimationEnd mozAnimationEnd animationend', 
-                                    function() {
-                                        $( this ).removeClass( 'fadeIn' ).off();
-                                    }
-                                );
-                                
-                        } );
+                        self.transcript = parseTranscript( SBPLUS.stripScript( d ) );
                         
-                    } else {
+                        displayWidgetContent( self.transcript );
+                        self.startLiveTranscript();
                         
-                        $( SBPLUS.widget.content ).html( self.transcript )
-                            .addClass( 'fadeIn' ).one( 'webkitAnimationEnd mozAnimationEnd animationend', 
-                            function() {
-                                $( this ).removeClass( 'fadeIn' ).off();
-                            }
-                         );
-                         
-                    }
+                    } );
+                    
+                } else {
+                     
+                     displayWidgetContent( self.transcript );
+                     self.startLiveTranscript();
                     
                 }
-                
-            } 
-            
-            if ( this.isAudio ) {
-                
-                $( SBPLUS.widget.content ).html( self.transcript )
-                    .addClass( 'fadeIn' ).one( 'webkitAnimationEnd mozAnimationEnd animationend', 
-                    function() {
-                        $( this ).removeClass( 'fadeIn' ).off();
-                    }
-                 );
-                
+             
             }
-            
+              
         break;
         
         default:
             
-            $( SBPLUS.widget.content ).html( self.widgetSegments[id] )
-                .addClass( 'fadeIn' ).one( 'webkitAnimationEnd mozAnimationEnd animationend', 
-                function() {
-                    $( this ).removeClass( 'fadeIn' ).off();
-                }
-             );
+            displayWidgetContent( self.widgetSegments[id] );
             
         break;
         
     }
+    
+}
+
+Page.prototype.startLiveTranscript = function() {
+    
+    var self = this;
+    
+    var ltArray = $( '.lt-wrapper .lt-line' );
+    
+    self.transcriptInterval = setInterval( function() {
+            
+        if ( self.isPlaying ) {
+            
+            ltArray.removeClass( 'current' );
+            
+            // TO DO: Refine loop to binary search
+            ltArray.each( function() {
+                
+                if ( self.mediaPlayer.currentTime() >= $( this ).data('start') 
+                && self.mediaPlayer.currentTime() <= $( this ).data('end') ) {
+                    $( this ).addClass( 'current' );
+                    return;
+                }      
+                
+            } );
+            
+        } else {
+            ltArray.removeClass( 'current' );
+            window.clearInterval( this );
+        }
+        
+    }, 500 );
     
 }
 
@@ -516,4 +521,104 @@ function getEntryKalturaStatus( code ) {
         
     }
     return msg;
+}
+
+function displayWidgetContent( str ) {
+    
+    $( SBPLUS.widget.content ).html( str )
+        .addClass( 'fadeIn' ).one( 'webkitAnimationEnd mozAnimationEnd animationend', 
+        function() {
+            $( this ).removeClass( 'fadeIn' ).off();
+        }
+     );
+    
+}
+
+function parseTranscript( str ) {
+    
+    var result = '<div class="lt-wrapper">';
+    var tAry = str.replace(/\n/g, '<br>').split('<br>');
+    
+    tAry = cleanArray( tAry );
+
+    if ( tAry[0].match(/\d{2}:\d{2}:\d{2}.\d{3}/g) 
+    && tAry[1].match(/\d{2}:\d{2}:\d{2}.\d{3}/g) ) {
+        tAry[0] = '';
+        tAry = removeEmptyElements( tAry );
+    }
+    
+    for (var i = 1; i < tAry.length; i += 2 ) {
+        var cueParts = tAry[i-1].split( ' ' );
+        result += '<span class="lt-line" data-start="' + toSeconds(cueParts[0]) + '" data-end="' + toSeconds(cueParts[2]) + '">' + tAry[i] + '</span> ';
+        
+    }
+    
+    result += '</div>';
+    
+    return result;
+    
+} 
+
+function cleanArray( array ) {
+    
+    array = removeEmptyElements( array );
+    array = array.splice( array.findIndex( firstCue ) );
+    
+    for ( var j = 0; j < array.length; j++ ) {
+        
+        if ( array[j].match(/\d{2}:\d{2}:\d{2}.\d{3}/g) ) {
+            
+            var innerSplit = array[j].split( ' ' );
+            
+            if ( innerSplit.length > 3 ) {
+                array[j] = innerSplit.splice( 0, 3 ).join(' ');
+            } else {
+                continue;
+            }
+            
+        } else {
+            
+            if ( array[j+1] !== undefined ) {
+                
+                if ( !array[j+1].match(/\d{2}:\d{2}:\d{2}.\d{3}/g) ) {
+                    array[j] = array[j] + ' ' + array[j+1];
+                    array[j+1] = '';
+                }
+                
+            }
+            
+        }
+        
+    }
+    
+    return removeEmptyElements( array );
+    
+}
+
+function firstCue( cue ) {
+    return cue.match(/(00:00:00.000)/);
+}
+
+function removeEmptyElements( array ) {
+    
+    for ( var i = 0; i < array.length; i++ ) {
+        if ( array[i] === '' ) {
+            array.splice( i, 1 );
+        }
+    }
+    
+    return array;
+    
+}
+
+function toSeconds( str, hour ) {
+    
+    var arr = str.split( ':' );
+    
+    if ( !hour ) {
+        return Number( arr[0] * 60 ) * 60 + Number( arr[1] * 60 ) + Number( arr[2] );
+    } else {
+        return Number( arr[1] * 60 ) + Number( arr[2] ); 
+    }
+    
 }

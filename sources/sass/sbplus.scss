@@ -613,6 +613,16 @@ body {
                             white-space: pre-wrap;
                         }
                         
+                        .lt-wrapper {
+                            
+                            margin: 6px 0;
+                            color: #888;
+                            
+                            .current {
+                                color: #000;
+                            }
+                            
+                        }
                         
                     }
                     
