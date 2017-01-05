@@ -100,7 +100,6 @@ Page.prototype.getPageMedia = function() {
                     $( self.mediaContent ).html( html ).promise().done( function() {
                 
                         self.renderVideoJS();
-                        self.setWidgets();
                 
                     } );
                 
@@ -130,6 +129,32 @@ Page.prototype.getPageMedia = function() {
                 self.showPageError( 'NO_IMG' );
             } );
             
+        break;
+        
+        case 'video':
+            
+            var html = '';
+            var vidCaption = '';
+            
+            $.get( 'assets/video/' + self.src + '.vtt', function( data ) {
+                
+                vidCaption = '<track kind="subtitles" label="English" srclang="en" src="' + this.url + '" />';
+                self.transcript = SBPLUS.stripScript( data );
+                
+            }).always( function() {
+                
+                html = '<video id="mp" class="video-js vjs-default-skin" crossorigin="anonymous" width="100%" height="100%" webkit-playsinline>' + vidCaption + '</video>';
+                
+                $( self.mediaContent ).html( html ).promise().done( function() {
+                    
+                    // call video js
+                    self.isVideo = true;
+                    self.renderVideoJS();
+                    
+                } );
+                
+            } );
+        
         break;
         
         default:
@@ -289,6 +314,10 @@ Page.prototype.renderVideoJS = function() {
             
         }
         
+        if ( self.isVideo === true ) {
+            player.src( { type: 'video/mp4', src: 'assets/video/' + self.src + '.mp4' } );
+        }
+        
         player.on(['waiting', 'pause'], function() {
             
           self.isPlaying = false;
@@ -402,14 +431,11 @@ Page.prototype.getWidgetContent = function( id ) {
         
         case 'sbplus_livetranscript':
         
-            if ( self.isAudio ) {
+            if ( self.isAudio || self.isVideo === true ) {
                 
                 displayWidgetContent( parseTranscript( self.transcript ) );
+                self.startLiveTranscript();
                 
-                if ( $( '#sbplus_livetranscript' ).hasClass( 'active' ) ) {
-                    self.startLiveTranscript();
-                }
-                    
             } else {
                 
                 if ( self.transcriptLoaded === false ) {
@@ -419,21 +445,15 @@ Page.prototype.getWidgetContent = function( id ) {
                         self.transcriptLoaded = true;
                         self.transcript = SBPLUS.stripScript( d );
                         
-                        self.transcript = parseTranscript( SBPLUS.stripScript( d ) );
-                        
-                        displayWidgetContent( self.transcript );
-                        if ( $( '#sbplus_livetranscript' ).hasClass( 'active' ) ) {
-                            self.startLiveTranscript();
-                        }
+                        displayWidgetContent( parseTranscript( self.transcript ) );
+                        self.startLiveTranscript();
                         
                     } );
                     
                 } else {
                      
                      displayWidgetContent( self.transcript );
-                     if ( $( '#sbplus_livetranscript' ).hasClass( 'active' ) ) {
-                        self.startLiveTranscript();
-                     }
+                     self.startLiveTranscript();
                     
                 }
              
@@ -460,7 +480,7 @@ Page.prototype.startLiveTranscript = function() {
         var ltArray = $( '.lt-wrapper .lt-line' );
         
         transcriptInterval = setInterval( function() {
-            
+            //console.log(self.isPlaying);
             if ( self.isPlaying ) {
                 
                 ltArray.removeClass( 'current' );
@@ -475,6 +495,19 @@ Page.prototype.startLiveTranscript = function() {
                     }
                     
                 } );
+                
+            }
+            
+            var target = $( '.lt-wrapper .lt-line.current' );
+            
+            if ( target.length ) {
+                
+                var scrollHeight = $( '#sbplus_widget' ).height();
+                var targetTop = target[0].offsetTop;
+                
+                if ( targetTop > scrollHeight ) {
+                    target[0].scrollIntoView( false );
+                }
                 
             }
             
@@ -604,8 +637,9 @@ function parseTranscript( str ) {
     
     var result = '<div class="lt-wrapper">';
     var tAry = str.replace(/\n/g, '<br>').split('<br>');
+    var brCount = 0;
     
-    tAry = cleanArray( tAry );
+    tAry = cleanArray( removeEmptyElements( tAry ) );
 
     if ( tAry[0].match(/\d{2}:\d{2}:\d{2}.\d{3}/g) 
     && tAry[1].match(/\d{2}:\d{2}:\d{2}.\d{3}/g) ) {
@@ -613,9 +647,18 @@ function parseTranscript( str ) {
         tAry = removeEmptyElements( tAry );
     }
     
-    for (var i = 1; i < tAry.length; i += 2 ) {
+    for ( var i = 1; i < tAry.length; i += 2 ) {
+        
         var cueParts = tAry[i-1].split( ' ' );
+        
+        
         result += '<span class="lt-line" data-start="' + toSeconds(cueParts[0]) + '" data-end="' + toSeconds(cueParts[2]) + '">' + tAry[i] + '</span> ';
+        brCount++;
+        
+        if( brCount >= 17 ) {
+            result += '<br><br>';
+            brCount = 0;
+        }
         
     }
     
@@ -628,7 +671,14 @@ function parseTranscript( str ) {
 function cleanArray( array ) {
     
     array = removeEmptyElements( array );
-    array = array.splice( array.findIndex( firstCue ) );
+    
+    var index = array.findIndex( firstCueZero );
+    
+    if ( index === -1 ) {
+        index = array.indexOf( array.find( firstCue ) );
+    }
+    
+    array = array.splice( index );
     
     for ( var j = 0; j < array.length; j++ ) {
         
@@ -661,17 +711,40 @@ function cleanArray( array ) {
     
 }
 
-function firstCue( cue ) {
+function firstCueZero( cue ) {
+    
     return cue.match(/(00:00:00.000)/);
+    
+}
+
+function firstCue( cue ) {
+    
+    return cue.match(/\d{2}:\d{2}:\d{2}.\d{3}/g);
+    
 }
 
 function removeEmptyElements( array ) {
     
+    var found = false;
+    
     for ( var i = 0; i < array.length; i++ ) {
-        if ( array[i] === '' ) {
-            array.splice( i, 1 );
+        
+        if ( SBPLUS.isEmpty( array[i] ) ) {
+            found = true;
         }
+        
+        if ( array[i].match(/^[0-9]+$/m) ) {
+            found = true;
+        }
+        
+        if ( found ) {
+            array.splice( i, 1 );
+            found = false;
+        }
+        
     }
+    
+    //console.log(array);
     
     return array;
     
