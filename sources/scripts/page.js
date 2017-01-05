@@ -186,6 +186,16 @@ Page.prototype.getPageMedia = function() {
             
         break;
         
+        case 'html':
+            
+            $( self.mediaContent ).html( '<iframe class="html" src="assets/html/' + self.src + '/index.html"></iframe>' ).promise().done( function() {
+                    
+                self.setWidgets();
+                
+            } );
+            
+        break;
+        
         default:
             self.setWidgets();
         break;

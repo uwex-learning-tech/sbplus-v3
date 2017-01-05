@@ -111,8 +111,8 @@
 		"ft": 2097152,
 		"miP": 0,
 		"oA": 2,
-		"oAP": "\/build\/images\/default_logo.svg",
-		"oF": 0,
+		"oAP": "\/build\/sources\/images\/default_logo.svg",
+		"oF": 2,
 		"opt": 0,
 		"plM": 3758088159,
 		"prP": 0
@@ -735,7 +735,7 @@
 	"displayValue": "sbplus_v3",
 	"displayValueWasSetByUser": 1,
 	"iconImageName": "meme-soon",
-	"lastBuiltDate": 504048340
+	"lastBuiltDate": 505346310
 	},
 "projectSettings": {
 	"abortBuildOnError": 1,
