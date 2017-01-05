@@ -191,8 +191,12 @@ legend("topleft", legend=c("Student", "Non-student"), lty=c(1,2), col=c("blue","
             <note />
         </page>
         
-        <page type="youtube" src="rAubpv_5DYM" title="Video from YouTube">
-            <note />
+        <page type="youtube" src="mAobb8_SzHY" title="Video from YouTube">
+            <note>Release on June 20, 2017!!!</note>
+            <widget>
+                <segment name="New Jobs">Red Mage announced! More to come!</segment>
+                <segment name="New Dungeons &amp; Raids">Many of them!</segment>
+            </widget>
         </page>
         
         <page type="vimeo" src="167409747" title="Video from Vimeo">

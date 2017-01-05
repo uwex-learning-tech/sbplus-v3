@@ -9,15 +9,19 @@ var Page = function ( obj ) {
     this.widget = obj.widget;
     this.widgetSegments = {};
     this.imgType = obj.imageFormat;
-
+    
+    this.mediaPlayer = null;
     this.isKaltura = false;
     this.isAudio = false;
-    this.mediaPlayer = null;
     this.isVideo = null;
+    this.isYoutube = false;
+    this.isVimeo = false;
     this.isPlaying = false;
+    
     this.transcript = null;
     this.transcriptLoaded = false;
     this.transcriptIntervalStarted = false;
+    
     this.hasImage = false;
     
     this.root = SBPLUS.manifest.sbplus_root_directory;
@@ -100,6 +104,7 @@ Page.prototype.getPageMedia = function() {
                     $( self.mediaContent ).html( html ).promise().done( function() {
                 
                         self.renderVideoJS();
+                        self.setWidgets();
                 
                     } );
                 
@@ -133,7 +138,6 @@ Page.prototype.getPageMedia = function() {
         
         case 'video':
             
-            var html = '';
             var vidCaption = '';
             
             $.get( 'assets/video/' + self.src + '.vtt', function( data ) {
@@ -143,18 +147,43 @@ Page.prototype.getPageMedia = function() {
                 
             }).always( function() {
                 
-                html = '<video id="mp" class="video-js vjs-default-skin" crossorigin="anonymous" width="100%" height="100%" webkit-playsinline>' + vidCaption + '</video>';
+                var html = '<video id="mp" class="video-js vjs-default-skin" crossorigin="anonymous" width="100%" height="100%" webkit-playsinline>' + vidCaption + '</video>';
                 
                 $( self.mediaContent ).html( html ).promise().done( function() {
                     
                     // call video js
                     self.isVideo = true;
                     self.renderVideoJS();
+                    self.setWidgets();
                     
                 } );
                 
             } );
         
+        break;
+        
+        case 'youtube':
+            
+            $( self.mediaContent ).html( '<video id="mp" class="video-js vjs-default-skin" webkit-playsinline></video>' ).promise().done( function() {
+                    
+                self.isYoutube = true;
+                self.renderVideoJS();
+                self.setWidgets();
+                
+            } );
+            
+        break;
+        
+        case 'vimeo':
+            
+            $( self.mediaContent ).html( '<video id="mp" class="video-js vjs-default-skin" webkit-playsinline></video>' ).promise().done( function() {
+                    
+                self.isVimeo = true;
+                self.renderVideoJS();
+                self.setWidgets();
+                
+            } );
+            
         break;
         
         default:
@@ -165,6 +194,7 @@ Page.prototype.getPageMedia = function() {
     
 };
 
+// kaltura api request
 Page.prototype.loadKalturaVideoData = function () {
     
     var self = this;
@@ -247,6 +277,7 @@ Page.prototype.loadKalturaVideoData = function () {
                         // call video js
                         self.isKaltura = true;
                         self.renderVideoJS();
+                        self.setWidgets();
                         
                     } );
                     
@@ -265,12 +296,13 @@ Page.prototype.loadKalturaVideoData = function () {
     
 };
 
+// render videojs
 Page.prototype.renderVideoJS = function() {
     
     var self = this;
     var options = {
         
-        techOrder: ["html5"],
+        techOrder: ['html5'],
         controls: true,
         autoplay: true,
         preload: "auto",
@@ -286,6 +318,15 @@ Page.prototype.renderVideoJS = function() {
     
     if ( self.isKaltura ) {
         options.plugins = Object.assign( options.plugins, { videoJsResolutionSwitcher: { 'default': 720 } } );
+    } else if ( self.isYoutube ) {
+        options.techOrder = ['youtube'];
+        options.sources = [{ type: "video/youtube", src: "https://www.youtube.com/watch?v=" + self.src }];
+        options.playbackRates = null;
+        options.plugins = Object.assign( options.plugins, { videoJsResolutionSwitcher: { 'default': 720 } } );
+    } else if ( self.isVimeo ) {
+        options.techOrder = ["vimeo"];
+        options.sources = [{ type: "video/vimeo", src: "https://vimeo.com/" + self.src }];
+        options.playbackRates = null;
     }
     
     self.mediaPlayer = videojs( 'mp', options, function() {
@@ -349,9 +390,11 @@ Page.prototype.renderVideoJS = function() {
           
         });
         
-        player.on('loadstart', function() {
+        /*
+player.on('loadstart', function() {
           self.setWidgets();
         });
+*/
             
     } );
 
@@ -519,6 +562,7 @@ Page.prototype.startLiveTranscript = function() {
     
 }
 
+// display page error
 Page.prototype.showPageError = function( type ) {
     
     var self = this;
@@ -622,6 +666,7 @@ function getEntryKalturaStatus( code ) {
     return msg;
 }
 
+// page class helper functions
 function displayWidgetContent( str ) {
     
     $( SBPLUS.widget.content ).html( str )
