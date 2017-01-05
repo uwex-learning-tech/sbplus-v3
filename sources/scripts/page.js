@@ -371,7 +371,7 @@ Page.prototype.renderVideoJS = function() {
             
           self.isPlaying = false;
           
-          if ( $( '#sbplus_livetranscript' ).hasClass( 'active' ) ) {
+          if ( $( '#sbplus_interactivetranscript' ).hasClass( 'active' ) ) {
               $( '.lt-wrapper .lt-line' ).removeClass( 'current' );
           }
           
@@ -383,18 +383,13 @@ Page.prototype.renderVideoJS = function() {
         player.on('playing', function() {
             
           self.isPlaying = true;
-          if ( $( '#sbplus_livetranscript' ).hasClass( 'active' )
+          if ( $( '#sbplus_interactivetranscript' ).hasClass( 'active' )
           && self.transcriptIntervalStarted === false ) {
-            self.startLiveTranscript();
+            self.startInteractiveTranscript();
           }
           
         });
         
-        /*
-player.on('loadstart', function() {
-          self.setWidgets();
-        });
-*/
             
     } );
 
@@ -421,7 +416,7 @@ Page.prototype.setWidgets = function() {
             if ( !SBPLUS.isEmpty( self.transcript )
             || !SBPLUS.isEmpty( self.isVideo.captionUrl ) ) {
                 
-                SBPLUS.addSegment( 'Live Transcript' );
+                SBPLUS.addSegment( 'Interactive Transcript' );
                 segmentCount++;
                 
             }
@@ -472,12 +467,12 @@ Page.prototype.getWidgetContent = function( id ) {
             
         break;
         
-        case 'sbplus_livetranscript':
+        case 'sbplus_interactivetranscript':
         
             if ( self.isAudio || self.isVideo === true ) {
                 
                 displayWidgetContent( parseTranscript( self.transcript ) );
-                self.startLiveTranscript();
+                self.startInteractiveTranscript();
                 
             } else {
                 
@@ -489,14 +484,14 @@ Page.prototype.getWidgetContent = function( id ) {
                         self.transcript = SBPLUS.stripScript( d );
                         
                         displayWidgetContent( parseTranscript( self.transcript ) );
-                        self.startLiveTranscript();
+                        self.startInteractiveTranscript();
                         
                     } );
                     
                 } else {
                      
                      displayWidgetContent( self.transcript );
-                     self.startLiveTranscript();
+                     self.startInteractiveTranscript();
                     
                 }
              
@@ -514,7 +509,7 @@ Page.prototype.getWidgetContent = function( id ) {
     
 }
 
-Page.prototype.startLiveTranscript = function() {
+Page.prototype.startInteractiveTranscript = function() {
     
     var self = this;
     
@@ -559,6 +554,13 @@ Page.prototype.startLiveTranscript = function() {
         self.transcriptIntervalStarted = true;
     
     }
+    
+    $( '.lt-wrapper .lt-line' ).on( 'click', function(e) {
+        
+        var currentTarget = $( e.currentTarget ).data('start');
+        self.mediaPlayer.currentTime(currentTarget);
+        
+    } );
     
 }
 

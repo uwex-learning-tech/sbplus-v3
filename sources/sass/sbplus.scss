@@ -673,6 +673,15 @@ body {
                             margin: 6px 0;
                             color: #595959;
                             
+                            .lt-line {
+                                cursor: pointer;
+                            }
+                            
+                            .lt-line:hover {
+                                text-decoration: underline;
+                                color: #00f;
+                            }
+                            
                             .current {
                                 color: #00f;
                             }
