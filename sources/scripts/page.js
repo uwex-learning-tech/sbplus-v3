@@ -10,13 +10,20 @@ var Page = function ( obj ) {
     this.widgetSegments = {};
     this.imgType = obj.imageFormat;
     
+    if ( obj.frames.length ) {
+        this.frames = obj.frames;
+        this.cuepoints = [];
+    }
+    
     this.mediaPlayer = null;
-    this.isKaltura = false;
+    this.isKaltura = null;
     this.isAudio = false;
-    this.isVideo = null;
+    this.isVideo = false;
     this.isYoutube = false;
     this.isVimeo = false;
+    this.isBundle = false;
     this.isPlaying = false;
+    this.captionUrl = '';
     
     this.transcript = null;
     this.transcriptLoaded = false;
@@ -38,10 +45,6 @@ var Page = function ( obj ) {
     this.mediaContent = SBPLUS.layout.mediaContent;
     this.mediaError = SBPLUS.layout.mediaError;
     
-    if ( $( '#ap' ).length ) {
-        videojs( 'ap' ).dispose();
-    }
-    
 };
 
 Page.prototype.getPageMedia = function() {
@@ -50,10 +53,10 @@ Page.prototype.getPageMedia = function() {
     
     // reset
     $( this.mediaError ).empty().hide();
-    clearInterval( transcriptInterval );
     if ( $( '#mp' ).length ) {
-        videojs('mp').dispose();
+        videojs( 'mp' ).dispose();
     }
+    clearInterval( transcriptInterval );
     // end reset
     
     switch ( self.type ) {
@@ -84,7 +87,6 @@ Page.prototype.getPageMedia = function() {
         case 'image-audio':
             
             self.isAudio = true;
-            var caption = '';
             
             $.get( 'assets/pages/' + self.src + '.' + self.imgType, function() {
                 self.hasImage = true;
@@ -93,13 +95,11 @@ Page.prototype.getPageMedia = function() {
             } ).always( function() {
                 
                 $.get( 'assets/audio/' + self.src + '.vtt', function( data ) {
-                    caption = '<track kind="subtitles" label="English" srclang="en" src="' + this.url + '" />';
+                    self.captionUrl = this.url;
                     self.transcript = SBPLUS.stripScript( data );
-                } ).fail( function() { 
-                    caption = '';
                 } ).always( function() {
                     
-                    var html = '<video id="mp" class="video-js vjs-default-skin" webkit-playsinline>' + caption + '</video>';
+                    var html = '<video id="mp" class="video-js vjs-default-skin" webkit-playsinline></video>';
                     
                     $( self.mediaContent ).html( html ).promise().done( function() {
                 
@@ -138,16 +138,14 @@ Page.prototype.getPageMedia = function() {
         
         case 'video':
             
-            var vidCaption = '';
-            
             $.get( 'assets/video/' + self.src + '.vtt', function( data ) {
                 
-                vidCaption = '<track kind="subtitles" label="English" srclang="en" src="' + this.url + '" />';
+                self.captionUrl = this.url;
                 self.transcript = SBPLUS.stripScript( data );
                 
             }).always( function() {
                 
-                var html = '<video id="mp" class="video-js vjs-default-skin" crossorigin="anonymous" width="100%" height="100%" webkit-playsinline>' + vidCaption + '</video>';
+                var html = '<video id="mp" class="video-js vjs-default-skin" crossorigin="anonymous" width="100%" height="100%" webkit-playsinline></video>';
                 
                 $( self.mediaContent ).html( html ).promise().done( function() {
                     
@@ -196,6 +194,32 @@ Page.prototype.getPageMedia = function() {
             
         break;
         
+        case 'bundle':
+            
+            $( self.frames ).each( function() {
+                var cue = toSeconds( $( this ).attr( 'start' ) );
+                self.cuepoints.push( cue );
+            } );
+            
+            $.get( 'assets/audio/' + self.src + '.vtt', function( data ) {
+                self.captionUrl = this.url;
+                self.transcript = SBPLUS.stripScript( data );
+            } ).always( function() {
+                
+                var html = '<video id="mp" class="video-js vjs-default-skin" webkit-playsinline></video>';
+                
+                $( self.mediaContent ).html( html ).promise().done( function() {
+            
+                    self.isBundle = true;
+                    self.renderVideoJS();
+                    self.setWidgets();
+            
+                } );
+            
+            } );
+            
+        break;
+        
         default:
             self.setWidgets();
         break;
@@ -208,7 +232,7 @@ Page.prototype.getPageMedia = function() {
 Page.prototype.loadKalturaVideoData = function () {
     
     var self = this;
-    self.isVideo = {
+    self.isKaltura = {
         
         flavors: {},
         status: {
@@ -217,7 +241,6 @@ Page.prototype.loadKalturaVideoData = function () {
             normal: 0,
             high: 0
         },
-        captionUrl: '',
         duration: ''
         
     };
@@ -229,11 +252,10 @@ Page.prototype.loadKalturaVideoData = function () {
         'callback': function( data ) {
             
             var captionId = data.captionId;
-            var captionTrack = '';
             var html = '';
             
-            self.isVideo.status.entry = data.status;
-            self.isVideo.duration = data.duration;
+            self.isKaltura.status.entry = data.status;
+            self.isKaltura.duration = data.duration;
             
             for( var i in data.sources ) {
 
@@ -241,51 +263,45 @@ Page.prototype.loadKalturaVideoData = function () {
 
                 if ( source.flavorParamsId === self.kaltura.flavors.low ) {
                     
-                    self.isVideo.flavors.low = source.src;
-                    self.isVideo.status.low = source.status;
+                    self.isKaltura.flavors.low = source.src;
+                    self.isKaltura.status.low = source.status;
 
                 }
 
                 if ( source.flavorParamsId === self.kaltura.flavors.normal ) {
 
-                    self.isVideo.flavors.normal = source.src;
-                    self.isVideo.status.normal = source.status;
+                    self.isKaltura.flavors.normal = source.src;
+                    self.isKaltura.status.normal = source.status;
 
                 }
 
                 if ( source.flavorParamsId === self.kaltura.flavors.high ) {
 
-                    self.isVideo.flavors.high = source.src;
-                    self.isVideo.status.high = source.status;
+                    self.isKaltura.flavors.high = source.src;
+                    self.isKaltura.status.high = source.status;
 
                 }
 
             }
             
             // entry video
-            if ( self.isVideo.status.entry >= 1 && self.isVideo.status.entry <= 2 ) {
+            if ( self.isKaltura.status.entry >= 1 && self.isKaltura.status.entry <= 2 ) {
                 
                 // flavor videos
-                if ( self.isVideo.status.low === 2 && self.isVideo.status.normal === 2 
-                && self.isVideo.status.high === 2 ) {
+                if ( self.isKaltura.status.low === 2 && self.isKaltura.status.normal === 2 
+                && self.isKaltura.status.high === 2 ) {
                 
                     if ( captionId !== null ) {
                     
-                        self.isVideo.captionUrl = 'https://www.kaltura.com/api_v3/?service=caption_captionasset&action=servewebvtt&captionAssetId=' + captionId + '&segmentDuration=' + self.isVideo.duration + '&segmentIndex=1';
+                        self.captionUrl = 'https://www.kaltura.com/api_v3/?service=caption_captionasset&action=servewebvtt&captionAssetId=' + captionId + '&segmentDuration=' + self.isKaltura.duration + '&segmentIndex=1';
                         
                     }
                     
-                    // inject HTML5 Video Tag
-                    if ( self.isVideo.captionUrl.length > 0 ) {
-                        captionTrack = '<track kind="subtitles" label="English" srclang="en" src="' + self.isVideo.captionUrl + '">';
-                    }
-                    
-                    html = '<video id="mp" class="video-js vjs-default-skin" crossorigin="anonymous" width="100%" height="100%" webkit-playsinline>'+captionTrack+'</video>';
+                    html = '<video id="mp" class="video-js vjs-default-skin" crossorigin="anonymous" width="100%" height="100%" webkit-playsinline></video>';
                 
                     $( self.mediaContent ).html( html ).promise().done( function() {
                         
                         // call video js
-                        self.isKaltura = true;
                         self.renderVideoJS();
                         self.setWidgets();
                         
@@ -322,7 +338,8 @@ Page.prototype.renderVideoJS = function() {
         },
         plugins: {
             replayButton: {}
-        }
+        },
+        manualCleanup: true
 
     };
     
@@ -343,31 +360,104 @@ Page.prototype.renderVideoJS = function() {
         
         var player = this;
         
+        player.manualCleanup = true;
+        
         if ( self.isKaltura ) {
             
             player.updateSrc( [
 			
-    			{ src: self.isVideo.flavors.low, type: "video/mp4", label: "low", res: 360 },
-    			{ src: self.isVideo.flavors.normal, type: "video/mp4", label: "normal", res: 720 },
-    			{ src: self.isVideo.flavors.high, type: "video/mp4", label: "high", res: 1080 }
+    			{ src: self.isKaltura.flavors.low, type: "video/mp4", label: "low", res: 360 },
+    			{ src: self.isKaltura.flavors.normal, type: "video/mp4", label: "normal", res: 720 },
+    			{ src: self.isKaltura.flavors.high, type: "video/mp4", label: "high", res: 1080 }
     			
     		] );
             
         }
         
-        if ( self.isAudio ) {
+        if ( self.isAudio || self.isBundle ) {
             
-            if ( self.hasImage ) {
+            if ( self.isAudio && self.hasImage ) {
                 player.poster( 'assets/pages/' + self.src + '.' + self.imgType );
+            }
+            
+            if ( self.isBundle ) {
+                
+                var srcDuration = 0;
+                var pageImage = new Image();
+                
+                player.on( 'loadedmetadata', function() {
+                    srcDuration = Math.floor( player.duration() );
+                } );
+                
+                player.cuepoints();
+                player.addCuepoint( {
+                    	
+                	namespace: self.src + '-1',
+                	start: 0,
+                	end: self.cuepoints[1],
+                	onStart: function() {
+                    	pageImage.src = 'assets/pages/' + self.src + '-1.' + self.imgType;
+                    	player.poster( pageImage.src );
+                	},
+                	onEnd: function() {},
+                	params: ''
+                	
+            	} );
+                
+                $.each( self.cuepoints, function( i ) {
+                    
+                    var nextCue;
+                    
+                    if ( self.cuepoints[i+1] === undefined ) {
+                        nextCue = srcDuration;
+                    } else {
+                        nextCue = self.cuepoints[i+1];
+                    }
+                    
+                    player.addCuepoint( {
+                        namespace: self.src + '-' + ( i + 2 ),
+                        start: self.cuepoints[1],
+                        end: nextCue,
+                        onStart: function() {
+                            pageImage.src = 'assets/pages/' + self.src + '-' + ( i + 2 ) + '.' + self.imgType;
+                            $( pageImage ).on( 'error', function() {
+                                self.showPageError( 'NO_IMG' );
+                            } );
+                            player.poster( pageImage.src );
+                        }
+                    } );
+                    
+                } );
+                
+                player.on('seeking', function() {
+                    	
+                	if ( player.currentTime() <= self.cuepoints[0] ) {
+                    	
+                    	player.poster( 'assets/pages/' + self.src + '-1.' + self.imgType );
+                    	
+                	}
+                	
+            	} );
+                
             }
             
             player.src( { type: 'audio/mp3', src: 'assets/audio/' + self.src + '.mp3' } );
             
         }
         
-        if ( self.isVideo === true ) {
+        if ( self.isVideo ) {
             player.src( { type: 'video/mp4', src: 'assets/video/' + self.src + '.mp4' } );
         }
+        
+        // add caption
+        if ( self.captionUrl ) {
+    		player.addRemoteTextTrack( {
+        		kind: 'subtitles',
+        		language: 'en',
+        		label: 'English',
+        		src: self.captionUrl
+    		}, true );
+		}
         
         player.on(['waiting', 'pause'], function() {
             
@@ -423,8 +513,18 @@ Page.prototype.setWidgets = function() {
         
         if ( self.isAudio || self.isVideo ) {
             
-            if ( !SBPLUS.isEmpty( self.transcript )
-            || !SBPLUS.isEmpty( self.isVideo.captionUrl ) ) {
+            if ( !SBPLUS.isEmpty( self.transcript ) ) {
+                
+                SBPLUS.addSegment( 'Interactive Transcript' );
+                segmentCount++;
+                
+            }
+            
+        }
+        
+        if ( self.isKaltura ) {
+            
+            if ( !SBPLUS.isEmpty( self.captionUrl ) ) {
                 
                 SBPLUS.addSegment( 'Interactive Transcript' );
                 segmentCount++;
@@ -479,7 +579,7 @@ Page.prototype.getWidgetContent = function( id ) {
         
         case 'sbplus_interactivetranscript':
         
-            if ( self.isAudio || self.isVideo === true ) {
+            if ( self.isAudio || self.isVideo ) {
                 
                 displayWidgetContent( parseTranscript( self.transcript ) );
                 self.startInteractiveTranscript();
@@ -488,7 +588,7 @@ Page.prototype.getWidgetContent = function( id ) {
                 
                 if ( self.transcriptLoaded === false ) {
                     
-                    $.get( self.isVideo.captionUrl, function( d ) {
+                    $.get( self.captionUrl, function( d ) {
                     
                         self.transcriptLoaded = true;
                         self.transcript = SBPLUS.stripScript( d );
@@ -592,16 +692,16 @@ Page.prototype.showPageError = function( type ) {
         case 'KAL_NOT_READY':
             msg = '<p>The video for this Storybook Page is still processing and could not be loaded at the moment. Please try again later. Contact support if you continue to have issues.</p><p><strong>Expected video source</strong>: Kaltura video ID  ' + self.src + '<br><strong>Status</strong>:<br>';
             
-            msg += 'Low &mdash; ' + getKalturaStatus( self.isVideo.status.low ) + '<br>';
-            msg += 'Normal &mdash; ' + getKalturaStatus( self.isVideo.status.normal ) + '<br>';
-            msg += 'High &mdash; ' + getKalturaStatus( self.isVideo.status.high ) + '</p>';
+            msg += 'Low &mdash; ' + getKalturaStatus( self.isKaltura.status.low ) + '<br>';
+            msg += 'Normal &mdash; ' + getKalturaStatus( self.isKaltura.status.normal ) + '<br>';
+            msg += 'High &mdash; ' + getKalturaStatus( self.isKaltura.status.high ) + '</p>';
             
         break;
         
         case 'KAL_ENTRY_NOT_READY':
             msg = '<p>The video for this Storybook Page is still processing and could not be loaded at the moment. Please try again later. Contact support if you continue to have issues.</p><p><strong>Expected video source</strong>: Kaltura video ID ' + self.src + '<br><strong>Status</strong>: ';
             
-            msg += getEntryKalturaStatus( self.isVideo.status.entry ) + '</p>';
+            msg += getEntryKalturaStatus( self.isKaltura.status.entry ) + '</p>';
             
         break;
         
@@ -807,14 +907,14 @@ function removeEmptyElements( array ) {
     
 }
 
-function toSeconds( str, hour ) {
+function toSeconds( str ) {
     
     var arr = str.split( ':' );
     
-    if ( !hour ) {
+    if ( arr.length >= 3 ) {
         return Number( arr[0] * 60 ) * 60 + Number( arr[1] * 60 ) + Number( arr[2] );
     } else {
-        return Number( arr[1] * 60 ) + Number( arr[2] ); 
+        return Number( arr[0] * 60 ) + Number( arr[1] );
     }
     
 }

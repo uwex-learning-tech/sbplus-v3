@@ -707,6 +707,7 @@ var SBPLUS = SBPLUS || {
             pageData.src = target.attr( 'src' ).trim();
             pageData.notes = this.stripScript( target.find( 'note' ).text().trim() );
             pageData.widget = target.find( 'widget' );
+            pageData.frames = target.find( 'frame' );
         }
         
         this.currentPage = new Page( pageData );

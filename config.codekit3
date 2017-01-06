@@ -600,7 +600,7 @@
 		"mi": 0,
 		"oA": 0,
 		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/video.js",
-		"oF": 3,
+		"oF": 2,
 		"sC": 0,
 		"tS": 0
 		},
@@ -686,13 +686,13 @@
 	"\/sources\/scripts\/libs\/videojs\/video-dev.js": [
 		{
 			"followForSyntaxChecking": 1,
-			"linkedFileAbbreviatedPath": "\/sources\/scripts\/libs\/videojs\/plugins\/cuepoint\/videojs.cuepoints.js",
+			"linkedFileAbbreviatedPath": "\/sources\/scripts\/libs\/videojs\/plugins\/resolution\/videojs-resolution-switcher.js",
 			"position": 0,
 			"type": 1
 			},
 		{
 			"followForSyntaxChecking": 1,
-			"linkedFileAbbreviatedPath": "\/sources\/scripts\/libs\/videojs\/plugins\/resolution\/videojs-resolution-switcher.js",
+			"linkedFileAbbreviatedPath": "\/sources\/scripts\/libs\/videojs\/plugins\/cuepoint\/videojs.cuepoints.js",
 			"position": 1,
 			"type": 1
 			},
