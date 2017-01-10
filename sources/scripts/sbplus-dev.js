@@ -58,6 +58,7 @@ var SBPLUS = SBPLUS || {
             
             this.splash = {
                 screen: '#sbplus_splash_screen',
+                background: '#sb_splash_bg',
                 title: '#sbplus_presentation_info .sb_title',
                 subtitle: '#sbplus_presentation_info .sb_subtitle',
                 author: '#sbplus_presentation_info .sb_author',
@@ -235,10 +236,11 @@ var SBPLUS = SBPLUS || {
             var xSetup = data.find( 'setup' );
             var xAccent = xSb.attr( 'accent' ).trim();
             var xImgType = xSb.attr( 'pageImgFormat' ).toLowerCase().trim();
+            var xSplashImgType = 'svg';
             var xAnalytics = xSb.attr( 'analytics' ).toLowerCase().trim();
             var xMathjax = xSb.attr( 'mathjax' ).toLowerCase().trim();
             var xVersion = xSb.attr( 'xmlVersion' );
-            var xProgram = xSetup.attr( 'program' ).toLowerCase().trim();
+            var xProgram = '';
             var xCourse = xSetup.attr( 'course' ).toLowerCase().trim();
             var xTitle = this.stripScript( xSetup.find( 'title' ).text().trim() );
             var xSubtitle = this.stripScript( xSetup.find( 'subtitle' ).text().trim() );
@@ -246,6 +248,21 @@ var SBPLUS = SBPLUS || {
             var xAuthor = xSetup.find( 'author' );
             var xGeneralInfo = this.stripScript( xSetup.find( 'generalInfo' ).text().trim() );
             var xSections = data.find( 'section' );
+            
+            var splashImgType_temp = xSb.attr( 'splashImgFormat' );
+            var program_temp = xSetup.attr( 'program' );
+            
+            if ( splashImgType_temp ) {
+                
+                if ( !SBPLUS.isEmpty( splashImgType_temp ) ) {
+                    xSplashImgType = xSb.attr( 'splashImgFormat' ).toLowerCase().trim();
+                }
+                
+            }
+            
+            if ( program_temp ) {
+                xProgram = xSetup.attr( 'program' ).toLowerCase().trim()
+            }
             
             if ( this.isEmpty( xAccent ) ) {
                 xAccent = this.manifest.sbplus_default_accent;
@@ -267,6 +284,7 @@ var SBPLUS = SBPLUS || {
                 settings: {
                     accent: xAccent,
                     imgType: xImgType,
+                    splashImgType: xSplashImgType,
                     analytics: xAnalytics,
                     mathjax: xMathjax,
                     version: xVersion
@@ -320,6 +338,8 @@ var SBPLUS = SBPLUS || {
     
     renderSplashscreen: function() {
         
+        var self = this;
+        
         if ( this.xmlParsed && this.splashScreenRendered === false ) {
             
             // local storage settings
@@ -330,10 +350,61 @@ var SBPLUS = SBPLUS || {
             $( this.splash.author ).html( this.xml.setup.author );
             $( this.splash.duration ).html( this.xml.setup.duration );
             
+            // get splash screen image background
+            $.ajax( {
+                url: 'assets/splash.' + self.xml.settings.splashImgType,
+                type: 'head'
+            } ).done( function() {
+                self.setSplashImage( this.url );
+            } ).fail( function() {
+                
+                var program = self.xml.setup.program;
+                var course = self.xml.setup.course;
+                
+                if ( self.isEmpty( program ) ) {
+                    program = SBPLUS.getProgramDirectory();
+                }
+                
+                if ( self.isEmpty( course ) ) {
+                    course = SBPLUS.getCourseDirectory();
+                    if ( self.isEmpty( course ) ){
+                        course = 'default.' + self.xml.settings.splashImgType;
+                    } else {
+                        course += '.' + self.xml.settings.splashImgType;
+                    }
+                } else {
+                    course += '.' + self.xml.settings.splashImgType;
+                }
+                
+                if ( !self.isEmpty( program ) && !self.isEmpty( course ) ) {
+                    
+                    var ss_url = self.manifest.sbplus_splash_directory + program + '/' + course;
+                
+                    $.ajax( {
+                        url: ss_url,
+                        type: 'HEAD'
+                    } ).done( function() {
+                        self.setSplashImage( this.url );
+                    }).fail( function() {
+                        
+                        ss_url = self.manifest.sbplus_splash_directory + program + '/default.' + self.xml.settings.splashImgType;
+                        
+                        $.ajax( {
+                            url: ss_url,
+                            type: 'HEAD'
+                        } ).done( function() {
+                            self.setSplashImage( this.url );
+                        })
+                        
+                    } );
+                    
+                }
+                
+            } );
+            
             // event listeners
             $( this.button.start ).on( 'click', this.startPresentation.bind( this ) );
             $( this.button.resume ).on( 'click', this.resumePresentation.bind( this ) );
-            
             
             // accent
             if ( this.xml.settings.accent !== this.manifest.sbplus_default_accent ) {
@@ -365,6 +436,15 @@ var SBPLUS = SBPLUS || {
             
         } else {
             return 'Splash screen already rendered.';
+        }
+        
+    },
+    
+    setSplashImage: function( str ) {
+        
+        if ( str ) {
+            $( this.splash.background ).css( 'background-image', 
+            'url(' + str + ')' );
         }
         
     },
@@ -1367,6 +1447,74 @@ var SBPLUS = SBPLUS || {
         var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec( hex );
         
         return result ? parseInt(result[1], 16) + ',' + parseInt(result[2], 16) + ',' + parseInt(result[3], 16) : null;
+    },
+    
+    getProgramDirectory: function() {
+        
+        var urlArray = this.getUrlArray( urlArray );
+        
+        if ( urlArray.length >= 3 ) {
+            return urlArray[urlArray.length - 2];
+        } else if ( urlArray.length === 2 ) {
+            return urlArray[0];
+        }
+        
+        return '';
+        
+    },
+    
+    getCourseDirectory: function() {
+        
+        var urlArray = this.getUrlArray( urlArray );
+        
+        if ( urlArray.length >= 2 ) {
+            return urlArray[urlArray.length - 1];
+        }
+        
+        return '';
+        
+    },
+    
+    getUrlArray: function() {
+        
+        var url = window.location.href;
+        var urlArray = url.split( '/' );
+        
+        urlArray.splice(0, 1);
+        
+        if ( urlArray[urlArray.length - 1].indexOf('.') >= 0 ) {
+            
+        	urlArray.splice(urlArray.length - 1, 1);
+        	
+        }
+        
+        return this.removeEmptyElements( urlArray );
+        
+    },
+    
+    removeEmptyElements: function ( array ) {
+    
+        var found = false;
+    
+        for ( var i = 0; i < array.length; i++ ) {
+            
+            if ( SBPLUS.isEmpty( array[i] ) ) {
+                found = true;
+            }
+            
+            if ( array[i].match(/^[0-9]+$/m) ) {
+                found = true;
+            }
+            
+            if ( found ) {
+                array.splice( i, 1 );
+                found = false;
+            }
+            
+        }
+        
+        return array;
+        
     }
         
 };

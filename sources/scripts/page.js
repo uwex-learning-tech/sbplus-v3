@@ -796,12 +796,12 @@ function parseTranscript( str ) {
     var tAry = str.replace(/\n/g, '<br>').split('<br>');
     var brCount = 0;
     
-    tAry = cleanArray( removeEmptyElements( tAry ) );
+    tAry = cleanArray( SBPLUS.removeEmptyElements( tAry ) );
 
     if ( tAry[0].match(/\d{2}:\d{2}:\d{2}.\d{3}/g) 
     && tAry[1].match(/\d{2}:\d{2}:\d{2}.\d{3}/g) ) {
         tAry[0] = '';
-        tAry = removeEmptyElements( tAry );
+        tAry = SBPLUS.removeEmptyElements( tAry );
     }
     
     for ( var i = 1; i < tAry.length; i += 2 ) {
@@ -827,7 +827,7 @@ function parseTranscript( str ) {
 
 function cleanArray( array ) {
     
-    array = removeEmptyElements( array );
+    array = SBPLUS.removeEmptyElements( array );
     
     var index = array.findIndex( firstCueZero );
     
@@ -864,7 +864,7 @@ function cleanArray( array ) {
         
     }
     
-    return removeEmptyElements( array );
+    return SBPLUS.removeEmptyElements( array );
     
 }
 
@@ -877,33 +877,6 @@ function firstCueZero( cue ) {
 function firstCue( cue ) {
     
     return cue.match(/\d{2}:\d{2}:\d{2}.\d{3}/g);
-    
-}
-
-function removeEmptyElements( array ) {
-    
-    var found = false;
-    
-    for ( var i = 0; i < array.length; i++ ) {
-        
-        if ( SBPLUS.isEmpty( array[i] ) ) {
-            found = true;
-        }
-        
-        if ( array[i].match(/^[0-9]+$/m) ) {
-            found = true;
-        }
-        
-        if ( found ) {
-            array.splice( i, 1 );
-            found = false;
-        }
-        
-    }
-    
-    //console.log(array);
-    
-    return array;
     
 }
 
