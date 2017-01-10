@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <storybook accent="#7b3009" pageImgFormat="jpg" analytics="off" mathjax="on" xmlVersion="3" splashImgFormat="jpg">
     
-    <setup program="" course="120">
+    <setup program="" course="">
         
         <title>BKN315 - Chocolate Chip Cookies</title>
         <subtitle>A Sample Storybook Plus Presentation \(\frac{-b\pm\sqrt{b^2-4ac}}{2a}\)</subtitle>

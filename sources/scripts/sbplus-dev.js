@@ -26,7 +26,8 @@ var SBPLUS = SBPLUS || {
     currentPage: null,
     kalturaLoaded: false,
     hasError: false,
-    
+    logoLoaded: false,
+        
     /***************************************************************************
         CORE FUNCTIONS
     ***************************************************************************/
@@ -74,6 +75,7 @@ var SBPLUS = SBPLUS || {
             },
             
             this.widget = {
+                wrapper: '#sbplus_widget',
                 bar: '#sbplus_widget .widget_controls_bar',
                 segment: '#sbplus_widget .widget_controls_bar .tab_segment',
                 segments: [],
@@ -1162,6 +1164,7 @@ var SBPLUS = SBPLUS || {
     
     selectSegment: function( e ) {
         
+        var self = this;
         var button = $( this.widget.segment ).find( 'button' );
         
         if ( button.length > 0 ) {
@@ -1189,7 +1192,36 @@ var SBPLUS = SBPLUS || {
             }
             
         } else {
+            
             $( this.layout.widget ).addClass('noSegments');
+            
+            if ( this.logoLoaded === false ) {
+                
+                var program = this.xml.setup.program;
+                
+                if ( SBPLUS.isEmpty( program ) ) {
+                    
+                    program = SBPLUS.getProgramDirectory();
+                    
+                    if ( SBPLUS.isEmpty( program ) ) {
+                        program = this.manifest.sbplus_logo_default;
+                    }
+                    
+                }
+                
+                var logoUrl = this.manifest.sbplus_logo_directory + program + '.svg';
+                    
+                $.get( logoUrl, function() {
+                    self.logoLoaded = this.url;
+                    $( self.widget.wrapper ).css( 'background-image', 'url(' + self.logoLoaded + ')' );
+                } );
+                
+            } else {
+                
+                $( self.widget.wrapper ).css( 'background-image', 'url(' + self.logoLoaded + ')' );
+                
+            }
+            
         }
         
     },
