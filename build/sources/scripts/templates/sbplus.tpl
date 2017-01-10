@@ -14,20 +14,7 @@
                 <button id="sbplus_start_btn">Start</button>
                 <button id="sbplus_resume_btn">Resume</button>
             </p>
-            <p class="sb_downloads animated">
-                <a href="#" download>
-                    <span class="icon-download"></span> Transcript
-                </a>
-                <a href="#" download>
-                    <span class="icon-download"></span> Video
-                </a>
-                <a href="#" download>
-                    <span class="icon-download"></span> Audio
-                </a>
-                <a href="#" download>
-                    <span class="icon-download"></span> Supplement
-                </a>
-            </p>
+            <p class="sb_downloads"></p>
                 
         </div>
         
@@ -133,20 +120,7 @@
                     
                     <li class="menu-parent" role="menuitem" aria-label="Downloads Menu" tabindex="1" aria-haspopup="true" aria-expanded="false">
                         <span class="icon-download"></span>
-                        <ul class="downloadFiles menu" role="menu" aria-hidden="true" aria-expanded="false">
-                            <li class="menu-item" tabindex="-1" role="menuitem" aria-live="polite">
-                                <a href="#">Test 1</a>
-                            </li>
-                            <li class="menu-item" tabindex="-1" role="menuitem" aria-live="polite">
-                                <a href="#">Test 2</a>
-                            </li>
-                            <li class="menu-item" tabindex="-1" role="menuitem" aria-live="polite">
-                                <a href="#">Test 3</a>
-                            </li>
-                            <li class="menu-item" tabindex="-1" role="menuitem" aria-live="polite">
-                                <a href="#">Test 4</a>
-                            </li>
-                        </ul>
+                        <ul class="downloadFiles menu" role="menu" aria-hidden="true" aria-expanded="false"></ul>
                     </li>
                     
                 </ul>

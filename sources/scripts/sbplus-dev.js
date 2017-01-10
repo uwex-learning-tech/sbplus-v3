@@ -22,6 +22,7 @@ var SBPLUS = SBPLUS || {
     splashScreenRendered: false,
     beforePresentingDone: false,
     presentationStarted: false,
+    downloads: {},
     currentPage: null,
     kalturaLoaded: false,
     hasError: false,
@@ -62,7 +63,8 @@ var SBPLUS = SBPLUS || {
                 title: '#sbplus_presentation_info .sb_title',
                 subtitle: '#sbplus_presentation_info .sb_subtitle',
                 author: '#sbplus_presentation_info .sb_author',
-                duration: '#sbplus_presentation_info .sb_duration'
+                duration: '#sbplus_presentation_info .sb_duration',
+                downloadBar: '#sbplus_presentation_info .sb_downloads'
             },
             
             this.tableOfContents = {
@@ -82,6 +84,7 @@ var SBPLUS = SBPLUS || {
                 start: '#sbplus_start_btn',
                 resume: '#sbplus_resume_btn',
                 download: '#sbplus_download_btn',
+                downloadMenu: '#sbplus_download_btn .menu-parent .downloadFiles',
                 widget: '#sbplus_widget_btn',
                 sidebar: '#sbplus_sidebar_btn',
                 author: '#sbplus_author_name',
@@ -406,6 +409,49 @@ var SBPLUS = SBPLUS || {
             $( this.button.start ).on( 'click', this.startPresentation.bind( this ) );
             $( this.button.resume ).on( 'click', this.resumePresentation.bind( this ) );
             
+            // set download items
+            var fileName = SBPLUS.getCourseDirectory();
+                
+            if ( self.isEmpty( fileName ) ) {
+                fileName = 'default';
+            }
+            
+            $.ajax( {
+                url: fileName + '.pdf',
+                type: 'HEAD'
+            } ).done( function() {
+                self.downloads.transcript = this.url;
+                $( self.splash.downloadBar ).append(
+                    '<a href="' + self.downloads.transcript + '" download><span class="icon-download"></span> Transcript</a>' );
+            } );
+            
+            $.ajax( {
+                url: fileName + '.mp4',
+                type: 'HEAD'
+            } ).done( function() {
+                self.downloads.video = this.url;
+                $( self.splash.downloadBar ).append(
+                    '<a href="' + self.downloads.video + '" download><span class="icon-download"></span> Video</a>' );
+            } );
+            
+            $.ajax( {
+                url: fileName + '.mp3',
+                type: 'HEAD'
+            } ).done( function() {
+                self.downloads.audio = this.url;
+                $( self.splash.downloadBar ).append(
+                    '<a href="' + self.downloads.audio + '" download><span class="icon-download"></span> Audio</a>' );
+            } );
+            
+            $.ajax( {
+                url: fileName + '.zip',
+                type: 'HEAD'
+            } ).done( function() {
+                self.downloads.supplement = this.url;
+                $( self.splash.downloadBar ).append(
+                    '<a href="' + self.downloads.supplement + '" download><span class="icon-download"></span> Supplement</a>' );
+            } );
+            
             // accent
             if ( this.xml.settings.accent !== this.manifest.sbplus_default_accent ) {
                 
@@ -518,6 +564,19 @@ var SBPLUS = SBPLUS || {
         
         if ( this.xml.settings.mathjax === 'on' ) {
             MathJax.Hub.Queue( ['Typeset', MathJax.Hub] );
+        }
+        
+        // set download items
+        for ( var key in self.downloads ) {
+            
+            if ( !SBPLUS.isEmpty( self.downloads[key] ) ) {
+                $( self.button.downloadMenu ).append(
+                    '<li class="menu-item" tabindex="-1" role="menuitem" aria-live="polite"><a download href="'
+                    + self.downloads[key] +
+                    '">' + self.capitalizeFirstLetter( key ) + '</a></li>'
+                );
+            }
+            
         }
         
     },
@@ -1382,6 +1441,10 @@ var SBPLUS = SBPLUS || {
     
         return str.replace(/[^\w]/gi, '').toLowerCase();
     
+    },
+    
+    capitalizeFirstLetter: function (str) {
+        return str.charAt( 0 ).toUpperCase() + str.slice( 1 );
     },
     
     isEmpty: function( str ) {
