@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<storybook accent="#7b3009" pageImgFormat="jpg" analytics="off" mathjax="on" xmlVersion="3" splashImgFormat="jpg">
+<storybook accent="#7b3009" pageImgFormat="jpg" analytics="off" mathjax="on" xmlVersion="3.1" splashImgFormat="jpg">
     
     <setup program="" course="">
         

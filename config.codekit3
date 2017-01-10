@@ -2064,7 +2064,7 @@
 	"externalServerAddress": "http:\/\/localhost\/",
 	"gitIgnoreBuildFolder": 0,
 	"hideConfigFile": 0,
-	"jsCheckerReservedNamesString": "Modernizr,MathJax,kWidget,videojs",
+	"jsCheckerReservedNamesString": "Modernizr,MathJax,kWidget,videojs,ga",
 	"jsHintFlags2": {
 		"asi": {
 			"active": 0,
