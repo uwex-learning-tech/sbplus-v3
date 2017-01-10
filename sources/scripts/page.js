@@ -591,9 +591,9 @@ Page.prototype.getWidgetContent = function( id ) {
                     $.get( self.captionUrl, function( d ) {
                     
                         self.transcriptLoaded = true;
-                        self.transcript = SBPLUS.stripScript( d );
+                        self.transcript = parseTranscript( SBPLUS.stripScript( d ) );
                         
-                        displayWidgetContent( parseTranscript( self.transcript ) );
+                        displayWidgetContent( self.transcript );
                         self.startInteractiveTranscript();
                         
                     } );
