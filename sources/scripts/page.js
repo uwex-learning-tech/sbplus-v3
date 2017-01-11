@@ -33,7 +33,6 @@ var Page = function ( obj ) {
     
     this.root = SBPLUS.manifest.sbplus_root_directory;
     this.kaltura = {
-        loaded: SBPLUS.kalturaLoaded,
         id: SBPLUS.manifest.sbplus_kaltura.id,
         flavors: {
             low: SBPLUS.manifest.sbplus_kaltura.low,
@@ -63,13 +62,13 @@ Page.prototype.getPageMedia = function() {
         
         case 'kaltura':
             
-            if ( self.kaltura.loaded === false ) {
+            if ( SBPLUS.hasStorageItem( 'sbplus-kaltura-loaded', true) === false ) {
                 
                 $.getScript( self.root + '/scripts/libs/kaltura/mwembedloader.js', function() {
                     
                     $.getScript( self.root +  '/scripts/libs/kaltura/kwidgetgetsources.js', function() {
                         
-                        SBPLUS.kalturaLoaded = true;
+                        SBPLUS.setStorageItem( 'sbplus-kaltura-loaded', 1, true);
                         self.loadKalturaVideoData();
                         
                     } );

@@ -13,27 +13,21 @@ var SBPLUS = SBPLUS || {
     button: null,
     menu : null,
     manifest: null,
-    manifestLoaded: false,
-    manifestOptionsLoaded: false,
-    templateLoaded: false,
     xml: null,
-    xmlLoaded: false,
-    xmlParsed: false,
     splashScreenRendered: false,
     beforePresentingDone: false,
     presentationStarted: false,
     downloads: {},
     currentPage: null,
-    kalturaLoaded: false,
     hasError: false,
-    logoLoaded: false,
-        
+    
     /***************************************************************************
         CORE FUNCTIONS
     ***************************************************************************/
     
     go: function() {
         
+        // get manifest
         if ( this.manifest === null ) {
             
             var self = this;
@@ -75,7 +69,7 @@ var SBPLUS = SBPLUS || {
             },
             
             this.widget = {
-                wrapper: '#sbplus_widget',
+                bg: '#sbplus_widget.noSegments',
                 bar: '#sbplus_widget .widget_controls_bar',
                 segment: '#sbplus_widget .widget_controls_bar .tab_segment',
                 segments: [],
@@ -106,7 +100,8 @@ var SBPLUS = SBPLUS || {
             
             $.getJSON( this.getManifestUrl(), function( data ) {
                 
-                self.manifestLoaded = true;
+                self.setStorageItem( 'sbplus-manifest-loaded', 1, true );
+                
                 self.manifest = data;
                 self.loadTemplate();
                 
@@ -122,6 +117,8 @@ var SBPLUS = SBPLUS || {
                 
             } );
             
+            $( window ).on( 'beforeunload', this.removeAllSessionStorage.bind( this ) );
+            
         } else {
             
             return 'Storybook Plus is already in ready state.';
@@ -132,7 +129,8 @@ var SBPLUS = SBPLUS || {
     
     loadTemplate: function() {
         
-        if ( this.manifestLoaded && this.templateLoaded === false ) {
+        if ( Number( this.getStorageItem( 'sbplus-manifest-loaded', true ) ) === 1
+        && this.hasStorageItem( 'sbplus-template-loaded', true ) === false ) {
             
             var self = this;
             var templateUrl = this.manifest.sbplus_root_directory;
@@ -141,7 +139,7 @@ var SBPLUS = SBPLUS || {
             // call and set the template frame
             $.get( templateUrl, function( data ) {
                 
-                self.templateLoaded = true;
+                self.setStorageItem( 'sbplus-template-loaded', 1, true );
                 
                 $( self.layout.wrapper ).html( data );
                 
@@ -182,7 +180,9 @@ var SBPLUS = SBPLUS || {
     
     beforePresenting: function() {
         
-        if ( this.manifestLoaded && this.templateLoaded && this.beforePresentingDone === false ) {
+        if ( Number( this.getStorageItem( 'sbplus-manifest-loaded', true ) ) === 1 
+        && Number( this.getStorageItem( 'sbplus-template-loaded', true ) ) === 1
+        && this.beforePresentingDone === false ) {
             
             this.beforePresentingDone = true;
             this.resize();
@@ -202,15 +202,16 @@ var SBPLUS = SBPLUS || {
     },
     
     loadXML: function() {
-        
-        if ( this.beforePresentingDone === true && this.xmlLoaded === false ) {
+
+        if ( this.beforePresentingDone === true &&
+        this.hasStorageItem( 'sbplus-xml-loaded', true ) === false ) {
             
             var self = this;
             var xmlUrl = 'assets/sbplus.xml';
             
             $.get( xmlUrl, function( data ) {
                 
-                self.xmlLoaded = true;
+                self.setStorageItem( 'sbplus-xml-loaded', 1, true );
                 self.parseXMLData( data );
                 
             } ).fail( function( res, status ) {
@@ -233,7 +234,8 @@ var SBPLUS = SBPLUS || {
     
     parseXMLData: function( d ) {
         
-        if ( this.xmlLoaded && this.xmlParsed === false ) {
+        if ( Number( this.getStorageItem( 'sbplus-xml-loaded', true ) ) === 1
+        && this.hasStorageItem( 'sbplus-xml-parsed', true ) === false ) {
             
             var self = this;
             var data = $( d );
@@ -343,7 +345,7 @@ var SBPLUS = SBPLUS || {
                 
             } ).always( function() {
                 
-                self.xmlParsed = true;
+                self.setStorageItem( 'sbplus-xml-parsed', 1, true );
                 self.renderSplashscreen();
                 
             } );
@@ -358,7 +360,8 @@ var SBPLUS = SBPLUS || {
         
         var self = this;
         
-        if ( this.xmlParsed && this.splashScreenRendered === false ) {
+        if ( Number( this.getStorageItem( 'sbplus-xml-parsed', true ) ) === 1
+        && this.splashScreenRendered === false ) {
             
             // local storage settings
             
@@ -494,6 +497,8 @@ var SBPLUS = SBPLUS || {
                 });
                 
             }
+            
+            this.splashScreenRendered = true;
             
         } else {
             return 'Splash screen already rendered.';
@@ -1208,7 +1213,7 @@ var SBPLUS = SBPLUS || {
             
             $( this.layout.widget ).addClass('noSegments');
             
-            if ( this.logoLoaded === false ) {
+            if ( this.hasStorageItem( 'sbplus-logo-loaded', true ) === false ) {
                 
                 var program = this.xml.setup.program;
                 
@@ -1223,15 +1228,33 @@ var SBPLUS = SBPLUS || {
                 }
                 
                 var logoUrl = this.manifest.sbplus_logo_directory + program + '.svg';
-                    
+                
                 $.get( logoUrl, function() {
-                    self.logoLoaded = this.url;
-                    $( self.widget.wrapper ).css( 'background-image', 'url(' + self.logoLoaded + ')' );
+                    
+                    self.setStorageItem( 'sbplus-logo-loaded', this.url, true );
+                    
+                    $( self.widget.bg ).css( 'background-image', 'url(' +
+                        self.getStorageItem( 'sbplus-logo-loaded', true ) + ')' );
+                        
+                } ).fail( function() {
+                    
+                    logoUrl = self.manifest.sbplus_logo_directory + self.manifest.sbplus_logo_default + '.svg';
+                    
+                    $.get( logoUrl, function() {
+                        
+                        self.setStorageItem( 'sbplus-logo-loaded', this.url, true );
+                        
+                        $( self.widget.bg ).css( 'background-image', 'url(' +
+                            self.getStorageItem( 'sbplus-logo-loaded', true ) + ')' );
+                            
+                    } );
+                    
                 } );
                 
             } else {
                 
-                $( self.widget.wrapper ).css( 'background-image', 'url(' + self.logoLoaded + ')' );
+                $( self.widget.bg ).css( 'background-image', 'url(' +
+                    self.getStorageItem( 'sbplus-logo-loaded', true ) + ')' );
                 
             }
             
@@ -1281,6 +1304,7 @@ var SBPLUS = SBPLUS || {
     clearWidgetSegment: function() {
         $( this.widget.segment ).empty();
         $( this.widget.content ).empty();
+        $( this.widget.bg ).css( 'background-image', '' );
         this.widget.segments = [];
     },
     
@@ -1290,9 +1314,10 @@ var SBPLUS = SBPLUS || {
     
     setManifestOptions: function() {
         
-        if ( this.manifestOptionsLoaded === false ) {
+        if ( this.hasStorageItem( 'sbplus-manifest-options-loaded', true ) === false ) {
             
-            this.manifestOptionsLoaded = true;
+            this.setStorageItem( 'sbplus-manifest-options-loaded', 1, true );
+            
             var customMenuItems = this.manifest.sbplus_custom_menu_items;
             
             if ( customMenuItems.length ) {
@@ -1622,6 +1647,82 @@ var SBPLUS = SBPLUS || {
         }
         
         return array;
+        
+    },
+    
+    setStorageItem: function( key, value, toSession ) {
+        
+        if ( toSession ) {
+            
+            sessionStorage.setItem( key, value );
+            
+        } else {
+            
+            localStorage.setItem( key, value );
+            
+        }
+        
+    },
+    
+    getStorageItem: function( key, fromSession ) {
+        
+        if ( fromSession ) {
+            
+            return sessionStorage.getItem( key );
+            
+        } else {
+            
+            return localStorage.getItem( key );
+            
+        }
+        
+    },
+    
+    deleteStorageItem: function( key, fromSession ) {
+        
+        if ( fromSession ) {
+            
+            return sessionStorage.removeItem( key );
+            
+        } else {
+            
+            return localStorage.getItem( key );
+            
+        }
+        
+    },
+    
+    hasStorageItem: function( key, fromSession ) {
+        
+        if ( fromSession ) {
+            
+            if ( this.isEmpty( sessionStorage.getItem( key ) ) ) {
+                return false;
+            }
+            
+            return true;
+            
+        } else {
+            
+            if ( this.isEmpty( localStorage.getItem( key ) ) ) {
+                return false;
+            }
+            
+            return true;
+            
+        }
+        
+    },
+    
+    removeAllSessionStorage: function() {
+        
+        this.deleteStorageItem( 'sbplus-manifest-loaded', true );
+        this.deleteStorageItem( 'sbplus-manifest-options-loaded', true );
+        this.deleteStorageItem( 'sbplus-template-loaded', true );
+        this.deleteStorageItem( 'sbplus-xml-loaded', true );
+        this.deleteStorageItem( 'sbplus-xml-parsed', true );
+        this.deleteStorageItem( 'sbplus-logo-loaded', true );
+        this.deleteStorageItem( 'sbplus-kaltura-loaded', true );
         
     }
         
