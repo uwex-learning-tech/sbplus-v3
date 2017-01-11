@@ -978,141 +978,147 @@ var SBPLUS = SBPLUS || {
         
         menuBar.removeClass( 'full' );
         menuBar.find( '.title' ).html( target.html() );
+        menuContent.empty();
         
-        if ( menuContentWrapper.is( ':visible' ) ) {
+        if ( $( '.profileImg' ).length ) {
+            $( '.profileImg' ).remove();
+        }
+        
+        if ( !menuList.hasClass( 'fadeOutLeft' )
+        && !menuContentWrapper.is( ':visible' ) ) {
             
-            menuList.off();
-            
-        } else {
-            
-            if ( !menuList.hasClass( 'fadeOutLeft' ) ) {
-                menuList.addClass( 'fadeOutLeft' );
-            }
-            
-            menuList.one( 'webkitAnimationEnd mozAnimationEnd animationend', 
+            backBtn.show().prop( 'disabled', false ).one( 'click', this.closeMenuContent.bind( this ) );
+            menuList.addClass( 'fadeOutLeft' ).one( 'webkitAnimationEnd mozAnimationEnd animationend', 
                 function() {
                     
                     $(this).hide().removeClass( 'fadeOutLeft' );
-                    
-                    var content = "";
-                    
-                    switch ( itemId ) {
-                        
-                        case 'sbplus_author_profile':
-                        
-                        menuContentWrapper.prepend( '<div class="profileImg"></div>' );
-                        
-                        if ( self.xml.setup.authorPhoto.length === 0 ) {
-                            
-                            var author = self.xml.setup.author;
-                            var sanitizedAuthor = self.sanitize( author );
-                            var profileUrl = self.manifest.sbplus_author_directory + sanitizedAuthor + '.jpg';
-                            
-                            $.ajax( {
-                    
-                                type: 'HEAD',
-                                url: 'assets/' + sanitizedAuthor + '.jpg'
-                                
-                            } ).done( function() {
-                                
-                                self.xml.setup.authorPhoto = this.url;
-                                
-                                var img = '<img src="';
-                                img += this.url +'" alt="Photo of ' + author + '" crossorigin="Anonymous" />';
-                                
-                                $( '.profileImg' ).html( img );
-                                
-                            } ).fail( function() {
-                                
-                                $.ajax( {
-                                    
-                                    type: 'HEAD',
-                                    url: profileUrl
-                                
-                                } ).done( function() {
-                                    
-                                    self.xml.setup.authorPhoto = this.url;
-                                    
-                                    var img = '<img src="';
-                                    img += this.url +'" alt="Photo of ' + author + '" crossorigin="Anonymous" />';
-                                    
-                                    $( '.profileImg' ).html( img );
-                                    
-                                } );
-                                
-                            } );
-                            
-                        } else {
-                            
-                            var img = '<img src="';
-                            img += self.xml.setup.authorPhoto +'" alt="Photo of ' + author + '" crossorigin="Anonymous" />';
-                            
-                            $( '.profileImg' ).prepend( img );
-                            
-                        }
-                        
-                        content = '<p class="name">' + self.xml.setup.author + '</p>';
-                        content += self.xml.setup.profile;
-                        break;
-                        
-                        case 'sbplus_general_info':
-                        content = self.xml.setup.generalInfo;
-                        break;
-                        
-                        case 'sbplus_settings':
-                        content = '<p>Settings go here...</p>';
-                        break;
-                        
-                        default:
-                        var customMenuItems = self.manifest.sbplus_custom_menu_items;
-                        for ( var key in customMenuItems ) {
-                            var menuId = 'sbplus_' + self.sanitize( customMenuItems[key].name );
-                            if ( itemId === menuId ) {
-                                content = customMenuItems[key].content;
-                                break;
-                            }
-                        }
-                        break;
-                        
-                    }
-                    
+            
                     menuContentWrapper.fadeIn();
-                    menuContent.append( content );
-                    
-                    if ( self.xml.settings.mathjax === 'on' ) {
-                        MathJax.Hub.Queue( ['Typeset', MathJax.Hub] );
-                    }
-                    
+            
                     $( this ).off();
                     
                 }
             );
             
-            backBtn.show().prop( 'disabled', false ).one( 'click', function() {
+        }
+        
+        var content = "";
+        
+        switch ( itemId ) {
                     
-                menuBar.addClass( 'full' ).find( '.title' ).html( 'Menu' );
+            case 'sbplus_author_profile':
+            
+            menuContentWrapper.prepend( '<div class="profileImg"></div>' );
+            
+            if ( self.xml.setup.authorPhoto.length === 0 ) {
                 
-                menuList.show();
+                var author = self.xml.setup.author;
+                var sanitizedAuthor = self.sanitize( author );
+                var profileUrl = self.manifest.sbplus_author_directory + sanitizedAuthor + '.jpg';
                 
-                if ( !menuList.hasClass( 'fadeInLeft' ) ) {
-                    menuList.addClass( 'fadeInLeft' );
-                }
-                
-                menuList.one( 'webkitAnimationEnd mozAnimationEnd animationend', 
-                function() {
-                    $( this ).removeClass( 'fadeInLeft' );
-                    $( this ).off();
+                $.ajax( {
+        
+                    type: 'HEAD',
+                    url: 'assets/' + sanitizedAuthor + '.jpg'
+                    
+                } ).done( function() {
+                    
+                    self.xml.setup.authorPhoto = this.url;
+                    
+                    var img = '<img src="';
+                    img += this.url +'" alt="Photo of ' + author + '" crossorigin="Anonymous" />';
+                    
+                    $( '.profileImg' ).html( img );
+                    
+                } ).fail( function() {
+                    
+                    $.ajax( {
+                        
+                        type: 'HEAD',
+                        url: profileUrl
+                    
+                    } ).done( function() {
+                        
+                        self.xml.setup.authorPhoto = this.url;
+                        
+                        var img = '<img src="';
+                        img += this.url +'" alt="Photo of ' + author + '" crossorigin="Anonymous" />';
+                        
+                        $( '.profileImg' ).html( img );
+                        
+                    } );
+                    
                 } );
                 
-                menuContentWrapper.hide().html( '<div class="content"></div>' );
+            } else {
                 
-                $( this ).prop( 'disabled', true );
-                $( this ).off( 'click' );
+                var img = '<img src="';
+                img += self.xml.setup.authorPhoto +'" alt="Photo of ' + author + '" crossorigin="Anonymous" />';
+                
+                $( '.profileImg' ).prepend( img );
+                
+            }
             
-            } );
+            content = '<p class="name">' + self.xml.setup.author + '</p>';
+            content += self.xml.setup.profile;
+            break;
+            
+            case 'sbplus_general_info':
+            content = self.xml.setup.generalInfo;
+            break;
+            
+            case 'sbplus_settings':
+            content = '<p>Settings go here...</p>';
+            break;
+            
+            default:
+            var customMenuItems = self.manifest.sbplus_custom_menu_items;
+            for ( var key in customMenuItems ) {
+                var menuId = 'sbplus_' + self.sanitize( customMenuItems[key].name );
+                if ( itemId === menuId ) {
+                    content = customMenuItems[key].content;
+                    break;
+                }
+            }
+            break;
             
         }
+        
+        menuContent.append( content );
+        
+        if ( self.xml.settings.mathjax === 'on' ) {
+            MathJax.Hub.Queue( ['Typeset', MathJax.Hub] );
+        }
             
+    },
+    
+    closeMenuContent: function() {
+        
+        var menuBar = $( this.menu.menuBar );
+        var menuList = $( this.menu.menuList );
+        var menuContentWrapper = $( this.menu.menuContentWrapper );
+        var menuContent = $( this.menu.menuContent );
+        
+        menuBar.addClass( 'full' ).find( '.title' ).html( 'Menu' );
+        
+        menuList.show().addClass( 'fadeInLeft' );
+        
+        menuContent.empty();
+        menuContentWrapper.hide();
+        
+        if ( $( '.profileImg' ).length ) {
+            $( '.profileImg' ).remove();
+        }
+        
+        menuList.one( 'webkitAnimationEnd mozAnimationEnd animationend', 
+        function() {
+            $( this ).removeClass( 'fadeInLeft' );
+            $( this ).off();
+        } );
+        
+        $( this ).prop( 'disabled', true );
+        $( this ).off( 'click' );
+        
     },
     
     resetMenu: function() {
@@ -1127,7 +1133,8 @@ var SBPLUS = SBPLUS || {
             
             $( this.button.menu ).html( 'Menu' ).removeClass( 'menu_opened' );
             $( this.menu.menuList ).show();
-            $( this.menu.menuContentWrapper ).hide().html( '<div class="content"></div>' );
+            $( this.menu.menuContent ).empty();
+            $( this.menu.menuContentWrapper ).hide();
             $( this.menu.menuItem ).off( 'click' );
             
         }
