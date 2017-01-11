@@ -510,7 +510,7 @@ Page.prototype.setWidgets = function() {
             
         }
         
-        if ( self.isAudio || self.isVideo ) {
+        if ( self.isAudio || self.isVideo || self.isBundle ) {
             
             if ( !SBPLUS.isEmpty( self.transcript ) ) {
                 
