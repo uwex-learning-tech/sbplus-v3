@@ -227,6 +227,12 @@ Page.prototype.getPageMedia = function() {
         
     }
     
+    $( self.mediaContent ).addClass( self.transition ).one( 'webkitAnimationEnd mozAnimationEnd animationend', function() {
+             $( this ).removeClass( self.transition );
+             $( this ).off();
+         }
+    );
+    
     window.clearTimeout( self.delayStorage );
     
     self.delayStorage = window.setTimeout( function() {

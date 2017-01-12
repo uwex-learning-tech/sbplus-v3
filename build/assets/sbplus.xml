@@ -23,11 +23,11 @@
     
     <section title="Chocolate Chip Cookies">
         
-        <page type="kaltura" src="0_8fcgmc4i" title="Title Slide">
+        <page type="kaltura" src="0_8fcgmc4i" title="Title Slide" transition="fadeIn">
             <note><![CDATA[<h1>Heading Level 1 (and 2)</h1><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip <em>ex ea commodo consequat</em>. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p><ol><li>Hello</li><li>World</li></ol><h3>Heading Level 3</h3><p>Lorem ipsum dolor sit amet, <a href="#">consectetur adipisicing elit</a>, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p><ul><li>Hello</li><li>World</li></ul><script>onclick();</script>]]></note>
         </page>
         
-        <page type="image-audio" src="slide02" title="Overview">
+        <page type="image-audio" src="slide02" title="Overview" transition="shake">
             <note></note>
             <widget>
                 <segment name="Demo One">Demo one texts here...</segment>
@@ -35,11 +35,11 @@
             </widget>
         </page>
         
-        <page type="image-audio" src="slide03" title="Cookie Type \(\frac{-b\pm\sqrt{b^2-4ac}}{2a}\)">
+        <page type="image-audio" src="slide03" title="Cookie Type \(\frac{-b\pm\sqrt{b^2-4ac}}{2a}\)" transition="pulse">
             <note />
         </page>
         
-        <page type="image-audio" src="slide04" title="History">
+        <page type="image-audio" src="slide04" title="History" transition="bounceIn">
             <note><![CDATA[<p><strong>R Code:</strong><br /><pre>n = length(Default$default)
 y = rep(0, n)
 y[which(Default$default=="Yes")] = 1
@@ -64,42 +64,42 @@ legend("topleft", legend=c("Student", "Non-student"), lty=c(1,2), col=c("blue","
 </p>]]></note>
         </page>
         
-        <page type="image-audio" src="slide05" title="A Cookie Timeline">
+        <page type="image-audio" src="slide05" title="A Cookie Timeline" transition="tada">
             <note><![CDATA[<p><strong>Link:</strong> <a href="https://en.wikipedia.org/wiki/Hydrox">Hydrox Cookie Brand - Wikipedia</a>]]></note>
             <widget>
                 <segment name="Demo Three">Demo three texts here...</segment>
             </widget>
         </page>
         
-        <page type="image-audio" src="slide06" title="The Recipe">
+        <page type="image-audio" src="slide06" title="The Recipe" transition="wobble">
             <note />
         </page>
         
-        <page type="image-audio" src="slide07" title="Tools">
+        <page type="image-audio" src="slide07" title="Tools" transition="slideInRight">
             <note />
         </page>
         
-        <page type="image-audio" src="slide08" title="Part 1 - Preheating and Melting">
+        <page type="image-audio" src="slide08" title="Part 1 - Preheating and Melting" transition="flipInX">
             <note />
         </page>
         
-        <page type="image-audio" src="slide09" title="Part 2 - Combining the Ingredients">
+        <page type="image-audio" src="slide09" title="Part 2 - Combining the Ingredients" transition="flipInY">
             <note />
         </page>
         
-        <page type="image-audio" src="slide10" title="Part 3 - Preparing for Baking">
+        <page type="image-audio" src="slide10" title="Part 3 - Preparing for Baking" transition="lightSpeedIn">
             <note />
         </page>
         
-        <page type="image-audio" src="slide11" title="Part 4 - Baking">
+        <page type="image-audio" src="slide11" title="Part 4 - Baking" transition="rotateIn">
             <note />
         </page>
         
-        <page type="image-audio" src="slide12" title="Cookie Troubleshooting">
+        <page type="image-audio" src="slide12" title="Cookie Troubleshooting" transition="slideInUp">
             <note />
         </page>
         
-        <page type="image-audio" src="slide13" title="Chocolate Chip Cookie Variants">
+        <page type="image-audio" src="slide13" title="Chocolate Chip Cookie Variants" transition="zoomIn">
             <note />
         </page>
         
