@@ -994,12 +994,19 @@ body {
                                      @include align-items(center);
                                      margin: 0;
                                      padding: 5px 0;
-                                     height: 40px;
                                      
                                      .label {
                                          @include flex( 2 0 80% );
                                          margin: 0;
                                          padding: 0 8px;
+                                         
+                                         .error {
+                                             @include flex( 1 0 20% );
+                                             color: #f00;
+                                             margin: 0;
+                                             font-size: 12px;
+                                         }
+                                         
                                      }
                                      
                                      .control {

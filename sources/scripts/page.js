@@ -9,6 +9,7 @@ var Page = function ( obj ) {
     this.widget = obj.widget;
     this.widgetSegments = {};
     this.imgType = obj.imageFormat;
+    this.pageNumber = obj.number;
     
     if ( obj.frames.length ) {
         this.frames = obj.frames;
@@ -30,6 +31,7 @@ var Page = function ( obj ) {
     this.transcriptIntervalStarted = false;
     
     this.hasImage = false;
+    this.delayStorage = null;
     
     this.root = SBPLUS.manifest.sbplus_root_directory;
     this.kaltura = {
@@ -224,6 +226,16 @@ Page.prototype.getPageMedia = function() {
         break;
         
     }
+    
+    window.clearTimeout( self.delayStorage );
+    
+    self.delayStorage = window.setTimeout( function() {
+        
+        var presentation = SBPLUS.sanitize( $( SBPLUS.banner.title ).html() );
+        
+        SBPLUS.setStorageItem( 'sbplus-' + presentation, self.pageNumber[0] + ',' + self.pageNumber[1] );
+        
+    }, 3000 );
     
 };
 
@@ -513,7 +525,7 @@ Page.prototype.renderVideoJS = function() {
         });
         
         // playrate
-        if ( options.playbackRates !== null ) {
+        if ( options.playbackRates !== null && self.isYoutube === false ) {
             
             player.on( 'resolutionchange', function() {
         		player.playbackRate( Number( SBPLUS.getStorageItem( 'sbplus-playbackrate-temp', true ) ) );
@@ -556,44 +568,47 @@ Page.prototype.renderVideoJS = function() {
         } );
         
         // subtitle
-        if ( SBPLUS.hasStorageItem( 'sbplus-subtitle-temp', true ) ) {
+        if ( self.isYoutube === false ) {
             
-            if ( SBPLUS.getStorageItem( 'sbplus-subtitle-temp', true ) === '1' ) {
-                player.textTracks().tracks_[0].mode = 'showing';
-            } else {
-                player.textTracks().tracks_[0].mode = 'disabled';
-            }
+            if ( SBPLUS.hasStorageItem( 'sbplus-subtitle-temp', true ) ) {
             
-        } else {
-            
-            if ( SBPLUS.getStorageItem( 'sbplus-subtitle' ) === '1' ) {
-                player.textTracks().tracks_[0].mode = 'showing';
-            } else {
-                player.textTracks().tracks_[0].mode = 'disabled';
-            }
-            
-        }
-        
-        
-        player.textTracks().addEventListener( 'change', function() {
-                
-            var tracks = this.tracks_;
-            
-            $.each( tracks, function() {
-                
-                if ( this.mode === 'showing' ) {
-                    
-                    SBPLUS.setStorageItem( 'sbplus-subtitle-temp', 1, true );
-                    
+                if ( SBPLUS.getStorageItem( 'sbplus-subtitle-temp', true ) === '1' ) {
+                    player.textTracks().tracks_[0].mode = 'showing';
                 } else {
-                    
-                    SBPLUS.setStorageItem( 'sbplus-subtitle-temp', 0, true );
-                    
+                    player.textTracks().tracks_[0].mode = 'disabled';
                 }
+                
+            } else {
+                
+                if ( SBPLUS.getStorageItem( 'sbplus-subtitle' ) === '1' ) {
+                    player.textTracks().tracks_[0].mode = 'showing';
+                } else {
+                    player.textTracks().tracks_[0].mode = 'disabled';
+                }
+                
+            }
+            
+            player.textTracks().addEventListener( 'change', function() {
+                
+                var tracks = this.tracks_;
+                
+                $.each( tracks, function() {
+                    
+                    if ( this.mode === 'showing' ) {
+                        
+                        SBPLUS.setStorageItem( 'sbplus-subtitle-temp', 1, true );
+                        
+                    } else {
+                        
+                        SBPLUS.setStorageItem( 'sbplus-subtitle-temp', 0, true );
+                        
+                    }
+                    
+                } );
                 
             } );
             
-        } );
+        }
             
     } );
 

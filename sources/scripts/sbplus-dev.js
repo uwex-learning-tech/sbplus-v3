@@ -21,6 +21,7 @@ var SBPLUS = SBPLUS || {
     settings: null,
     currentPage: null,
     hasError: false,
+    isResuming: false,
     
     /***************************************************************************
         CORE FUNCTIONS
@@ -466,7 +467,12 @@ var SBPLUS = SBPLUS || {
             
             // event listeners
             $( this.button.start ).on( 'click', this.startPresentation.bind( this ) );
-            $( this.button.resume ).on( 'click', this.resumePresentation.bind( this ) );
+            
+            if ( this.hasStorageItem( 'sbplus-' + this.sanitize( this.xml.setup.title ) ) ) {
+                $( this.button.resume ).on( 'click', this.resumePresentation.bind( this ) );
+            } else {
+                $( this.button.resume ).hide();
+            }
             
             // set download items
             var fileName = SBPLUS.getCourseDirectory();
@@ -615,8 +621,18 @@ var SBPLUS = SBPLUS || {
         
         // page status
         $( this.layout.pageStatus ).find( 'span.total' ).html( this.totalPages );
-        this.selectPage( '0,0' );
+        
+        if ( this.isResuming ) {
             
+            var presentation = this.sanitize( this.xml.setup.title );
+            this.selectPage( this.getStorageItem( 'sbplus-' + presentation ) );
+            
+        } else {
+            
+            this.selectPage( '0,0' );
+            
+        }
+        
         // event listeners
         $( this.button.sidebar ).on( 'click', this.toggleSidebar.bind( this ) );
         $( this.button.widget ).on( 'click',  this.toggleWidget.bind( this ) );
@@ -755,6 +771,7 @@ var SBPLUS = SBPLUS || {
         if ( self.presentationStarted === false ) {
             
             self.hideSplash().promise().done( function() {
+                self.isResuming = true;
                 self.renderPresentation();
             } );
             
@@ -913,6 +930,7 @@ var SBPLUS = SBPLUS || {
         };
         
         if ( pageData.type !== 'quiz' ) {
+            pageData.number = page;
             pageData.src = target.attr( 'src' ).trim();
             pageData.notes = this.stripScript( target.find( 'note' ).text().trim() );
             pageData.widget = target.find( 'widget' );
