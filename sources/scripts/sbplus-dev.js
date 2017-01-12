@@ -15,9 +15,10 @@ var SBPLUS = SBPLUS || {
     manifest: null,
     xml: null,
     splashScreenRendered: false,
-    beforePresentingDone: false,
+    beforeXMLLoadingDone: false,
     presentationStarted: false,
     downloads: {},
+    settings: null,
     currentPage: null,
     hasError: false,
     
@@ -144,7 +145,7 @@ var SBPLUS = SBPLUS || {
                 $( self.layout.wrapper ).html( data );
                 
                 // do initial setup before presenting
-                self.beforePresenting();
+                self.beforeXMLLoading();
                 
                 // show error is any
                 if ( self.checkForSupport() === 0 ) {
@@ -178,13 +179,13 @@ var SBPLUS = SBPLUS || {
         
     },
     
-    beforePresenting: function() {
+    beforeXMLLoading: function() {
         
         if ( Number( this.getStorageItem( 'sbplus-manifest-loaded', true ) ) === 1 
         && Number( this.getStorageItem( 'sbplus-template-loaded', true ) ) === 1
-        && this.beforePresentingDone === false ) {
+        && this.beforeXMLLoadingDone === false ) {
             
-            this.beforePresentingDone = true;
+            this.beforeXMLLoadingDone = true;
             this.resize();
             this.setURLOptions();
             
@@ -203,7 +204,7 @@ var SBPLUS = SBPLUS || {
     
     loadXML: function() {
 
-        if ( this.beforePresentingDone === true &&
+        if ( this.beforeXMLLoadingDone === true &&
         this.hasStorageItem( 'sbplus-xml-loaded', true ) === false ) {
             
             var self = this;
@@ -364,6 +365,33 @@ var SBPLUS = SBPLUS || {
         && this.splashScreenRendered === false ) {
             
             // local storage settings
+            if ( this.hasStorageItem( 'sbplus-hide-widget' ) === false ) {
+                this.setStorageItem( 'sbplus-hide-widget', 0 );
+            }
+            
+            if ( this.hasStorageItem( 'sbplus-hide-sidebar' ) === false ) {
+                this.setStorageItem( 'sbplus-hide-sidebar', 0 );
+            }
+            
+            if ( this.hasStorageItem( 'sbplus-disable-ia' ) === false ) {
+                this.setStorageItem( 'sbplus-disable-ia', 0 );
+            }
+            
+            if ( this.hasStorageItem( 'sbplus-autoplay' ) === false ) {
+                this.setStorageItem( 'sbplus-autoplay', 1 );
+            }
+            
+            if ( this.hasStorageItem( 'sbplus-volume' ) === false ) {
+                this.setStorageItem( 'sbplus-volume', 0.8 );
+            }
+            
+            if ( this.hasStorageItem( 'sbplus-playbackrate' ) === false ) {
+                this.setStorageItem( 'sbplus-playbackrate', 1 );
+            }
+            
+            if ( this.hasStorageItem( 'sbplus-subtitle' ) === false ) {
+                this.setStorageItem( 'sbplus-subtitle', 0 );
+            }
             
             // splash screen
             $( this.splash.title ).html( this.xml.setup.title );
@@ -373,26 +401,39 @@ var SBPLUS = SBPLUS || {
             
             // get splash screen image background
             $.ajax( {
+                
                 url: 'assets/splash.' + self.xml.settings.splashImgType,
                 type: 'head'
+                
             } ).done( function() {
+                
                 self.setSplashImage( this.url );
+                
             } ).fail( function() {
                 
                 var program = self.xml.setup.program;
                 var course = self.xml.setup.course;
                 
                 if ( self.isEmpty( program ) ) {
+                    
                     program = SBPLUS.getProgramDirectory();
+                    
                 }
                 
                 if ( self.isEmpty( course ) ) {
+                    
                     course = SBPLUS.getCourseDirectory();
-                    if ( self.isEmpty( course ) ){
+                    
+                    if ( self.isEmpty( course ) ) {
+                        
                         course = 'default.' + self.xml.settings.splashImgType;
+                    
                     } else {
+                        
                         course += '.' + self.xml.settings.splashImgType;
+                    
                     }
+                    
                 } else {
                     course += '.' + self.xml.settings.splashImgType;
                 }
@@ -519,6 +560,15 @@ var SBPLUS = SBPLUS || {
         
         var self = this;
         
+        // before presenting; applie local storage settings
+        if ( this.getStorageItem( 'sbplus-hide-widget' ) === '1' ) {
+            this.hideWidget();
+        }
+        
+        if ( this.getStorageItem( 'sbplus-hide-sidebar' ) === '1' ) {
+            this.hideSidebar();
+        }
+        
         // presentation
         $( this.banner.title ).html( this.xml.setup.title );
         $( this.banner.author ).html( this.xml.setup.author );
@@ -601,9 +651,9 @@ var SBPLUS = SBPLUS || {
         
     },
     
-    /***************************************************************************
+    /**************************************************************************
         MAIN NAVIGATION FUNCTIONS
-    ***************************************************************************/
+    **************************************************************************/
     
     goToNextPage: function() {
         
@@ -664,9 +714,9 @@ var SBPLUS = SBPLUS || {
         
     },
     
-    /***************************************************************************
+    /**************************************************************************
         SPLASH SCREEN FUNCTIONS
-    ***************************************************************************/
+    **************************************************************************/
     
     hideSplash: function() {
         
@@ -714,9 +764,9 @@ var SBPLUS = SBPLUS || {
         
     },
     
-    /***************************************************************************
+    /**************************************************************************
         TABLE OF CONTENT (SIDEBAR) FUNCTIONS
-    ***************************************************************************/
+    **************************************************************************/
     
     toggleSidebar: function() {
         
@@ -892,9 +942,9 @@ var SBPLUS = SBPLUS || {
         
     },
     
-    /***************************************************************************
+    /**************************************************************************
         MENU FUNCTIONS
-    ***************************************************************************/
+    **************************************************************************/
     
     toggleMenu: function() {
         
@@ -1068,7 +1118,25 @@ var SBPLUS = SBPLUS || {
             break;
             
             case 'sbplus_settings':
-            content = '<p>Settings go here...</p>';
+                
+                if ( this.hasStorageItem( 'sbplus-settings-loaded', true ) === false ) {
+                    
+                    $.get( self.manifest.sbplus_root_directory + 'scripts/templates/settings.tpl', function( data ) {
+                    
+                        self.settings = data;
+                        self.setStorageItem( 'sbplus-settings-loaded', 1, true );
+                        menuContent.append( data );
+                        
+                    } );
+                    
+                    
+                } else {
+                    
+                    menuContent.append( self.settings );
+                    
+                }
+                
+            content = '';
             break;
             
             default:
@@ -1141,9 +1209,9 @@ var SBPLUS = SBPLUS || {
         
     },
     
-    /***************************************************************************
+    /**************************************************************************
         WIDGET FUNCTIONS
-    ***************************************************************************/
+    **************************************************************************/
     
     toggleWidget: function() {
         
@@ -1730,6 +1798,10 @@ var SBPLUS = SBPLUS || {
         this.deleteStorageItem( 'sbplus-xml-parsed', true );
         this.deleteStorageItem( 'sbplus-logo-loaded', true );
         this.deleteStorageItem( 'sbplus-kaltura-loaded', true );
+        this.deleteStorageItem( 'sbplus-settings-loaded', true );
+        this.deleteStorageItem( 'sbplus-playbackrate-temp', true );
+        this.deleteStorageItem( 'sbplus-volume-temp', true );
+        this.deleteStorageItem( 'sbplus-subtitle-temp', true );
         
     }
         

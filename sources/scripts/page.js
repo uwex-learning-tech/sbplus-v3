@@ -325,11 +325,18 @@ Page.prototype.loadKalturaVideoData = function () {
 Page.prototype.renderVideoJS = function() {
     
     var self = this;
+    
+    var isAutoplay = true;
+    
+    if ( SBPLUS.getStorageItem( 'sbplus-autoplay' ) === '0' ) {
+        isAutoplay = false;
+    }
+    
     var options = {
         
         techOrder: ['html5'],
         controls: true,
-        autoplay: true,
+        autoplay: isAutoplay,
         preload: "auto",
         playbackRates: [0.5, 1, 1.5, 2],
         controlBar: {
@@ -342,6 +349,12 @@ Page.prototype.renderVideoJS = function() {
 
     };
     
+    // autoplay is off for iPhone or iPod
+    if( navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPod/i) ) {
+        options.autoplay = false;
+    }
+    
+    // set tech order and plugins
     if ( self.isKaltura ) {
         options.plugins = Object.assign( options.plugins, { videoJsResolutionSwitcher: { 'default': 720 } } );
     } else if ( self.isYoutube ) {
@@ -461,8 +474,11 @@ Page.prototype.renderVideoJS = function() {
         player.on(['waiting', 'pause'], function() {
             
           self.isPlaying = false;
-          clearInterval( transcriptInterval );
-          self.transcriptIntervalStarted = false;
+          
+          if ( SBPLUS.getStorageItem( 'sbplus-disable-ia' ) === "0" ) {
+              clearInterval( transcriptInterval );
+              self.transcriptIntervalStarted = false;
+          }
           
         });
         
@@ -470,25 +486,114 @@ Page.prototype.renderVideoJS = function() {
             
           self.isPlaying = false;
           
-          if ( $( '#sbplus_interactivetranscript' ).hasClass( 'active' ) ) {
-              $( '.lt-wrapper .lt-line' ).removeClass( 'current' );
+          if ( SBPLUS.getStorageItem( 'sbplus-disable-ia' ) === "0" ) {
+              
+              if ( $( '#sbplus_interactivetranscript' ).hasClass( 'active' ) ) {
+                  $( '.lt-wrapper .lt-line' ).removeClass( 'current' );
+              }
+              
+              clearInterval( transcriptInterval );
+              self.transcriptIntervalStarted = false;
+              
           }
-          
-          clearInterval( transcriptInterval );
-          self.transcriptIntervalStarted = false;
           
         });
         
         player.on('playing', function() {
             
           self.isPlaying = true;
-          if ( $( '#sbplus_interactivetranscript' ).hasClass( 'active' )
-          && self.transcriptIntervalStarted === false ) {
-            self.startInteractiveTranscript();
+          
+          if ( SBPLUS.getStorageItem( 'sbplus-disable-ia' ) === "0" ) {
+              if ( $( '#sbplus_interactivetranscript' ).hasClass( 'active' )
+              && self.transcriptIntervalStarted === false ) {
+                self.startInteractiveTranscript();
+              }
           }
           
         });
         
+        // playrate
+        if ( options.playbackRates !== null ) {
+            
+            player.on( 'resolutionchange', function() {
+        		player.playbackRate( Number( SBPLUS.getStorageItem( 'sbplus-playbackrate-temp', true ) ) );
+        		
+    		} );
+            
+            // default settings
+            if ( SBPLUS.hasStorageItem( 'sbplus-playbackrate-temp', true ) ) {
+                
+                player.playbackRate( Number( SBPLUS.getStorageItem( 'sbplus-playbackrate-temp', true ) ) );
+                
+            } else {
+                
+                player.playbackRate( Number( SBPLUS.getStorageItem( 'sbplus-playbackrate' ) ) );
+                
+            }
+            
+            player.on( 'ratechange', function() {
+        		SBPLUS.setStorageItem( 'sbplus-playbackrate-temp', player.playbackRate(), true );
+        		
+    		} );
+            
+        }
+        
+        // volume
+        
+        if ( SBPLUS.hasStorageItem( 'sbplus-volume-temp', true ) ) {
+            player.volume( Number( SBPLUS.getStorageItem( 'sbplus-volume-temp', true ) ) );
+            
+        } else {
+            
+            player.volume( Number( SBPLUS.getStorageItem( 'sbplus-volume' ) ) );
+            
+        }
+        
+        player.on( 'volumechange', function() {
+            
+            SBPLUS.setStorageItem( 'sbplus-volume-temp', this.volume(), true );
+            
+        } );
+        
+        // subtitle
+        if ( SBPLUS.hasStorageItem( 'sbplus-subtitle-temp', true ) ) {
+            
+            if ( SBPLUS.getStorageItem( 'sbplus-subtitle-temp', true ) === '1' ) {
+                player.textTracks().tracks_[0].mode = 'showing';
+            } else {
+                player.textTracks().tracks_[0].mode = 'disabled';
+            }
+            
+        } else {
+            
+            if ( SBPLUS.getStorageItem( 'sbplus-subtitle' ) === '1' ) {
+                player.textTracks().tracks_[0].mode = 'showing';
+            } else {
+                player.textTracks().tracks_[0].mode = 'disabled';
+            }
+            
+        }
+        
+        
+        player.textTracks().addEventListener( 'change', function() {
+                
+            var tracks = this.tracks_;
+            
+            $.each( tracks, function() {
+                
+                if ( this.mode === 'showing' ) {
+                    
+                    SBPLUS.setStorageItem( 'sbplus-subtitle-temp', 1, true );
+                    
+                } else {
+                    
+                    SBPLUS.setStorageItem( 'sbplus-subtitle-temp', 0, true );
+                    
+                }
+                
+            } );
+            
+        } );
             
     } );
 
@@ -510,23 +615,27 @@ Page.prototype.setWidgets = function() {
             
         }
         
-        if ( self.isAudio || self.isVideo || self.isBundle ) {
+        if ( SBPLUS.getStorageItem( 'sbplus-disable-ia' ) === "0" ) {
             
-            if ( !SBPLUS.isEmpty( self.transcript ) ) {
-                
-                SBPLUS.addSegment( 'Interactive Transcript' );
-                segmentCount++;
+            if ( self.isAudio || self.isVideo || self.isBundle ) {
+            
+                if ( !SBPLUS.isEmpty( self.transcript ) ) {
+                    
+                    SBPLUS.addSegment( 'Interactive Transcript' );
+                    segmentCount++;
+                    
+                }
                 
             }
             
-        }
-        
-        if ( self.isKaltura ) {
-            
-            if ( !SBPLUS.isEmpty( self.captionUrl ) ) {
+            if ( self.isKaltura ) {
                 
-                SBPLUS.addSegment( 'Interactive Transcript' );
-                segmentCount++;
+                if ( !SBPLUS.isEmpty( self.captionUrl ) ) {
+                    
+                    SBPLUS.addSegment( 'Interactive Transcript' );
+                    segmentCount++;
+                    
+                }
                 
             }
             
@@ -577,34 +686,39 @@ Page.prototype.getWidgetContent = function( id ) {
         break;
         
         case 'sbplus_interactivetranscript':
-        
-            if ( self.isAudio || self.isVideo ) {
+            
+            if ( SBPLUS.getStorageItem( 'sbplus-disable-ia' ) === "0" ) {
                 
-                displayWidgetContent( parseTranscript( self.transcript ) );
-                self.startInteractiveTranscript();
+                if ( self.isAudio || self.isVideo ) {
                 
-            } else {
-                
-                if ( self.transcriptLoaded === false ) {
-                    
-                    $.get( self.captionUrl, function( d ) {
-                    
-                        self.transcriptLoaded = true;
-                        self.transcript = parseTranscript( SBPLUS.stripScript( d ) );
-                        
-                        displayWidgetContent( self.transcript );
-                        self.startInteractiveTranscript();
-                        
-                    } );
+                    displayWidgetContent( parseTranscript( self.transcript ) );
+                    self.startInteractiveTranscript();
                     
                 } else {
-                     
-                     displayWidgetContent( self.transcript );
-                     self.startInteractiveTranscript();
                     
+                    if ( self.transcriptLoaded === false ) {
+                        
+                        $.get( self.captionUrl, function( d ) {
+                        
+                            self.transcriptLoaded = true;
+                            self.transcript = parseTranscript( SBPLUS.stripScript( d ) );
+                            
+                            displayWidgetContent( self.transcript );
+                            self.startInteractiveTranscript();
+                            
+                        } );
+                        
+                    } else {
+                         
+                         displayWidgetContent( self.transcript );
+                         self.startInteractiveTranscript();
+                        
+                    }
+                 
                 }
-             
+                
             }
+            
               
         break;
         
@@ -627,8 +741,9 @@ Page.prototype.startInteractiveTranscript = function() {
         var ltArray = $( '.lt-wrapper .lt-line' );
         
         transcriptInterval = setInterval( function() {
-            //console.log(self.isPlaying);
-            if ( self.isPlaying ) {
+            
+            if ( self.isPlaying 
+            && $( SBPLUS.layout.widget ).is( ':visible' ) ) {
                 
                 ltArray.removeClass( 'current' );
                 
@@ -643,17 +758,17 @@ Page.prototype.startInteractiveTranscript = function() {
                     
                 } );
                 
-            }
+                var target = $( '.lt-wrapper .lt-line.current' );
             
-            var target = $( '.lt-wrapper .lt-line.current' );
-            
-            if ( target.length ) {
-                
-                var scrollHeight = $( '#sbplus_widget' ).height();
-                var targetTop = target[0].offsetTop;
-                
-                if ( targetTop > scrollHeight ) {
-                    target[0].scrollIntoView( false );
+                if ( target.length ) {
+                    
+                    var scrollHeight = $( '#sbplus_widget' ).height();
+                    var targetTop = target[0].offsetTop;
+                    
+                    if ( targetTop > scrollHeight ) {
+                        target[0].scrollIntoView( false );
+                    }
+                    
                 }
                 
             }

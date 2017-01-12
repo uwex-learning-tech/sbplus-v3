@@ -22,7 +22,7 @@
 		"oF": 0
 		},
 	"\/config.rb": {
-		"ft": 131072,
+		"ft": 8192,
 		"oA": 0,
 		"oAP": "\/config.rb",
 		"oF": 0
@@ -645,6 +645,12 @@
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/build\/sources\/scripts\/templates\/sbplus.tpl",
+		"oF": 2
+		},
+	"\/sources\/scripts\/templates\/settings.tpl": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/build\/sources\/scripts\/templates\/settings.tpl",
 		"oF": 2
 		},
 	"\/sources\/scripts\/templates\/support_error.tpl": {

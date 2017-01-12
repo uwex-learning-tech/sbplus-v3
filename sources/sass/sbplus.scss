@@ -975,6 +975,57 @@ body {
                             
                         }
                         
+                        .settings {
+                            
+                            .name {
+                                margin-bottom: 0;
+                            }
+                            
+                            .grid {
+                                
+                                @include display-flex();
+                                @include flex-flow( column nowrap );
+                                margin: 0;
+                                
+                                .row {
+                                    
+                                     @include display-flex();
+                                     @include flex-flow( row nowrap );
+                                     @include align-items(center);
+                                     margin: 0;
+                                     padding: 5px 0;
+                                     height: 40px;
+                                     
+                                     .label {
+                                         @include flex( 2 0 80% );
+                                         margin: 0;
+                                         padding: 0 8px;
+                                     }
+                                     
+                                     .control {
+                                         
+                                         @include flex( 1 0 20% );
+                                         margin: 0;
+                                         padding: 0 5px;
+                                         
+                                         select,
+                                         input[type=number] {
+                                             width: 100%;
+                                             padding: 3px 2px;
+                                         }
+                                         
+                                     }
+                                    
+                                }
+                                
+                                .row:nth-child(even) {
+                                     background-color: #f2f2f2;
+                                }
+                                
+                            }
+                            
+                        }
+                        
                     }
                     
                 }
