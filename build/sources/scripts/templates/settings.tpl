@@ -49,8 +49,7 @@
         <div class="row">
             
             <div class="label">
-                <label for="sbplus_va_autoplay">Autoplay on start</label>
-                <p class="error">Mobile devices do not support autoplay.</p>
+                <label for="sbplus_va_autoplay" id="autoplay_label">Autoplay on start</label>
             </div>
             
             <div class="control">

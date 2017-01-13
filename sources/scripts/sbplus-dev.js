@@ -1152,15 +1152,17 @@ var SBPLUS = SBPLUS || {
                         self.settings = data;
                         self.setStorageItem( 'sbplus-settings-loaded', 1, true );
                         menuContent.append( data );
+                        self.disableAutoplaySetting();
                         
                     } );
-                    
                     
                 } else {
                     
                     menuContent.append( self.settings );
+                    self.disableAutoplaySetting();
                     
                 }
+                
                 
             content = '';
             break;
@@ -1843,6 +1845,17 @@ var SBPLUS = SBPLUS || {
         }
         
         return false;
+        
+    },
+    
+    disableAutoplaySetting: function() {
+        
+        if ( this.isMobileDevice() ) {
+                    
+            $( '#autoplay_label' ).after( '<p class="error">Mobile devices do not support autoplay.</p>' );
+            $( '#sbplus_va_autoplay' ).prop( 'checked', false ).attr( 'disabled', true );
+            
+        }
         
     }
         
