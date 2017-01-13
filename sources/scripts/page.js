@@ -100,7 +100,7 @@ Page.prototype.getPageMedia = function() {
                     self.transcript = SBPLUS.stripScript( data );
                 } ).always( function() {
                     
-                    var html = '<video id="mp" class="video-js vjs-default-skin" webkit-playsinline></video>';
+                    var html = '<video id="mp" class="video-js vjs-default-skin" webkit-playsinline playsinline></video>';
                     
                     $( self.mediaContent ).html( html ).promise().done( function() {
                 
@@ -146,7 +146,7 @@ Page.prototype.getPageMedia = function() {
                 
             }).always( function() {
                 
-                var html = '<video id="mp" class="video-js vjs-default-skin" crossorigin="anonymous" width="100%" height="100%" webkit-playsinline></video>';
+                var html = '<video id="mp" class="video-js vjs-default-skin" crossorigin="anonymous" width="100%" height="100%" webkit-playsinline playsinline></video>';
                 
                 $( self.mediaContent ).html( html ).promise().done( function() {
                     
@@ -163,7 +163,7 @@ Page.prototype.getPageMedia = function() {
         
         case 'youtube':
             
-            $( self.mediaContent ).html( '<video id="mp" class="video-js vjs-default-skin" webkit-playsinline></video>' ).promise().done( function() {
+            $( self.mediaContent ).html( '<video id="mp" class="video-js vjs-default-skin" webkit-playsinline playsinline></video>' ).promise().done( function() {
                     
                 self.isYoutube = true;
                 self.renderVideoJS();
@@ -175,7 +175,7 @@ Page.prototype.getPageMedia = function() {
         
         case 'vimeo':
             
-            $( self.mediaContent ).html( '<video id="mp" class="video-js vjs-default-skin" webkit-playsinline></video>' ).promise().done( function() {
+            $( self.mediaContent ).html( '<video id="mp" class="video-js vjs-default-skin" webkit-playsinline playsinline></video>' ).promise().done( function() {
                     
                 self.isVimeo = true;
                 self.renderVideoJS();
@@ -207,7 +207,7 @@ Page.prototype.getPageMedia = function() {
                 self.transcript = SBPLUS.stripScript( data );
             } ).always( function() {
                 
-                var html = '<video id="mp" class="video-js vjs-default-skin" webkit-playsinline></video>';
+                var html = '<video id="mp" class="video-js vjs-default-skin" webkit-playsinline playsinline></video>';
                 
                 $( self.mediaContent ).html( html ).promise().done( function() {
             
@@ -314,7 +314,7 @@ Page.prototype.loadKalturaVideoData = function () {
                         
                     }
                     
-                    html = '<video id="mp" class="video-js vjs-default-skin" crossorigin="anonymous" width="100%" height="100%" webkit-playsinline></video>';
+                    html = '<video id="mp" class="video-js vjs-default-skin" crossorigin="anonymous" width="100%" height="100%" webkit-playsinline playsinline></video>';
                 
                     $( self.mediaContent ).html( html ).promise().done( function() {
                         
@@ -368,7 +368,7 @@ Page.prototype.renderVideoJS = function() {
     };
     
     // autoplay is off for iPhone or iPod
-    if( navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPod/i) ) {
+    if( SBPLUS.isMobileDevice() ) {
         options.autoplay = false;
     }
     
@@ -531,7 +531,8 @@ Page.prototype.renderVideoJS = function() {
         });
         
         // playrate
-        if ( options.playbackRates !== null && self.isYoutube === false ) {
+        if ( options.playbackRates !== null && self.isYoutube === false
+        && self.isVimeo === false ) {
             
             player.on( 'resolutionchange', function() {
         		player.playbackRate( Number( SBPLUS.getStorageItem( 'sbplus-playbackrate-temp', true ) ) );
@@ -574,7 +575,7 @@ Page.prototype.renderVideoJS = function() {
         } );
         
         // subtitle
-        if ( self.isYoutube === false ) {
+        if ( self.isYoutube === false && self.isVimeo === false ) {
             
             if ( SBPLUS.hasStorageItem( 'sbplus-subtitle-temp', true ) ) {
             
@@ -617,6 +618,17 @@ Page.prototype.renderVideoJS = function() {
         }
             
     } );
+    
+    // if on small iOS device, allow inline playback
+    if ( SBPLUS.isMobileDevice() ) {
+        
+        var video = $('video').get(0);
+        
+        makeVideoPlayableInline(video);
+        $( '.video-js' ).removeClass( 'vjs-using-native-controls' );
+        $( '.vjs-loading-spinner' ).hide();
+        
+    }
 
 }
 

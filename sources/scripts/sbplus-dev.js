@@ -545,6 +545,14 @@ var SBPLUS = SBPLUS || {
                 
             }
             
+            // get iphone inline video library if mobile
+            if ( this.isMobileDevice() ) {
+                
+                $.getScript( this.manifest.sbplus_root_directory + 'scripts/libs/iphone-inline-video.browser.js' );
+                
+            }
+            
+            // flag the splash screen as rendered
             this.splashScreenRendered = true;
             
         } else {
@@ -1820,6 +1828,19 @@ var SBPLUS = SBPLUS || {
         this.deleteStorageItem( 'sbplus-playbackrate-temp', true );
         this.deleteStorageItem( 'sbplus-volume-temp', true );
         this.deleteStorageItem( 'sbplus-subtitle-temp', true );
+        
+    },
+    
+    isMobileDevice: function() {
+        
+        if ( navigator.userAgent.match(/iPhone/i) 
+        || navigator.userAgent.match(/iPod/i) ) {
+            
+            return true;
+            
+        }
+        
+        return false;
         
     }
         

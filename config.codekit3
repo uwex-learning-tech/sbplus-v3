@@ -22,7 +22,7 @@
 		"oF": 0
 		},
 	"\/config.rb": {
-		"ft": 8192,
+		"ft": 131072,
 		"oA": 0,
 		"oAP": "\/config.rb",
 		"oF": 0
@@ -2070,7 +2070,7 @@
 	"externalServerAddress": "http:\/\/localhost\/",
 	"gitIgnoreBuildFolder": 0,
 	"hideConfigFile": 0,
-	"jsCheckerReservedNamesString": "Modernizr,MathJax,kWidget,videojs,ga",
+	"jsCheckerReservedNamesString": "Modernizr,MathJax,kWidget,videojs,ga,makeVideoPlayableInline",
 	"jsHintFlags2": {
 		"asi": {
 			"active": 0,
