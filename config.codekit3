@@ -707,18 +707,6 @@
 			"linkedFileAbbreviatedPath": "\/sources\/scripts\/libs\/videojs\/plugins\/replay\/replay.js",
 			"position": 2,
 			"type": 1
-			},
-		{
-			"followForSyntaxChecking": 1,
-			"linkedFileAbbreviatedPath": "\/sources\/scripts\/libs\/videojs\/plugins\/youtube\/youtube.js",
-			"position": 3,
-			"type": 1
-			},
-		{
-			"followForSyntaxChecking": 1,
-			"linkedFileAbbreviatedPath": "\/sources\/scripts\/libs\/videojs\/plugins\/vimeo\/vimeo.js",
-			"position": 4,
-			"type": 1
 			}
 		],
 	"\/sources\/scripts\/sbplus-dev.js": [

@@ -166,7 +166,22 @@ Page.prototype.getPageMedia = function() {
             $( self.mediaContent ).html( '<video id="mp" class="video-js vjs-default-skin" webkit-playsinline playsinline></video>' ).promise().done( function() {
                     
                 self.isYoutube = true;
-                self.renderVideoJS();
+                
+                if ( SBPLUS.hasStorageItem( 'sbplus-vjs-yt-loaded', true ) === false ) {
+                    
+                    $.getScript( SBPLUS.manifest.sbplus_root_directory + 'scripts/libs/videojs/plugins/youtube/youtube.js', function() {
+                    
+                        self.renderVideoJS();
+                        SBPLUS.setStorageItem( 'sbplus-vjs-yt-loaded', 1, true );
+                        
+                    } );
+                    
+                } else {
+                    
+                    self.renderVideoJS();
+                    
+                }
+                
                 self.setWidgets();
                 
             } );
@@ -178,7 +193,22 @@ Page.prototype.getPageMedia = function() {
             $( self.mediaContent ).html( '<video id="mp" class="video-js vjs-default-skin" webkit-playsinline playsinline></video>' ).promise().done( function() {
                     
                 self.isVimeo = true;
-                self.renderVideoJS();
+                
+                if ( SBPLUS.hasStorageItem( 'sbplus-vjs-vimeo-loaded', true ) === false ) {
+                    
+                    $.getScript( SBPLUS.manifest.sbplus_root_directory + 'scripts/libs/videojs/plugins/vimeo/vimeo.js', function() {
+                    
+                        self.renderVideoJS();
+                        SBPLUS.setStorageItem( 'sbplus-vjs-vimeo-loaded', 1, true );
+                        
+                    } );
+                    
+                } else {
+                    
+                    self.renderVideoJS();
+                    
+                }
+                
                 self.setWidgets();
                 
             } );
