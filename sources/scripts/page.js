@@ -523,7 +523,7 @@ Page.prototype.renderVideoJS = function() {
             
           self.isPlaying = false;
           
-          if ( SBPLUS.getStorageItem( 'sbplus-disable-ia' ) === "0" ) {
+          if ( SBPLUS.getStorageItem( 'sbplus-disable-it' ) === "0" ) {
               clearInterval( transcriptInterval );
               self.transcriptIntervalStarted = false;
           }
@@ -534,7 +534,7 @@ Page.prototype.renderVideoJS = function() {
             
           self.isPlaying = false;
           
-          if ( SBPLUS.getStorageItem( 'sbplus-disable-ia' ) === "0" ) {
+          if ( SBPLUS.getStorageItem( 'sbplus-disable-it' ) === "0" ) {
               
               if ( $( '#sbplus_interactivetranscript' ).hasClass( 'active' ) ) {
                   $( '.lt-wrapper .lt-line' ).removeClass( 'current' );
@@ -551,7 +551,7 @@ Page.prototype.renderVideoJS = function() {
             
           self.isPlaying = true;
           
-          if ( SBPLUS.getStorageItem( 'sbplus-disable-ia' ) === "0" ) {
+          if ( SBPLUS.getStorageItem( 'sbplus-disable-it' ) === "0" ) {
               if ( $( '#sbplus_interactivetranscript' ).hasClass( 'active' )
               && self.transcriptIntervalStarted === false ) {
                 self.startInteractiveTranscript();
@@ -678,7 +678,7 @@ Page.prototype.setWidgets = function() {
             
         }
         
-        if ( SBPLUS.getStorageItem( 'sbplus-disable-ia' ) === "0" ) {
+        if ( SBPLUS.getStorageItem( 'sbplus-disable-it' ) === "0" ) {
             
             if ( self.isAudio || self.isVideo || self.isBundle ) {
             
@@ -750,7 +750,7 @@ Page.prototype.getWidgetContent = function( id ) {
         
         case 'sbplus_interactivetranscript':
             
-            if ( SBPLUS.getStorageItem( 'sbplus-disable-ia' ) === "0" ) {
+            if ( SBPLUS.getStorageItem( 'sbplus-disable-it' ) === "0" ) {
                 
                 if ( self.isAudio || self.isVideo ) {
                 

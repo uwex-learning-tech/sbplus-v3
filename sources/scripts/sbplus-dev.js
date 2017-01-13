@@ -374,8 +374,8 @@ var SBPLUS = SBPLUS || {
                 this.setStorageItem( 'sbplus-hide-sidebar', 0 );
             }
             
-            if ( this.hasStorageItem( 'sbplus-disable-ia' ) === false ) {
-                this.setStorageItem( 'sbplus-disable-ia', 0 );
+            if ( this.hasStorageItem( 'sbplus-disable-it' ) === false ) {
+                this.setStorageItem( 'sbplus-disable-it', 0 );
             }
             
             if ( this.hasStorageItem( 'sbplus-autoplay' ) === false ) {
@@ -1152,19 +1152,19 @@ var SBPLUS = SBPLUS || {
                         self.settings = data;
                         self.setStorageItem( 'sbplus-settings-loaded', 1, true );
                         menuContent.append( data );
-                        self.disableAutoplaySetting();
+                        self.afterSettingsLoaded();
                         
                     } );
                     
                 } else {
                     
                     menuContent.append( self.settings );
-                    self.disableAutoplaySetting();
+                    self.afterSettingsLoaded();
                     
                 }
                 
+                content = '';
                 
-            content = '';
             break;
             
             default:
@@ -1848,12 +1848,179 @@ var SBPLUS = SBPLUS || {
         
     },
     
-    disableAutoplaySetting: function() {
+    afterSettingsLoaded: function() {
         
-        if ( this.isMobileDevice() ) {
+        var self = this;
+        
+        if ( self.getStorageItem( 'sbplus-settings-loaded', true ) === '1' ) {
+            
+            if ( self.isMobileDevice() ) {
                     
-            $( '#autoplay_label' ).after( '<p class="error">Mobile devices do not support autoplay.</p>' );
-            $( '#sbplus_va_autoplay' ).prop( 'checked', false ).attr( 'disabled', true );
+                $( '#autoplay_label' ).after( '<p class="error">Mobile devices do not support autoplay.</p>' );
+                $( '#sbplus_va_autoplay' ).prop( 'checked', false ).attr( 'disabled', true );
+                
+            }
+            
+            self.syncSettings();
+            
+            $( '#save_settings' ).on( 'click', function( e ) {
+                
+                var self_btn = this;
+                
+                $( self_btn ).prop( 'disabled', true ).html( 'Saving...' );
+                
+                // widget
+                if ( $( '#sbplus_gs_widget' ).is( ':checked' ) ) {
+                    self.setStorageItem( 'sbplus-hide-widget', 1 );
+                } else {
+                    self.setStorageItem( 'sbplus-hide-widget', 0 );
+                }
+                
+                // sidebar
+                if ( $( '#sbplus_gs_sidebar' ).is( ':checked' ) ) {
+                    self.setStorageItem( 'sbplus-hide-sidebar', 1 );
+                } else {
+                    self.setStorageItem( 'sbplus-hide-sidebar', 0 );
+                }
+                
+                // interactive transcript
+                if ( $( '#sbplus_gs_it' ).is( ':checked' ) ) {
+                    self.setStorageItem( 'sbplus-disable-it', 1 );
+                } else {
+                    self.setStorageItem( 'sbplus-disable-it', 0 );
+                }
+                
+                // autoplay
+                if ( $( '#sbplus_va_autoplay' ).is( ':checked' ) ) {
+                    self.setStorageItem( 'sbplus-autoplay', 1 );
+                } else {
+                    self.setStorageItem( 'sbplus-autoplay', 0 );
+                }
+                
+                // subtitle
+                if ( $( '#sbplus_va_subtitle' ).is( ':checked' ) ) {
+                    self.setStorageItem( 'sbplus-subtitle', 1 );
+                } else {
+                    self.setStorageItem( 'sbplus-subtitle', 0 );
+                }
+                
+                // volumne
+                var vol = $( '#sbplus_va_volume' ).val();
+                var volError = false;
+                
+                if ( vol < 0 || vol > 100 || self.isEmpty( vol ) ) {
+                    
+                    volError = true;
+                    vol = Number( self.getStorageItem( 'sbplus-volume' ) ) * 100;
+                    
+                } else {
+                    
+                    self.setStorageItem( 'sbplus-volume', vol / 100 );
+                    self.setStorageItem( 'sbplus-volume-temp', vol / 100, true );
+                    
+                }
+                
+                if ( volError ) {
+                    
+                    $( '#volume_label' ).after( '<p class="error">Value must be between 0 and 100.</p>' );
+                    
+                } else {
+                    
+                    $( '#volume_label' ).next( '.error' ).remove();
+                    
+                }
+                
+                // playback rate
+                self.setStorageItem(
+                    'sbplus-playbackrate',
+                    $( '#sbplus_va_playbackrate option:selected' ).val()
+                );
+                
+                self.setStorageItem(
+                    'sbplus-playbackrate-temp',
+                    $( '#sbplus_va_playbackrate option:selected' ).val(),
+                    true
+                );
+                
+                setTimeout( function() {
+                    
+                    $( self_btn ).prop( 'disabled', false ).html( 'Save' );
+                    
+                }, 1500 );
+                
+                e.preventDefault();
+                return false;
+                
+            } );
+            
+        }
+            
+    },
+    
+    syncSettings: function() {
+        
+        var self = this;
+        
+        if ( self.getStorageItem( 'sbplus-settings-loaded', true ) === '1' ) {
+            
+            // widget
+            var widgetVal = self.getStorageItem( 'sbplus-hide-widget' );
+            
+            if ( widgetVal === '1') {
+                $( '#sbplus_gs_widget' ).prop( 'checked', true );
+            } else {
+                $( '#sbplus_gs_widget' ).prop( 'checked', false );
+            }
+            
+            // sidebar
+            var sidebarVal = self.getStorageItem( 'sbplus-hide-sidebar' );
+            
+            if ( sidebarVal === '1') {
+                $( '#sbplus_gs_sidebar' ).prop( 'checked', true );
+            } else {
+                $( '#sbplus_gs_sidebar' ).prop( 'checked', false );
+            }
+            
+            // interactive transcript
+            var itVal = self.getStorageItem( 'sbplus-disable-it' );
+            
+            if ( itVal === '1') {
+                $( '#sbplus_gs_it' ).prop( 'checked', true );
+            } else {
+                $( '#sbplus_gs_it' ).prop( 'checked', false );
+            }
+            
+            // autoplay
+            var autoplayVal = self.getStorageItem( 'sbplus-autoplay' );
+            
+            if ( self.isMobileDevice() === false ) {
+                
+                if ( autoplayVal === '1') {
+                    $( '#sbplus_va_autoplay' ).prop( 'checked', true );
+                } else {
+                    $( '#sbplus_va_autoplay' ).prop( 'checked', false );
+                }
+                
+            }
+            
+            // volume
+            var volumeVal = self.getStorageItem( 'sbplus-volume' );
+            
+            $( '#sbplus_va_volume' ).prop( 'value', volumeVal * 100 );
+            
+            // playback rate
+            var playbackRateVal = self.getStorageItem( 'sbplus-playbackrate' );
+            
+            $( '#sbplus_va_playbackrate' ).val( playbackRateVal );
+            
+            //subtitle
+            var subtitleVal = self.getStorageItem( 'sbplus-subtitle' );
+            
+            if ( subtitleVal === '1') {
+                $( '#sbplus_va_subtitle' ).prop( 'checked', true );
+            } else {
+                $( '#sbplus_va_subtitle' ).prop( 'checked', false );
+            }
             
         }
         

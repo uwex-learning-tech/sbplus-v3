@@ -61,7 +61,7 @@
         <div class="row">
             
             <div class="label">
-                <label for="sbplus_va_volume">Default volume level (%)</label>
+                <label for="sbplus_va_volume" id="volume_label">Default volume level (%)</label>
             </div>
             
             <div class="control">
@@ -100,5 +100,7 @@
         </div>
         
     </div>
+    
+    <button id="save_settings">Save</button>
     
 </form>

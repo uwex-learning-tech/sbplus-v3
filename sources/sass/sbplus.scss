@@ -3,6 +3,7 @@
 @import "compass/css3/box-sizing";
 @import "compass/css3/border-radius";
 @import "compass/css3/flexbox";
+@import "compass/css3/opacity";
 
 @import "animate.css" screen, projection;
 @import "../fonts/sbplus_fonts.css";
@@ -1030,6 +1031,19 @@ body {
                                      background-color: #f2f2f2;
                                 }
                                 
+                            }
+                            
+                            #save_settings {
+                                margin: 16px 0;
+                                color: #fff;
+                                background-color: $default-accent;
+                                padding: 10px 0;
+                                font-size: 16px;
+                            }
+                            
+                            #save_settings:disabled {
+                                @include opacity( 0.55 );
+                                cursor: default;
                             }
                             
                         }
