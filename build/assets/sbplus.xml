@@ -113,22 +113,24 @@ legend("topleft", legend=c("Student", "Non-student"), lty=c(1,2), col=c("blue","
             
             <multipleChoiceSingle>
                 
-                <question image="" audio=""><![CDATA[<p>I'm not sure I was clear, should you burn the butter or not? \(\frac{-b\pm\sqrt{b^2-4ac}}{2a}\)</p>]]></question>
+                <question image="" audio="">
+                    <![CDATA[<p><strong>I'm not sure I was clear, should you burn the butter or not? \(\frac{-b\pm\sqrt{b^2-4ac}}{2a}\)</strong></p><p><small>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</small></p>]]>
+                </question>
                 <choices>
                     
                     <answer image="" audio="">
                         <value>Yes</value>
-                        <feedback image="" audio="">Sorry, I misspoke. Don't burn the butter.</feedback>
+                        <feedback>Sorry, I misspoke. Don't burn the butter.</feedback>
                     </answer>
                     
                     <answer image="" audio="" correct="yes">
                         <value>No</value>
-                        <feedback image="" audio="">That's right, we don't want burnt butter in our cookies.</feedback>
+                        <feedback>That's right, we don't want burnt butter in our cookies.</feedback>
                     </answer>
                     
                     <answer image="" audio="">
                         <value>It depends on personal taste</value>
-                        <feedback image="" audio="">Personally, I don't think you should burn the butter. But if you indeed like burnt butter in your cookies, go ahead.</feedback>
+                        <feedback>Personally, I don't think you should burn the butter. But if you indeed like burnt butter in your cookies, go ahead.</feedback>
                     </answer>
                     
                 </choices>
@@ -141,7 +143,7 @@ legend("topleft", legend=c("Student", "Non-student"), lty=c(1,2), col=c("blue","
             
             <shortAnswer>
                 
-                <question audio="lugia.mp3">What are your main take aways from this presentation?</question>
+                <question audio="">What are your main take aways from this presentation?</question>
                 <feedback>I was hoping you would be surprised to hear how relatively young the Chocolate Chip cookie is. I am also hoping you noticed how important getting the ingredients right is to having good results.</feedback>
                 
             </shortAnswer>
@@ -162,17 +164,17 @@ legend("topleft", legend=c("Student", "Non-student"), lty=c(1,2), col=c("blue","
                     
                     <answer image="" audio="">
                         <value>1908</value>
-                        <feedback image="" audio="">This is when the Hydrox Cookie was introduced.</feedback>
+                        <feedback>This is when the Hydrox Cookie was introduced.</feedback>
                     </answer>
                     
                     <answer image="" audio="" correct="yes">
                         <value>1938</value>
-                        <feedback image="" audio=""></feedback>
+                        <feedback></feedback>
                     </answer>
                     
                     <answer image="" audio="">
                         <value>1912</value>
-                        <feedback image="" audio="">This is when the Oreo was introduced.</feedback>
+                        <feedback>This is when the Oreo was introduced.</feedback>
                     </answer>
                     
                 </choices>
@@ -234,7 +236,7 @@ legend("topleft", legend=c("Student", "Non-student"), lty=c(1,2), col=c("blue","
             <multipleChoiceMultiple>
                 
                 <question image="" audio="">What are the colors of the American's flag?</question>
-                <choices>
+                <choices random="yes">
                     
                     <answer image="" audio="">
                         <value>Green</value>
@@ -273,7 +275,7 @@ legend("topleft", legend=c("Student", "Non-student"), lty=c(1,2), col=c("blue","
             
             <multipleChoiceMultiple>
                 
-                <question image="" audio=""><![CDATA[Which pokémon are Ethan's favorites?<small>Ethan is a pokémon fan ... sort of.</small>]]></question>
+                <question image="" audio=""><![CDATA[<p>Which pokémon are Ethan's favorites?</p><p><small>Ethan is a pokémon fan ... sort of.</small></p>]]></question>
                 <choices>
                     
                     <answer image="pikachu.gif" audio="" correct="yes">
@@ -318,17 +320,17 @@ legend("topleft", legend=c("Student", "Non-student"), lty=c(1,2), col=c("blue","
                     
                     <answer image="" audio="" correct="yes">
                         <value>Mewtwo</value>
-                        <feedback image="" audio="">It's MEWTWO!!!</feedback>
+                        <feedback>It's MEWTWO!!!</feedback>
                     </answer>
                     
                     <answer image="" audio="">
                         <value>Mew</value>
-                        <feedback image="" audio="">Close but no.</feedback>
+                        <feedback>Close but no.</feedback>
                     </answer>
                     
                     <answer image="" audio="">
                         <value>Pickachu</value>
-                        <feedback image="" audio="">Seriously...</feedback>
+                        <feedback>Seriously...</feedback>
                     </answer>
                     
                 </choices>
@@ -346,17 +348,17 @@ legend("topleft", legend=c("Student", "Non-student"), lty=c(1,2), col=c("blue","
                     
                     <answer image="" audio="">
                         <value>Mew</value>
-                        <feedback image="" audio="">Are you sure? Refresh and answer again.</feedback>
+                        <feedback>Are you sure? Refresh and answer again.</feedback>
                     </answer>
                     
                     <answer image="" audio="" correct="yes">
                         <value>Lugia</value>
-                        <feedback image="" audio="">Dang, must be a fan!</feedback>
+                        <feedback>Dang, must be a fan!</feedback>
                     </answer>
                     
                     <answer image="" audio="">
                         <value>Ethan</value>
-                        <feedback image="" audio="">Yes and no ... from time to time.</feedback>
+                        <feedback>Yes and no ... from time to time.</feedback>
                     </answer>
                     
                 </choices>
@@ -374,17 +376,17 @@ legend("topleft", legend=c("Student", "Non-student"), lty=c(1,2), col=c("blue","
                     
                     <answer image="" audio="slide03.mp3">
                         <value></value>
-                        <feedback image="" audio="">Cookies?</feedback>
+                        <feedback>Cookies?</feedback>
                     </answer>
                     
                     <answer image="" audio="slide07.mp3">
                         <value></value>
-                        <feedback image="" audio="">Someone is looking for you...</feedback>
+                        <feedback>Someone is looking for you...</feedback>
                     </answer>
                     
                     <answer image="" audio="lugia.mp3" correct="yes">
                         <value></value>
-                        <feedback image="" audio="">wOoT!</feedback>
+                        <feedback>wOoT!</feedback>
                     </answer>
                     
                 </choices>
@@ -402,17 +404,17 @@ legend("topleft", legend=c("Student", "Non-student"), lty=c(1,2), col=c("blue","
                     
                     <answer image="mew.gif" audio="" correct="yes">
                         <value></value>
-                        <feedback image="" audio="">Congratulation! You can't have it.</feedback>
+                        <feedback>Congratulation! You can't have it.</feedback>
                     </answer>
                     
                     <answer image="mewtwo.gif" audio="">
                         <value></value>
-                        <feedback image="" audio="">Close</feedback>
+                        <feedback>Close</feedback>
                     </answer>
                     
                     <answer image="rattata.gif" audio="">
                         <value></value>
-                        <feedback image="" audio="">It is not a rat!</feedback>
+                        <feedback>It is not a rat!</feedback>
                     </answer>
                     
                 </choices>

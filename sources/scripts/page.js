@@ -3,35 +3,44 @@ var Page = function ( obj ) {
     
     this.title = obj.title;
     this.type = obj.type;
-    this.src = obj.src;
     this.transition = obj.transition;
-    this.notes = obj.notes;
-    this.widget = obj.widget;
-    this.widgetSegments = {};
-    this.imgType = obj.imageFormat;
     this.pageNumber = obj.number;
     
-    if ( obj.frames.length ) {
-        this.frames = obj.frames;
-        this.cuepoints = [];
+    if ( obj.type === 'quiz' ) {
+        
+        this.quiz = obj.quiz;
+        
+    } else {
+        
+        this.src = obj.src;
+        this.notes = obj.notes;
+        this.widget = obj.widget;
+        this.widgetSegments = {};
+        this.imgType = obj.imageFormat;
+        
+        if ( obj.frames.length ) {
+            this.frames = obj.frames;
+            this.cuepoints = [];
+        }
+        
+        this.mediaPlayer = null;
+        this.isKaltura = null;
+        this.isAudio = false;
+        this.isVideo = false;
+        this.isYoutube = false;
+        this.isVimeo = false;
+        this.isBundle = false;
+        this.isPlaying = false;
+        this.captionUrl = '';
+        
+        this.transcript = null;
+        this.transcriptLoaded = false;
+        this.transcriptIntervalStarted = false;
+        
+        this.hasImage = false;
+        this.delayStorage = null;
+        
     }
-    
-    this.mediaPlayer = null;
-    this.isKaltura = null;
-    this.isAudio = false;
-    this.isVideo = false;
-    this.isYoutube = false;
-    this.isVimeo = false;
-    this.isBundle = false;
-    this.isPlaying = false;
-    this.captionUrl = '';
-    
-    this.transcript = null;
-    this.transcriptLoaded = false;
-    this.transcriptIntervalStarted = false;
-    
-    this.hasImage = false;
-    this.delayStorage = null;
     
     this.root = SBPLUS.manifest.sbplus_root_directory;
     this.kaltura = {
@@ -43,7 +52,9 @@ var Page = function ( obj ) {
         }
     };
     
+    this.leftCol = SBPLUS.layout.leftCol;
     this.mediaContent = SBPLUS.layout.mediaContent;
+    this.quizContainer = SBPLUS.layout.quizContainer;
     this.mediaError = SBPLUS.layout.mediaError;
     
 };
@@ -53,10 +64,29 @@ Page.prototype.getPageMedia = function() {
     var self = this;
     
     // reset
+    if ( $( SBPLUS.layout.quizContainer ).length ) {
+        $( SBPLUS.layout.quizContainer ).remove();
+    }
+    
     $( this.mediaError ).empty().hide();
+    
     if ( $( '#mp' ).length ) {
         videojs( 'mp' ).dispose();
     }
+    
+    if ( SBPLUS.hasStorageItem( 'sbplus-previously-widget-open', true ) ) {
+        
+        if ( SBPLUS.getStorageItem( 'sbplus-previously-widget-open', true ) === '1' ) {
+            
+            SBPLUS.showWidget();
+            
+        }
+        
+        SBPLUS.enableWidget();
+        SBPLUS.deleteStorageItem( 'sbplus-previously-widget-open', true );
+        
+    }
+    
     clearInterval( transcriptInterval );
     // end reset
     
@@ -247,6 +277,30 @@ Page.prototype.getPageMedia = function() {
             
                 } );
             
+            } );
+            
+        break;
+        
+        case 'quiz':
+            
+            $( self.leftCol ).append( '<div id="sbplus_quiz_wrapper"></div>' )
+                .promise().done( function() {
+            
+                    var qObj = {
+                        id: self.pageNumber,
+                        context: self.quiz
+                    };
+                    
+                    var quizItem = new Quiz( qObj );
+                    quizItem.getQuiz();
+                    
+                    if ( $( '#sbplus_widget' ).is( ':visible' ) ) {
+                        SBPLUS.setStorageItem( 'sbplus-previously-widget-open', 1, true );
+                    }
+                    
+                    SBPLUS.hideWidget();
+                    SBPLUS.disableWidget();
+
             } );
             
         break;

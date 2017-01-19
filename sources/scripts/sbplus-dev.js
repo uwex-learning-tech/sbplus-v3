@@ -44,8 +44,10 @@ var SBPLUS = SBPLUS || {
                 media: '#sbplus_media_wrapper',
                 mediaContent: '#sbplus_media_wrapper .sbplus_media_content',
                 mediaError: '#sbplus_media_wrapper .sbplus_media_error',
+                leftCol: '#sbplus_left_col',
                 sidebar: '#sbplus_right_col',
                 pageStatus: '#sbplus_page_status',
+                quizContainer: '#sbplus_quiz_wrapper',
                 dwnldMenu: null
             };
             
@@ -928,21 +930,24 @@ var SBPLUS = SBPLUS || {
         
         var section = page[0];
         var item = page[1];
-        var target =$( $( this.xml.sections[section] ).find( 'page' )[item] );
+        var target = $( $( this.xml.sections[section] ).find( 'page' )[item] );
         var pageData = {
             title: target.attr( 'title' ).trim(),
-            type: target.attr( 'type' ).trim().toLowerCase(),
-            transition: target[0].hasAttribute( 'transition' ) ? 
-                target.attr( 'transition' ).trim() : '',
-            imageFormat: this.xml.settings.imgType
+            type: target.attr( 'type' ).trim().toLowerCase()
         };
         
+        pageData.number = page;
+        
         if ( pageData.type !== 'quiz' ) {
-            pageData.number = page;
             pageData.src = target.attr( 'src' ).trim();
             pageData.notes = this.stripScript( target.find( 'note' ).text().trim() );
             pageData.widget = target.find( 'widget' );
             pageData.frames = target.find( 'frame' );
+            pageData.imageFormat = this.xml.settings.imgType;
+            pageData.transition = target[0].hasAttribute( 'transition' ) ? 
+                target.attr( 'transition' ).trim() : '';
+        } else {
+            pageData.quiz = target;
         }
         
         this.currentPage = new Page( pageData );
@@ -1281,6 +1286,14 @@ var SBPLUS = SBPLUS || {
         media.removeClass( 'widget_off' ).addClass( 'widget_on' );
         this.resize();
         
+    },
+    
+    disableWidget: function() {
+        $( this.button.widget ).prop( 'disabled', true ).addClass( 'sb_disabled' );
+    },
+    
+    enableWidget: function() {
+        $( this.button.widget ).prop( 'disabled', false ).removeClass( 'sb_disabled' );
     },
     
     selectSegment: function( e ) {
@@ -1832,6 +1845,7 @@ var SBPLUS = SBPLUS || {
         this.deleteStorageItem( 'sbplus-subtitle-temp', true );
         this.deleteStorageItem( 'sbplus-vjs-yt-loaded', true );
         this.deleteStorageItem( 'sbplus-vjs-vimeo-loaded', true );
+        this.deleteStorageItem( 'sbplus-previously-widget-open', true );
         
     },
     

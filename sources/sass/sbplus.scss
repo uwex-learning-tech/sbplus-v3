@@ -587,6 +587,163 @@ body {
                     @include aspect-ratio( 16, 9 );
                 }
                 
+                #sbplus_quiz_wrapper {
+                    
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-color: #f2f2f2;
+                    z-index: 10;
+                    overflow-x: hidden;
+                    overflow-y: auto;
+                    
+                    .sbplus_quiz_header {
+                        
+                        padding: 8px;
+                        font-size: 12px;
+                        background-color: $border-color;
+                    }
+                    
+                    .quiz_error {
+                        padding: 8px;
+                        background-color: #ed9033;
+                        font-weight: bold;
+                        text-align: center;
+                    }
+                    
+                    .quiz_correct {
+                        padding: 8px;
+                        background-color: #56f24e;
+                        font-weight: bold;
+                        text-align: center;
+                    }
+                    
+                    .quiz_incorrect {
+                        padding: 8px;
+                        background-color: #f27474;
+                        font-weight: bold;
+                        text-align: center;
+                    }
+                    
+                    .sbplus_quiz_question {
+                        
+                        padding: 10px;
+                        font-size: 16px;
+                        line-height: 16px;
+                        
+                        p {
+                            margin-bottom: 10px;
+                        }
+                        
+                        small {
+                            font-size: 14px;
+                            line-height: 14px;
+                        }
+                        
+                        audio {
+                            width: 100%;
+                        }
+                        
+                    }
+                    
+                    .sbplus_quiz_result {
+                        
+                        padding: 10px;
+                        font-size: 14px;
+                        line-height: 18px;
+                        
+                        p {
+                            margin-bottom: 10px;
+                        }
+                        
+                    }
+                    
+                    .sbplus_quiz_input {
+                        
+                        padding: 0 10px 5px;
+                        
+                        label {
+                            display: block;
+                            padding-left: 5px;
+                            margin-bottom: 8px;
+                        }
+                        
+                        .img_val {
+                            
+                            display: inline-block;
+                            position: relative;
+                            margin-right: 10px;
+                            
+                            input[type=checkbox],
+                            input[type=radio] {
+                                position: absolute;
+                                top: 5px;
+                                left: 10px;
+                            }
+                            
+                        }
+                        
+                        .au_val {
+                            
+                            position: relative;
+                            
+                            audio {
+                                width: 95%;
+                                display: inline-block;
+                                margin-left: 5px;
+                            }
+                            
+                            input[type=checkbox],
+                            input[type=radio] {
+                                position: relative;
+                                bottom: 12px;
+                            }
+                            
+                        }
+                        
+                        textarea {
+                            width: 100%;
+                            height: 200px;
+                            padding: 5px;
+                            font-family: $default-font-family;
+                            font-size: 14px;
+                            line-height: 14px;
+                            resize: none;
+                            margin-bottom: 0;
+                            border: 1px solid $border-color;
+                        }
+                        
+                        input[type=text] {
+                            display: block;
+                            width: 100%;
+                            height: 30px;
+                            padding: 5px;
+                            font-family: $default-font-family;
+                            font-size: 14px;
+                            line-height: 16px;
+                            margin-bottom: 0;
+                            border: 1px solid $border-color;
+                        }
+                        
+                    }
+                    
+                    .sbplus_quiz_submit_btn {
+                        width: 100px;
+                        min-height: 0;
+                        margin-top: 10px;
+                        margin-left: 10px;
+                        padding: 10px 0;
+                        background-color: #4ba14b;
+                        @include border-radius( 5px );
+                        color: #fff;
+                        font-weight: bold;
+                        font-size: 16px;
+                    }
+                    
+                }
+                
                 #sbplus_widget {
                     
                     position: absolute;
@@ -1219,6 +1376,15 @@ body {
             color: $default-accent-hover;
         }
         
+        .sb_disabled {
+            color: #7f7f7f;
+            cursor: default;
+        }
+        
+        .sb_disabled:hover {
+            color: #7f7f7f;
+        }
+        
     }
     
 } // end main wrapper
@@ -1320,9 +1486,7 @@ body {
             
                 #sbplus_left_col {
                                 
-                    #sbplus_media_wrapper {
-                        border-left: 1px solid $border-color;
-                    }
+                    border-left: 1px solid $border-color;
                         
                     #sbplus_widget {
                         border-left: 1px solid $border-color;
