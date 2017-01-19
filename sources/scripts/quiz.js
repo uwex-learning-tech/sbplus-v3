@@ -365,23 +365,27 @@ Quiz.prototype.renderQuiz = function() {
                 
                 quizTracker[self.qIndex].stuAnswer = $( 'input[type="radio"]:checked' ).val();
                 
-                $.each( self.quiz.answers, function() {
+                if ( !SBPLUS.isEmpty( quizTracker[self.qIndex].stuAnswer ) ) {
+                    
+                    $.each( self.quiz.answers, function() {
                         
-                    if ( this.correct !== undefined ) {
-                        
-                        var sAnswer = SBPLUS.sanitize( self.quiz.answers[Number(self.quiz.stuAnswer)].value );
-                        
-                        if ( sAnswer === SBPLUS.sanitize( this.value ) ) {
-                            quizTracker[self.qIndex].correct = true;
-                        } else {
-                            quizTracker[self.qIndex].correct = false;
+                        if ( this.correct !== undefined ) {
+                            
+                            var sAnswer = SBPLUS.sanitize( self.quiz.answers[Number(self.quiz.stuAnswer)].value );
+                            
+                            if ( sAnswer === SBPLUS.sanitize( this.value ) ) {
+                                quizTracker[self.qIndex].correct = true;
+                            } else {
+                                quizTracker[self.qIndex].correct = false;
+                            }
+                            
+                            return true;
+                            
                         }
                         
-                        return true;
-                        
-                    }
+                    } );
                     
-                } );
+                }
                 
             break;
             
