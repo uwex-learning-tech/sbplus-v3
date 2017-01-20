@@ -7,7 +7,7 @@
 		"uuidString": "A55265B6-3CAC-4E30-9611-2EA711C82108"
 		}
 	],
-"creatorBuild": "25428",
+"creatorBuild": "25504",
 "files": {
 	"\/.gitignore": {
 		"ft": 8192,
@@ -56,8 +56,8 @@
 		"bl": 0,
 		"ft": 16,
 		"ma": 0,
-		"oA": 1,
-		"oAP": "\/sources\/museo-ck.css",
+		"oA": 2,
+		"oAP": "\/build\/sources\/fonts\/museo.css",
 		"oF": 3,
 		"oS": 0
 		},
@@ -94,9 +94,9 @@
 		"bl": 0,
 		"ft": 16,
 		"ma": 0,
-		"oA": 1,
-		"oAP": "\/build\/fonts\/sbplus_fonts-ck.css",
-		"oF": 1,
+		"oA": 2,
+		"oAP": "\/build\/sources\/fonts\/sbplus_fonts.css",
+		"oF": 3,
 		"oS": 0
 		},
 	"\/sources\/fonts\/selection.json": {
@@ -106,6 +106,16 @@
 		"oF": 0,
 		"oO": 0,
 		"oS": 1
+		},
+	"\/sources\/images\/default_logo.svg": {
+		"ft": 2097152,
+		"miP": 0,
+		"oA": 2,
+		"oAP": "\/build\/sources\/images\/default_logo.svg",
+		"oF": 2,
+		"opt": 0,
+		"plM": 3758088159,
+		"prP": 0
 		},
 	"\/sources\/images\/default_photo.png": {
 		"ft": 32768,
@@ -131,7 +141,17 @@
 		"oAP": "\/build\/sources\/manifest.json",
 		"oF": 3,
 		"oO": 0,
-		"oS": 1
+		"oS": 0
+		},
+	"\/sources\/sass\/animate.css": {
+		"aP": 0,
+		"bl": 0,
+		"ft": 16,
+		"ma": 0,
+		"oA": 2,
+		"oAP": "\/build\/sources\/css\/animate.css",
+		"oF": 3,
+		"oS": 0
 		},
 	"\/sources\/sass\/sbplus.scss": {
 		"aP": 0,
@@ -143,17 +163,21 @@
 		"oA": 0,
 		"oAP": "\/build\/sources\/css\/sbplus.css",
 		"oF": 1,
-		"oS": 0,
+		"oS": 3,
 		"uL": 1
 		},
-	"\/sources\/scripts\/functions.js": {
-		"ft": 64,
-		"mi": 1,
-		"oA": 1,
-		"oAP": "\/build\/scripts\/functions.js",
+	"\/sources\/sass\/sbplus_override.scss": {
+		"aP": 0,
+		"bl": 0,
+		"dP": 10,
+		"dS": 0,
+		"ft": 4,
+		"ma": 0,
+		"oA": 0,
+		"oAP": "\/build\/sources\/css\/sbplus_override.css",
 		"oF": 1,
-		"sC": 0,
-		"tS": 0
+		"oS": 3,
+		"uL": 1
 		},
 	"\/sources\/scripts\/libs\/highlight\/default.css": {
 		"aP": 0,
@@ -195,9 +219,9 @@
 	"\/sources\/scripts\/libs\/kaltura\/kwidgetgetsources.js": {
 		"ft": 64,
 		"mi": 1,
-		"oA": 0,
+		"oA": 2,
 		"oAP": "\/build\/sources\/scripts\/libs\/kaltura\/kwidgetgetsources.js",
-		"oF": 2,
+		"oF": 3,
 		"sC": 0,
 		"tS": 0
 		},
@@ -223,14 +247,14 @@
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/font\/VideoJS.eot",
-		"oF": 2
+		"oF": 3
 		},
 	"\/sources\/scripts\/libs\/videojs\/font\/VideoJS.svg": {
 		"ft": 2097152,
 		"miP": 0,
 		"oA": 2,
 		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/font\/VideoJS.svg",
-		"oF": 2,
+		"oF": 3,
 		"opt": 0,
 		"plM": 3758088159,
 		"prP": 0
@@ -239,13 +263,13 @@
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/font\/VideoJS.ttf",
-		"oF": 2
+		"oF": 3
 		},
 	"\/sources\/scripts\/libs\/videojs\/font\/VideoJS.woff": {
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/font\/VideoJS.woff",
-		"oF": 2
+		"oF": 3
 		},
 	"\/sources\/scripts\/libs\/videojs\/lang\/ar.js": {
 		"ft": 64,
@@ -529,45 +553,54 @@
 	"\/sources\/scripts\/libs\/videojs\/plugins\/cuepoint\/videojs.cuepoints.js": {
 		"ft": 64,
 		"mi": 0,
-		"oA": 1,
-		"oAP": "\/build\/scripts\/libs\/videojs\/plugins\/cuepoint\/videojs.cuepoints.js",
-		"oF": 1,
+		"oA": 2,
+		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/plugins\/cuepoint\/videojs.cuepoints.js",
+		"oF": 3,
+		"sC": 0,
+		"tS": 0
+		},
+	"\/sources\/scripts\/libs\/videojs\/plugins\/replay\/replay.js": {
+		"ft": 64,
+		"mi": 0,
+		"oA": 2,
+		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/plugins\/replay\/replay.js",
+		"oF": 3,
 		"sC": 0,
 		"tS": 0
 		},
 	"\/sources\/scripts\/libs\/videojs\/plugins\/resolution\/videojs-resolution-switcher.js": {
 		"ft": 64,
 		"mi": 0,
-		"oA": 1,
-		"oAP": "\/build\/scripts\/libs\/videojs\/plugins\/resolution\/videojs-resolution-switcher.js",
-		"oF": 1,
+		"oA": 2,
+		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/plugins\/resolution\/videojs-resolution-switcher.js",
+		"oF": 3,
 		"sC": 0,
 		"tS": 0
 		},
 	"\/sources\/scripts\/libs\/videojs\/plugins\/vimeo\/vimeo.js": {
 		"ft": 64,
 		"mi": 0,
-		"oA": 1,
-		"oAP": "\/build\/scripts\/libs\/videojs\/plugins\/vimeo\/vimeo.js",
-		"oF": 1,
+		"oA": 2,
+		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/plugins\/vimeo\/vimeo.js",
+		"oF": 3,
 		"sC": 0,
 		"tS": 0
 		},
 	"\/sources\/scripts\/libs\/videojs\/plugins\/youtube\/youtube.js": {
 		"ft": 64,
 		"mi": 0,
-		"oA": 1,
-		"oAP": "\/build\/scripts\/libs\/videojs\/plugins\/youtube\/youtube.js",
-		"oF": 1,
+		"oA": 2,
+		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/plugins\/youtube\/youtube.js",
+		"oF": 3,
 		"sC": 0,
 		"tS": 0
 		},
 	"\/sources\/scripts\/libs\/videojs\/video-dev.js": {
 		"ft": 64,
-		"mi": 1,
+		"mi": 0,
 		"oA": 0,
 		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/video.js",
-		"oF": 3,
+		"oF": 2,
 		"sC": 0,
 		"tS": 0
 		},
@@ -578,14 +611,35 @@
 		"ma": 0,
 		"oA": 2,
 		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/video-js.min.css",
-		"oF": 2,
+		"oF": 3,
 		"oS": 0
 		},
-	"\/sources\/scripts\/libs\/videojs\/video-js.swf": {
-		"ft": 8192,
-		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/video-js.swf",
-		"oF": 2
+	"\/sources\/scripts\/menubar.js": {
+		"ft": 64,
+		"mi": 0,
+		"oA": 1,
+		"oAP": "\/build\/scripts\/menubar.js",
+		"oF": 0,
+		"sC": 0,
+		"tS": 0
+		},
+	"\/sources\/scripts\/page.js": {
+		"ft": 64,
+		"mi": 0,
+		"oA": 1,
+		"oAP": "\/build\/scripts\/page.js",
+		"oF": 1,
+		"sC": 3,
+		"tS": 0
+		},
+	"\/sources\/scripts\/quiz.js": {
+		"ft": 64,
+		"mi": 0,
+		"oA": 1,
+		"oAP": "\/build\/scripts\/quiz.js",
+		"oF": 1,
+		"sC": 3,
+		"tS": 0
 		},
 	"\/sources\/scripts\/sbplus-dev.js": {
 		"ft": 64,
@@ -595,93 +649,6 @@
 		"oF": 3,
 		"sC": 3,
 		"tS": 0
-		},
-	"\/sources\/scripts\/sbplusControls.js": {
-		"ft": 64,
-		"mi": 1,
-		"oA": 1,
-		"oAP": "\/build\/scripts\/sbplusControls.js",
-		"oF": 1,
-		"sC": 0,
-		"tS": 0
-		},
-	"\/sources\/scripts\/sbplusDownloadable.js": {
-		"ft": 64,
-		"mi": 1,
-		"oA": 1,
-		"oAP": "\/build\/scripts\/sbplusDownloadable.js",
-		"oF": 1,
-		"sC": 0,
-		"tS": 0
-		},
-	"\/sources\/scripts\/sbplusError.js": {
-		"ft": 64,
-		"mi": 1,
-		"oA": 1,
-		"oAP": "\/build\/scripts\/sbplusError.js",
-		"oF": 1,
-		"sC": 0,
-		"tS": 0
-		},
-	"\/sources\/scripts\/sbplusMenu.js": {
-		"ft": 64,
-		"mi": 1,
-		"oA": 1,
-		"oAP": "\/build\/scripts\/sbplusMenu.js",
-		"oF": 1,
-		"sC": 0,
-		"tS": 0
-		},
-	"\/sources\/scripts\/sbplusNotes.js": {
-		"ft": 64,
-		"mi": 1,
-		"oA": 1,
-		"oAP": "\/build\/scripts\/sbplusNotes.js",
-		"oF": 1,
-		"sC": 0,
-		"tS": 0
-		},
-	"\/sources\/scripts\/sbplusQuiz.js": {
-		"ft": 64,
-		"mi": 1,
-		"oA": 1,
-		"oAP": "\/build\/scripts\/sbplusQuiz.js",
-		"oF": 1,
-		"sC": 0,
-		"tS": 0
-		},
-	"\/sources\/scripts\/sbplusSlide.js": {
-		"ft": 64,
-		"mi": 1,
-		"oA": 1,
-		"oAP": "\/build\/scripts\/sbplusSlide.js",
-		"oF": 1,
-		"sC": 0,
-		"tS": 0
-		},
-	"\/sources\/scripts\/sbplusSplashScreen.js": {
-		"ft": 64,
-		"mi": 1,
-		"oA": 1,
-		"oAP": "\/build\/scripts\/sbplusSplashScreen.js",
-		"oF": 1,
-		"sC": 0,
-		"tS": 0
-		},
-	"\/sources\/scripts\/sbplusTableOfContents.js": {
-		"ft": 64,
-		"mi": 0,
-		"oA": 1,
-		"oAP": "\/build\/scripts\/sbplusTableOfContents.js",
-		"oF": 1,
-		"sC": 0,
-		"tS": 0
-		},
-	"\/sources\/scripts\/templates\/nosupport.tpl": {
-		"ft": 8192,
-		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/templates\/nosupport.tpl",
-		"oF": 2
 		},
 	"\/sources\/scripts\/templates\/sbplus.tpl": {
 		"ft": 8192,
@@ -695,11 +662,37 @@
 		"oAP": "\/build\/sources\/scripts\/templates\/settings.tpl",
 		"oF": 2
 		},
-	"\/sources\/scripts\/templates\/splashscreen.tpl": {
+	"\/sources\/scripts\/templates\/support_error.tpl": {
 		"ft": 8192,
 		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/templates\/splashscreen.tpl",
+		"oAP": "\/build\/sources\/scripts\/templates\/support_error.tpl",
 		"oF": 2
+		},
+	"\/sources\/scripts\/templates\/xml_error.tpl": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/build\/sources\/scripts\/templates\/xml_error.tpl",
+		"oF": 2
+		},
+	"\/sources\/scripts\/templates\/xml_parse_error.tpl": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/build\/sources\/scripts\/templates\/xml_parse_error.tpl",
+		"oF": 2
+		},
+	"\/test\/index.html": {
+		"ft": 8192,
+		"oA": 1,
+		"oAP": "\/build\/test\/index.html",
+		"oF": 1
+		},
+	"\/test\/manifest.json": {
+		"ft": 524288,
+		"oA": 1,
+		"oAP": "\/build\/test\/manifest-min.json",
+		"oF": 0,
+		"oO": 0,
+		"oS": 1
 		}
 	},
 "hooks": [
@@ -720,86 +713,38 @@
 			},
 		{
 			"followForSyntaxChecking": 1,
-			"linkedFileAbbreviatedPath": "\/sources\/scripts\/libs\/videojs\/plugins\/youtube\/youtube.js",
+			"linkedFileAbbreviatedPath": "\/sources\/scripts\/libs\/videojs\/plugins\/replay\/replay.js",
 			"position": 2,
-			"type": 1
-			},
-		{
-			"followForSyntaxChecking": 1,
-			"linkedFileAbbreviatedPath": "\/sources\/scripts\/libs\/videojs\/plugins\/vimeo\/vimeo.js",
-			"position": 3,
 			"type": 1
 			}
 		],
 	"\/sources\/scripts\/sbplus-dev.js": [
 		{
 			"followForSyntaxChecking": 1,
-			"linkedFileAbbreviatedPath": "\/sources\/scripts\/functions.js",
+			"linkedFileAbbreviatedPath": "\/sources\/scripts\/page.js",
 			"position": 0,
-			"type": 1
+			"type": 0
 			},
 		{
 			"followForSyntaxChecking": 1,
-			"linkedFileAbbreviatedPath": "\/sources\/scripts\/sbplusError.js",
+			"linkedFileAbbreviatedPath": "\/sources\/scripts\/quiz.js",
 			"position": 1,
-			"type": 1
+			"type": 0
 			},
 		{
 			"followForSyntaxChecking": 1,
-			"linkedFileAbbreviatedPath": "\/sources\/scripts\/sbplusSplashScreen.js",
+			"linkedFileAbbreviatedPath": "\/sources\/scripts\/menubar.js",
 			"position": 2,
-			"type": 1
-			},
-		{
-			"followForSyntaxChecking": 1,
-			"linkedFileAbbreviatedPath": "\/sources\/scripts\/sbplusDownloadable.js",
-			"position": 3,
-			"type": 1
-			},
-		{
-			"followForSyntaxChecking": 1,
-			"linkedFileAbbreviatedPath": "\/sources\/scripts\/sbplusSlide.js",
-			"position": 4,
-			"type": 1
-			},
-		{
-			"followForSyntaxChecking": 1,
-			"linkedFileAbbreviatedPath": "\/sources\/scripts\/sbplusQuiz.js",
-			"position": 5,
-			"type": 1
-			},
-		{
-			"followForSyntaxChecking": 1,
-			"linkedFileAbbreviatedPath": "\/sources\/scripts\/sbplusControls.js",
-			"position": 6,
-			"type": 1
-			},
-		{
-			"followForSyntaxChecking": 1,
-			"linkedFileAbbreviatedPath": "\/sources\/scripts\/sbplusNotes.js",
-			"position": 7,
-			"type": 1
-			},
-		{
-			"followForSyntaxChecking": 1,
-			"linkedFileAbbreviatedPath": "\/sources\/scripts\/sbplusMenu.js",
-			"position": 8,
-			"type": 1
-			},
-		{
-			"followForSyntaxChecking": 1,
-			"linkedFileAbbreviatedPath": "\/sources\/scripts\/sbplusTableOfContents.js",
-			"position": 9,
-			"type": 1
+			"type": 0
 			}
 		]
 	},
 "projectAttributes": {
 	"creationDate": 499371907,
 	"displayValue": "sbplus_v3",
-	"displayValueWasSetByUser": 0,
+	"displayValueWasSetByUser": 1,
 	"iconImageName": "meme-soon",
-	"lastBuiltDate": 499901986
+	"lastBuiltDate": 505346310
 	},
 "projectSettings": {
 	"abortBuildOnError": 1,
@@ -1243,6 +1188,10 @@
 			"active": 0,
 			"optionString": "{'properties': 'always'}"
 			},
+		"capitalized-comments": {
+			"active": 0,
+			"optionString": "'always', {'ignoreInlineComments': false, 'ignoreConsecutiveComments': false}"
+			},
 		"class-methods-use-this": {
 			"active": 0,
 			"optionString": "{'exceptMethods': []}"
@@ -1407,6 +1356,10 @@
 			"active": 0,
 			"optionString": "{'max': 10}, {'ignoreTopLevelFunctions': true}"
 			},
+		"max-statements-per-line": {
+			"active": 0,
+			"optionString": "{'max': 1}"
+			},
 		"multiline-ternary": {
 			"active": 0,
 			"optionString": "'always'"
@@ -1436,6 +1389,10 @@
 			"optionString": ""
 			},
 		"no-array-constructor": {
+			"active": 0,
+			"optionString": ""
+			},
+		"no-await-in-loop": {
 			"active": 0,
 			"optionString": ""
 			},
@@ -1771,6 +1728,10 @@
 			"active": 0,
 			"optionString": "'except-parens'"
 			},
+		"no-return-await": {
+			"active": 0,
+			"optionString": ""
+			},
 		"no-script-url": {
 			"active": 0,
 			"optionString": ""
@@ -1975,6 +1936,10 @@
 			"active": 0,
 			"optionString": "{'destructuring': 'any', 'ignoreReadBeforeAssign': false}"
 			},
+		"prefer-destructuring": {
+			"active": 0,
+			"optionString": "{'array': true, 'object': true}, {'enforceForRenamedProperties': false}"
+			},
 		"prefer-numeric-literals": {
 			"active": 0,
 			"optionString": ""
@@ -2002,6 +1967,10 @@
 		"radix": {
 			"active": 0,
 			"optionString": "'always'"
+			},
+		"require-await": {
+			"active": 0,
+			"optionString": ""
 			},
 		"require-jsdoc": {
 			"active": 0,
@@ -2112,7 +2081,7 @@
 	"externalServerAddress": "http:\/\/localhost\/",
 	"gitIgnoreBuildFolder": 0,
 	"hideConfigFile": 0,
-	"jsCheckerReservedNamesString": "",
+	"jsCheckerReservedNamesString": "Modernizr,MathJax,kWidget,videojs,ga,makeVideoPlayableInline",
 	"jsHintFlags2": {
 		"asi": {
 			"active": 0,
@@ -2835,6 +2804,10 @@
 			},
 		"space-colon": {
 			"active": 1,
+			"flagValue": -1
+			},
+		"support-ie8": {
+			"active": 0,
 			"flagValue": -1
 			},
 		"toplevel": {

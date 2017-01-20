@@ -1,7 +1,7 @@
-<div class="error">
+<div id="sbplus_error_info">
+    <p class="center_icon"><span class="icon-warning"></span></p>
     <h1>Your web browser is not supported.</h1>
-    <p>It is not capable of delivering the core features of this application.</p>
-    <p><strong>Recommended web browsers</strong>: latest stable version of all modern web browsers (Mozilla Firefox, Google Chrome, Apple Safari, Microsoft Edge, etc.).</p>
+    <p>It is not capable of delivering the core features of this application. Latest stable version of any modern web browsers is recommended.</p>
     <p><strong>Minimum supported web browser versions</strong>:
         <ul>
             <li>Microsoft Internet Explorer 10</li>
