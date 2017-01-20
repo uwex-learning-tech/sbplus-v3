@@ -22,7 +22,7 @@
 		"oF": 0
 		},
 	"\/config.rb": {
-		"ft": 131072,
+		"ft": 8192,
 		"oA": 0,
 		"oAP": "\/config.rb",
 		"oF": 0
@@ -679,6 +679,12 @@
 		"oA": 2,
 		"oAP": "\/build\/sources\/scripts\/templates\/xml_parse_error.tpl",
 		"oF": 2
+		},
+	"\/test\/assets\/sbplus.xml": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/build\/test\/assets\/sbplus.xml",
+		"oF": 0
 		},
 	"\/test\/index.html": {
 		"ft": 8192,
