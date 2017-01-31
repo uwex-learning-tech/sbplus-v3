@@ -312,14 +312,15 @@ body {
                     width: 100%;
                     padding: 0 $gutter;
                     min-height: 0;
-                    font-family: 'MuseoSans-700';
                     color: inherit;
+                    font-size: 28px;
                     background-color: #4c4c4c;
                 }
                 
                 #sbplus_menu_btn.menu_opened {
                     color: #f00;
                     padding-top: 4px;
+                    font-size: 18px;
                 }
                 
             }
@@ -1372,17 +1373,9 @@ body {
             
         }
         
-        .sb_active {
-            color: $default-accent-hover;
-        }
-        
         .sb_disabled {
             color: #7f7f7f;
             cursor: default;
-        }
-        
-        .sb_disabled:hover {
-            color: #7f7f7f;
         }
         
     }

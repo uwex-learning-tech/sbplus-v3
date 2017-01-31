@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'sbplus';
-  src:  url('sbplus.eot?3wv1qg');
-  src:  url('sbplus.eot?3wv1qg#iefix') format('embedded-opentype'),
-    url('sbplus.ttf?3wv1qg') format('truetype'),
-    url('sbplus.woff?3wv1qg') format('woff'),
-    url('sbplus.svg?3wv1qg#sbplus') format('svg');
+  src:  url('sbplus.eot?b4t9v2');
+  src:  url('sbplus.eot?b4t9v2#iefix') format('embedded-opentype'),
+    url('sbplus.ttf?b4t9v2') format('truetype'),
+    url('sbplus.woff?b4t9v2') format('woff'),
+    url('sbplus.svg?b4t9v2#sbplus') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -24,17 +24,26 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-menu:before {
+  content: "\e900";
+}
+.icon-sidebar-close:before {
+  content: "\e90a";
+}
+.icon-sidebar-open:before {
+  content: "\e90b";
+}
+.icon-widget-open:before {
+  content: "\e90c";
+}
+.icon-widget-close:before {
+  content: "\e90d";
+}
 .icon-loading:before {
   content: "\eb20";
 }
 .icon-assessment:before {
   content: "\ec24";
-}
-.icon-table-of-content:before {
-  content: "\ec55";
-}
-.icon-swipe-left-right:before {
-  content: "\ed2f";
 }
 .icon-open:before {
   content: "\ed5c";
@@ -51,14 +60,11 @@
 .icon-profile:before {
   content: "\eb08";
 }
-.icon-widgets:before {
-  content: "\eb5d";
-}
 .icon-settings:before {
   content: "\eb66";
 }
 .icon-download:before {
-  content: "\ec80";
+  content: "\ec73";
 }
 .icon-help:before {
   content: "\ed53";
@@ -74,5 +80,8 @@
 }
 .icon-check:before {
   content: "\ed6c";
+}
+.icon-swipe-left-right:before {
+  content: "\ed2f";
 }
 

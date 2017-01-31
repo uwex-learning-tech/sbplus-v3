@@ -524,7 +524,7 @@ var SBPLUS = SBPLUS || {
                 
                 var hover = this.colorLum( this.xml.settings.accent, 0.2 );
                 var textColor = this.colorContrast( this.xml.settings.accent );
-                var style = '.sbplus_wrapper button:hover{color:' + this.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_cta button{color:' + textColor  + ';background-color:' + this.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_cta button:hover{background-color:' + hover + '}.sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_downloads a{color:' + this.xml.settings.accent + ';border-color:' + this.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_downloads a:hover{color:' + textColor + ';background-color:' + hover + '}.sbplus_wrapper #sbplus #sbplus_banner_bar{color:' + textColor + ';background-color:' + this.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_banner_bar #sbplus_menu_area #sbplus_menu_btn{background-color:' + hover + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper .sbplus_media_content .video-js.vjs-default-skin .vjs-control-bar{background-color:rgba(' + this.hexToRgb( hover ) + ',0.7)}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper .sbplus_media_content .video-js.vjs-default-skin .vjs-menu .vjs-menu-content{background-color:rgba(' + this.hexToRgb( hover ) + ',0.7)}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_widget .widget_controls_bar .tab_segment button{color:' + this.xml.settings.accent + ';border-color:' + this.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_widget .widget_controls_bar .tab_segment .active{color:' + textColor + ';background:' + this.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col .list .item:hover{color:' + textColor + ';background-color:' + hover + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col .list .sb_selected{color:' + textColor + ';background-color:' + this.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col #sbplus_table_of_contents_wrapper .section .current{border-left-color:' + this.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu .menu-item:hover,.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu .menu-item:hover{background-color:' + this.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu .menu-item:hover a,.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu .menu-item:hover a{color:' + textColor + '}.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu .menu-item:focus,.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu .menu-item:focus{background-color:' + this.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu .menu-item:focus a,.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu .menu-item:focus a{color:' + textColor + '}.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent:hover,.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent:hover{color:' + this.xml.settings.accent + '}.sbplus_wrapper #sbplus .sb_active{color:' + this.xml.settings.accent + '}@media only screen and (min-device-width: 737px) and (min-width: 737px){.sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_downloads a:first-child{border-left-color:' + this.xml.settings.accent + '}}';
+                var style = '.sbplus_wrapper button:hover{color:' + this.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_cta button{color:' + textColor  + ';background-color:' + this.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_cta button:hover{background-color:' + hover + '}.sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_downloads a{color:' + this.xml.settings.accent + ';border-color:' + this.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_downloads a:hover{color:' + textColor + ';background-color:' + hover + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col .list .item:hover{color:' + textColor + ';background-color:' + hover + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col .list .sb_selected{color:' + textColor + ';background-color:' + this.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col #sbplus_table_of_contents_wrapper .section .current{border-left-color:' + this.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu .menu-item:hover,.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu .menu-item:hover{background-color:' + this.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu .menu-item:hover a,.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu .menu-item:hover a{color:' + textColor + '}.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu .menu-item:focus,.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu .menu-item:focus{background-color:' + this.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu .menu-item:focus a,.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu .menu-item:focus a{color:' + textColor + '}.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent:hover,.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent:hover{color:' + this.xml.settings.accent + '}.sbplus_wrapper #sbplus .sb_active{color:' + this.xml.settings.accent + '}@media only screen and (min-device-width: 737px) and (min-width: 737px){.sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_downloads a:first-child{border-left-color:' + this.xml.settings.accent + '}}';
                 
                 $( 'head' ).append( '<style type="text/css">' + style + '</style>' );
                 
@@ -811,7 +811,7 @@ var SBPLUS = SBPLUS || {
         var media = $( this.layout.media );
         
         $( this.layout.sidebar ).hide();
-        $( this.button.sidebar ).removeClass( 'sb_active' );
+        $( this.button.sidebar ).html( '<span class="icon-sidebar-open"></span>' );
         
         if ( widget.is( ':visible' ) && widget.outerHeight() <= 190 ) {
             media.removeClass( 'aspect_ratio' ).addClass( 'non_aspect_ratio' );
@@ -829,7 +829,7 @@ var SBPLUS = SBPLUS || {
         var media = $( this.layout.media );
         
         $( this.layout.sidebar ).show();
-        $( this.button.sidebar ).addClass( 'sb_active' );
+        $( this.button.sidebar ).html( '<span class="icon-sidebar-close"></span>' );
         
         if ( widget.is( ':visible' ) && widget.outerHeight() <= 190 ) {
             media.removeClass( 'non_aspect_ratio' ).addClass( 'aspect_ratio' );
@@ -997,7 +997,7 @@ var SBPLUS = SBPLUS || {
         
         $( this.button.menu ).html( '<span class="icon-close"></span>' )
             .addClass( 'menu_opened' );
-        $( this.menu.menuBar ).find( '.title' ).html( 'Menu' );
+        $( this.menu.menuBar ).find( '.title' ).html( '<span class="icon-menu"></span>' );
         
         menuPanel.show().addClass( 'slideInRight' )
             .one( 'webkitAnimationEnd mozAnimationEnd animationend', 
@@ -1200,7 +1200,7 @@ var SBPLUS = SBPLUS || {
         var menuContentWrapper = $( this.menu.menuContentWrapper );
         var menuContent = $( this.menu.menuContent );
         
-        menuBar.addClass( 'full' ).find( '.title' ).html( 'Menu' );
+        menuBar.addClass( 'full' ).find( '.title' ).html( '<span class="icon-menu"></span>' );
         
         menuList.show().addClass( 'fadeInLeft' );
         
@@ -1232,7 +1232,7 @@ var SBPLUS = SBPLUS || {
             menuBar.addClass( 'full' );
             menuBar.find( '.backBtn' ).hide().prop( 'disabled', true );
             
-            $( this.button.menu ).html( 'Menu' ).removeClass( 'menu_opened' );
+            $( this.button.menu ).html( '<span class="icon-menu"></span>' ).removeClass( 'menu_opened' );
             $( this.menu.menuList ).show();
             $( this.menu.menuContent ).empty();
             $( this.menu.menuContentWrapper ).hide();
@@ -1261,7 +1261,7 @@ var SBPLUS = SBPLUS || {
         var media = $( this.layout.media );
         
         $( this.layout.widget ).hide();
-        $( this.button.widget ).removeClass( 'sb_active' );
+        $( this.button.widget ).html( '<span class="icon-widget-open"></span>' );
         
         if ( this.layout.isMobile ) {
             media.addClass( 'aspect_ratio' );
@@ -1280,11 +1280,12 @@ var SBPLUS = SBPLUS || {
         var media = $( this.layout.media );
         
         $( this.layout.widget ).show();
-        $( this.button.widget ).addClass( 'sb_active' );
+        $( this.button.widget ).html( '<span class="icon-widget-close"></span>' );
         media.removeClass( 'non_aspect_ratio' )
                 .addClass( 'aspect_ratio' ).css( 'height', '' );
-        media.removeClass( 'widget_off' ).addClass( 'widget_on' );
         this.resize();
+        
+        media.removeClass( 'widget_off' ).addClass( 'widget_on' );
         
     },
     
