@@ -400,7 +400,6 @@ body {
                             
                             .vjs-control-bar {
                                 z-index: 2;
-                                background-color: rgba( $default-accent, 0.7);
                             }
                             
                             .sbplus-vjs-poster {
@@ -454,8 +453,6 @@ body {
                                 font-family: $default-font-family;
                                 
                                 .vjs-menu-content {
-                                    
-                                    background-color: rgba( $default-accent, 0.7);
                                     
                                     .vjs-menu-item.vjs-selected {
                                         position: relative;
