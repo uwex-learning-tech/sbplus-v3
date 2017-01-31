@@ -242,15 +242,12 @@ body {
                         text-decoration: none;
                         padding: 5px 0;
                         text-align: center;
-                        color: $default-accent-hover;
-                        @include border-radius( $gutter );
-                        border: 1px solid $default-accent-hover;
+                        color: #000;
                         margin-bottom: $gutter;
                     }
                     
                     a:hover {
-                        color: #fff;
-                        background-color: $default-accent-hover;
+                        text-decoration: underline;
                     }
                     
                 }
@@ -314,7 +311,7 @@ body {
                     min-height: 0;
                     color: inherit;
                     font-size: 28px;
-                    background-color: #4c4c4c;
+                    text-align: right;
                 }
                 
                 #sbplus_menu_btn.menu_opened {
@@ -1543,22 +1540,13 @@ body {
                         @include flex-flow(row nowrap);
                         margin: $gutter 0 5px;
                         
-                        a:first-child {
-                            @include border-radius( 5px 0 0 5px);
-                            border-left: 1px solid $default-accent-hover;
-                        }
-                        
                         a {
                             @include flex(1 0 25%);
                             display: block;
                             font-size: 120%;
                             margin-bottom: 0;
                             @include border-radius( 0 );
-                            border-left: none;
-                        }
-                        
-                        a:last-child {
-                            @include border-radius( 0 5px 5px 0);
+                            border: none;
                         }
                         
                     }
@@ -1583,8 +1571,6 @@ body {
                 
                 #sbplus_menu_area {
                     
-                    width: 40px;
-                    
                     #sbplus_author_name {
                         display: block;
                         height: 100%;
@@ -1600,7 +1586,7 @@ body {
                     }
                     
                     #sbplus_menu_btn {
-                        max-width: 70px;
+                        max-width: 20px;
                     }
                     
                 }
