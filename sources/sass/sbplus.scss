@@ -736,7 +736,7 @@ body {
                         margin-top: 10px;
                         margin-left: 10px;
                         padding: 10px 0;
-                        background-color: #4ba14b;
+                        background-color: $default-accent;
                         @include border-radius( 5px );
                         color: #fff;
                         font-weight: bold;
