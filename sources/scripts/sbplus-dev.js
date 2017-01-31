@@ -1402,22 +1402,6 @@ var SBPLUS = SBPLUS || {
         
     },
     
-    showWidgetSegment: function() {
-        if ( this.widget.segments.length >= 2 ) {
-            $( this.widget.bar ).show();
-            $( this.widget.content ).removeClass( 'noBar' );
-        }
-        
-    },
-    
-    hideWidgetSegment: function() {
-        if ( this.widget.segments.length < 2 ) {
-            $( this.widget.bar ).hide();
-            $( this.widget.content ).addClass( 'noBar' );
-        }
-        
-    },
-    
     clearWidgetSegment: function() {
         $( this.widget.segment ).empty();
         $( this.widget.content ).empty();

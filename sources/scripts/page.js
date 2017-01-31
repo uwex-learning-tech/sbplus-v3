@@ -778,12 +778,6 @@ Page.prototype.setWidgets = function() {
             
         }
         
-        if ( segmentCount >= 2 ) {
-            SBPLUS.showWidgetSegment();
-        } else {
-            SBPLUS.hideWidgetSegment();
-        }
-        
         SBPLUS.selectFirstSegment();
         
     }
