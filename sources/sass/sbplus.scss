@@ -758,7 +758,7 @@ body {
                         width: 100%;
                         height: 25px;
                         border-bottom: 1px solid $border-color;
-                        background-color: rgba(#ffffff, 0.95);
+                        background-color: rgba(#f2f2f2, 0.95);
                         z-index: 80;
                         
                         .tab_segment {
@@ -778,12 +778,12 @@ body {
                                 font-size: 12px;
                                 line-height: 1;
                                 border-right: 1px solid $border-color;
+                                color: #333;
                             }
                             
                             .active {
-                                background-color: #f2f2f2;
-                                border-bottom: 2px solid rgba($default-accent, 0.75);
-                                @include single-box-shadow(0, 0, 3px, 0, #ccc, inset);
+                                color: #000;
+                                background-color: #fff;
                             }
                             
                         }
@@ -850,6 +850,11 @@ body {
                     background-position: center center;
                     background-repeat: no-repeat;
                     background-size: 25%;
+                    
+                    .widget_controls_bar {
+                        display: none;
+                    }
+                    
                 }
                 
             }

@@ -723,12 +723,9 @@ Page.prototype.setWidgets = function() {
     
     if ( this.type != 'quiz' ) {
         
-        var segmentCount = 0;
-        
         if ( !SBPLUS.isEmpty( this.notes ) ) {
             
             SBPLUS.addSegment( 'Notes' );
-            segmentCount++;
             
         }
         
@@ -739,7 +736,6 @@ Page.prototype.setWidgets = function() {
                 if ( !SBPLUS.isEmpty( self.transcript ) ) {
                     
                     SBPLUS.addSegment( 'Interactive Transcript' );
-                    segmentCount++;
                     
                 }
                 
@@ -750,7 +746,6 @@ Page.prototype.setWidgets = function() {
                 if ( !SBPLUS.isEmpty( self.captionUrl ) ) {
                     
                     SBPLUS.addSegment( 'Interactive Transcript' );
-                    segmentCount++;
                     
                 }
                 
@@ -771,8 +766,6 @@ Page.prototype.setWidgets = function() {
                 self.widgetSegments[key] = content;
                 
                 SBPLUS.addSegment( name );
-                
-                segmentCount++;
                 
             } );
             

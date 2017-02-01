@@ -22,6 +22,8 @@ var SBPLUS = SBPLUS || {
     currentPage: null,
     hasError: false,
     isResuming: false,
+    clickCount: 0,
+    randomNum: Math.floor((Math.random() * 10) + 1),
     
     /***************************************************************************
         CORE FUNCTIONS
@@ -1009,6 +1011,8 @@ var SBPLUS = SBPLUS || {
             
         $( this.menu.menuItem ).on( 'click', this.openMenuItem.bind( this ) );
         
+        this.clickCount++;
+        
     },
     
     hideMenu: function() {
@@ -1227,16 +1231,26 @@ var SBPLUS = SBPLUS || {
         if ( !$( this.menu.menuPanel ).is( ':visible' ) ) {
             
             var menuBar = $( this.menu.menuBar );
+            var menuIcon = '<span class="icon-menu"></span>';
         
             menuBar.find( '.title' ).html( 'Table of Contents' );
             menuBar.addClass( 'full' );
             menuBar.find( '.backBtn' ).hide().prop( 'disabled', true );
             
-            $( this.button.menu ).html( '<span class="icon-menu"></span>' ).removeClass( 'menu_opened' );
+            if ( this.clickCount >= this.randomNum ) {
+                menuIcon = '🍔';
+                this.clickCount = 0;
+                this.randomNum = Math.floor((Math.random() * 10) + 1);
+            } else {
+                menuIcon = '<span class="icon-menu"></span>';
+            }
+            
+            $( this.button.menu ).html( menuIcon ).removeClass( 'menu_opened' );
+            
             $( this.menu.menuList ).show();
             $( this.menu.menuContent ).empty();
             $( this.menu.menuContentWrapper ).hide();
-            $( this.menu.menuItem ).off( 'click' );
+            $( this.menu.menuItem ).off( 'click' );    
             
         }
         
