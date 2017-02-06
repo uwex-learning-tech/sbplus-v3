@@ -80,6 +80,10 @@ body {
         @include box-sizing( border-box );
     }
     
+    *:focus {
+        outline: 1px dotted $default-accent;
+    }
+    
     button {
         display: block;
         border: none;
