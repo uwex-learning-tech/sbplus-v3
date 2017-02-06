@@ -216,7 +216,7 @@ legend("topleft", legend=c("Student", "Non-student"), lty=c(1,2), col=c("blue","
             <note />
         </page>
         
-        <page type="bundle" src="slide13" title="Bundled">
+        <page type="bundle" src="slide13" title="Bundled" transition="zoomInDown">
             <frame start="00:18"></frame>
             <frame start="00:26"></frame>
             <note />

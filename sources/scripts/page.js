@@ -122,7 +122,7 @@ Page.prototype.getPageMedia = function() {
             $.get( 'assets/pages/' + self.src + '.' + self.imgType, function() {
                 self.hasImage = true;
             } ).fail( function() {
-                self.showPageError( 'NO_IMG' );
+                self.showPageError( 'NO_IMG', this.url );
             } ).always( function() {
                 
                 $.get( 'assets/audio/' + self.src + '.vtt', function( data ) {
@@ -162,7 +162,7 @@ Page.prototype.getPageMedia = function() {
             
             $( img ).on( 'error', function() {
                 self.hasImage = false;
-                self.showPageError( 'NO_IMG' );
+                self.showPageError( 'NO_IMG', img.src );
             } );
             
         break;
@@ -543,7 +543,7 @@ Page.prototype.renderVideoJS = function() {
                         onStart: function() {
                             pageImage.src = 'assets/pages/' + self.src + '-' + ( i + 2 ) + '.' + self.imgType;
                             $( pageImage ).on( 'error', function() {
-                                self.showPageError( 'NO_IMG' );
+                                self.showPageError( 'NO_IMG', pageImage.src );
                             } );
                             player.poster( pageImage.src );
                         }
@@ -925,7 +925,9 @@ Page.prototype.startInteractiveTranscript = function() {
 }
 
 // display page error
-Page.prototype.showPageError = function( type ) {
+Page.prototype.showPageError = function( type, src ) {
+    
+    src = typeof src !== 'undefined' ? src : '';
     
     var self = this;
     
@@ -935,7 +937,7 @@ Page.prototype.showPageError = function( type ) {
                 
         case 'NO_IMG':
         
-            msg = '<p>The image for this Storybook Page could not be loaded. Please try refreshing your browser. Contact support if you continue to have issues.</p>';
+            msg = '<p>The image for this Storybook Page could not be loaded. Please try refreshing your browser. Contact support if you continue to have issues.</p><p><strong>Expected image:</strong> ' + src + '</p>';
 
         break;
         
