@@ -311,11 +311,16 @@ Page.prototype.getPageMedia = function() {
         
     }
     
-    $( self.mediaContent ).addClass( self.transition ).one( 'webkitAnimationEnd mozAnimationEnd animationend', function() {
-             $( this ).removeClass( self.transition );
-             $( this ).off();
-         }
-    );
+    if ( self.type === 'image' || self.type === 'html' ) {
+        
+        $( self.mediaContent ).addClass( self.transition )
+            .one( 'webkitAnimationEnd mozAnimationEnd animationend', function() {
+                $( this ).removeClass( self.transition );
+                $( this ).off();
+            }
+        );
+        
+    }
     
     window.clearTimeout( self.delayStorage );
     
@@ -468,6 +473,7 @@ Page.prototype.renderVideoJS = function() {
         options.techOrder = ["vimeo"];
         options.sources = [{ type: "video/vimeo", src: "https://vimeo.com/" + self.src }];
         options.playbackRates = null;
+        options.controls = false;
     }
     
     self.mediaPlayer = videojs( 'mp', options, function() {
@@ -500,7 +506,9 @@ Page.prototype.renderVideoJS = function() {
                 var pageImage = new Image();
                 
                 player.on( 'loadedmetadata', function() {
+                    
                     srcDuration = Math.floor( player.duration() );
+                    
                 } );
                 
                 player.cuepoints();
@@ -702,6 +710,30 @@ Page.prototype.renderVideoJS = function() {
         }
             
     } );
+    
+    if ( $( '#mp_html5_api' ).length ) {
+        
+        $( '#mp_html5_api' ).addClass( 'animated ' + self.transition )
+            .one( 'webkitAnimationEnd mozAnimationEnd animationend', function() {
+                $( this ).removeClass( 'animated ' +  self.transition );
+                $( this ).off();
+            }
+        );
+        
+    }
+    
+    if ( $( '#mp_Youtube_api' ).length ) {
+        
+        var parent = $( '#mp_Youtube_api' ).parent();
+        
+        parent.addClass( 'animated ' + self.transition )
+            .one( 'webkitAnimationEnd mozAnimationEnd animationend', function() {
+                $( this ).removeClass( 'animated ' +  self.transition );
+                $( this ).off();
+            }
+        );
+        
+    }
     
     // if on small iOS device, allow inline playback
     if ( SBPLUS.isMobileDevice() ) {

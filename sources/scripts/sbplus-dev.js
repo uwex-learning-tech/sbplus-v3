@@ -665,8 +665,6 @@ var SBPLUS = SBPLUS || {
             MathJax.Hub.Queue( ['Typeset', MathJax.Hub] );
         }
         
-        console.log($.isEmptyObject(self.downloads));
-        
         if ( !$.isEmptyObject(self.downloads) ) {
             
             this.layout.dwnldMenu = new MenuBar( $( this.button.download )[0].id, false );
