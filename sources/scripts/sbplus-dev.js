@@ -85,6 +85,7 @@ var SBPLUS = SBPLUS || {
             this.button = {
                 start: '#sbplus_start_btn',
                 resume: '#sbplus_resume_btn',
+                downloadWrapper: '#sbplus_download_btn_wrapper',
                 download: '#sbplus_download_btn',
                 downloadMenu: '#sbplus_download_btn .menu-parent .downloadFiles',
                 widget: '#sbplus_widget_btn',
@@ -658,23 +659,35 @@ var SBPLUS = SBPLUS || {
         $( this.tableOfContents.header ).on( 'click', this.toggleSection.bind( this ) );
         $( this.tableOfContents.page ).on( 'click', this.selectPage.bind( this ) );
         $( this.widget.segment ).on( 'click', 'button', this.selectSegment.bind( this ) );
-        this.layout.dwnldMenu = new MenuBar( $( this.button.download )[0].id, false );
+        
         
         if ( this.xml.settings.mathjax === 'on' ) {
             MathJax.Hub.Queue( ['Typeset', MathJax.Hub] );
         }
         
-        // set download items
-        for ( var key in self.downloads ) {
+        console.log($.isEmptyObject(self.downloads));
+        
+        if ( !$.isEmptyObject(self.downloads) ) {
             
-            if ( !SBPLUS.isEmpty( self.downloads[key] ) ) {
-                $( self.button.downloadMenu ).append(
-                    '<li class="menu-item" tabindex="-1" role="menuitem" aria-live="polite"><a download href="'
-                    + self.downloads[key] +
-                    '">' + self.capitalizeFirstLetter( key ) + '</a></li>'
-                );
+            this.layout.dwnldMenu = new MenuBar( $( this.button.download )[0].id, false );
+            
+            // set download items
+            for ( var key in self.downloads ) {
+                
+                if ( !SBPLUS.isEmpty( self.downloads[key] ) ) {
+                    $( self.button.downloadMenu ).append(
+                        '<li class="menu-item" tabindex="-1" role="menuitem" aria-live="polite"><a download href="'
+                        + self.downloads[key] +
+                        '">' + self.capitalizeFirstLetter( key ) + '</a></li>'
+                    );
+                }
+                
             }
             
+        } else {
+        
+            $( self.button.downloadWrapper ).hide();
+        
         }
         
     },
