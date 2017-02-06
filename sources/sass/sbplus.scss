@@ -21,6 +21,7 @@ $default-font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 $border-color: #ccc;
 $box-height: 586px;
 $widget-height: 146px;
+$museo-font: "museo_sans500";
 
 @mixin calc( $property, $expression ) {
     #{$property}: -moz-calc(#{$expression});
@@ -195,7 +196,7 @@ body {
                 
                 .sb_title {
                     @extend .common;
-                    font-family: 'MuseoSans-700';
+                    font-family: $museo-font;
                     font-size: 140%;
                     font-weight: bold;
                     margin-bottom: 0;
@@ -288,7 +289,7 @@ body {
                 @include flex-flow( row nowrap );
                 @include flex( 2 1 71.11% );
                 @include align-items(center);
-                font-family: 'MuseoSans-700';
+                font-family: $museo-font;
                 padding: 0 $gutter;
                 line-height: 1.25;
             }
@@ -303,7 +304,7 @@ body {
                 #sbplus_author_name {
                     display: none;
                     color: inherit;
-                    font-family: 'MuseoSans-700';
+                    font-family: $museo-font;
                 }
                 
                 #sbplus_menu_btn {

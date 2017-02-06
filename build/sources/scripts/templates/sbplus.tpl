@@ -127,11 +127,11 @@
                 
             </div>
             
-            <button id="sbplus_widget_btn">
+            <button id="sbplus_widget_btn" class="sb_active">
                 <span class="icon-widget-close"></span>
             </button>
             
-            <button id="sbplus_sidebar_btn">
+            <button id="sbplus_sidebar_btn" class="sb_active">
                 <span class="icon-sidebar-close"></span>
             </button>
             

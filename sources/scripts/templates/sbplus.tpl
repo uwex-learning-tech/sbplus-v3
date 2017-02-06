@@ -26,7 +26,7 @@
         <div id="sbplus_lession_title"></div>
         <div id="sbplus_menu_area">
             <button id="sbplus_author_name"></button>
-            <button id="sbplus_menu_btn">Menu</button>
+            <button id="sbplus_menu_btn"><span class="icon-menu"></span></button>
         </div>
     </div>
     
@@ -128,11 +128,11 @@
             </div>
             
             <button id="sbplus_widget_btn" class="sb_active">
-                <span class="icon-widgets"></span>
+                <span class="icon-widget-close"></span>
             </button>
             
             <button id="sbplus_sidebar_btn" class="sb_active">
-                <span class="icon-table-of-content"></span>
+                <span class="icon-sidebar-close"></span>
             </button>
             
         </div>
