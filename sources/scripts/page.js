@@ -48,7 +48,7 @@ var Page = function ( obj ) {
         flavors: {
             low: SBPLUS.manifest.sbplus_kaltura.low,
             normal: SBPLUS.manifest.sbplus_kaltura.normal,
-            high: SBPLUS.manifest.sbplus_kaltura.high
+            medium: SBPLUS.manifest.sbplus_kaltura.medium
         }
     };
     
@@ -381,9 +381,9 @@ Page.prototype.loadKalturaVideoData = function () {
 
                 }
 
-                if ( source.flavorParamsId === self.kaltura.flavors.high ) {
+                if ( source.flavorParamsId === self.kaltura.flavors.medium ) {
 
-                    self.isKaltura.flavors.high = source.src;
+                    self.isKaltura.flavors.medium = source.src;
                     self.isKaltura.status.high = source.status;
 
                 }
@@ -488,7 +488,7 @@ Page.prototype.renderVideoJS = function() {
 			
     			{ src: self.isKaltura.flavors.low, type: "video/mp4", label: "low", res: 360 },
     			{ src: self.isKaltura.flavors.normal, type: "video/mp4", label: "normal", res: 720 },
-    			{ src: self.isKaltura.flavors.high, type: "video/mp4", label: "high", res: 1080 }
+    			{ src: self.isKaltura.flavors.medium, type: "video/mp4", label: "medium", res: 640 }
     			
     		] );
             
@@ -627,6 +627,7 @@ Page.prototype.renderVideoJS = function() {
         && self.isVimeo === false ) {
             
             player.on( 'resolutionchange', function() {
+            		
         		player.playbackRate( Number( SBPLUS.getStorageItem( 'sbplus-playbackrate-temp', true ) ) );
         		
     		} );
@@ -639,12 +640,12 @@ Page.prototype.renderVideoJS = function() {
             } else {
                 
                 player.playbackRate( Number( SBPLUS.getStorageItem( 'sbplus-playbackrate' ) ) );
+                SBPLUS.setStorageItem( 'sbplus-playbackrate-temp', SBPLUS.getStorageItem( 'sbplus-playbackrate' ), true );
                 
             }
             
             player.on( 'ratechange', function() {
         		SBPLUS.setStorageItem( 'sbplus-playbackrate-temp', player.playbackRate(), true );
-        		
     		} );
             
         }

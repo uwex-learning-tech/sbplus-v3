@@ -8,9 +8,9 @@
     "sbplus_default_accent": "#0c3b6b",
     "sbplus_kaltura": {
         "id": 1660872,
-        "high": 487081,
-        "normal": 487071,
-        "low": 487061
+        "normal": 487081,
+        "medium": 487061,
+        "low": 487041
     },
     "sbplus_custom_menu_items": [
         
