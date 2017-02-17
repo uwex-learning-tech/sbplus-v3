@@ -761,7 +761,7 @@
 	"displayValue": "sbplus_v3",
 	"displayValueWasSetByUser": 0,
 	"iconImageName": "meme-soon",
-	"lastBuiltDate": 509060830
+	"lastBuiltDate": 509061185
 	},
 "projectSettings": {
 	"abortBuildOnError": 1,
@@ -2096,7 +2096,7 @@
 		},
 	"esLintSourceType": 0,
 	"externalServerAddress": "http:\/\/localhost\/",
-	"gitIgnoreBuildFolder": 1,
+	"gitIgnoreBuildFolder": 0,
 	"hideConfigFile": 0,
 	"jsCheckerReservedNamesString": "ga,MathJax,MenuBar,Page,Modernizr,kWidget,videojs,makeVideoPlayableInline",
 	"jsHintFlags2": {
