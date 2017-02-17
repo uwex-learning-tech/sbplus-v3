@@ -23,7 +23,7 @@ var SBPLUS = SBPLUS || {
     hasError: false,
     isResuming: false,
     clickCount: 0,
-    randomNum: Math.floor((Math.random() * 10) + 1),
+    randomNum: Math.floor((Math.random() * 6) + 5),
     
     /***************************************************************************
         CORE FUNCTIONS
@@ -1351,8 +1351,6 @@ var SBPLUS = SBPLUS || {
             if ( this.xml.settings.mathjax === 'on' ) {
                 MathJax.Hub.Queue( ['Typeset', MathJax.Hub] );
             }
-            
-            clearInterval(transcriptInterval);
             
         } else {
             
