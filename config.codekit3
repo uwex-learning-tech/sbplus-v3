@@ -57,7 +57,7 @@
 		"ft": 16,
 		"ma": 0,
 		"oA": 2,
-		"oAP": "\/build\/sources\/fonts\/museo-ck.css",
+		"oAP": "\/build\/sources\/fonts\/museo.css",
 		"oF": 3,
 		"oS": 0
 		},
@@ -129,7 +129,7 @@
 		"ft": 16,
 		"ma": 0,
 		"oA": 2,
-		"oAP": "\/build\/sources\/fonts\/sbplus_fonts-ck.css",
+		"oAP": "\/build\/sources\/fonts\/sbplus_fonts.css",
 		"oF": 3,
 		"oS": 0
 		},
@@ -761,7 +761,7 @@
 	"displayValue": "sbplus_v3",
 	"displayValueWasSetByUser": 0,
 	"iconImageName": "meme-soon",
-	"lastBuiltDate": 509060333
+	"lastBuiltDate": 509060830
 	},
 "projectSettings": {
 	"abortBuildOnError": 1,
