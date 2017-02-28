@@ -1854,8 +1854,8 @@ var SBPLUS = SBPLUS || {
         this.deleteStorageItem( 'sbplus-playbackrate-temp', true );
         this.deleteStorageItem( 'sbplus-volume-temp', true );
         this.deleteStorageItem( 'sbplus-subtitle-temp', true );
-        this.deleteStorageItem( 'sbplus-vjs-yt-loaded', true );
-        this.deleteStorageItem( 'sbplus-vjs-vimeo-loaded', true );
+//         this.deleteStorageItem( 'sbplus-vjs-yt-loaded', true );
+//         this.deleteStorageItem( 'sbplus-vjs-vimeo-loaded', true );
         this.deleteStorageItem( 'sbplus-previously-widget-open', true );
         
     },

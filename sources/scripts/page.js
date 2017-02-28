@@ -197,6 +197,7 @@ Page.prototype.getPageMedia = function() {
                     
                 self.isYoutube = true;
                 
+/*
                 if ( SBPLUS.hasStorageItem( 'sbplus-vjs-yt-loaded', true ) === false ) {
                     
                     $.getScript( SBPLUS.manifest.sbplus_root_directory + 'scripts/libs/videojs/plugins/youtube/youtube.js', function() {
@@ -207,10 +208,11 @@ Page.prototype.getPageMedia = function() {
                     } );
                     
                 } else {
+*/
                     
                     self.renderVideoJS();
                     
-                }
+                //}
                 
                 self.setWidgets();
                 
@@ -224,6 +226,7 @@ Page.prototype.getPageMedia = function() {
                     
                 self.isVimeo = true;
                 
+/*
                 if ( SBPLUS.hasStorageItem( 'sbplus-vjs-vimeo-loaded', true ) === false ) {
                     
                     $.getScript( SBPLUS.manifest.sbplus_root_directory + 'scripts/libs/videojs/plugins/vimeo/vimeo.js', function() {
@@ -234,10 +237,11 @@ Page.prototype.getPageMedia = function() {
                     } );
                     
                 } else {
+*/
                     
                     self.renderVideoJS();
                     
-                }
+                //}
                 
                 self.setWidgets();
                 

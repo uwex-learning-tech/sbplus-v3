@@ -471,7 +471,7 @@ THE SOFTWARE. */
       divWrapper.setAttribute('style', 'width:100%; height:100%; overflow:hidden; margin:0 auto;');
       divWrapper.appendChild(this.iframe);
       
-      console.log(this);
+//       console.log(this);
       
       if (!_isOnMobile && !this.options_.ytControls) {
         var divBlocker = document.createElement('div');
