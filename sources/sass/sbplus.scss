@@ -361,12 +361,28 @@ body {
                         height: calc( 100% - 33px );
                         color: #fff;
                         padding: 10px;
-                        z-index: 1;
+                        z-index: 2;
                         
                         p {
                             margin-bottom: 10px;
                         }
                         
+                        ol, ul {
+                            
+                            margin-bottom: 10px;
+                            padding-left: 20px;
+                            list-style-position: inside;
+                            
+                            li {
+                                margin-bottom: 6px;                                
+                            }
+                            
+                        }
+                        
+                        a {
+                            color: #50dcff;
+                        }
+
                     }
                     
                     .sbplus_media_content {

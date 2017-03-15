@@ -566,7 +566,7 @@ Page.prototype.renderVideoJS = function() {
           
         });
         
-        player.on('ended', function() {
+        player.on( 'ended', function() {
             
           self.isPlaying = false;
           
@@ -593,6 +593,12 @@ Page.prototype.renderVideoJS = function() {
                 self.startInteractiveTranscript();
               }
           }
+          
+        });
+        
+        player.on( 'error', function() {
+            
+          self.showPageError( 'NO_MEDIA', player.src() );
           
         });
         
@@ -912,7 +918,7 @@ Page.prototype.showPageError = function( type, src ) {
                 
         case 'NO_IMG':
         
-            msg = '<p>The image for this Storybook Page could not be loaded. Please try refreshing your browser. Contact support if you continue to have issues.</p><p><strong>Expected image:</strong> ' + src + '</p>';
+            msg = '<p><strong>The content for this Storybook Page could not be loaded.</strong></p><p><strong>Expected image:</strong> ' + src + '</p><p>Please try refreshing your browser, or coming back later.</p><p>If this problem continues, please <a href="javascript:void(0);" onclick="SBPLUS.openMenuItem(\'sbplus_help\');">contact tech support</a>.</p>';
 
         break;
         
@@ -930,6 +936,10 @@ Page.prototype.showPageError = function( type, src ) {
             
             msg += getEntryKalturaStatus( self.isKaltura.status.entry ) + '</p>';
             
+        break;
+        
+        case 'NO_MEDIA':
+            msg = '<p><strong>The content for this Storybook Page could not be loaded.</strong></p><p><strong>Expected media:</strong> ' + src + '</p><p>Please try refreshing your browser, or coming back later.</p><p>If this problem continues, please <a href="javascript:void(0);" onclick="SBPLUS.openMenuItem(\'sbplus_help\');">contact tech support</a>.</p>';
         break;
         
     }
