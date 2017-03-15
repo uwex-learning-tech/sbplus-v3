@@ -1139,6 +1139,9 @@ body {
             align-items: center;
             -webkit-justify-content: center;
             justify-content: center; }
+        .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .active,
+        .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .active {
+          color: #06498d; }
     .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_sidebar_btn {
       display: block; } }
 

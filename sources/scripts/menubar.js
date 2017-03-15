@@ -186,6 +186,8 @@ MenuBar.prototype.handleClick = function( $item ) {
                 'aria-expanded': 'false'
             } );
             
+            $menu.parent().removeClass( 'active' );
+            
         } else {
             
             $item.attr( 'aria-expanded', 'true' );
@@ -194,6 +196,8 @@ MenuBar.prototype.handleClick = function( $item ) {
                 'aria-hidden': 'false',
                 'aria-expanded': 'true'
             } );
+            
+            $menu.parent().addClass( 'active' );
             
         }
         
@@ -1015,7 +1019,7 @@ MenuBar.prototype.handleDocumentClick = function() {
         'aria-expanded': 'false'
     } );
     
-    this.$allItems.removeClass( 'menu-focus' );
+    this.$allItems.removeClass( 'menu-focus, active' );
     
     this.$activeItem = null;
     
