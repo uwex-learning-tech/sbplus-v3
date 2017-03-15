@@ -65,8 +65,10 @@ MenuBar.prototype.bindHandlers = function() {
 */
     
     // click handler for all items
-    this.$allItems.on( 'click', function() {
-        return thisObj.handleClick( $(this) );
+    this.$allItems.on( 'click', function(e) {
+        thisObj.handleClick( $(this) );
+        e.stopPropagation();
+        
     } );
     
     /* KEY EVENTS */
@@ -167,7 +169,7 @@ MenuBar.prototype.handleMouseLeave = function( $menu ) {
 // process click events for the top menus
 
 MenuBar.prototype.handleClick = function( $item ) {
-
+    
     var $parentUL = $item.parent();
     
     if ( $parentUL.is('.root-level') ) {
@@ -210,7 +212,6 @@ MenuBar.prototype.handleClick = function( $item ) {
     
     }
     
-    //e.stopPropagation();
     //return false;
 
 };
@@ -1006,15 +1007,13 @@ MenuBar.prototype.handleKeypress = function( $item, e ) {
 MenuBar.prototype.handleDocumentClick = function() {
     
     // get the list of all child menus
-    //var $childMenus = this.$id.find( 'ul' ).not( '.root-level' );
+    var $childMenus = this.$id.find( 'ul' ).not( '.root-level' );
     
     // hide the child menus
-/*
     $childMenus.attr( {
         'aria-hidden': 'true',
         'aria-expanded': 'false'
     } );
-*/
     
     this.$allItems.removeClass( 'menu-focus' );
     
