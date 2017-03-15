@@ -548,7 +548,7 @@ Page.prototype.renderVideoJS = function() {
         // add caption
         if ( self.captionUrl ) {
     		player.addRemoteTextTrack( {
-        		kind: 'subtitles',
+        		kind: 'captions',
         		language: 'en',
         		label: 'English',
         		src: self.captionUrl
