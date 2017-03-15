@@ -1298,6 +1298,8 @@ var SBPLUS = SBPLUS || {
         
         media.removeClass( 'widget_on' ).addClass( 'widget_off' );
         
+        this.showWidgetContentIndicator();
+        
     },
     
     showWidget: function() {
@@ -1311,6 +1313,8 @@ var SBPLUS = SBPLUS || {
         this.resize();
         
         media.removeClass( 'widget_off' ).addClass( 'widget_on' );
+        
+        this.hideWidgetContentIndicator()
         
     },
     
@@ -1327,14 +1331,41 @@ var SBPLUS = SBPLUS || {
         $( this.widget.content ).empty();
     },
     
+    hasWidgetContent: function() {
+        
+        return $( this.widget.segment ).find( 'button' ).length;
+        
+    },
+    
+    showWidgetContentIndicator: function () {
+        
+        if ( this.hasWidgetContent() ) {
+            
+            if ( !$( this.layout.widget ).is( ':visible' ) ) {
+                
+                $( this.button.widget ).addClass( 'showDot' );
+                
+            }
+            
+        }
+        
+    },
+    
+    hideWidgetContentIndicator: function () {
+        
+        $( this.button.widget ).removeClass( 'showDot' );
+        
+    },
+    
     selectSegment: function( e ) {
         
         var self = this;
         var button = $( this.widget.segment ).find( 'button' );
         
-        if ( button.length > 0 ) {
+        if ( self.hasWidgetContent() ) {
             
-            $( this.layout.widget ).removeClass('noSegments');
+            self.showWidgetContentIndicator();
+            $( self.layout.widget ).removeClass('noSegments');
             
             var target = '';
             var targetId = '';
@@ -1358,6 +1389,8 @@ var SBPLUS = SBPLUS || {
             }
             
         } else {
+            
+            this.hideWidgetContentIndicator();
             
             $( this.layout.widget ).addClass('noSegments');
             

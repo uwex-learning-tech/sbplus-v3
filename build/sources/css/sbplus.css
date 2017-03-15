@@ -924,10 +924,35 @@ body {
         .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper ul[aria-hidden="true"] {
           display: none; }
       .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_widget_btn {
+        position: relative;
         border-left: 1px solid #ccc;
         border-right: 1px solid #ccc;
         font-size: 145%;
         line-height: 1; }
+      .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_widget_btn.showDot::before {
+        position: absolute;
+        content: '';
+        /* circle */
+        /*
+                            top: 20%;
+                            left: 37%;
+                            width: 10px; 
+                            height: 10px;
+                            @include border-radius(5px);
+                            background-color: #ff5d5d;
+        */
+        /* triangle */
+        top: 0;
+        left: -5px;
+        width: 0;
+        height: 0;
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
+        border-bottom: 10px solid #ff5d5d;
+        -moz-transform: rotate(-45deg);
+        -ms-transform: rotate(-45deg);
+        -webkit-transform: rotate(-45deg);
+        transform: rotate(-45deg); }
       .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_sidebar_btn {
         display: none;
         font-size: 145%;
@@ -935,6 +960,8 @@ body {
   .sbplus_wrapper #sbplus .sb_disabled {
     color: #7f7f7f;
     cursor: default; }
+  .sbplus_wrapper #sbplus .sb_disabled::before {
+    display: none; }
 
 .sbplus_full,
 .sbplus_boxed {
