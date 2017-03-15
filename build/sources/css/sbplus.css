@@ -512,8 +512,7 @@ body {
           background-color: rgba(242, 242, 242, 0.95);
           -webkit-backdrop-filter: blur(8px);
           backdrop-filter: blur(8px);
-          z-index: 80;
-          overflow: hidden; }
+          z-index: 80; }
           .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_widget .widget_controls_bar .tab_segment {
             display: -webkit-flex;
             display: flex;
@@ -534,10 +533,20 @@ body {
               border-right: 1px solid #ccc;
               color: #333; }
             .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_widget .widget_controls_bar .tab_segment .active {
+              position: relative;
               color: #000;
               background-color: #fff; }
+            .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_widget .widget_controls_bar .tab_segment .active::after {
+              position: absolute;
+              width: 100%;
+              height: 1px;
+              left: 0;
+              bottom: -1px;
+              background-color: #fff;
+              content: '';
+              z-index: 1; }
         .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_widget .segment_content {
-          padding: 25px 10px 0;
+          padding: 30px 10px 0;
           width: 100%;
           height: 100%;
           overflow-y: auto;

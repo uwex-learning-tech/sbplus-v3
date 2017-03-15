@@ -798,7 +798,6 @@ body {
                         -webkit-backdrop-filter: blur( 8px );
                         backdrop-filter: blur( 8px );
                         z-index: 80;
-                        overflow: hidden;
                         
                         .tab_segment {
                         
@@ -821,8 +820,20 @@ body {
                             }
                             
                             .active {
+                                position: relative;
                                 color: #000;
                                 background-color: #fff;
+                            }
+                            
+                            .active::after {
+                                position: absolute;
+                                width: 100%;
+                                height: 1px;
+                                left: 0;
+                                bottom: -1px;
+                                background-color: #fff;
+                                content: '';
+                                z-index: 1;
                             }
                             
                         }
@@ -831,7 +842,7 @@ body {
                     
                     .segment_content {
                         
-                        padding: 25px 10px 0;
+                        padding: 30px 10px 0;
                         width: 100%;
                         height: 100%;
                         overflow-y: auto;
