@@ -26,7 +26,7 @@
         <div id="sbplus_lession_title"></div>
         <div id="sbplus_menu_area">
             <button id="sbplus_author_name"></button>
-            <button id="sbplus_menu_btn"><span class="icon-menu"></span></button>
+            <button id="sbplus_menu_btn" title="Menu"><span class="icon-menu"></span></button>
         </div>
     </div>
     
@@ -95,11 +95,11 @@
         
         <div id="sbplus_left_controls">
             
-            <button id="sbplus_previous_btn">
+            <button id="sbplus_previous_btn" title="Previous">
                 <span class="icon-left"></span>
             </button>
             
-            <button id="sbplus_next_btn">
+            <button id="sbplus_next_btn" title="Next">
                 <span class="icon-right"></span>
             </button>
             
@@ -116,7 +116,7 @@
             
             <div id="sbplus_download_btn_wrapper">
                 
-                <ul id="sbplus_download_btn" class="root-level" role="menubar">
+                <ul id="sbplus_download_btn" class="root-level" role="menubar" title="Downloads">
                     
                     <li class="menu-parent" role="menuitem" aria-label="Downloads Menu" tabindex="1" aria-haspopup="true" aria-expanded="false">
                         <span class="icon-download"></span>
@@ -127,11 +127,11 @@
                 
             </div>
             
-            <button id="sbplus_widget_btn" class="sb_active">
+            <button id="sbplus_widget_btn" class="sb_active" title="Widget">
                 <span class="icon-widget-close"></span>
             </button>
             
-            <button id="sbplus_sidebar_btn" class="sb_active">
+            <button id="sbplus_sidebar_btn" class="sb_active" title="Table of Contents">
                 <span class="icon-sidebar-close"></span>
             </button>
             
