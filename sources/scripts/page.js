@@ -82,10 +82,12 @@ Page.prototype.getPageMedia = function() {
             
         }
         
-        SBPLUS.enableWidget();
         SBPLUS.deleteStorageItem( 'sbplus-previously-widget-open', true );
         
     }
+    
+    SBPLUS.clearWidget();
+    SBPLUS.enableWidget();
     
     clearInterval( transcriptInterval );
     // end reset
@@ -197,23 +199,7 @@ Page.prototype.getPageMedia = function() {
                     
                 self.isYoutube = true;
                 
-/*
-                if ( SBPLUS.hasStorageItem( 'sbplus-vjs-yt-loaded', true ) === false ) {
-                    
-                    $.getScript( SBPLUS.manifest.sbplus_root_directory + 'scripts/libs/videojs/plugins/youtube/youtube.js', function() {
-                    
-                        self.renderVideoJS();
-                        SBPLUS.setStorageItem( 'sbplus-vjs-yt-loaded', 1, true );
-                        
-                    } );
-                    
-                } else {
-*/
-                    
-                    self.renderVideoJS();
-                    
-                //}
-                
+                self.renderVideoJS();
                 self.setWidgets();
                 
             } );
@@ -226,23 +212,7 @@ Page.prototype.getPageMedia = function() {
                     
                 self.isVimeo = true;
                 
-/*
-                if ( SBPLUS.hasStorageItem( 'sbplus-vjs-vimeo-loaded', true ) === false ) {
-                    
-                    $.getScript( SBPLUS.manifest.sbplus_root_directory + 'scripts/libs/videojs/plugins/vimeo/vimeo.js', function() {
-                    
-                        self.renderVideoJS();
-                        SBPLUS.setStorageItem( 'sbplus-vjs-vimeo-loaded', 1, true );
-                        
-                    } );
-                    
-                } else {
-*/
-                    
-                    self.renderVideoJS();
-                    
-                //}
-                
+                self.renderVideoJS();
                 self.setWidgets();
                 
             } );

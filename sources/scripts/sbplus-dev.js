@@ -1322,6 +1322,11 @@ var SBPLUS = SBPLUS || {
         $( this.button.widget ).prop( 'disabled', false ).removeClass( 'sb_disabled' );
     },
     
+    clearWidget: function() {
+        $( this.widget.segment ).empty();
+        $( this.widget.content ).empty();
+    },
+    
     selectSegment: function( e ) {
         
         var self = this;

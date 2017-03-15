@@ -96,11 +96,11 @@ body {
     -webkit-justify-content: center;
     justify-content: center; }
     .sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info {
-      min-width: 33%;
-      max-width: 50%;
+      min-width: 45%;
+      max-width: 55%;
       padding: 5px 10px;
       padding: rem(18px) rem(30px) rem(20px);
-      background-color: rgba(255, 255, 255, 0.6);
+      background-color: rgba(255, 255, 255, 0.65);
       -moz-border-radius: 5px;
       -webkit-border-radius: 5px;
       border-radius: 5px;
@@ -510,7 +510,10 @@ body {
           height: 25px;
           border-bottom: 1px solid #ccc;
           background-color: rgba(242, 242, 242, 0.95);
-          z-index: 80; }
+          -webkit-backdrop-filter: blur(8px);
+          backdrop-filter: blur(8px);
+          z-index: 80;
+          overflow: hidden; }
           .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_widget .widget_controls_bar .tab_segment {
             display: -webkit-flex;
             display: flex;
