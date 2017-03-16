@@ -344,14 +344,14 @@ body {
                             
                                 position: absolute;
                                 width: 260px;
-                                right: -9px;
+                                right: 0;
                                 top: 30px;
                                 list-style: none;
                                 margin: 0;
                                 padding: 0;
                                 border-top: none;
                                 background-color: #444;
-                                @include box-shadow( 0 6px 6px 2px #fff);
+                                @include box-shadow( 0 6px 4px 2px #fff);
                                 z-index: 9;
                                 
                                 .menu-item {
@@ -400,6 +400,10 @@ body {
                                                                     
                             }
                             
+                        }
+                        
+                        .active {
+                            color: #ff3c3c;
                         }
                         
                     }
