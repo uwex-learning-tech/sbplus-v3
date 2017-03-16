@@ -168,6 +168,7 @@ body {
         
         @include display-flex();
         @include flex-flow( column nowrap );
+        position: relative;
         
         #sbplus_splash_screen {
             
@@ -308,23 +309,105 @@ body {
                 
                 #sbplus_author_name {
                     display: none;
+                    @include flex( 2 0 85% );
                     color: inherit;
                     font-family: $museo-font;
                 }
                 
-                #sbplus_menu_btn {
-                    width: 100%;
-                    padding: 0 $gutter;
-                    min-height: 0;
-                    color: inherit;
-                    font-size: 28px;
-                    text-align: right;
-                }
-                
-                #sbplus_menu_btn.menu_opened {
-                    color: #f00;
-                    padding-top: 4px;
-                    font-size: 18px;
+                #sbplus_menu_btn_wrapper {
+                    
+                    @include flex( 1 0 15% );
+                    margin: 0;
+                    padding: 0;
+                    
+                    #sbplus_menu_btn,
+                    .root-level {
+                        
+                        min-width: 30px;
+                        margin: 0;
+                        padding: 0;
+                        color: inherit;
+                        font-size: 28px;
+                        list-style: none;
+                        height: 100%;
+                        line-height: 1;
+                    
+                        .menu-parent {
+                            
+                            @include display-flex();
+                            @include align-items( center );
+                            position: relative;
+                            height: 100%;
+                            cursor: pointer;
+                            
+                            .menu {
+                            
+                                position: absolute;
+                                width: 260px;
+                                right: -9px;
+                                top: 30px;
+                                list-style: none;
+                                margin: 0;
+                                padding: 0;
+                                border-top: none;
+                                background-color: #444;
+                                @include box-shadow( 0 6px 6px 2px #fff);
+                                z-index: 9;
+                                
+                                .menu-item {
+                                    
+                                    a { 
+                                        
+                                        @include display-flex();
+                                        @include flex-flow( row nowrap );
+                                        @include align-items( center );
+                                        width: 100%;
+                                        min-height: 35px;
+                                        padding: 0 ($gutter + 5);
+                                        font-size: 14px;
+                                        font-weight: normal;
+                                        color: #fff;
+                                        text-decoration: none;
+                                        
+                                        span {
+                                            display: inline-block;
+                                            margin-right: 5px;
+                                        }
+                                        
+                                    }
+                                    
+                                }
+                                
+                                .menu-item:hover {
+                                    
+                                    background-color: $default-accent-hover;
+                                    
+                                    a {
+                                        color: #fff;
+                                    }
+                                    
+                                }
+                                
+                                .menu-item:focus {
+                                    
+                                    background-color: $default-accent;
+                                    
+                                    a {
+                                        color: #fff;
+                                    }
+                                    
+                                }
+                                                                    
+                            }
+                            
+                        }
+                        
+                    }
+                    
+                    ul[aria-hidden="true"] {
+                        display: none;
+                    }
+                    
                 }
                 
             }
@@ -1122,148 +1205,6 @@ body {
                     
                 }
                 
-                #sbplus_menu_items_wrapper {
-                    
-                    display: none;
-                    position: absolute;
-                    top: 30px;
-                    width: 100%;
-                    height: calc(100% - 30px);
-                    background-color: #fff;
-                    @include animation-duration( 0.25s );
-                    
-                    .list {
-                        
-                        [class^="icon-"], [class*=" icon-"] {
-                            display: inline-block;
-                            margin-right: 8px;
-                            font-size: 130%;
-                        }
-                        
-                    }
-                    
-                    #menu_item_content {
-                        
-                        display: none;
-                        height: 100%;
-                        overflow-y: auto;
-                        @include animation-delay( 0.3s );
-                        @include animation-duration( 0.5s );
-                        
-                        .profileImg {
-                            
-                            display: block;
-                            margin: 0;
-                            width: 100%;
-                            height: auto;
-                            min-height: 259px;
-                            background-color: #ccc;
-                            background-image: url('../images/default_photo.png');
-                            background-size: contain;
-                            background-repeat: no-repeat;
-                            background-position: center center;
-                            
-                            img {
-                                display: block;
-                                margin: 0 auto;
-                                max-width: 500px;
-                                width: 100%;
-                                height: auto;
-                            }
-                            
-                        }
-                        
-                        .content {
-                            
-                            padding: 0 $gutter;
-                            
-                            ol, ul, div, h1, h2,
-                            h3, h4, h5, h6, p, blockquote {
-                                margin: $gutter 0;
-                            }
-                            
-                            .name {
-                                font-weight: bold;
-                                font-size: 120%
-                            }
-                            
-                        }
-                        
-                        .settings {
-                            
-                            .name {
-                                margin-bottom: 0;
-                            }
-                            
-                            .grid {
-                                
-                                @include display-flex();
-                                @include flex-flow( column nowrap );
-                                margin: 0;
-                                
-                                .row {
-                                    
-                                     @include display-flex();
-                                     @include flex-flow( row nowrap );
-                                     @include align-items(center);
-                                     margin: 0;
-                                     padding: 5px 0;
-                                     
-                                     .label {
-                                         @include flex( 2 0 80% );
-                                         margin: 0;
-                                         padding: 0 8px;
-                                         
-                                         .error {
-                                             @include flex( 1 0 20% );
-                                             color: #f00;
-                                             margin: 0;
-                                             font-size: 12px;
-                                         }
-                                         
-                                     }
-                                     
-                                     .control {
-                                         
-                                         @include flex( 1 0 20% );
-                                         margin: 0;
-                                         padding: 0 5px;
-                                         
-                                         select,
-                                         input[type=number] {
-                                             width: 100%;
-                                             padding: 3px 2px;
-                                         }
-                                         
-                                     }
-                                    
-                                }
-                                
-                                .row:nth-child(even) {
-                                     background-color: #f2f2f2;
-                                }
-                                
-                            }
-                            
-                            #save_settings {
-                                margin: 16px 0;
-                                color: #fff;
-                                background-color: $default-accent;
-                                padding: 10px 0;
-                                font-size: 16px;
-                            }
-                            
-                            #save_settings:disabled {
-                                @include opacity( 0.55 );
-                                cursor: default;
-                            }
-                            
-                        }
-                        
-                    }
-                    
-                }
-                
             }
             
         }
@@ -1448,6 +1389,157 @@ body {
                     display: none;
                     font-size: 145%;
                     line-height: 1;
+                }
+                
+            }
+            
+        }
+        
+        #menu_item_content {
+            
+            display: none;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            overflow-x: hidden;
+            overflow-y: auto;
+            @include animation-delay( 0.3s );
+            @include animation-duration( 0.5s );
+            background: #f2f2f2;
+            z-index: 10;
+            
+            #sbplus_menu_close_btn {
+                position: absolute;
+                width: 100px;
+                height: 30px;
+                max-height: 0;
+                min-height: 30px;
+                padding: 0 10px;
+                top: 17px;
+                right: 17px;
+                color: $default-accent;
+                border: 1px solid $default-accent;
+                text-transform: uppercase;
+                @include border-radius( 15px );
+            }
+            
+            #sbplus_menu_close_btn:hover {
+                color: #fff;
+                background-color: $default-accent-hover;
+            }
+            
+            .content {
+                
+                padding: $gutter ($gutter * 2);
+                
+                ol, ul, div, h1, h2,
+                h3, h4, h5, h6, p, blockquote {
+                    margin: $gutter 0;
+                }
+                
+                .name {
+                    font-weight: bold;
+                    font-size: 150%
+                }
+                
+                .menuTitle {
+                    font-size: 200%;
+                    font-weight: bold;
+                    margin: 0 0 $gutter 0;
+                }
+                
+                .profileImg {
+                    
+                    display: inline-block;
+                    min-width: 250px;
+                    margin: 0;
+                    height: auto;
+                    min-height: 259px;
+                    background-image: url('../images/default_photo.png');
+                    background-size: contain;
+                    background-repeat: no-repeat;
+                    background-position: center left;
+                    margin-right: $gutter * 1.5;
+                    float: left;
+                    
+                    img {
+                        width: 250px;
+                        height: auto;
+                    }
+                    
+                }
+                
+            }
+            
+            .settings {
+                
+                .name {
+                    margin-bottom: 0;
+                }
+                
+                .grid {
+                    
+                    @include display-flex();
+                    @include flex-flow( column nowrap );
+                    margin: 0;
+                    
+                    .row {
+                        
+                         @include display-flex();
+                         @include flex-flow( row nowrap );
+                         @include align-items(center);
+                         margin: 0;
+                         padding: 5px 0;
+                         
+                         .label {
+                             @include flex( 2 0 80% );
+                             margin: 0;
+                             padding: 0 8px;
+                             
+                             .error {
+                                 @include flex( 1 0 20% );
+                                 color: #f00;
+                                 margin: 0;
+                                 font-size: 12px;
+                             }
+                             
+                         }
+                         
+                         .control {
+                             
+                             @include flex( 1 0 20% );
+                             margin: 0;
+                             padding: 0 5px;
+                             
+                             select,
+                             input[type=number] {
+                                 width: 100%;
+                                 padding: 3px 2px;
+                             }
+                             
+                         }
+                        
+                    }
+                    
+                    .row:nth-child(even) {
+                         background-color: #f2f2f2;
+                    }
+                    
+                }
+                
+                #save_settings {
+                    margin: 16px 0;
+                    color: #fff;
+                    background-color: $default-accent;
+                    padding: 10px 0;
+                    font-size: 16px;
+                }
+                
+                #save_settings:disabled {
+                    @include opacity( 0.55 );
+                    cursor: default;
                 }
                 
             }
@@ -1671,10 +1763,6 @@ body {
                         text-overflow: ellipsis;
                         overflow: hidden;
                         background-color: transparent;
-                    }
-                    
-                    #sbplus_menu_btn {
-                        max-width: 20px;
                     }
                     
                 }

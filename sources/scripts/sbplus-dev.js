@@ -50,7 +50,8 @@ var SBPLUS = SBPLUS || {
                 sidebar: '#sbplus_right_col',
                 pageStatus: '#sbplus_page_status',
                 quizContainer: '#sbplus_quiz_wrapper',
-                dwnldMenu: null
+                dwnldMenu: null,
+                mainMenu: null
             };
             
             this.banner = {
@@ -92,15 +93,13 @@ var SBPLUS = SBPLUS || {
                 sidebar: '#sbplus_sidebar_btn',
                 author: '#sbplus_author_name',
                 menu: '#sbplus_menu_btn',
+                menuClose: '#sbplus_menu_close_btn',
                 next: '#sbplus_next_btn',
                 prev: '#sbplus_previous_btn'
             };
             
             this.menu = {
-                menuPanel: '#sbplus_menu_items_wrapper',
-                menuBar: '#sbplus_sub_bar',
-                menuList: '#sbplus_menu_items_wrapper .list',
-                menuItem: '#sbplus_menu_items_wrapper .menu.item',
+                menuList: '#sbplus_menu_btn_wrapper .menu',
                 menuContentWrapper: '#menu_item_content',
                 menuContent: '#menu_item_content .content'
             };
@@ -477,9 +476,15 @@ var SBPLUS = SBPLUS || {
             $( this.button.start ).on( 'click', this.startPresentation.bind( this ) );
             
             if ( this.hasStorageItem( 'sbplus-' + this.sanitize( this.xml.setup.title ) ) ) {
+                
                 $( this.button.resume ).on( 'click', this.resumePresentation.bind( this ) );
+                
             } else {
-                $( this.button.resume ).hide();
+                
+                $( this.button.resume ).hide( 0, function() {
+                    $( this ).attr( 'tabindex', '-1' );
+                } );
+                
             }
             
             // set download items
@@ -495,7 +500,7 @@ var SBPLUS = SBPLUS || {
             } ).done( function() {
                 self.downloads.transcript = this.url;
                 $( self.splash.downloadBar ).append(
-                    '<a href="' + self.downloads.transcript + '" download><span class="icon-download"></span> Transcript</a>' );
+                    '<a href="' + self.downloads.transcript + '" tabindex="1" download><span class="icon-download"></span> Transcript</a>' );
             } );
             
             $.ajax( {
@@ -504,7 +509,7 @@ var SBPLUS = SBPLUS || {
             } ).done( function() {
                 self.downloads.video = this.url;
                 $( self.splash.downloadBar ).append(
-                    '<a href="' + self.downloads.video + '" download><span class="icon-download"></span> Video</a>' );
+                    '<a href="' + self.downloads.video + '" tabindex="1" download><span class="icon-download"></span> Video</a>' );
             } );
             
             $.ajax( {
@@ -513,7 +518,7 @@ var SBPLUS = SBPLUS || {
             } ).done( function() {
                 self.downloads.audio = this.url;
                 $( self.splash.downloadBar ).append(
-                    '<a href="' + self.downloads.audio + '" download><span class="icon-download"></span> Audio</a>' );
+                    '<a href="' + self.downloads.audio + '" tabindex="1" download><span class="icon-download"></span> Audio</a>' );
             } );
             
             $.ajax( {
@@ -522,7 +527,7 @@ var SBPLUS = SBPLUS || {
             } ).done( function() {
                 self.downloads.supplement = this.url;
                 $( self.splash.downloadBar ).append(
-                    '<a href="' + self.downloads.supplement + '" download><span class="icon-download"></span> Supplement</a>' );
+                    '<a href="' + self.downloads.supplement + '" tabindex="1" download><span class="icon-download"></span> Supplement</a>' );
             } );
             
             // accent
@@ -652,7 +657,6 @@ var SBPLUS = SBPLUS || {
         // event listeners
         $( this.button.sidebar ).on( 'click', this.toggleSidebar.bind( this ) );
         $( this.button.widget ).on( 'click',  this.toggleWidget.bind( this ) );
-        $( this.button.menu ).on( 'click', this.toggleMenu.bind( this ) );
         $( this.button.author ).on( 'click', function() {
             self.openMenuItem( 'sbplus_author_profile' );
         } );
@@ -663,11 +667,10 @@ var SBPLUS = SBPLUS || {
         $( this.tableOfContents.page ).on( 'click', this.selectPage.bind( this ) );
         $( this.widget.segment ).on( 'click', 'button', this.selectSegment.bind( this ) );
         
+        // add main menu button
+        this.layout.mainMenu = new MenuBar( $( this.button.menu )[0].id, false );
         
-        if ( this.xml.settings.mathjax === 'on' ) {
-            MathJax.Hub.Queue( ['Typeset', MathJax.Hub] );
-        }
-        
+        // add download button
         if ( !$.isEmptyObject(self.downloads) ) {
             
             this.layout.dwnldMenu = new MenuBar( $( this.button.download )[0].id, false );
@@ -690,6 +693,14 @@ var SBPLUS = SBPLUS || {
             $( self.button.downloadWrapper ).hide();
         
         }
+        
+        // queue MathJAX if on
+        if ( this.xml.settings.mathjax === 'on' ) {
+            MathJax.Hub.Queue( ['Typeset', MathJax.Hub] );
+        }
+        
+        // easter egg
+        $( "#sbplus_menu_btn .menu-parent" ).on( 'click', this.burgerBurger.bind( this ) );
         
     },
     
@@ -834,8 +845,6 @@ var SBPLUS = SBPLUS || {
         }
         
         media.removeClass( 'sidebar_on' ).addClass( 'sidebar_off' );
-        
-        this.resetMenu();
         
     },
     
@@ -992,122 +1001,21 @@ var SBPLUS = SBPLUS || {
     /**************************************************************************
         MENU FUNCTIONS
     **************************************************************************/
-    
-    toggleMenu: function() {
         
-        if ( $( this.menu.menuPanel ).is( ':visible' ) ) {
-            this.hideMenu();
-        } else {
-            this.showMenu();
-        }
-        
-    },
-    
-    showMenu: function() {
-        
-        if ( !$( this.layout.sidebar ).is( ':visible' ) ) {
-           this.showSidebar();
-        }
-        
-        var menuPanel = $( this.menu.menuPanel );
-        
-        $( this.button.menu ).html( '<span class="icon-close"></span>' )
-            .addClass( 'menu_opened' );
-        $( this.menu.menuBar ).find( '.title' ).html( 'Menu' );
-        
-        menuPanel.show().addClass( 'slideInRight' )
-            .one( 'webkitAnimationEnd mozAnimationEnd animationend', 
-                 function() {
-                     $( this ).removeClass( 'slideInRight' );
-                     $( this ).off();
-                 }
-            );
-            
-        $( this.menu.menuItem ).on( 'click', this.openMenuItem.bind( this ) );
-        
-        this.clickCount++;
-        
-    },
-    
-    hideMenu: function() {
+    openMenuItem: function( id ) {
         
         var self = this;
-        var menuPanel = $( this.menu.menuPanel );
-        var menuBar = $( this.menu.menuBar );
-        
-        menuBar.find( '.title' ).html( 'Table of Contents' );
-        
-        menuPanel.addClass( 'slideOutRight' )
-            .one( 'webkitAnimationEnd mozAnimationEnd animationend', 
-                function() {
-                    menuPanel.hide().removeClass( 'slideOutRight' );
-                    self.resetMenu();
-                    $( this ).off();
-                }
-             );
-
-    },
-    
-    openMenuItem: function( e ) {
-        
-        var self = this;
-        
-        if ( $( this.splash.screen ).is( ':visible' ) ) {
-            this.hideSplash();
-        }
-        
-        if ( !$( this.menu.menuPanel ).is( ':visible' ) ) {
-            this.showMenu();
-        }
-        
-        var itemId = '';
-        
-        if ( typeof e === 'string' ) {
-            itemId = e;
-        } else {
-            itemId = e.currentTarget.id;
-        }
-        
-        var menuBar = $( this.menu.menuBar );
-        var menuList = $( this.menu.menuList );
+        var itemId = id;
+        var content = "";
         var menuContentWrapper = $( this.menu.menuContentWrapper );
         var menuContent = $( this.menu.menuContent );
-        var target = $( '#' + itemId );
-        var backBtn = menuBar.find( '.backBtn' );
-        
-        menuBar.removeClass( 'full' );
-        menuBar.find( '.title' ).html( target.html() );
-        menuContent.empty();
-        
-        if ( $( '.profileImg' ).length ) {
-            $( '.profileImg' ).remove();
-        }
-        
-        if ( !menuList.hasClass( 'fadeOutLeft' )
-        && !menuContentWrapper.is( ':visible' ) ) {
-            
-            backBtn.show().prop( 'disabled', false ).one( 'click', this.closeMenuContent.bind( this ) );
-            menuList.addClass( 'fadeOutLeft' ).one( 'webkitAnimationEnd mozAnimationEnd animationend', 
-                function() {
-                    
-                    $(this).hide().removeClass( 'fadeOutLeft' );
-            
-                    menuContentWrapper.fadeIn();
-            
-                    $( this ).off();
-                    
-                }
-            );
-            
-        }
-        
-        var content = "";
         
         switch ( itemId ) {
                     
             case 'sbplus_author_profile':
             
-            menuContentWrapper.prepend( '<div class="profileImg"></div>' );
+            menuContent.append( '<div class="menuTitle">Author Profile</div>' );
+            menuContent.append( '<div class="profileImg"></div>' );
             
             if ( self.xml.setup.authorPhoto.length === 0 ) {
                 
@@ -1163,7 +1071,8 @@ var SBPLUS = SBPLUS || {
             break;
             
             case 'sbplus_general_info':
-            content = self.xml.setup.generalInfo;
+            content = '<div class="menuTitle">General Info</div>';
+            content += self.xml.setup.generalInfo;
             break;
             
             case 'sbplus_settings':
@@ -1174,6 +1083,7 @@ var SBPLUS = SBPLUS || {
                     
                         self.settings = data;
                         self.setStorageItem( 'sbplus-settings-loaded', 1, true );
+                        menuContent.append( '<div class="menuTitle">Setting</div>' );
                         menuContent.append( data );
                         self.afterSettingsLoaded();
                         
@@ -1181,6 +1091,7 @@ var SBPLUS = SBPLUS || {
                     
                 } else {
                     
+                    menuContent.append( '<div class="menuTitle">Settings</div>' );
                     menuContent.append( self.settings );
                     self.afterSettingsLoaded();
                     
@@ -1191,19 +1102,23 @@ var SBPLUS = SBPLUS || {
             break;
             
             default:
-            var customMenuItems = self.manifest.sbplus_custom_menu_items;
-            for ( var key in customMenuItems ) {
-                var menuId = 'sbplus_' + self.sanitize( customMenuItems[key].name );
-                if ( itemId === menuId ) {
-                    content = customMenuItems[key].content;
-                    break;
+                var customMenuItems = self.manifest.sbplus_custom_menu_items;
+                for ( var key in customMenuItems ) {
+                    var menuId = 'sbplus_' + self.sanitize( customMenuItems[key].name );
+                    if ( itemId === menuId ) {
+                        content = '<div class="menuTitle">' + customMenuItems[key].name + '</div>';
+                        content += customMenuItems[key].content;
+                        break;
+                    }
                 }
-            }
             break;
             
         }
         
+        menuContentWrapper.show();
         menuContent.append( content );
+        
+        $( self.button.menuClose ).on( 'click', self.closeMenuContent.bind( self ) );
         
         if ( self.xml.settings.mathjax === 'on' ) {
             MathJax.Hub.Queue( ['Typeset', MathJax.Hub] );
@@ -1213,59 +1128,28 @@ var SBPLUS = SBPLUS || {
     
     closeMenuContent: function() {
         
-        var menuBar = $( this.menu.menuBar );
-        var menuList = $( this.menu.menuList );
         var menuContentWrapper = $( this.menu.menuContentWrapper );
         var menuContent = $( this.menu.menuContent );
-        
-        menuBar.addClass( 'full' ).find( '.title' ).html( 'Menu' );
-        
-        menuList.show().addClass( 'fadeInLeft' );
         
         menuContent.empty();
         menuContentWrapper.hide();
         
-        if ( $( '.profileImg' ).length ) {
-            $( '.profileImg' ).remove();
-        }
-        
-        menuList.one( 'webkitAnimationEnd mozAnimationEnd animationend', 
-        function() {
-            $( this ).removeClass( 'fadeInLeft' );
-            $( this ).off();
-        } );
-        
-        $( this ).prop( 'disabled', true );
-        $( this ).off( 'click' );
+        $( this.button.menuClose ).off( 'click' );
         
     },
     
-    resetMenu: function() {
+    burgerBurger: function() {
         
-        if ( !$( this.menu.menuPanel ).is( ':visible' ) ) {
+        var menuIcon = $( 'span.menu-icon' );
             
-            var menuBar = $( this.menu.menuBar );
-            var menuIcon = '<span class="icon-menu"></span>';
+        this.clickCount++;
         
-            menuBar.find( '.title' ).html( 'Table of Contents' );
-            menuBar.addClass( 'full' );
-            menuBar.find( '.backBtn' ).hide().prop( 'disabled', true );
-            
-            if ( this.clickCount >= this.randomNum ) {
-                menuIcon = '🍔';
-                this.clickCount = 0;
-                this.randomNum = Math.floor((Math.random() * 10) + 1);
-            } else {
-                menuIcon = '<span class="icon-menu"></span>';
-            }
-            
-            $( this.button.menu ).html( menuIcon ).removeClass( 'menu_opened' );
-            
-            $( this.menu.menuList ).show();
-            $( this.menu.menuContent ).empty();
-            $( this.menu.menuContentWrapper ).hide();
-            $( this.menu.menuItem ).off( 'click' );    
-            
+        if ( this.clickCount === this.randomNum ) {
+            menuIcon.removeClass('icon-menu').html('🍔');
+            this.clickCount = 0;
+            this.randomNum = Math.floor((Math.random() * 6) + 5);
+        } else {
+            menuIcon.addClass('icon-menu').empty();
         }
         
     },
@@ -1494,7 +1378,8 @@ var SBPLUS = SBPLUS || {
                     
                     var name = customMenuItems[key].name;
                     var sanitizedName = this.sanitize( name );
-                    var item = '<li class="menu item" id="sbplus_' + sanitizedName + '"><span class="icon-' + sanitizedName + '"></span> ' + name + '</li>';
+
+                    var item = '<li class="menu-item" tabindex="-1" role="menuitem" aria-live="polite" id="sbplus_' + sanitizedName + '"><a href="javascript:void(0);" onclick="SBPLUS.openMenuItem(\'sbplus_' + sanitizedName + '\');"><span class="icon-' + sanitizedName + '"></span> ' + name + '</a></li>';
                     
                     $( this.menu.menuList ).append( item );
                     
@@ -1895,8 +1780,6 @@ var SBPLUS = SBPLUS || {
         this.deleteStorageItem( 'sbplus-playbackrate-temp', true );
         this.deleteStorageItem( 'sbplus-volume-temp', true );
         this.deleteStorageItem( 'sbplus-subtitle-temp', true );
-//         this.deleteStorageItem( 'sbplus-vjs-yt-loaded', true );
-//         this.deleteStorageItem( 'sbplus-vjs-vimeo-loaded', true );
         this.deleteStorageItem( 'sbplus-previously-widget-open', true );
         
     },

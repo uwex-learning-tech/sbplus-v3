@@ -6,13 +6,13 @@
         
         <div id="sbplus_presentation_info">
             
-            <p class="sb_title"></p>
-            <p class="sb_subtitle"></p>
-            <p class="sb_author"></p>
-            <p class="sb_duration"></p>
+            <p class="sb_title" tabindex="1"></p>
+            <p class="sb_subtitle" tabindex="1"></p>
+            <p class="sb_author" tabindex="1"></p>
+            <p class="sb_duration" tabindex="1"></p>
             <p class="sb_cta">
-                <button id="sbplus_start_btn">Start</button>
-                <button id="sbplus_resume_btn">Resume</button>
+                <button id="sbplus_start_btn" tabindex="1">Start</button>
+                <button id="sbplus_resume_btn" tabindex="1">Resume</button>
             </p>
             <p class="sb_downloads"></p>
                 
@@ -25,9 +25,48 @@
     <div id="sbplus_banner_bar">
         <div id="sbplus_lession_title"></div>
         <div id="sbplus_menu_area">
+            
             <button id="sbplus_author_name"></button>
-            <button id="sbplus_menu_btn" title="Menu"><span class="icon-menu"></span></button>
+            
+            <div id="sbplus_menu_btn_wrapper">
+                
+                <ul id="sbplus_menu_btn" class="root-level" role="menubar" title="Main Menu">
+                    
+                    <li class="menu-parent" role="menuitem" aria-label="Menu" tabindex="1" aria-haspopup="true" aria-expanded="false">
+                        <span class="icon-menu menu-icon"></span>
+                        <ul class="menu" role="menu" aria-hidden="true" aria-expanded="false">
+                            
+                            <li class="menu-item" tabindex="-1" role="menuitem" aria-live="polite" id="sbplus_author_profile">
+                                <a href="javascript:void(0);" onclick="SBPLUS.openMenuItem('sbplus_author_profile');">
+                                    <span class="icon-profile"></span>
+                                    Author Profile
+                                </a>
+                            </li>
+                            
+                            <li class="menu-item" tabindex="-1" role="menuitem" aria-live="polite" id="sbplus_general_info">
+                                <a href="javascript:void(0);" onclick="SBPLUS.openMenuItem('sbplus_general_info');">
+                                    <span class="icon-info"></span>
+                                    General Info
+                                </a>
+                            </li>
+                            
+                            <li class="menu-item" tabindex="-1" role="menuitem" aria-live="polite" id="sbplus_settings">
+                                <a href="javascript:void(0);" onclick="SBPLUS.openMenuItem('sbplus_settings');">
+                                    <span class="icon-settings"></span>
+                                    Settings
+                                </a>
+                            </li>
+                            
+                        </ul>
+                        
+                    </li>
+                    
+                </ul>
+                
+            </div>
+            
         </div>
+        
     </div>
     
     <div id="sbplus_content_wrapper">
@@ -59,33 +98,6 @@
             </div>
             
             <div id="sbplus_table_of_contents_wrapper"></div>
-            
-            <div id="sbplus_menu_items_wrapper" class="animated">
-                
-                <ul class="animated list">
-                    
-                    <li class="menu item" id="sbplus_author_profile">
-                        <span class="icon-profile"></span>
-                        Author Profile
-                    </li>
-                    
-                    <li class="menu item" id="sbplus_general_info">
-                        <span class="icon-info"></span>
-                        General Info
-                    </li>
-                    
-                    <li class="menu item" id="sbplus_settings">
-                        <span class="icon-settings"></span>
-                        Settings
-                    </li>
-                    
-                </ul>
-                
-                <div id="menu_item_content" class="animated">
-                    <div class="content"></div>
-                </div>
-                
-            </div>
             
         </div>
     
@@ -139,4 +151,10 @@
         
     </div>
     
+    <div id="menu_item_content" class="animated">
+        <button id="sbplus_menu_close_btn"><span class="icon-close"></span> Close</button>
+        <div class="content"></div>
+    </div>
+    
 </div>
+

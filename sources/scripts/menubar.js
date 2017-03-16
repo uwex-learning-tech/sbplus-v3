@@ -1,20 +1,20 @@
 /***************************************
     Menu Bar Accessibility Friendly
-    http://oaa-accessibility.org/example/26/
+    https://www.w3.org/TR/wai-aria-practices-1.1/#menu
 ****************************************/
 
-function MenuBar( id, vmenu ) {
+function MenuBar( domID, isVerticalMenu ) {
         
-    this.$id = $( '#' + id );
+    this.id = $( '#' + domID );
     
-    this.$rootItems = this.$id.children( 'li' );
+    this.rootItems = this.id.children( 'li' );
     
-    this.$items = this.$id.find('.menu-item').not('.separator');
-    this.$parents = this.$id.find('.menu-parent');
-    this.$allItems = this.$parents.add(this.$items);
-    this.$activeItem = null;
+    this.items = this.id.find('.menu-item').not('.separator');
+    this.parents = this.id.find('.menu-parent');
+    this.allItems = this.parents.add(this.items);
+    this.activeItem = null;
     
-    this.vmenu = vmenu;
+    this.isVerticalMenu = isVerticalMenu;
     this.bChildOpen = false;
     
     this.keys = {
@@ -34,82 +34,98 @@ function MenuBar( id, vmenu ) {
 
 MenuBar.prototype.bindHandlers = function() {
     
-    var thisObj = this;
+    var self = this;
     
     /* MOUSE EVENTS */
     
     // mouseenter handler for the menu items
-    this.$items.on( 'mouseenter', function() {
-        $(this).addClass( 'menu-hover' );
+    self.items.on( 'mouseenter', function() {
+        
+        $( this ).addClass( 'menu-hover' );
         return true;
+        
     } );
     
     // mouseout handler for the menu items
-    this.$items.on( 'mouseout', function() {
-        $(this).removeClass( 'menu-hover' );
+    self.items.on( 'mouseout', function() {
+        
+        $( this ).removeClass( 'menu-hover' );
         return true;
+        
     } );
     
     // mouseenter handler for the menu parents
 /*
-    this.$parents.on( 'mouseenter', function( e ) {
-        return thisObj.handleMouseEnter( $(this), e );
+    self.parents.on( 'mouseenter', function( e ) {
+        return self.handleMouseEnter( $( this ), e );
     } );
 */
     
     // mouselease handler for the menu parents
 /*
-    this.$parents.on( 'mouseleave', function( e ) {
-        return thisObj.handleMouseLeave( $(this), e );
+    self.parents.on( 'mouseleave', function( e ) {
+        return self.handleMouseLeave( $( this ), e );
     } );
 */
     
     // click handler for all items
-    this.$allItems.on( 'click', function(e) {
-        thisObj.handleClick( $(this) );
-        e.stopPropagation();
+    self.allItems.on( 'click', function( e ) {
+        
+        self.handleClick( $( this ), e );
         
     } );
     
     /* KEY EVENTS */
     
     // keydown handler for all items
-    this.$allItems.on( 'keydown', function( e ) {
-        return thisObj.handleKeydown( $(this), e );
+    self.allItems.on( 'keydown', function( e ) {
+        
+        return self.handleKeydown( $( this ), e );
+        
     } );
     
     // keypress handler for all items
-    this.$allItems.on( 'keypress', function( e ) {
-        return thisObj.handleKeypress( $(this), e );
+    self.allItems.on( 'keypress', function( e ) {
+        
+        return self.handleKeypress( $( this ), e );
+        
     } );
     
     // focus handler for all items
-    this.$allItems.on( 'focus', function( e ) {
-        return thisObj.handleFocus( $(this), e );
+    self.allItems.on( 'focus', function( e ) {
+        
+        return self.handleFocus( $( this ), e );
+        
     } );
     
     // blur hander for all items
-    this.$allItems.on( 'blur', function(  e) {
-        return thisObj.handleBlur( $(this), e );
+    self.allItems.on( 'blur', function(  e) {
+        
+        return self.handleBlur( $( this ), e );
+        
     } );
     
     // document click handler
     $( document ).on( 'click', function( e ) {
-        return thisObj.handleDocumentClick( e );
+        
+        return self.handleDocumentClick( e );
+        
     } );
             
 };
 
 // Process mouse over events for the top menus
-MenuBar.prototype.handleMouseEnter = function( $item ) {
+
+/*
+MenuBar.prototype.handleMouseEnter = function( item ) {
     
     // add hover style (if applicable)
-    $item.addClass( 'menu-hover' ).attr( 'aria-expanded', 'true' );
+    item.addClass( 'menu-hover' ).attr( 'aria-expanded', 'true' );
     
     // expand the first level submenu
-    if ( $item.attr( 'aria-haspopup' ) === 'true' ) {
+    if ( item.attr( 'aria-haspopup' ) === 'true' ) {
         
-        $item.children('ul').attr( {
+        item.children( 'ul' ).attr( {
             'aria-hidden': 'false',
             'aria-expanded': 'true'
         } );
@@ -120,44 +136,37 @@ MenuBar.prototype.handleMouseEnter = function( $item ) {
     return true;
 
 };
-
-// process mouse out events for the top menu
-MenuBar.prototype.handleMouseOut = function( $item ) {
-    
-    //remove hover style
-    $item.removeClass( 'menu-hover' ).attr( 'aria-expanded', 'false' );
-    
-    // stop propagation
-    return true;
-    
-};
+*/
 
 // process mouse leave events for the top menu
-MenuBar.prototype.handleMouseLeave = function( $menu ) {
 
-    var $active = $menu.find('.menu-focus');
+/*
+MenuBar.prototype.handleMouseLeave = function( menu ) {
+    
+    var self = this;
+    var active = menu.find( '.menu-focus' );
     
     // remove hover style
-    $menu.removeClass( 'menu-hover' ).attr( 'aria-expanded', 'false' );
+    menu.removeClass( 'menu-hover' ).attr( 'aria-expanded', 'false' );
     
     // if any item in the child menu has focus, move focus to root item
-    if ( $active.length > 0 ) {
+    if ( active.length > 0 ) {
         
-        this.bChildOpen = false;
+        self.bChildOpen = false;
         
         // remove the focus style from the active item
-        $active.removeClass( 'menu-focus' ); 
+        active.removeClass( 'menu-focus' ); 
         
         // store the active item
-        this.$activeItem = $menu;
+        self.activeItem = $menu;
         
         // cannot hide items with focus -- move focus to root item
-        $menu.focus();
+        menu.focus();
         
     }
     
     // hide child menu
-    $menu.children( 'ul' ).attr( {
+    menu.children( 'ul' ).attr( {
         'aria-hidden': 'true',
         'aria-expanded': 'false'
     } );
@@ -165,101 +174,106 @@ MenuBar.prototype.handleMouseLeave = function( $menu ) {
     return true;
 
 };
+*/
 
 // process click events for the top menus
 
-MenuBar.prototype.handleClick = function( $item ) {
+MenuBar.prototype.handleClick = function( item, e ) {
     
-    var $parentUL = $item.parent();
+    var self = this;
+    var parentUL = item.parent();
     
-    if ( $parentUL.is('.root-level') ) {
+    if ( parentUL.is('.root-level') ) {
         
         // open the child menu if it is closed
-        var $menu = $item.children( 'ul' ).first();
+        var menu = item.children( 'ul' ).first();
         
-        if ( $menu.attr( 'aria-hidden' ) === 'false' ) {
+        if ( menu.attr( 'aria-hidden' ) === 'false' ) {
             
-            $item.attr( 'aria-expanded', 'false' );
+            item.attr( 'aria-expanded', 'false' );
             
-            $menu.attr( {
+            menu.attr( {
                 'aria-hidden': 'true',
                 'aria-expanded': 'false'
             } );
             
-            $menu.parent().removeClass( 'active' );
+            menu.parent().removeClass( 'active' );
             
         } else {
             
-            $item.attr( 'aria-expanded', 'true' );
+            item.attr( 'aria-expanded', 'true' );
             
-            $menu.attr( {
+            menu.attr( {
                 'aria-hidden': 'false',
                 'aria-expanded': 'true'
             } );
             
-            $menu.parent().addClass( 'active' );
+            menu.parent().addClass( 'active' );
             
         }
         
     } else {
         
         // remove hover and focus styling
-        this.$allItems.removeClass('menu-hover menu-focus');
+        self.allItems.removeClass( 'menu-hover menu-focus' );
         
-        $item.attr( 'aria-expanded', 'false' );
+        item.attr( 'aria-expanded', 'false' );
         
         // close the menu
-        this.$id.find( 'ul' ).not( '.root-level' ).attr( {
+        self.id.find( 'ul' ).not( '.root-level' ).attr( {
             'aria-hidden': 'true',
             'aria-expanded': 'false'
         } );
     
     }
     
-    //return false;
+    e.stopPropagation();
+    return false;
 
 };
 
 // process focus events for the menu
-MenuBar.prototype.handleFocus = function( $item ) {
+MenuBar.prototype.handleFocus = function( item ) {
+    
+    var self = this;
     
     // if activeItem is null, get focus from outside the menu
     // store the item that triggered the event
-    if ( this.$activeItem === null ) {
+    if ( this.activeItem === null ) {
         
-        this.$activeItem = $item;
+        this.activeItem = item;
         
-    } else if ( $item[0] !== this.$activeItem[0] ) {
+    } else if ( item[0] !== self.activeItem[0] ) {
         
         return true;
         
     }
     
     // get the set of objects for all the parent items of the active item
-    var $parentItems = this.$activeItem.parentsUntil( 'div' ).filter( 'li' );
+    var parentItems = self.activeItem.parentsUntil( 'div' ).filter( 'li' );
     
     // remove focus styling from all other menu items
-    this.$allItems.removeClass( 'menu-focus' );
+    self.allItems.removeClass( 'menu-focus' );
     
     // add foucus styling to the active item
-    this.$activeItem.addClass( 'menu-focus' );
+    self.activeItem.addClass( 'menu-focus' );
     
     // add focus styling to all parent items
-    $parentItems.addClass( 'menu-focus' );
+    parentItems.addClass( 'menu-focus' );
     
-    if ( this.vmenu === true ) {
+    if ( self.isVerticalMenu === true ) {
         
         // if the bChildOpen flag has been set, open the active item's child menu (if applicable)
-        if ( this.bChildOpen === true ) {
+        if ( self.bChildOpen === true ) {
             
-            var $itemUL = $item.parent();
+            var itemUL = item.parent();
             
             // if the itemUL is a root-level menu and item is a parent item
-            if ( $itemUL.is( '.root-level' ) && ( $item.attr( 'aria-haspopup' ) === 'true' ) ) {
+            if ( itemUL.is( '.root-level' ) && ( item.attr( 'aria-haspopup' ) === 'true' ) ) {
                 
-                $item.attr( 'aria-expanded', 'true' );
+                item.attr( 'aria-expanded', 'true' );
                 
-                $item.children( 'ul' ).attr( {
+                item.children( 'ul' ).attr( {
                     'aria-hidden': 'false',
                     'aria-expanded': 'true'
                 } );
@@ -268,7 +282,7 @@ MenuBar.prototype.handleFocus = function( $item ) {
             
         } else {
             
-            this.vmenu = false;
+            self.isVerticalMenu = false;
             
         }
         
@@ -279,53 +293,55 @@ MenuBar.prototype.handleFocus = function( $item ) {
 };
 
 // process blur events for the menu
-MenuBar.prototype.handleBlur = function( $item ) {
+MenuBar.prototype.handleBlur = function( item ) {
 
-   $item.removeClass( 'menu-focus' );
+   item.removeClass( 'menu-focus' );
    return true;
 
 };
 
 // process keydown events for the menus
-MenuBar.prototype.handleKeydown = function( $item, e ) {
-
+MenuBar.prototype.handleKeydown = function( item, e ) {
+    
+    var self = this;
+    
     if ( e.altKey || e.ctrlKey ) {
         
         // modifier key pressed; do not process
         return true;
     }
     
-    var $itemUL = $item.parent();
+    var itemUL = item.parent();
     
     switch( e.keyCode ) {
         
-        case this.keys.tab: {
+        case self.keys.tab: {
             
-            $item.attr( 'aria-expanded', 'false' );
+            item.attr( 'aria-expanded', 'false' );
             
             // hide all menu items and update their aria attributes
-            this.$id.find( 'ul' ).attr( {
+            self.id.find( 'ul' ).attr( {
                 'aria-hidden': 'true',
                 'aria-expanded': 'false'
             } );
             
             // remove focus styling from all menu items
-            this.$allItems.removeClass( 'menu-focus' );
+            self.allItems.removeClass( 'menu-focus' );
             
-            this.$activeItem = null;
-            this.bChildOpen = false;
+            self.activeItem = null;
+            self.bChildOpen = false;
             
             break;
         
         }
-        case this.keys.esc: {
+        case self.keys.esc: {
             
-            $item.attr( 'aria-expanded', 'false' );
+            item.attr( 'aria-expanded', 'false' );
             
-            if ( $itemUL.is('.root-level') ) {
+            if ( itemUL.is('.root-level') ) {
                 
                 // hide the child menu and update the aria attributes
-                $item.children( 'ul' ).first().attr( {
+                item.children( 'ul' ).first().attr( {
                     'aria-hidden': 'true',
                     'aria-expanded': 'false'
                 } );
@@ -333,16 +349,16 @@ MenuBar.prototype.handleKeydown = function( $item, e ) {
             } else {
                 
                 // move up one level
-                this.$activeItem = $itemUL.parent();
+                self.activeItem = itemUL.parent();
                 
                 // reset the bChildOpen flag
-                this.bChildOpen = false;
+                self.bChildOpen = false;
                 
                 // set focus on the new item
-                this.$activeItem.focus();
+                self.activeItem.focus();
                 
                 // hide the active menu and update the aria attributes
-                $itemUL.attr( {
+                itemUL.attr( {
                     'aria-hidden': 'true',
                     'aria-expanded': 'false'
                 } );
@@ -354,15 +370,15 @@ MenuBar.prototype.handleKeydown = function( $item, e ) {
             
         }
         
-        case this.keys.enter:
-        case this.keys.space: {
+        case self.keys.enter:
+        case self.keys.space: {
             
-            var $parentUL = $item.parent();
+            var parentUL = item.parent();
             
-            if ( $parentUL.is('.root-level') ) {
+            if ( parentUL.is( '.root-level' ) ) {
         
                 // open the child menu if it is closed
-                $item.children( 'ul' ).first().attr( {
+                item.children( 'ul' ).first().attr( {
                     'aria-hidden': 'false',
                     'aria-expanded': 'true'
                 } );
@@ -370,20 +386,20 @@ MenuBar.prototype.handleKeydown = function( $item, e ) {
             } else {
                 
                 //remove hover and focus styling
-                this.$allItems.removeClass( 'menu-hover menu-focus' );
+                self.allItems.removeClass( 'menu-hover menu-focus' );
                 
                 // close the menu
-                this.$id.find( 'ul' ).not( '.root-level' ).attr( {
+                self.id.find( 'ul' ).not( '.root-level' ).attr( {
                     'aria-hidden': 'true',
                     'aria-expanded': 'false'
                 } );
                 
                 // download/open the file
-                var id = this.$activeItem.find( 'a' ).attr( 'id' );
+                var id = self.activeItem.find( 'a' ).attr( 'id' );
                 document.getElementById( id ).click();
                 
                 // clear the active item
-                this.$activeItem = null;
+                self.activeItem = null;
                 
             }
             
@@ -392,84 +408,84 @@ MenuBar.prototype.handleKeydown = function( $item, e ) {
             
         }
         
-        case this.keys.left: {
+        case self.keys.left: {
             
-            if ( this.vmenu === true && $itemUL.is( '.root-level' ) ) {
+            if ( self.isVerticalMenu === true && itemUL.is( '.root-level' ) ) {
                 
                 // if this is a vertical menu and the root level is active,
                 // move to the previous item in the menu
-                this.$activeItem = this.moveUp( $item );
+                self.activeItem = self.moveUp( item );
                 
             } else {
                 
-                this.$activeItem = this.moveToPrevious( $item );
+                self.activeItem = self.moveToPrevious( item );
                  
             }
             
-            this.$activeItem.focus();
+            self.activeItem.focus();
             
             e.stopPropagation();
             return false;
             
         }
         
-        case this.keys.right: {
+        case self.keys.right: {
             
-            if ( this.vmenu === true && $itemUL.is( '.root-level' ) ) {
+            if ( self.isVerticalMenu === true && itemUL.is( '.root-level' ) ) {
                 
                 // if this is a vertical menu and the root-level is active,
                 // move to the next item in the menu
-                this.$activeItem = this.moveDown( $item );
+                self.activeItem = self.moveDown( item );
                 
             } else {
                 
-                this.$activeItem = this.moveToNext( $item );
+                self.activeItem = self.moveToNext( item );
                 
             }
             
-            this.$activeItem.focus();
+            self.activeItem.focus();
             
             e.stopPropagation();
             return false;
             
         }
         
-        case this.keys.up: {
+        case self.keys.up: {
             
-            if ( this.vmenu === true && $itemUL.is( '.root-level' ) ) {
+            if ( self.isVerticalMenu === true && itemUL.is( '.root-level' ) ) {
                 
                 // if this is a vertical menu and the root-level is active,
                 // move to the previous root-level menu
-                this.$activeItem = this.moveToPrevious( $item );
+                self.activeItem = self.moveToPrevious( item );
                 
             } else {
                 
-                this.$activeItem = this.moveUp($item);
+                self.activeItem = self.moveUp( item );
                 
             }
             
-            this.$activeItem.focus();
+            self.activeItem.focus();
             
             e.stopPropagation();
             return false;
         
         }
         
-        case this.keys.down: {
+        case self.keys.down: {
             
-            if ( this.vmenu === true && $itemUL.is( '.root-level' ) ) {
+            if ( self.isVerticalMenu === true && itemUL.is( '.root-level' ) ) {
                 
                 // if this is a vertical menu and the root-level is active,
                 // move to the next root-level menu
-                this.$activeItem = this.moveToNext( $item );
+                self.activeItem = self.moveToNext( item );
                 
             } else {
                 
-                this.$activeItem = this.moveDown( $item );
+                self.activeItem = self.moveDown( item );
                 
             }
             
-            this.$activeItem.focus();
+            self.activeItem.focus();
             
             e.stopPropagation();
             return false;
@@ -483,24 +499,26 @@ MenuBar.prototype.handleKeydown = function( $item, e ) {
 };
 
 // function to move to the next menu level
-MenuBar.prototype.moveToNext = function( $item ) {
+MenuBar.prototype.moveToNext = function( item ) {
+    
+    var self = this;
     
     // item's containing menu
-    var $itemUL = $item.parent();
+    var itemUL = item.parent();
     
     // the items in the currently active menu
-    var $menuItems = $itemUL.children( 'li' );
+    var menuItems = itemUL.children( 'li' );
     
     // the number of items in the active menu
-    var menuNum = $menuItems.length;
+    var menuNum = menuItems.length;
     
     // the items index in its menu
-    var menuIndex = $menuItems.index($item);
+    var menuIndex = menuItems.index(item);
     
-    var $newItem = null;
-    var $childMenu = null;
+    var newItem = null;
+    var childMenu = null;
     
-    if ( $itemUL.is( '.root-level' ) ) {
+    if ( itemUL.is( '.root-level' ) ) {
         
         // this is the root level move to next sibling and
         // will require closing the current child menu and
@@ -509,47 +527,48 @@ MenuBar.prototype.moveToNext = function( $item ) {
         // if not the root menu
         if ( menuIndex < menuNum - 1 ) {
             
-            $newItem = $item.next();
+            newItem = item.next();
             
         } else {
             
             // wrap to first item
-            $newItem = $menuItems.first();
+            newItem = menuItems.first();
             
         }
         
         // close the current child menu (if applicable)
-        if ( $item.attr( 'aria-haspopup' ) === 'true' ) {
+        if ( item.attr( 'aria-haspopup' ) === 'true' ) {
             
-            $childMenu = $item.children( 'ul' ).first();
+            childMenu = item.children( 'ul' ).first();
             
-            if ( $childMenu.attr( 'aria-hidden' ) === 'false' ) {
+            if ( childMenu.attr( 'aria-hidden' ) === 'false' ) {
                 
-                $item.attr( 'aria-expanded', 'false' );
+                item.attr( 'aria-expanded', 'false' );
                 
                 // update the child menu's aria hidden attribute
-                $childMenu.attr( {
+                childMenu.attr( {
                     'aria-hidden': 'true',
                     'aria-expanded': 'false'
                 } );
-                this.bChildOpen = true;
+                
+                self.bChildOpen = true;
                 
             }
             
         }
         
         // remove the focus styling from the current menu
-        $item.removeClass('menu-focus');
+        item.removeClass( 'menu-focus' );
         
         // open the new child menu (if applicable)
-        if ( ( $newItem.attr( 'aria-haspopup' ) === 'true' ) && ( this.bChildOpen === true ) ) {
+        if ( ( newItem.attr( 'aria-haspopup' ) === 'true' ) && ( self.bChildOpen === true ) ) {
             
-            $childMenu = $newItem.children( 'ul' ).first();
+            childMenu = newItem.children( 'ul' ).first();
             
-            $item.attr( 'aria-expanded', 'true' );
+            item.attr( 'aria-expanded', 'true' );
             
             // update the child's aria-hidden attribute
-            $childMenu.attr( {
+            childMenu.attr( {
                 'aria-hidden': 'false',
                 'aria-expanded': 'true'
             } );
@@ -563,15 +582,15 @@ MenuBar.prototype.moveToNext = function( $item ) {
         // do that; otherwise, move to the next root-level menu
         // if there is one
         
-        if ( $item.attr('aria-haspopup') === 'true' ) {
+        if ( item.attr('aria-haspopup') === 'true' ) {
         
-            $childMenu = $item.children('ul').first();
-            $newItem = $childMenu.children('li').first();
+            childMenu = item.children( 'ul' ).first();
+            newItem = childMenu.children( 'li' ).first();
             
-            $item.attr( 'aria-expanded', 'true' );
+            item.attr( 'aria-expanded', 'true' );
             
             // show the child menu and update its aria attribute
-            $childMenu.attr( {
+            childMenu.attr( {
                 'aria-hidden': 'false',
                 'aria-expanded': 'true'
             } );
@@ -580,65 +599,66 @@ MenuBar.prototype.moveToNext = function( $item ) {
             
             // at deepest level, move to the next root-item menu
             
-            if ( this.vmenu === true ) {
+            if ( self.isVerticalMenu === true ) {
                 
                 // do nothing
-                return $item;
+                return item;
                 
             }
             
-            var $parentMenus = null;
-            var $rootItem = null;
+            var parentMenus = null;
+            var rootItem = null;
             
             // get the list of all parent menus for item, up to the root level
-            $parentMenus = $item.parentsUntil( 'div' ).filter( 'ul' ).not( '.root-level' );
+            parentMenus = item.parentsUntil( 'div' ).filter( 'ul' ).not( '.root-level' );
             
-            $item.attr( 'aria-expanded', 'false' );
+            item.attr( 'aria-expanded', 'false' );
             
             // hide the current menu and update its aria attribute accordingly
-            $parentMenus.attr( {
+            parentMenus.attr( {
                 'aria-hidden': 'true',
                 'aria-expanded': 'false'
             } );
             
             // remove the focus styling from the active menu
-            $parentMenus.find( 'li' ).removeClass( 'menu-focus' );
-            $parentMenus.last().parent().removeClass( 'menu-focus' );
+            parentMenus.find( 'li' ).removeClass( 'menu-focus' );
+            parentMenus.last().parent().removeClass( 'menu-focus' );
             
             // the containing root for the menu
-            $rootItem = $parentMenus.last().parent();
+            rootItem = parentMenus.last().parent();
             
-            menuIndex = this.$rootItems.index( $rootItem );
+            menuIndex = self.rootItems.index( rootItem );
             
             // if this is not the last root menu item,
             // move to the next one
-            if ( menuIndex < this.$rootItems.length - 1 ) {
+            if ( menuIndex < self.rootItems.length - 1 ) {
                 
-                $newItem = $rootItem.next();
+                newItem = rootItem.next();
                 
             } else {
                 
-                $newItem = this.$rootItems.first();
+                newItem = self.rootItems.first();
                 
             }
             
             // add the focus styling to the new menu
-            $newItem.addClass( 'menu-focus' );
+            newItem.addClass( 'menu-focus' );
             
-            if ( $newItem.attr( 'aria-haspopup' ) === 'true' ) {
+            if ( newItem.attr( 'aria-haspopup' ) === 'true' ) {
                 
-                $childMenu = $newItem.children( 'ul' ).first();
+                childMenu = newItem.children( 'ul' ).first();
                 
-                $newItem = $childMenu.children( 'li' ).first();
+                newItem = childMenu.children( 'li' ).first();
                 
-                $item.attr( 'aria-expanded', 'true' );
+                item.attr( 'aria-expanded', 'true' );
                 
                 // show the child menu and update its aria attribute
-                $childMenu.attr( {
+                childMenu.attr( {
                     'aria-hidden': 'false',
                     'aria-expanded': 'true'
                 } );
-                this.bChildOpen = true;
+                
+                self.bChildOpen = true;
                 
             }
             
@@ -646,24 +666,27 @@ MenuBar.prototype.moveToNext = function( $item ) {
         
     }
     
-    return $newItem;
+    return newItem;
+    
 };
 
 // function to move to the previous menu level
-MenuBar.prototype.moveToPrevious = function( $item ) {
+MenuBar.prototype.moveToPrevious = function( item ) {
     
-    // $item's containing menu
-    var $itemUL = $item.parent();
+    var self = this;
+    
+    // item's containing menu
+    var itemUL = item.parent();
     
     // the items in the currently active menu
-    var $menuItems = $itemUL.children( 'li' );
+    var menuItems = itemUL.children( 'li' );
     
     // the items index in its menu
-    var menuIndex = $menuItems.index( $item );
-    var $newItem = null;
-    var $childMenu = null;
+    var menuIndex = menuItems.index( item );
+    var newItem = null;
+    var childMenu = null;
     
-    if ( $itemUL.is( '.root-level' ) ) {
+    if ( itemUL.is( '.root-level' ) ) {
         
         // this is the root level move to previous sibling and
         // will require closing the current child menu and
@@ -671,48 +694,48 @@ MenuBar.prototype.moveToPrevious = function( $item ) {
         
         if ( menuIndex > 0 ) {
             
-            $newItem = $item.prev();
+            newItem = item.prev();
             
         } else {
             
             // wrap to the last
-            $newItem = $menuItems.last();
+            newItem = menuItems.last();
             
         }
         
         // close the current child menu (if applicable)
-        if ( $item.attr( 'aria-haspopup' ) === 'true' ) {
+        if ( item.attr( 'aria-haspopup' ) === 'true' ) {
         
-            $childMenu = $item.children('ul').first();
+            childMenu = item.children( 'ul' ).first();
             
-            if ( $childMenu.attr( 'aria-hidden' ) === 'false' ) {
+            if ( childMenu.attr( 'aria-hidden' ) === 'false' ) {
                 
-                $item.attr( 'aria-expanded', 'false' );
+                item.attr( 'aria-expanded', 'false' );
                 
                 // update the child menu's aria-hidden attribute
-                $childMenu.attr( {
+                childMenu.attr( {
                     'aria-hidden': 'true',
                     'aria-expanded': 'false'
                 } );
                 
-                this.bChildOpen = true;
+                self.bChildOpen = true;
                 
             }
             
         }
         
         // remove the focus styling from the current menu
-        $item.removeClass('menu-focus');
+        item.removeClass('menu-focus');
         
         // open the new child menu (if applicable)
-        if ( ( $newItem.attr( 'aria-haspopup' ) === 'true' ) && ( this.bChildOpen === true ) ) {
+        if ( ( newItem.attr( 'aria-haspopup' ) === 'true' ) && ( self.bChildOpen === true ) ) {
         
-            $childMenu = $newItem.children('ul').first();
+            childMenu = newItem.children( 'ul' ).first();
             
-            $item.attr( 'aria-expanded', 'true' );
+            item.attr( 'aria-expanded', 'true' );
             
             // update the child's aria-hidden attribute
-            $childMenu.attr( {
+            childMenu.attr( {
                 'aria-hidden': 'false',
                 'aria-expanded': 'true'
             } );
@@ -725,30 +748,30 @@ MenuBar.prototype.moveToPrevious = function( $item ) {
         // if there is parent menu that is not the root menu,
         // move up one level; otherwise, move to first item of the previous root menu
         
-        var $parentLI = $itemUL.parent();
-        var $parentUL = $parentLI.parent();
+        var parentLI = itemUL.parent();
+        var parentUL = parentLI.parent();
         
         // if this is a vertical menu or is not the first child menu
         // of the root-level menu, move up one level
-        if ( this.vmenu === true || !$parentUL.is( '.root-level' ) ) {
+        if ( self.isVerticalMenu === true || !parentUL.is( '.root-level' ) ) {
         
-            $newItem = $itemUL.parent();
+            newItem = itemUL.parent();
             
-            $item.attr( 'aria-expanded', 'false' );
+            item.attr( 'aria-expanded', 'false' );
             
             // hide the active menu and update aria-hidden
-            $itemUL.attr( {
+            itemUL.attr( {
                 'aria-hidden': 'true',
                 'aria-expanded': 'false'
             } );
             
-            // remove the focus highlight from the $item
-            $item.removeClass( 'menu-focus' );
+            // remove the focus highlight from the item
+            item.removeClass( 'menu-focus' );
         
-            if ( this.vmenu === true ) {
+            if ( self.isVerticalMenu === true ) {
                 
                 // set a flag so the focus handler does't reopen the menu
-                this.bChildOpen = false;
+                self.bChildOpen = false;
                 
             }
         
@@ -756,102 +779,102 @@ MenuBar.prototype.moveToPrevious = function( $item ) {
             
             // move to previous root-level menu
             
-            $item.attr( 'aria-expanded', 'false' );
+            item.attr( 'aria-expanded', 'false' );
             
             // hide the current menu and update the aria attributes accordingly
-            $itemUL.attr( {
+            itemUL.attr( {
                 'aria-hidden': 'true',
                 'aria-expanded': 'false'
             } );
             
             // remove the focus styling from the active menu
-            $item.removeClass( 'menu-focus' );
-            $parentLI.removeClass( 'menu-focus' );
+            item.removeClass( 'menu-focus' );
+            parentLI.removeClass( 'menu-focus' );
             
-            menuIndex = this.$rootItems.index( $parentLI );
+            menuIndex = this.rootItems.index( parentLI );
             
             if ( menuIndex > 0 ) {
                 
                 // move to the previous root-level menu
-                $newItem = $parentLI.prev();
+                newItem = parentLI.prev();
                 
             } else {
                 
                 // loop to last root-level menu
-                $newItem = this.$rootItems.last();
+                newItem = self.rootItems.last();
                 
             }
             
             // add the focus styling to the new menu
-            $newItem.addClass( 'menu-focus' );
+            newItem.addClass( 'menu-focus' );
             
-            if ( $newItem.attr( 'aria-haspopup' ) === 'true' ) {
+            if ( newItem.attr( 'aria-haspopup' ) === 'true' ) {
                 
-                $childMenu = $newItem.children('ul').first();
+                childMenu = newItem.children('ul').first();
                 
-                $item.attr( 'aria-expanded', 'true' );
+                item.attr( 'aria-expanded', 'true' );
                 
                 // show the child menu and update it's aria attributes
-                $childMenu.attr({
+                childMenu.attr({
                     'aria-hidden': 'false',
                     'aria-expanded': 'true'
                 });
                 
-                this.bChildOpen = true;
+                self.bChildOpen = true;
                 
-                $newItem = $childMenu.children('li').first();
+                newItem = childMenu.children( 'li' ).first();
                 
             }
         }
         
     }
     
-    return $newItem;
+    return newItem;
     
 };
 
 // function to select the next item in a menu
-MenuBar.prototype.moveDown = function( $item, startChr ) {
+MenuBar.prototype.moveDown = function( item, startChr ) {
     
-    // $item's containing menu
-    var $itemUL = $item.parent();
+    // item's containing menu
+    var itemUL = item.parent();
     
     // the items in the currently active menu
-    var $menuItems = $itemUL.children( 'li' ).not( '.separator' );
+    var menuItems = itemUL.children( 'li' ).not( '.separator' );
     
     // the number of items in the active menu
-    var menuNum = $menuItems.length;
+    var menuNum = menuItems.length;
     
     // the items index in its menu
-    var menuIndex = $menuItems.index( $item );
+    var menuIndex = menuItems.index( item );
     
-    var $newItem = null;
-    var $newItemUL = null;
+    var newItem = null;
+    var newItemUL = null;
     
-    if ( $itemUL.is( '.root-level' ) ) {
+    if ( itemUL.is( '.root-level' ) ) {
         
-        if ( $item.attr( 'aria-haspopup' ) !== 'true' ) {
+        if ( item.attr( 'aria-haspopup' ) !== 'true' ) {
             
             // no child to move to
-            return $item;
+            return item;
             
         }
         
         // move to the first item in the child menu
-        $newItemUL = $item.children( 'ul' ).first();
-        $newItem = $newItemUL.children( 'li' ).first();
+        newItemUL = item.children( 'ul' ).first();
+        newItem = newItemUL.children( 'li' ).first();
         
-        $($newItemUL.parent()).attr( 'aria-expanded', 'true' );
+        $( newItemUL.parent() ).attr( 'aria-expanded', 'true' );
         
-        $item.attr( 'aria-expanded', 'true' );
+        item.attr( 'aria-expanded', 'true' );
         
         // make sure the child menu is visible
-        $newItemUL.attr( {
+        newItemUL.attr( {
             'aria-hidden': 'false',
             'aria-expanded': 'true'
         } );
         
-        return $newItem;
+        return newItem;
         
     }
     
@@ -874,7 +897,7 @@ MenuBar.prototype.moveDown = function( $item, startChr ) {
         // until a match is found or the loop returns to the current menu item 
         while ( curNdx !== menuIndex )  {
         
-            var titleChr = $menuItems.eq( curNdx ).html().charAt( 0 );
+            var titleChr = menuItems.eq( curNdx ).html().charAt( 0 );
             
             if ( titleChr.toLowerCase() === startChr ) {
                 
@@ -896,15 +919,15 @@ MenuBar.prototype.moveDown = function( $item, startChr ) {
     
         if ( bMatch === true ) {
             
-            $newItem = $menuItems.eq( curNdx );
+            newItem = menuItems.eq( curNdx );
             
             // remove the focus styling from the current item
-            $item.removeClass( 'menu-focus' );
-            return $newItem;
+            item.removeClass( 'menu-focus' );
+            return newItem;
             
         } else {
             
-            return $item;
+            return item;
             
         }
         
@@ -912,41 +935,41 @@ MenuBar.prototype.moveDown = function( $item, startChr ) {
         
         if ( menuIndex < menuNum - 1 ) {
             
-            $newItem = $menuItems.eq( menuIndex + 1 );
+            newItem = menuItems.eq( menuIndex + 1 );
             
         } else {
             
-            $newItem = $menuItems.first();
+            newItem = menuItems.first();
             
         }
         
     }
     
     // remove the focus styling from the current item
-    $item.removeClass('menu-focus');
+    item.removeClass('menu-focus');
     
-    return $newItem;
+    return newItem;
     
 };
 
 // function to select the previous item in a menu
-MenuBar.prototype.moveUp = function( $item ) {
+MenuBar.prototype.moveUp = function( item ) {
     
-    // $item's containing menu 
-    var $itemUL = $item.parent();
+    // item's containing menu 
+    var itemUL = item.parent();
     
     // the items in the currently active menu
-    var $menuItems = $itemUL.children( 'li' ).not( '.separator' );
+    var menuItems = itemUL.children( 'li' ).not( '.separator' );
     
     // the items index in its menu
-    var menuIndex = $menuItems.index( $item );
+    var menuIndex = menuItems.index( item );
     
-    var $newItem = null;
+    var newItem = null;
     
-    if ( $itemUL.is( '.root-level' ) ) {
+    if ( itemUL.is( '.root-level' ) ) {
         
         // nothing to do
-        return $item;
+        return item;
         
     }
     
@@ -954,24 +977,26 @@ MenuBar.prototype.moveUp = function( $item ) {
     // move to the previous item
     if ( menuIndex > 0 ) {
         
-        $newItem = $menuItems.eq( menuIndex - 1 );
+        newItem = menuItems.eq( menuIndex - 1 );
         
     } else {
         
         // loop to top of the menu
-        $newItem = $menuItems.last();
+        newItem = menuItems.last();
     }
     
     // remove the focus styling from the current item
-    $item.removeClass('menu-focus');
+    item.removeClass('menu-focus');
     
-    return $newItem;
+    return newItem;
     
 };
 
 // function to process keypress events for the menu
-MenuBar.prototype.handleKeypress = function( $item, e ) {
-
+MenuBar.prototype.handleKeypress = function( item, e ) {
+    
+    var self = this;
+    
     if ( e.altKey || e.ctrlKey || e.shiftKey ) {
         
         // modifier key pressed; do not process
@@ -981,23 +1006,23 @@ MenuBar.prototype.handleKeypress = function( $item, e ) {
     
     switch( e.keyCode ) {
         
-        case this.keys.tab: {
+        case self.keys.tab: {
             return true;
         }
         
-        case this.keys.esc:
-        case this.keys.up:
-        case this.keys.down:
-        case this.keys.left:
-        case this.keys.right: {
+        case self.keys.esc:
+        case self.keys.up:
+        case self.keys.down:
+        case self.keys.left:
+        case self.keys.right: {
             e.stopPropagation();
             return false;
         }
         default : {
             var chr = String.fromCharCode( e.which );
         
-            this.$activeItem = this.moveDown( $item, chr );
-            this.$activeItem.focus();
+            self.activeItem = self.moveDown( item, chr );
+            self.activeItem.focus();
         
             e.stopPropagation();
             return false;
@@ -1010,18 +1035,21 @@ MenuBar.prototype.handleKeypress = function( $item, e ) {
 // function to process click events on the document
 MenuBar.prototype.handleDocumentClick = function() {
     
+    var self = this;
+    
     // get the list of all child menus
-    var $childMenus = this.$id.find( 'ul' ).not( '.root-level' );
+    var childMenus = self.id.find( 'ul' ).not( '.root-level' );
     
     // hide the child menus
-    $childMenus.attr( {
+    childMenus.attr( {
         'aria-hidden': 'true',
         'aria-expanded': 'false'
     } );
     
-    this.$allItems.removeClass( 'menu-focus, active' );
+    self.allItems.removeClass( 'menu-focus' );
+    self.allItems.removeClass( 'active' );
     
-    this.$activeItem = null;
+    self.activeItem = null;
     
     // allow the event to propagate
     return true;
