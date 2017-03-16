@@ -399,6 +399,9 @@ var SBPLUS = SBPLUS || {
                 this.setStorageItem( 'sbplus-subtitle', 0 );
             }
             
+            // DOM title
+            $( document ).attr( "title", 'Storybook+ | ' + this.xml.setup.title );
+            
             // splash screen
             $( this.splash.title ).html( this.xml.setup.title );
             $( this.splash.subtitle ).html( this.xml.setup.subtitle );
