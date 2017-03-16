@@ -39,7 +39,7 @@ var Quiz = function( obj ) {
             
             if ( !SBPLUS.isEmpty( $( cntx ).find( 'choices' ).attr('random') ) ) {
                 
-                var random = SBPLUS.stripScript( $( cntx ).find( 'choices' ).attr('random').trim() );
+                var random = SBPLUS.stripScript( $( cntx ).find( 'choices' ).attr('random').trim().toLowerCase() );
                 
                 if ( random === 'yes' ) {
                     self.quiz.random = true;
@@ -68,7 +68,7 @@ var Quiz = function( obj ) {
                 }
                 
                 if ( !SBPLUS.isEmpty( $( this ).attr( 'correct' ) ) ) {
-                    answer.correct = SBPLUS.stripScript( $( this ).attr( 'correct' ).trim() );
+                    answer.correct = SBPLUS.stripScript( $( this ).attr( 'correct' ).trim().toLowerCase() );
                 }
                 
                 var feedback = $( this ).find( 'feedback' );
@@ -97,7 +97,7 @@ var Quiz = function( obj ) {
             
             if ( !SBPLUS.isEmpty( $( cntx ).find( 'choices' ).attr('random') ) ) {
                 
-                var randomMM = SBPLUS.stripScript( $( cntx ).find( 'choices' ).attr('random').trim() );
+                var randomMM = SBPLUS.stripScript( $( cntx ).find( 'choices' ).attr('random').trim().toLowerCase() );
                 
                 if ( randomMM === 'yes' ) {
                     self.quiz.random = true;
@@ -126,7 +126,7 @@ var Quiz = function( obj ) {
                 }
                 
                 if ( !SBPLUS.isEmpty( $( this ).attr( 'correct' ) ) ) {
-                    answer.correct = SBPLUS.stripScript( $( this ).attr( 'correct' ).trim() );
+                    answer.correct = SBPLUS.stripScript( $( this ).attr( 'correct' ).trim().toLowerCase() );
                 }
                 
                 self.quiz.answers.push( answer );
@@ -212,7 +212,6 @@ var Quiz = function( obj ) {
     if ( questionExists( self.quiz.id ) === false ) {
         
         quizTracker.push( this.quiz );
-        
         
     }
     
