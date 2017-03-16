@@ -152,7 +152,10 @@
     </div>
     
     <div id="menu_item_content" class="animated">
-        <button id="sbplus_menu_close_btn"><span class="icon-close"></span> Close</button>
+        <div class="sbplus_menu_title_bar">
+            <div class="title"></div>
+            <button id="sbplus_menu_close_btn"><span class="icon-close"></span> Close</button>
+        </div>
         <div class="content"></div>
     </div>
     

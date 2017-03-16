@@ -100,6 +100,7 @@ var SBPLUS = SBPLUS || {
             
             this.menu = {
                 menuList: '#sbplus_menu_btn_wrapper .menu',
+                menuBarTitle: '#menu_item_content .sbplus_menu_title_bar .title',
                 menuContentWrapper: '#menu_item_content',
                 menuContent: '#menu_item_content .content'
             };
@@ -1009,12 +1010,13 @@ var SBPLUS = SBPLUS || {
         var content = "";
         var menuContentWrapper = $( this.menu.menuContentWrapper );
         var menuContent = $( this.menu.menuContent );
+        var menuTitle = $( this.menu.menuBarTitle );
         
         switch ( itemId ) {
                     
             case 'sbplus_author_profile':
             
-            menuContent.append( '<div class="menuTitle">Author Profile</div>' );
+            menuTitle.html( '<div class="menuTitle">Author Profile</div>' );
             menuContent.append( '<div class="profileImg"></div>' );
             
             if ( self.xml.setup.authorPhoto.length === 0 ) {
@@ -1071,11 +1073,13 @@ var SBPLUS = SBPLUS || {
             break;
             
             case 'sbplus_general_info':
-            content = '<div class="menuTitle">General Info</div>';
-            content += self.xml.setup.generalInfo;
+            menuTitle.html( 'General Info' );
+            content = self.xml.setup.generalInfo;
             break;
             
             case 'sbplus_settings':
+                
+                menuTitle.html( 'Settings' );
                 
                 if ( this.hasStorageItem( 'sbplus-settings-loaded', true ) === false ) {
                     
@@ -1083,7 +1087,6 @@ var SBPLUS = SBPLUS || {
                     
                         self.settings = data;
                         self.setStorageItem( 'sbplus-settings-loaded', 1, true );
-                        menuContent.append( '<div class="menuTitle">Setting</div>' );
                         menuContent.append( data );
                         self.afterSettingsLoaded();
                         
@@ -1091,7 +1094,6 @@ var SBPLUS = SBPLUS || {
                     
                 } else {
                     
-                    menuContent.append( '<div class="menuTitle">Settings</div>' );
                     menuContent.append( self.settings );
                     self.afterSettingsLoaded();
                     
@@ -1106,8 +1108,8 @@ var SBPLUS = SBPLUS || {
                 for ( var key in customMenuItems ) {
                     var menuId = 'sbplus_' + self.sanitize( customMenuItems[key].name );
                     if ( itemId === menuId ) {
-                        content = '<div class="menuTitle">' + customMenuItems[key].name + '</div>';
-                        content += customMenuItems[key].content;
+                        menuTitle.html( customMenuItems[key].name );
+                        content = customMenuItems[key].content;
                         break;
                     }
                 }

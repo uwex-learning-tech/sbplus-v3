@@ -1410,29 +1410,51 @@ body {
             background: #f2f2f2;
             z-index: 10;
             
-            #sbplus_menu_close_btn {
-                position: absolute;
-                width: 100px;
-                height: 30px;
-                max-height: 0;
-                min-height: 30px;
-                padding: 0 10px;
-                top: 17px;
-                right: 17px;
-                color: $default-accent;
-                border: 1px solid $default-accent;
-                text-transform: uppercase;
-                @include border-radius( 15px );
-            }
-            
-            #sbplus_menu_close_btn:hover {
+            .sbplus_menu_title_bar {
+                
+                @include display-flex();
+                @include flex-flow( row nowrap );
+                @include order(1);
+                @include justify-content(center);
+                @include align-items(center);
                 color: #fff;
-                background-color: $default-accent-hover;
+                height: $titleBarHeight;
+                background-color: #333;
+                font-size: 145%;
+                font-weight: bold;
+                
+                .title {
+                    @include display-flex();
+                    @include flex-flow( row nowrap );
+                    @include flex( 2 1 71.11% );
+                    @include align-items(center);
+                    font-family: $museo-font;
+                    padding: 0 $gutter;
+                    line-height: 1.25;
+                }
+                
+                #sbplus_menu_close_btn {
+                    
+                    width: 100px;
+                    height: 30px;
+                    min-height: 25px;
+                    padding: 0 10px;
+                    color: #fff;
+                    background-color: #ff3c3c;
+                    font-size: 75%;
+                    text-transform: uppercase;
+                    
+                    .icon-close {
+                        font-size: 80%;
+                    }
+                    
+                }
+                
             }
             
             .content {
                 
-                padding: $gutter ($gutter * 2);
+                padding: $gutter;
                 
                 ol, ul, div, h1, h2,
                 h3, h4, h5, h6, p, blockquote {
@@ -1442,12 +1464,6 @@ body {
                 .name {
                     font-weight: bold;
                     font-size: 150%
-                }
-                
-                .menuTitle {
-                    font-size: 200%;
-                    font-weight: bold;
-                    margin: 0 0 $gutter 0;
                 }
                 
                 .profileImg {

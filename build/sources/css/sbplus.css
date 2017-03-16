@@ -948,36 +948,53 @@ body {
     animation-duration: 0.5s;
     background: #f2f2f2;
     z-index: 10; }
-    .sbplus_wrapper #sbplus #menu_item_content #sbplus_menu_close_btn {
-      position: absolute;
-      width: 100px;
-      height: 30px;
-      max-height: 0;
-      min-height: 30px;
-      padding: 0 10px;
-      top: 17px;
-      right: 17px;
-      color: #0c3b6b;
-      border: 1px solid #0c3b6b;
-      text-transform: uppercase;
-      -moz-border-radius: 15px;
-      -webkit-border-radius: 15px;
-      border-radius: 15px; }
-    .sbplus_wrapper #sbplus #menu_item_content #sbplus_menu_close_btn:hover {
+    .sbplus_wrapper #sbplus #menu_item_content .sbplus_menu_title_bar {
+      display: -webkit-flex;
+      display: flex;
+      -webkit-flex-flow: row nowrap;
+      flex-flow: row nowrap;
+      -webkit-order: 1;
+      order: 1;
+      -webkit-justify-content: center;
+      justify-content: center;
+      -webkit-align-items: center;
+      align-items: center;
       color: #fff;
-      background-color: #06498d; }
+      height: 30px;
+      background-color: #333;
+      font-size: 145%;
+      font-weight: bold; }
+      .sbplus_wrapper #sbplus #menu_item_content .sbplus_menu_title_bar .title {
+        display: -webkit-flex;
+        display: flex;
+        -webkit-flex-flow: row nowrap;
+        flex-flow: row nowrap;
+        -webkit-flex: 2 1 71.11%;
+        flex: 2 1 71.11%;
+        -webkit-align-items: center;
+        align-items: center;
+        font-family: "museo_sans500";
+        padding: 0 10px;
+        line-height: 1.25; }
+      .sbplus_wrapper #sbplus #menu_item_content .sbplus_menu_title_bar #sbplus_menu_close_btn {
+        width: 100px;
+        height: 30px;
+        min-height: 25px;
+        padding: 0 10px;
+        color: #fff;
+        background-color: #ff3c3c;
+        font-size: 75%;
+        text-transform: uppercase; }
+        .sbplus_wrapper #sbplus #menu_item_content .sbplus_menu_title_bar #sbplus_menu_close_btn .icon-close {
+          font-size: 80%; }
     .sbplus_wrapper #sbplus #menu_item_content .content {
-      padding: 10px 20px; }
+      padding: 10px; }
       .sbplus_wrapper #sbplus #menu_item_content .content ol, .sbplus_wrapper #sbplus #menu_item_content .content ul, .sbplus_wrapper #sbplus #menu_item_content .content div, .sbplus_wrapper #sbplus #menu_item_content .content h1, .sbplus_wrapper #sbplus #menu_item_content .content h2,
       .sbplus_wrapper #sbplus #menu_item_content .content h3, .sbplus_wrapper #sbplus #menu_item_content .content h4, .sbplus_wrapper #sbplus #menu_item_content .content h5, .sbplus_wrapper #sbplus #menu_item_content .content h6, .sbplus_wrapper #sbplus #menu_item_content .content p, .sbplus_wrapper #sbplus #menu_item_content .content blockquote {
         margin: 10px 0; }
       .sbplus_wrapper #sbplus #menu_item_content .content .name {
         font-weight: bold;
         font-size: 150%; }
-      .sbplus_wrapper #sbplus #menu_item_content .content .menuTitle {
-        font-size: 200%;
-        font-weight: bold;
-        margin: 0 0 10px 0; }
       .sbplus_wrapper #sbplus #menu_item_content .content .profileImg {
         display: inline-block;
         min-width: 250px;
