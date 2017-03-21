@@ -253,7 +253,7 @@ var SBPLUS = SBPLUS || {
             var xImgType = xSb.attr( 'pageImgFormat' ).toLowerCase().trim();
             var xSplashImgType = 'svg';
             var xAnalytics = xSb.attr( 'analytics' ).toLowerCase().trim();
-            var xMathjax = xSb.attr( 'mathjax' ).toLowerCase().trim();
+            var xMathjax = '';
             var xVersion = xSb.attr( 'xmlVersion' );
             var xProgram = '';
             var xCourse = xSetup.attr( 'course' ).toLowerCase().trim();
@@ -291,8 +291,16 @@ var SBPLUS = SBPLUS || {
                 xAnalytics = 'off';
             }
             
-            if ( xMathjax !== 'on' ) {
+            if ( this.isEmpty( xSb.attr( 'mathjax' ) ) ) {
+                
                 xMathjax = 'off';
+                
+            } else {
+                
+                if ( xSb.attr( 'mathjax' ).toLowerCase().trim() === 'on' ) {
+                    xMathjax = 'on';
+                }
+                
             }
             
             this.xml = {
