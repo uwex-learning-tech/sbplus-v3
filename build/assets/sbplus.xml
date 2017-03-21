@@ -187,13 +187,13 @@ legend("topleft", legend=c("Student", "Non-student"), lty=c(1,2), col=c("blue","
     
     <!-- others -->
     
-    <section title="Other Examples">
+    <section title="Other Examples (Not Related to Chocolate Chip Cookies)">
         
         <page type="video" src="smgt370_course_intro" title="Video from Assets Directory">
             <note />
         </page>
         
-        <page type="youtube" src="mAobb8_SzHY" title="Video from YouTube" transition="zoomInDown">
+        <page type="youtube" src="Jt1h1MinlLI" title="Video from YouTube" transition="zoomInDown">
             <note>Release on June 20, 2017!!!</note>
             <widget>
                 <segment name="New Jobs">Red Mage announced! More to come!</segment>
