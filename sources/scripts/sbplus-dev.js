@@ -100,6 +100,7 @@ var SBPLUS = SBPLUS || {
             
             this.menu = {
                 menuList: '#sbplus_menu_btn_wrapper .menu',
+                menuContentList: '#menu_item_content .menu',
                 menuBarTitle: '#menu_item_content .sbplus_menu_title_bar .title',
                 menuContentWrapper: '#menu_item_content',
                 menuContent: '#menu_item_content .content',
@@ -1021,6 +1022,11 @@ var SBPLUS = SBPLUS || {
         var menuContent = $( this.menu.menuContent );
         var menuTitle = $( this.menu.menuBarTitle );
         
+        menuContent.empty();
+        
+        $( self.menu.menuContentList + ' li' ).removeClass( 'active' );
+        $( self.menu.menuContentList + ' .' + itemId ).addClass( 'active' );
+        
         switch ( itemId ) {
                     
             case 'sbplus_author_profile':
@@ -1390,13 +1396,16 @@ var SBPLUS = SBPLUS || {
                     var name = customMenuItems[key].name;
                     var sanitizedName = this.sanitize( name );
 
-                    var item = '<li class="menu-item" tabindex="-1" role="menuitem" aria-live="polite" id="sbplus_' + sanitizedName + '"><a href="javascript:void(0);" onclick="SBPLUS.openMenuItem(\'sbplus_' + sanitizedName + '\');"><span class="icon-' + sanitizedName + '"></span> ' + name + '</a></li>';
+                    var item = '<li tabindex="-1" role="menuitem" aria-live="polite" class="menu-item sbplus_' + sanitizedName + '"><a href="javascript:void(0);" onclick="SBPLUS.openMenuItem(\'sbplus_' + sanitizedName + '\');"><span class="icon-' + sanitizedName + '"></span> ' + name + '</a></li>';
                     
                     $( this.menu.menuList ).append( item );
                     
                 }
                 
             }
+            
+            // append the menu list to inner menu list as well
+            $( this.menu.menuContentList ).html( $( this.menu.menuList ).html() );
             
         } else {
             

@@ -1366,18 +1366,6 @@ body {
                 #sbplus_widget_btn.showDot::before {
                     position: absolute;
                     content: '';
-                    
-                    /* circle */
-/*
-                    top: 20%;
-                    left: 37%;
-                    width: 10px; 
-                    height: 10px;
-                    @include border-radius(5px);
-                    background-color: #ff5d5d;
-*/
-                    
-                    /* triangle */
                     top: 0;
                     left: -5px;
                     width: 0;
@@ -1456,111 +1444,186 @@ body {
                 
             }
             
-            .content {
+            .container {
                 
-                padding: $gutter;
+                @include display-flex();
+                @include flex-flow(row wrap);
+                width: 100%;
+                @include calc( height, '100% - ' + 30px );
                 
-                ol, ul, div, h1, h2,
-                h3, h4, h5, h6, p, blockquote {
-                    margin: $gutter 0;
-                }
-                
-                .name {
-                    font-weight: bold;
-                    font-size: 150%
-                }
-                
-                .profileImg {
+                .content {
                     
-                    display: inline-block;
-                    min-width: 250px;
-                    margin: 0;
-                    height: auto;
-                    min-height: 259px;
-                    background-image: url('../images/default_photo.png');
-                    background-size: contain;
-                    background-repeat: no-repeat;
-                    background-position: center left;
-                    margin-right: $gutter * 1.5;
-                    float: left;
+                    @include flex(1);
                     
-                    img {
-                        width: 250px;
+                    padding: $gutter;
+                    
+                    ol, ul, div, h1, h2,
+                    h3, h4, h5, h6, p, blockquote {
+                        margin: $gutter 0;
+                    }
+                    
+                    .name {
+                        font-weight: bold;
+                        font-size: 150%
+                    }
+                    
+                    .profileImg {
+                        
+                        display: inline-block;
+                        min-width: 250px;
+                        margin: 0;
                         height: auto;
+                        min-height: 259px;
+                        background-image: url('../images/default_photo.png');
+                        background-size: contain;
+                        background-repeat: no-repeat;
+                        background-position: center left;
+                        margin-right: $gutter * 1.5;
+                        float: left;
+                        
+                        img {
+                            width: 250px;
+                            height: auto;
+                        }
+                        
                     }
                     
                 }
                 
-            }
-            
-            .settings {
-                
-                .name {
-                    margin-bottom: 0;
-                }
-                
-                .grid {
+                .settings {
                     
-                    @include display-flex();
-                    @include flex-flow( column nowrap );
-                    margin: 0;
+                    .name {
+                        margin-bottom: 0;
+                    }
                     
-                    .row {
+                    .grid {
                         
-                         @include display-flex();
-                         @include flex-flow( row nowrap );
-                         @include align-items(center);
-                         margin: 0;
-                         padding: 5px 0;
-                         
-                         .label {
-                             @include flex( 2 0 80% );
+                        @include display-flex();
+                        @include flex-flow( column nowrap );
+                        margin: 0;
+                        
+                        .row {
+                            
+                             @include display-flex();
+                             @include flex-flow( row nowrap );
+                             @include align-items(center);
                              margin: 0;
-                             padding: 0 8px;
+                             padding: 5px 0;
                              
-                             .error {
-                                 @include flex( 1 0 20% );
-                                 color: #f00;
+                             .label {
+                                 @include flex( 2 0 80% );
                                  margin: 0;
-                                 font-size: 12px;
+                                 padding: 0 8px;
+                                 
+                                 .error {
+                                     @include flex( 1 0 20% );
+                                     color: #f00;
+                                     margin: 0;
+                                     font-size: 12px;
+                                 }
+                                 
                              }
                              
-                         }
-                         
-                         .control {
-                             
-                             @include flex( 1 0 20% );
-                             margin: 0;
-                             padding: 0 5px;
-                             
-                             select,
-                             input[type=number] {
-                                 width: 100%;
-                                 padding: 3px 2px;
+                             .control {
+                                 
+                                 @include flex( 1 0 20% );
+                                 margin: 0;
+                                 padding: 0 5px;
+                                 
+                                 select,
+                                 input[type=number] {
+                                     width: 100%;
+                                     padding: 3px 2px;
+                                 }
+                                 
                              }
-                             
-                         }
+                            
+                        }
+                        
+                        .row:nth-child(even) {
+                             background-color: #f2f2f2;
+                        }
                         
                     }
                     
-                    .row:nth-child(even) {
-                         background-color: #f2f2f2;
+                    #save_settings {
+                        display: none;
+                        margin: 16px 0;
+                        padding: 8px;
+                        background-color: #56f24e;
+                        font-weight: bold;
+                        text-align: center;
+                    }
+                    
+                    #save_settings:disabled {
+                        @include opacity( 0.55 );
+                        cursor: default;
                     }
                     
                 }
                 
-                #save_settings {
-                    display: none;
-                    margin: 16px 0;
-                    padding: 8px;
-                    background-color: #56f24e;
-                    font-weight: bold;
-                    text-align: center;
-                }
-                
-                #save_settings:disabled {
-                    @include opacity( 0.55 );
-                    cursor: default;
+                .side_menu {
+                    
+                    width: 260px;
+                    
+                    .menu {
+                        
+                        height: 100%;
+                        list-style: none;
+                        margin: 0;
+                        padding: 0;
+                        background-color: #444;
+                        
+                        .menu-item {
+                            
+                            a { 
+                                
+                                @include display-flex();
+                                @include flex-flow( row nowrap );
+                                @include align-items( center );
+                                width: 100%;
+                                min-height: 35px;
+                                padding: 0 ($gutter + 5);
+                                font-size: 14px;
+                                font-weight: normal;
+                                color: #fff;
+                                text-decoration: none;
+                                
+                                span {
+                                    display: inline-block;
+                                    margin-right: 5px;
+                                }
+                                
+                            }
+                            
+                        }
+                        
+                        .menu-item:hover {
+                            
+                            background-color: $default-accent-hover;
+                            
+                            a {
+                                color: #fff;
+                            }
+                            
+                        }
+                        
+                        .menu-item:focus {
+                            
+                            background-color: $default-accent;
+                            
+                            a {
+                                color: #fff;
+                            }
+                            
+                        }
+                        
+                        .active {
+                            background-color: $default-accent;
+                        }
+                                                            
+                    }
+                    
                 }
                 
             }

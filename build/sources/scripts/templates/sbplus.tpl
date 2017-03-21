@@ -36,21 +36,21 @@
                         <span class="icon-menu menu-icon"></span>
                         <ul class="menu" role="menu" aria-hidden="true" aria-expanded="false">
                             
-                            <li class="menu-item" tabindex="-1" role="menuitem" aria-live="polite" id="sbplus_author_profile">
+                            <li tabindex="-1" role="menuitem" aria-live="polite" class="menu-item sbplus_author_profile">
                                 <a href="javascript:void(0);" onclick="SBPLUS.openMenuItem('sbplus_author_profile');">
                                     <span class="icon-profile"></span>
                                     Author Profile
                                 </a>
                             </li>
                             
-                            <li class="menu-item" tabindex="-1" role="menuitem" aria-live="polite" id="sbplus_general_info">
+                            <li tabindex="-1" role="menuitem" aria-live="polite" class="menu-item sbplus_general_info">
                                 <a href="javascript:void(0);" onclick="SBPLUS.openMenuItem('sbplus_general_info');">
                                     <span class="icon-info"></span>
                                     General Info
                                 </a>
                             </li>
                             
-                            <li class="menu-item" tabindex="-1" role="menuitem" aria-live="polite" id="sbplus_settings">
+                            <li tabindex="-1" role="menuitem" aria-live="polite" class="menu-item sbplus_settings">
                                 <a href="javascript:void(0);" onclick="SBPLUS.openMenuItem('sbplus_settings');">
                                     <span class="icon-settings"></span>
                                     Settings
@@ -156,7 +156,14 @@
             <div class="title"></div>
             <button id="sbplus_menu_close_btn"><span class="icon-close"></span> Close</button>
         </div>
-        <div class="content"></div>
+        <div class="container">
+            <div class="content"></div>
+            <div class="side_menu">
+                <ul class="menu" role="menu">
+                    
+                </div>
+            </div>
+        </div>
     </div>
     
 </div>
