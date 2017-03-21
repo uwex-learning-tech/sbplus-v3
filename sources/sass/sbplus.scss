@@ -352,7 +352,7 @@ body {
                                 border-top: none;
                                 background-color: #444;
                                 @include box-shadow( 0 6px 4px 2px #fff);
-                                z-index: 9;
+                                z-index: 11;
                                 
                                 .menu-item {
                                     
@@ -1302,7 +1302,7 @@ body {
                                 padding: 0;
                                 border: 1px solid $border-color;
                                 background-color: #fff;
-                                z-index: 9;
+                                z-index: 11;
                                 
                                 .menu-item {
                                     

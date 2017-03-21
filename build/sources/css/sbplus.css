@@ -239,7 +239,7 @@ body {
               -moz-box-shadow: 0 6px 4px 2px #fff;
               -webkit-box-shadow: 0 6px 4px 2px #fff;
               box-shadow: 0 6px 4px 2px #fff;
-              z-index: 9; }
+              z-index: 11; }
               .sbplus_wrapper #sbplus #sbplus_banner_bar #sbplus_menu_area #sbplus_menu_btn_wrapper #sbplus_menu_btn .menu-parent .menu .menu-item a,
               .sbplus_wrapper #sbplus #sbplus_banner_bar #sbplus_menu_area #sbplus_menu_btn_wrapper .root-level .menu-parent .menu .menu-item a {
                 display: -webkit-flex;
@@ -871,7 +871,7 @@ body {
               padding: 0;
               border: 1px solid #ccc;
               background-color: #fff;
-              z-index: 9; }
+              z-index: 11; }
               .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu .menu-item,
               .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu .menu-item {
                 margin: 0;
