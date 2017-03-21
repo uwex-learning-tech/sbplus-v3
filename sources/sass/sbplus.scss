@@ -1550,11 +1550,12 @@ body {
                 }
                 
                 #save_settings {
+                    display: none;
                     margin: 16px 0;
-                    color: #fff;
-                    background-color: $default-accent;
-                    padding: 10px 0;
-                    font-size: 16px;
+                    padding: 8px;
+                    background-color: #56f24e;
+                    font-weight: bold;
+                    text-align: center;
                 }
                 
                 #save_settings:disabled {

@@ -1,5 +1,7 @@
 <form class="settings">
     
+    <div id="save_settings"></div>
+    
     <p class="name">General</p>
     
     <div class="grid">
@@ -100,7 +102,5 @@
         </div>
         
     </div>
-    
-    <button id="save_settings">Save</button>
     
 </form>

@@ -1053,11 +1053,12 @@ body {
       .sbplus_wrapper #sbplus #menu_item_content .settings .grid .row:nth-child(even) {
         background-color: #f2f2f2; }
     .sbplus_wrapper #sbplus #menu_item_content .settings #save_settings {
+      display: none;
       margin: 16px 0;
-      color: #fff;
-      background-color: #0c3b6b;
-      padding: 10px 0;
-      font-size: 16px; }
+      padding: 8px;
+      background-color: #56f24e;
+      font-weight: bold;
+      text-align: center; }
     .sbplus_wrapper #sbplus #menu_item_content .settings #save_settings:disabled {
       filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=55);
       opacity: 0.55;

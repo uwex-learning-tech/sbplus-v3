@@ -102,7 +102,8 @@ var SBPLUS = SBPLUS || {
                 menuList: '#sbplus_menu_btn_wrapper .menu',
                 menuBarTitle: '#menu_item_content .sbplus_menu_title_bar .title',
                 menuContentWrapper: '#menu_item_content',
-                menuContent: '#menu_item_content .content'
+                menuContent: '#menu_item_content .content',
+                menuSavingMsg: '#save_settings'
             };
             
             $.getJSON( this.getManifestUrl(), function( data ) {
@@ -1814,11 +1815,10 @@ var SBPLUS = SBPLUS || {
             
             self.syncSettings();
             
-            $( '#save_settings' ).on( 'click', function( e ) {
+            $( '.settings input, .settings select' ).on( 'click', function() {
                 
-                var self_btn = this;
-                
-                $( self_btn ).prop( 'disabled', true ).html( 'Saving...' );
+                // show msg
+                $( self.menu.menuSavingMsg ).fadeIn().html( 'Saving...' );
                 
                 // widget
                 if ( $( '#sbplus_gs_widget' ).is( ':checked' ) ) {
@@ -1893,16 +1893,18 @@ var SBPLUS = SBPLUS || {
                     true
                 );
                 
+                // show msg
+                $( self.menu.menuSavingMsg ).html( 'Settings saved!' );
+                
                 setTimeout( function() {
                     
-                    $( self_btn ).prop( 'disabled', false ).html( 'Save' );
+                    $( self.menu.menuSavingMsg ).fadeOut( 'slow', function() {
+                        $( this ).empty();
+                    } );
                     
                 }, 1500 );
                 
-                e.preventDefault();
-                return false;
-                
-            } );
+            });
             
         }
             
