@@ -648,7 +648,7 @@ Page.prototype.renderVideoJS = function() {
         } );
         
         // subtitle
-        if ( self.isYoutube === false && self.isVimeo === false ) {
+        if ( self.isYoutube === false && self.isVimeo === false && player.textTracks().tracks_.length >= 1 ) {
             
             if ( SBPLUS.hasStorageItem( 'sbplus-subtitle-temp', true ) ) {
             
