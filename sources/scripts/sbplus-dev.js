@@ -76,7 +76,6 @@ var SBPLUS = SBPLUS || {
             },
             
             this.widget = {
-                bg: '#sbplus_widget.noSegments',
                 bar: '#sbplus_widget .widget_controls_bar',
                 segment: '#sbplus_widget .widget_controls_bar .tab_segment',
                 segments: [],
@@ -1297,6 +1296,7 @@ var SBPLUS = SBPLUS || {
             
             self.showWidgetContentIndicator();
             $( self.layout.widget ).removeClass('noSegments');
+            $( self.widget.content ).css( 'background-image', '' );
             $( this.screenReader.hasNotes ).html( 'This page contains notes.' );
             
             var target = '';
@@ -1347,7 +1347,7 @@ var SBPLUS = SBPLUS || {
                     
                     self.setStorageItem( 'sbplus-logo-loaded', this.url, true );
                     
-                    $( self.widget.bg ).css( 'background-image', 'url(' +
+                    $( self.widget.content ).css( 'background-image', 'url(' +
                         self.getStorageItem( 'sbplus-logo-loaded', true ) + ')' );
                         
                 } ).fail( function() {
@@ -1358,7 +1358,7 @@ var SBPLUS = SBPLUS || {
                         
                         self.setStorageItem( 'sbplus-logo-loaded', this.url, true );
                         
-                        $( self.widget.bg ).css( 'background-image', 'url(' +
+                        $( self.widget.content ).css( 'background-image', 'url(' +
                             self.getStorageItem( 'sbplus-logo-loaded', true ) + ')' );
                             
                     } );
@@ -1367,7 +1367,7 @@ var SBPLUS = SBPLUS || {
                 
             } else {
                 
-                $( self.widget.bg ).css( 'background-image', 'url(' +
+                $( self.widget.content ).css( 'background-image', 'url(' +
                     self.getStorageItem( 'sbplus-logo-loaded', true ) + ')' );
                 
             }
