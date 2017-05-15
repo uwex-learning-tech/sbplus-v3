@@ -1632,10 +1632,38 @@ body {
 }
 
 .sbplus_full {
+    
     position: absolute;
     z-index: 99;
     top: 0;
     left: 0;
+    
+    #sbplus {
+        
+        #sbplus_banner_bar {
+            
+            #sbplus_menu_area {
+                
+                #sbplus_menu_btn_wrapper {
+                    
+                    #sbplus_menu_btn,
+                    .root-level {
+                    
+                        .menu-parent {
+                            padding-right: $gutter;
+                            @include justify-content( flex-end );
+                        }
+                        
+                    }
+                    
+                }
+                
+            }
+            
+        }
+        
+    }
+    
 }
 
 .sbplus_boxed {
@@ -1923,6 +1951,32 @@ body {
                     
                     #sbplus_sidebar_btn {
                         display: block;
+                    }
+                    
+                }
+                
+            }
+            
+        }
+        
+    }
+    
+    .sbplus_full {
+        
+        #sbplus {
+            
+            #sbplus_banner_bar {
+                
+                #sbplus_menu_area {
+            
+                    #sbplus_author_name {
+                        width: auto;
+                        @include flex(initial);
+                        @include align-self(flex-end);
+                    }
+                    
+                    #sbplus_menu_btn_wrapper {
+                        @include flex(initial);
                     }
                     
                 }

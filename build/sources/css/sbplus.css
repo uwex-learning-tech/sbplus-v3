@@ -1109,6 +1109,11 @@ body {
   z-index: 99;
   top: 0;
   left: 0; }
+  .sbplus_full #sbplus #sbplus_banner_bar #sbplus_menu_area #sbplus_menu_btn_wrapper #sbplus_menu_btn .menu-parent,
+  .sbplus_full #sbplus #sbplus_banner_bar #sbplus_menu_area #sbplus_menu_btn_wrapper .root-level .menu-parent {
+    padding-right: 10px;
+    -webkit-justify-content: flex-end;
+    justify-content: flex-end; }
 
 .sbplus_boxed #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_widget {
   border-left: 1px solid #ccc;
@@ -1267,6 +1272,16 @@ body {
         .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .active {
           color: #06498d; }
     .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_sidebar_btn {
-      display: block; } }
+      display: block; }
+
+  .sbplus_full #sbplus #sbplus_banner_bar #sbplus_menu_area #sbplus_author_name {
+    width: auto;
+    -webkit-flex: initial;
+    flex: initial;
+    -webkit-align-self: flex-end;
+    align-self: flex-end; }
+  .sbplus_full #sbplus #sbplus_banner_bar #sbplus_menu_area #sbplus_menu_btn_wrapper {
+    -webkit-flex: initial;
+    flex: initial; } }
 
 /*# sourceMappingURL=sbplus.css.map */
