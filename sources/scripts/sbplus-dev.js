@@ -563,7 +563,7 @@ var SBPLUS = SBPLUS || {
             // get mathjax if turned on
             if ( this.xml.settings.mathjax === 'on' ) {
                 
-                $.getScript( 'https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML', function() {
+                $.getScript( 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML', function() {
             
                     MathJax.Hub.Config({
                         
@@ -1643,7 +1643,7 @@ var SBPLUS = SBPLUS || {
     
     colorContrast: function( hex ) {
 
-        hex = parseInt( hex.slice( 1 ), 16 );
+        hex = parseInt( hex.slice( 1 ), 15 );
         return hex > 0xffffff / 2 ? '#000' : '#fff';
         
     },
