@@ -629,15 +629,21 @@ var SBPLUS = SBPLUS || {
             var pages = $( this ).find( 'page' );
             
             var sectionHTML = '<div class="section">';
-            sectionHTML += '<div class="header">';
-            sectionHTML += '<div class="title">';
-            sectionHTML += sectionHead +'</div>';
-            sectionHTML += '<div class="icon"><span class="icon-collapse"></span></div></div>';
-            sectionHTML += '<ul class="list">';
             
-            if ( self.isEmpty( sectionHead ) ) {
-                sectionHead = 'Section ' + ( i + 1 );
+            if ( $( self.xml.sections ).length >= 2 ) {
+                
+                if ( self.isEmpty( sectionHead ) ) {
+                    sectionHead = 'Section ' + ( i + 1 );
+                }
+                
+                sectionHTML += '<div class="header">';
+                sectionHTML += '<div class="title">';
+                sectionHTML += sectionHead +'</div>';
+                sectionHTML += '<div class="icon"><span class="icon-collapse"></span></div></div>';
+                
             }
+            
+            sectionHTML += '<ul class="list">';
             
             $.each( pages, function( j ) {
                 
