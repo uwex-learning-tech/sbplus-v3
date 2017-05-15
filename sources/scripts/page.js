@@ -1021,7 +1021,21 @@ function displayWidgetContent( str ) {
     $( SBPLUS.widget.content ).html( str )
         .addClass( 'fadeIn' ).one( 'webkitAnimationEnd mozAnimationEnd animationend', 
         function() {
-            $( this ).removeClass( 'fadeIn' ).off();
+            
+            var region = $( this );
+            
+            region.removeClass( 'fadeIn' ).off();
+            
+            if ( region.find( 'a' ).length ) {
+
+        		region.find( 'a' ).each( function() {
+            		
+        			$( this ).attr( "target", "_blank" );
+        
+                } );
+        
+            }
+            
         }
      );
     

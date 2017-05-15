@@ -107,6 +107,14 @@ var SBPLUS = SBPLUS || {
                 menuSavingMsg: '#save_settings'
             };
             
+            this.screenReader = {
+                pageStatus: '.sr-page-status',
+                currentPage: '.sr-page-status .sr-current-page',
+                totalPages: '.sr-page-status .sr-total-pages',
+                pageTitle: '.sr-page-status .sr-page-title',
+                hasNotes: '.sr-page-status .sr-has-notes'
+            };
+            
             $.getJSON( this.getManifestUrl(), function( data ) {
                 
                 self.setStorageItem( 'sbplus-manifest-loaded', 1, true );
@@ -511,7 +519,7 @@ var SBPLUS = SBPLUS || {
             } ).done( function() {
                 self.downloads.transcript = this.url;
                 $( self.splash.downloadBar ).append(
-                    '<a href="' + self.downloads.transcript + '" tabindex="1" download><span class="icon-download"></span> Transcript</a>' );
+                    '<a href="' + self.downloads.transcript + '" tabindex="1" download aria-label="Download transcript file"><span class="icon-download"></span> Transcript</a>' );
             } );
             
             $.ajax( {
@@ -520,7 +528,7 @@ var SBPLUS = SBPLUS || {
             } ).done( function() {
                 self.downloads.video = this.url;
                 $( self.splash.downloadBar ).append(
-                    '<a href="' + self.downloads.video + '" tabindex="1" download><span class="icon-download"></span> Video</a>' );
+                    '<a href="' + self.downloads.video + '" tabindex="1" download aria-label="Download video file"><span class="icon-download"></span> Video</a>' );
             } );
             
             $.ajax( {
@@ -529,7 +537,7 @@ var SBPLUS = SBPLUS || {
             } ).done( function() {
                 self.downloads.audio = this.url;
                 $( self.splash.downloadBar ).append(
-                    '<a href="' + self.downloads.audio + '" tabindex="1" download><span class="icon-download"></span> Audio</a>' );
+                    '<a href="' + self.downloads.audio + '" tabindex="1" download aria-label="Download audio file"><span class="icon-download"></span> Audio</a>' );
             } );
             
             $.ajax( {
@@ -538,7 +546,7 @@ var SBPLUS = SBPLUS || {
             } ).done( function() {
                 self.downloads.supplement = this.url;
                 $( self.splash.downloadBar ).append(
-                    '<a href="' + self.downloads.supplement + '" tabindex="1" download><span class="icon-download"></span> Supplement</a>' );
+                    '<a href="' + self.downloads.supplement + '" tabindex="1" download aria-label="Download zipped supplement file"><span class="icon-download"></span> Supplement</a>' );
             } );
             
             // accent
@@ -607,6 +615,9 @@ var SBPLUS = SBPLUS || {
             this.hideSidebar();
         }
         
+        // remove focus
+        $( this.layout.sbplus ).blur();
+        
         // presentation
         $( this.banner.title ).html( this.xml.setup.title );
         $( this.banner.author ).html( this.xml.setup.author );
@@ -653,6 +664,7 @@ var SBPLUS = SBPLUS || {
         
         // page status
         $( this.layout.pageStatus ).find( 'span.total' ).html( this.totalPages );
+        $( this.screenReader.totalPages ).html( this.totalPages );
         
         if ( this.isResuming ) {
             
@@ -807,7 +819,6 @@ var SBPLUS = SBPLUS || {
             } );
             self.presentationStarted = true;
             
-            
         }
         
     },
@@ -954,6 +965,7 @@ var SBPLUS = SBPLUS || {
             
             this.getPage( targetPage.data('page') );
             this.updatePageStatus( targetPage.data( 'count' ) );
+            $( this.screenReader.currentPage ).html( targetPage.data( 'count' ) );
             this.updateScroll( targetPage[0] );
             
         }
@@ -988,6 +1000,8 @@ var SBPLUS = SBPLUS || {
         
         this.currentPage = new Page( pageData );
         this.currentPage.getPageMedia();
+        
+        $( this.screenReader.pageTitle ).html( pageData.title );
         
     },
     
@@ -1270,6 +1284,7 @@ var SBPLUS = SBPLUS || {
             
             self.showWidgetContentIndicator();
             $( self.layout.widget ).removeClass('noSegments');
+            $( this.screenReader.hasNotes ).html( 'This page contains notes.' );
             
             var target = '';
             var targetId = '';
@@ -1295,6 +1310,7 @@ var SBPLUS = SBPLUS || {
         } else {
             
             this.hideWidgetContentIndicator();
+            $( this.screenReader.hasNotes ).empty();
             
             $( this.layout.widget ).addClass('noSegments');
             
