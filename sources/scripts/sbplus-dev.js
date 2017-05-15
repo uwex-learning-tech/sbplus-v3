@@ -417,6 +417,13 @@ var SBPLUS = SBPLUS || {
                 this.setStorageItem( 'sbplus-subtitle', 0 );
             }
             
+            if ( this.getStorageItem( 'sbplus-autoplay') == '1' ) {
+                
+                // add a class to the body tag
+                $( this.layout.wrapper ).addClass( 'sbplus_autoplay_on' );
+                
+            }
+            
             // DOM title
             $( document ).attr( "title", 'Storybook+ | ' + this.xml.setup.title );
             
@@ -1883,8 +1890,10 @@ var SBPLUS = SBPLUS || {
                 // autoplay
                 if ( $( '#sbplus_va_autoplay' ).is( ':checked' ) ) {
                     self.setStorageItem( 'sbplus-autoplay', 1 );
+                    $( self.layout.wrapper ).addClass( 'sbplus_autoplay_on' );
                 } else {
                     self.setStorageItem( 'sbplus-autoplay', 0 );
+                    $( self.layout.wrapper ).removeClass( 'sbplus_autoplay_on' );
                 }
                 
                 // subtitle
@@ -1988,9 +1997,13 @@ var SBPLUS = SBPLUS || {
             if ( self.isMobileDevice() === false ) {
                 
                 if ( autoplayVal === '1') {
+                    
                     $( '#sbplus_va_autoplay' ).prop( 'checked', true );
+                    
                 } else {
+                    
                     $( '#sbplus_va_autoplay' ).prop( 'checked', false );
+            
                 }
                 
             }

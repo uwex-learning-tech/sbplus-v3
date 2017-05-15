@@ -1631,6 +1631,24 @@ body {
     
 }
 
+.sbplus_autoplay_on {
+    
+    #sbplus_media_wrapper {
+        
+        .sbplus_media_content {
+            
+            .video-js.vjs-default-skin {
+                
+                .vjs-big-play-button {
+                    display: none;
+               }
+            }
+        }
+        
+    }
+    
+}
+
 .sbplus_full {
     
     position: absolute;

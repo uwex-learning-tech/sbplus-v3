@@ -1104,6 +1104,9 @@ body {
       width: 100%;
       height: 100%; }
 
+.sbplus_autoplay_on #sbplus_media_wrapper .sbplus_media_content .video-js.vjs-default-skin .vjs-big-play-button {
+  display: none; }
+
 .sbplus_full {
   position: absolute;
   z-index: 99;
