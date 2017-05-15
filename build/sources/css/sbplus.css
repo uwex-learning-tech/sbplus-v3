@@ -1217,7 +1217,8 @@ body {
     flex-flow: row nowrap; }
     .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col {
       width: 100%;
-      height: 100%; }
+      height: 100%;
+      border-right: 1px solid #ccc; }
       .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper .sbplus_media_content {
         /* videoJS customization goes here if any */ }
       .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_widget {
@@ -1232,8 +1233,7 @@ body {
         bottom: 0;
         border-top: 1px solid #ccc; }
     .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col {
-      width: 258px;
-      border-left: 1px solid #ccc; }
+      width: 258px; }
   .sbplus_wrapper #sbplus #sbplus_control_bar {
     height: 50px;
     font-size: 100%; }
@@ -1282,6 +1282,10 @@ body {
     align-self: flex-end; }
   .sbplus_full #sbplus #sbplus_banner_bar #sbplus_menu_area #sbplus_menu_btn_wrapper {
     -webkit-flex: initial;
-    flex: initial; } }
+    flex: initial; }
+  .sbplus_full #sbplus #sbplus_content_wrapper #sbplus_left_col {
+    border-right: none; }
+  .sbplus_full #sbplus #sbplus_content_wrapper #sbplus_right_col {
+    border-left: 1px solid #ccc; } }
 
 /*# sourceMappingURL=sbplus.css.map */
