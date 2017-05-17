@@ -1024,7 +1024,8 @@ body {
                 @include flex( 1 0 auto );
                 @include order(2);
                 position: relative;
-                overflow: hidden;
+                overflow-x: hidden;
+                overflow-y: auto;
                 
                 #sbplus_sub_bar {
                     

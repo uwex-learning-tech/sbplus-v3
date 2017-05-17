@@ -673,7 +673,8 @@ body {
       -webkit-order: 2;
       order: 2;
       position: relative;
-      overflow: hidden; }
+      overflow-x: hidden;
+      overflow-y: auto; }
       .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col #sbplus_sub_bar {
         display: -webkit-flex;
         display: flex;
