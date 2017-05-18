@@ -12,11 +12,11 @@ var Quiz = function( obj ) {
     var qAudio = '';
     
     if ( !SBPLUS.isEmpty( question.attr( 'image' ) ) ) {
-        qImg = SBPLUS.stripScript( question.attr( 'image' ).trim() );
+        qImg = SBPLUS.noScript( question.attr( 'image' ).trim() );
     }
     
     if ( !SBPLUS.isEmpty( question.attr( 'audio' ) ) ) {
-        qAudio = SBPLUS.stripScript( question.attr( 'audio' ).trim() );
+        qAudio = SBPLUS.noScript( question.attr( 'audio' ).trim() );
     }
     
     self.quiz = {
@@ -39,7 +39,7 @@ var Quiz = function( obj ) {
             
             if ( !SBPLUS.isEmpty( $( cntx ).find( 'choices' ).attr('random') ) ) {
                 
-                var random = SBPLUS.stripScript( $( cntx ).find( 'choices' ).attr('random').trim().toLowerCase() );
+                var random = SBPLUS.noScript( $( cntx ).find( 'choices' ).attr('random').trim().toLowerCase() );
                 
                 if ( random === 'yes' ) {
                     self.quiz.random = true;
@@ -55,35 +55,35 @@ var Quiz = function( obj ) {
                 
                 var answer = {};
                 
-                answer.value = SBPLUS.stripScript( $( this ).find( 'value' ).text().trim() );
+                answer.value = SBPLUS.noScript( $( this ).find( 'value' ).text().trim() );
                 
                 if ( !SBPLUS.isEmpty( $( this ).attr( 'image' ) ) ) {
-                    answer.img = SBPLUS.stripScript( $( this ).attr( 'image' ).trim() );
+                    answer.img = SBPLUS.noScript( $( this ).attr( 'image' ).trim() );
                     answer.value = answer.img;
                 }
                 
                 if ( !SBPLUS.isEmpty( $( this ).attr( 'audio' ) ) ) {
-                    answer.audio = SBPLUS.stripScript( $( this ).attr( 'audio' ).trim() );
+                    answer.audio = SBPLUS.noScript( $( this ).attr( 'audio' ).trim() );
                     answer.value = answer.audio;
                 }
                 
                 if ( !SBPLUS.isEmpty( $( this ).attr( 'correct' ) ) ) {
-                    answer.correct = SBPLUS.stripScript( $( this ).attr( 'correct' ).trim().toLowerCase() );
+                    answer.correct = SBPLUS.noScript( $( this ).attr( 'correct' ).trim().toLowerCase() );
                 }
                 
                 var feedback = $( this ).find( 'feedback' );
                 
 /*
                 if ( !SBPLUS.isEmpty( feedback.attr( 'image' ) ) ) {
-                    answer.feedbackImg = SBPLUS.stripScript( feedback.attr( 'image' ).trim() );
+                    answer.feedbackImg = SBPLUS.noScript( feedback.attr( 'image' ).trim() );
                 }
                 
                 if ( !SBPLUS.isEmpty( feedback.attr( 'audio' ) ) ) {
-                    answer.feedbackAudio = SBPLUS.stripScript( feedback.attr( 'audio' ).trim() );
+                    answer.feedbackAudio = SBPLUS.noScript( feedback.attr( 'audio' ).trim() );
                 }
 */
                 
-                answer.feedback = SBPLUS.stripScript( feedback.text().trim() );
+                answer.feedback = SBPLUS.noScript( feedback.text().trim() );
                 
                 self.quiz.answers.push( answer );
                 
@@ -97,7 +97,7 @@ var Quiz = function( obj ) {
             
             if ( !SBPLUS.isEmpty( $( cntx ).find( 'choices' ).attr('random') ) ) {
                 
-                var randomMM = SBPLUS.stripScript( $( cntx ).find( 'choices' ).attr('random').trim().toLowerCase() );
+                var randomMM = SBPLUS.noScript( $( cntx ).find( 'choices' ).attr('random').trim().toLowerCase() );
                 
                 if ( randomMM === 'yes' ) {
                     self.quiz.random = true;
@@ -113,20 +113,20 @@ var Quiz = function( obj ) {
                 
                 var answer = {};
                 
-                answer.value = SBPLUS.stripScript( $( this ).find( 'value' ).text().trim() );
+                answer.value = SBPLUS.noScript( $( this ).find( 'value' ).text().trim() );
                 
                 if ( !SBPLUS.isEmpty( $( this ).attr( 'image' ) ) ) {
-                    answer.img = SBPLUS.stripScript( $( this ).attr( 'image' ).trim() );
+                    answer.img = SBPLUS.noScript( $( this ).attr( 'image' ).trim() );
                     answer.value = answer.img;
                 }
                 
                 if ( !SBPLUS.isEmpty( $( this ).attr( 'audio' ) ) ) {
-                    answer.audio = SBPLUS.stripScript( $( this ).attr( 'audio' ).trim() );
+                    answer.audio = SBPLUS.noScript( $( this ).attr( 'audio' ).trim() );
                     answer.value = answer.audio;
                 }
                 
                 if ( !SBPLUS.isEmpty( $( this ).attr( 'correct' ) ) ) {
-                    answer.correct = SBPLUS.stripScript( $( this ).attr( 'correct' ).trim().toLowerCase() );
+                    answer.correct = SBPLUS.noScript( $( this ).attr( 'correct' ).trim().toLowerCase() );
                 }
                 
                 self.quiz.answers.push( answer );
@@ -136,24 +136,24 @@ var Quiz = function( obj ) {
                 
 /*
                 if ( !SBPLUS.isEmpty( cFeedback.attr( 'image' ) ) ) {
-                    self.quiz.correctFeedbackImg = SBPLUS.stripScript( cFeedback.attr( 'image' ).trim() );
+                    self.quiz.correctFeedbackImg = SBPLUS.noScript( cFeedback.attr( 'image' ).trim() );
                 }
                 
                 if ( !SBPLUS.isEmpty( cFeedback.attr( 'audio' ) ) ) {
-                    self.quiz.correctFeedbackAudio = SBPLUS.stripScript( cFeedback.attr( 'audio' ).trim() );
+                    self.quiz.correctFeedbackAudio = SBPLUS.noScript( cFeedback.attr( 'audio' ).trim() );
                 }
                 
                 if ( !SBPLUS.isEmpty( iFeedback.attr( 'image' ) ) ) {
-                    self.quiz.incorrectFeedbackImg = SBPLUS.stripScript( iFeedback.attr( 'image' ).trim() );
+                    self.quiz.incorrectFeedbackImg = SBPLUS.noScript( iFeedback.attr( 'image' ).trim() );
                 }
                 
                 if ( !SBPLUS.isEmpty( iFeedback.attr( 'audio' ) ) ) {
-                    self.quiz.incorrectFeedbackAudio = SBPLUS.stripScript( iFeedback.attr( 'audio' ).trim() );
+                    self.quiz.incorrectFeedbackAudio = SBPLUS.noScript( iFeedback.attr( 'audio' ).trim() );
                 }
 */
                 
-                self.quiz.correctFeedback = SBPLUS.stripScript( cFeedback.text().trim() );
-                self.quiz.incorrectFeedback = SBPLUS.stripScript( iFeedback.text().trim() );
+                self.quiz.correctFeedback = SBPLUS.noScript( cFeedback.text().trim() );
+                self.quiz.incorrectFeedback = SBPLUS.noScript( iFeedback.text().trim() );
                 
             } );
             
@@ -165,45 +165,45 @@ var Quiz = function( obj ) {
                 
 /*
             if ( !SBPLUS.isEmpty( shortFeedback.attr( 'image' ) ) ) {
-                self.quiz.feedbackImg = SBPLUS.stripScript( shortFeedback.attr( 'image' ).trim() );
+                self.quiz.feedbackImg = SBPLUS.noScript( shortFeedback.attr( 'image' ).trim() );
             }
             
             if ( !SBPLUS.isEmpty( shortFeedback.attr( 'audio' ) ) ) {
-                self.quiz.feedbackAudio = SBPLUS.stripScript( shortFeedback.attr( 'audio' ).trim() );
+                self.quiz.feedbackAudio = SBPLUS.noScript( shortFeedback.attr( 'audio' ).trim() );
             }
 */
             
-            self.quiz.feedback = SBPLUS.stripScript( shortFeedback.text().trim() );
+            self.quiz.feedback = SBPLUS.noScript( shortFeedback.text().trim() );
             
         break;
         
         case 'fillintheblank':
             
-            self.quiz.answer = SBPLUS.stripScript( $( cntx ).find( 'answer' ).text().trim() );
+            self.quiz.answer = SBPLUS.noScript( $( cntx ).find( 'answer' ).text().trim() );
             
             var cFilFeedback = $( cntx ).find( 'correctFeedback' );
             var iFilFeedback = $( cntx ).find( 'incorrectFeedback' );
                 
 /*
             if ( !SBPLUS.isEmpty( cFilFeedback.attr( 'image' ) ) ) {
-                self.quiz.correctFeedbackImg = SBPLUS.stripScript( cFilFeedback.attr( 'image' ).trim() );
+                self.quiz.correctFeedbackImg = SBPLUS.noScript( cFilFeedback.attr( 'image' ).trim() );
             }
             
             if ( !SBPLUS.isEmpty( cFilFeedback.attr( 'audio' ) ) ) {
-                self.quiz.correctFeedbackAudio = SBPLUS.stripScript( cFilFeedback.attr( 'audio' ).trim() );
+                self.quiz.correctFeedbackAudio = SBPLUS.noScript( cFilFeedback.attr( 'audio' ).trim() );
             }
             
             if ( !SBPLUS.isEmpty( iFilFeedback.attr( 'image' ) ) ) {
-                self.quiz.incorrectFeedbackImg = SBPLUS.stripScript( iFilFeedback.attr( 'image' ).trim() );
+                self.quiz.incorrectFeedbackImg = SBPLUS.noScript( iFilFeedback.attr( 'image' ).trim() );
             }
             
             if ( !SBPLUS.isEmpty( iFilFeedback.attr( 'audio' ) ) ) {
-                self.quiz.incorrectFeedbackAudio = SBPLUS.stripScript( iFilFeedback.attr( 'audio' ).trim() );
+                self.quiz.incorrectFeedbackAudio = SBPLUS.noScript( iFilFeedback.attr( 'audio' ).trim() );
             }
 */
             
-            self.quiz.correctFeedback = SBPLUS.stripScript( cFilFeedback.text().trim() );
-            self.quiz.incorrectFeedback = SBPLUS.stripScript( iFilFeedback.text().trim() );
+            self.quiz.correctFeedback = SBPLUS.noScript( cFilFeedback.text().trim() );
+            self.quiz.incorrectFeedback = SBPLUS.noScript( iFilFeedback.text().trim() );
             
         break;
         

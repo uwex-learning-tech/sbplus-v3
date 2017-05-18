@@ -129,7 +129,7 @@ Page.prototype.getPageMedia = function() {
                 
                 $.get( 'assets/audio/' + self.src + '.vtt', function( data ) {
                     self.captionUrl = this.url;
-                    self.transcript = SBPLUS.stripScript( data );
+                    self.transcript = SBPLUS.noScript( data );
                 } ).always( function() {
                     
                     var html = '<video id="mp" class="video-js vjs-default-skin" webkit-playsinline playsinline></video>';
@@ -152,14 +152,18 @@ Page.prototype.getPageMedia = function() {
             var img = new Image();
             img.src = 'assets/pages/' + self.src + '.' + self.imgType;
             img.alt = self.title;
-            img.className = 'img_only';
             
             $( img ).on( 'load', function() {
+                
                 self.hasImage = true;
                 
-                $( self.mediaContent ).html( img ).promise().done( function() {
+/*
+                $( self.mediaContent ).html( '<img src="' + img.src + '" class="img_only" alt="' + slef.title + '" />' ).promise().done( function() {
                     self.setWidgets();
                 } );
+*/
+                
+                
             } );
             
             $( img ).on( 'error', function() {
@@ -167,6 +171,10 @@ Page.prototype.getPageMedia = function() {
                 self.showPageError( 'NO_IMG', img.src );
             } );
             
+            $( self.mediaContent ).html( '<img src="' + img.src + '" class="img_only" alt="' + img.alt + '" />' ).promise().done( function() {
+                self.setWidgets();
+            } );
+                        
         break;
         
         case 'video':
@@ -174,7 +182,7 @@ Page.prototype.getPageMedia = function() {
             $.get( 'assets/video/' + self.src + '.vtt', function( data ) {
                 
                 self.captionUrl = this.url;
-                self.transcript = SBPLUS.stripScript( data );
+                self.transcript = SBPLUS.noScript( data );
                 
             }).always( function() {
                 
@@ -238,7 +246,7 @@ Page.prototype.getPageMedia = function() {
             
             $.get( 'assets/audio/' + self.src + '.vtt', function( data ) {
                 self.captionUrl = this.url;
-                self.transcript = SBPLUS.stripScript( data );
+                self.transcript = SBPLUS.noScript( data );
             } ).always( function() {
                 
                 var html = '<video id="mp" class="video-js vjs-default-skin" webkit-playsinline playsinline></video>';
@@ -773,7 +781,7 @@ Page.prototype.setWidgets = function() {
             segments.each( function() {
                 
                 var name = $( this ).attr( 'name' );
-                var content = SBPLUS.stripScript( $( this ).text() );
+                var content = SBPLUS.noScript( $( this ).text() );
                 var key = 'sbplus_' + SBPLUS.sanitize( name );
                 
                 self.widgetSegments[key] = content;
@@ -818,7 +826,7 @@ Page.prototype.getWidgetContent = function( id ) {
                         $.get( self.captionUrl, function( d ) {
                         
                             self.transcriptLoaded = true;
-                            self.transcript = parseTranscript( SBPLUS.stripScript( d ) );
+                            self.transcript = parseTranscript( SBPLUS.noScript( d ) );
                             
                             displayWidgetContent( self.transcript );
                             self.startInteractiveTranscript();
