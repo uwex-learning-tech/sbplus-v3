@@ -445,12 +445,15 @@ Page.prototype.renderVideoJS = function() {
     
     // set tech order and plugins
     if ( self.isKaltura ) {
-        options.plugins = Object.assign( options.plugins, { videoJsResolutionSwitcher: { 'default': 720 } } );
+        //options.plugins = Object.assign( options.plugins, { videoJsResolutionSwitcher: { 'default': 720 } } );
+        $.extend( options.plugins, { videoJsResolutionSwitcher: { 'default': 720 } } );
     } else if ( self.isYoutube ) {
         options.techOrder = ['youtube'];
         options.sources = [{ type: "video/youtube", src: "https://www.youtube.com/watch?v=" + self.src }];
         options.playbackRates = null;
-        options.plugins = Object.assign( options.plugins, { videoJsResolutionSwitcher: { 'default': 720 } } );
+        //options.plugins = Object.assign( options.plugins, { videoJsResolutionSwitcher: { 'default': 720 } } );
+        $.extend( options.plugins, { videoJsResolutionSwitcher: { 'default': 720 } } );
+
     } else if ( self.isVimeo ) {
         options.techOrder = ["vimeo"];
         options.sources = [{ type: "video/vimeo", src: "https://vimeo.com/" + self.src }];

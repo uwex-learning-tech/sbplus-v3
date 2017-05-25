@@ -4,7 +4,7 @@
  * @author: Ethan Lin
  * @url: https://github.com/oel-mediateam/sbplus
  * @version: 3.1.0
- * Released 05/19/2017
+ * Released 05/31/2017
  *
  * @license: GNU GENERAL PUBLIC LICENSE v3
  *
@@ -58,10 +58,10 @@ var SBPLUS = SBPLUS || {
     
     // status flags
     splashScreenRendered: false,
+    presentationRendered: false,
     beforeXMLLoadingDone: false,
     presentationStarted: false,
     hasError: false,
-    isResuming: false, // for videoJS
     
     // easter egg variables
     clickCount: 0,
@@ -231,7 +231,7 @@ var SBPLUS = SBPLUS || {
             var self = this;
             
             // set the template URL for the sbplus.tpl file
-            var templateUrl = this.manifest.sbplus_root_directory;
+            var templateUrl = self.manifest.sbplus_root_directory;
             templateUrl += 'scripts/templates/sbplus.tpl';
             
             // AJAX call and load the sbplus.tpl template
@@ -430,19 +430,19 @@ var SBPLUS = SBPLUS || {
             // set data from the XML to respective variables
             var xSb = data.find( 'storybook' );
             var xSetup = data.find( 'setup' );
-            var xAccent = this.trimAndLower( xSb.attr( 'accent' ) );
-            var xImgType = this.trimAndLower( xSb.attr( 'pageImgFormat' ) );
+            var xAccent = self.trimAndLower( xSb.attr( 'accent' ) );
+            var xImgType = self.trimAndLower( xSb.attr( 'pageImgFormat' ) );
             var xSplashImgType = 'svg';
-            var xAnalytics = this.trimAndLower( xSb.attr( 'analytics' ) );
+            var xAnalytics = self.trimAndLower( xSb.attr( 'analytics' ) );
             var xMathjax = '';
             var xVersion = xSb.attr( 'xmlVersion' );
             var xProgram = '';
-            var xCourse = this.trimAndLower( xSetup.attr( 'course' ) );
-            var xTitle = this.noScript( xSetup.find( 'title' ).text().trim() );
-            var xSubtitle = this.noScript( xSetup.find( 'subtitle' ).text().trim() );
+            var xCourse = self.trimAndLower( xSetup.attr( 'course' ) );
+            var xTitle = self.noScript( xSetup.find( 'title' ).text().trim() );
+            var xSubtitle = self.noScript( xSetup.find( 'subtitle' ).text().trim() );
             var xLength = xSetup.find( 'length' ).text().trim();
             var xAuthor = xSetup.find( 'author' );
-            var xGeneralInfo = this.noScript( xSetup.find( 'generalInfo' ).text().trim() );
+            var xGeneralInfo = self.noScript( xSetup.find( 'generalInfo' ).text().trim() );
             var xSections = data.find( 'section' );
             
             // variable to hold temporary XML value for further evaluation
@@ -453,10 +453,10 @@ var SBPLUS = SBPLUS || {
             if ( splashImgType_temp ) {
                 
                 // and if it is not empty...
-                if ( !this.isEmpty( splashImgType_temp ) ) {
+                if ( !self.isEmpty( splashImgType_temp ) ) {
                     
                     // set the splash image type to the temporary value
-                    xSplashImgType = this.trimAndLower( splashImgType_temp );
+                    xSplashImgType = self.trimAndLower( splashImgType_temp );
                     
                 }
                 
@@ -466,17 +466,17 @@ var SBPLUS = SBPLUS || {
             if ( program_temp ) {
                 
                 // set the program to the temporary value
-                xProgram = this.trimAndLower( program_temp );
+                xProgram = self.trimAndLower( program_temp );
                 
             }
             
             // if accent is empty, set the accent to the vaule in the manifest
-            if ( this.isEmpty( xAccent ) ) {
-                xAccent = this.manifest.sbplus_default_accent;
+            if ( self.isEmpty( xAccent ) ) {
+                xAccent = self.manifest.sbplus_default_accent;
             }
             
             // if image type is empty, default to jpg
-            if ( this.isEmpty( xImgType ) ) {
+            if ( self.isEmpty( xImgType ) ) {
                 xImgType = 'jpg';
             }
             
@@ -486,7 +486,7 @@ var SBPLUS = SBPLUS || {
             }
             
             // if mathjax is not found or empty
-            if ( this.isEmpty( xSb.attr( 'mathjax' ) ) ) {
+            if ( self.isEmpty( xSb.attr( 'mathjax' ) ) ) {
                 
                 // default to off
                 xMathjax = 'off';
@@ -494,14 +494,14 @@ var SBPLUS = SBPLUS || {
             } else {
                 
                 // value in mathjax attribute is on, set to on
-                if ( this.trimAndLower( xSb.attr( 'mathjax' ) ) === 'on' ) {
+                if ( self.trimAndLower( xSb.attr( 'mathjax' ) ) === 'on' ) {
                     xMathjax = 'on';
                 }
                 
             }
             
             // set the parsed data to the class XML object variable
-            this.xml = {
+            self.xml = {
                 settings: {
                     accent: xAccent,
                     imgType: xImgType,
@@ -523,7 +523,7 @@ var SBPLUS = SBPLUS || {
             };
             
             // if analytics is on, get and set Google analtyics tracking
-            if ( this.xml.settings.analytics === 'on' ) {
+            if ( self.xml.settings.analytics === 'on' ) {
                 
                 (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
                 (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -536,8 +536,8 @@ var SBPLUS = SBPLUS || {
             }
             
             // set author name and path to the profile to respective variable
-            var sanitizedAuthor = this.sanitize( xAuthor.attr( 'name' ).trim() );
-            var profileUrl = this.manifest.sbplus_author_directory + sanitizedAuthor + '.json';
+            var sanitizedAuthor = self.sanitize( xAuthor.attr( 'name' ).trim() );
+            var profileUrl = self.manifest.sbplus_author_directory + sanitizedAuthor + '.json';
             
             // get centralized author name and profile via AJAX
             $.ajax( {
@@ -572,6 +572,10 @@ var SBPLUS = SBPLUS || {
         }
         
     }, // end parseXMLData function
+    
+    /**************************************************************************
+        SPLASH SCREEN FUNCTIONS
+    **************************************************************************/
     
     /**
      * Render presentation splash screen
@@ -628,10 +632,10 @@ var SBPLUS = SBPLUS || {
             $( document ).attr( "title", self.xml.setup.title );
             
             // display data to the splash screen
-            $( this.splash.title ).html( this.xml.setup.title );
-            $( this.splash.subtitle ).html( this.xml.setup.subtitle );
-            $( this.splash.author ).html( this.xml.setup.author );
-            $( this.splash.duration ).html( this.xml.setup.duration );
+            $( self.splash.title ).html( self.xml.setup.title );
+            $( self.splash.subtitle ).html( self.xml.setup.subtitle );
+            $( self.splash.author ).html( self.xml.setup.author );
+            $( self.splash.duration ).html( self.xml.setup.duration );
             
             // get splash image background via AJAX
             $.ajax( { // get the splash image from the local first
@@ -702,19 +706,19 @@ var SBPLUS = SBPLUS || {
             } );
             
             // set event listener to the start button
-            $( this.button.start ).on( 'click', this.startPresentation.bind( this ) );
+            $( self.button.start ).on( 'click', self.startPresentation.bind( self ) );
             
             // if local storage has a value for the matching presentation title
-            if ( this.hasStorageItem( 'sbplus-' + this.sanitize( this.xml.setup.title ) ) ) {
+            if ( self.hasStorageItem( 'sbplus-' + self.sanitize( self.xml.setup.title ) ) ) {
                 
                 // set event listener to the resume button
-                $( this.button.resume ).on( 'click', this.resumePresentation.bind( this ) );
+                $( self.button.resume ).on( 'click', self.resumePresentation.bind( self ) );
                 
             } else {
                 
                 // hide the resume button
-                $( this.button.resume ).hide( 0, function() {
-                    $( this ).attr( 'tabindex', '-1' );
+                $( self.button.resume ).hide( 0, function() {
+                    $( self ).attr( 'tabindex', '-1' );
                 } );
                 
             }
@@ -768,16 +772,16 @@ var SBPLUS = SBPLUS || {
             } );
             
             // if accent does not match the default accent
-            if ( this.xml.settings.accent !== this.manifest.sbplus_default_accent ) {
+            if ( self.xml.settings.accent !== self.manifest.sbplus_default_accent ) {
                 
                 // set hover color hex value
-                var hover = this.colorLum( this.xml.settings.accent, 0.2 );
+                var hover = self.colorLum( self.xml.settings.accent, 0.2 );
                 
                 // set the text color hex value
-                var textColor = this.colorContrast( this.xml.settings.accent );
+                var textColor = self.colorContrast( self.xml.settings.accent );
                 
                 // construct the CSS
-                var style = '.sbplus_wrapper button:hover{color:' + this.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_cta button{color:' + textColor  + ';background-color:' + this.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_cta button:hover{background-color:' + hover + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col .list .item:hover{color:' + textColor + ';background-color:' + hover + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col .list .sb_selected{color:' + textColor + ';background-color:' + this.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col #sbplus_table_of_contents_wrapper .section .current{border-left-color:' + this.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu .menu-item:hover,.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu .menu-item:hover{background-color:' + this.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu .menu-item:hover a,.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu .menu-item:hover a{color:' + textColor + '}.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .active, .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .active{color:' + this.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu .menu-item:focus,.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu .menu-item:focus{background-color:' + this.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu .menu-item:focus a,.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu .menu-item:focus a{color:' + textColor + '}.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent:hover,.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent:hover{color:' + this.xml.settings.accent + '}';
+                var style = '.sbplus_wrapper button:hover{color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_cta button{color:' + textColor  + ';background-color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_cta button:hover{background-color:' + hover + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col .list .item:hover{color:' + textColor + ';background-color:' + hover + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col .list .sb_selected{color:' + textColor + ';background-color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col #sbplus_table_of_contents_wrapper .section .current{border-left-color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu .menu-item:hover,.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu .menu-item:hover{background-color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu .menu-item:hover a,.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu .menu-item:hover a{color:' + textColor + '}.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .active, .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .active{color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu .menu-item:focus,.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu .menu-item:focus{background-color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu .menu-item:focus a,.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu .menu-item:focus a{color:' + textColor + '}.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent:hover,.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent:hover{color:' + self.xml.settings.accent + '}';
                 
                 // append the style/css to the HTML head
                 $( 'head' ).append( '<style type="text/css">' + style + '</style>' );
@@ -785,9 +789,9 @@ var SBPLUS = SBPLUS || {
             }
             
             // if mathjax if turned on
-            if ( this.xml.settings.mathjax === 'on' ) {
+            if ( self.xml.settings.mathjax === 'on' ) {
                 
-                // load the MathJAX script
+                // load the MathJAX script from a CDN
                 $.getScript( 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML', function() {
             
                     MathJax.Hub.Config({
@@ -803,26 +807,33 @@ var SBPLUS = SBPLUS || {
             }
             
             // if viewing device is an iphone
-            if ( this.isMobileDevice() ) {
+            if ( self.isMobileDevice() ) {
                 
                 // load the inline video library
-                $.getScript( this.manifest.sbplus_root_directory + 'scripts/libs/iphone-inline-video.browser.js' );
+                $.getScript( self.manifest.sbplus_root_directory + 'scripts/libs/iphone-inline-video.browser.js' );
                 
             }
             
             // flag the splash screen as rendered
-            this.splashScreenRendered = true;
+            self.splashScreenRendered = true;
             
         }
         
     }, // end renderSplashScreen function
     
-    /**************************************************************************
-        SPLASH SCREEN FUNCTIONS
-    **************************************************************************/
-    
+    /**
+     * Set the splash screen image to the DOM
+     *
+     * @since 3.1.0
+     * @author(s) Ethan Lin
+     * @updated on 5/19/2017
+     *
+     * @param string
+     * @return none
+     **/
     setSplashImage: function( str ) {
         
+        // if parameter is not empty, set the background image
         if ( str ) {
             $( this.splash.background ).css( 'background-image', 
             'url(' + str + ')' );
@@ -830,44 +841,107 @@ var SBPLUS = SBPLUS || {
         
     },
     
+    /**
+     * Hide the splash screen. Should be used when starting or resuming.
+     *
+     * @since 3.1.0
+     * @author(s) Ethan Lin
+     * @updated on 5/19/2017
+     *
+     * @param none
+     * @return string
+     **/
     hideSplash: function() {
         
-        $( this.splash.screen ).addClass( 'fadeOut' )
-            .one( 'webkitAnimationEnd mozAnimationEnd animationend', 
-                 function() {
-                     $( this ).removeClass( 'fadeOut' ).hide();
-                     $( this ).off();
-                 }
-            );
+        // if presentation is rendered...
+        if ( this.presentationRendered ) {
+            
+            // add fadeOut class and listen for animation completion event
+            $( this.splash.screen ).addClass( 'fadeOut' )
+                .one( 'webkitAnimationEnd mozAnimationEnd animationend', 
+                     function() {
+                         $( this ).removeClass( 'fadeOut' ).hide();
+                         $( this ).off();
+                     }
+                );
+            
+        }
         
-        return $( this.splash.screen );
+        // if splash screen is visible or presentation is not rendered
+        if ( !$( this.splash.screen ).is( ':visible' ) ||
+        this.presentationRendered === false ) {
+            
+            // throw a warning to the console
+            console.warn( 'hideSplash should be called after renderPresentation.' );
+            
+        }
         
     },
     
+    /**
+     * Start presentation function for the start button
+     *
+     * @since 3.1.0
+     * @author(s) Ethan Lin
+     * @updated on 5/19/2017
+     *
+     * @param none
+     * @return none
+     **/
     startPresentation: function() {
         
         var self = this;
         
-        if ( self.presentationStarted === false ) {
+        // if presentation has not started, hide splash and render presenation
+        if ( this.presentationStarted === false ) {
             
-            self.hideSplash().promise().done( function() {
-                self.renderPresentation();
+            // render presenation
+            self.renderPresentation().promise().done( function() {
+                
+                // hide splash screen
+                self.hideSplash();
+                
+                // select the first page
+                self.selectPage( '0,0' );
+                
             } );
+            
             self.presentationStarted = true;
             
         }
         
     },
     
+    /**
+     * Resume presentation function for the start button
+     *
+     * @since 3.1.0
+     * @author(s) Ethan Lin
+     * @updated on 5/19/2017
+     *
+     * @param none
+     * @return none
+     **/
     resumePresentation: function() {
         
         var self = this;
         
+        // if presentation has not started, hide splash, set resuming flag
+        // to true and render presenation
         if ( self.presentationStarted === false ) {
             
-            self.hideSplash().promise().done( function() {
-                self.isResuming = true;
-                self.renderPresentation();
+            // render presentation
+            self.renderPresentation().promise().done( function() {
+                
+                // hide screen
+                self.hideSplash();
+                
+                // get/set the presenation title
+                var presentation = self.sanitize( self.xml.setup.title );
+                
+                // select the page that was set in the local storage data
+                self.selectPage( self.getStorageItem( 'sbplus-' + presentation ) );
+                
             } );
             
             self.presentationStarted = true;
@@ -876,207 +950,313 @@ var SBPLUS = SBPLUS || {
         
     },
     
+    /**
+     * Render the presentation (after the hiding the splash screen)
+     *
+     * @since 3.1.0
+     * @author(s) Ethan Lin
+     * @updated on 5/19/2017
+     *
+     * @param none
+     * @return none
+     **/
     renderPresentation: function() {
         
-        var self = this;
-        
-        // before presenting; applie local storage settings
-        if ( this.getStorageItem( 'sbplus-hide-widget' ) === '1' ) {
-            this.hideWidget();
-        }
-        
-        if ( this.getStorageItem( 'sbplus-hide-sidebar' ) === '1' ) {
-            this.hideSidebar();
-        }
-        
-        // remove focus
-        $( this.layout.sbplus ).blur();
-        
-        // presentation
-        $( this.banner.title ).html( this.xml.setup.title );
-        $( this.banner.author ).html( this.xml.setup.author );
-        
-        // table of contents
-        $( this.xml.sections ).each( function( i ) {
+        if ( this.presentationRendered === false ) {
             
-            var sectionHead = $( this ).attr( 'title' );
-            var pages = $( this ).find( 'page' );
-            
-            var sectionHTML = '<div class="section">';
-            
-            if ( $( self.xml.sections ).length >= 2 ) {
-                
-                if ( self.isEmpty( sectionHead ) ) {
-                    sectionHead = 'Section ' + ( i + 1 );
-                }
-                
-                sectionHTML += '<div class="header">';
-                sectionHTML += '<div class="title">';
-                sectionHTML += sectionHead +'</div>';
-                sectionHTML += '<div class="icon"><span class="icon-collapse"></span></div></div>';
-                
+            var self = this;
+        
+            // before presenting; apply local storage settings
+            if ( self.getStorageItem( 'sbplus-hide-widget' ) === '1' ) {
+                self.hideWidget();
             }
             
-            sectionHTML += '<ul class="list">';
+            if ( self.getStorageItem( 'sbplus-hide-sidebar' ) === '1' ) {
+                self.hideSidebar();
+            }
             
-            $.each( pages, function( j ) {
+            // remove focus (from the hidden elements)
+            $( self.layout.sbplus ).blur();
+            
+            // display presentation title and author to the black banner bar
+            $( self.banner.title ).html( self.xml.setup.title );
+            $( self.banner.author ).html( self.xml.setup.author );
+            
+            // display table of contents
+            $( self.xml.sections ).each( function( i ) {
                 
-                ++self.totalPages;
+                // set section head title
+                var sectionHead = $( this ).attr( 'title' );
                 
-                sectionHTML += '<li class="item" data-count="';
-                sectionHTML += self.totalPages + '" data-page="' + i + ',' + j + '">';
+                // set page array data
+                var pages = $( this ).find( 'page' );
                 
-                if ( $( this ).attr( 'type' ) === 'quiz' ) {
-                    sectionHTML += '<span class="icon-assessment"></span>';
-                } else {
-                    sectionHTML += '<span class="numbering">' + self.totalPages + '.</span> ';
+                // set section HTML DOM
+                var sectionHTML = '<div class="section">';
+                
+                // if there is more than 2 sections...
+                if ( $( self.xml.sections ).length >= 2 ) {
+                    
+                    // if sectionHead title is empty, set a default title
+                    if ( self.isEmpty( sectionHead ) ) {
+                        sectionHead = 'Section ' + ( i + 1 );
+                    }
+                    
+                    // append section head HTML to DOM
+                    sectionHTML += '<div class="header">';
+                    sectionHTML += '<div class="title">';
+                    sectionHTML += sectionHead +'</div>';
+                    sectionHTML += '<div class="icon"><span class="icon-collapse"></span></div></div>';
+                    
                 }
                 
-                sectionHTML += $( this ).attr( 'title' ) + '</li>';
+                // append pages (opening list tag) HTML to DOM
+                sectionHTML += '<ul class="list">';
+                
+                // for each page
+                $.each( pages, function( j ) {
+                    
+                    // increment total page
+                    ++self.totalPages;
+                    
+                    // append opening list item tag to DOM
+                    sectionHTML += '<li class="item" data-count="';
+                    sectionHTML += self.totalPages + '" data-page="' + i + ',' + j + '">';
+                    
+                    // if page is quiz
+                    if ( $( this ).attr( 'type' ) === 'quiz' ) {
+                        
+                        // append an quiz icon
+                        sectionHTML += '<span class="icon-assessment"></span>';
+                        
+                    } else {
+                        
+                        // append a count number
+                        sectionHTML += '<span class="numbering">' + self.totalPages + '.</span> ';
+                        
+                    }
+                    
+                    // append page title and close the list item tag
+                    sectionHTML += $( this ).attr( 'title' ) + '</li>';
+                    
+                } );
+                
+                // appending closing list and div tag
+                sectionHTML += '</ul></div>';
+                
+                // append the section HTML to the table of content DOM area
+                $( self.tableOfContents.container ).append( sectionHTML );
                 
             } );
             
-            sectionHTML += '</ul></div>';
+            // set total page to the status bar and to the screen reader text holder
+            $( self.layout.pageStatus ).find( 'span.total' ).html( self.totalPages );
+            $( self.screenReader.totalPages ).html( self.totalPages );
             
-            $( self.tableOfContents.container ).append( sectionHTML );
+            // set event listeners
+            $( self.button.sidebar ).on( 'click', self.toggleSidebar.bind( self ) );
+            $( self.button.widget ).on( 'click',  self.toggleWidget.bind( self ) );
+            $( self.button.author ).on( 'click', function() {
+                self.openMenuItem( 'sbplus_author_profile' );
+            } );
             
-        } );
-        
-        // page status
-        $( this.layout.pageStatus ).find( 'span.total' ).html( this.totalPages );
-        $( this.screenReader.totalPages ).html( this.totalPages );
-        
-        if ( this.isResuming ) {
+            $( self.button.next ).on( 'click', self.goToNextPage.bind( self ) );
+            $( self.button.prev ).on( 'click', self.goToPreviousPage.bind( self ) );
             
-            var presentation = this.sanitize( this.xml.setup.title );
-            this.selectPage( this.getStorageItem( 'sbplus-' + presentation ) );
-            
-        } else {
-            
-            this.selectPage( '0,0' );
-            
-        }
-        
-        // event listeners
-        $( this.button.sidebar ).on( 'click', this.toggleSidebar.bind( this ) );
-        $( this.button.widget ).on( 'click',  this.toggleWidget.bind( this ) );
-        $( this.button.author ).on( 'click', function() {
-            self.openMenuItem( 'sbplus_author_profile' );
-        } );
-        
-        $( this.button.next ).on( 'click', this.goToNextPage.bind( this ) );
-        $( this.button.prev ).on( 'click', this.goToPreviousPage.bind( this ) );
-        $( this.tableOfContents.header ).on( 'click', this.toggleSection.bind( this ) );
-        $( this.tableOfContents.page ).on( 'click', this.selectPage.bind( this ) );
-        $( this.widget.segment ).on( 'click', 'button', this.selectSegment.bind( this ) );
-        
-        // add main menu button
-        this.layout.mainMenu = new MenuBar( $( this.button.menu )[0].id, false );
-        
-        // add download button
-        if ( !$.isEmptyObject(self.downloads) ) {
-            
-            this.layout.dwnldMenu = new MenuBar( $( this.button.download )[0].id, false );
-            
-            // set download items
-            for ( var key in self.downloads ) {
-                
-                if ( !SBPLUS.isEmpty( self.downloads[key] ) ) {
-                    $( self.button.downloadMenu ).append(
-                        '<li class="menu-item" tabindex="-1" role="menuitem" aria-live="polite"><a download href="'
-                        + self.downloads[key] +
-                        '">' + self.capitalizeFirstLetter( key ) + '</a></li>'
-                    );
-                }
-                
+            if ( $( self.xml.sections ).length >= 2 ) {
+                $( self.tableOfContents.header ).on( 'click', self.toggleSection.bind( self ) );
             }
             
-        } else {
-        
-            $( self.button.downloadWrapper ).hide();
-        
+            $( self.tableOfContents.page ).on( 'click', self.selectPage.bind( self ) );
+            $( self.widget.segment ).on( 'click', 'button', self.selectSegment.bind( self ) );
+            
+            // add main menu button
+            self.layout.mainMenu = new MenuBar( $( self.button.menu )[0].id, false );
+            
+            // add download button if downloads object is not empty
+            if ( !$.isEmptyObject(self.downloads) ) {
+                
+                self.layout.dwnldMenu = new MenuBar( $( self.button.download )[0].id, false );
+                
+                // set download items
+                for ( var key in self.downloads ) {
+                    
+                    if ( !SBPLUS.isEmpty( self.downloads[key] ) ) {
+                        $( self.button.downloadMenu ).append(
+                            '<li class="menu-item" tabindex="-1" role="menuitem" aria-live="polite"><a download href="'
+                            + self.downloads[key] +
+                            '">' + self.capitalizeFirstLetter( key ) + '</a></li>'
+                        );
+                    }
+                    
+                }
+                
+            } else {
+                
+                // hide the download button if download object is empty
+                $( self.button.downloadWrapper ).hide();
+            
+            }
+            
+            // queue MathJAX if turned on
+            if ( self.xml.settings.mathjax === 'on' ) {
+                MathJax.Hub.Queue( ['Typeset', MathJax.Hub] );
+            }
+            
+            // easter egg event listener
+            $( "#sbplus_menu_btn .menu-parent" ).on( 'click', self.burgerBurger.bind( self ) );
+            
+            // resize elements after everything is put in place
+            self.resize();
+            
+            this.presentationRendered = true;
+            
+            return $( self.layout.sbplus );
+            
         }
         
-        // queue MathJAX if on
-        if ( this.xml.settings.mathjax === 'on' ) {
-            MathJax.Hub.Queue( ['Typeset', MathJax.Hub] );
-        }
-        
-        // easter egg
-        $( "#sbplus_menu_btn .menu-parent" ).on( 'click', this.burgerBurger.bind( this ) );
-        
-        // resize element after everything is put in place
-        this.resize();
-        
-    },
+    }, // end renderPresentation function
     
     /**************************************************************************
         MAIN NAVIGATION FUNCTIONS
     **************************************************************************/
     
+    /**
+     * Go to next page in the table of contents
+     *
+     * @since 3.1.0
+     * @author(s) Ethan Lin
+     * @updated on 5/19/2017
+     *
+     * @param none
+     * @return none
+     **/
     goToNextPage: function() {
         
+        // get/set current page array
         var currentPage = $( '.sb_selected' ).data( 'page' ).split(',');
+        
+        // set section number
         var tSection = Number( currentPage[0] );
+        
+        // set page number
         var tPage = Number( currentPage[1] );
         
+        // set total section
         var totalSections = this.xml.sections.length;
+        
+        // set total page in current section
         var totalPagesInSection = $( this.xml.sections[tSection] ).find( 'page' ).length;
         
+        // increment current page number
         tPage++;
         
+        // if current page number is greater than total number of page in
+        // current section
         if ( tPage > totalPagesInSection - 1 ) {
             
+            // increment current section number
             tSection++;
             
+            // if current section number is greater total number of sections
             if ( tSection > totalSections - 1 ) {
+                
+                // set current section number to 0 or the first section number
                 tSection = 0;
             }
             
+            // set page number to 0 or the first page in the current section
             tPage = 0;
             
         }
         
+        // call selectPage function to get the page with current section and
+        // and current page number as the arugments
         this.selectPage( tSection + ',' + tPage );
         
-    },
+    }, // end goToNextPage function
     
+    /**
+     * Go to previous page in the table of contents
+     *
+     * @since 3.1.0
+     * @author(s) Ethan Lin
+     * @updated on 5/19/2017
+     *
+     * @param none
+     * @return none
+     **/
     goToPreviousPage: function() {
         
+        // get/set current page array
         var currentPage = $( '.sb_selected' ).data( 'page' ).split(',');
+        
+        // set section number
         var tSection = Number( currentPage[0] );
+        
+        // set page number
         var tPage = Number( currentPage[1] );
         
+        // decrement current page number
         tPage--;
         
+        // current page number is less than 0 or the first page
         if ( tPage < 0 ) {
             
+            // decrement current section number
             tSection--;
             
+            // if current section number is 0 or the first section
             if ( tSection < 0 ) {
                 
+                // set section number to the last section
                 tSection = this.xml.sections.length - 1;
                 
             }
             
+            // set page number to the last page on the current section
             tPage = $( this.xml.sections[tSection] ).find( 'page' ).length - 1;
             
         }
         
+        // call selectPage function to get the page with current section and
+        // and current page number as the arugments
         this.selectPage( tSection + ',' + tPage );
         
-    },
+    }, // end goToPreviousPage function
     
+    /**
+     * Update Page Status (or the status bar) next to the page controls
+     *
+     * @since 3.1.0
+     * @author(s) Ethan Lin
+     * @updated on 5/19/2017
+     *
+     * @param none
+     * @return none
+     **/
     updatePageStatus: function( num ) {
         
+        // display current page number to the status
         $( this.layout.pageStatus ).find( 'span.current' ).html( num );
         
-    },
+    }, // end updatePageStatus function
     
     /**************************************************************************
         TABLE OF CONTENT (SIDEBAR) FUNCTIONS
     **************************************************************************/
     
+    /**
+     * Toggling sidebar (table of contents) panel by calling hideSidebar or 
+     * showSidebar function
+     *
+     * @since 3.1.0
+     * @author(s) Ethan Lin
+     * @updated on 5/19/2017
+     *
+     * @param none
+     * @return none
+     **/
     toggleSidebar: function() {
         
         if ( $( this.layout.sidebar ).is( ':visible' ) ) {
@@ -1085,141 +1265,267 @@ var SBPLUS = SBPLUS || {
            this.showSidebar();
         }
         
-    },
+    }, // end toggleSidebar function
     
+    /**
+     * Hide sidebar (table of contents)
+     *
+     * @since 3.1.0
+     * @author(s) Ethan Lin
+     * @updated on 5/19/2017
+     *
+     * @param none
+     * @return none
+     **/
     hideSidebar: function() {
         
-        var widget = $( this.layout.widget );
+        // set media rea DOM jQuery set
         var media = $( this.layout.media );
         
+        // hide the sidebar
         $( this.layout.sidebar ).hide();
+        
+        // update the icon on the toggle sidebar button
         $( this.button.sidebar ).html( '<span class="icon-sidebar-open"></span>' );
         
-        if ( widget.is( ':visible' ) && widget.outerHeight() <= 190 ) {
-            media.removeClass( 'aspect_ratio' ).addClass( 'non_aspect_ratio' );
-        }
-        
+        // remove sidebar_on and add sidebar_off
         media.removeClass( 'sidebar_on' ).addClass( 'sidebar_off' );
         
-    },
+    }, // end hideSidebar function
     
+    /**
+     * Show sidebar (table of contents)
+     *
+     * @since 3.1.0
+     * @author(s) Ethan Lin
+     * @updated on 5/19/2017
+     *
+     * @param none
+     * @return none
+     **/
     showSidebar: function() {
         
-        var widget = $( this.layout.widget );
+        // set media rea DOM jQuery set
         var media = $( this.layout.media );
         
+        // hide the sidebar
         $( this.layout.sidebar ).show();
+        
+        // update the icon on the toggle sidebar button
         $( this.button.sidebar ).html( '<span class="icon-sidebar-close"></span>' );
         
-        if ( widget.is( ':visible' ) && widget.outerHeight() <= 190 ) {
-            media.removeClass( 'non_aspect_ratio' ).addClass( 'aspect_ratio' );
-        }
-        
+        // remove sidebar_off and add sidebar_on
         media.removeClass( 'sidebar_off' ).addClass( 'sidebar_on' );
         
-    },
+    }, // end showSidebar function
     
+    /**
+     * Toggling table of content sections
+     *
+     * @since 3.1.0
+     * @author(s) Ethan Lin
+     * @updated on 5/19/2017
+     *
+     * @param string or object
+     * @return none
+     **/
     toggleSection: function( e ) {
         
+        // get total number of 
         var totalHeaderCount = $( this.tableOfContents.header ).length;
         
+        // if total number of section is greater than 1...
         if ( totalHeaderCount > 1 ) {
             
+            // declare a varible to hold current targeted section
             var targetSectionHeader;
-        
+            
+            // if the object is an click event object
             if ( e instanceof Object ) {
+                
+                // set the current section to the current event click target
                 targetSectionHeader = $( e.currentTarget );
+                
             } else {
                 
+                // if argument is greather than total number of sections
                 if ( Number( e ) > totalHeaderCount - 1 ) {
+                    
+                    // exit function
                     return false;
+                    
                 }
                 
+                // set the current section to the passed argument
                 targetSectionHeader = $( '.header:eq(' + e + ')' );
                 
             }
             
+            // set the target to the list element under the section
             var target = $( targetSectionHeader.siblings( '.list' ) );
+            
+            // the open/collapse icon on the section title bar
             var icon = targetSectionHeader.find( '.icon' );
             
+            // if target is visible...
             if ( target.is( ':visible' ) ) {
+                
+                // slide up (hide) the list
                 target.slideUp();
+                
+                // update the icon to open icon
                 icon.html( '<span class="icon-open"></span>' );
+                
             } else {
+                
+                // slide down (show) the list
                 target.slideDown();
+                
+                // update the icon to collapse icon
                 icon.html( '<span class="icon-collapse"></span>' );
+                
             }
             
         }
         
-    },
+    }, // end toggleSection function
     
+    /**
+     * Selecting page on the table of contents
+     *
+     * @since 3.1.0
+     * @author(s) Ethan Lin
+     * @updated on 5/19/2017
+     *
+     * @param string or object
+     * @return none
+     **/
     selectPage: function( e ) {
         
+        // if splash screen is visible...
+        if ( $( this.splash.screen ).is( ':visible' ) ) {
+            
+            // render the presentation
+            this.renderPresentation();
+            
+            // hide the splash
+            this.hideSplash();
+            
+            // flag the presentationStarted to true
+            this.presentationStarted = true;
+            
+        }
+        
+        // declare a variable to hold targetted page
         var targetPage;
-
+        
+        // if the argument is an click event object
         if ( e instanceof Object ) {
+            
+            // set target to current click event target
             targetPage = $( e.currentTarget );
+            
         } else {
             
+            // set target to the passed in argument
             targetPage = $( '.item[data-page="' + e + '"]' );
             
+            // if targe page does not exist
             if ( targetPage.length === 0 ) {
+                
+                // exit function; stop further execution
                 return false;
             }
             
         }
         
-        // TODO rework this code so it does not hide splash when the presentation is not started
-/*
-        if ( $( this.splash.screen ).is( ':visible' ) ) {
-            this.hideSplash();
-        }
-*/
-              
+        // if target page does not have the sb_selected class
         if ( !targetPage.hasClass( 'sb_selected' ) ) {
             
-            var previousPage = $( this.tableOfContents.page );
-            var sectionHeader = $( this.tableOfContents.header );
+            // get jQuery set that contain pages
+            var allPages = $( this.tableOfContents.page );
             
-            if ( sectionHeader.length > 1 ) {
+            // get jQuery set that contain section headers
+            var sectionHeaders = $( this.tableOfContents.header );
+            
+            // if more than one section headers...
+            if ( sectionHeaders.length > 1 ) {
                 
+                // set the target header to targetted page's header
                 var targetHeader = targetPage.parent().siblings( '.header' );
-            
+                
+                // if targetted header does not have the current class
                 if ( !targetHeader.hasClass( 'current' ) ) {
-                    sectionHeader.removeClass( 'current' );
+                    
+                    // remove current class from all section headers
+                    sectionHeaders.removeClass( 'current' );
+                    
+                    // add current class to targetted header
                     targetHeader.addClass( 'current' );
+                    
                 }
                 
             }
             
-            previousPage.removeClass( 'sb_selected' );
+            // remove sb_selected class from all pages
+            allPages.removeClass( 'sb_selected' );
+            
+            // add sb_selected class to targetted page
             targetPage.addClass( 'sb_selected' );
             
+            // call the getPage function with targetted page data as parameter
             this.getPage( targetPage.data('page') );
+            
+            // update the page status with the targetted page count data
             this.updatePageStatus( targetPage.data( 'count' ) );
+            
+            // update screen reader status
             $( this.screenReader.currentPage ).html( targetPage.data( 'count' ) );
+            
+            // update the scroll bar to targetted page
             this.updateScroll( targetPage[0] );
             
         }
         
-    },
+    }, // end selectPage function
     
+    /**
+     * Getting page after selected a page
+     *
+     * @since 3.1.0
+     * @author(s) Ethan Lin
+     * @updated on 5/19/2017
+     *
+     * @param string
+     * @return none
+     **/
     getPage: function ( page ) {
         
+        // split the page value into an array
         page = page.split( ',' );
         
+        // set section to page array index 0
         var section = page[0];
+        
+        // set item to page array index 1
         var item = page[1];
+        
+        // get and set target based on the section and item varible
         var target = $( $( this.xml.sections[section] ).find( 'page' )[item] );
+        
+        // create a pageData object to hold page title and type
         var pageData = {
             title: target.attr( 'title' ).trim(),
             type: target.attr( 'type' ).trim().toLowerCase()
         };
         
+        // set number property to the pageData object
         pageData.number = page;
         
+        // if page type is not quiz
         if ( pageData.type !== 'quiz' ) {
+            
+            // add/set additional property to the pageData object
             pageData.src = target.attr( 'src' ).trim();
             pageData.notes = this.noScript( target.find( 'note' ).text().trim() );
             pageData.widget = target.find( 'widget' );
@@ -1227,34 +1533,76 @@ var SBPLUS = SBPLUS || {
             pageData.imageFormat = this.xml.settings.imgType;
             pageData.transition = target[0].hasAttribute( 'transition' ) ? 
                 target.attr( 'transition' ).trim() : '';
+                
         } else {
+            
+            // if it is quiz type, add/set quiz property to pageData object
             pageData.quiz = target;
+            
         }
         
+        // create new page object using the pageData and set to SBPLUS's
+        // currentPage property
         this.currentPage = new Page( pageData );
+        
+        // get the page media
         this.currentPage.getPageMedia();
         
+        // update the page title to the screen reader
         $( this.screenReader.pageTitle ).html( pageData.title );
         
-    },
+    }, // end getPage function
     
-    updateScroll: function( target ) {
+    /**
+     * Updating the table of content's scroll bar position
+     *
+     * @since 3.1.0
+     * @author(s) Ethan Lin
+     * @updated on 5/19/2017
+     *
+     * @param object
+     * @return none
+     **/
+    updateScroll: function( obj ) {
         
-        // TODO: scroll to header if target is not visible
+        // set the obj from the parameter
+        var target = obj;
         
+        // if the target is not visible
+        if ( !$( target ).is( ':visible' ) ) {
+            
+            // target its parent's siblings
+            target = $( target ).parent().siblings( '.header' )[0];
+            
+        }
+        
+        // get/set the scrollable height
         var scrollHeight = $( this.tableOfContents.container ).height();
+        
+        // get/set target's height
         var targetHeight = $( target ).outerHeight();
+        
+        // get/set target's position
         var targetTop = $( target ).offset().top - targetHeight;
         
+        // if target's position is greater than scrollable height
         if ( targetTop > scrollHeight ) {
-            target.scrollIntoView( false );
+            
+            // smoothly scroll to target but do not align to top
+            target.scrollIntoView( { behavior: 'smooth', block: 'end' } );
+            
         }
         
+        // if target's position is less than target's height
+        // i.e., scroll to the top of the list when on the last item
         if ( targetTop < targetHeight ) {
-            target.scrollIntoView( true );
+            
+            // smoothly scroll to target and do align to top
+            target.scrollIntoView( { behavior: 'smooth', block: 'start' } );
+            
         }
         
-    },
+    }, // end updateScroll function
     
     /**************************************************************************
         MENU FUNCTIONS
