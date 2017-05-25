@@ -535,6 +535,12 @@ body {
                             
                             .vjs-control-bar {
                                 z-index: 2;
+                                
+                                button {
+                                    display: inherit;
+                                    min-width: inherit;
+                                }
+                                
                             }
                             
                             .sbplus-vjs-poster {
@@ -615,7 +621,7 @@ body {
                                 
                             }
                             
-                            /* subtitles button */
+                            // subtitles button
                             .vjs-subtitles-button.vjs-menu-button-popup {
                                 
                                 .vjs-menu {
@@ -624,16 +630,11 @@ body {
                                 
                             }
                             
-                            /* resolution plugin */
-    
-                            .vjs-resolution-button {
-                                font-family: VideoJS;
-                            }
+                            // resolution plugin
                             
-                            .vjs-resolution-button .vjs-resolution-button-staticlabel:before {
+                            .vjs-resolution-button .vjs-icon-placeholder:before {
+                                font-family: VideoJS;
                                 content: '\f110';
-                                font-size: 1.8em;
-                                line-height: 1.67;
                             }
                             
                             .vjs-resolution-button .vjs-resolution-button-label {
@@ -672,14 +673,6 @@ body {
                                 
                             }
                             
-                        } 
-                        
-                        .video-js.vjs-replay {
-
-                          & .vjs-play-control:before {
-                            content: "\f116";
-                          }
-                          
                         }
                         
                     }

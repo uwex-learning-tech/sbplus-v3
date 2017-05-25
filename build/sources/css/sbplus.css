@@ -360,13 +360,14 @@ body {
             width: 100%;
             height: 100%;
             font-size: 11px;
-            color: #fff;
-            /* subtitles button */
-            /* resolution plugin */ }
+            color: #fff; }
             .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper .sbplus_media_content .video-js.vjs-default-skin button:hover {
               color: #fff; }
             .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper .sbplus_media_content .video-js.vjs-default-skin .vjs-control-bar {
               z-index: 2; }
+              .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper .sbplus_media_content .video-js.vjs-default-skin .vjs-control-bar button {
+                display: inherit;
+                min-width: inherit; }
             .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper .sbplus_media_content .video-js.vjs-default-skin .sbplus-vjs-poster {
               display: inline-block;
               vertical-align: middle;
@@ -425,12 +426,9 @@ body {
                 font-size: rem(10px); }
             .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper .sbplus_media_content .video-js.vjs-default-skin .vjs-subtitles-button.vjs-menu-button-popup .vjs-menu {
               left: -6em; }
-            .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper .sbplus_media_content .video-js.vjs-default-skin .vjs-resolution-button {
-              font-family: VideoJS; }
-            .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper .sbplus_media_content .video-js.vjs-default-skin .vjs-resolution-button .vjs-resolution-button-staticlabel:before {
-              content: '\f110';
-              font-size: 1.8em;
-              line-height: 1.67; }
+            .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper .sbplus_media_content .video-js.vjs-default-skin .vjs-resolution-button .vjs-icon-placeholder:before {
+              font-family: VideoJS;
+              content: '\f110'; }
             .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper .sbplus_media_content .video-js.vjs-default-skin .vjs-resolution-button .vjs-resolution-button-label {
               font-size: 1.2em;
               line-height: 2.50em;
@@ -447,8 +445,6 @@ body {
               left: -1.8em; }
           .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper .sbplus_media_content .video-js.vjs-youtube .vjs-control-bar .vjs-resolution-button .vjs-menu {
             left: -3em; }
-          .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper .sbplus_media_content .video-js.vjs-replay .vjs-play-control:before {
-            content: "\f116"; }
       .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper.non_aspect_ratio {
         height: calc( 100% - 146px ); }
       .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper.aspect_ratio {

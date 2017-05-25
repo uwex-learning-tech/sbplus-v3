@@ -431,9 +431,7 @@ Page.prototype.renderVideoJS = function() {
         controlBar: {
             fullscreenToggle: false
         },
-        plugins: {
-            replayButton: {}
-        },
+        plugins: {},
         manualCleanup: true
 
     };
