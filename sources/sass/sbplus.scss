@@ -1012,8 +1012,7 @@ body {
             
             #sbplus_right_col {
                 
-                @include display-flex();
-                @include flex-flow( column nowrap );
+                //@include flex-flow( column nowrap );
                 @include flex( 1 0 auto );
                 @include order(2);
                 position: relative;
@@ -1021,11 +1020,7 @@ body {
                 overflow-y: auto;
                 
                 #sbplus_sub_bar {
-                    
-                    @include display-flex();
-                    @include flex-flow( row nowrap );
-                    @include align-items( center );
-                    @include flex( 1 0 auto );
+
                     height: 30px;
                     max-height: 30px;
                     background-color: #ececed;
@@ -1049,9 +1044,6 @@ body {
                     @include animation-duration( 0.5s );
                     
                     .item {
-                        @include display-flex();
-                        @include flex-flow( row nowrap );
-                        @include align-items( center );
                         min-height: 35px;
                         padding: 5px ($gutter + 5);
                         border-bottom: 1px solid #e8e8e8;
@@ -1072,9 +1064,11 @@ body {
                 
                 #sbplus_table_of_contents_wrapper {
                     
+/*
                     @include display-flex();
                     @include flex-flow( column nowrap );
                     @include flex( 2 0 auto );
+*/
                     height: calc(100% - 30px);
                     overflow-y: auto;
                     
@@ -1706,10 +1700,8 @@ body {
             
             #sbplus_right_col {
                 border-right: 1px solid $border-color;
-                max-height: 400px;
                 
                 #sbplus_table_of_contents_wrapper {
-                    max-height: 370px;
                     border-left: 1px solid $border-color;
                 }
                 
@@ -1769,11 +1761,9 @@ body {
                     
                 #sbplus_right_col {
                     
-                    max-height: none;
                     border-right: 1px solid $border-color;
                     
                     #sbplus_table_of_contents_wrapper {
-                        max-height: none;
                         border-left: none;
                     }
                     
@@ -1911,6 +1901,7 @@ body {
                 
                 #sbplus_right_col {
                     width: 258px;
+                    height: 100%;
                 }
                 
             }
