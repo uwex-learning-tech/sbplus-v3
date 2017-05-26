@@ -371,7 +371,7 @@ body {
                                         @include flex-flow( row nowrap );
                                         @include align-items( center );
                                         width: 100%;
-                                        min-height: 35px;
+                                        height: 35px;
                                         padding: 0 ($gutter + 5);
                                         font-size: 14px;
                                         font-weight: normal;
@@ -1085,7 +1085,7 @@ body {
                             @include display-flex();
                             @include flex-flow( row nowrap );
                             @include align-items( center );
-                            min-height: 40px;
+                            height: 40px;
                             background-color: #ececed;
                             border-top: 1px solid $border-color;
                             cursor: pointer;
@@ -1553,7 +1553,7 @@ body {
                                 @include flex-flow( row nowrap );
                                 @include align-items( center );
                                 width: 100%;
-                                min-height: 35px;
+                                height: 35px;
                                 padding: 0 ($gutter + 5);
                                 font-size: 14px;
                                 font-weight: normal;

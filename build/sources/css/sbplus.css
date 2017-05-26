@@ -257,7 +257,7 @@ body {
                 -webkit-align-items: center;
                 align-items: center;
                 width: 100%;
-                min-height: 35px;
+                height: 35px;
                 padding: 0 15px;
                 font-size: 14px;
                 font-weight: normal;
@@ -727,7 +727,7 @@ body {
           flex-flow: row nowrap;
           -webkit-align-items: center;
           align-items: center;
-          min-height: 40px;
+          height: 40px;
           background-color: #ececed;
           border-top: 1px solid #ccc;
           cursor: pointer; }
@@ -1061,7 +1061,7 @@ body {
             -webkit-align-items: center;
             align-items: center;
             width: 100%;
-            min-height: 35px;
+            height: 35px;
             padding: 0 15px;
             font-size: 14px;
             font-weight: normal;
