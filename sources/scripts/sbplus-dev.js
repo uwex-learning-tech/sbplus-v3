@@ -2224,7 +2224,7 @@ var SBPLUS = SBPLUS || {
         var urlArray = this.getUrlArray( urlArray );
         
         if ( urlArray.length >= 3 ) {
-            return urlArray[urlArray.length - 2];
+            return urlArray[urlArray.length - 3];
         } else if ( urlArray.length === 2 ) {
             return urlArray[0];
         }
