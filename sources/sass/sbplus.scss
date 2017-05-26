@@ -1853,17 +1853,25 @@ body {
                 #sbplus_menu_area {
                     
                     #sbplus_author_name {
-                        display: block;
+                        @include display-flex();
+                        -ms-flex: 2 0 75%;
                         height: 100%;
                         text-align: left;
                         font-weight: bold;
                         min-height: 0;
                         @include align-self( center );
+                        @include align-items( center );
                         padding: 0 ($gutter * 2) 0 $gutter;
                         white-space: nowrap;
                         text-overflow: ellipsis;
                         overflow: hidden;
                         background-color: transparent;
+                    }
+                    
+                    #sbplus_menu_btn_wrapper {
+                    
+                        -ms-flex: 1 0 15%;
+                        
                     }
                     
                 }

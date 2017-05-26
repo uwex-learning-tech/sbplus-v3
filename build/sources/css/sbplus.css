@@ -1199,18 +1199,24 @@ body {
       -webkit-align-self: center;
       align-self: center; }
     .sbplus_wrapper #sbplus #sbplus_banner_bar #sbplus_menu_area #sbplus_author_name {
-      display: block;
+      display: -webkit-flex;
+      display: flex;
+      -ms-flex: 2 0 75%;
       height: 100%;
       text-align: left;
       font-weight: bold;
       min-height: 0;
       -webkit-align-self: center;
       align-self: center;
+      -webkit-align-items: center;
+      align-items: center;
       padding: 0 20px 0 10px;
       white-space: nowrap;
       text-overflow: ellipsis;
       overflow: hidden;
       background-color: transparent; }
+    .sbplus_wrapper #sbplus #sbplus_banner_bar #sbplus_menu_area #sbplus_menu_btn_wrapper {
+      -ms-flex: 1 0 15%; }
   .sbplus_wrapper #sbplus #sbplus_content_wrapper {
     -webkit-flex-flow: row nowrap;
     flex-flow: row nowrap; }
