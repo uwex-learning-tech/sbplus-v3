@@ -682,14 +682,18 @@ body {
         background-color: #ececed;
         border-bottom: 2px solid #ccc; }
         .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col #sbplus_sub_bar .title {
+          display: -webkit-flex;
+          display: flex;
           -webkit-flex: 2 0 90%;
           flex: 2 0 90%;
-          padding-top: 9px;
-          text-align: center;
+          -webkit-align-items: center;
+          align-items: center;
+          -webkit-justify-content: center;
+          justify-content: center;
           font-weight: bold;
           font-size: 12px;
           line-height: 12px;
-          min-height: 100%; }
+          height: 100%; }
       .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col .list {
         -moz-animation-duration: 0.5s;
         -webkit-animation-duration: 0.5s;
