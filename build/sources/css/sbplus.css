@@ -1045,7 +1045,8 @@ body {
         opacity: 0.55;
         cursor: default; }
       .sbplus_wrapper #sbplus #menu_item_content .container .side_menu {
-        width: 260px; }
+        width: 260px;
+        height: 100%; }
         .sbplus_wrapper #sbplus #menu_item_content .container .side_menu .menu {
           height: 100%;
           list-style: none;
