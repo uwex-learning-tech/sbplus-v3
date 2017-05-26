@@ -677,6 +677,16 @@ body {
                         
                     }
                     
+                    // IE Hack for object fit
+                    .sbplus_media_content.compat-object-fit {
+                        background-size: contain;
+                        background-position: center center;
+                        background-repeat: no-repeat;
+                        .img_only {
+                            display: none;
+                        }
+                    }
+                    
                 }
                 
                 #sbplus_media_wrapper.sidebar_on {
@@ -1455,6 +1465,8 @@ body {
                 
                 .settings {
                     
+                    position: relative;
+                    
                     .name {
                         margin-bottom: 0;
                     }
@@ -1512,16 +1524,14 @@ body {
                     
                     #save_settings {
                         display: none;
-                        margin: 16px 0;
+                        position: absolute;
+                        width: 100%;
                         padding: 8px;
-                        background-color: #56f24e;
+                        background-color: rgba(#56f24e, 0.75);
                         font-weight: bold;
                         text-align: center;
-                    }
-                    
-                    #save_settings:disabled {
-                        @include opacity( 0.55 );
-                        cursor: default;
+                        top: -20px;
+                        z-index: 1;
                     }
                     
                 }

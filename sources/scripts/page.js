@@ -163,6 +163,18 @@ Page.prototype.getPageMedia = function() {
                 } );
 */
                 
+                if ( ! Modernizr.objectfit ) {
+                  $('.sbplus_media_content').each(function () {
+                    var $container = $(this),
+                        imgUrl = $container.find('img').prop('src');
+                    if (imgUrl) {
+                      $container
+                        .css('backgroundImage', 'url(' + imgUrl + ')')
+                        .addClass('compat-object-fit');
+                    }  
+                  });
+                }
+                
                 
             } );
             
