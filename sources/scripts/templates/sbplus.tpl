@@ -151,11 +151,11 @@
                 
             </div>
             
-            <button id="sbplus_widget_btn" title="Widget" tabindex="1" aria-label="Toggle Widget">
+            <button id="sbplus_widget_btn" title="Toggle Widget" tabindex="1" aria-label="Toggle Widget">
                 <span class="icon-widget-close"></span>
             </button>
             
-            <button id="sbplus_sidebar_btn" title="Table of Contents" tabindex="1" aria-label="Toggle Table of Contents">
+            <button id="sbplus_sidebar_btn" title="Toggle Table of Contents" tabindex="1" aria-label="Toggle Table of Contents">
                 <span class="icon-sidebar-close"></span>
             </button>
             
