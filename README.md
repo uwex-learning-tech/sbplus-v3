@@ -4,7 +4,7 @@
 ---
 ### Requirements
 
-Storybook Plus is a web application utilizing HTML5, JavaScript, CSS3, and Cookie. As with any other web applications, the choice of web browsers is the most critical rather than the operation systems. JavaScript must be enabled no matter which web browser is utilized. SB+ does not use cookies; however, it does use local storage, which is not required for viewing.
+Storybook Plus is a web application that uses HTML5, JavaScript, CSS3, and web storage to delivery multimedia presentations. As with any other web applications, the choice of web browsers is the most critical rather than the operation systems. JavaScript must be enabled no matter which web browser is utilized. SB+ does not use cookies; however, it does use both local and session web storages.
 
 **Minimum web browser requirements for desktop/laptop:**
 * Internet Explorer 11 (in non-Compatibility View mode)
@@ -42,7 +42,7 @@ SB+ may not function properly with beta or pre-released version of web browsers.
 
 ---
 ### Documentation
-For more details and how to setup a SB+ presentation, please visit the [SB+ Documentation](https://media.uwex.edu/resources/documentation/storybook-plus-v3/).
+For more details and how to setup a SB+ presentation, please visit the [SB+ Documentation](https://media.uwex.edu/resources/documentation/storybook-plus-v3/) (work in progress).
 
 ---
 ### Bug Reporting and Questions
