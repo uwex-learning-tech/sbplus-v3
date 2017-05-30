@@ -378,7 +378,7 @@ Quiz.prototype.renderQuiz = function() {
                                 quizTracker[self.qIndex].correct = false;
                             }
                             
-                            return true;
+                            return false;
                             
                         }
                         
