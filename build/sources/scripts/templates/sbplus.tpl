@@ -1,114 +1,182 @@
-<div class="sbplus">
+<!-- Global error screen -->
+<div id="sbplus_error_screen" class="animated"></div> <!-- Global error screen END -->
+
+
+
+<div id="sbplus">
     
-    <div class="splashscreen"></div>
-    
-    <div class="main_content_wrapper hide">
+    <!-- Splash screen -->
+    <div id="sbplus_splash_screen" class="animated">
         
-        <div class="title_bar">
-        
-            <div class="title" tabindex="-1"></div>
-            <div class="author" tabindex="-1"></div>
-            <button class="menuBtn" tabindex="1" aria-label="Menu" aria-expanded="false" aria-controls="menu_panel" title="Open Menu"><span class="icon-menu"></span></button>
+        <div id="sbplus_presentation_info">
             
+            <p class="sb_title" tabindex="1"></p>
+            <p class="sb_subtitle" tabindex="1"></p>
+            <p class="sb_author" tabindex="1"></p>
+            <p class="sb_duration" tabindex="1"></p>
+            <p class="sb_cta">
+                <button id="sbplus_start_btn" tabindex="1" aria-label="Start presentation">Start</button>
+                <button id="sbplus_resume_btn" tabindex="1" aria-label="Resume presentation">Resume</button>
+            </p>
+            <p class="sb_downloads"></p>
+                
         </div>
         
-        <div class="sr-PageStatus" tabindex="1">You are currently on page <span class="currentPage" >#</span> of <span class="totalPages">#</span>. <span class="pageTitle">Page title</span>. <span class="hasNotes"></span></div>
+        <div id="sb_splash_bg" class="animated fadeIn"></div>
         
-        <!-- page/slide container -->
+    </div> <!-- Splash screen END -->
     
-        <div class="page_container aspect-ratio">
-            <div class="pageError hide">
-                <div class="content"></div>
-            </div>
-            <div id="page_content" class="content" tabindex="1"></div>
-        </div>
+    <div class="sr-page-status" tabindex="1">
+        You are currently on page 
+        <span class="sr-current-page" >#</span> of <span class="sr-total-pages">#</span>: 
+        <span class="sr-page-title">Page title</span>. <span class="sr-has-notes"></span>
+    </div>
+    
+    <!-- Banner (black title) bar -->
+    <div id="sbplus_banner_bar">
         
-        <div class="widget_container">
+        <div id="sbplus_lession_title" tabindex="-1"></div>
+        
+        <div id="sbplus_menu_area">
             
-            <!-- notes & controls -->
+            <button id="sbplus_author_name" tabindex="-1"></button>
             
-            <div class="left_side">
+            <div id="sbplus_menu_btn_wrapper">
                 
-                <div class="notes" tabindex="-1">
-                    <div class="content"></div>
-                </div>
-                
-                <div class="control_bar_wrapper">
-                    <div class="left_controls">
-                        <button class="previous" tabindex="1" title="Previous page" aria-label="Previous" aria-controls="page_content"><span class="icon-left"></span></button>
-                        <button class="next" tabindex="1" title="Next page" aria-label="Next" aria-controls="page_content"><span class="icon-right"></span></button>
-                    </div>
-                    <div class="status" tabindex="1">Page <span class="current">#</span> of <span class="total">#</span></div>
+                <ul id="sbplus_menu_btn" class="root-level" role="menubar" title="Menu">
                     
-                    <div class="right_controls">
-                        
-                        <div class="downloadsMenu_wrapper">
-                        
-                            <ul id="download-menu-btn" class="root-level" role="menubar">
-                                
-                                <li class="menu-parent" role="menuitem" aria-label="Downloads Menu" tabindex="1" aria-haspopup="true" aria-expanded="false">
-                                    <span class="icon-download"></span>
-                                    <ul class="downloadFiles menu" role="menu" aria-hidden="true" aria-expanded="false"></ul>
-                                </li>
-                                
-                            </ul>
+                    <li class="menu-parent" role="menuitem" aria-label="Menu" tabindex="1" aria-haspopup="true" aria-expanded="false">
+                        <span class="icon-menu menu-icon"></span>
+                        <ul class="menu" role="menu" aria-hidden="true" aria-expanded="false">
                             
-                        </div>
+                            <li tabindex="-1" role="menuitem" aria-live="polite" class="menu-item sbplus_author_profile">
+                                <a href="javascript:void(0);" onclick="SBPLUS.openMenuItem('sbplus_author_profile');">
+                                    <span class="icon-profile"></span>
+                                    Author Profile
+                                </a>
+                            </li>
+                            
+                            <li tabindex="-1" role="menuitem" aria-live="polite" class="menu-item sbplus_general_info">
+                                <a href="javascript:void(0);" onclick="SBPLUS.openMenuItem('sbplus_general_info');">
+                                    <span class="icon-info"></span>
+                                    General Info
+                                </a>
+                            </li>
+                            
+                            <li tabindex="-1" role="menuitem" aria-live="polite" class="menu-item sbplus_settings">
+                                <a href="javascript:void(0);" onclick="SBPLUS.openMenuItem('sbplus_settings');">
+                                    <span class="icon-settings"></span>
+                                    Settings
+                                </a>
+                            </li>
+                            
+                        </ul>
                         
-                        <button tabindex="1" class="notesBtn hide" title="Show notes" aria-label="Notes"><span class="icon-notes"></span></button>
-                        <button tabindex="1" class="tocBtn hide" title="Show table of contents" aria-label="Table of Contents"><span class="icon-table-of-content"></span></button>
-                        <button tabindex="1" class="expandContractBtn" title="Expand or contract" aria-label="Expand or contract toggle"><span class="icon-expand"></span></button>
-                        <!-- <button class="popoutBtn hide"><span class="icon-popout"></span></button> -->
-                    </div>
+                    </li>
                     
-                </div>
-            
-            </div>
-            
-            <!-- side bar -->
-        
-            <div class="side_panel">
-                
-                <div class="topbar" tabindex="-1">
-                    <div class="title" id="tocLabel">Table of Contents</div>
-                </div>
-                
-                <div class="tableOfContents" role="navigation" aria-labelledby="tocLabel" tabindex="1"></div>
+                </ul>
                 
             </div>
-            
-            <!-- end side bar -->
             
         </div>
         
-        <!-- menu panel -->
-        <nav id="menu_panel" class="hide" aria-expanded="false">
+    </div> <!-- Banner (black title) bar END -->
+    
+    <div id="sbplus_content_wrapper">
+    
+        <div id="sbplus_left_col">
             
-            <div class="menu_bar">
-                <div class="title">Menu</div>
-                <button class="closeBtn" title="Close Menu"><span class="icon-close"></span></button>
+            <div id="sbplus_media_wrapper" class="aspect_ratio">
+                <div class="sbplus_media_error" tabindex="1"></div>
+                <div class="sbplus_media_content animated" tabindex="1"></div>
             </div>
             
-            <ul class="menu">
-                <li class="menu_item"><a id="showProfile" href="#" aria-expanded="false" aria-controls="menu_item_details"><span class="icon-profile"></span> Author Profile</a></li>
-                <li class="menu_item"><a id="showGeneralInfo" href="#" aria-expanded="false" aria-controls="menu_item_details"><span class="icon-info"></span> General Information</a></li>
-                <li class="menu_item"><a id="showHelp" href="#" aria-expanded="false" aria-controls="menu_item_details"><span class="icon-help"></span> Help</a></li>
-                <li class="menu_item"><a id="showSettings" href="#" aria-expanded="false" aria-controls="menu_item_details"><span class="icon-settings"></span> Settings</a></li>
-            </ul>
-            
-            <div id="menu_item_details" class="menu_item_details hide" aria-expanded="false">
-                <div class="navbar">
-                    <button class="backBtn" aria-label="Back to menu list" title="Back"><span class="icon-left"></span></button>
-                    <div class="title">Title</div>
+            <div id="sbplus_widget" tabindex="-1">
+                
+                <div class="widget_controls_bar">
+                    <div class="tab_segment"></div>
                 </div>
-                <div class="menu_item_content"></div>
+                
+                <div class="segment_content animated"></div>
+                
             </div>
             
-        </nav>
+        </div>
         
-        <!-- end menu panel -->
+        <div id="sbplus_right_col">
+            
+            <div id="sbplus_sub_bar" class="full">
+                <div class="title" tabindex="-1">Table of Contents</div>
+            </div>
+            
+            <div id="sbplus_table_of_contents_wrapper" tabindex="1"></div>
+            
+        </div>
+    
+    </div>
+    
+    <div id="sbplus_control_bar">
+        
+        <div id="sbplus_left_controls">
+            
+            <button id="sbplus_previous_btn" title="Previous" tabindex="1" aria-label="Previous">
+                <span class="icon-left"></span>
+            </button>
+            
+            <button id="sbplus_next_btn" title="Next" tabindex="1" aria-label="Next">
+                <span class="icon-right"></span>
+            </button>
+            
+            <div id="sbplus_page_status">
+                <div tabindex="1">
+                    Page <span class="current">#</span> of 
+                    <span class="total">#</span>
+                </div>
+            </div>
+            
+        </div>
+        
+        <div id="sbplus_right_controls">
+            
+            <div id="sbplus_download_btn_wrapper">
+                
+                <ul id="sbplus_download_btn" class="root-level" role="menubar" title="Downloads">
+                    
+                    <li class="menu-parent" role="menuitem" aria-label="Downloads Menu" tabindex="1" aria-haspopup="true" aria-expanded="false">
+                        <span class="icon-download"></span>
+                        <ul class="downloadFiles menu" role="menu" aria-hidden="true" aria-expanded="false"></ul>
+                    </li>
+                    
+                </ul>
+                
+            </div>
+            
+            <button id="sbplus_widget_btn" title="Toggle Widget" tabindex="1" aria-label="Toggle Widget">
+                <span class="icon-widget-close"></span>
+            </button>
+            
+            <button id="sbplus_sidebar_btn" title="Toggle Table of Contents" tabindex="1" aria-label="Toggle Table of Contents">
+                <span class="icon-sidebar-close"></span>
+            </button>
+            
+        </div>
         
     </div>
-    <div id="pageHasNotes" class="sr-only" aria-live="polite" tabindex="-1"></div>
-    <div id="endPresentation" class="sr-only" aria-live="polite" tabindex="-1"></div>
+    
+    <div id="menu_item_content" class="animated" tabindex="-1">
+        <div class="sbplus_menu_title_bar">
+            <div class="title"></div>
+            <button id="sbplus_menu_close_btn"><span class="icon-close"></span> Close</button>
+        </div>
+        <div class="container">
+            <div class="content"></div>
+            <div class="side_menu">
+                <ul class="menu" role="menu">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    
 </div>
+

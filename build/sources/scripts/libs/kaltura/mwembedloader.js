@@ -114,3 +114,5 @@ mw.setConfig('Kaltura.UserLanguage', {"en-US":1,"en":"0.8"} );
 kWidget.addUserAgentRule('25820941','/.*/','leadWithHTML5');kWidget.appendScriptUrls([],function(){window.kWidget.inLoaderUiConfJsCallback();})
 kWidget.uiConfScriptLoadList['25820941']=1;
 kWidget.setup();
+
+

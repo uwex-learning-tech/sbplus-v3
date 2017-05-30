@@ -1,21 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<storybook accent="#7b3009" pageImgFormat="jpg" analytics="off" mathjax="on" xmlVersion="3">
+<storybook accent="#7b3009" pageImgFormat="jpg" analytics="off" mathjax="on" xmlVersion="3.1" splashImgFormat="jpg">
     
-    <setup course="">
+    <setup program="" course="">
         
         <title>BKN315 - Chocolate Chip Cookies</title>
-        <subtitle>A Sample Storybook Plus Presentation \(\frac{-b\pm\sqrt{b^2-4ac}}{2a}\)</subtitle>
+        <subtitle>A Sample Storybook Plus Presentation</subtitle>
         <length>7 Minutes</length>
         <author name="Bryan Bortz"></author>
         <generalInfo>
-            <![CDATA[<p>This an sample Storybook Plus presentation on chocolate chip cookies.</p><p>
-\begin{align}
-  \nabla \times \vec{\mathbf{B}} -\, \frac1c\, \frac{\partial\vec{\mathbf{E}}}{\partial t} & = \frac{4\pi}{c}\vec{\mathbf{j}} \\
-  \nabla \cdot \vec{\mathbf{E}} & = 4 \pi \rho \\
-  \nabla \times \vec{\mathbf{E}}\, +\, \frac1c\, \frac{\partial\vec{\mathbf{B}}}{\partial t} & = \vec{\mathbf{0}} \\
-  \nabla \cdot \vec{\mathbf{B}} & = 0
-\end{align}
-</p>]]>
+            <![CDATA[<p>This an sample Storybook Plus presentation on chocolate chip cookies.</p><p>\(\frac{-b\pm\sqrt{b^2-4ac}}{2a}\)</p>]]>
         </generalInfo>
         
     </setup>
@@ -30,19 +23,23 @@
     
     <section title="Chocolate Chip Cookies">
         
-        <page type="kaltura" src="0_8fcgmc4i" title="Title Slide">
+        <page type="kaltura" src="0_8fcgmc4i" title="Title Slide" transition="fadeIn">
             <note><![CDATA[<h1>Heading Level 1 (and 2)</h1><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip <em>ex ea commodo consequat</em>. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p><ol><li>Hello</li><li>World</li></ol><h3>Heading Level 3</h3><p>Lorem ipsum dolor sit amet, <a href="#">consectetur adipisicing elit</a>, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p><ul><li>Hello</li><li>World</li></ul><script>onclick();</script>]]></note>
         </page>
         
-        <page type="image-audio" src="slide02" title="Overview">
+        <page type="image-audio" src="slide02" title="Overview" transition="fadeIn">
+            <note></note>
+            <widget>
+                <segment name="Demo One">Demo one texts here...</segment>
+                <segment name="Demo Two">Demo two texts here...</segment>
+            </widget>
+        </page>
+        
+        <page type="image-audio" src="slide03" title="Cookie Type \(\frac{-b\pm\sqrt{b^2-4ac}}{2a}\)" transition="pulse">
             <note />
         </page>
         
-        <page type="image-audio" src="slide03" title="Cookie Type \[\left( \sum_{k=1}^n a_k b_k \right)^{\!\!2} \leq\left( \sum_{k=1}^n a_k^2 \right) \left( \sum_{k=1}^n b_k^2 \right)\]">
-            <note />
-        </page>
-        
-        <page type="image-audio" src="slide04" title="History">
+        <page type="image-audio" src="slide04" title="History" transition="zoomInDown">
             <note><![CDATA[<p><strong>R Code:</strong><br /><pre>n = length(Default$default)
 y = rep(0, n)
 y[which(Default$default=="Yes")] = 1
@@ -67,39 +64,42 @@ legend("topleft", legend=c("Student", "Non-student"), lty=c(1,2), col=c("blue","
 </p>]]></note>
         </page>
         
-        <page type="image-audio" src="slide05" title="A Cookie Timeline">
+        <page type="image-audio" src="slide05" title="A Cookie Timeline" transition="tada">
             <note><![CDATA[<p><strong>Link:</strong> <a href="https://en.wikipedia.org/wiki/Hydrox">Hydrox Cookie Brand - Wikipedia</a>]]></note>
+            <widget>
+                <segment name="Demo Three">Demo three texts here...</segment>
+            </widget>
         </page>
         
-        <page type="image-audio" src="slide06" title="The Recipe">
+        <page type="image-audio" src="slide06" title="The Recipe" transition="wobble">
             <note />
         </page>
         
-        <page type="image-audio" src="slide07" title="Tools">
+        <page type="image-audio" src="slide07" title="Tools" transition="slideInRight">
             <note />
         </page>
         
-        <page type="image-audio" src="slide08" title="Part 1 - Preheating and Melting">
+        <page type="image-audio" src="slide08" title="Part 1 - Preheating and Melting" transition="flipInX">
             <note />
         </page>
         
-        <page type="image-audio" src="slide09" title="Part 2 - Combining the Ingredients">
+        <page type="image-audio" src="slide09" title="Part 2 - Combining the Ingredients" transition="flipInY">
             <note />
         </page>
         
-        <page type="image-audio" src="slide10" title="Part 3 - Preparing for Baking">
+        <page type="image-audio" src="slide10" title="Part 3 - Preparing for Baking" transition="lightSpeedIn">
             <note />
         </page>
         
-        <page type="image-audio" src="slide11" title="Part 4 - Baking">
+        <page type="image-audio" src="slide11" title="Part 4 - Baking" transition="rotateIn">
             <note />
         </page>
         
-        <page type="image-audio" src="slide12" title="Cookie Troubleshooting">
+        <page type="image-audio" src="slide12" title="Cookie Troubleshooting" transition="slideInUp">
             <note />
         </page>
         
-        <page type="image-audio" src="slide13" title="Chocolate Chip Cookie Variants">
+        <page type="image-audio" src="slide13" title="Chocolate Chip Cookie Variants" transition="zoomIn">
             <note />
         </page>
         
@@ -113,22 +113,24 @@ legend("topleft", legend=c("Student", "Non-student"), lty=c(1,2), col=c("blue","
             
             <multipleChoiceSingle>
                 
-                <question image="" audio=""><![CDATA[<p>I'm not sure I was clear, should you burn the butter or not? \(\frac{-b\pm\sqrt{b^2-4ac}}{2a}\)</p>]]></question>
+                <question image="" audio="">
+                    <![CDATA[<p><strong>I'm not sure I was clear, should you burn the butter or not? \(\frac{-b\pm\sqrt{b^2-4ac}}{2a}\)</strong></p><p><small>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</small></p>]]>
+                </question>
                 <choices>
                     
                     <answer image="" audio="">
                         <value>Yes</value>
-                        <feedback image="" audio="">Sorry, I misspoke. Don't burn the butter.</feedback>
+                        <feedback>Sorry, I misspoke. Don't burn the butter.</feedback>
                     </answer>
                     
                     <answer image="" audio="" correct="yes">
                         <value>No</value>
-                        <feedback image="" audio="">That's right, we don't want burnt butter in our cookies.</feedback>
+                        <feedback>That's right, we don't want burnt butter in our cookies.</feedback>
                     </answer>
                     
                     <answer image="" audio="">
                         <value>It depends on personal taste</value>
-                        <feedback image="" audio="">Personally, I don't think you should burn the butter. But if you indeed like burnt butter in your cookies, go ahead.</feedback>
+                        <feedback>Personally, I don't think you should burn the butter. But if you indeed like burnt butter in your cookies, go ahead.</feedback>
                     </answer>
                     
                 </choices>
@@ -141,7 +143,7 @@ legend("topleft", legend=c("Student", "Non-student"), lty=c(1,2), col=c("blue","
             
             <shortAnswer>
                 
-                <question audio="lugia.mp3">What are your main take aways from this presentation?</question>
+                <question audio="">What are your main take aways from this presentation?</question>
                 <feedback>I was hoping you would be surprised to hear how relatively young the Chocolate Chip cookie is. I am also hoping you noticed how important getting the ingredients right is to having good results.</feedback>
                 
             </shortAnswer>
@@ -162,17 +164,17 @@ legend("topleft", legend=c("Student", "Non-student"), lty=c(1,2), col=c("blue","
                     
                     <answer image="" audio="">
                         <value>1908</value>
-                        <feedback image="" audio="">This is when the Hydrox Cookie was introduced.</feedback>
+                        <feedback>This is when the Hydrox Cookie was introduced.</feedback>
                     </answer>
                     
                     <answer image="" audio="" correct="yes">
                         <value>1938</value>
-                        <feedback image="" audio=""></feedback>
+                        <feedback></feedback>
                     </answer>
                     
                     <answer image="" audio="">
                         <value>1912</value>
-                        <feedback image="" audio="">This is when the Oreo was introduced.</feedback>
+                        <feedback>This is when the Oreo was introduced.</feedback>
                     </answer>
                     
                 </choices>
@@ -185,14 +187,18 @@ legend("topleft", legend=c("Student", "Non-student"), lty=c(1,2), col=c("blue","
     
     <!-- others -->
     
-    <section title="Other Examples">
+    <section title="Other Examples (Not Related to Chocolate Chip Cookies)">
         
         <page type="video" src="smgt370_course_intro" title="Video from Assets Directory">
             <note />
         </page>
         
-        <page type="youtube" src="rAubpv_5DYM" title="Video from YouTube">
-            <note />
+        <page type="youtube" src="Jt1h1MinlLI" title="Video from YouTube" transition="zoomInDown">
+            <note>Release on June 20, 2017!!!</note>
+            <widget>
+                <segment name="New Jobs">Red Mage announced! More to come!</segment>
+                <segment name="New Dungeons &amp; Raids">Many of them!</segment>
+            </widget>
         </page>
         
         <page type="vimeo" src="167409747" title="Video from Vimeo">
@@ -200,7 +206,6 @@ legend("topleft", legend=c("Student", "Non-student"), lty=c(1,2), col=c("blue","
         </page>
         
         <page type="image" src="slide03" title="Image from Assets Directory">
-            <note />
         </page>
         
         <page type="html" src="testing" title="HTML">
@@ -211,7 +216,7 @@ legend("topleft", legend=c("Student", "Non-student"), lty=c(1,2), col=c("blue","
             <note />
         </page>
         
-        <page type="bundle" src="slide13" title="Bundled">
+        <page type="bundle" src="slide13" title="Bundled" transition="zoomInDown">
             <frame start="00:18"></frame>
             <frame start="00:26"></frame>
             <note />
@@ -231,7 +236,7 @@ legend("topleft", legend=c("Student", "Non-student"), lty=c(1,2), col=c("blue","
             <multipleChoiceMultiple>
                 
                 <question image="" audio="">What are the colors of the American's flag?</question>
-                <choices>
+                <choices random="yes">
                     
                     <answer image="" audio="">
                         <value>Green</value>
@@ -270,7 +275,7 @@ legend("topleft", legend=c("Student", "Non-student"), lty=c(1,2), col=c("blue","
             
             <multipleChoiceMultiple>
                 
-                <question image="" audio=""><![CDATA[Which pokémon are Ethan's favorites?<small>Ethan is a pokémon fan ... sort of.</small>]]></question>
+                <question image="" audio=""><![CDATA[<p>Which pokémon are Ethan's favorites?</p><p><small>Ethan is a pokémon fan ... sort of.</small></p>]]></question>
                 <choices>
                     
                     <answer image="pikachu.gif" audio="" correct="yes">
@@ -315,17 +320,17 @@ legend("topleft", legend=c("Student", "Non-student"), lty=c(1,2), col=c("blue","
                     
                     <answer image="" audio="" correct="yes">
                         <value>Mewtwo</value>
-                        <feedback image="" audio="">It's MEWTWO!!!</feedback>
+                        <feedback>It's MEWTWO!!!</feedback>
                     </answer>
                     
                     <answer image="" audio="">
                         <value>Mew</value>
-                        <feedback image="" audio="">Close but no.</feedback>
+                        <feedback>Close but no.</feedback>
                     </answer>
                     
                     <answer image="" audio="">
                         <value>Pickachu</value>
-                        <feedback image="" audio="">Seriously...</feedback>
+                        <feedback>Seriously...</feedback>
                     </answer>
                     
                 </choices>
@@ -342,18 +347,18 @@ legend("topleft", legend=c("Student", "Non-student"), lty=c(1,2), col=c("blue","
                 <choices>
                     
                     <answer image="" audio="">
-                        <value>Mew</value>
-                        <feedback image="" audio="">Are you sure? Refresh and answer again.</feedback>
+                        <value>Mew </value>
+                        <feedback>Are you sure? Refresh and answer again.</feedback>
                     </answer>
                     
                     <answer image="" audio="" correct="yes">
                         <value>Lugia</value>
-                        <feedback image="" audio="">Dang, must be a fan!</feedback>
+                        <feedback>Dang, must be a fan!</feedback>
                     </answer>
                     
                     <answer image="" audio="">
                         <value>Ethan</value>
-                        <feedback image="" audio="">Yes and no ... from time to time.</feedback>
+                        <feedback>Yes and no ... from time to time.</feedback>
                     </answer>
                     
                 </choices>
@@ -371,17 +376,17 @@ legend("topleft", legend=c("Student", "Non-student"), lty=c(1,2), col=c("blue","
                     
                     <answer image="" audio="slide03.mp3">
                         <value></value>
-                        <feedback image="" audio="">Cookies?</feedback>
+                        <feedback>Cookies?</feedback>
                     </answer>
                     
                     <answer image="" audio="slide07.mp3">
                         <value></value>
-                        <feedback image="" audio="">Someone is looking for you...</feedback>
+                        <feedback>Someone is looking for you...</feedback>
                     </answer>
                     
                     <answer image="" audio="lugia.mp3" correct="yes">
                         <value></value>
-                        <feedback image="" audio="">wOoT!</feedback>
+                        <feedback>wOoT!</feedback>
                     </answer>
                     
                 </choices>
@@ -399,17 +404,17 @@ legend("topleft", legend=c("Student", "Non-student"), lty=c(1,2), col=c("blue","
                     
                     <answer image="mew.gif" audio="" correct="yes">
                         <value></value>
-                        <feedback image="" audio="">Congratulation! You can't have it.</feedback>
+                        <feedback>Congratulation! You can't have it.</feedback>
                     </answer>
                     
                     <answer image="mewtwo.gif" audio="">
                         <value></value>
-                        <feedback image="" audio="">Close</feedback>
+                        <feedback>Close</feedback>
                     </answer>
                     
                     <answer image="rattata.gif" audio="">
                         <value></value>
-                        <feedback image="" audio="">It is not a rat!</feedback>
+                        <feedback>It is not a rat!</feedback>
                     </answer>
                     
                 </choices>
