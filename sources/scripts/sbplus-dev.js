@@ -264,7 +264,7 @@ var SBPLUS = SBPLUS || {
                 // set an error message
                 var msg = '<div class="error">';
                 msg += '<p><strong>Storybook Plus Error:</strong> ';
-                msg += 'failed to load template.<br>'
+                msg += 'failed to load template.<br>';
                 msg += 'Expecting: <code>' + this.url + '</code></p>';
                 msg += '</div>';
                 
@@ -539,26 +539,44 @@ var SBPLUS = SBPLUS || {
             var sanitizedAuthor = self.sanitize( xAuthor.attr( 'name' ).trim() );
             var profileUrl = self.manifest.sbplus_author_directory + sanitizedAuthor + '.json';
             
-            // get centralized author name and profile via AJAX
-            $.ajax( {
+            // if author data in XML is empty
+            if ( self.isEmpty( xAuthor.html() ) ) {
+                
+                // get centralized author name and profile via AJAX
+                $.ajax( {
+                        
+                    crossDomain: true,
+                    type: 'GET',
+                    dataType: 'jsonp',
+                    jsonpCallback: 'author',
+                    url: profileUrl
                     
-                crossDomain: true,
-                type: 'GET',
-                dataType: 'jsonp',
-                jsonpCallback: 'author',
-                url: profileUrl
+                } ).done( function( res ) { // when done, set author and profile
+                    
+                    self.xml.setup.author = res.name;
+                    self.xml.setup.profile = self.noScript( res.profile );
+                    
+                } ).fail( function() { // when fail, default to the values in XML
+                    
+                    self.xml.setup.author = xAuthor.attr( 'name' ).trim();
+                    self.xml.setup.profile = self.noScript( xAuthor.html().trim() );
+                    
+                } ).always( function() { // do no matter what
+                    
+                    // flag xml parsed as 1 or true in the local storage
+                    self.setStorageItem( 'sbplus-xml-parsed', 1, true );
+                    
+                    // render the presentation splash screen
+                    /* SHOULD ALWAYS BE EXECUTED ON THE LAST LINE OF THIS BLOCK */
+                    self.renderSplashscreen();
+                    
+                } );
                 
-            } ).done( function( res ) { // when done, set author and profile
+            } else { // if not
                 
-                self.xml.setup.author = res.name;
-                self.xml.setup.profile = self.noScript( res.profile );
-                
-            } ).fail( function() { // when fail, default to the values in XML
-                
+                // get the values in the XML
                 self.xml.setup.author = xAuthor.attr( 'name' ).trim();
                 self.xml.setup.profile = self.noScript( xAuthor.html().trim() );
-                
-            } ).always( function() { // do no matter what
                 
                 // flag xml parsed as 1 or true in the local storage
                 self.setStorageItem( 'sbplus-xml-parsed', 1, true );
@@ -567,7 +585,7 @@ var SBPLUS = SBPLUS || {
                 /* SHOULD ALWAYS BE EXECUTED ON THE LAST LINE OF THIS BLOCK */
                 self.renderSplashscreen();
                 
-            } );
+            }
             
         }
         
