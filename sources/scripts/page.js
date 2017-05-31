@@ -511,7 +511,7 @@ Page.prototype.renderVideoJS = function() {
                     	
                 	namespace: self.src + '-1',
                 	start: 0,
-                	end: self.cuepoints[1],
+                	end: self.cuepoints[0],
                 	onStart: function() {
                     	pageImage.src = 'assets/pages/' + self.src + '-1.' + self.imgType;
                     	player.poster( pageImage.src );
@@ -522,19 +522,19 @@ Page.prototype.renderVideoJS = function() {
             	} );
                 
                 $.each( self.cuepoints, function( i ) {
-                    
-                    var nextCue;
+            
+                    var endCue;
                     
                     if ( self.cuepoints[i+1] === undefined ) {
-                        nextCue = srcDuration;
+                        endCue = srcDuration;
                     } else {
-                        nextCue = self.cuepoints[i+1];
+                        endCue = self.cuepoints[i+1];
                     }
                     
                     player.addCuepoint( {
                         namespace: self.src + '-' + ( i + 2 ),
-                        start: self.cuepoints[1],
-                        end: nextCue,
+                        start: self.cuepoints[i],
+                        end: endCue,
                         onStart: function() {
                             pageImage.src = 'assets/pages/' + self.src + '-' + ( i + 2 ) + '.' + self.imgType;
                             $( pageImage ).on( 'error', function() {
@@ -543,6 +543,8 @@ Page.prototype.renderVideoJS = function() {
                             player.poster( pageImage.src );
                         }
                     } );
+                    
+                    
                     
                 } );
                 
