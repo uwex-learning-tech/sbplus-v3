@@ -33,7 +33,7 @@
         <div class="row">
             
             <div class="label">
-                <label for="sbplus_gs_it">Disable interactive transcript</label>
+                <label for="sbplus_gs_it">Disable interactive transcript (<a href="https://www.centercode.com/blog/2011/01/alpha-vs-beta-testing/" target="_blank">alpha</a>)</label>
             </div>
             
             <div class="control">
