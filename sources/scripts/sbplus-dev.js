@@ -442,7 +442,7 @@ var SBPLUS = SBPLUS || {
             var xSubtitle = self.noScript( xSetup.find( 'subtitle' ).text().trim() );
             var xLength = xSetup.find( 'length' ).text().trim();
             var xAuthor = xSetup.find( 'author' );
-            var xGeneralInfo = self.noScript( xSetup.find( 'generalInfo' ).text().trim() );
+            var xGeneralInfo = self.noScript( xSetup.find( 'generalInfo' ).html().trim() );
             var xSections = data.find( 'section' );
             
             // variable to hold temporary XML value for further evaluation
@@ -556,7 +556,7 @@ var SBPLUS = SBPLUS || {
             } ).fail( function() { // when fail, default to the values in XML
                 
                 self.xml.setup.author = xAuthor.attr( 'name' ).trim();
-                self.xml.setup.profile = self.noScript( xAuthor.text().trim() );
+                self.xml.setup.profile = self.noScript( xAuthor.html().trim() );
                 
             } ).always( function() { // do no matter what
                 
@@ -1527,7 +1527,7 @@ var SBPLUS = SBPLUS || {
             
             // add/set additional property to the pageData object
             pageData.src = target.attr( 'src' ).trim();
-            pageData.notes = this.noScript( target.find( 'note' ).text().trim() );
+            pageData.notes = this.noScript( target.find( 'note' ).html().trim() );
             pageData.widget = target.find( 'widget' );
             pageData.frames = target.find( 'frame' );
             pageData.imageFormat = this.xml.settings.imgType;
