@@ -7,7 +7,7 @@ var Quiz = function( obj ) {
     var qId = Number( obj.id.join().replace( ',', '' ) );
     var qType = $( cntx )[0].nodeName.toLowerCase();
     var question = $( cntx ).find( 'question' );
-    var qTitle = $( obj.context[0] )[0].firstElementChild.firstElementChild.textContent.trim();
+    var qTitle = question.html().trim();
     var qImg = '';
     var qAudio = '';
     
@@ -83,7 +83,7 @@ var Quiz = function( obj ) {
                 }
 */
                 
-                answer.feedback = SBPLUS.noScript( feedback.text().trim() );
+                answer.feedback = SBPLUS.noScript( feedback.html().trim() );
                 
                 self.quiz.answers.push( answer );
                 
@@ -152,8 +152,8 @@ var Quiz = function( obj ) {
                 }
 */
                 
-                self.quiz.correctFeedback = SBPLUS.noScript( cFeedback.text().trim() );
-                self.quiz.incorrectFeedback = SBPLUS.noScript( iFeedback.text().trim() );
+                self.quiz.correctFeedback = SBPLUS.noScript( cFeedback.html().trim() );
+                self.quiz.incorrectFeedback = SBPLUS.noScript( iFeedback.html().trim() );
                 
             } );
             
@@ -173,7 +173,7 @@ var Quiz = function( obj ) {
             }
 */
             
-            self.quiz.feedback = SBPLUS.noScript( shortFeedback.text().trim() );
+            self.quiz.feedback = SBPLUS.noScript( shortFeedback.html().trim() );
             
         break;
         
@@ -183,6 +183,8 @@ var Quiz = function( obj ) {
             
             var cFilFeedback = $( cntx ).find( 'correctFeedback' );
             var iFilFeedback = $( cntx ).find( 'incorrectFeedback' );
+            
+            // $( obj.context[0] )[0].firstElementChild.firstElementChild.textContent.trim()
                 
 /*
             if ( !SBPLUS.isEmpty( cFilFeedback.attr( 'image' ) ) ) {
@@ -202,8 +204,8 @@ var Quiz = function( obj ) {
             }
 */
             
-            self.quiz.correctFeedback = SBPLUS.noScript( cFilFeedback.text().trim() );
-            self.quiz.incorrectFeedback = SBPLUS.noScript( iFilFeedback.text().trim() );
+            self.quiz.correctFeedback = SBPLUS.noScript( cFilFeedback.html().trim() );
+            self.quiz.incorrectFeedback = SBPLUS.noScript( iFilFeedback.html().trim() );
             
         break;
         
