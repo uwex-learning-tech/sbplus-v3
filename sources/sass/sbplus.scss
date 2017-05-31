@@ -359,7 +359,7 @@ body {
                                 margin: 0;
                                 padding: 0;
                                 border-top: none;
-                                background-color: #444;
+                                background-color: #5f5d5d;
                                 @include box-shadow( 0 6px 4px 2px #fff);
                                 z-index: 11;
                                 
@@ -1521,7 +1521,7 @@ body {
                         }
                         
                         .row:nth-child(even) {
-                             background-color: #f2f2f2;
+                             background-color: #dfdfdf;
                         }
                         
                     }
@@ -1598,7 +1598,7 @@ body {
                         }
                         
                         .active {
-                            background-color: $default-accent;
+                            background-color: $default-accent-hover;
                         }
                                                             
                     }

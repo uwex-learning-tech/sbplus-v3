@@ -243,7 +243,7 @@ body {
               margin: 0;
               padding: 0;
               border-top: none;
-              background-color: #444;
+              background-color: #5f5d5d;
               -moz-box-shadow: 0 6px 4px 2px #fff;
               -webkit-box-shadow: 0 6px 4px 2px #fff;
               box-shadow: 0 6px 4px 2px #fff;
@@ -1027,7 +1027,7 @@ body {
                 width: 100%;
                 padding: 3px 2px; }
           .sbplus_wrapper #sbplus #menu_item_content .container .settings .grid .row:nth-child(even) {
-            background-color: #f2f2f2; }
+            background-color: #dfdfdf; }
         .sbplus_wrapper #sbplus #menu_item_content .container .settings #save_settings {
           display: none;
           position: absolute;
@@ -1073,7 +1073,7 @@ body {
             .sbplus_wrapper #sbplus #menu_item_content .container .side_menu .menu .menu-item:focus a {
               color: #fff; }
           .sbplus_wrapper #sbplus #menu_item_content .container .side_menu .menu .active {
-            background-color: #0c3b6b; }
+            background-color: #06498d; }
   .sbplus_wrapper #sbplus .sb_disabled {
     color: #7f7f7f;
     cursor: default; }
