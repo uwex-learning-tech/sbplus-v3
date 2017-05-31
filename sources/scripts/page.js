@@ -1,16 +1,13 @@
 var transcriptInterval = null;
-var Page = function ( obj ) {
+var Page = function ( obj, data ) {
     
+    this.pageData = data;
     this.title = obj.title;
     this.type = obj.type;
     this.transition = obj.transition;
     this.pageNumber = obj.number;
     
-    if ( obj.type === 'quiz' ) {
-        
-        this.quiz = obj.quiz;
-        
-    } else {
+    if ( obj.type !== 'quiz' ) {
         
         this.src = obj.src;
         this.notes = obj.notes;
@@ -281,11 +278,10 @@ Page.prototype.getPageMedia = function() {
                 .promise().done( function() {
             
                     var qObj = {
-                        id: self.pageNumber,
-                        context: self.quiz
+                        id: self.pageNumber
                     };
                     
-                    var quizItem = new Quiz( qObj );
+                    var quizItem = new Quiz( qObj, self.pageData  );
                     quizItem.getQuiz();
                     
                     if ( $( '#sbplus_widget' ).is( ':visible' ) ) {
@@ -320,7 +316,7 @@ Page.prototype.getPageMedia = function() {
     
     self.delayStorage = window.setTimeout( function() {
         
-        var presentation = SBPLUS.sanitize( $( SBPLUS.banner.title ).html() );
+        var presentation = SBPLUS.sanitize( $( SBPLUS.banner.title ).text() );
         
         SBPLUS.setStorageItem( 'sbplus-' + presentation, self.pageNumber[0] + ',' + self.pageNumber[1] );
         
@@ -799,7 +795,7 @@ Page.prototype.setWidgets = function() {
                 var content = SBPLUS.noScript( $( this ).html() );
                 var key = 'sbplus_' + SBPLUS.sanitize( name );
                 
-                self.widgetSegments[key] = content;
+                self.widgetSegments[key] = SBPLUS.noCDATA( content );
                 
                 SBPLUS.addSegment( name );
                 

@@ -1,13 +1,14 @@
 var quizTracker = [];
-var Quiz = function( obj ) {
+var Quiz = function( obj, data ) {
     
     var self = this;
     
-    var cntx = $( obj.context ).html();
+    var cntx = data;
     var qId = Number( obj.id.join().replace( ',', '' ) );
-    var qType = $( cntx )[0].nodeName.toLowerCase();
-    var question = $( cntx ).find( 'question' );
-    var qTitle = question.html().trim();
+    var qType = cntx.children()[0].nodeName.toLowerCase();
+    
+    var question = cntx.find( 'question' );
+    var qTitle = question.html();
     var qImg = '';
     var qAudio = '';
     
@@ -22,7 +23,7 @@ var Quiz = function( obj ) {
     self.quiz = {
         id: qId,
         type: qType,
-        question: qTitle,
+        question: SBPLUS.noCDATA( qTitle ),
         questionImg: qImg,
         questionAudio: qAudio,
         stuAnswer: '',
@@ -68,7 +69,11 @@ var Quiz = function( obj ) {
                 }
                 
                 if ( !SBPLUS.isEmpty( $( this ).attr( 'correct' ) ) ) {
-                    answer.correct = SBPLUS.noScript( $( this ).attr( 'correct' ).trim().toLowerCase() );
+                    
+                    if ( $( this ).attr( 'correct' ).toLowerCase() === 'yes' ) {
+                        answer.correct = SBPLUS.noScript( $( this ).attr( 'correct' ).trim().toLowerCase() );
+                    }
+                    
                 }
                 
                 var feedback = $( this ).find( 'feedback' );
@@ -83,7 +88,7 @@ var Quiz = function( obj ) {
                 }
 */
                 
-                answer.feedback = SBPLUS.noScript( feedback.html().trim() );
+                answer.feedback = SBPLUS.noScript( SBPLUS.noCDATA( feedback.html() ) );
                 
                 self.quiz.answers.push( answer );
                 
@@ -126,7 +131,11 @@ var Quiz = function( obj ) {
                 }
                 
                 if ( !SBPLUS.isEmpty( $( this ).attr( 'correct' ) ) ) {
-                    answer.correct = SBPLUS.noScript( $( this ).attr( 'correct' ).trim().toLowerCase() );
+                    
+                    if ( $( this ).attr( 'correct' ).toLowerCase() === 'yes' ) {
+                        answer.correct = SBPLUS.noScript( $( this ).attr( 'correct' ).trim().toLowerCase() );
+                    }
+                    
                 }
                 
                 self.quiz.answers.push( answer );
@@ -152,8 +161,8 @@ var Quiz = function( obj ) {
                 }
 */
                 
-                self.quiz.correctFeedback = SBPLUS.noScript( cFeedback.html().trim() );
-                self.quiz.incorrectFeedback = SBPLUS.noScript( iFeedback.html().trim() );
+                self.quiz.correctFeedback = SBPLUS.noScript( SBPLUS.noCDATA( cFeedback.html() ) );
+                self.quiz.incorrectFeedback = SBPLUS.noScript( SBPLUS.noCDATA( iFeedback.html() ) );
                 
             } );
             
@@ -173,7 +182,7 @@ var Quiz = function( obj ) {
             }
 */
             
-            self.quiz.feedback = SBPLUS.noScript( shortFeedback.html().trim() );
+            self.quiz.feedback = SBPLUS.noScript( SBPLUS.noCDATA( shortFeedback.html() ) );
             
         break;
         
@@ -204,8 +213,8 @@ var Quiz = function( obj ) {
             }
 */
             
-            self.quiz.correctFeedback = SBPLUS.noScript( cFilFeedback.html().trim() );
-            self.quiz.incorrectFeedback = SBPLUS.noScript( iFilFeedback.html().trim() );
+            self.quiz.correctFeedback = SBPLUS.noScript( SBPLUS.noCDATA( cFilFeedback.html() ) );
+            self.quiz.incorrectFeedback = SBPLUS.noScript( SBPLUS.noCDATA( iFilFeedback.html() ) );
             
         break;
         
