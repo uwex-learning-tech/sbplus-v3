@@ -796,7 +796,7 @@ Page.prototype.setWidgets = function() {
             segments.each( function() {
                 
                 var name = $( this ).attr( 'name' );
-                var content = SBPLUS.noScript( $( this ).text() );
+                var content = SBPLUS.noScript( $( this ).html() );
                 var key = 'sbplus_' + SBPLUS.sanitize( name );
                 
                 self.widgetSegments[key] = content;
