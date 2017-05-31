@@ -767,7 +767,7 @@ Page.prototype.setWidgets = function() {
             
                 if ( !SBPLUS.isEmpty( self.transcript ) ) {
                     
-                    SBPLUS.addSegment( 'Interactive Transcript' );
+                    SBPLUS.addSegment( 'Interactive Transcript (alpha)' );
                     
                 }
                 
@@ -777,7 +777,7 @@ Page.prototype.setWidgets = function() {
                 
                 if ( !SBPLUS.isEmpty( self.captionUrl ) ) {
                     
-                    SBPLUS.addSegment( 'Interactive Transcript' );
+                    SBPLUS.addSegment( 'Interactive Transcript (alpha)' );
                     
                 }
                 
@@ -821,7 +821,7 @@ Page.prototype.getWidgetContent = function( id ) {
             
         break;
         
-        case 'sbplus_interactivetranscript':
+        case 'sbplus_interactivetranscriptalpha':
             
             if ( SBPLUS.getStorageItem( 'sbplus-disable-it' ) === "0" ) {
                 
@@ -1077,7 +1077,6 @@ function parseTranscript( str ) {
     for ( var i = 1; i < tAry.length; i += 2 ) {
         
         var cueParts = tAry[i-1].split( ' ' );
-        
         
         result += '<span class="lt-line" data-start="' + toSeconds(cueParts[0]) + '" data-end="' + toSeconds(cueParts[2]) + '">' + tAry[i] + '</span> ';
         brCount++;
