@@ -506,6 +506,8 @@ body {
             line-height: 14px; }
           .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_quiz_wrapper .sbplus_quiz_question audio {
             width: 100%; }
+          .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_quiz_wrapper .sbplus_quiz_question img {
+            max-width: 100%; }
         .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_quiz_wrapper .sbplus_quiz_result {
           padding: 10px;
           font-size: 14px;

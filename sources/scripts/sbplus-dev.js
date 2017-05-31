@@ -385,7 +385,8 @@ var SBPLUS = SBPLUS || {
                 self.setStorageItem( 'sbplus-xml-loaded', 1, true );
                 
                 // call function to parse the XML data
-                /* SHOULD BE THE LAST TASK TO BE EXECUTED IN THIS BLOCK */
+                // SHOULD BE THE LAST TASK TO BE EXECUTED IN THIS BLOCK
+
                 self.parseXMLData( data );
                 
             } ).fail( function( res, status ) { // when fail to load XML file
@@ -517,7 +518,7 @@ var SBPLUS = SBPLUS || {
                     subtitle: xSubtitle,
                     authorPhoto: '',
                     duration: xLength,
-                    generalInfo: xGeneralInfo
+                    generalInfo: self.noCDATA( xGeneralInfo )
                 },
                 sections: xSections
             };
@@ -559,7 +560,7 @@ var SBPLUS = SBPLUS || {
                 } ).fail( function() { // when fail, default to the values in XML
                     
                     self.xml.setup.author = xAuthor.attr( 'name' ).trim();
-                    self.xml.setup.profile = self.noScript( xAuthor.html().trim() );
+                    self.xml.setup.profile = self.noScript( self.noCDATA( xAuthor.html() ) );
                     
                 } ).always( function() { // do no matter what
                     
@@ -576,7 +577,7 @@ var SBPLUS = SBPLUS || {
                 
                 // get the values in the XML
                 self.xml.setup.author = xAuthor.attr( 'name' ).trim();
-                self.xml.setup.profile = self.noScript( xAuthor.html().trim() );
+                self.xml.setup.profile = self.noScript( self.noCDATA( xAuthor.html() ) );
                 
                 // flag xml parsed as 1 or true in the local storage
                 self.setStorageItem( 'sbplus-xml-parsed', 1, true );
@@ -1543,25 +1544,28 @@ var SBPLUS = SBPLUS || {
         // if page type is not quiz
         if ( pageData.type !== 'quiz' ) {
             
+            var notes = this.noCDATA( target.find( 'note' ).html() );
+            
             // add/set additional property to the pageData object
             pageData.src = target.attr( 'src' ).trim();
-            pageData.notes = this.noScript( target.find( 'note' ).html().trim() );
+            pageData.notes = this.noScript( notes );
             pageData.widget = target.find( 'widget' );
             pageData.frames = target.find( 'frame' );
             pageData.imageFormat = this.xml.settings.imgType;
             pageData.transition = target[0].hasAttribute( 'transition' ) ? 
                 target.attr( 'transition' ).trim() : '';
                 
+            // create new page object using the pageData and set to SBPLUS's
+            // currentPage property
+            this.currentPage = new Page( pageData );
+                
         } else {
             
-            // if it is quiz type, add/set quiz property to pageData object
-            pageData.quiz = target;
+            // create new page object using the pageData and set to SBPLUS's
+            // currentPage property
+            this.currentPage = new Page( pageData, target );
             
         }
-        
-        // create new page object using the pageData and set to SBPLUS's
-        // currentPage property
-        this.currentPage = new Page( pageData );
         
         // get the page media
         this.currentPage.getPageMedia();
@@ -2215,8 +2219,21 @@ var SBPLUS = SBPLUS || {
            var results = $( "<span>" +  $.trim( str ) + "</span>" );
     
            results.find( "script,noscript,style" ).remove().end();
-    
+               
            return results.html();
+    
+       }
+    
+       return str;
+        
+    },
+    
+    noCDATA: function( str ) {
+        
+        
+        if ( str !== "" || str !== undefined ) {
+               
+           return str.replace(/<!\[CDATA\[/g, '').replace( /\]\]>/g, '').trim();
     
        }
     
