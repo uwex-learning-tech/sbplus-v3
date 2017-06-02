@@ -71,15 +71,15 @@ Page.prototype.getPageMedia = function() {
         videojs( 'mp' ).dispose();
     }
     
-    if ( SBPLUS.hasStorageItem( 'sbplus-previously-widget-open', true ) ) {
+    if ( SBPLUS.hasStorageItem( 'sbplus-' + SBPLUS.uniqueTitle + '-previously-widget-open', true ) ) {
         
-        if ( SBPLUS.getStorageItem( 'sbplus-previously-widget-open', true ) === '1' ) {
+        if ( SBPLUS.getStorageItem( 'sbplus-' + SBPLUS.uniqueTitle + '-previously-widget-open', true ) === '1' ) {
             
             SBPLUS.showWidget();
             
         }
         
-        SBPLUS.deleteStorageItem( 'sbplus-previously-widget-open', true );
+        SBPLUS.deleteStorageItem( 'sbplus-' + SBPLUS.uniqueTitle + '-previously-widget-open', true );
         
     }
     
@@ -93,13 +93,13 @@ Page.prototype.getPageMedia = function() {
         
         case 'kaltura':
             
-            if ( SBPLUS.hasStorageItem( 'sbplus-kaltura-loaded', true) === false ) {
+            if ( SBPLUS.hasStorageItem( 'sbplus-' + SBPLUS.uniqueTitle + '-kaltura-loaded', true) === false ) {
                 
                 $.getScript( self.root + '/scripts/libs/kaltura/mwembedloader.js', function() {
                     
                     $.getScript( self.root +  '/scripts/libs/kaltura/kwidgetgetsources.js', function() {
                         
-                        SBPLUS.setStorageItem( 'sbplus-kaltura-loaded', 1, true);
+                        SBPLUS.setStorageItem( 'sbplus-' + SBPLUS.uniqueTitle + '-kaltura-loaded', 1, true);
                         self.loadKalturaVideoData();
                         
                     } );
@@ -285,7 +285,7 @@ Page.prototype.getPageMedia = function() {
                     quizItem.getQuiz();
                     
                     if ( $( '#sbplus_widget' ).is( ':visible' ) ) {
-                        SBPLUS.setStorageItem( 'sbplus-previously-widget-open', 1, true );
+                        SBPLUS.setStorageItem( 'sbplus-' + SBPLUS.uniqueTitle + '-previously-widget-open', 1, true );
                     }
                     
                     SBPLUS.hideWidget();
@@ -626,33 +626,33 @@ Page.prototype.renderVideoJS = function() {
         && self.isVimeo === false ) {
             
             player.on( 'resolutionchange', function() {
-            		
-        		player.playbackRate( Number( SBPLUS.getStorageItem( 'sbplus-playbackrate-temp', true ) ) );
+                
+        		player.playbackRate( Number( SBPLUS.getStorageItem( 'sbplus-' + SBPLUS.uniqueTitle + '-playbackrate-temp', true ) ) );
         		
     		} );
             
             // default settings
-            if ( SBPLUS.hasStorageItem( 'sbplus-playbackrate-temp', true ) ) {
+            if ( SBPLUS.hasStorageItem( 'sbplus-' + SBPLUS.uniqueTitle + '-playbackrate-temp', true ) ) {
                 
-                player.playbackRate( Number( SBPLUS.getStorageItem( 'sbplus-playbackrate-temp', true ) ) );
+                player.playbackRate( Number( SBPLUS.getStorageItem( 'sbplus-' + SBPLUS.uniqueTitle + '-playbackrate-temp', true ) ) );
                 
             } else {
                 
                 player.playbackRate( Number( SBPLUS.getStorageItem( 'sbplus-playbackrate' ) ) );
-                SBPLUS.setStorageItem( 'sbplus-playbackrate-temp', SBPLUS.getStorageItem( 'sbplus-playbackrate' ), true );
+                SBPLUS.setStorageItem( 'sbplus-' + SBPLUS.uniqueTitle + '-playbackrate-temp', SBPLUS.getStorageItem( 'sbplus-playbackrate' ), true );
                 
             }
             
             player.on( 'ratechange', function() {
-        		SBPLUS.setStorageItem( 'sbplus-playbackrate-temp', player.playbackRate(), true );
+        		SBPLUS.setStorageItem( 'sbplus-' + SBPLUS.uniqueTitle + '-playbackrate-temp', player.playbackRate(), true );
     		} );
             
         }
         
         // volume
         
-        if ( SBPLUS.hasStorageItem( 'sbplus-volume-temp', true ) ) {
-            player.volume( Number( SBPLUS.getStorageItem( 'sbplus-volume-temp', true ) ) );
+        if ( SBPLUS.hasStorageItem( 'sbplus-' + SBPLUS.uniqueTitle + '-volume-temp', true ) ) {
+            player.volume( Number( SBPLUS.getStorageItem( 'sbplus-' + SBPLUS.uniqueTitle + '-volume-temp', true ) ) );
             
         } else {
             
@@ -662,16 +662,16 @@ Page.prototype.renderVideoJS = function() {
         
         player.on( 'volumechange', function() {
             
-            SBPLUS.setStorageItem( 'sbplus-volume-temp', this.volume(), true );
+            SBPLUS.setStorageItem( 'sbplus-' + SBPLUS.uniqueTitle + '-volume-temp', this.volume(), true );
             
         } );
         
         // subtitle
         if ( self.isYoutube === false && self.isVimeo === false && player.textTracks().tracks_.length >= 1 ) {
             
-            if ( SBPLUS.hasStorageItem( 'sbplus-subtitle-temp', true ) ) {
+            if ( SBPLUS.hasStorageItem( 'sbplus-' + SBPLUS.uniqueTitle + '-subtitle-temp', true ) ) {
             
-                if ( SBPLUS.getStorageItem( 'sbplus-subtitle-temp', true ) === '1' ) {
+                if ( SBPLUS.getStorageItem( 'sbplus-' + SBPLUS.uniqueTitle + '-subtitle-temp', true ) === '1' ) {
                     player.textTracks().tracks_[0].mode = 'showing';
                 } else {
                     player.textTracks().tracks_[0].mode = 'disabled';
@@ -695,11 +695,11 @@ Page.prototype.renderVideoJS = function() {
                     
                     if ( this.mode === 'showing' ) {
                         
-                        SBPLUS.setStorageItem( 'sbplus-subtitle-temp', 1, true );
+                        SBPLUS.setStorageItem( 'sbplus-' + SBPLUS.uniqueTitle + '-subtitle-temp', 1, true );
                         
                     } else {
                         
-                        SBPLUS.setStorageItem( 'sbplus-subtitle-temp', 0, true );
+                        SBPLUS.setStorageItem( 'sbplus-' + SBPLUS.uniqueTitle + '-subtitle-temp', 0, true );
                         
                     }
                     

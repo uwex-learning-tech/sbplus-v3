@@ -45,6 +45,7 @@ var SBPLUS = SBPLUS || {
     button: null,
     menu : null,
     screenReader: null,
+    uniqueTitle: '',
     
     // holds current and total pages in the presentation
     totalPages: 0,
@@ -57,9 +58,12 @@ var SBPLUS = SBPLUS || {
     settings: null,
     
     // status flags
+    manifestLoaded: false,
     splashScreenRendered: false,
     presentationRendered: false,
     beforeXMLLoadingDone: false,
+    xmlLoaded: false,
+    xmlParsed: false,
     presentationStarted: false,
     hasError: false,
     
@@ -181,9 +185,7 @@ var SBPLUS = SBPLUS || {
                 
                 // set the JSON data to the class manifest object
                 self.manifest = data;
-                
-                // flag the session store to indicate manifest was loaded
-                self.setStorageItem( 'sbplus-manifest-loaded', 1, true );
+                self.manifestLoaded = true;
                 
                 // set an event listener to unload all session storage on HTML
                 // page refresh/reload or closing
@@ -224,11 +226,9 @@ var SBPLUS = SBPLUS || {
      **/
     loadTemplate: function() {
         
-        // if manifest is loaded but template is not loaded...
-        if ( this.getStorageItem( 'sbplus-manifest-loaded', true ) === '1'
-        && this.hasStorageItem( 'sbplus-template-loaded', true ) === false ) {
-            
-            var self = this;
+        var self = this;
+        
+        if ( self.manifestLoaded ) {
             
             // set the template URL for the sbplus.tpl file
             var templateUrl = self.manifest.sbplus_root_directory;
@@ -236,9 +236,6 @@ var SBPLUS = SBPLUS || {
             
             // AJAX call and load the sbplus.tpl template
             $.get( templateUrl, function( data ) {
-                
-                // flag the session storage to indicate templated is loaded
-                self.setStorageItem( 'sbplus-template-loaded', 1, true );
                 
                 // output the template date to the HTML/DOM
                 $( self.layout.wrapper ).html( data );
@@ -290,9 +287,7 @@ var SBPLUS = SBPLUS || {
     beforeXMLLoading: function() {
         
         // if manifest and template are loaded and XML was never loaded before
-        if ( this.getStorageItem( 'sbplus-manifest-loaded', true ) === '1' 
-        && this.getStorageItem( 'sbplus-template-loaded', true ) === '1'
-        && this.beforeXMLLoadingDone === false ) {
+        if ( this.manifestLoaded === true && this.beforeXMLLoadingDone === false ) {
             
             // setup the options specified in the URL string query
             this.setURLOptions();
@@ -319,8 +314,7 @@ var SBPLUS = SBPLUS || {
      **/
     setManifestCustomMenu: function() {
         
-        // if manifest custom menu was never loaded before...
-        if ( this.hasStorageItem( 'sbplus-manifest-custom-menu-loaded', true ) === false ) {
+        if ( this.manifestLoaded ) {
             
             // set the menu item(s) data from the manifest
             var customMenuItems = this.manifest.sbplus_custom_menu_items;
@@ -350,9 +344,6 @@ var SBPLUS = SBPLUS || {
             // append/display the menu list to inner menu list
             $( this.menu.menuContentList ).html( $( this.menu.menuList ).html() );
             
-            // set the loaded flag to 1 or true in local storage
-            this.setStorageItem( 'sbplus-manifest-custom-menu-loaded', 1, true );
-            
         }
         
     }, // end setManifestCustomMenu function
@@ -369,9 +360,7 @@ var SBPLUS = SBPLUS || {
      **/
     loadXML: function() {
         
-        // if before xml load flag is true and XML was never loaded before...
-        if ( this.beforeXMLLoadingDone === true &&
-        this.hasStorageItem( 'sbplus-xml-loaded', true ) === false ) {
+        if ( this.beforeXMLLoadingDone ) {
             
             var self = this;
             
@@ -381,12 +370,10 @@ var SBPLUS = SBPLUS || {
             // AJAX call to the XML file
             $.get( xmlUrl, function( data ) {
                 
-                // flag the loaded flag in the local storage
-                self.setStorageItem( 'sbplus-xml-loaded', 1, true );
+                self.xmlLoaded = true;
                 
                 // call function to parse the XML data
                 // SHOULD BE THE LAST TASK TO BE EXECUTED IN THIS BLOCK
-
                 self.parseXMLData( data );
                 
             } ).fail( function( res, status ) { // when fail to load XML file
@@ -419,11 +406,9 @@ var SBPLUS = SBPLUS || {
      **/
     parseXMLData: function( d ) {
         
-        // if XML is loaded and was never parsed...
-        if ( this.getStorageItem( 'sbplus-xml-loaded', true ) === '1'
-        && this.hasStorageItem( 'sbplus-xml-parsed', true ) === false ) {
+        var self = this;
             
-            var self = this;
+        if ( self.xmlLoaded ) {
             
             // set the parameter as jQuery set
             var data = $( d );
@@ -562,16 +547,7 @@ var SBPLUS = SBPLUS || {
                     self.xml.setup.author = xAuthor.attr( 'name' ).trim();
                     self.xml.setup.profile = self.noScript( self.noCDATA( xAuthor.html() ) );
                     
-                } ).always( function() { // do no matter what
-                    
-                    // flag xml parsed as 1 or true in the local storage
-                    self.setStorageItem( 'sbplus-xml-parsed', 1, true );
-                    
-                    // render the presentation splash screen
-                    /* SHOULD ALWAYS BE EXECUTED ON THE LAST LINE OF THIS BLOCK */
-                    self.renderSplashscreen();
-                    
-                } );
+                } )
                 
             } else { // if not
                 
@@ -579,14 +555,13 @@ var SBPLUS = SBPLUS || {
                 self.xml.setup.author = xAuthor.attr( 'name' ).trim();
                 self.xml.setup.profile = self.noScript( self.noCDATA( xAuthor.html() ) );
                 
-                // flag xml parsed as 1 or true in the local storage
-                self.setStorageItem( 'sbplus-xml-parsed', 1, true );
-                
-                // render the presentation splash screen
-                /* SHOULD ALWAYS BE EXECUTED ON THE LAST LINE OF THIS BLOCK */
-                self.renderSplashscreen();
-                
             }
+            
+            // get/set the presenation title
+            self.uniqueTitle = self.sanitize( self.xml.setup.title );
+            
+            self.xmlParsed = true;
+            self.renderSplashscreen();
             
         }
         
@@ -608,10 +583,9 @@ var SBPLUS = SBPLUS || {
      **/
     renderSplashscreen: function() {
         
-        if ( this.getStorageItem( 'sbplus-xml-parsed', true ) === '1'
-        && this.splashScreenRendered === false ) {
-            
-            var self = this;
+        var self = this;
+        
+        if ( self.xmlParsed === true && self.splashScreenRendered === false ) {
             
             // set inital local storage settings
             if ( self.hasStorageItem( 'sbplus-hide-widget' ) === false ) {
@@ -728,7 +702,7 @@ var SBPLUS = SBPLUS || {
             $( self.button.start ).on( 'click', self.startPresentation.bind( self ) );
             
             // if local storage has a value for the matching presentation title
-            if ( self.hasStorageItem( 'sbplus-' + self.sanitize( self.xml.setup.title ) ) ) {
+            if ( self.hasStorageItem( 'sbplus-' + self.uniqueTitle ) ) {
                 
                 // set event listener to the resume button
                 $( self.button.resume ).on( 'click', self.resumePresentation.bind( self ) );
@@ -955,11 +929,8 @@ var SBPLUS = SBPLUS || {
                 // hide screen
                 self.hideSplash();
                 
-                // get/set the presenation title
-                var presentation = self.sanitize( self.xml.setup.title );
-                
                 // select the page that was set in the local storage data
-                self.selectPage( self.getStorageItem( 'sbplus-' + presentation ) );
+                self.selectPage( self.getStorageItem( 'sbplus-' + self.uniqueTitle ) );
                 
             } );
             
@@ -1713,12 +1684,12 @@ var SBPLUS = SBPLUS || {
                 
                 menuTitle.html( 'Settings' );
                 
-                if ( this.hasStorageItem( 'sbplus-settings-loaded', true ) === false ) {
+                if ( this.hasStorageItem( 'sbplus-' + self.uniqueTitle + '-settings-loaded', true ) === false ) {
                     
                     $.get( self.manifest.sbplus_root_directory + 'scripts/templates/settings.tpl', function( data ) {
                     
                         self.settings = data;
-                        self.setStorageItem( 'sbplus-settings-loaded', 1, true );
+                        self.setStorageItem( 'sbplus-' + self.uniqueTitle + '-settings-loaded', 1, true );
                         menuContent.append( data );
                         self.afterSettingsLoaded();
                         
@@ -1918,7 +1889,7 @@ var SBPLUS = SBPLUS || {
             
             $( this.layout.widget ).addClass('noSegments');
             
-            if ( this.hasStorageItem( 'sbplus-logo-loaded', true ) === false ) {
+            if ( this.hasStorageItem( 'sbplus-' + self.uniqueTitle + '-logo-loaded', true ) === false ) {
                 
                 var program = this.xml.setup.program;
                 
@@ -1936,10 +1907,10 @@ var SBPLUS = SBPLUS || {
                 
                 $.get( logoUrl, function() {
                     
-                    self.setStorageItem( 'sbplus-logo-loaded', this.url, true );
+                    self.setStorageItem( 'sbplus-' + self.uniqueTitle + '-logo-loaded', this.url, true );
                     
                     $( self.widget.content ).css( 'background-image', 'url(' +
-                        self.getStorageItem( 'sbplus-logo-loaded', true ) + ')' );
+                        self.getStorageItem( 'sbplus-' + self.uniqueTitle + '-logo-loaded', true ) + ')' );
                         
                 } ).fail( function() {
                     
@@ -1947,10 +1918,10 @@ var SBPLUS = SBPLUS || {
                     
                     $.get( logoUrl, function() {
                         
-                        self.setStorageItem( 'sbplus-logo-loaded', this.url, true );
+                        self.setStorageItem( 'sbplus-' + self.uniqueTitle + '-logo-loaded', this.url, true );
                         
                         $( self.widget.content ).css( 'background-image', 'url(' +
-                            self.getStorageItem( 'sbplus-logo-loaded', true ) + ')' );
+                            self.getStorageItem( 'sbplus-' + self.uniqueTitle + '-logo-loaded', true ) + ')' );
                             
                     } );
                     
@@ -1959,7 +1930,7 @@ var SBPLUS = SBPLUS || {
             } else {
                 
                 $( self.widget.content ).css( 'background-image', 'url(' +
-                    self.getStorageItem( 'sbplus-logo-loaded', true ) + ')' );
+                    self.getStorageItem( 'sbplus-' + self.uniqueTitle + '-logo-loaded', true ) + ')' );
                 
             }
             
@@ -2409,7 +2380,7 @@ var SBPLUS = SBPLUS || {
         
         var self = this;
         
-        if ( self.getStorageItem( 'sbplus-settings-loaded', true ) === '1' ) {
+        if ( self.getStorageItem( 'sbplus-' + self.uniqueTitle + '-settings-loaded', true ) === '1' ) {
             
             if ( self.isMobileDevice() ) {
                     
@@ -2474,7 +2445,7 @@ var SBPLUS = SBPLUS || {
                 } else {
                     
                     self.setStorageItem( 'sbplus-volume', vol / 100 );
-                    self.setStorageItem( 'sbplus-volume-temp', vol / 100, true );
+                    self.setStorageItem( 'sbplus-' + self.uniqueTitle + '-volume-temp', vol / 100, true );
                     
                 }
                 
@@ -2495,7 +2466,7 @@ var SBPLUS = SBPLUS || {
                 );
                 
                 self.setStorageItem(
-                    'sbplus-playbackrate-temp',
+                    'sbplus-' + self.uniqueTitle + '-playbackrate-temp',
                     $( '#sbplus_va_playbackrate option:selected' ).val(),
                     true
                 );
@@ -2521,7 +2492,7 @@ var SBPLUS = SBPLUS || {
         
         var self = this;
         
-        if ( self.getStorageItem( 'sbplus-settings-loaded', true ) === '1' ) {
+        if ( self.getStorageItem( 'sbplus-' + self.uniqueTitle + '-settings-loaded', true ) === '1' ) {
             
             // widget
             var widgetVal = self.getStorageItem( 'sbplus-hide-widget' );
