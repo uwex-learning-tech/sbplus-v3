@@ -2201,14 +2201,11 @@ var SBPLUS = SBPLUS || {
     
     noCDATA: function( str ) {
         
+        if ( str === undefined || str === '' ) {
+            return '';
+        }
         
-        if ( str !== "" || str !== undefined ) {
-               
-           return str.replace(/<!\[CDATA\[/g, '').replace( /\]\]>/g, '').trim();
-    
-       }
-    
-       return str;
+        return str.replace(/<!\[CDATA\[/g, '').replace( /\]\]>/g, '').trim();
         
     },
     
