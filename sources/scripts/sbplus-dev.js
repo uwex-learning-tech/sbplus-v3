@@ -428,7 +428,7 @@ var SBPLUS = SBPLUS || {
             var xSubtitle = self.noScript( xSetup.find( 'subtitle' ).text().trim() );
             var xLength = xSetup.find( 'length' ).text().trim();
             var xAuthor = xSetup.find( 'author' );
-            var xGeneralInfo = self.noScript( xSetup.find( 'generalInfo' ).html().trim() );
+            var xGeneralInfo = self.noCDATA( self.noScript( xSetup.find( 'generalInfo' ).html() ) );
             var xSections = data.find( 'section' );
             
             // variable to hold temporary XML value for further evaluation
@@ -503,7 +503,7 @@ var SBPLUS = SBPLUS || {
                     subtitle: xSubtitle,
                     authorPhoto: '',
                     duration: xLength,
-                    generalInfo: self.noCDATA( xGeneralInfo )
+                    generalInfo: xGeneralInfo
                 },
                 sections: xSections
             };
