@@ -8,7 +8,9 @@ html {
 body {
   font-size: 14px;
   font-size: 0.875rem;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  margin: 0;
+  padding: 0; }
 
 .sbplus_pop_full {
   position: relative;

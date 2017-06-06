@@ -64,6 +64,8 @@ html {
 body {
     @include font-size( 14px );
     font-family: $default-font-family;
+    margin: 0;
+    padding: 0;
 }
 
 .sbplus_pop_full {
