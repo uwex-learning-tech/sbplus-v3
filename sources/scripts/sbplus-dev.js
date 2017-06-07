@@ -2364,20 +2364,28 @@ var SBPLUS = SBPLUS || {
         
         if ( str === undefined ) {
             
-            console.log( obj );
+            if ( !this.isEmpty( obj[0].textContent ) ) {
+                
+                console.log( obj );
             
-            var div = document.createElement('div');
-            div.appendChild(obj[0]);
-            
-            var fcNodePatternOpen = new RegExp('<' + div.firstChild.nodeName + '?\\s*([A-Za-z]*=")*[A-Za-z\\s]*"*>', 'gi');
-            var fcNodePatternClose = new RegExp('</' + div.firstChild.nodeName + '>', 'gi');
-            
-            str = div.innerHTML;
-            
-            str = str.replace( fcNodePatternOpen, '' )
-                  .replace( fcNodePatternClose, '' )
-                  .replace( /&lt;/g, '<')
-                  .replace( /&gt;/g, '>').trim();
+                var div = document.createElement('div');
+                div.appendChild(obj[0]);
+                
+                var fcNodePatternOpen = new RegExp('<' + div.firstChild.nodeName + '?\\s*([A-Za-z]*=")*[A-Za-z\\s]*"*>', 'gi');
+                var fcNodePatternClose = new RegExp('</' + div.firstChild.nodeName + '>', 'gi');
+                
+                str = div.innerHTML;
+                
+                str = str.replace( fcNodePatternOpen, '' )
+                      .replace( fcNodePatternClose, '' )
+                      .replace( /&lt;/g, '<')
+                      .replace( /&gt;/g, '>').trim();
+                
+            } else {
+                
+                return '';
+                
+            }
             
         }
         
