@@ -1046,7 +1046,7 @@ body {
                         @include display-flex();
                         @include flex( 2 0 90% );
                         @include align-items( center );
-                        @include justify-content( center );
+                        padding-left: $gutter;
                         font-weight: bold;
                         font-size: 12px;
                         line-height: 12px;

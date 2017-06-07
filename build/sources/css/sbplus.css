@@ -686,8 +686,7 @@ body {
           flex: 2 0 90%;
           -webkit-align-items: center;
           align-items: center;
-          -webkit-justify-content: center;
-          justify-content: center;
+          padding-left: 10px;
           font-weight: bold;
           font-size: 12px;
           line-height: 12px;
