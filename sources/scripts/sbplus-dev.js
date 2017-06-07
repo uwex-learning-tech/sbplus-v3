@@ -428,7 +428,7 @@ var SBPLUS = SBPLUS || {
             var xSubtitle = self.noScript( xSetup.find( 'subtitle' ).text().trim() );
             var xLength = xSetup.find( 'length' ).text().trim();
             var xAuthor = xSetup.find( 'author' );
-            var xGeneralInfo = self.noCDATA( self.noScript( xSetup.find( 'generalInfo' ).html() ) );
+            var xGeneralInfo = self.getTextContent( xSetup.find( 'generalInfo' ) );
             var xSections = data.find( 'section' );
             
             // variable to hold temporary XML value for further evaluation
@@ -526,7 +526,7 @@ var SBPLUS = SBPLUS || {
             var profileUrl = self.manifest.sbplus_author_directory + sanitizedAuthor + '.json';
             
             // if author data in XML is empty
-            if ( self.isEmpty( xAuthor.html() ) ) {
+            if ( self.isEmpty( xAuthor.text() ) ) {
                 
                 // get centralized author name and profile via AJAX
                 $.ajax( {
@@ -545,7 +545,7 @@ var SBPLUS = SBPLUS || {
                 } ).fail( function() { // when fail, default to the values in XML
                     
                     self.xml.setup.author = xAuthor.attr( 'name' ).trim();
-                    self.xml.setup.profile = self.noScript( self.noCDATA( xAuthor.html() ) );
+                    self.xml.setup.profile = self.getTextContent( xAuthor );
                     
                 } )
                 
@@ -553,7 +553,7 @@ var SBPLUS = SBPLUS || {
                 
                 // get the values in the XML
                 self.xml.setup.author = xAuthor.attr( 'name' ).trim();
-                self.xml.setup.profile = self.noScript( self.noCDATA( xAuthor.html() ) );
+                self.xml.setup.profile = self.getTextContent( xAuthor );
                 
             }
             
@@ -1515,11 +1515,9 @@ var SBPLUS = SBPLUS || {
         // if page type is not quiz
         if ( pageData.type !== 'quiz' ) {
             
-            var notes = this.noCDATA( target.find( 'note' ).html() );
-            
             // add/set additional property to the pageData object
             pageData.src = target.attr( 'src' ).trim();
-            pageData.notes = this.noScript( notes );
+            pageData.notes = this.getTextContent( target.find( 'note' ) );
             pageData.widget = target.find( 'widget' );
             pageData.frames = target.find( 'frame' );
             pageData.imageFormat = this.xml.settings.imgType;
@@ -2190,7 +2188,7 @@ var SBPLUS = SBPLUS || {
            var results = $( "<span>" +  $.trim( str ) + "</span>" );
     
            results.find( "script,noscript,style" ).remove().end();
-               
+           
            return results.html();
     
        }
@@ -2357,6 +2355,33 @@ var SBPLUS = SBPLUS || {
     removeAllSessionStorage: function() {
         
         return sessionStorage.clear();
+        
+    },
+    
+    getTextContent: function( obj ) {
+        
+        var str = obj.html();
+        
+        if ( str === undefined ) {
+            
+            console.log( obj );
+            
+            var div = document.createElement('div');
+            div.appendChild(obj[0]);
+            
+            var fcNodePatternOpen = new RegExp('<' + div.firstChild.nodeName + '?\\s*([A-Za-z]*=")*[A-Za-z\\s]*"*>', 'gi');
+            var fcNodePatternClose = new RegExp('</' + div.firstChild.nodeName + '>', 'gi');
+            
+            str = div.innerHTML;
+            
+            str = str.replace( fcNodePatternOpen, '' )
+                  .replace( fcNodePatternClose, '' )
+                  .replace( /&lt;/g, '<')
+                  .replace( /&gt;/g, '>').trim();
+            
+        }
+        
+        return this.noScript( this.noCDATA( str ) );
         
     },
     

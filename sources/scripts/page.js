@@ -154,12 +154,6 @@ Page.prototype.getPageMedia = function() {
                 
                 self.hasImage = true;
                 
-/*
-                $( self.mediaContent ).html( '<img src="' + img.src + '" class="img_only" alt="' + slef.title + '" />' ).promise().done( function() {
-                    self.setWidgets();
-                } );
-*/
-                
                 if ( ! Modernizr.objectfit ) {
                   $('.sbplus_media_content').each(function () {
                     var $container = $(this),
@@ -792,11 +786,9 @@ Page.prototype.setWidgets = function() {
             segments.each( function() {
                 
                 var name = $( this ).attr( 'name' );
-                var content = SBPLUS.noScript( $( this ).html() );
                 var key = 'sbplus_' + SBPLUS.sanitize( name );
                 
-                self.widgetSegments[key] = SBPLUS.noCDATA( content );
-                
+                self.widgetSegments[key] = SBPLUS.getTextContent( $( this ) );
                 SBPLUS.addSegment( name );
                 
             } );
