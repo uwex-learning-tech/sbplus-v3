@@ -76,7 +76,12 @@ var Quiz = function( obj, data ) {
                     
                 }
                 
-                answer.feedback = SBPLUS.getTextContent( $( this ).find( 'feedback' ) );
+                var mcFB = $( this ).find( 'feedback' );
+                
+                if ( mcFB.length ) {
+                    answer.feedback = SBPLUS.getTextContent( mcFB );
+                }
+                
                 self.quiz.answers.push( answer );
                 
             } );
@@ -129,22 +134,43 @@ var Quiz = function( obj, data ) {
                 
             } );
             
-            self.quiz.correctFeedback = SBPLUS.getTextContent( $( cntx ).find( 'correctFeedback' ) );
-            self.quiz.incorrectFeedback = SBPLUS.getTextContent( $( cntx ).find( 'incorrectFeedback' ) );
+            var cFB = $( cntx ).find( 'correctFeedback' );
+            var iFB = $( cntx ).find( 'incorrectFeedback' );
+            
+            if ( cFB.length ) {
+                self.quiz.correctFeedback = SBPLUS.getTextContent( cFB );
+            }
+            
+            if (iFB.length ) {
+                self.quiz.incorrectFeedback = SBPLUS.getTextContent( iFB );
+            }
             
         break;
         
         case 'shortanswer':
-   
-            self.quiz.feedback = SBPLUS.getTextContent( $( cntx ).find( 'feedback' ) );
+            
+            var fb = $( cntx ).find( 'feedback' );
+            
+            if ( fb.length ) {
+                self.quiz.feedback = SBPLUS.getTextContent( fb );
+            }
             
         break;
         
         case 'fillintheblank':
             
+            var fitbCFB = $( cntx ).find( 'correctFeedback' );
+            var fitbIFB = $( cntx ).find( 'incorrectFeedback' );
+            
+            if ( fitbCFB.length ) {
+                self.quiz.correctFeedback = SBPLUS.getTextContent( fitbCFB );
+            }
+            
+            if (fitbIFB.length ) {
+                self.quiz.incorrectFeedback = SBPLUS.getTextContent( fitbIFB );
+            }
+            
             self.quiz.answer = SBPLUS.noScript( $( cntx ).find( 'answer' ).text().trim() );
-            self.quiz.correctFeedback = SBPLUS.getTextContent( $( cntx ).find( 'correctFeedback' ) );
-            self.quiz.incorrectFeedback = SBPLUS.getTextContent( $( cntx ).find( 'incorrectFeedback' ) );
             
         break;
         

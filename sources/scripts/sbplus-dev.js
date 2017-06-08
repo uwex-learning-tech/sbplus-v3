@@ -2365,8 +2365,6 @@ var SBPLUS = SBPLUS || {
         if ( str === undefined ) {
             
             if ( !this.isEmpty( obj[0].textContent ) ) {
-                
-                console.log( obj );
             
                 var div = document.createElement('div');
                 div.appendChild(obj[0]);
