@@ -2162,3 +2162,420 @@ $titleBarHeight: 30px;
     }
     
 }
+
+//hack for iframe on mobile
+.loaded-in-iframe {
+
+    width: 900px;
+    height: $box-height;
+    margin: 0 auto;
+    
+    #sbplus_error_screen {
+        width: 900px;
+        height: $box-height;
+    }
+    
+    #sbplus {
+        
+        width: 900px;
+        height: $box-height;
+        
+        #sbplus_splash_screen {
+            width: 900px;
+            height: $box-height;
+        }
+        
+        #sbplus_content_wrapper {
+        
+            #sbplus_left_col {
+                            
+                border-left: 1px solid $border-color;
+                    
+                #sbplus_widget {
+                    border-left: none;
+                    border-right: none;
+                }
+                    
+            }
+                
+            #sbplus_right_col {
+                
+                border-right: 1px solid $border-color;
+                
+                #sbplus_table_of_contents_wrapper {
+                    border-left: none;
+                }
+                
+            }
+            
+        }
+        
+        #sbplus_control_bar {
+            border-left: 1px solid $border-color;
+            border-right: 1px solid $border-color;
+            border-bottom: 1px solid $border-color;
+        }
+        
+    }
+    
+    #sbplus {
+    
+        #sbplus_splash_screen {
+            
+            #sbplus_presentation_info {
+                
+                .sb_cta {
+                    
+                    @include display-flex();
+                    @include flex-flow(row nowrap);
+                    @include justify-content( space-between );
+                    
+                    button:first-child {
+                        margin-right: 2%;
+                    }
+                    
+                    button {
+                        @include flex(1 0 49%);
+                        margin-bottom: 0;
+                    }
+                    
+                }
+                
+                .sb_downloads {
+                    
+                    @include display-flex();
+                    @include flex-flow(row nowrap);
+                    margin: $gutter 0 5px;
+                    
+                    a {
+                        @include flex(1 0 25%);
+                        display: block;
+                        font-size: 120%;
+                        margin-bottom: 0;
+                        @include border-radius( 0 );
+                        border: none;
+                    }
+                    
+                }
+                
+            }
+            
+        }
+        
+        #sbplus_banner_bar {
+            
+            height: $titleBarHeight;
+            font-size: 120%;
+            
+            #sbplus_lession_title {
+                display: block;
+                width: 60%;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                @include align-self( center );
+            }
+            
+            #sbplus_menu_area {
+                
+                width: 258px;
+                
+                #sbplus_author_name {
+                    @include display-flex();
+                    -ms-flex: 2 0 75%;
+                    height: 100%;
+                    text-align: left;
+                    font-weight: bold;
+                    min-height: 0;
+                    @include align-self( center );
+                    @include align-items( center );
+                    padding: 0 $gutter;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    background-color: transparent;
+                }
+                
+                #sbplus_menu_btn_wrapper {
+                
+                    -ms-flex: 1 0 15%;
+                    
+                    #sbplus_menu_btn,
+                    .root-level {
+                        
+                        min-width: 30px;
+                        margin: 0;
+                        padding: 0;
+                        color: inherit;
+                        font-size: 28px;
+                        list-style: none;
+                        height: 100%;
+                        line-height: 1;
+                    
+                        .menu-parent {
+                            
+                            @include display-flex();
+                            @include align-items( center );
+                            position: relative;
+                            height: 100%;
+                            cursor: pointer;
+                            
+                            .menu {
+                            
+                                position: absolute;
+                                width: 260px;
+                                right: -9px;
+                                top: 29px;
+                                list-style: none;
+                                margin: 0;
+                                padding: 0;
+                                border-top: none;
+                                background-color: #5f5d5d;
+                                @include box-shadow( 0 6px 4px 2px #fff);
+                                z-index: 11;
+                                
+                                .menu-item {
+                                    
+                                    a { 
+                                        
+                                        @include display-flex();
+                                        @include flex-flow( row nowrap );
+                                        @include align-items( center );
+                                        width: 100%;
+                                        height: 35px;
+                                        padding: 0 ($gutter + 5);
+                                        font-size: 14px;
+                                        font-weight: normal;
+                                        color: #fff;
+                                        text-decoration: none;
+                                        
+                                        span {
+                                            display: inline-block;
+                                            margin-right: 5px;
+                                        }
+                                        
+                                    }
+                                    
+                                }
+                                
+                                .menu-item:hover {
+                                    
+                                    background-color: $default-accent-hover;
+                                    
+                                    a {
+                                        color: #fff;
+                                    }
+                                    
+                                }
+                                
+                                .menu-item:focus {
+                                    
+                                    background-color: $default-accent;
+                                    
+                                    a {
+                                        color: #fff;
+                                    }
+                                    
+                                }
+                                                                    
+                            }
+                            
+                        }
+                        
+                        .active {
+                            color: #ff3c3c;
+                        }
+                        
+                    }
+                    
+                    ul[aria-hidden="true"] {
+                        display: none;
+                    }
+                    
+                }
+                
+            }
+            
+        }
+        
+        #sbplus_content_wrapper {
+            
+            @include flex-flow( row nowrap );
+            @include calc( height, '100% - ' + 80px );
+            
+            #sbplus_left_col {
+            
+                width: 100%;
+                height: 100%;
+                border-right: 1px solid $border-color;
+                
+                #sbplus_media_wrapper {
+
+                    .sbplus_media_content {
+                        /* videoJS customization goes here if any */
+                    }
+                    
+                }
+                
+                #sbplus_widget {
+                    @include display-flex();
+                    @include flex-flow( column nowrap );
+                    @include flex( 1 0 auto );
+                    position: relative;
+                    height: $widget-height;
+                    bottom: 0;
+                    border-top: 1px solid $border-color;
+                }
+                
+            }
+            
+            #sbplus_right_col {
+                width: 258px;
+                height: 100%;
+            }
+            
+        }
+        
+        #sbplus_control_bar {
+            
+            height: $cntrlBarHeight;
+            font-size: 100%;
+            
+            #sbplus_left_controls {
+                
+                #sbplus_previous_btn {
+                    max-width: 100px;
+                }
+                
+                #sbplus_next_btn {
+                    max-width: 100px;
+                }
+                
+                #sbplus_page_status {
+                     @include justify-content(flex-start);
+                }
+                
+            }
+            
+            #sbplus_right_controls {
+                
+                width: 258px;
+                
+                #sbplus_download_btn_wrapper {
+                    
+                    display: block;
+                    height: 48px;
+                    
+                    #sbplus_download_btn,
+                    .root-level {
+                        
+                        width: 100%;
+                        
+                        .menu-parent {
+                            
+                            @include display-flex();
+                            @include align-items( center );
+                            
+                            span {
+                                display: block;
+                                margin: 0 auto;
+                            }
+                            
+                            .menu {
+                                
+                                .menu-item {
+                                    @include display-flex();
+                                    @include align-items( center );
+                                    @include justify-content( center );
+                                }
+                                
+                            }
+                            
+                        }
+                        
+                        .active {
+                            color: $default-accent-hover;
+                        }
+                        
+                    }
+                    
+                }
+                
+                #sbplus_sidebar_btn {
+                    display: block;
+                }
+                
+                #sbplus_widget_btn {
+                    .btnTip {
+                        display: none;
+                    }
+                }
+                
+            }
+            
+        }
+        
+        #menu_item_content {
+            
+            .sbplus_menu_title_bar {
+                height: $titleBarHeight;
+            }
+            
+        }
+        
+    }
+    
+}
+
+.sbplus_full {
+    
+    #sbplus {
+        
+        #sbplus_banner_bar {
+            
+            #sbplus_menu_area {
+        
+                #sbplus_author_name {
+                    width: auto;
+                    @include flex(initial);
+                    @include align-self(flex-end);
+                }
+                
+                #sbplus_menu_btn_wrapper {
+                    @include flex(initial);
+                }
+                
+            }
+            
+        }
+        
+        #sbplus_content_wrapper {
+            
+            #sbplus_left_col {
+                border-right: none;   
+            }
+            
+            #sbplus_right_col {
+                border-left: 1px solid $border-color;
+            }
+            
+        }
+        
+    }
+
+    #sbplus_media_wrapper {
+        
+        .sbplus_media_content {
+            
+            .video-js.vjs-default-skin {
+                
+                .vjs-big-play-button {
+                    display: none;
+               }
+               
+            }
+        }
+        
+    }
+    
+}

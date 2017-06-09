@@ -804,6 +804,10 @@ var SBPLUS = SBPLUS || {
             // flag the splash screen as rendered
             self.splashScreenRendered = true;
             
+            if ( window.self !== window.top ) {
+                $( self.layout.wrapper ).addClass( 'loaded-in-iframe' );
+            }
+            
             self.resize();
             
         }
@@ -2025,7 +2029,7 @@ var SBPLUS = SBPLUS || {
         
     },
     
-    calcLayout: function() {
+    calcLayout: function() { 
         
         var media = $( this.layout.media );
         var widget = $( this.layout.widget );
@@ -2041,15 +2045,19 @@ var SBPLUS = SBPLUS || {
         
         if ( window.innerWidth < 900 || window.screen.width <= 414 ) {
             
-            this.layout.isMobile = true;
+            if ( $( this.layout.wrapper ).hasClass( 'loaded-in-iframe' ) === false ) {
+                console.log('ran');
+                this.layout.isMobile = true;
             
-            widgetBtnTip.show();
-            
-            var adjustedHeight = $( this.layout.leftCol ).height() + $( this.layout.mainControl ).height();
-            
-            sidebar.css( 'height', 'calc( 100% - ' + adjustedHeight + 'px )'  );
-            widget.css( 'height', sidebar.height() );
-            tocWrapper.css( 'height', sidebar.height() - 30 );
+                widgetBtnTip.show();
+                
+                var adjustedHeight = $( this.layout.leftCol ).height() + $( this.layout.mainControl ).height();
+                
+                sidebar.css( 'height', 'calc( 100% - ' + adjustedHeight + 'px )'  );
+                widget.css( 'height', sidebar.height() );
+                tocWrapper.css( 'height', sidebar.height() - 30 );
+                
+            }
             
         } else {
             
