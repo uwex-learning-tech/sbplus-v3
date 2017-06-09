@@ -103,6 +103,7 @@ var SBPLUS = SBPLUS || {
             sidebar: '#sbplus_right_col',
             pageStatus: '#sbplus_page_status',
             quizContainer: '#sbplus_quiz_wrapper',
+            mainControl: '#sbplus_control_bar',
             dwnldMenu: null,
             mainMenu: null
         };
@@ -147,6 +148,7 @@ var SBPLUS = SBPLUS || {
             download: '#sbplus_download_btn',
             downloadMenu: '#sbplus_download_btn .menu-parent .downloadFiles',
             widget: '#sbplus_widget_btn',
+            widgetTip: '#sbplus_widget_btn .btnTip',
             sidebar: '#sbplus_sidebar_btn',
             author: '#sbplus_author_name',
             menu: '#sbplus_menu_btn',
@@ -799,16 +801,10 @@ var SBPLUS = SBPLUS || {
                 
             }
             
-            // if viewing device is an iphone
-            if ( self.isMobileDevice() ) {
-                
-                // load the inline video library
-                $.getScript( self.manifest.sbplus_root_directory + 'scripts/libs/iphone-inline-video.browser.js' );
-                
-            }
-            
             // flag the splash screen as rendered
             self.splashScreenRendered = true;
+            
+            self.resize();
             
         }
         
@@ -1769,6 +1765,8 @@ var SBPLUS = SBPLUS || {
             this.showWidget();
         }
         
+        this.resize();
+        
     },
     
     hideWidget: function() {
@@ -1776,11 +1774,11 @@ var SBPLUS = SBPLUS || {
         var media = $( this.layout.media );
         
         $( this.layout.widget ).hide();
-        $( this.button.widget ).html( '<span class="icon-widget-open"></span>' );
+        $( this.button.widget ).find( '.icon-widget-open' ).show();
+        $( this.button.widget ).find( '.icon-widget-close' ).hide();
         
         if ( this.layout.isMobile ) {
             media.addClass( 'aspect_ratio' );
-            this.resize();
         } else {
             media.removeClass( 'aspect_ratio' )
                     .addClass( 'non_aspect_ratio' ).css( 'height', '100%');
@@ -1797,11 +1795,12 @@ var SBPLUS = SBPLUS || {
         var media = $( this.layout.media );
         
         $( this.layout.widget ).show();
-        $( this.button.widget ).html( '<span class="icon-widget-close"></span>' );
+        $( this.button.widget ).find( '.icon-widget-close' ).show();
+        $( this.button.widget ).find( '.icon-widget-open' ).hide();
+        
         media.removeClass( 'non_aspect_ratio' )
                 .addClass( 'aspect_ratio' ).css( 'height', '' );
-        this.resize();
-        
+ 
         media.removeClass( 'widget_off' ).addClass( 'widget_on' );
         
         this.hideWidgetContentIndicator()
@@ -2031,6 +2030,8 @@ var SBPLUS = SBPLUS || {
         var media = $( this.layout.media );
         var widget = $( this.layout.widget );
         var sidebar = $( this.layout.sidebar );
+        var tocWrapper = $( this.tableOfContents.container );
+        var widgetBtnTip = $( this.button.widgetTip );
         
         if ( window.innerWidth >= 1826 ) {
             media.removeClass( 'aspect_ratio' ).addClass( 'non_aspect_ratio' );
@@ -2038,45 +2039,37 @@ var SBPLUS = SBPLUS || {
             media.removeClass( 'non_aspect_ratio' ).addClass( 'aspect_ratio' );
         }
         
-        if ( !widget.is( ':visible' ) ) {
-            media.css( 'height', '100%' );
-        }
-        
-        if ( window.innerWidth <= 740 || window.screen.width <= 414 ) {
+        if ( window.innerWidth < 900 || window.screen.width <= 414 ) {
+            
             this.layout.isMobile = true;
+            
+            widgetBtnTip.show();
+            
+            var adjustedHeight = $( this.layout.leftCol ).height() + $( this.layout.mainControl ).height();
+            
+            sidebar.css( 'height', 'calc( 100% - ' + adjustedHeight + 'px )'  );
+            widget.css( 'height', sidebar.height() );
+            tocWrapper.css( 'height', sidebar.height() - 30 );
+            
         } else {
+            
             this.layout.isMobile = false;
+
+            sidebar.css( 'height', '' );
+            
+            if ( !widget.is( ':visible' ) ) {
+                widget.css( 'height', '100%' );
+            } else {
+                widget.css( 'height', '' );
+            }
+            
+            tocWrapper.css( 'height', '' );
+            widgetBtnTip.hide();
+
         }
         
         if ( this.layout.isMobile === false && widget.outerHeight() <= 190 ) {
             media.removeClass( 'aspect_ratio' ).addClass( 'non_aspect_ratio' );
-        }
-        
-        if ( this.layout.isMobile === true ) {
-            sidebar.css( 'max-height', '400px'  );
-        } else {
-            sidebar.css( 'max-height', ''  );
-        }
-        
-        this.calcWidgetHeight();
-        
-    },
-    
-    calcWidgetHeight: function() {
-        
-        var sidebar = $( this.layout.sidebar );
-        var widget = $( this.layout.widget );
-        
-        if ( this.layout.isMobile === true ) {  
-            widget.css( {
-                'min-height': sidebar.outerHeight(),
-                'bottom': sidebar.outerHeight() * -1
-            } );
-        } else {
-            widget.css( {
-                'min-height': '',
-                'bottom': ''
-            } );
         }
         
     },
@@ -2391,7 +2384,7 @@ var SBPLUS = SBPLUS || {
         
     },
     
-    isMobileDevice: function() {
+    isIOSDevice: function() {
         
         if ( navigator.userAgent.match(/iPhone/i) 
         || navigator.userAgent.match(/iPod/i) ) {
@@ -2410,7 +2403,7 @@ var SBPLUS = SBPLUS || {
         
         if ( self.getStorageItem( 'sbplus-' + self.uniqueTitle + '-settings-loaded', true ) === '1' ) {
             
-            if ( self.isMobileDevice() ) {
+            if ( self.isIOSDevice() ) {
                     
                 $( '#autoplay_label' ).after( '<p class="error">Mobile devices do not support autoplay.</p>' );
                 $( '#sbplus_va_autoplay' ).prop( 'checked', false ).attr( 'disabled', true );
@@ -2552,7 +2545,7 @@ var SBPLUS = SBPLUS || {
             // autoplay
             var autoplayVal = self.getStorageItem( 'sbplus-autoplay' );
             
-            if ( self.isMobileDevice() === false ) {
+            if ( self.isIOSDevice() === false ) {
                 
                 if ( autoplayVal === '1') {
                     

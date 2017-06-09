@@ -129,7 +129,7 @@ Page.prototype.getPageMedia = function() {
                     self.transcript = SBPLUS.noScript( data );
                 } ).always( function() {
                     
-                    var html = '<video id="mp" class="video-js vjs-default-skin" webkit-playsinline playsinline></video>';
+                    var html = '<video id="mp" class="video-js vjs-default-skin"></video>';
                     
                     $( self.mediaContent ).html( html ).promise().done( function() {
                 
@@ -189,7 +189,7 @@ Page.prototype.getPageMedia = function() {
                 
             }).always( function() {
                 
-                var html = '<video id="mp" class="video-js vjs-default-skin" crossorigin="anonymous" width="100%" height="100%" webkit-playsinline playsinline></video>';
+                var html = '<video id="mp" class="video-js vjs-default-skin" crossorigin="anonymous" width="100%" height="100%"></video>';
                 
                 $( self.mediaContent ).html( html ).promise().done( function() {
                     
@@ -206,7 +206,7 @@ Page.prototype.getPageMedia = function() {
         
         case 'youtube':
             
-            $( self.mediaContent ).html( '<video id="mp" class="video-js vjs-default-skin" webkit-playsinline playsinline></video>' ).promise().done( function() {
+            $( self.mediaContent ).html( '<video id="mp" class="video-js vjs-default-skin"></video>' ).promise().done( function() {
                     
                 self.isYoutube = true;
                 
@@ -219,7 +219,7 @@ Page.prototype.getPageMedia = function() {
         
         case 'vimeo':
             
-            $( self.mediaContent ).html( '<video id="mp" class="video-js vjs-default-skin" webkit-playsinline playsinline></video>' ).promise().done( function() {
+            $( self.mediaContent ).html( '<video id="mp" class="video-js vjs-default-skin"></video>' ).promise().done( function() {
                     
                 self.isVimeo = true;
                 
@@ -252,7 +252,7 @@ Page.prototype.getPageMedia = function() {
                 self.transcript = SBPLUS.noScript( data );
             } ).always( function() {
                 
-                var html = '<video id="mp" class="video-js vjs-default-skin" webkit-playsinline playsinline></video>';
+                var html = '<video id="mp" class="video-js vjs-default-skin"></video>';
                 
                 $( self.mediaContent ).html( html ).promise().done( function() {
             
@@ -387,7 +387,7 @@ Page.prototype.loadKalturaVideoData = function () {
                         
                     }
                     
-                    html = '<video id="mp" class="video-js vjs-default-skin" crossorigin="anonymous" width="100%" height="100%" webkit-playsinline playsinline></video>';
+                    html = '<video id="mp" class="video-js vjs-default-skin" crossorigin="anonymous" width="100%" height="100%"></video>';
                 
                     $( self.mediaContent ).html( html ).promise().done( function() {
                         
@@ -428,6 +428,8 @@ Page.prototype.renderVideoJS = function() {
         techOrder: ['html5'],
         controls: true,
         autoplay: isAutoplay,
+        playsinline: true,
+        nativeControlsForTouch: false,
         preload: "auto",
         playbackRates: [0.5, 1, 1.5, 2],
         controlBar: {
@@ -439,7 +441,7 @@ Page.prototype.renderVideoJS = function() {
     };
     
     // autoplay is off for iPhone or iPod
-    if( SBPLUS.isMobileDevice() ) {
+    if( SBPLUS.isIOSDevice() ) {
         options.autoplay = false;
     }
     
@@ -459,6 +461,12 @@ Page.prototype.renderVideoJS = function() {
         options.sources = [{ type: "video/vimeo", src: "https://vimeo.com/" + self.src }];
         options.playbackRates = null;
         options.controls = false;
+    }
+    
+    if ( SBPLUS.isIOSDevice() ) {
+        
+        options.nativeControlsForTouch = true;
+        
     }
     
     self.mediaPlayer = videojs( 'mp', options, function() {
@@ -726,17 +734,6 @@ Page.prototype.renderVideoJS = function() {
                 $( this ).off();
             }
         );
-        
-    }
-    
-    // if on small iOS device, allow inline playback
-    if ( SBPLUS.isMobileDevice() ) {
-        
-        var video = $('video').get(0);
-        
-        makeVideoPlayableInline(video);
-        $( '.video-js' ).removeClass( 'vjs-using-native-controls' );
-        $( '.vjs-loading-spinner' ).hide();
         
     }
 

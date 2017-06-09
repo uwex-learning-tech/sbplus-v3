@@ -214,15 +214,6 @@
 		"sC": 0,
 		"tS": 0
 		},
-	"\/sources\/scripts\/libs\/iphone-inline-video.browser.js": {
-		"ft": 64,
-		"mi": 0,
-		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/libs\/iphone-inline-video.browser.js",
-		"oF": 3,
-		"sC": 0,
-		"tS": 0
-		},
 	"\/sources\/scripts\/libs\/jquery.js": {
 		"ft": 64,
 		"mi": 0,
@@ -758,7 +749,7 @@
 	"displayValue": "sbplus_v3",
 	"displayValueWasSetByUser": 0,
 	"iconImageName": "meme-soon",
-	"lastBuiltDate": 518539138
+	"lastBuiltDate": 518717791
 	},
 "projectSettings": {
 	"abortBuildOnError": 1,
