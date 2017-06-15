@@ -1059,35 +1059,43 @@ function displayWidgetContent( str ) {
 
 function parseTranscript( str ) {
     
-    var result = '<div class="lt-wrapper">';
-    var tAry = str.replace(/\n/g, '<br>').split('<br>');
-    var brCount = 0;
+    try {
+        
+        var result = '<div class="lt-wrapper">';
+        var tAry = str.replace(/\n/g, '<br>').split('<br>');
+        var brCount = 0;
+        
+        tAry = cleanArray( SBPLUS.removeEmptyElements( tAry ) );
     
-    tAry = cleanArray( SBPLUS.removeEmptyElements( tAry ) );
-
-    if ( tAry[0].match(/\d{2}:\d{2}:\d{2}.\d{3}/g) 
-    && tAry[1].match(/\d{2}:\d{2}:\d{2}.\d{3}/g) ) {
-        tAry[0] = '';
-        tAry = SBPLUS.removeEmptyElements( tAry );
-    }
-    
-    for ( var i = 1; i < tAry.length; i += 2 ) {
-        
-        var cueParts = tAry[i-1].split( ' ' );
-        
-        result += '<span class="lt-line" data-start="' + toSeconds(cueParts[0]) + '" data-end="' + toSeconds(cueParts[2]) + '">' + tAry[i] + '</span> ';
-        brCount++;
-        
-        if( brCount >= 17 ) {
-            result += '<br><br>';
-            brCount = 0;
+        if ( tAry[0].match(/\d{2}:\d{2}:\d{2}.\d{3}/g) 
+        && tAry[1].match(/\d{2}:\d{2}:\d{2}.\d{3}/g) ) {
+            tAry[0] = '';
+            tAry = SBPLUS.removeEmptyElements( tAry );
         }
         
+        for ( var i = 1; i < tAry.length; i += 2 ) {
+            
+            var cueParts = tAry[i-1].split( ' ' );
+            
+            result += '<span class="lt-line" data-start="' + toSeconds(cueParts[0]) + '" data-end="' + toSeconds(cueParts[2]) + '">' + tAry[i] + '</span> ';
+            brCount++;
+            
+            if( brCount >= 17 ) {
+                result += '<br><br>';
+                brCount = 0;
+            }
+            
+        }
+        
+        result += '</div>';
+        
+        return result;
+        
+    } catch(e) {
+        
+        return 'Oops, SB+ has some complications with the requested caption file.';
+        
     }
-    
-    result += '</div>';
-    
-    return result;
     
 } 
 
