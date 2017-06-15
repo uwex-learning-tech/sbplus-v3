@@ -1781,12 +1781,15 @@ var SBPLUS = SBPLUS || {
         $( this.button.widget ).find( '.icon-widget-open' ).show();
         $( this.button.widget ).find( '.icon-widget-close' ).hide();
         
+/*
         if ( this.layout.isMobile ) {
             media.addClass( 'aspect_ratio' );
         } else {
             media.removeClass( 'aspect_ratio' )
                     .addClass( 'non_aspect_ratio' ).css( 'height', '100%');
         }
+*/      
+        media.css( 'height', '100%');
         
         media.removeClass( 'widget_on' ).addClass( 'widget_off' );
         
@@ -1802,8 +1805,11 @@ var SBPLUS = SBPLUS || {
         $( this.button.widget ).find( '.icon-widget-close' ).show();
         $( this.button.widget ).find( '.icon-widget-open' ).hide();
         
+/*
         media.removeClass( 'non_aspect_ratio' )
                 .addClass( 'aspect_ratio' ).css( 'height', '' );
+*/
+        media.css( 'height', '' );
  
         media.removeClass( 'widget_off' ).addClass( 'widget_on' );
         
@@ -2037,7 +2043,7 @@ var SBPLUS = SBPLUS || {
         var tocWrapper = $( this.tableOfContents.container );
         var widgetBtnTip = $( this.button.widgetTip );
         
-        if ( window.innerWidth >= 1826 ) {
+        if ( widget.is( ':visible' ) || sidebar.is( ':visible' ) ) {
             media.removeClass( 'aspect_ratio' ).addClass( 'non_aspect_ratio' );
         } else {
             media.removeClass( 'non_aspect_ratio' ).addClass( 'aspect_ratio' );
@@ -2076,9 +2082,11 @@ var SBPLUS = SBPLUS || {
 
         }
         
+/*
         if ( this.layout.isMobile === false && widget.outerHeight() <= 190 ) {
             media.removeClass( 'aspect_ratio' ).addClass( 'non_aspect_ratio' );
         }
+*/
         
     },
     
