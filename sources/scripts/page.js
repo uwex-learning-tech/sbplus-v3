@@ -73,6 +73,9 @@ Page.prototype.getPageMedia = function() {
         videojs( 'mp' ).dispose();
     }
     
+    SBPLUS.clearWidget();
+    SBPLUS.enableWidget();
+    
     if ( SBPLUS.hasStorageItem( 'sbplus-' + SBPLUS.uniqueTitle + '-previously-widget-open', true ) ) {
         
         if ( SBPLUS.getStorageItem( 'sbplus-' + SBPLUS.uniqueTitle + '-previously-widget-open', true ) === '1' ) {
@@ -84,9 +87,6 @@ Page.prototype.getPageMedia = function() {
         SBPLUS.deleteStorageItem( 'sbplus-' + SBPLUS.uniqueTitle + '-previously-widget-open', true );
         
     }
-    
-    SBPLUS.clearWidget();
-    SBPLUS.enableWidget();
     
     clearInterval( transcriptInterval );
     // end reset
