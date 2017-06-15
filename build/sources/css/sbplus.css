@@ -453,6 +453,9 @@ body {
             background-repeat: no-repeat; }
             .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper .sbplus_media_content.compat-object-fit .img_only {
               display: none; }
+          .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper .sbplus_media_content.show-vjs-poster .vjs-has-started .vjs-poster {
+            display: block;
+            z-index: 1; }
         .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper.non_aspect_ratio {
           height: calc( 100% - 146px ); }
         .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper.aspect_ratio {

@@ -2046,7 +2046,7 @@ var SBPLUS = SBPLUS || {
         if ( window.innerWidth < 900 || window.screen.width <= 414 ) {
             
             if ( $( this.layout.wrapper ).hasClass( 'loaded-in-iframe' ) === false ) {
-                console.log('ran');
+
                 this.layout.isMobile = true;
             
                 widgetBtnTip.show();

@@ -65,6 +65,8 @@ Page.prototype.getPageMedia = function() {
         $( SBPLUS.layout.quizContainer ).remove();
     }
     
+    $( SBPLUS.layout.mediaContent ).css('backgroundImage', '').removeClass('compat-object-fit').removeClass( 'show-vjs-poster' );
+    
     $( this.mediaError ).empty().hide();
     
     if ( $( '#mp' ).length ) {
@@ -131,7 +133,7 @@ Page.prototype.getPageMedia = function() {
                     
                     var html = '<video id="mp" class="video-js vjs-default-skin"></video>';
                     
-                    $( self.mediaContent ).html( html ).promise().done( function() {
+                    $( self.mediaContent ).addClass( 'show-vjs-poster' ).html( html ).promise().done( function() {
                 
                         self.renderVideoJS();
                         self.setWidgets();

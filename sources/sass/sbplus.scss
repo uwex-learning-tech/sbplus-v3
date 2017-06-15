@@ -697,6 +697,19 @@ body {
                         }
                     }
                     
+                    .sbplus_media_content.show-vjs-poster {
+                        
+                        .vjs-has-started {
+                            
+                            .vjs-poster {
+                                display: block;
+                                z-index: 1;
+                            }
+                            
+                        }
+                        
+                    }
+                    
                 }
                 
                 #sbplus_media_wrapper.sidebar_on {
