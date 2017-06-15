@@ -2059,7 +2059,9 @@ var SBPLUS = SBPLUS || {
             if ( $( this.layout.wrapper ).hasClass( 'loaded-in-iframe' ) === false ) {
 
                 this.layout.isMobile = true;
-            
+                
+                media.addClass( 'aspect_ratio' );
+                
                 widgetBtnTip.show();
                 
                 var adjustedHeight = $( this.layout.leftCol ).height() + $( this.layout.mainControl ).height();
@@ -2073,7 +2075,7 @@ var SBPLUS = SBPLUS || {
         } else {
             
             this.layout.isMobile = false;
-
+            
             sidebar.css( 'height', '' );
             
             if ( !widget.is( ':visible' ) ) {
@@ -2084,14 +2086,12 @@ var SBPLUS = SBPLUS || {
             
             tocWrapper.css( 'height', '' );
             widgetBtnTip.hide();
+            
+            
+            
+            console.log('resized');
 
         }
-        
-/*
-        if ( this.layout.isMobile === false && widget.outerHeight() <= 190 ) {
-            media.removeClass( 'aspect_ratio' ).addClass( 'non_aspect_ratio' );
-        }
-*/
         
     },
     
