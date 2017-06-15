@@ -1472,8 +1472,13 @@ var SBPLUS = SBPLUS || {
             // update screen reader status
             $( this.screenReader.currentPage ).html( targetPage.data( 'count' ) );
             
-            // update the scroll bar to targetted page
-            this.updateScroll( targetPage[0] );
+            // update the scroll bar to targeted page
+            if ( $( this.layout.sidebar ).is( ':visible' ) ) {
+                
+                this.updateScroll( targetPage[0] );
+                
+            }
+            
             
         }
         
