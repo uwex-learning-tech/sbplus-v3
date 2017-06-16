@@ -151,7 +151,7 @@
                 
             </div>
             
-            <button id="sbplus_widget_btn" title="Toggle Widget" tabindex="1" aria-label="Toggle Notes/Widgets">
+            <button id="sbplus_widget_btn" title="Toggle Notes/Widgets" tabindex="1" aria-label="Toggle Notes/Widgets">
                 <span class="icon-widget-close"></span>
                 <span class="icon-widget-open"></span>
                 <div class="btnTip">Toggle Widget</div>

@@ -1,4 +1,12 @@
 {
+    "lang": "en",
+    "dir": "ltr",
+    "name": "Storybook Plus version 3.1.0",
+    "description": "Storybook Plus is a web application that uses HTML5, JavaScript, CSS3, and web storage to delivery multimedia presentations.",
+    "short_name": "SB+",
+    "display": "browser",
+    "orientation": "portrait",
+    
     "sbplus_google_tracking_id": "UA-90095180-1",
     "sbplus_root_directory": "sources/",
     "sbplus_splash_directory": "https://media.uwex.edu/content/media/storybook_support/splash/",
