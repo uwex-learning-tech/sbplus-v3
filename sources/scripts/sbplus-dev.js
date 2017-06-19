@@ -503,6 +503,7 @@ var SBPLUS = SBPLUS || {
                     course: xCourse,
                     title: xTitle,
                     subtitle: xSubtitle,
+                    author: xAuthor,
                     authorPhoto: '',
                     duration: xLength,
                     generalInfo: xGeneralInfo
@@ -523,39 +524,43 @@ var SBPLUS = SBPLUS || {
                 ga('send', 'event');
             }
             
-            // set author name and path to the profile to respective variable
-            var sanitizedAuthor = self.sanitize( xAuthor.attr( 'name' ).trim() );
-            var profileUrl = self.manifest.sbplus_author_directory + sanitizedAuthor + '.json';
-            
-            // if author data in XML is empty
-            if ( self.isEmpty( xAuthor.text() ) ) {
+            if ( xAuthor.length ) {
                 
-                // get centralized author name and profile via AJAX
-                $.ajax( {
+                // set author name and path to the profile to respective variable
+                var sanitizedAuthor = self.sanitize( xAuthor.attr( 'name' ).trim() );
+                var profileUrl = self.manifest.sbplus_author_directory + sanitizedAuthor + '.json';
+                
+                // if author data in XML is empty
+                if ( self.isEmpty( xAuthor.text() ) ) {
+                    
+                    // get centralized author name and profile via AJAX
+                    $.ajax( {
+                            
+                        crossDomain: true,
+                        type: 'GET',
+                        dataType: 'jsonp',
+                        jsonpCallback: 'author',
+                        url: profileUrl
                         
-                    crossDomain: true,
-                    type: 'GET',
-                    dataType: 'jsonp',
-                    jsonpCallback: 'author',
-                    url: profileUrl
+                    } ).done( function( res ) { // when done, set author and profile
+                        
+                        self.xml.setup.author = res.name;
+                        self.xml.setup.profile = self.noScript( res.profile );
+                        
+                    } ).fail( function() { // when fail, default to the values in XML
+                        
+                        self.xml.setup.author = xAuthor.attr( 'name' ).trim();
+                        self.xml.setup.profile = self.getTextContent( xAuthor );
+                        
+                    } )
                     
-                } ).done( function( res ) { // when done, set author and profile
+                } else { // if not
                     
-                    self.xml.setup.author = res.name;
-                    self.xml.setup.profile = self.noScript( res.profile );
-                    
-                } ).fail( function() { // when fail, default to the values in XML
-                    
+                    // get the values in the XML
                     self.xml.setup.author = xAuthor.attr( 'name' ).trim();
                     self.xml.setup.profile = self.getTextContent( xAuthor );
                     
-                } )
-                
-            } else { // if not
-                
-                // get the values in the XML
-                self.xml.setup.author = xAuthor.attr( 'name' ).trim();
-                self.xml.setup.profile = self.getTextContent( xAuthor );
+                }
                 
             }
             
@@ -1046,9 +1051,19 @@ var SBPLUS = SBPLUS || {
             // set event listeners
             $( self.button.sidebar ).on( 'click', self.toggleSidebar.bind( self ) );
             $( self.button.widget ).on( 'click',  self.toggleWidget.bind( self ) );
-            $( self.button.author ).on( 'click', function() {
-                self.openMenuItem( 'sbplus_author_profile' );
-            } );
+            
+            // if author is missing hide author button and menu item
+            if ( self.xml.setup.author.length ) {
+                
+                $( self.button.author ).on( 'click', function() {
+                    self.openMenuItem( 'sbplus_author_profile' );
+                } );
+                
+            } else {
+                
+                $(self.button.author).prop( 'disabled', true );
+                
+            }
             
             $( self.button.next ).on( 'click', self.goToNextPage.bind( self ) );
             $( self.button.prev ).on( 'click', self.goToPreviousPage.bind( self ) );
@@ -1622,36 +1637,23 @@ var SBPLUS = SBPLUS || {
                     
             case 'sbplus_author_profile':
             
-            menuTitle.html( '<div class="menuTitle">Author Profile</div>' );
-            menuContent.append( '<div class="profileImg"></div>' );
+            menuTitle.html( 'Author Profile' );
             
-            if ( self.xml.setup.authorPhoto.length === 0 ) {
+            if ( self.xml.setup.author.length ) {
                 
-                var author = self.xml.setup.author;
-                var sanitizedAuthor = self.sanitize( author );
-                var profileUrl = self.manifest.sbplus_author_directory + sanitizedAuthor + '.jpg';
+                menuContent.append( '<div class="profileImg"></div>' );
                 
-                $.ajax( {
-        
-                    type: 'HEAD',
-                    url: 'assets/' + sanitizedAuthor + '.jpg'
+                if ( self.xml.setup.authorPhoto.length === 0 ) {
                     
-                } ).done( function() {
-                    
-                    self.xml.setup.authorPhoto = this.url;
-                    
-                    var img = '<img src="';
-                    img += this.url +'" alt="Photo of ' + author + '" crossorigin="Anonymous" />';
-                    
-                    $( '.profileImg' ).html( img );
-                    
-                } ).fail( function() {
+                    var author = self.xml.setup.author;
+                    var sanitizedAuthor = self.sanitize( author );
+                    var profileUrl = self.manifest.sbplus_author_directory + sanitizedAuthor + '.jpg';
                     
                     $.ajax( {
-                        
+            
                         type: 'HEAD',
-                        url: profileUrl
-                    
+                        url: 'assets/' + sanitizedAuthor + '.jpg'
+                        
                     } ).done( function() {
                         
                         self.xml.setup.authorPhoto = this.url;
@@ -1661,21 +1663,40 @@ var SBPLUS = SBPLUS || {
                         
                         $( '.profileImg' ).html( img );
                         
+                    } ).fail( function() {
+                        
+                        $.ajax( {
+                            
+                            type: 'HEAD',
+                            url: profileUrl
+                        
+                        } ).done( function() {
+                            
+                            self.xml.setup.authorPhoto = this.url;
+                            
+                            var img = '<img src="';
+                            img += this.url +'" alt="Photo of ' + author + '" crossorigin="Anonymous" />';
+                            
+                            $( '.profileImg' ).html( img );
+                            
+                        } );
+                        
                     } );
                     
-                } );
+                } else {
+                    
+                    var img = '<img src="';
+                    img += self.xml.setup.authorPhoto +'" alt="Photo of ' + author + '" crossorigin="Anonymous" />';
+                    
+                    $( '.profileImg' ).prepend( img );
+                    
+                }
                 
-            } else {
-                
-                var img = '<img src="';
-                img += self.xml.setup.authorPhoto +'" alt="Photo of ' + author + '" crossorigin="Anonymous" />';
-                
-                $( '.profileImg' ).prepend( img );
+                content = '<p class="name">' + self.xml.setup.author + '</p>';
+                content += self.xml.setup.profile;
                 
             }
             
-            content = '<p class="name">' + self.xml.setup.author + '</p>';
-            content += self.xml.setup.profile;
             break;
             
             case 'sbplus_general_info':
@@ -2086,10 +2107,6 @@ var SBPLUS = SBPLUS || {
             
             tocWrapper.css( 'height', '' );
             widgetBtnTip.hide();
-            
-            
-            
-            console.log('resized');
 
         }
         

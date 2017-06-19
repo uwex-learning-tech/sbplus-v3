@@ -1892,6 +1892,10 @@ $titleBarHeight: 30px;
                         background-color: transparent;
                     }
                     
+                    #sbplus_author_name:disabled {
+                        cursor: default;
+                    }
+                    
                     #sbplus_menu_btn_wrapper {
                     
                         -ms-flex: 1 0 15%;

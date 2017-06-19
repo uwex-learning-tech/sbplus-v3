@@ -1212,6 +1212,8 @@ body {
         text-overflow: ellipsis;
         overflow: hidden;
         background-color: transparent; }
+      .sbplus_wrapper #sbplus #sbplus_banner_bar #sbplus_menu_area #sbplus_author_name:disabled {
+        cursor: default; }
       .sbplus_wrapper #sbplus #sbplus_banner_bar #sbplus_menu_area #sbplus_menu_btn_wrapper {
         -ms-flex: 1 0 15%; }
         .sbplus_wrapper #sbplus #sbplus_banner_bar #sbplus_menu_area #sbplus_menu_btn_wrapper #sbplus_menu_btn,
