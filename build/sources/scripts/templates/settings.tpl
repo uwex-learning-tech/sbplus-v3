@@ -30,7 +30,7 @@
             
         </div>
         
-        <div class="row">
+        <!-- <div class="row">
             
             <div class="label">
                 <label for="sbplus_gs_it">Disable interactive transcript (<a href="https://www.centercode.com/blog/2011/01/alpha-vs-beta-testing/" target="_blank">alpha</a>)</label>
@@ -40,7 +40,7 @@
                 <input type="checkbox" id="sbplus_gs_it" value="0" />
             </div>
             
-        </div>
+        </div> -->
         
     </div>
     

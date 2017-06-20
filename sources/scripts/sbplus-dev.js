@@ -623,6 +623,11 @@ var SBPLUS = SBPLUS || {
                 self.setStorageItem( 'sbplus-subtitle', 0 );
             }
             
+            if ( self.hasStorageItem( 'sbplus-disable-it' ) ) {
+                self.deleteStorageItem( 'sbplus-disable-it' );
+                console.log('yes');
+            }
+            
             // if autoplay for videoJS is on, add a class to the body tag
             if ( self.getStorageItem( 'sbplus-autoplay') == '1' ) {
                 $( self.layout.wrapper ).addClass( 'sbplus_autoplay_on' );
@@ -2355,7 +2360,7 @@ var SBPLUS = SBPLUS || {
             
         } else {
             
-            return localStorage.getItem( key );
+            return localStorage.removeItem( key );
             
         }
         
@@ -2470,11 +2475,13 @@ var SBPLUS = SBPLUS || {
                 }
                 
                 // interactive transcript
+/*
                 if ( $( '#sbplus_gs_it' ).is( ':checked' ) ) {
                     self.setStorageItem( 'sbplus-disable-it', 1 );
                 } else {
                     self.setStorageItem( 'sbplus-disable-it', 0 );
                 }
+*/
                 
                 // autoplay
                 if ( $( '#sbplus_va_autoplay' ).is( ':checked' ) ) {
