@@ -625,7 +625,6 @@ var SBPLUS = SBPLUS || {
             
             if ( self.hasStorageItem( 'sbplus-disable-it' ) ) {
                 self.deleteStorageItem( 'sbplus-disable-it' );
-                console.log('yes');
             }
             
             // if autoplay for videoJS is on, add a class to the body tag

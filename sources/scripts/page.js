@@ -320,7 +320,13 @@ Page.prototype.getPageMedia = function() {
         
         var presentation = SBPLUS.sanitize( $( SBPLUS.banner.title ).text() );
         
-        SBPLUS.setStorageItem( 'sbplus-' + presentation, self.pageNumber[0] + ',' + self.pageNumber[1] );
+        var pSectionNumber = self.pageNumber[0] + ',' + self.pageNumber[1];
+        
+        if ( pSectionNumber !== '0,0' ) {
+            SBPLUS.setStorageItem( 'sbplus-' + presentation, pSectionNumber );
+        } else {
+            SBPLUS.deleteStorageItem( 'sbplus-' + presentation );
+        }
         
     }, 3000 );
     

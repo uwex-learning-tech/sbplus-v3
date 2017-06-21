@@ -814,8 +814,19 @@ body {
                         font-size: 14px;
                         line-height: 18px;
                         
-                        p {
+                        p, ul, ol {
                             margin-bottom: 10px;
+                        }
+                        
+                        ul, ol {
+                            
+                            list-style-position: outside;
+                            padding-left: 25px;
+                            
+                            li {
+                                margin-bottom: 5px;
+                            }
+                            
                         }
                         
                     }
