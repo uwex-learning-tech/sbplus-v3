@@ -461,13 +461,15 @@ body {
                     overflow: hidden;
                     
                     .sbplus_media_error {
+                        
                         display: none;
                         position: absolute;
                         width: 100%;
-                        height: calc( 100% - 33px );
+                        height: 100%;
                         color: #fff;
                         padding: 10px;
                         z-index: 2;
+                        background-color: rgba( 0,0,0, 0.5 );
                         
                         p {
                             margin-bottom: 10px;
@@ -544,7 +546,8 @@ body {
                             }
                             
                             .vjs-control-bar {
-                                z-index: 2;
+                                
+                                z-index: 3;
                                 
                                 button {
                                     display: inherit;
