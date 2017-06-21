@@ -42,7 +42,7 @@ SB+ may not function properly with beta or pre-released version of web browsers.
 
 ---
 ### Documentation
-For more details and how to setup a SB+ presentation, please visit the [SB+ Documentation](https://media.uwex.edu/resources/documentation/storybook-plus-v3/) (work in progress).
+For more details and how to setup a SB+ presentation, please visit the [SB+ Documentation](https://media.uwex.edu/resources/documentation/storybook-plus-v3/).
 
 ---
 ### Bug Reporting and Questions
@@ -52,6 +52,31 @@ For questions, please also post them under the "**[Issues](https://github.com/oe
 
 ---
 ### Version Change Log
+
+#### 3.1.1 PENDING
+* Fixed the issue where bundle page type is not working properly
+* Fixed the issue where local author info is not overriding centralized info
+* `<![CDATA[ ]]>` is now optional in SB+'s XML
+* Fixed the issue where large (hi-res) image in quiz is not scaled down
+* `correct` attribute for multiple choice question will now only recognized "yes" (case in-sensitive) value; all other value will be considered "no"
+* Adjusted the color to be lighter for active selected menu item under menu panel
+* Fixed the issue where session data conflicting with each other when loading more than one SB+ on a same page
+* Fixed the issue with IE not loading presentation
+* Removed body margin on HTML page
+* Fixed the issue where IE does not understand that an undefined variable is undefined
+* Left aligned table of contents label
+* Fixed the issue where IE does not understand jQuery's .html() method
+* Ignored missing tags for quiz in SB+ XML
+* Fixed layout issues on iOS Safari and other browsers for mobile
+* Removed mobile responsiveness when SB+ is loaded inside an iframe
+* Fixed the issue where videojs poster image is not properly size for Microsoft Edge
+* Fixed the issue where the widget area got pushed down after view a quiz
+* Table of contents autoscroll is disabled when table of contents is not visible
+* Updated setting labels and button tool tips
+* Disabled author profile button when author is not specified
+* Interactive transcript is completely switch off and removed from settings (will revisit in future version)
+* Fixed the issue where unordered and ordered HTML list is not properly formatted
+* Updated CSS indexing for page error message
 
 #### 3.1.0 (05/26/2017)
 * Refactored code to be more robust and flexible
@@ -85,5 +110,5 @@ For questions, please also post them under the "**[Issues](https://github.com/oe
 * initial beta release
 
 ---
-### License
-Storybook Plus (SB+) is licensed under [GNU v3](https://github.com/oel-mediateam/sbplus_v3/blob/master/LICENSE) license. Copyright (c) 2013-2017 Ethan S. Lin, [University of Wisconsin-Extension, Division of Continuing Education, Outreach & E-Learning](http://ce.uwex.edu/)
+### License & Copyright
+Storybook Plus (SB+) is licensed under [GNU v3](https://github.com/oel-mediateam/sbplus_v3/blob/master/LICENSE) license. (c) 2013 - 2017. Ethan Lin, [Media Services](https://media.uwex.edu), and [University of Wisconsin-Extension, Division of Continuing Education, Outreach & E-Learning](http://ce.uwex.edu/). All rights reserved.
