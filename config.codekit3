@@ -21,8 +21,26 @@
 		"oAP": "\/build\/build",
 		"oF": 0
 		},
+	"\/CODE_OF_CONDUCT.md": {
+		"cS": 0,
+		"eF": 1,
+		"eL": 1,
+		"eLB": 0,
+		"ema": 1,
+		"eSQ": 1,
+		"ft": 4096,
+		"oA": 2,
+		"oAP": "\/build\/CODE_OF_CONDUCT.md",
+		"oF": 1,
+		"oFM": 0,
+		"oS": 0,
+		"pHT": 0,
+		"pME": 1,
+		"rFN": 0,
+		"uCM": 0
+		},
 	"\/config.rb": {
-		"ft": 8192,
+		"ft": 131072,
 		"oA": 0,
 		"oAP": "\/config.rb",
 		"oF": 0
