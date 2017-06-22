@@ -3,8 +3,8 @@
  *
  * @author: Ethan Lin
  * @url: https://github.com/oel-mediateam/sbplus
- * @version: 3.1.0
- * Released 05/26/2017
+ * @version: 3.1.1
+ * Released 06/22/2017
  *
  * @license: GNU GENERAL PUBLIC LICENSE v3
  *
@@ -45,6 +45,7 @@ var SBPLUS = SBPLUS || {
     button: null,
     menu : null,
     screenReader: null,
+    uniqueTitle: '',
     
     // holds current and total pages in the presentation
     totalPages: 0,
@@ -57,9 +58,12 @@ var SBPLUS = SBPLUS || {
     settings: null,
     
     // status flags
+    manifestLoaded: false,
     splashScreenRendered: false,
     presentationRendered: false,
     beforeXMLLoadingDone: false,
+    xmlLoaded: false,
+    xmlParsed: false,
     presentationStarted: false,
     hasError: false,
     
@@ -99,6 +103,7 @@ var SBPLUS = SBPLUS || {
             sidebar: '#sbplus_right_col',
             pageStatus: '#sbplus_page_status',
             quizContainer: '#sbplus_quiz_wrapper',
+            mainControl: '#sbplus_control_bar',
             dwnldMenu: null,
             mainMenu: null
         };
@@ -143,6 +148,7 @@ var SBPLUS = SBPLUS || {
             download: '#sbplus_download_btn',
             downloadMenu: '#sbplus_download_btn .menu-parent .downloadFiles',
             widget: '#sbplus_widget_btn',
+            widgetTip: '#sbplus_widget_btn .btnTip',
             sidebar: '#sbplus_sidebar_btn',
             author: '#sbplus_author_name',
             menu: '#sbplus_menu_btn',
@@ -181,9 +187,7 @@ var SBPLUS = SBPLUS || {
                 
                 // set the JSON data to the class manifest object
                 self.manifest = data;
-                
-                // flag the session store to indicate manifest was loaded
-                self.setStorageItem( 'sbplus-manifest-loaded', 1, true );
+                self.manifestLoaded = true;
                 
                 // set an event listener to unload all session storage on HTML
                 // page refresh/reload or closing
@@ -224,11 +228,9 @@ var SBPLUS = SBPLUS || {
      **/
     loadTemplate: function() {
         
-        // if manifest is loaded but template is not loaded...
-        if ( this.getStorageItem( 'sbplus-manifest-loaded', true ) === '1'
-        && this.hasStorageItem( 'sbplus-template-loaded', true ) === false ) {
-            
-            var self = this;
+        var self = this;
+        
+        if ( self.manifestLoaded ) {
             
             // set the template URL for the sbplus.tpl file
             var templateUrl = self.manifest.sbplus_root_directory;
@@ -236,9 +238,6 @@ var SBPLUS = SBPLUS || {
             
             // AJAX call and load the sbplus.tpl template
             $.get( templateUrl, function( data ) {
-                
-                // flag the session storage to indicate templated is loaded
-                self.setStorageItem( 'sbplus-template-loaded', 1, true );
                 
                 // output the template date to the HTML/DOM
                 $( self.layout.wrapper ).html( data );
@@ -290,9 +289,7 @@ var SBPLUS = SBPLUS || {
     beforeXMLLoading: function() {
         
         // if manifest and template are loaded and XML was never loaded before
-        if ( this.getStorageItem( 'sbplus-manifest-loaded', true ) === '1' 
-        && this.getStorageItem( 'sbplus-template-loaded', true ) === '1'
-        && this.beforeXMLLoadingDone === false ) {
+        if ( this.manifestLoaded === true && this.beforeXMLLoadingDone === false ) {
             
             // setup the options specified in the URL string query
             this.setURLOptions();
@@ -319,8 +316,7 @@ var SBPLUS = SBPLUS || {
      **/
     setManifestCustomMenu: function() {
         
-        // if manifest custom menu was never loaded before...
-        if ( this.hasStorageItem( 'sbplus-manifest-custom-menu-loaded', true ) === false ) {
+        if ( this.manifestLoaded ) {
             
             // set the menu item(s) data from the manifest
             var customMenuItems = this.manifest.sbplus_custom_menu_items;
@@ -350,9 +346,6 @@ var SBPLUS = SBPLUS || {
             // append/display the menu list to inner menu list
             $( this.menu.menuContentList ).html( $( this.menu.menuList ).html() );
             
-            // set the loaded flag to 1 or true in local storage
-            this.setStorageItem( 'sbplus-manifest-custom-menu-loaded', 1, true );
-            
         }
         
     }, // end setManifestCustomMenu function
@@ -369,9 +362,7 @@ var SBPLUS = SBPLUS || {
      **/
     loadXML: function() {
         
-        // if before xml load flag is true and XML was never loaded before...
-        if ( this.beforeXMLLoadingDone === true &&
-        this.hasStorageItem( 'sbplus-xml-loaded', true ) === false ) {
+        if ( this.beforeXMLLoadingDone ) {
             
             var self = this;
             
@@ -381,12 +372,10 @@ var SBPLUS = SBPLUS || {
             // AJAX call to the XML file
             $.get( xmlUrl, function( data ) {
                 
-                // flag the loaded flag in the local storage
-                self.setStorageItem( 'sbplus-xml-loaded', 1, true );
+                self.xmlLoaded = true;
                 
                 // call function to parse the XML data
                 // SHOULD BE THE LAST TASK TO BE EXECUTED IN THIS BLOCK
-
                 self.parseXMLData( data );
                 
             } ).fail( function( res, status ) { // when fail to load XML file
@@ -419,11 +408,9 @@ var SBPLUS = SBPLUS || {
      **/
     parseXMLData: function( d ) {
         
-        // if XML is loaded and was never parsed...
-        if ( this.getStorageItem( 'sbplus-xml-loaded', true ) === '1'
-        && this.hasStorageItem( 'sbplus-xml-parsed', true ) === false ) {
+        var self = this;
             
-            var self = this;
+        if ( self.xmlLoaded ) {
             
             // set the parameter as jQuery set
             var data = $( d );
@@ -443,7 +430,7 @@ var SBPLUS = SBPLUS || {
             var xSubtitle = self.noScript( xSetup.find( 'subtitle' ).text().trim() );
             var xLength = xSetup.find( 'length' ).text().trim();
             var xAuthor = xSetup.find( 'author' );
-            var xGeneralInfo = self.noScript( xSetup.find( 'generalInfo' ).html().trim() );
+            var xGeneralInfo = self.getTextContent( xSetup.find( 'generalInfo' ) );
             var xSections = data.find( 'section' );
             
             // variable to hold temporary XML value for further evaluation
@@ -516,9 +503,10 @@ var SBPLUS = SBPLUS || {
                     course: xCourse,
                     title: xTitle,
                     subtitle: xSubtitle,
+                    author: xAuthor,
                     authorPhoto: '',
                     duration: xLength,
-                    generalInfo: self.noCDATA( xGeneralInfo )
+                    generalInfo: xGeneralInfo
                 },
                 sections: xSections
             };
@@ -536,57 +524,51 @@ var SBPLUS = SBPLUS || {
                 ga('send', 'event');
             }
             
-            // set author name and path to the profile to respective variable
-            var sanitizedAuthor = self.sanitize( xAuthor.attr( 'name' ).trim() );
-            var profileUrl = self.manifest.sbplus_author_directory + sanitizedAuthor + '.json';
-            
-            // if author data in XML is empty
-            if ( self.isEmpty( xAuthor.html() ) ) {
+            if ( xAuthor.length ) {
                 
-                // get centralized author name and profile via AJAX
-                $.ajax( {
+                // set author name and path to the profile to respective variable
+                var sanitizedAuthor = self.sanitize( xAuthor.attr( 'name' ).trim() );
+                var profileUrl = self.manifest.sbplus_author_directory + sanitizedAuthor + '.json';
+                
+                // if author data in XML is empty
+                if ( self.isEmpty( xAuthor.text() ) ) {
+                    
+                    // get centralized author name and profile via AJAX
+                    $.ajax( {
+                            
+                        crossDomain: true,
+                        type: 'GET',
+                        dataType: 'jsonp',
+                        jsonpCallback: 'author',
+                        url: profileUrl
                         
-                    crossDomain: true,
-                    type: 'GET',
-                    dataType: 'jsonp',
-                    jsonpCallback: 'author',
-                    url: profileUrl
+                    } ).done( function( res ) { // when done, set author and profile
+                        
+                        self.xml.setup.author = res.name;
+                        self.xml.setup.profile = self.noScript( res.profile );
+                        
+                    } ).fail( function() { // when fail, default to the values in XML
+                        
+                        self.xml.setup.author = xAuthor.attr( 'name' ).trim();
+                        self.xml.setup.profile = self.getTextContent( xAuthor );
+                        
+                    } )
                     
-                } ).done( function( res ) { // when done, set author and profile
+                } else { // if not
                     
-                    self.xml.setup.author = res.name;
-                    self.xml.setup.profile = self.noScript( res.profile );
-                    
-                } ).fail( function() { // when fail, default to the values in XML
-                    
+                    // get the values in the XML
                     self.xml.setup.author = xAuthor.attr( 'name' ).trim();
-                    self.xml.setup.profile = self.noScript( self.noCDATA( xAuthor.html() ) );
+                    self.xml.setup.profile = self.getTextContent( xAuthor );
                     
-                } ).always( function() { // do no matter what
-                    
-                    // flag xml parsed as 1 or true in the local storage
-                    self.setStorageItem( 'sbplus-xml-parsed', 1, true );
-                    
-                    // render the presentation splash screen
-                    /* SHOULD ALWAYS BE EXECUTED ON THE LAST LINE OF THIS BLOCK */
-                    self.renderSplashscreen();
-                    
-                } );
-                
-            } else { // if not
-                
-                // get the values in the XML
-                self.xml.setup.author = xAuthor.attr( 'name' ).trim();
-                self.xml.setup.profile = self.noScript( self.noCDATA( xAuthor.html() ) );
-                
-                // flag xml parsed as 1 or true in the local storage
-                self.setStorageItem( 'sbplus-xml-parsed', 1, true );
-                
-                // render the presentation splash screen
-                /* SHOULD ALWAYS BE EXECUTED ON THE LAST LINE OF THIS BLOCK */
-                self.renderSplashscreen();
+                }
                 
             }
+            
+            // get/set the presenation title
+            self.uniqueTitle = self.sanitize( self.xml.setup.title );
+            
+            self.xmlParsed = true;
+            self.renderSplashscreen();
             
         }
         
@@ -608,10 +590,9 @@ var SBPLUS = SBPLUS || {
      **/
     renderSplashscreen: function() {
         
-        if ( this.getStorageItem( 'sbplus-xml-parsed', true ) === '1'
-        && this.splashScreenRendered === false ) {
-            
-            var self = this;
+        var self = this;
+        
+        if ( self.xmlParsed === true && self.splashScreenRendered === false ) {
             
             // set inital local storage settings
             if ( self.hasStorageItem( 'sbplus-hide-widget' ) === false ) {
@@ -640,6 +621,10 @@ var SBPLUS = SBPLUS || {
             
             if ( self.hasStorageItem( 'sbplus-subtitle' ) === false ) {
                 self.setStorageItem( 'sbplus-subtitle', 0 );
+            }
+            
+            if ( self.hasStorageItem( 'sbplus-disable-it' ) ) {
+                self.deleteStorageItem( 'sbplus-disable-it' );
             }
             
             // if autoplay for videoJS is on, add a class to the body tag
@@ -728,7 +713,7 @@ var SBPLUS = SBPLUS || {
             $( self.button.start ).on( 'click', self.startPresentation.bind( self ) );
             
             // if local storage has a value for the matching presentation title
-            if ( self.hasStorageItem( 'sbplus-' + self.sanitize( self.xml.setup.title ) ) ) {
+            if ( self.hasStorageItem( 'sbplus-' + self.uniqueTitle ) ) {
                 
                 // set event listener to the resume button
                 $( self.button.resume ).on( 'click', self.resumePresentation.bind( self ) );
@@ -825,16 +810,14 @@ var SBPLUS = SBPLUS || {
                 
             }
             
-            // if viewing device is an iphone
-            if ( self.isMobileDevice() ) {
-                
-                // load the inline video library
-                $.getScript( self.manifest.sbplus_root_directory + 'scripts/libs/iphone-inline-video.browser.js' );
-                
-            }
-            
             // flag the splash screen as rendered
             self.splashScreenRendered = true;
+            
+            if ( window.self !== window.top ) {
+                $( self.layout.wrapper ).addClass( 'loaded-in-iframe' );
+            }
+            
+            self.resize();
             
         }
         
@@ -955,11 +938,8 @@ var SBPLUS = SBPLUS || {
                 // hide screen
                 self.hideSplash();
                 
-                // get/set the presenation title
-                var presentation = self.sanitize( self.xml.setup.title );
-                
                 // select the page that was set in the local storage data
-                self.selectPage( self.getStorageItem( 'sbplus-' + presentation ) );
+                self.selectPage( self.getStorageItem( 'sbplus-' + self.uniqueTitle ) );
                 
             } );
             
@@ -1075,9 +1055,19 @@ var SBPLUS = SBPLUS || {
             // set event listeners
             $( self.button.sidebar ).on( 'click', self.toggleSidebar.bind( self ) );
             $( self.button.widget ).on( 'click',  self.toggleWidget.bind( self ) );
-            $( self.button.author ).on( 'click', function() {
-                self.openMenuItem( 'sbplus_author_profile' );
-            } );
+            
+            // if author is missing hide author button and menu item
+            if ( self.xml.setup.author.length ) {
+                
+                $( self.button.author ).on( 'click', function() {
+                    self.openMenuItem( 'sbplus_author_profile' );
+                } );
+                
+            } else {
+                
+                $(self.button.author).prop( 'disabled', true );
+                
+            }
             
             $( self.button.next ).on( 'click', self.goToNextPage.bind( self ) );
             $( self.button.prev ).on( 'click', self.goToPreviousPage.bind( self ) );
@@ -1501,8 +1491,13 @@ var SBPLUS = SBPLUS || {
             // update screen reader status
             $( this.screenReader.currentPage ).html( targetPage.data( 'count' ) );
             
-            // update the scroll bar to targetted page
-            this.updateScroll( targetPage[0] );
+            // update the scroll bar to targeted page
+            if ( $( this.layout.sidebar ).is( ':visible' ) ) {
+                
+                this.updateScroll( targetPage[0] );
+                
+            }
+            
             
         }
         
@@ -1544,11 +1539,9 @@ var SBPLUS = SBPLUS || {
         // if page type is not quiz
         if ( pageData.type !== 'quiz' ) {
             
-            var notes = this.noCDATA( target.find( 'note' ).html() );
-            
             // add/set additional property to the pageData object
             pageData.src = target.attr( 'src' ).trim();
-            pageData.notes = this.noScript( notes );
+            pageData.notes = this.getTextContent( target.find( 'note' ) );
             pageData.widget = target.find( 'widget' );
             pageData.frames = target.find( 'frame' );
             pageData.imageFormat = this.xml.settings.imgType;
@@ -1648,36 +1641,23 @@ var SBPLUS = SBPLUS || {
                     
             case 'sbplus_author_profile':
             
-            menuTitle.html( '<div class="menuTitle">Author Profile</div>' );
-            menuContent.append( '<div class="profileImg"></div>' );
+            menuTitle.html( 'Author Profile' );
             
-            if ( self.xml.setup.authorPhoto.length === 0 ) {
+            if ( self.xml.setup.author.length ) {
                 
-                var author = self.xml.setup.author;
-                var sanitizedAuthor = self.sanitize( author );
-                var profileUrl = self.manifest.sbplus_author_directory + sanitizedAuthor + '.jpg';
+                menuContent.append( '<div class="profileImg"></div>' );
                 
-                $.ajax( {
-        
-                    type: 'HEAD',
-                    url: 'assets/' + sanitizedAuthor + '.jpg'
+                if ( self.xml.setup.authorPhoto.length === 0 ) {
                     
-                } ).done( function() {
-                    
-                    self.xml.setup.authorPhoto = this.url;
-                    
-                    var img = '<img src="';
-                    img += this.url +'" alt="Photo of ' + author + '" crossorigin="Anonymous" />';
-                    
-                    $( '.profileImg' ).html( img );
-                    
-                } ).fail( function() {
+                    var author = self.xml.setup.author;
+                    var sanitizedAuthor = self.sanitize( author );
+                    var profileUrl = self.manifest.sbplus_author_directory + sanitizedAuthor + '.jpg';
                     
                     $.ajax( {
-                        
+            
                         type: 'HEAD',
-                        url: profileUrl
-                    
+                        url: 'assets/' + sanitizedAuthor + '.jpg'
+                        
                     } ).done( function() {
                         
                         self.xml.setup.authorPhoto = this.url;
@@ -1687,21 +1667,40 @@ var SBPLUS = SBPLUS || {
                         
                         $( '.profileImg' ).html( img );
                         
+                    } ).fail( function() {
+                        
+                        $.ajax( {
+                            
+                            type: 'HEAD',
+                            url: profileUrl
+                        
+                        } ).done( function() {
+                            
+                            self.xml.setup.authorPhoto = this.url;
+                            
+                            var img = '<img src="';
+                            img += this.url +'" alt="Photo of ' + author + '" crossorigin="Anonymous" />';
+                            
+                            $( '.profileImg' ).html( img );
+                            
+                        } );
+                        
                     } );
                     
-                } );
+                } else {
+                    
+                    var img = '<img src="';
+                    img += self.xml.setup.authorPhoto +'" alt="Photo of ' + author + '" crossorigin="Anonymous" />';
+                    
+                    $( '.profileImg' ).prepend( img );
+                    
+                }
                 
-            } else {
-                
-                var img = '<img src="';
-                img += self.xml.setup.authorPhoto +'" alt="Photo of ' + author + '" crossorigin="Anonymous" />';
-                
-                $( '.profileImg' ).prepend( img );
+                content = '<p class="name">' + self.xml.setup.author + '</p>';
+                content += self.xml.setup.profile;
                 
             }
             
-            content = '<p class="name">' + self.xml.setup.author + '</p>';
-            content += self.xml.setup.profile;
             break;
             
             case 'sbplus_general_info':
@@ -1713,12 +1712,12 @@ var SBPLUS = SBPLUS || {
                 
                 menuTitle.html( 'Settings' );
                 
-                if ( this.hasStorageItem( 'sbplus-settings-loaded', true ) === false ) {
+                if ( this.hasStorageItem( 'sbplus-' + self.uniqueTitle + '-settings-loaded', true ) === false ) {
                     
                     $.get( self.manifest.sbplus_root_directory + 'scripts/templates/settings.tpl', function( data ) {
                     
                         self.settings = data;
-                        self.setStorageItem( 'sbplus-settings-loaded', 1, true );
+                        self.setStorageItem( 'sbplus-' + self.uniqueTitle + '-settings-loaded', 1, true );
                         menuContent.append( data );
                         self.afterSettingsLoaded();
                         
@@ -1800,6 +1799,8 @@ var SBPLUS = SBPLUS || {
             this.showWidget();
         }
         
+        this.resize();
+        
     },
     
     hideWidget: function() {
@@ -1807,15 +1808,18 @@ var SBPLUS = SBPLUS || {
         var media = $( this.layout.media );
         
         $( this.layout.widget ).hide();
-        $( this.button.widget ).html( '<span class="icon-widget-open"></span>' );
+        $( this.button.widget ).find( '.icon-widget-open' ).show();
+        $( this.button.widget ).find( '.icon-widget-close' ).hide();
         
+/*
         if ( this.layout.isMobile ) {
             media.addClass( 'aspect_ratio' );
-            this.resize();
         } else {
             media.removeClass( 'aspect_ratio' )
                     .addClass( 'non_aspect_ratio' ).css( 'height', '100%');
         }
+*/      
+        media.css( 'height', '100%');
         
         media.removeClass( 'widget_on' ).addClass( 'widget_off' );
         
@@ -1828,11 +1832,15 @@ var SBPLUS = SBPLUS || {
         var media = $( this.layout.media );
         
         $( this.layout.widget ).show();
-        $( this.button.widget ).html( '<span class="icon-widget-close"></span>' );
+        $( this.button.widget ).find( '.icon-widget-close' ).show();
+        $( this.button.widget ).find( '.icon-widget-open' ).hide();
+        
+/*
         media.removeClass( 'non_aspect_ratio' )
                 .addClass( 'aspect_ratio' ).css( 'height', '' );
-        this.resize();
-        
+*/
+        media.css( 'height', '' );
+ 
         media.removeClass( 'widget_off' ).addClass( 'widget_on' );
         
         this.hideWidgetContentIndicator()
@@ -1918,7 +1926,7 @@ var SBPLUS = SBPLUS || {
             
             $( this.layout.widget ).addClass('noSegments');
             
-            if ( this.hasStorageItem( 'sbplus-logo-loaded', true ) === false ) {
+            if ( this.hasStorageItem( 'sbplus-' + self.uniqueTitle + '-logo-loaded', true ) === false ) {
                 
                 var program = this.xml.setup.program;
                 
@@ -1936,10 +1944,10 @@ var SBPLUS = SBPLUS || {
                 
                 $.get( logoUrl, function() {
                     
-                    self.setStorageItem( 'sbplus-logo-loaded', this.url, true );
+                    self.setStorageItem( 'sbplus-' + self.uniqueTitle + '-logo-loaded', this.url, true );
                     
                     $( self.widget.content ).css( 'background-image', 'url(' +
-                        self.getStorageItem( 'sbplus-logo-loaded', true ) + ')' );
+                        self.getStorageItem( 'sbplus-' + self.uniqueTitle + '-logo-loaded', true ) + ')' );
                         
                 } ).fail( function() {
                     
@@ -1947,10 +1955,10 @@ var SBPLUS = SBPLUS || {
                     
                     $.get( logoUrl, function() {
                         
-                        self.setStorageItem( 'sbplus-logo-loaded', this.url, true );
+                        self.setStorageItem( 'sbplus-' + self.uniqueTitle + '-logo-loaded', this.url, true );
                         
                         $( self.widget.content ).css( 'background-image', 'url(' +
-                            self.getStorageItem( 'sbplus-logo-loaded', true ) + ')' );
+                            self.getStorageItem( 'sbplus-' + self.uniqueTitle + '-logo-loaded', true ) + ')' );
                             
                     } );
                     
@@ -1959,7 +1967,7 @@ var SBPLUS = SBPLUS || {
             } else {
                 
                 $( self.widget.content ).css( 'background-image', 'url(' +
-                    self.getStorageItem( 'sbplus-logo-loaded', true ) + ')' );
+                    self.getStorageItem( 'sbplus-' + self.uniqueTitle + '-logo-loaded', true ) + ')' );
                 
             }
             
@@ -2057,57 +2065,53 @@ var SBPLUS = SBPLUS || {
         
     },
     
-    calcLayout: function() {
+    calcLayout: function() { 
         
         var media = $( this.layout.media );
         var widget = $( this.layout.widget );
         var sidebar = $( this.layout.sidebar );
+        var tocWrapper = $( this.tableOfContents.container );
+        var widgetBtnTip = $( this.button.widgetTip );
         
-        if ( window.innerWidth >= 1826 ) {
+        if ( widget.is( ':visible' ) || sidebar.is( ':visible' ) ) {
             media.removeClass( 'aspect_ratio' ).addClass( 'non_aspect_ratio' );
         } else {
             media.removeClass( 'non_aspect_ratio' ).addClass( 'aspect_ratio' );
         }
         
-        if ( !widget.is( ':visible' ) ) {
-            media.css( 'height', '100%' );
-        }
-        
-        if ( window.innerWidth <= 740 || window.screen.width <= 414 ) {
-            this.layout.isMobile = true;
+        if ( window.innerWidth < 900 || window.screen.width <= 414 ) {
+            
+            if ( $( this.layout.wrapper ).hasClass( 'loaded-in-iframe' ) === false ) {
+
+                this.layout.isMobile = true;
+                
+                media.addClass( 'aspect_ratio' );
+                
+                widgetBtnTip.show();
+                
+                var adjustedHeight = $( this.layout.leftCol ).height() + $( this.layout.mainControl ).height();
+                
+                sidebar.css( 'height', 'calc( 100% - ' + adjustedHeight + 'px )'  );
+                widget.css( 'height', sidebar.height() );
+                tocWrapper.css( 'height', sidebar.height() - 30 );
+                
+            }
+            
         } else {
+            
             this.layout.isMobile = false;
-        }
-        
-        if ( this.layout.isMobile === false && widget.outerHeight() <= 190 ) {
-            media.removeClass( 'aspect_ratio' ).addClass( 'non_aspect_ratio' );
-        }
-        
-        if ( this.layout.isMobile === true ) {
-            sidebar.css( 'max-height', '400px'  );
-        } else {
-            sidebar.css( 'max-height', ''  );
-        }
-        
-        this.calcWidgetHeight();
-        
-    },
-    
-    calcWidgetHeight: function() {
-        
-        var sidebar = $( this.layout.sidebar );
-        var widget = $( this.layout.widget );
-        
-        if ( this.layout.isMobile === true ) {  
-            widget.css( {
-                'min-height': sidebar.outerHeight(),
-                'bottom': sidebar.outerHeight() * -1
-            } );
-        } else {
-            widget.css( {
-                'min-height': '',
-                'bottom': ''
-            } );
+            
+            sidebar.css( 'height', '' );
+            
+            if ( !widget.is( ':visible' ) ) {
+                widget.css( 'height', '100%' );
+            } else {
+                widget.css( 'height', '' );
+            }
+            
+            tocWrapper.css( 'height', '' );
+            widgetBtnTip.hide();
+
         }
         
     },
@@ -2219,7 +2223,7 @@ var SBPLUS = SBPLUS || {
            var results = $( "<span>" +  $.trim( str ) + "</span>" );
     
            results.find( "script,noscript,style" ).remove().end();
-               
+           
            return results.html();
     
        }
@@ -2230,14 +2234,11 @@ var SBPLUS = SBPLUS || {
     
     noCDATA: function( str ) {
         
+        if ( str === undefined || str === '' ) {
+            return '';
+        }
         
-        if ( str !== "" || str !== undefined ) {
-               
-           return str.replace(/<!\[CDATA\[/g, '').replace( /\]\]>/g, '').trim();
-    
-       }
-    
-       return str;
+        return str.replace(/<!\[CDATA\[/g, '').replace( /\]\]>/g, '').trim();
         
     },
     
@@ -2358,7 +2359,7 @@ var SBPLUS = SBPLUS || {
             
         } else {
             
-            return localStorage.getItem( key );
+            return localStorage.removeItem( key );
             
         }
         
@@ -2392,7 +2393,40 @@ var SBPLUS = SBPLUS || {
         
     },
     
-    isMobileDevice: function() {
+    getTextContent: function( obj ) {
+        
+        var str = obj.html();
+        
+        if ( str === undefined ) {
+            
+            if ( !this.isEmpty( obj[0].textContent ) ) {
+            
+                var div = document.createElement('div');
+                div.appendChild(obj[0]);
+                
+                var fcNodePatternOpen = new RegExp('<' + div.firstChild.nodeName + '?\\s*([A-Za-z]*=")*[A-Za-z\\s]*"*>', 'gi');
+                var fcNodePatternClose = new RegExp('</' + div.firstChild.nodeName + '>', 'gi');
+                
+                str = div.innerHTML;
+                
+                str = str.replace( fcNodePatternOpen, '' )
+                      .replace( fcNodePatternClose, '' )
+                      .replace( /&lt;/g, '<')
+                      .replace( /&gt;/g, '>').trim();
+                
+            } else {
+                
+                return '';
+                
+            }
+            
+        }
+        
+        return this.noScript( this.noCDATA( str ) );
+        
+    },
+    
+    isIOSDevice: function() {
         
         if ( navigator.userAgent.match(/iPhone/i) 
         || navigator.userAgent.match(/iPod/i) ) {
@@ -2409,9 +2443,9 @@ var SBPLUS = SBPLUS || {
         
         var self = this;
         
-        if ( self.getStorageItem( 'sbplus-settings-loaded', true ) === '1' ) {
+        if ( self.getStorageItem( 'sbplus-' + self.uniqueTitle + '-settings-loaded', true ) === '1' ) {
             
-            if ( self.isMobileDevice() ) {
+            if ( self.isIOSDevice() ) {
                     
                 $( '#autoplay_label' ).after( '<p class="error">Mobile devices do not support autoplay.</p>' );
                 $( '#sbplus_va_autoplay' ).prop( 'checked', false ).attr( 'disabled', true );
@@ -2440,11 +2474,13 @@ var SBPLUS = SBPLUS || {
                 }
                 
                 // interactive transcript
+/*
                 if ( $( '#sbplus_gs_it' ).is( ':checked' ) ) {
                     self.setStorageItem( 'sbplus-disable-it', 1 );
                 } else {
                     self.setStorageItem( 'sbplus-disable-it', 0 );
                 }
+*/
                 
                 // autoplay
                 if ( $( '#sbplus_va_autoplay' ).is( ':checked' ) ) {
@@ -2474,7 +2510,7 @@ var SBPLUS = SBPLUS || {
                 } else {
                     
                     self.setStorageItem( 'sbplus-volume', vol / 100 );
-                    self.setStorageItem( 'sbplus-volume-temp', vol / 100, true );
+                    self.setStorageItem( 'sbplus-' + self.uniqueTitle + '-volume-temp', vol / 100, true );
                     
                 }
                 
@@ -2495,7 +2531,7 @@ var SBPLUS = SBPLUS || {
                 );
                 
                 self.setStorageItem(
-                    'sbplus-playbackrate-temp',
+                    'sbplus-' + self.uniqueTitle + '-playbackrate-temp',
                     $( '#sbplus_va_playbackrate option:selected' ).val(),
                     true
                 );
@@ -2521,7 +2557,7 @@ var SBPLUS = SBPLUS || {
         
         var self = this;
         
-        if ( self.getStorageItem( 'sbplus-settings-loaded', true ) === '1' ) {
+        if ( self.getStorageItem( 'sbplus-' + self.uniqueTitle + '-settings-loaded', true ) === '1' ) {
             
             // widget
             var widgetVal = self.getStorageItem( 'sbplus-hide-widget' );
@@ -2553,7 +2589,7 @@ var SBPLUS = SBPLUS || {
             // autoplay
             var autoplayVal = self.getStorageItem( 'sbplus-autoplay' );
             
-            if ( self.isMobileDevice() === false ) {
+            if ( self.isIOSDevice() === false ) {
                 
                 if ( autoplayVal === '1') {
                     

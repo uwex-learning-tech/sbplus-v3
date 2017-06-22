@@ -105,7 +105,7 @@
         
         <div id="sbplus_right_col">
             
-            <div id="sbplus_sub_bar" class="full">
+            <div id="sbplus_sub_bar">
                 <div class="title" tabindex="-1">Table of Contents</div>
             </div>
             
@@ -151,8 +151,10 @@
                 
             </div>
             
-            <button id="sbplus_widget_btn" title="Toggle Widget" tabindex="1" aria-label="Toggle Widget">
+            <button id="sbplus_widget_btn" title="Toggle Notes/Widgets" tabindex="1" aria-label="Toggle Notes/Widgets">
                 <span class="icon-widget-close"></span>
+                <span class="icon-widget-open"></span>
+                <div class="btnTip">Toggle Widget</div>
             </button>
             
             <button id="sbplus_sidebar_btn" title="Toggle Table of Contents" tabindex="1" aria-label="Toggle Table of Contents">

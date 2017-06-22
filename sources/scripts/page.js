@@ -65,26 +65,28 @@ Page.prototype.getPageMedia = function() {
         $( SBPLUS.layout.quizContainer ).remove();
     }
     
+    $( SBPLUS.layout.mediaContent ).css('backgroundImage', '').removeClass('compat-object-fit').removeClass( 'show-vjs-poster' );
+    
     $( this.mediaError ).empty().hide();
     
     if ( $( '#mp' ).length ) {
         videojs( 'mp' ).dispose();
     }
     
-    if ( SBPLUS.hasStorageItem( 'sbplus-previously-widget-open', true ) ) {
+    SBPLUS.clearWidget();
+    SBPLUS.enableWidget();
+    
+    if ( SBPLUS.hasStorageItem( 'sbplus-' + SBPLUS.uniqueTitle + '-previously-widget-open', true ) ) {
         
-        if ( SBPLUS.getStorageItem( 'sbplus-previously-widget-open', true ) === '1' ) {
+        if ( SBPLUS.getStorageItem( 'sbplus-' + SBPLUS.uniqueTitle + '-previously-widget-open', true ) === '1' ) {
             
             SBPLUS.showWidget();
             
         }
         
-        SBPLUS.deleteStorageItem( 'sbplus-previously-widget-open', true );
+        SBPLUS.deleteStorageItem( 'sbplus-' + SBPLUS.uniqueTitle + '-previously-widget-open', true );
         
     }
-    
-    SBPLUS.clearWidget();
-    SBPLUS.enableWidget();
     
     clearInterval( transcriptInterval );
     // end reset
@@ -93,13 +95,13 @@ Page.prototype.getPageMedia = function() {
         
         case 'kaltura':
             
-            if ( SBPLUS.hasStorageItem( 'sbplus-kaltura-loaded', true) === false ) {
+            if ( SBPLUS.hasStorageItem( 'sbplus-' + SBPLUS.uniqueTitle + '-kaltura-loaded', true) === false ) {
                 
                 $.getScript( self.root + '/scripts/libs/kaltura/mwembedloader.js', function() {
                     
                     $.getScript( self.root +  '/scripts/libs/kaltura/kwidgetgetsources.js', function() {
                         
-                        SBPLUS.setStorageItem( 'sbplus-kaltura-loaded', 1, true);
+                        SBPLUS.setStorageItem( 'sbplus-' + SBPLUS.uniqueTitle + '-kaltura-loaded', 1, true);
                         self.loadKalturaVideoData();
                         
                     } );
@@ -129,7 +131,13 @@ Page.prototype.getPageMedia = function() {
                     self.transcript = SBPLUS.noScript( data );
                 } ).always( function() {
                     
-                    var html = '<video id="mp" class="video-js vjs-default-skin" webkit-playsinline playsinline></video>';
+                    var html = '<video id="mp" class="video-js vjs-default-skin"></video>';
+                    
+                    if ( ! Modernizr.objectfit ) {
+                        
+                        $( self.mediaContent ).addClass( 'show-vjs-poster' );
+                        
+                    }
                     
                     $( self.mediaContent ).html( html ).promise().done( function() {
                 
@@ -153,12 +161,6 @@ Page.prototype.getPageMedia = function() {
             $( img ).on( 'load', function() {
                 
                 self.hasImage = true;
-                
-/*
-                $( self.mediaContent ).html( '<img src="' + img.src + '" class="img_only" alt="' + slef.title + '" />' ).promise().done( function() {
-                    self.setWidgets();
-                } );
-*/
                 
                 if ( ! Modernizr.objectfit ) {
                   $('.sbplus_media_content').each(function () {
@@ -195,7 +197,7 @@ Page.prototype.getPageMedia = function() {
                 
             }).always( function() {
                 
-                var html = '<video id="mp" class="video-js vjs-default-skin" crossorigin="anonymous" width="100%" height="100%" webkit-playsinline playsinline></video>';
+                var html = '<video id="mp" class="video-js vjs-default-skin" crossorigin="anonymous" width="100%" height="100%"></video>';
                 
                 $( self.mediaContent ).html( html ).promise().done( function() {
                     
@@ -212,7 +214,7 @@ Page.prototype.getPageMedia = function() {
         
         case 'youtube':
             
-            $( self.mediaContent ).html( '<video id="mp" class="video-js vjs-default-skin" webkit-playsinline playsinline></video>' ).promise().done( function() {
+            $( self.mediaContent ).html( '<video id="mp" class="video-js vjs-default-skin"></video>' ).promise().done( function() {
                     
                 self.isYoutube = true;
                 
@@ -225,7 +227,7 @@ Page.prototype.getPageMedia = function() {
         
         case 'vimeo':
             
-            $( self.mediaContent ).html( '<video id="mp" class="video-js vjs-default-skin" webkit-playsinline playsinline></video>' ).promise().done( function() {
+            $( self.mediaContent ).html( '<video id="mp" class="video-js vjs-default-skin"></video>' ).promise().done( function() {
                     
                 self.isVimeo = true;
                 
@@ -258,7 +260,7 @@ Page.prototype.getPageMedia = function() {
                 self.transcript = SBPLUS.noScript( data );
             } ).always( function() {
                 
-                var html = '<video id="mp" class="video-js vjs-default-skin" webkit-playsinline playsinline></video>';
+                var html = '<video id="mp" class="video-js vjs-default-skin"></video>';
                 
                 $( self.mediaContent ).html( html ).promise().done( function() {
             
@@ -285,7 +287,7 @@ Page.prototype.getPageMedia = function() {
                     quizItem.getQuiz();
                     
                     if ( $( '#sbplus_widget' ).is( ':visible' ) ) {
-                        SBPLUS.setStorageItem( 'sbplus-previously-widget-open', 1, true );
+                        SBPLUS.setStorageItem( 'sbplus-' + SBPLUS.uniqueTitle + '-previously-widget-open', 1, true );
                     }
                     
                     SBPLUS.hideWidget();
@@ -318,7 +320,13 @@ Page.prototype.getPageMedia = function() {
         
         var presentation = SBPLUS.sanitize( $( SBPLUS.banner.title ).text() );
         
-        SBPLUS.setStorageItem( 'sbplus-' + presentation, self.pageNumber[0] + ',' + self.pageNumber[1] );
+        var pSectionNumber = self.pageNumber[0] + ',' + self.pageNumber[1];
+        
+        if ( pSectionNumber !== '0,0' ) {
+            SBPLUS.setStorageItem( 'sbplus-' + presentation, pSectionNumber );
+        } else {
+            SBPLUS.deleteStorageItem( 'sbplus-' + presentation );
+        }
         
     }, 3000 );
     
@@ -393,7 +401,7 @@ Page.prototype.loadKalturaVideoData = function () {
                         
                     }
                     
-                    html = '<video id="mp" class="video-js vjs-default-skin" crossorigin="anonymous" width="100%" height="100%" webkit-playsinline playsinline></video>';
+                    html = '<video id="mp" class="video-js vjs-default-skin" crossorigin="anonymous" width="100%" height="100%"></video>';
                 
                     $( self.mediaContent ).html( html ).promise().done( function() {
                         
@@ -434,6 +442,8 @@ Page.prototype.renderVideoJS = function() {
         techOrder: ['html5'],
         controls: true,
         autoplay: isAutoplay,
+        playsinline: true,
+        nativeControlsForTouch: false,
         preload: "auto",
         playbackRates: [0.5, 1, 1.5, 2],
         controlBar: {
@@ -445,7 +455,7 @@ Page.prototype.renderVideoJS = function() {
     };
     
     // autoplay is off for iPhone or iPod
-    if( SBPLUS.isMobileDevice() ) {
+    if( SBPLUS.isIOSDevice() ) {
         options.autoplay = false;
     }
     
@@ -465,6 +475,12 @@ Page.prototype.renderVideoJS = function() {
         options.sources = [{ type: "video/vimeo", src: "https://vimeo.com/" + self.src }];
         options.playbackRates = null;
         options.controls = false;
+    }
+    
+    if ( SBPLUS.isIOSDevice() ) {
+        
+        options.nativeControlsForTouch = true;
+        
     }
     
     self.mediaPlayer = videojs( 'mp', options, function() {
@@ -626,33 +642,33 @@ Page.prototype.renderVideoJS = function() {
         && self.isVimeo === false ) {
             
             player.on( 'resolutionchange', function() {
-            		
-        		player.playbackRate( Number( SBPLUS.getStorageItem( 'sbplus-playbackrate-temp', true ) ) );
+                
+        		player.playbackRate( Number( SBPLUS.getStorageItem( 'sbplus-' + SBPLUS.uniqueTitle + '-playbackrate-temp', true ) ) );
         		
     		} );
             
             // default settings
-            if ( SBPLUS.hasStorageItem( 'sbplus-playbackrate-temp', true ) ) {
+            if ( SBPLUS.hasStorageItem( 'sbplus-' + SBPLUS.uniqueTitle + '-playbackrate-temp', true ) ) {
                 
-                player.playbackRate( Number( SBPLUS.getStorageItem( 'sbplus-playbackrate-temp', true ) ) );
+                player.playbackRate( Number( SBPLUS.getStorageItem( 'sbplus-' + SBPLUS.uniqueTitle + '-playbackrate-temp', true ) ) );
                 
             } else {
                 
                 player.playbackRate( Number( SBPLUS.getStorageItem( 'sbplus-playbackrate' ) ) );
-                SBPLUS.setStorageItem( 'sbplus-playbackrate-temp', SBPLUS.getStorageItem( 'sbplus-playbackrate' ), true );
+                SBPLUS.setStorageItem( 'sbplus-' + SBPLUS.uniqueTitle + '-playbackrate-temp', SBPLUS.getStorageItem( 'sbplus-playbackrate' ), true );
                 
             }
             
             player.on( 'ratechange', function() {
-        		SBPLUS.setStorageItem( 'sbplus-playbackrate-temp', player.playbackRate(), true );
+        		SBPLUS.setStorageItem( 'sbplus-' + SBPLUS.uniqueTitle + '-playbackrate-temp', player.playbackRate(), true );
     		} );
             
         }
         
         // volume
         
-        if ( SBPLUS.hasStorageItem( 'sbplus-volume-temp', true ) ) {
-            player.volume( Number( SBPLUS.getStorageItem( 'sbplus-volume-temp', true ) ) );
+        if ( SBPLUS.hasStorageItem( 'sbplus-' + SBPLUS.uniqueTitle + '-volume-temp', true ) ) {
+            player.volume( Number( SBPLUS.getStorageItem( 'sbplus-' + SBPLUS.uniqueTitle + '-volume-temp', true ) ) );
             
         } else {
             
@@ -662,16 +678,16 @@ Page.prototype.renderVideoJS = function() {
         
         player.on( 'volumechange', function() {
             
-            SBPLUS.setStorageItem( 'sbplus-volume-temp', this.volume(), true );
+            SBPLUS.setStorageItem( 'sbplus-' + SBPLUS.uniqueTitle + '-volume-temp', this.volume(), true );
             
         } );
         
         // subtitle
         if ( self.isYoutube === false && self.isVimeo === false && player.textTracks().tracks_.length >= 1 ) {
             
-            if ( SBPLUS.hasStorageItem( 'sbplus-subtitle-temp', true ) ) {
+            if ( SBPLUS.hasStorageItem( 'sbplus-' + SBPLUS.uniqueTitle + '-subtitle-temp', true ) ) {
             
-                if ( SBPLUS.getStorageItem( 'sbplus-subtitle-temp', true ) === '1' ) {
+                if ( SBPLUS.getStorageItem( 'sbplus-' + SBPLUS.uniqueTitle + '-subtitle-temp', true ) === '1' ) {
                     player.textTracks().tracks_[0].mode = 'showing';
                 } else {
                     player.textTracks().tracks_[0].mode = 'disabled';
@@ -695,11 +711,11 @@ Page.prototype.renderVideoJS = function() {
                     
                     if ( this.mode === 'showing' ) {
                         
-                        SBPLUS.setStorageItem( 'sbplus-subtitle-temp', 1, true );
+                        SBPLUS.setStorageItem( 'sbplus-' + SBPLUS.uniqueTitle + '-subtitle-temp', 1, true );
                         
                     } else {
                         
-                        SBPLUS.setStorageItem( 'sbplus-subtitle-temp', 0, true );
+                        SBPLUS.setStorageItem( 'sbplus-' + SBPLUS.uniqueTitle + '-subtitle-temp', 0, true );
                         
                     }
                     
@@ -732,17 +748,6 @@ Page.prototype.renderVideoJS = function() {
                 $( this ).off();
             }
         );
-        
-    }
-    
-    // if on small iOS device, allow inline playback
-    if ( SBPLUS.isMobileDevice() ) {
-        
-        var video = $('video').get(0);
-        
-        makeVideoPlayableInline(video);
-        $( '.video-js' ).removeClass( 'vjs-using-native-controls' );
-        $( '.vjs-loading-spinner' ).hide();
         
     }
 
@@ -792,11 +797,9 @@ Page.prototype.setWidgets = function() {
             segments.each( function() {
                 
                 var name = $( this ).attr( 'name' );
-                var content = SBPLUS.noScript( $( this ).html() );
                 var key = 'sbplus_' + SBPLUS.sanitize( name );
                 
-                self.widgetSegments[key] = SBPLUS.noCDATA( content );
-                
+                self.widgetSegments[key] = SBPLUS.getTextContent( $( this ) );
                 SBPLUS.addSegment( name );
                 
             } );
@@ -1062,35 +1065,43 @@ function displayWidgetContent( str ) {
 
 function parseTranscript( str ) {
     
-    var result = '<div class="lt-wrapper">';
-    var tAry = str.replace(/\n/g, '<br>').split('<br>');
-    var brCount = 0;
+    try {
+        
+        var result = '<div class="lt-wrapper">';
+        var tAry = str.replace(/\n/g, '<br>').split('<br>');
+        var brCount = 0;
+        
+        tAry = cleanArray( SBPLUS.removeEmptyElements( tAry ) );
     
-    tAry = cleanArray( SBPLUS.removeEmptyElements( tAry ) );
-
-    if ( tAry[0].match(/\d{2}:\d{2}:\d{2}.\d{3}/g) 
-    && tAry[1].match(/\d{2}:\d{2}:\d{2}.\d{3}/g) ) {
-        tAry[0] = '';
-        tAry = SBPLUS.removeEmptyElements( tAry );
-    }
-    
-    for ( var i = 1; i < tAry.length; i += 2 ) {
-        
-        var cueParts = tAry[i-1].split( ' ' );
-        
-        result += '<span class="lt-line" data-start="' + toSeconds(cueParts[0]) + '" data-end="' + toSeconds(cueParts[2]) + '">' + tAry[i] + '</span> ';
-        brCount++;
-        
-        if( brCount >= 17 ) {
-            result += '<br><br>';
-            brCount = 0;
+        if ( tAry[0].match(/\d{2}:\d{2}:\d{2}.\d{3}/g) 
+        && tAry[1].match(/\d{2}:\d{2}:\d{2}.\d{3}/g) ) {
+            tAry[0] = '';
+            tAry = SBPLUS.removeEmptyElements( tAry );
         }
         
+        for ( var i = 1; i < tAry.length; i += 2 ) {
+            
+            var cueParts = tAry[i-1].split( ' ' );
+            
+            result += '<span class="lt-line" data-start="' + toSeconds(cueParts[0]) + '" data-end="' + toSeconds(cueParts[2]) + '">' + tAry[i] + '</span> ';
+            brCount++;
+            
+            if( brCount >= 17 ) {
+                result += '<br><br>';
+                brCount = 0;
+            }
+            
+        }
+        
+        result += '</div>';
+        
+        return result;
+        
+    } catch(e) {
+        
+        return 'Oops, SB+ has some complications with the requested caption file.';
+        
     }
-    
-    result += '</div>';
-    
-    return result;
     
 } 
 

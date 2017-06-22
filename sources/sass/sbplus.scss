@@ -11,8 +11,8 @@
 @import "../fonts/sbplus_fonts.css";
 @import "../fonts/museo.css";
 
-$cntrlBarHeight: 50px;
-$titleBarHeight: 30px;
+$cntrlBarHeight: 100px;
+$titleBarHeight: 60px;
 $offset: $cntrlBarHeight + $titleBarHeight;
 $gutter: 10px;
 $font-size-base: 16px;
@@ -59,11 +59,15 @@ $museo-font: "museo_sans500";
 /* general */
 html {
     font-size: 16px;
+    height: 100%;
 }
 
 body {
     @include font-size( 14px );
     font-family: $default-font-family;
+    margin: 0;
+    padding: 0;
+    height: 100%;
 }
 
 .sbplus_pop_full {
@@ -84,6 +88,8 @@ body {
 /* sbplus */
 
 .sbplus_wrapper {
+    
+    height: 100%;
     
     * {
         @include reset-box-model();
@@ -175,9 +181,12 @@ body {
     
     #sbplus {
         
+/*
         @include display-flex();
         @include flex-flow( column nowrap );
+*/
         position: relative;
+        height: 100%;
         
         #sbplus_splash_screen {
             
@@ -294,7 +303,7 @@ body {
             @include order(1);
             @include justify-content(center);
             color: #fff;
-            height: $titleBarHeight * 2;
+            height: $titleBarHeight;
             background-color: #333;
             font-size: 145%;
             font-weight: bold;
@@ -302,7 +311,7 @@ body {
             #sbplus_lession_title {
                 @include display-flex();
                 @include flex-flow( row nowrap );
-                @include flex( 2 1 71.11% );
+                @include flex( 2 1 auto );
                 @include align-items(center);
                 font-family: $museo-font;
                 padding: 0 $gutter;
@@ -312,9 +321,8 @@ body {
             #sbplus_menu_area {
         
                 @include display-flex();
-                @include flex-flow( row nowrap );
-                @include flex( 1 0 28.89% );
-                @include justify-content( flex-end );
+                @include align-items( center );
+                @include justify-content( center );
                 
                 #sbplus_author_name {
                     display: none;
@@ -325,9 +333,9 @@ body {
                 
                 #sbplus_menu_btn_wrapper {
                     
-                    @include flex( 1 0 15% );
+//                     @include flex( 1 0 15% );
                     margin: 0;
-                    padding: 0;
+                    padding: 0 $gutter 0 0;
                     
                     #sbplus_menu_btn,
                     .root-level {
@@ -353,8 +361,8 @@ body {
                             
                                 position: absolute;
                                 width: 260px;
-                                right: 0;
-                                top: 30px;
+                                right: -9px;
+                                top: 29px;
                                 list-style: none;
                                 margin: 0;
                                 padding: 0;
@@ -437,9 +445,11 @@ body {
             
             #sbplus_left_col {
                 
+/*
                 @include display-flex();
                 @include flex-flow( column nowrap );
                 @include order(1);
+*/
                 position: relative;
                 
                 #sbplus_media_wrapper {
@@ -451,13 +461,15 @@ body {
                     overflow: hidden;
                     
                     .sbplus_media_error {
+                        
                         display: none;
                         position: absolute;
                         width: 100%;
-                        height: calc( 100% - 33px );
+                        height: 100%;
                         color: #fff;
                         padding: 10px;
                         z-index: 2;
+                        background-color: rgba( 0,0,0, 0.5 );
                         
                         p {
                             margin-bottom: 10px;
@@ -534,7 +546,8 @@ body {
                             }
                             
                             .vjs-control-bar {
-                                z-index: 2;
+                                
+                                z-index: 3;
                                 
                                 button {
                                     display: inherit;
@@ -687,6 +700,19 @@ body {
                         }
                     }
                     
+                    .sbplus_media_content.show-vjs-poster {
+                        
+                        .vjs-has-started {
+                            
+                            .vjs-poster {
+                                display: block;
+                                z-index: 1;
+                            }
+                            
+                        }
+                        
+                    }
+                    
                 }
                 
                 #sbplus_media_wrapper.sidebar_on {
@@ -791,8 +817,19 @@ body {
                         font-size: 14px;
                         line-height: 18px;
                         
-                        p {
+                        p, ul, ol {
                             margin-bottom: 10px;
+                        }
+                        
+                        ul, ol {
+                            
+                            list-style-position: outside;
+                            padding-left: 25px;
+                            
+                            li {
+                                margin-bottom: 5px;
+                            }
+                            
                         }
                         
                     }
@@ -887,7 +924,6 @@ body {
                     position: absolute;
                     width: 100%;
                     height: $widget-height;
-                    bottom: $widget-height * -1;
                     z-index: 1;
                     background-color: #fff;
                     overflow: hidden;
@@ -1028,8 +1064,8 @@ body {
                 
                 //@include flex-flow( column nowrap );
                 @include flex( 1 0 auto );
-                @include order(2);
-                position: relative;
+//                 @include order(2);
+//                 position: relative;
                 overflow-x: hidden;
                 overflow-y: auto;
                 
@@ -1044,7 +1080,7 @@ body {
                         @include display-flex();
                         @include flex( 2 0 90% );
                         @include align-items( center );
-                        @include justify-content( center );
+                        padding-left: $gutter;
                         font-weight: bold;
                         font-size: 12px;
                         line-height: 12px;
@@ -1083,7 +1119,7 @@ body {
                     @include flex-flow( column nowrap );
                     @include flex( 2 0 auto );
 */
-                    height: calc(100% - 30px);
+                    @include calc( height, '100% - ' + 30px );
                     overflow-y: auto;
                     
                     .section {
@@ -1195,7 +1231,7 @@ body {
             @include display-flex();
             @include flex-flow( row nowrap );
             @include order(3);
-            height: $cntrlBarHeight * 2;
+            height: $cntrlBarHeight;
             font-size: 140%;
             border-top: 1px solid $border-color;
             
@@ -1207,7 +1243,7 @@ body {
             #sbplus_left_controls {
                 
                 @extend .common;
-                @include flex( 1 0 71.11% );
+                @include flex( 1 0 auto );
                 
                 #sbplus_previous_btn {
                     @include flex( 1 0 30% );
@@ -1242,7 +1278,7 @@ body {
                 @extend .common;
                 @include justify-content( flex-end );
                 //@include flex( 1 0 28.89% );
-                width: 258px;
+                width: 120px;
                 
                 #sbplus_download_btn_wrapper {
                     
@@ -1333,11 +1369,22 @@ body {
                 }
                 
                 #sbplus_widget_btn {
+                    
                     position: relative;
                     border-left: 1px solid $border-color;
                     border-right: 1px solid $border-color;
                     font-size: 145%;
                     line-height: 1;
+                    
+                    .icon-widget-open {
+                        display: none;
+                    }
+                    
+                    .btnTip {
+                        display: none;
+                        font-size: 40%;
+                    }
+                    
                 }
                 
                 #sbplus_widget_btn.showDot::before {
@@ -1643,25 +1690,6 @@ body {
     
 }
 
-.sbplus_autoplay_on {
-    
-    #sbplus_media_wrapper {
-        
-        .sbplus_media_content {
-            
-            .video-js.vjs-default-skin {
-                
-                .vjs-big-play-button {
-                    display: none;
-               }
-               
-            }
-        }
-        
-    }
-    
-}
-
 .sbplus_full {
     
     position: absolute;
@@ -1735,9 +1763,12 @@ body {
     
 }
 
+$cntrlBarHeight: 50px;
+$titleBarHeight: 30px;
+
 @media only screen
-    and ( min-device-width: 737px )
-    and ( min-width: 737px ) {
+    and ( min-device-width: 768px )
+    and ( min-width: 900px ) {
     
     .sbplus_boxed {
 
@@ -1857,6 +1888,8 @@ body {
                 
                 #sbplus_menu_area {
                     
+                    width: 258px;
+                    
                     #sbplus_author_name {
                         @include display-flex();
                         -ms-flex: 2 0 75%;
@@ -1866,16 +1899,112 @@ body {
                         min-height: 0;
                         @include align-self( center );
                         @include align-items( center );
-                        padding: 0 ($gutter * 2) 0 $gutter;
+                        padding: 0 $gutter;
                         white-space: nowrap;
                         text-overflow: ellipsis;
                         overflow: hidden;
                         background-color: transparent;
                     }
                     
+                    #sbplus_author_name:disabled {
+                        cursor: default;
+                    }
+                    
                     #sbplus_menu_btn_wrapper {
                     
                         -ms-flex: 1 0 15%;
+                        
+                        #sbplus_menu_btn,
+                        .root-level {
+                            
+                            min-width: 30px;
+                            margin: 0;
+                            padding: 0;
+                            color: inherit;
+                            font-size: 28px;
+                            list-style: none;
+                            height: 100%;
+                            line-height: 1;
+                        
+                            .menu-parent {
+                                
+                                @include display-flex();
+                                @include align-items( center );
+                                position: relative;
+                                height: 100%;
+                                cursor: pointer;
+                                
+                                .menu {
+                                
+                                    position: absolute;
+                                    width: 260px;
+                                    right: -9px;
+                                    top: 29px;
+                                    list-style: none;
+                                    margin: 0;
+                                    padding: 0;
+                                    border-top: none;
+                                    background-color: #5f5d5d;
+                                    @include box-shadow( 0 6px 4px 2px #fff);
+                                    z-index: 11;
+                                    
+                                    .menu-item {
+                                        
+                                        a { 
+                                            
+                                            @include display-flex();
+                                            @include flex-flow( row nowrap );
+                                            @include align-items( center );
+                                            width: 100%;
+                                            height: 35px;
+                                            padding: 0 ($gutter + 5);
+                                            font-size: 14px;
+                                            font-weight: normal;
+                                            color: #fff;
+                                            text-decoration: none;
+                                            
+                                            span {
+                                                display: inline-block;
+                                                margin-right: 5px;
+                                            }
+                                            
+                                        }
+                                        
+                                    }
+                                    
+                                    .menu-item:hover {
+                                        
+                                        background-color: $default-accent-hover;
+                                        
+                                        a {
+                                            color: #fff;
+                                        }
+                                        
+                                    }
+                                    
+                                    .menu-item:focus {
+                                        
+                                        background-color: $default-accent;
+                                        
+                                        a {
+                                            color: #fff;
+                                        }
+                                        
+                                    }
+                                                                        
+                                }
+                                
+                            }
+                            
+                            .active {
+                                color: #ff3c3c;
+                            }
+                            
+                        }
+                        
+                        ul[aria-hidden="true"] {
+                            display: none;
+                        }
                         
                     }
                     
@@ -1886,6 +2015,7 @@ body {
             #sbplus_content_wrapper {
                 
                 @include flex-flow( row nowrap );
+                @include calc( height, '100% - ' + 80px );
                 
                 #sbplus_left_col {
                 
@@ -1943,6 +2073,8 @@ body {
                 
                 #sbplus_right_controls {
                     
+                    width: 258px;
+                    
                     #sbplus_download_btn_wrapper {
                         
                         display: block;
@@ -1991,6 +2123,14 @@ body {
                 
             }
             
+            #menu_item_content {
+                
+                .sbplus_menu_title_bar {
+                    height: $titleBarHeight;
+                }
+                
+            }
+            
         }
         
     }
@@ -2029,6 +2169,442 @@ body {
                 
             }
             
+        }
+        
+    }
+    
+    .sbplus_autoplay_on {
+    
+        #sbplus_media_wrapper {
+            
+            .sbplus_media_content {
+                
+                .video-js.vjs-default-skin {
+                    
+                    .vjs-big-play-button {
+                        display: none;
+                   }
+                   
+                }
+            }
+            
+        }
+        
+    }
+    
+}
+
+//hack for iframe on mobile
+.loaded-in-iframe {
+
+    width: 900px;
+    height: $box-height;
+    margin: 0 auto;
+    
+    #sbplus_error_screen {
+        width: 900px;
+        height: $box-height;
+    }
+    
+    #sbplus {
+        
+        width: 900px;
+        height: $box-height;
+        
+        #sbplus_splash_screen {
+            width: 900px;
+            height: $box-height;
+        }
+        
+        #sbplus_content_wrapper {
+        
+            #sbplus_left_col {
+                            
+                border-left: 1px solid $border-color;
+                    
+                #sbplus_widget {
+                    border-left: none;
+                    border-right: none;
+                }
+                    
+            }
+                
+            #sbplus_right_col {
+                
+                border-right: 1px solid $border-color;
+                
+                #sbplus_table_of_contents_wrapper {
+                    border-left: none;
+                }
+                
+            }
+            
+        }
+        
+        #sbplus_control_bar {
+            border-left: 1px solid $border-color;
+            border-right: 1px solid $border-color;
+            border-bottom: 1px solid $border-color;
+        }
+        
+    }
+    
+    #sbplus {
+    
+        #sbplus_splash_screen {
+            
+            #sbplus_presentation_info {
+                
+                .sb_cta {
+                    
+                    @include display-flex();
+                    @include flex-flow(row nowrap);
+                    @include justify-content( space-between );
+                    
+                    button:first-child {
+                        margin-right: 2%;
+                    }
+                    
+                    button {
+                        @include flex(1 0 49%);
+                        margin-bottom: 0;
+                    }
+                    
+                }
+                
+                .sb_downloads {
+                    
+                    @include display-flex();
+                    @include flex-flow(row nowrap);
+                    margin: $gutter 0 5px;
+                    
+                    a {
+                        @include flex(1 0 25%);
+                        display: block;
+                        font-size: 120%;
+                        margin-bottom: 0;
+                        @include border-radius( 0 );
+                        border: none;
+                    }
+                    
+                }
+                
+            }
+            
+        }
+        
+        #sbplus_banner_bar {
+            
+            height: $titleBarHeight;
+            font-size: 120%;
+            
+            #sbplus_lession_title {
+                display: block;
+                width: 60%;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                @include align-self( center );
+            }
+            
+            #sbplus_menu_area {
+                
+                width: 258px;
+                
+                #sbplus_author_name {
+                    @include display-flex();
+                    -ms-flex: 2 0 75%;
+                    height: 100%;
+                    text-align: left;
+                    font-weight: bold;
+                    min-height: 0;
+                    @include align-self( center );
+                    @include align-items( center );
+                    padding: 0 $gutter;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    background-color: transparent;
+                }
+                
+                #sbplus_menu_btn_wrapper {
+                
+                    -ms-flex: 1 0 15%;
+                    
+                    #sbplus_menu_btn,
+                    .root-level {
+                        
+                        min-width: 30px;
+                        margin: 0;
+                        padding: 0;
+                        color: inherit;
+                        font-size: 28px;
+                        list-style: none;
+                        height: 100%;
+                        line-height: 1;
+                    
+                        .menu-parent {
+                            
+                            @include display-flex();
+                            @include align-items( center );
+                            position: relative;
+                            height: 100%;
+                            cursor: pointer;
+                            
+                            .menu {
+                            
+                                position: absolute;
+                                width: 260px;
+                                right: -9px;
+                                top: 29px;
+                                list-style: none;
+                                margin: 0;
+                                padding: 0;
+                                border-top: none;
+                                background-color: #5f5d5d;
+                                @include box-shadow( 0 6px 4px 2px #fff);
+                                z-index: 11;
+                                
+                                .menu-item {
+                                    
+                                    a { 
+                                        
+                                        @include display-flex();
+                                        @include flex-flow( row nowrap );
+                                        @include align-items( center );
+                                        width: 100%;
+                                        height: 35px;
+                                        padding: 0 ($gutter + 5);
+                                        font-size: 14px;
+                                        font-weight: normal;
+                                        color: #fff;
+                                        text-decoration: none;
+                                        
+                                        span {
+                                            display: inline-block;
+                                            margin-right: 5px;
+                                        }
+                                        
+                                    }
+                                    
+                                }
+                                
+                                .menu-item:hover {
+                                    
+                                    background-color: $default-accent-hover;
+                                    
+                                    a {
+                                        color: #fff;
+                                    }
+                                    
+                                }
+                                
+                                .menu-item:focus {
+                                    
+                                    background-color: $default-accent;
+                                    
+                                    a {
+                                        color: #fff;
+                                    }
+                                    
+                                }
+                                                                    
+                            }
+                            
+                        }
+                        
+                        .active {
+                            color: #ff3c3c;
+                        }
+                        
+                    }
+                    
+                    ul[aria-hidden="true"] {
+                        display: none;
+                    }
+                    
+                }
+                
+            }
+            
+        }
+        
+        #sbplus_content_wrapper {
+            
+            @include flex-flow( row nowrap );
+            @include calc( height, '100% - ' + 80px );
+            
+            #sbplus_left_col {
+            
+                width: 100%;
+                height: 100%;
+                border-right: 1px solid $border-color;
+                
+                #sbplus_media_wrapper {
+
+                    .sbplus_media_content {
+                        /* videoJS customization goes here if any */
+                    }
+                    
+                }
+                
+                #sbplus_widget {
+                    @include display-flex();
+                    @include flex-flow( column nowrap );
+                    @include flex( 1 0 auto );
+                    position: relative;
+                    height: $widget-height;
+                    bottom: 0;
+                    border-top: 1px solid $border-color;
+                }
+                
+            }
+            
+            #sbplus_right_col {
+                width: 258px;
+                height: 100%;
+            }
+            
+        }
+        
+        #sbplus_control_bar {
+            
+            height: $cntrlBarHeight;
+            font-size: 100%;
+            
+            #sbplus_left_controls {
+                
+                #sbplus_previous_btn {
+                    max-width: 100px;
+                }
+                
+                #sbplus_next_btn {
+                    max-width: 100px;
+                }
+                
+                #sbplus_page_status {
+                     @include justify-content(flex-start);
+                }
+                
+            }
+            
+            #sbplus_right_controls {
+                
+                width: 258px;
+                
+                #sbplus_download_btn_wrapper {
+                    
+                    display: block;
+                    height: 48px;
+                    
+                    #sbplus_download_btn,
+                    .root-level {
+                        
+                        width: 100%;
+                        
+                        .menu-parent {
+                            
+                            @include display-flex();
+                            @include align-items( center );
+                            
+                            span {
+                                display: block;
+                                margin: 0 auto;
+                            }
+                            
+                            .menu {
+                                
+                                .menu-item {
+                                    @include display-flex();
+                                    @include align-items( center );
+                                    @include justify-content( center );
+                                }
+                                
+                            }
+                            
+                        }
+                        
+                        .active {
+                            color: $default-accent-hover;
+                        }
+                        
+                    }
+                    
+                }
+                
+                #sbplus_sidebar_btn {
+                    display: block;
+                }
+                
+                #sbplus_widget_btn {
+                    .btnTip {
+                        display: none;
+                    }
+                }
+                
+            }
+            
+        }
+        
+        #menu_item_content {
+            
+            .sbplus_menu_title_bar {
+                height: $titleBarHeight;
+            }
+            
+        }
+        
+    }
+    
+}
+
+.sbplus_full {
+    
+    #sbplus {
+        
+        #sbplus_banner_bar {
+            
+            #sbplus_menu_area {
+        
+                #sbplus_author_name {
+                    width: auto;
+                    @include flex(initial);
+                    @include align-self(flex-end);
+                }
+                
+                #sbplus_menu_btn_wrapper {
+                    @include flex(initial);
+                }
+                
+            }
+            
+        }
+        
+        #sbplus_content_wrapper {
+            
+            #sbplus_left_col {
+                border-right: none;   
+            }
+            
+            #sbplus_right_col {
+                border-left: 1px solid $border-color;
+            }
+            
+        }
+        
+    }
+
+    #sbplus_media_wrapper {
+        
+        .sbplus_media_content {
+            
+            .video-js.vjs-default-skin {
+                
+                .vjs-big-play-button {
+                    display: none;
+               }
+               
+            }
         }
         
     }

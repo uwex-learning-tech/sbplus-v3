@@ -9,7 +9,7 @@
         <div class="row">
             
             <div class="label">
-                <label for="sbplus_gs_widget">Hide Widget</label>
+                <label for="sbplus_gs_widget">Hide Notes/Widgets area by default</label>
             </div>
             
             <div class="control">
@@ -21,7 +21,7 @@
         <div class="row">
             
             <div class="label">
-                <label for="sbplus_gs_sidebar">Hide Sidebar</label>
+                <label for="sbplus_gs_sidebar">Hide Table of Contents by default</label>
             </div>
             
             <div class="control">
@@ -30,7 +30,7 @@
             
         </div>
         
-        <div class="row">
+        <!-- <div class="row">
             
             <div class="label">
                 <label for="sbplus_gs_it">Disable interactive transcript (<a href="https://www.centercode.com/blog/2011/01/alpha-vs-beta-testing/" target="_blank">alpha</a>)</label>
@@ -40,7 +40,7 @@
                 <input type="checkbox" id="sbplus_gs_it" value="0" />
             </div>
             
-        </div>
+        </div> -->
         
     </div>
     
@@ -51,7 +51,7 @@
         <div class="row">
             
             <div class="label">
-                <label for="sbplus_va_autoplay" id="autoplay_label">Autoplay on start</label>
+                <label for="sbplus_va_autoplay" id="autoplay_label">Autoplay audio and video</label>
             </div>
             
             <div class="control">
@@ -92,7 +92,7 @@
         <div class="row">
             
             <div class="label">
-                <label for="sbplus_va_subtitle">Always display subtitle</label>
+                <label for="sbplus_va_subtitle">Always display subtitles</label>
             </div>
             
             <div class="control">

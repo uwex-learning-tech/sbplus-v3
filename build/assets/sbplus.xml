@@ -16,7 +16,7 @@
         <length>7 Minutes</length>
         <author name="Bryan Bortz"></author>
         <generalInfo>
-            <p>This a sample Storybook Plus presentation on chocolate chip cookies.</p>
+            <p>This a sample Storybook Plus presentation on chocolate <strong>chip</strong> cookies.</p>
         </generalInfo>
         
     </setup>
@@ -33,14 +33,14 @@
         
         <page type="kaltura" src="0_8fcgmc4i" title="Title Slide" transition="">
             <note>
-              <![CDATA[<h1>Heading Level 1 (and 2)</h1>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip <em>ex ea commodo consequat</em>. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p><ol><li>Hello</li><li>World</li></ol><h3>Heading Level 3</h3><p>Lorem ipsum dolor sit amet, <a href="#">consectetur adipisicing elit</a>, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p><ul><li>Hello</li><li>World</li></ul><script>onclick();</script>]]>
+              <h1>Heading Level 1 (and 2)</h1>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip <em>ex ea commodo consequat</em>. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<ol><li>Hello</li><li>World</li></ol><h3>Heading Level 3</h3><p>Lorem ipsum dolor sit amet, <a href="#">consectetur adipisicing elit</a>, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p><ul><li>Hello</li><li>World</li></ul><script>onclick();</script>
             </note>
         </page>
         
         <page type="image-audio" src="slide02" title="Overview" transition="">
             <note />
             <widget>
-                <segment name="Demo One">Demo one texts here...</segment>
+                <segment name="Demo One"><p>This a sample Storybook Plus presentation on chocolate <strong>chip</strong> cookies.</p></segment>
                 <segment name="Demo Two">Demo two texts here...</segment>
             </widget>
         </page>
@@ -111,12 +111,16 @@
                     
                     <answer image="" audio="" correct="yes">
                         <value>No</value>
-                        <feedback>That's right, we don't want burnt butter in our cookies.</feedback>
+                        <feedback><![CDATA[That's right, we don't want <strong>burnt</strong> butter in our cookies.]]></feedback>
                     </answer>
                     
                     <answer image="" audio="">
                         <value>It depends on personal taste</value>
-                        <feedback>Personally, I don't think you should burn the butter. But if you indeed like burnt butter in your cookies, go ahead.</feedback>
+                        <feedback>Personally, I don't think you should burn the butter. But if you indeed like burnt butter in your cookies, go ahead.<ul>
+                            <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</li>
+                            <li>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
+                            <li>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</li>
+                            </ul><ol><li>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</li><li>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</li><li>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</li></ol></feedback>
                     </answer>
                     
                 </choices>
@@ -180,7 +184,7 @@
         </page>
         
         <page type="youtube" src="Jt1h1MinlLI" title="Video from YouTube" transition="">
-            <note>Release on June 20, 2017!</note>
+            <note>Release on June <strong>20</strong>, 2017!</note>
             <widget>
                 <segment name="New Jobs">Red Mage and Samurai!!!</segment>
                 <segment name="New Dungeons &amp; Raids">Many more of them!</segment>

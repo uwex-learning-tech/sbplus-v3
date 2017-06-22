@@ -8,7 +8,7 @@ var Quiz = function( obj, data ) {
     var qType = cntx.children()[0].nodeName.toLowerCase();
     
     var question = cntx.find( 'question' );
-    var qTitle = question.html();
+    var qTitle = SBPLUS.getTextContent( question );
     var qImg = '';
     var qAudio = '';
     
@@ -23,7 +23,7 @@ var Quiz = function( obj, data ) {
     self.quiz = {
         id: qId,
         type: qType,
-        question: SBPLUS.noCDATA( qTitle ),
+        question: qTitle,
         questionImg: qImg,
         questionAudio: qAudio,
         stuAnswer: '',
@@ -76,19 +76,11 @@ var Quiz = function( obj, data ) {
                     
                 }
                 
-                var feedback = $( this ).find( 'feedback' );
+                var mcFB = $( this ).find( 'feedback' );
                 
-/*
-                if ( !SBPLUS.isEmpty( feedback.attr( 'image' ) ) ) {
-                    answer.feedbackImg = SBPLUS.noScript( feedback.attr( 'image' ).trim() );
+                if ( mcFB.length ) {
+                    answer.feedback = SBPLUS.getTextContent( mcFB );
                 }
-                
-                if ( !SBPLUS.isEmpty( feedback.attr( 'audio' ) ) ) {
-                    answer.feedbackAudio = SBPLUS.noScript( feedback.attr( 'audio' ).trim() );
-                }
-*/
-                
-                answer.feedback = SBPLUS.noScript( SBPLUS.noCDATA( feedback.html() ) );
                 
                 self.quiz.answers.push( answer );
                 
@@ -140,81 +132,45 @@ var Quiz = function( obj, data ) {
                 
                 self.quiz.answers.push( answer );
                 
-                var cFeedback = $( cntx ).find( 'correctFeedback' );
-                var iFeedback = $( cntx ).find( 'incorrectFeedback' );
-                
-/*
-                if ( !SBPLUS.isEmpty( cFeedback.attr( 'image' ) ) ) {
-                    self.quiz.correctFeedbackImg = SBPLUS.noScript( cFeedback.attr( 'image' ).trim() );
-                }
-                
-                if ( !SBPLUS.isEmpty( cFeedback.attr( 'audio' ) ) ) {
-                    self.quiz.correctFeedbackAudio = SBPLUS.noScript( cFeedback.attr( 'audio' ).trim() );
-                }
-                
-                if ( !SBPLUS.isEmpty( iFeedback.attr( 'image' ) ) ) {
-                    self.quiz.incorrectFeedbackImg = SBPLUS.noScript( iFeedback.attr( 'image' ).trim() );
-                }
-                
-                if ( !SBPLUS.isEmpty( iFeedback.attr( 'audio' ) ) ) {
-                    self.quiz.incorrectFeedbackAudio = SBPLUS.noScript( iFeedback.attr( 'audio' ).trim() );
-                }
-*/
-                
-                self.quiz.correctFeedback = SBPLUS.noScript( SBPLUS.noCDATA( cFeedback.html() ) );
-                self.quiz.incorrectFeedback = SBPLUS.noScript( SBPLUS.noCDATA( iFeedback.html() ) );
-                
             } );
+            
+            var cFB = $( cntx ).find( 'correctFeedback' );
+            var iFB = $( cntx ).find( 'incorrectFeedback' );
+            
+            if ( cFB.length ) {
+                self.quiz.correctFeedback = SBPLUS.getTextContent( cFB );
+            }
+            
+            if (iFB.length ) {
+                self.quiz.incorrectFeedback = SBPLUS.getTextContent( iFB );
+            }
             
         break;
         
         case 'shortanswer':
             
-            var shortFeedback = $( cntx ).find( 'feedback' );
-                
-/*
-            if ( !SBPLUS.isEmpty( shortFeedback.attr( 'image' ) ) ) {
-                self.quiz.feedbackImg = SBPLUS.noScript( shortFeedback.attr( 'image' ).trim() );
-            }
+            var fb = $( cntx ).find( 'feedback' );
             
-            if ( !SBPLUS.isEmpty( shortFeedback.attr( 'audio' ) ) ) {
-                self.quiz.feedbackAudio = SBPLUS.noScript( shortFeedback.attr( 'audio' ).trim() );
+            if ( fb.length ) {
+                self.quiz.feedback = SBPLUS.getTextContent( fb );
             }
-*/
-            
-            self.quiz.feedback = SBPLUS.noScript( SBPLUS.noCDATA( shortFeedback.html() ) );
             
         break;
         
         case 'fillintheblank':
             
+            var fitbCFB = $( cntx ).find( 'correctFeedback' );
+            var fitbIFB = $( cntx ).find( 'incorrectFeedback' );
+            
+            if ( fitbCFB.length ) {
+                self.quiz.correctFeedback = SBPLUS.getTextContent( fitbCFB );
+            }
+            
+            if (fitbIFB.length ) {
+                self.quiz.incorrectFeedback = SBPLUS.getTextContent( fitbIFB );
+            }
+            
             self.quiz.answer = SBPLUS.noScript( $( cntx ).find( 'answer' ).text().trim() );
-            
-            var cFilFeedback = $( cntx ).find( 'correctFeedback' );
-            var iFilFeedback = $( cntx ).find( 'incorrectFeedback' );
-            
-            // $( obj.context[0] )[0].firstElementChild.firstElementChild.textContent.trim()
-                
-/*
-            if ( !SBPLUS.isEmpty( cFilFeedback.attr( 'image' ) ) ) {
-                self.quiz.correctFeedbackImg = SBPLUS.noScript( cFilFeedback.attr( 'image' ).trim() );
-            }
-            
-            if ( !SBPLUS.isEmpty( cFilFeedback.attr( 'audio' ) ) ) {
-                self.quiz.correctFeedbackAudio = SBPLUS.noScript( cFilFeedback.attr( 'audio' ).trim() );
-            }
-            
-            if ( !SBPLUS.isEmpty( iFilFeedback.attr( 'image' ) ) ) {
-                self.quiz.incorrectFeedbackImg = SBPLUS.noScript( iFilFeedback.attr( 'image' ).trim() );
-            }
-            
-            if ( !SBPLUS.isEmpty( iFilFeedback.attr( 'audio' ) ) ) {
-                self.quiz.incorrectFeedbackAudio = SBPLUS.noScript( iFilFeedback.attr( 'audio' ).trim() );
-            }
-*/
-            
-            self.quiz.correctFeedback = SBPLUS.noScript( SBPLUS.noCDATA( cFilFeedback.html() ) );
-            self.quiz.incorrectFeedback = SBPLUS.noScript( SBPLUS.noCDATA( iFilFeedback.html() ) );
             
         break;
         

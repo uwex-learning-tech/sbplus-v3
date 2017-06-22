@@ -7,7 +7,7 @@
 		"uuidString": "A55265B6-3CAC-4E30-9611-2EA711C82108"
 		}
 	],
-"creatorBuild": "25813",
+"creatorBuild": "25849",
 "files": {
 	"\/.gitignore": {
 		"ft": 8192,
@@ -210,15 +210,6 @@
 		"mi": 0,
 		"oA": 0,
 		"oAP": "\/build\/sources\/scripts\/libs\/highlight\/highlight.pack.js",
-		"oF": 3,
-		"sC": 0,
-		"tS": 0
-		},
-	"\/sources\/scripts\/libs\/iphone-inline-video.browser.js": {
-		"ft": 64,
-		"mi": 0,
-		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/libs\/iphone-inline-video.browser.js",
 		"oF": 3,
 		"sC": 0,
 		"tS": 0
@@ -758,7 +749,7 @@
 	"displayValue": "sbplus_v3",
 	"displayValueWasSetByUser": 0,
 	"iconImageName": "meme-soon",
-	"lastBuiltDate": 517435424
+	"lastBuiltDate": 518717791
 	},
 "projectSettings": {
 	"abortBuildOnError": 1,
@@ -2694,6 +2685,7 @@
 		},
 	"languageDefaultsUserDefined": [
 		],
+	"overrideExternalServerCSS": 0,
 	"previewPathAddition": "",
 	"skippedFoldersString": "log, _logs, logs, _cache, cache, \/storage\/framework\/sessions, node_modules, \/test",
 	"sourceFolderName": "sources",
