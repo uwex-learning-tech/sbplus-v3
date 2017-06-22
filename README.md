@@ -1,5 +1,5 @@
 # Storybook Plus (SB+)  
-**version 3.1.0**
+**version 3.1.1**
 
 ---
 ### Requirements
@@ -53,7 +53,7 @@ For questions, please also post them under the "**[Issues](https://github.com/oe
 ---
 ### Version Change Log
 
-#### 3.1.1 PENDING
+#### 3.1.1 (06/22/2017)
 * Fixed the issue where bundle page type is not working properly
 * Fixed the issue where local author info is not overriding centralized info
 * `<![CDATA[ ]]>` is now optional in SB+'s XML
