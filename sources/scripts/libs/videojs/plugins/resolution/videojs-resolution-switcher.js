@@ -118,9 +118,9 @@
         if(settings.dynamicLabel){
           this.el().appendChild(label);
         }else{
-
-          // add additional element
-          
+          var staticLabel = document.createElement('span');
+					videojs.addClass(staticLabel, 'vjs-resolution-button-staticlabel');
+          this.el().appendChild(staticLabel);
         }
        },
        createItems: function(){
@@ -163,7 +163,7 @@
           label = document.createElement('span'),
           groupedSrc = {};
 
-			videojs.dom.addClass(label, 'vjs-resolution-button-label');
+			videojs.addClass(label, 'vjs-resolution-button-label');
 			
       /**
        * Updates player sources or returns current source URL
@@ -178,25 +178,16 @@
           player.controlBar.resolutionSwitcher.dispose();
           delete player.controlBar.resolutionSwitcher;
         }
-        
-        
         //Sort sources
         src = src.sort(compareResolutions);
         groupedSrc = bucketSources(src);
-        
         var choosen = chooseSrc(groupedSrc, src);
-        var menuButton = new ResolutionMenuButton(player, { sources: groupedSrc, initialySelectedLabel: choosen.label , initialySelectedRes: choosen.res , customSourcePicker: settings.customSourcePicker }, settings, label);
-        
-        videojs.dom.addClass(menuButton.el(), 'vjs-resolution-button');
-        
-        player.controlBar.resolutionSwitcher = player.controlBar.el().insertBefore(menuButton.el(), player.controlBar.getChild('SubsCapsButton').el());
-        
-        
-        
+        var menuButton = new ResolutionMenuButton(player, { sources: groupedSrc, initialySelectedLabel: choosen.label , initialySelectedRes: choosen.res , customSourcePicker: settings.customSourcePicker}, settings, label);
+				videojs.addClass(menuButton.el(), 'vjs-resolution-button');
+        player.controlBar.resolutionSwitcher = player.controlBar.el_.insertBefore(menuButton.el_, player.controlBar.getChild('subtitlesButton').el_);
         player.controlBar.resolutionSwitcher.dispose = function(){
           this.parentNode.removeChild(this);
         };
-        
         return setSourcesSanitized(player, choosen.sources, choosen.label);
       };
 
@@ -362,6 +353,6 @@
     };
 
     // register the plugin
-    videojs.registerPlugin('videoJsResolutionSwitcher', videoJsResolutionSwitcher);
+    videojs.plugin('videoJsResolutionSwitcher', videoJsResolutionSwitcher);
   })(window, videojs);
 })();

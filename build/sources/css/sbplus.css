@@ -1,3 +1,4 @@
+@charset "UTF-8";
 @import "animate.css" screen, projection;
 @import url(../fonts/sbplus_fonts.css);
 @import url(../fonts/museo.css);
@@ -429,7 +430,9 @@ body {
                   font-size: rem(10px); }
               .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper .sbplus_media_content .video-js.vjs-default-skin .vjs-subtitles-button.vjs-menu-button-popup .vjs-menu {
                 left: -6em; }
-              .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper .sbplus_media_content .video-js.vjs-default-skin .vjs-resolution-button .vjs-icon-placeholder:before {
+              .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper .sbplus_media_content .video-js.vjs-default-skin .vjs-replay:before {
+                content: ""; }
+              .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper .sbplus_media_content .video-js.vjs-default-skin .vjs-resolution-button:before {
                 font-family: VideoJS;
                 content: '\f110'; }
               .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper .sbplus_media_content .video-js.vjs-default-skin .vjs-resolution-button .vjs-resolution-button-label {

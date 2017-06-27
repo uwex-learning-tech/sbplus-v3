@@ -442,52 +442,49 @@ Page.prototype.renderVideoJS = function() {
         techOrder: ['html5'],
         controls: true,
         autoplay: isAutoplay,
-        playsinline: true,
-        nativeControlsForTouch: false,
         preload: "auto",
         playbackRates: [0.5, 1, 1.5, 2],
         controlBar: {
             fullscreenToggle: false
         },
-        plugins: {},
-        manualCleanup: true
+        plugins: {
+            replayButton: true
+        }
 
     };
     
     // autoplay is off for iPhone or iPod
     if( SBPLUS.isIOSDevice() ) {
         options.autoplay = false;
+        options.playsinline = true;
+        options.nativeControlsForTouch = false;
     }
     
     // set tech order and plugins
     if ( self.isKaltura ) {
-        //options.plugins = Object.assign( options.plugins, { videoJsResolutionSwitcher: { 'default': 720 } } );
+        
         $.extend( options.plugins, { videoJsResolutionSwitcher: { 'default': 720 } } );
+        
     } else if ( self.isYoutube ) {
+        
         options.techOrder = ['youtube'];
         options.sources = [{ type: "video/youtube", src: "https://www.youtube.com/watch?v=" + self.src }];
         options.playbackRates = null;
-        //options.plugins = Object.assign( options.plugins, { videoJsResolutionSwitcher: { 'default': 720 } } );
+        
         $.extend( options.plugins, { videoJsResolutionSwitcher: { 'default': 720 } } );
 
     } else if ( self.isVimeo ) {
+        
         options.techOrder = ["vimeo"];
         options.sources = [{ type: "video/vimeo", src: "https://vimeo.com/" + self.src }];
         options.playbackRates = null;
-        options.controls = false;
-    }
-    
-    if ( SBPLUS.isIOSDevice() ) {
-        
-        options.nativeControlsForTouch = true;
+        //options.controls = false;
         
     }
     
     self.mediaPlayer = videojs( 'mp', options, function() {
         
         var player = this;
-        
-        player.manualCleanup = true;
         
         if ( self.isKaltura ) {
             
@@ -590,14 +587,22 @@ Page.prototype.renderVideoJS = function() {
     		}, true );
 		}
         
+        // set playback rate
+        if ( options.playbackRates !== null ) {
+            player.playbackRate( SBPLUS.playbackrate );
+        }
+        
+        // video events
         player.on(['waiting', 'pause'], function() {
             
           self.isPlaying = false;
           
+/*
           if ( SBPLUS.getStorageItem( 'sbplus-disable-it' ) === "0" ) {
               clearInterval( transcriptInterval );
               self.transcriptIntervalStarted = false;
           }
+*/
           
         });
         
@@ -605,6 +610,7 @@ Page.prototype.renderVideoJS = function() {
             
           self.isPlaying = false;
           
+/*
           if ( SBPLUS.getStorageItem( 'sbplus-disable-it' ) === "0" ) {
               
               if ( $( '#sbplus_interactivetranscript' ).hasClass( 'active' ) ) {
@@ -615,6 +621,7 @@ Page.prototype.renderVideoJS = function() {
               self.transcriptIntervalStarted = false;
               
           }
+*/
           
         });
         
@@ -622,12 +629,14 @@ Page.prototype.renderVideoJS = function() {
             
           self.isPlaying = true;
           
+/*
           if ( SBPLUS.getStorageItem( 'sbplus-disable-it' ) === "0" ) {
               if ( $( '#sbplus_interactivetranscript' ).hasClass( 'active' )
               && self.transcriptIntervalStarted === false ) {
                 self.startInteractiveTranscript();
               }
           }
+*/
           
         });
         
@@ -637,33 +646,24 @@ Page.prototype.renderVideoJS = function() {
           
         });
         
-        // playrate
-        if ( options.playbackRates !== null && self.isYoutube === false
-        && self.isVimeo === false ) {
+        player.on( 'resolutionchange', function() {
+                
+    		player.playbackRate( SBPLUS.playbackrate );
+    		
+		} );
+        
+        player.on( 'ratechange', function() {
             
-            player.on( 'resolutionchange', function() {
-                
-        		player.playbackRate( Number( SBPLUS.getStorageItem( 'sbplus-' + SBPLUS.uniqueTitle + '-playbackrate-temp', true ) ) );
-        		
-    		} );
+            var rate = this.playbackRate();
             
-            // default settings
-            if ( SBPLUS.hasStorageItem( 'sbplus-' + SBPLUS.uniqueTitle + '-playbackrate-temp', true ) ) {
+            if ( SBPLUS.playbackrate !== rate ) {
                 
-                player.playbackRate( Number( SBPLUS.getStorageItem( 'sbplus-' + SBPLUS.uniqueTitle + '-playbackrate-temp', true ) ) );
-                
-            } else {
-                
-                player.playbackRate( Number( SBPLUS.getStorageItem( 'sbplus-playbackrate' ) ) );
-                SBPLUS.setStorageItem( 'sbplus-' + SBPLUS.uniqueTitle + '-playbackrate-temp', SBPLUS.getStorageItem( 'sbplus-playbackrate' ), true );
+                SBPLUS.playbackrate = rate;
+                this.playbackRate(rate);
                 
             }
-            
-            player.on( 'ratechange', function() {
-        		SBPLUS.setStorageItem( 'sbplus-' + SBPLUS.uniqueTitle + '-playbackrate-temp', player.playbackRate(), true );
-    		} );
-            
-        }
+    		
+		} );
         
         // volume
         

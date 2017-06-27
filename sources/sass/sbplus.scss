@@ -643,13 +643,20 @@ body {
                                 
                             }
                             
+                            // replay button
+                            .vjs-replay:before {
+                                content:""
+                            }
+                            
                             // resolution plugin
                             
-                            .vjs-resolution-button .vjs-icon-placeholder:before {
+                            .vjs-resolution-button:before {
                                 font-family: VideoJS;
                                 content: '\f110';
                             }
                             
+                            
+
                             .vjs-resolution-button .vjs-resolution-button-label {
                                 font-size: 1.2em;
                                 line-height: 2.50em;

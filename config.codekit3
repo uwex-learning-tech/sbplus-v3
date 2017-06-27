@@ -611,6 +611,15 @@
 		"sC": 0,
 		"tS": 0
 		},
+	"\/sources\/scripts\/libs\/videojs\/plugins\/replay\/replay.js": {
+		"ft": 64,
+		"mi": 0,
+		"oA": 1,
+		"oAP": "\/build\/scripts\/libs\/videojs\/plugins\/replay\/replay.js",
+		"oF": 1,
+		"sC": 0,
+		"tS": 0
+		},
 	"\/sources\/scripts\/libs\/videojs\/plugins\/resolution\/videojs-resolution-switcher.js": {
 		"ft": 64,
 		"mi": 0,
@@ -748,14 +757,20 @@
 			},
 		{
 			"followForSyntaxChecking": 1,
-			"linkedFileAbbreviatedPath": "\/sources\/scripts\/libs\/videojs\/plugins\/youtube\/youtube.js",
+			"linkedFileAbbreviatedPath": "\/sources\/scripts\/libs\/videojs\/plugins\/vimeo\/videojs-vimeo.min.js",
 			"position": 2,
 			"type": 1
 			},
 		{
 			"followForSyntaxChecking": 1,
-			"linkedFileAbbreviatedPath": "\/sources\/scripts\/libs\/videojs\/plugins\/vimeo\/videojs-vimeo.min.js",
+			"linkedFileAbbreviatedPath": "\/sources\/scripts\/libs\/videojs\/plugins\/youtube\/youtube.js",
 			"position": 3,
+			"type": 1
+			},
+		{
+			"followForSyntaxChecking": 1,
+			"linkedFileAbbreviatedPath": "\/sources\/scripts\/libs\/videojs\/plugins\/replay\/replay.js",
+			"position": 4,
 			"type": 1
 			}
 		],

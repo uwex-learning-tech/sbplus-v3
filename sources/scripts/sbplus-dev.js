@@ -67,6 +67,9 @@ var SBPLUS = SBPLUS || {
     presentationStarted: false,
     hasError: false,
     
+    // videojs playbackrate
+    playbackrate: 1,
+    
     // easter egg variables
     clickCount: 0,
     randomNum: Math.floor((Math.random() * 6) + 5),
@@ -617,6 +620,8 @@ var SBPLUS = SBPLUS || {
             
             if ( self.hasStorageItem( 'sbplus-playbackrate' ) === false ) {
                 self.setStorageItem( 'sbplus-playbackrate', 1 );
+            } else {
+                self.playbackrate = self.getStorageItem( 'sbplus-playbackrate' );
             }
             
             if ( self.hasStorageItem( 'sbplus-subtitle' ) === false ) {
