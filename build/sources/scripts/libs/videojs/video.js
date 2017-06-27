@@ -13037,14 +13037,16 @@ var Player = function (_Component) {
 
 
   Player.prototype.playbackRate = function playbackRate(rate) {
+    
     if (rate !== undefined) {
       this.techCall_('setPlaybackRate', rate);
       return;
     }
-
+    
     if (this.tech_ && this.tech_.featuresPlaybackRate) {
       return this.techGet_('playbackRate');
     }
+
     return 1.0;
   };
 

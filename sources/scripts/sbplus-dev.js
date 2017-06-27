@@ -2454,7 +2454,7 @@ var SBPLUS = SBPLUS || {
             
             self.syncSettings();
             
-            $( '.settings input, .settings select' ).on( 'click', function() {
+            $( '.settings input, .settings select' ).on( 'change', function() {
                 
                 // show msg
                 $( self.menu.menuSavingMsg ).fadeIn().html( 'Saving...' );
