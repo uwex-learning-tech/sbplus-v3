@@ -67,8 +67,9 @@ var SBPLUS = SBPLUS || {
     xmlParsed: false,
     presentationStarted: false,
     hasError: false,
+    kalturaLoaded: false,
     
-    // videojs playbackrate
+    // videojs
     playbackrate: 1,
     
     // easter egg variables
@@ -1736,25 +1737,32 @@ var SBPLUS = SBPLUS || {
                 
                 menuTitle.html( 'Settings' );
                 
-                if ( this.hasStorageItem( 'sbplus-' + self.uniqueTitle + '-settings-loaded', true ) === false ) {
+                if ( Modernizr.localstorage && Modernizr.sessionstorage ) {
                     
-                    $.get( self.manifest.sbplus_root_directory + 'scripts/templates/settings.tpl', function( data ) {
+                    if ( this.hasStorageItem( 'sbplus-' + self.uniqueTitle + '-settings-loaded', true ) === false ) {
                     
-                        self.settings = data;
-                        self.setStorageItem( 'sbplus-' + self.uniqueTitle + '-settings-loaded', 1, true );
-                        menuContent.append( data );
+                        $.get( self.manifest.sbplus_root_directory + 'scripts/templates/settings.tpl', function( data ) {
+                        
+                            self.settings = data;
+                            self.setStorageItem( 'sbplus-' + self.uniqueTitle + '-settings-loaded', 1, true );
+                            menuContent.append( data );
+                            self.afterSettingsLoaded();
+                            
+                        } );
+                        
+                    } else {
+                        
+                        menuContent.append( self.settings );
                         self.afterSettingsLoaded();
                         
-                    } );
+                    }
                     
                 } else {
                     
-                    menuContent.append( self.settings );
-                    self.afterSettingsLoaded();
+                    content = 'Settings require web browser\'s local storage and session storage support. ';
+                    content += 'Your web browser does not support local and session storage or is in private mode.';
                     
                 }
-                
-                content = '';
                 
             break;
             
@@ -2343,13 +2351,17 @@ var SBPLUS = SBPLUS || {
     
     setStorageItem: function( key, value, toSession ) {
         
-        if ( toSession ) {
+        if ( Modernizr.localstorage || Modernizr.sessionstorage ) {
             
-            sessionStorage.setItem( key, value );
+            if ( toSession ) {
             
-        } else {
-            
-            localStorage.setItem( key, value );
+                sessionStorage.setItem( key, value );
+                
+            } else {
+                
+                localStorage.setItem( key, value );
+                
+            }
             
         }
         
@@ -2357,13 +2369,17 @@ var SBPLUS = SBPLUS || {
     
     getStorageItem: function( key, fromSession ) {
         
-        if ( fromSession ) {
+        if ( Modernizr.localstorage || Modernizr.sessionstorage ) {
             
-            return sessionStorage.getItem( key );
+            if ( fromSession ) {
             
-        } else {
-            
-            return localStorage.getItem( key );
+                return sessionStorage.getItem( key );
+                
+            } else {
+                
+                return localStorage.getItem( key );
+                
+            }
             
         }
         
@@ -2371,13 +2387,17 @@ var SBPLUS = SBPLUS || {
     
     deleteStorageItem: function( key, fromSession ) {
         
-        if ( fromSession ) {
+        if ( Modernizr.localstorage || Modernizr.sessionstorage ) {
             
-            return sessionStorage.removeItem( key );
+            if ( fromSession ) {
             
-        } else {
-            
-            return localStorage.removeItem( key );
+                return sessionStorage.removeItem( key );
+                
+            } else {
+                
+                return localStorage.removeItem( key );
+                
+            }
             
         }
         
@@ -2385,21 +2405,25 @@ var SBPLUS = SBPLUS || {
     
     hasStorageItem: function( key, fromSession ) {
         
-        if ( fromSession ) {
+        if ( Modernizr.localstorage || Modernizr.sessionstorage ) {
             
-            if ( this.isEmpty( sessionStorage.getItem( key ) ) ) {
-                return false;
+            if ( fromSession ) {
+            
+                if ( this.isEmpty( sessionStorage.getItem( key ) ) ) {
+                    return false;
+                }
+                
+                return true;
+                
+            } else {
+                
+                if ( this.isEmpty( localStorage.getItem( key ) ) ) {
+                    return false;
+                }
+                
+                return true;
+                
             }
-            
-            return true;
-            
-        } else {
-            
-            if ( this.isEmpty( localStorage.getItem( key ) ) ) {
-                return false;
-            }
-            
-            return true;
             
         }
         
@@ -2407,7 +2431,11 @@ var SBPLUS = SBPLUS || {
     
     removeAllSessionStorage: function() {
         
-        return sessionStorage.clear();
+        if ( Modernizr.sessionstorage ) {
+            
+            return sessionStorage.clear();
+            
+        }
         
     },
     

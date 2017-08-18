@@ -95,13 +95,13 @@ Page.prototype.getPageMedia = function() {
         
         case 'kaltura':
             
-            if ( SBPLUS.hasStorageItem( 'sbplus-' + SBPLUS.uniqueTitle + '-kaltura-loaded', true) === false ) {
+            if ( SBPLUS.kalturaLoaded === false ) {
                 
                 $.getScript( self.root + '/scripts/libs/kaltura/mwembedloader.js', function() {
                     
                     $.getScript( self.root +  '/scripts/libs/kaltura/kwidgetgetsources.js', function() {
                         
-                        SBPLUS.setStorageItem( 'sbplus-' + SBPLUS.uniqueTitle + '-kaltura-loaded', 1, true);
+                        SBPLUS.kalturaLoaded = true;
                         self.loadKalturaVideoData();
                         
                     } );
