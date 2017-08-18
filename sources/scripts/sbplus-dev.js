@@ -196,6 +196,10 @@ var SBPLUS = SBPLUS || {
                 // page refresh/reload or closing
                 $( window ).on( 'unload', self.removeAllSessionStorage.bind( self ) );
                 
+                if ( self.isEmpty( self.manifest.sbplus_root_directory ) ) {
+                    self.manifest.sbplus_root_directory = 'sources/';
+                }
+                
                 // called the loadTemplate functiont load Storybook Plus's
                 // HTML structure
                 /* !! SHOULD BE THE LAST THING TO BE CALLED IN THIS BLOCK!! */
