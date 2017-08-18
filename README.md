@@ -45,7 +45,8 @@ SB+ may not function properly with beta or pre-released version of web browsers.
 
 #### Pending
 * Removed centralized author profile request when there is no author specified
-* SBPLUS root directory defaults to `sources/` when not specified
+* SBPLUS root directory defaults to `sources/` when not specified in the manifest
+* Removed duplicate logo requests when page has no widget contents
 
 #### 3.1.1 (06/22/2017)
 * Fixed the issue where bundle page type is not working properly

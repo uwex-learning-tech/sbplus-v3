@@ -46,6 +46,7 @@ var SBPLUS = SBPLUS || {
     menu : null,
     screenReader: null,
     uniqueTitle: '',
+    logo: '',
     
     // holds current and total pages in the presentation
     totalPages: 0,
@@ -1946,10 +1947,9 @@ var SBPLUS = SBPLUS || {
             
             this.hideWidgetContentIndicator();
             $( this.screenReader.hasNotes ).empty();
-            
             $( this.layout.widget ).addClass('noSegments');
             
-            if ( this.hasStorageItem( 'sbplus-' + self.uniqueTitle + '-logo-loaded', true ) === false ) {
+            if ( self.isEmpty( self.logo ) ) {
                 
                 var program = this.xml.setup.program;
                 
@@ -1967,30 +1967,25 @@ var SBPLUS = SBPLUS || {
                 
                 $.get( logoUrl, function() {
                     
-                    self.setStorageItem( 'sbplus-' + self.uniqueTitle + '-logo-loaded', this.url, true );
-                    
-                    $( self.widget.content ).css( 'background-image', 'url(' +
-                        self.getStorageItem( 'sbplus-' + self.uniqueTitle + '-logo-loaded', true ) + ')' );
+                    self.logo = this.url;
+                    $( self.widget.content ).css( 'background-image', 'url(' + self.logo + ')' );
                         
                 } ).fail( function() {
                     
                     logoUrl = self.manifest.sbplus_logo_directory + self.manifest.sbplus_logo_default + '.svg';
                     
                     $.get( logoUrl, function() {
-                        
-                        self.setStorageItem( 'sbplus-' + self.uniqueTitle + '-logo-loaded', this.url, true );
-                        
-                        $( self.widget.content ).css( 'background-image', 'url(' +
-                            self.getStorageItem( 'sbplus-' + self.uniqueTitle + '-logo-loaded', true ) + ')' );
-                            
+                        self.logo = this.url;
+                        $( self.widget.content ).css( 'background-image', 'url(' + self.logo + ')' );
+                    } ).fail( function() {
+                        self.logo = self.manifest.sbplus_root_directory + 'images/default_logo.svg';
                     } );
                     
                 } );
                 
             } else {
                 
-                $( self.widget.content ).css( 'background-image', 'url(' +
-                    self.getStorageItem( 'sbplus-' + self.uniqueTitle + '-logo-loaded', true ) + ')' );
+                $( self.widget.content ).css( 'background-image', 'url(' + self.logo + ')' );
                 
             }
             
