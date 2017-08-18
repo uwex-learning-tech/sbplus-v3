@@ -27307,7 +27307,6 @@ var defaults = {};
 
 var addReplayClass = function addReplayClass(player) {
   if (player.duration() !== Infinity) {
-      console.log(player);
     player.getChild('controlBar').getChild('playToggle').addClass('vjs-replay').controlText(player.localize('Replay'));
   }
 };

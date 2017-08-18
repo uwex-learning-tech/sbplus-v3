@@ -514,6 +514,9 @@ var SBPLUS = SBPLUS || {
                 sections: xSections
             };
             
+            // get/set the presenation title
+            self.uniqueTitle = self.sanitize( self.xml.setup.title );
+            
             // if analytics is on, get and set Google analtyics tracking
             if ( self.xml.settings.analytics === 'on' ) {
                 
@@ -534,7 +537,7 @@ var SBPLUS = SBPLUS || {
                 var profileUrl = self.manifest.sbplus_author_directory + sanitizedAuthor + '.json';
                 
                 // if author data in XML is empty
-                if ( self.isEmpty( xAuthor.text() ) ) {
+                if ( self.isEmpty( xAuthor.text() ) && !self.isEmpty( sanitizedAuthor ) ) {
                     
                     // get centralized author name and profile via AJAX
                     $.ajax( {
@@ -550,10 +553,16 @@ var SBPLUS = SBPLUS || {
                         self.xml.setup.author = res.name;
                         self.xml.setup.profile = self.noScript( res.profile );
                         
+                        self.xmlParsed = true;
+                        self.renderSplashscreen();
+                        
                     } ).fail( function() { // when fail, default to the values in XML
                         
                         self.xml.setup.author = xAuthor.attr( 'name' ).trim();
                         self.xml.setup.profile = self.getTextContent( xAuthor );
+                        
+                        self.xmlParsed = true;
+                        self.renderSplashscreen();
                         
                     } )
                     
@@ -563,15 +572,12 @@ var SBPLUS = SBPLUS || {
                     self.xml.setup.author = xAuthor.attr( 'name' ).trim();
                     self.xml.setup.profile = self.getTextContent( xAuthor );
                     
+                    self.xmlParsed = true;
+                    self.renderSplashscreen();
+                    
                 }
                 
             }
-            
-            // get/set the presenation title
-            self.uniqueTitle = self.sanitize( self.xml.setup.title );
-            
-            self.xmlParsed = true;
-            self.renderSplashscreen();
             
         }
         
@@ -1704,13 +1710,21 @@ var SBPLUS = SBPLUS || {
                 content = '<p class="name">' + self.xml.setup.author + '</p>';
                 content += self.xml.setup.profile;
                 
+            } else {
+                content = 'No author profile available.';
             }
             
             break;
             
             case 'sbplus_general_info':
             menuTitle.html( 'General Info' );
-            content = self.xml.setup.generalInfo;
+            
+            if ( self.isEmpty( self.xml.setup.generalInfo ) ) {
+                content = 'No general information available.';
+            } else {
+                content = self.xml.setup.generalInfo;
+            }
+            
             break;
             
             case 'sbplus_settings':
