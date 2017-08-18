@@ -43,6 +43,10 @@ SB+ may not function properly with beta or pre-released version of web browsers.
 ---
 ### Version Change Log
 
+#### Pending
+* Removed centralized author profile request when there is no author specified
+* SBPLUS root directory defaults to `sources/` when not specified
+
 #### 3.1.1 (06/22/2017)
 * Fixed the issue where bundle page type is not working properly
 * Fixed the issue where local author info is not overriding centralized info
