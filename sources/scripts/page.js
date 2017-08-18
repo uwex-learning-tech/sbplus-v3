@@ -298,6 +298,7 @@ Page.prototype.getPageMedia = function() {
         break;
         
         default:
+            self.showPageError( 'UNKNOWN_TYPE', self.type);
             self.setWidgets();
         break;
         
@@ -962,6 +963,10 @@ Page.prototype.showPageError = function( type, src ) {
         
         case 'NO_MEDIA':
             msg = '<p><strong>The content for this Storybook Page could not be loaded.</strong></p><p><strong>Expected media:</strong> ' + src + '</p><p>Please try refreshing your browser, or coming back later.</p><p>If this problem continues, please <a href="javascript:void(0);" onclick="SBPLUS.openMenuItem(\'sbplus_help\');">contact tech support</a>.</p>';
+        break;
+        
+        case 'UNKNOWN_TYPE':
+            msg = '<p><strong>UNKNOWN PAGE TYPE</strong></p><p>Page type ("' + src + '") is not supported.</p><p>If this problem continues, please <a href="javascript:void(0);" onclick="SBPLUS.openMenuItem(\'sbplus_help\');">contact tech support</a>.</p>';
         break;
         
     }

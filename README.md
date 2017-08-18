@@ -47,7 +47,8 @@ SB+ may not function properly with beta or pre-released version of web browsers.
 * Removed centralized author profile request when there is no author specified
 * SBPLUS root directory defaults to `sources/` when not specified in the manifest
 * Removed duplicate logo requests when page has no widget contents
-* Allow SB+ presentations to be loaded on Safari's private mode or any private mode that does not support local and session storage
+* Allow SB+ presentation to be loaded on Safari's private mode or any private mode that does not support local and session storages
+* Display unknown page type error message when the page type is not supported
 
 #### 3.1.1 (06/22/2017)
 * Fixed the issue where bundle page type is not working properly
