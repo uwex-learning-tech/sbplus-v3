@@ -49,6 +49,8 @@ SB+ may not function properly with beta or pre-released version of web browsers.
 * Removed duplicate logo requests when page has no widget contents
 * Allow SB+ presentation to be loaded on Safari's private mode or any private mode that does not support local and session storages
 * Display unknown page type error message when the page type is not supported
+* Changed a few jQuery $.get methods to $.ajax methods for HEAD request
+* Updated SBPLUS SVG logo and css
 
 #### 3.1.1 (06/22/2017)
 * Fixed the issue where bundle page type is not working properly
