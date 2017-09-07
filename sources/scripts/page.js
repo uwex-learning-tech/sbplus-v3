@@ -120,23 +120,33 @@ Page.prototype.getPageMedia = function() {
             
             self.isAudio = true;
             
-            $.get( 'assets/pages/' + self.src + '.' + self.imgType, function() {
+            $.ajax( {
+                
+                url: 'assets/pages/' + self.src + '.' + self.imgType,
+                type: 'HEAD'
+                
+            } ).done( function() {
                 self.hasImage = true;
             } ).fail( function() {
                 self.showPageError( 'NO_IMG', this.url );
             } ).always( function() {
                 
-                $.get( 'assets/audio/' + self.src + '.vtt', function( data ) {
+                $.ajax( {
+                    
+                    url: 'assets/audio/' + self.src + '.vtt',
+                    type: 'HEAD'
+                    
+                } ).done( function( data ) {
+                    
                     self.captionUrl = this.url;
                     self.transcript = SBPLUS.noScript( data );
+                    
                 } ).always( function() {
                     
                     var html = '<video id="mp" class="video-js vjs-default-skin"></video>';
                     
                     if ( ! Modernizr.objectfit ) {
-                        
                         $( self.mediaContent ).addClass( 'show-vjs-poster' );
-                        
                     }
                     
                     $( self.mediaContent ).html( html ).promise().done( function() {
@@ -145,7 +155,7 @@ Page.prototype.getPageMedia = function() {
                         self.setWidgets();
                 
                     } );
-                
+                    
                 } );
                 
             } );
@@ -190,12 +200,17 @@ Page.prototype.getPageMedia = function() {
         
         case 'video':
             
-            $.get( 'assets/video/' + self.src + '.vtt', function( data ) {
+            $.ajax( {
+                
+                url: 'assets/video/' + self.src + '.vtt',
+                type: 'HEAD'
+                
+            } ).done( function( data ) {
                 
                 self.captionUrl = this.url;
                 self.transcript = SBPLUS.noScript( data );
                 
-            }).always( function() {
+            } ).always( function() {
                 
                 var html = '<video id="mp" class="video-js vjs-default-skin" crossorigin="anonymous" width="100%" height="100%"></video>';
                 
@@ -255,9 +270,16 @@ Page.prototype.getPageMedia = function() {
                 self.cuepoints.push( cue );
             } );
             
-            $.get( 'assets/audio/' + self.src + '.vtt', function( data ) {
+            $.ajax( {
+                
+                url: 'assets/audio/' + self.src + '.vtt',
+                type: 'HEAD'
+                
+            } ).done( function( data ) {
+                
                 self.captionUrl = this.url;
                 self.transcript = SBPLUS.noScript( data );
+                
             } ).always( function() {
                 
                 var html = '<video id="mp" class="video-js vjs-default-skin"></video>';
@@ -269,7 +291,7 @@ Page.prototype.getPageMedia = function() {
                     self.setWidgets();
             
                 } );
-            
+                
             } );
             
         break;

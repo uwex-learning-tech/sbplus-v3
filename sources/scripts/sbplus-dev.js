@@ -29,6 +29,8 @@
 /*******************************************************************************
     STORYBOOK PLUS MAIN OBJECT CLASS
 *******************************************************************************/
+'use strict';
+
 
 var SBPLUS = SBPLUS || {
     
@@ -1973,20 +1975,34 @@ var SBPLUS = SBPLUS || {
                 
                 var logoUrl = this.manifest.sbplus_logo_directory + program + '.svg';
                 
-                $.get( logoUrl, function() {
+                $.ajax( {
+                    
+                    url: logoUrl,
+                    type: 'HEAD'
+                    
+                } ).done( function() {
                     
                     self.logo = this.url;
                     $( self.widget.content ).css( 'background-image', 'url(' + self.logo + ')' );
-                        
+                    
                 } ).fail( function() {
                     
                     logoUrl = self.manifest.sbplus_logo_directory + self.manifest.sbplus_logo_default + '.svg';
                     
-                    $.get( logoUrl, function() {
+                    $.ajax( {
+                        
+                        url: logoUrl,
+                        type: 'HEAD'
+                        
+                    } ).done( function() {
+                        
                         self.logo = this.url;
                         $( self.widget.content ).css( 'background-image', 'url(' + self.logo + ')' );
+                        
                     } ).fail( function() {
+                        
                         self.logo = self.manifest.sbplus_root_directory + 'images/default_logo.svg';
+                        
                     } );
                     
                 } );
