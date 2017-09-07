@@ -1054,12 +1054,13 @@ body {
                     
                     .segment_content {
                         
-                        width: 200px;
-                        margin: 0 auto;
+                        margin: 0;
                         background-image: url( '../images/default_logo.svg' );
                         background-position: center center;
                         background-repeat: no-repeat;
-                        //background-size: 25%;
+                        background-size: 25%;
+                        padding: 0;
+                        filter: invert(0.5);
                         
                     }
                     

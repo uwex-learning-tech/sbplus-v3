@@ -672,11 +672,13 @@ body {
           .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_widget.noSegments .widget_controls_bar {
             display: none; }
           .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_widget.noSegments .segment_content {
-            width: 200px;
-            margin: 0 auto;
+            margin: 0;
             background-image: url("../images/default_logo.svg");
             background-position: center center;
-            background-repeat: no-repeat; }
+            background-repeat: no-repeat;
+            background-size: 25%;
+            padding: 0;
+            filter: invert(0.5); }
       .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col {
         -webkit-flex: 1 0 auto;
         flex: 1 0 auto;
