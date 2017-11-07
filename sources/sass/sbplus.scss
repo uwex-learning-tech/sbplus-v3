@@ -1482,19 +1482,32 @@ body {
                 @include flex-flow(row wrap);
                 width: 100%;
                 @include calc( height, '100% - ' + 30px );
+                overflow: hidden;
                 
                 .content {
                     
                     @include flex(1);
                     
+                    overflow: auto;
                     padding: $gutter;
                     
-                    ol, ul, div, h1, h2,
-                    h3, h4, h5, h6, p, blockquote {
+                    div, h1, h2, h3, h4, h5, h6, p, blockquote {
                         margin: $gutter 0;
                     }
                     
+                    ol, ul {
+                        
+                        margin: $gutter 0;
+                        padding-left: $gutter * 3;
+                        
+                        li {
+                            margin: $gutter/2 0;
+                        }
+                        
+                    }
+                    
                     .name {
+                        margin-top: 0;
                         font-weight: bold;
                         font-size: 150%
                     }
@@ -1505,13 +1518,13 @@ body {
                         min-width: 250px;
                         margin: 0;
                         height: auto;
-//                         min-height: 259px;
+                        min-height: 250px;
                         background-image: url('../images/default_photo.png');
                         background-size: contain;
                         background-repeat: no-repeat;
                         background-position: center left;
-                        margin-right: $gutter * 1.5;
-                        float: left;
+                        margin-left: $gutter * 1.5;
+                        float: right;
                         
                         img {
                             width: 250px;

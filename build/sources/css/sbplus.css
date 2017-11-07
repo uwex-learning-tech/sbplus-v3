@@ -979,15 +979,22 @@ body {
         width: 100%;
         height: -moz-calc(100% - 30px);
         height: -webkit-calc(100% - 30px);
-        height: calc(100% - 30px); }
+        height: calc(100% - 30px);
+        overflow: hidden; }
         .sbplus_wrapper #sbplus #menu_item_content .container .content {
           -webkit-flex: 1;
           flex: 1;
+          overflow: auto;
           padding: 10px; }
-          .sbplus_wrapper #sbplus #menu_item_content .container .content ol, .sbplus_wrapper #sbplus #menu_item_content .container .content ul, .sbplus_wrapper #sbplus #menu_item_content .container .content div, .sbplus_wrapper #sbplus #menu_item_content .container .content h1, .sbplus_wrapper #sbplus #menu_item_content .container .content h2,
-          .sbplus_wrapper #sbplus #menu_item_content .container .content h3, .sbplus_wrapper #sbplus #menu_item_content .container .content h4, .sbplus_wrapper #sbplus #menu_item_content .container .content h5, .sbplus_wrapper #sbplus #menu_item_content .container .content h6, .sbplus_wrapper #sbplus #menu_item_content .container .content p, .sbplus_wrapper #sbplus #menu_item_content .container .content blockquote {
+          .sbplus_wrapper #sbplus #menu_item_content .container .content div, .sbplus_wrapper #sbplus #menu_item_content .container .content h1, .sbplus_wrapper #sbplus #menu_item_content .container .content h2, .sbplus_wrapper #sbplus #menu_item_content .container .content h3, .sbplus_wrapper #sbplus #menu_item_content .container .content h4, .sbplus_wrapper #sbplus #menu_item_content .container .content h5, .sbplus_wrapper #sbplus #menu_item_content .container .content h6, .sbplus_wrapper #sbplus #menu_item_content .container .content p, .sbplus_wrapper #sbplus #menu_item_content .container .content blockquote {
             margin: 10px 0; }
+          .sbplus_wrapper #sbplus #menu_item_content .container .content ol, .sbplus_wrapper #sbplus #menu_item_content .container .content ul {
+            margin: 10px 0;
+            padding-left: 30px; }
+            .sbplus_wrapper #sbplus #menu_item_content .container .content ol li, .sbplus_wrapper #sbplus #menu_item_content .container .content ul li {
+              margin: 5px 0; }
           .sbplus_wrapper #sbplus #menu_item_content .container .content .name {
+            margin-top: 0;
             font-weight: bold;
             font-size: 150%; }
           .sbplus_wrapper #sbplus #menu_item_content .container .content .profileImg {
@@ -995,12 +1002,13 @@ body {
             min-width: 250px;
             margin: 0;
             height: auto;
+            min-height: 250px;
             background-image: url("../images/default_photo.png");
             background-size: contain;
             background-repeat: no-repeat;
             background-position: center left;
-            margin-right: 15px;
-            float: left; }
+            margin-left: 15px;
+            float: right; }
             .sbplus_wrapper #sbplus #menu_item_content .container .content .profileImg img {
               width: 250px;
               height: auto; }

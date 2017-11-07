@@ -7,9 +7,10 @@
 		"uuidString": "A55265B6-3CAC-4E30-9611-2EA711C82108"
 		}
 	],
-"creatorBuild": "25900",
+"creatorBuild": "26097",
 "files": {
 	"\/.gitignore": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 1,
 		"oAP": "\/build\/.gitignore",
@@ -22,10 +23,10 @@
 		"oF": 0
 		},
 	"\/CODE_OF_CONDUCT.md": {
+		"cB": 0,
 		"cS": 0,
 		"eF": 1,
 		"eL": 1,
-		"eLB": 0,
 		"ema": 1,
 		"eSQ": 1,
 		"ft": 4096,
@@ -40,16 +41,17 @@
 		"uCM": 0
 		},
 	"\/config.rb": {
-		"ft": 131072,
+		"cB": 0,
+		"ft": 8192,
 		"oA": 0,
 		"oAP": "\/config.rb",
 		"oF": 0
 		},
 	"\/CONTRIBUTING.md": {
+		"cB": 0,
 		"cS": 0,
 		"eF": 1,
 		"eL": 1,
-		"eLB": 0,
 		"ema": 1,
 		"eSQ": 1,
 		"ft": 4096,
@@ -64,16 +66,17 @@
 		"uCM": 0
 		},
 	"\/LICENSE": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 1,
 		"oAP": "\/LICENSE.txt",
 		"oF": 3
 		},
 	"\/README.md": {
+		"cB": 0,
 		"cS": 0,
 		"eF": 1,
 		"eL": 1,
-		"eLB": 0,
 		"ema": 1,
 		"eSQ": 1,
 		"ft": 4096,
@@ -98,6 +101,7 @@
 		"oS": 0
 		},
 	"\/sources\/fonts\/MuseoSans_500-webfont.eot": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/build\/sources\/fonts\/MuseoSans_500-webfont.eot",
@@ -114,24 +118,28 @@
 		"prP": 0
 		},
 	"\/sources\/fonts\/MuseoSans_500-webfont.ttf": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/build\/sources\/fonts\/MuseoSans_500-webfont.ttf",
 		"oF": 3
 		},
 	"\/sources\/fonts\/MuseoSans_500-webfont.woff": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/build\/sources\/fonts\/MuseoSans_500-webfont.woff",
 		"oF": 3
 		},
 	"\/sources\/fonts\/MuseoSans_500-webfont.woff2": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/build\/sources\/fonts\/MuseoSans_500-webfont.woff2",
 		"oF": 3
 		},
 	"\/sources\/fonts\/sbplus.eot": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/build\/sources\/fonts\/sbplus.eot",
@@ -148,12 +156,14 @@
 		"prP": 0
 		},
 	"\/sources\/fonts\/sbplus.ttf": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/build\/sources\/fonts\/sbplus.ttf",
 		"oF": 3
 		},
 	"\/sources\/fonts\/sbplus.woff": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/build\/sources\/fonts\/sbplus.woff",
@@ -168,6 +178,16 @@
 		"oAP": "\/build\/sources\/fonts\/sbplus_fonts.css",
 		"oF": 3,
 		"oS": 0
+		},
+	"\/sources\/images\/default_logo.svg": {
+		"ft": 2097152,
+		"miP": 0,
+		"oA": 2,
+		"oAP": "\/build\/images\/default_logo.svg",
+		"oF": 0,
+		"opt": 0,
+		"plM": 3758088159,
+		"prP": 0
 		},
 	"\/sources\/images\/default_photo.png": {
 		"ft": 32768,
@@ -282,6 +302,7 @@
 		"tS": 0
 		},
 	"\/sources\/scripts\/libs\/videojs\/font\/VideoJS.eot": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/font\/VideoJS.eot",
@@ -298,12 +319,14 @@
 		"prP": 0
 		},
 	"\/sources\/scripts\/libs\/videojs\/font\/VideoJS.ttf": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/font\/VideoJS.ttf",
 		"oF": 3
 		},
 	"\/sources\/scripts\/libs\/videojs\/font\/VideoJS.woff": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/font\/VideoJS.woff",
@@ -740,30 +763,35 @@
 		"tS": 0
 		},
 	"\/sources\/scripts\/templates\/sbplus.tpl": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/build\/sources\/scripts\/templates\/sbplus.tpl",
 		"oF": 2
 		},
 	"\/sources\/scripts\/templates\/settings.tpl": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/build\/sources\/scripts\/templates\/settings.tpl",
 		"oF": 2
 		},
 	"\/sources\/scripts\/templates\/support_error.tpl": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/build\/sources\/scripts\/templates\/support_error.tpl",
 		"oF": 2
 		},
 	"\/sources\/scripts\/templates\/xml_error.tpl": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/build\/sources\/scripts\/templates\/xml_error.tpl",
 		"oF": 2
 		},
 	"\/sources\/scripts\/templates\/xml_parse_error.tpl": {
+		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/build\/sources\/scripts\/templates\/xml_parse_error.tpl",
@@ -1373,6 +1401,10 @@
 			"active": 0,
 			"optionString": "'expression'"
 			},
+		"function-paren-newline": {
+			"active": 0,
+			"optionString": "'multiline'"
+			},
 		"generator-star-spacing": {
 			"active": 0,
 			"optionString": "{'before': true, 'after': false}"
@@ -1437,9 +1469,9 @@
 			"active": 0,
 			"optionString": "{'beforeBlockComment': true}"
 			},
-		"lines-around-directive": {
+		"lines-between-class-members": {
 			"active": 0,
-			"optionString": "{'before': 'always', 'after': 'always'}"
+			"optionString": "'always', {exceptAfterSingleLine: false}"
 			},
 		"max-depth": {
 			"active": 0,
@@ -1469,6 +1501,10 @@
 			"active": 0,
 			"optionString": "{'max': 1}"
 			},
+		"multiline-comment-style": {
+			"active": 0,
+			"optionString": "'starred-block'"
+			},
 		"multiline-ternary": {
 			"active": 0,
 			"optionString": "'always'"
@@ -1478,14 +1514,6 @@
 			"optionString": "{'newIsCap': true, 'capIsNew': true, 'newIsCapExceptions': [], 'capIsNewExceptions': ['Array', 'Boolean', 'Date', 'Error', 'Function', 'Number', 'Object', 'RegExp', 'String', 'Symbol'], 'properties': true}"
 			},
 		"new-parens": {
-			"active": 0,
-			"optionString": ""
-			},
-		"newline-after-var": {
-			"active": 0,
-			"optionString": "'always'"
-			},
-		"newline-before-return": {
 			"active": 0,
 			"optionString": ""
 			},
@@ -2589,7 +2617,8 @@
 		"createSourceMap": 0,
 		"minifyOutput": 1,
 		"outputStyle": 0,
-		"syntaxCheckerStyle": 1
+		"syntaxCheckerStyle": 1,
+		"transpilerStyle": 1
 		},
 	"languageDefaultsCSS": {
 		"autoOutputAction": 2,
@@ -2622,6 +2651,7 @@
 		"noEscapeInAttributes": 0,
 		"outputFormat": 2,
 		"outputStyle": 0,
+		"shouldRunCacheBuster": 0,
 		"useCDATA": 0,
 		"useDoubleQuotes": 0,
 		"useUnixNewlines": 0
@@ -2663,7 +2693,8 @@
 		"autoOutputPathRelativePath": "",
 		"autoOutputPathReplace1": "",
 		"autoOutputPathReplace2": "",
-		"autoOutputPathStyle": 0
+		"autoOutputPathStyle": 0,
+		"shouldRunCacheBuster": 0
 		},
 	"languageDefaultsLESS": {
 		"allowInsecureImports": 0,
@@ -2695,13 +2726,13 @@
 		"enableFootnotes": 1,
 		"enableLabels": 1,
 		"enableSmartQuotes": 1,
-		"escapeLineBreaks": 0,
 		"maskEmailAddresses": 1,
 		"outputFormat": 0,
 		"outputStyle": 0,
 		"parseMetadata": 1,
 		"processHTML": 0,
 		"randomFootnoteNumbers": 0,
+		"shouldRunCacheBuster": 0,
 		"useCompatibilityMode": 0
 		},
 	"languageDefaultsOTHER": {
@@ -2710,7 +2741,8 @@
 		"autoOutputPathRelativePath": "",
 		"autoOutputPathReplace1": "",
 		"autoOutputPathReplace2": "",
-		"autoOutputPathStyle": 0
+		"autoOutputPathStyle": 0,
+		"shouldRunCacheBuster": 0
 		},
 	"languageDefaultsPNG": {
 		"autoOutputAction": 0,
@@ -2730,7 +2762,8 @@
 		"autoOutputPathReplace2": "",
 		"autoOutputPathStyle": 0,
 		"compileDebug": 1,
-		"outputStyle": 0
+		"outputStyle": 0,
+		"shouldRunCacheBuster": 0
 		},
 	"languageDefaultsSASS": {
 		"autoOutputAction": 0,
@@ -2758,7 +2791,8 @@
 		"logicless": 0,
 		"outputFormat": 0,
 		"outputStyle": 1,
-		"railsCompatible": 0
+		"railsCompatible": 0,
+		"shouldRunCacheBuster": 0
 		},
 	"languageDefaultsSTYLUS": {
 		"autoOutputAction": 0,
