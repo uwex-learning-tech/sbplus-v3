@@ -1,5 +1,5 @@
 # Storybook Plus (SB+)  
-**version 3.1.1**
+**version 3.1.2**
 
 ---
 ### Requirements
@@ -41,17 +41,22 @@ Notes: most visually impaired users started out using screen reader with Interne
 SB+ may not function properly with beta or pre-released version of web browsers. Please use the latest stable version for the best experience.
 
 ---
-### Documentation
-For more details and how to setup a SB+ presentation, please visit the [SB+ Documentation](https://media.uwex.edu/resources/documentation/storybook-plus-v3/).
-
----
-### Bug Reporting and Questions
-If any bugs/glitches are found in the SB+, please report them under the "**[Issues](https://github.com/oel-mediateam/sbplus_v3/issues)**" page on GitHub. When reporting a bug, please write the report as detailed and specifically as possible. Note the steps to reproduce the bug and include screen captures if possible.
-
-For questions, please also post them under the "**[Issues](https://github.com/oel-mediateam/sbplus_v3/issues)**" page on GitHub.
-
----
 ### Version Change Log
+
+#### Pending
+_none at the moment_
+
+#### 3.1.2 (11/07/2017)
+* Author profile is now aligned to the right to avoid alignment issues with text wrapping
+* Hide General Info under Menu when no general info is provided in the XML
+* Video/audio automatically paused when opening a menu item
+* Removed centralized author profile request when there is no author specified
+* SBPLUS root directory defaults to `sources/` when not specified in the manifest
+* Removed duplicate logo requests when page has no widget contents
+* Allow SB+ presentation to be loaded on Safari's private mode or any private mode that does not support local and session storages
+* Display unknown page type error message when the page type is not supported
+* Changed a few jQuery $.get methods to $.ajax methods for HEAD request
+* Updated SBPLUS SVG logo and css
 
 #### 3.1.1 (06/22/2017)
 * Fixed the issue where bundle page type is not working properly

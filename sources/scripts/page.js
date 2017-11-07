@@ -95,13 +95,13 @@ Page.prototype.getPageMedia = function() {
         
         case 'kaltura':
             
-            if ( SBPLUS.hasStorageItem( 'sbplus-' + SBPLUS.uniqueTitle + '-kaltura-loaded', true) === false ) {
+            if ( SBPLUS.kalturaLoaded === false ) {
                 
                 $.getScript( self.root + '/scripts/libs/kaltura/mwembedloader.js', function() {
                     
                     $.getScript( self.root +  '/scripts/libs/kaltura/kwidgetgetsources.js', function() {
                         
-                        SBPLUS.setStorageItem( 'sbplus-' + SBPLUS.uniqueTitle + '-kaltura-loaded', 1, true);
+                        SBPLUS.kalturaLoaded = true;
                         self.loadKalturaVideoData();
                         
                     } );
@@ -120,23 +120,33 @@ Page.prototype.getPageMedia = function() {
             
             self.isAudio = true;
             
-            $.get( 'assets/pages/' + self.src + '.' + self.imgType, function() {
+            $.ajax( {
+                
+                url: 'assets/pages/' + self.src + '.' + self.imgType,
+                type: 'HEAD'
+                
+            } ).done( function() {
                 self.hasImage = true;
             } ).fail( function() {
                 self.showPageError( 'NO_IMG', this.url );
             } ).always( function() {
                 
-                $.get( 'assets/audio/' + self.src + '.vtt', function( data ) {
+                $.ajax( {
+                    
+                    url: 'assets/audio/' + self.src + '.vtt',
+                    type: 'HEAD'
+                    
+                } ).done( function( data ) {
+                    
                     self.captionUrl = this.url;
                     self.transcript = SBPLUS.noScript( data );
+                    
                 } ).always( function() {
                     
                     var html = '<video id="mp" class="video-js vjs-default-skin"></video>';
                     
                     if ( ! Modernizr.objectfit ) {
-                        
                         $( self.mediaContent ).addClass( 'show-vjs-poster' );
-                        
                     }
                     
                     $( self.mediaContent ).html( html ).promise().done( function() {
@@ -145,7 +155,7 @@ Page.prototype.getPageMedia = function() {
                         self.setWidgets();
                 
                     } );
-                
+                    
                 } );
                 
             } );
@@ -190,12 +200,17 @@ Page.prototype.getPageMedia = function() {
         
         case 'video':
             
-            $.get( 'assets/video/' + self.src + '.vtt', function( data ) {
+            $.ajax( {
+                
+                url: 'assets/video/' + self.src + '.vtt',
+                type: 'HEAD'
+                
+            } ).done( function( data ) {
                 
                 self.captionUrl = this.url;
                 self.transcript = SBPLUS.noScript( data );
                 
-            }).always( function() {
+            } ).always( function() {
                 
                 var html = '<video id="mp" class="video-js vjs-default-skin" crossorigin="anonymous" width="100%" height="100%"></video>';
                 
@@ -255,9 +270,16 @@ Page.prototype.getPageMedia = function() {
                 self.cuepoints.push( cue );
             } );
             
-            $.get( 'assets/audio/' + self.src + '.vtt', function( data ) {
+            $.ajax( {
+                
+                url: 'assets/audio/' + self.src + '.vtt',
+                type: 'HEAD'
+                
+            } ).done( function( data ) {
+                
                 self.captionUrl = this.url;
                 self.transcript = SBPLUS.noScript( data );
+                
             } ).always( function() {
                 
                 var html = '<video id="mp" class="video-js vjs-default-skin"></video>';
@@ -269,7 +291,7 @@ Page.prototype.getPageMedia = function() {
                     self.setWidgets();
             
                 } );
-            
+                
             } );
             
         break;
@@ -298,6 +320,7 @@ Page.prototype.getPageMedia = function() {
         break;
         
         default:
+            self.showPageError( 'UNKNOWN_TYPE', self.type);
             self.setWidgets();
         break;
         
@@ -442,52 +465,49 @@ Page.prototype.renderVideoJS = function() {
         techOrder: ['html5'],
         controls: true,
         autoplay: isAutoplay,
-        playsinline: true,
-        nativeControlsForTouch: false,
         preload: "auto",
         playbackRates: [0.5, 1, 1.5, 2],
         controlBar: {
             fullscreenToggle: false
         },
-        plugins: {},
-        manualCleanup: true
+        plugins: {
+            replayButton: true
+        }
 
     };
     
     // autoplay is off for iPhone or iPod
     if( SBPLUS.isIOSDevice() ) {
         options.autoplay = false;
+        options.playsinline = true;
+        options.nativeControlsForTouch = false;
     }
     
     // set tech order and plugins
     if ( self.isKaltura ) {
-        //options.plugins = Object.assign( options.plugins, { videoJsResolutionSwitcher: { 'default': 720 } } );
+        
         $.extend( options.plugins, { videoJsResolutionSwitcher: { 'default': 720 } } );
+        
     } else if ( self.isYoutube ) {
+        
         options.techOrder = ['youtube'];
         options.sources = [{ type: "video/youtube", src: "https://www.youtube.com/watch?v=" + self.src }];
         options.playbackRates = null;
-        //options.plugins = Object.assign( options.plugins, { videoJsResolutionSwitcher: { 'default': 720 } } );
+        
         $.extend( options.plugins, { videoJsResolutionSwitcher: { 'default': 720 } } );
 
     } else if ( self.isVimeo ) {
+        
         options.techOrder = ["vimeo"];
         options.sources = [{ type: "video/vimeo", src: "https://vimeo.com/" + self.src }];
         options.playbackRates = null;
-        options.controls = false;
-    }
-    
-    if ( SBPLUS.isIOSDevice() ) {
-        
-        options.nativeControlsForTouch = true;
+        //options.controls = false;
         
     }
     
     self.mediaPlayer = videojs( 'mp', options, function() {
         
         var player = this;
-        
-        player.manualCleanup = true;
         
         if ( self.isKaltura ) {
             
@@ -590,14 +610,22 @@ Page.prototype.renderVideoJS = function() {
     		}, true );
 		}
         
+        // set playback rate
+        if ( options.playbackRates !== null ) {
+            player.playbackRate( SBPLUS.playbackrate );
+        }
+        
+        // video events
         player.on(['waiting', 'pause'], function() {
             
           self.isPlaying = false;
           
+/*
           if ( SBPLUS.getStorageItem( 'sbplus-disable-it' ) === "0" ) {
               clearInterval( transcriptInterval );
               self.transcriptIntervalStarted = false;
           }
+*/
           
         });
         
@@ -605,6 +633,7 @@ Page.prototype.renderVideoJS = function() {
             
           self.isPlaying = false;
           
+/*
           if ( SBPLUS.getStorageItem( 'sbplus-disable-it' ) === "0" ) {
               
               if ( $( '#sbplus_interactivetranscript' ).hasClass( 'active' ) ) {
@@ -615,6 +644,7 @@ Page.prototype.renderVideoJS = function() {
               self.transcriptIntervalStarted = false;
               
           }
+*/
           
         });
         
@@ -622,12 +652,14 @@ Page.prototype.renderVideoJS = function() {
             
           self.isPlaying = true;
           
+/*
           if ( SBPLUS.getStorageItem( 'sbplus-disable-it' ) === "0" ) {
               if ( $( '#sbplus_interactivetranscript' ).hasClass( 'active' )
               && self.transcriptIntervalStarted === false ) {
                 self.startInteractiveTranscript();
               }
           }
+*/
           
         });
         
@@ -637,33 +669,24 @@ Page.prototype.renderVideoJS = function() {
           
         });
         
-        // playrate
-        if ( options.playbackRates !== null && self.isYoutube === false
-        && self.isVimeo === false ) {
+        player.on( 'resolutionchange', function() {
+                
+    		player.playbackRate( SBPLUS.playbackrate );
+    		
+		} );
+        
+        player.on( 'ratechange', function() {
             
-            player.on( 'resolutionchange', function() {
-                
-        		player.playbackRate( Number( SBPLUS.getStorageItem( 'sbplus-' + SBPLUS.uniqueTitle + '-playbackrate-temp', true ) ) );
-        		
-    		} );
+            var rate = this.playbackRate();
             
-            // default settings
-            if ( SBPLUS.hasStorageItem( 'sbplus-' + SBPLUS.uniqueTitle + '-playbackrate-temp', true ) ) {
+            if ( SBPLUS.playbackrate !== rate ) {
                 
-                player.playbackRate( Number( SBPLUS.getStorageItem( 'sbplus-' + SBPLUS.uniqueTitle + '-playbackrate-temp', true ) ) );
-                
-            } else {
-                
-                player.playbackRate( Number( SBPLUS.getStorageItem( 'sbplus-playbackrate' ) ) );
-                SBPLUS.setStorageItem( 'sbplus-' + SBPLUS.uniqueTitle + '-playbackrate-temp', SBPLUS.getStorageItem( 'sbplus-playbackrate' ), true );
+                SBPLUS.playbackrate = rate;
+                this.playbackRate(rate);
                 
             }
-            
-            player.on( 'ratechange', function() {
-        		SBPLUS.setStorageItem( 'sbplus-' + SBPLUS.uniqueTitle + '-playbackrate-temp', player.playbackRate(), true );
-    		} );
-            
-        }
+    		
+		} );
         
         // volume
         
@@ -962,6 +985,10 @@ Page.prototype.showPageError = function( type, src ) {
         
         case 'NO_MEDIA':
             msg = '<p><strong>The content for this Storybook Page could not be loaded.</strong></p><p><strong>Expected media:</strong> ' + src + '</p><p>Please try refreshing your browser, or coming back later.</p><p>If this problem continues, please <a href="javascript:void(0);" onclick="SBPLUS.openMenuItem(\'sbplus_help\');">contact tech support</a>.</p>';
+        break;
+        
+        case 'UNKNOWN_TYPE':
+            msg = '<p><strong>UNKNOWN PAGE TYPE</strong></p><p>Page type ("' + src + '") is not supported.</p><p>If this problem continues, please <a href="javascript:void(0);" onclick="SBPLUS.openMenuItem(\'sbplus_help\');">contact tech support</a>.</p>';
         break;
         
     }

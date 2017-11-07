@@ -3,8 +3,8 @@
  *
  * @author: Ethan Lin
  * @url: https://github.com/oel-mediateam/sbplus
- * @version: 3.1.1
- * Released 06/22/2017
+ * @version: 3.1.2
+ * Released 11/07/2017
  *
  * @license: GNU GENERAL PUBLIC LICENSE v3
  *
@@ -29,6 +29,8 @@
 /*******************************************************************************
     STORYBOOK PLUS MAIN OBJECT CLASS
 *******************************************************************************/
+'use strict';
+
 
 var SBPLUS = SBPLUS || {
     
@@ -46,6 +48,7 @@ var SBPLUS = SBPLUS || {
     menu : null,
     screenReader: null,
     uniqueTitle: '',
+    logo: '',
     
     // holds current and total pages in the presentation
     totalPages: 0,
@@ -66,6 +69,10 @@ var SBPLUS = SBPLUS || {
     xmlParsed: false,
     presentationStarted: false,
     hasError: false,
+    kalturaLoaded: false,
+    
+    // videojs
+    playbackrate: 1,
     
     // easter egg variables
     clickCount: 0,
@@ -192,6 +199,10 @@ var SBPLUS = SBPLUS || {
                 // set an event listener to unload all session storage on HTML
                 // page refresh/reload or closing
                 $( window ).on( 'unload', self.removeAllSessionStorage.bind( self ) );
+                
+                if ( self.isEmpty( self.manifest.sbplus_root_directory ) ) {
+                    self.manifest.sbplus_root_directory = 'sources/';
+                }
                 
                 // called the loadTemplate functiont load Storybook Plus's
                 // HTML structure
@@ -511,6 +522,9 @@ var SBPLUS = SBPLUS || {
                 sections: xSections
             };
             
+            // get/set the presenation title
+            self.uniqueTitle = self.sanitize( self.xml.setup.title );
+            
             // if analytics is on, get and set Google analtyics tracking
             if ( self.xml.settings.analytics === 'on' ) {
                 
@@ -531,7 +545,7 @@ var SBPLUS = SBPLUS || {
                 var profileUrl = self.manifest.sbplus_author_directory + sanitizedAuthor + '.json';
                 
                 // if author data in XML is empty
-                if ( self.isEmpty( xAuthor.text() ) ) {
+                if ( self.isEmpty( xAuthor.text() ) && !self.isEmpty( sanitizedAuthor ) ) {
                     
                     // get centralized author name and profile via AJAX
                     $.ajax( {
@@ -547,10 +561,16 @@ var SBPLUS = SBPLUS || {
                         self.xml.setup.author = res.name;
                         self.xml.setup.profile = self.noScript( res.profile );
                         
+                        self.xmlParsed = true;
+                        self.renderSplashscreen();
+                        
                     } ).fail( function() { // when fail, default to the values in XML
                         
                         self.xml.setup.author = xAuthor.attr( 'name' ).trim();
                         self.xml.setup.profile = self.getTextContent( xAuthor );
+                        
+                        self.xmlParsed = true;
+                        self.renderSplashscreen();
                         
                     } )
                     
@@ -560,15 +580,12 @@ var SBPLUS = SBPLUS || {
                     self.xml.setup.author = xAuthor.attr( 'name' ).trim();
                     self.xml.setup.profile = self.getTextContent( xAuthor );
                     
+                    self.xmlParsed = true;
+                    self.renderSplashscreen();
+                    
                 }
                 
             }
-            
-            // get/set the presenation title
-            self.uniqueTitle = self.sanitize( self.xml.setup.title );
-            
-            self.xmlParsed = true;
-            self.renderSplashscreen();
             
         }
         
@@ -617,6 +634,8 @@ var SBPLUS = SBPLUS || {
             
             if ( self.hasStorageItem( 'sbplus-playbackrate' ) === false ) {
                 self.setStorageItem( 'sbplus-playbackrate', 1 );
+            } else {
+                self.playbackrate = self.getStorageItem( 'sbplus-playbackrate' );
             }
             
             if ( self.hasStorageItem( 'sbplus-subtitle' ) === false ) {
@@ -1081,6 +1100,11 @@ var SBPLUS = SBPLUS || {
             
             // add main menu button
             self.layout.mainMenu = new MenuBar( $( self.button.menu )[0].id, false );
+            
+            // hide general info under main menu if empty
+            if (self.isEmpty(self.xml.setup.generalInfo)) {
+                $(".sbplus_general_info").hide();
+            }
             
             // add download button if downloads object is not empty
             if ( !$.isEmptyObject(self.downloads) ) {
@@ -1625,6 +1649,14 @@ var SBPLUS = SBPLUS || {
         
     openMenuItem: function( id ) {
         
+        if (this.currentPage.mediaPlayer != null) {
+            
+            if (!this.currentPage.mediaPlayer.paused()) {
+                this.currentPage.mediaPlayer.pause();
+            }
+            
+        }
+        
         var self = this;
         var itemId = id;
         var content = "";
@@ -1699,38 +1731,53 @@ var SBPLUS = SBPLUS || {
                 content = '<p class="name">' + self.xml.setup.author + '</p>';
                 content += self.xml.setup.profile;
                 
+            } else {
+                content = 'No author profile available.';
             }
             
             break;
             
             case 'sbplus_general_info':
             menuTitle.html( 'General Info' );
-            content = self.xml.setup.generalInfo;
+            
+            if ( self.isEmpty( self.xml.setup.generalInfo ) ) {
+                content = 'No general information available.';
+            } else {
+                content = self.xml.setup.generalInfo;
+            }
+            
             break;
             
             case 'sbplus_settings':
                 
                 menuTitle.html( 'Settings' );
                 
-                if ( this.hasStorageItem( 'sbplus-' + self.uniqueTitle + '-settings-loaded', true ) === false ) {
+                if ( Modernizr.localstorage && Modernizr.sessionstorage ) {
                     
-                    $.get( self.manifest.sbplus_root_directory + 'scripts/templates/settings.tpl', function( data ) {
+                    if ( this.hasStorageItem( 'sbplus-' + self.uniqueTitle + '-settings-loaded', true ) === false ) {
                     
-                        self.settings = data;
-                        self.setStorageItem( 'sbplus-' + self.uniqueTitle + '-settings-loaded', 1, true );
-                        menuContent.append( data );
+                        $.get( self.manifest.sbplus_root_directory + 'scripts/templates/settings.tpl', function( data ) {
+                        
+                            self.settings = data;
+                            self.setStorageItem( 'sbplus-' + self.uniqueTitle + '-settings-loaded', 1, true );
+                            menuContent.append( data );
+                            self.afterSettingsLoaded();
+                            
+                        } );
+                        
+                    } else {
+                        
+                        menuContent.append( self.settings );
                         self.afterSettingsLoaded();
                         
-                    } );
+                    }
                     
                 } else {
                     
-                    menuContent.append( self.settings );
-                    self.afterSettingsLoaded();
+                    content = 'Settings require web browser\'s local storage and session storage support. ';
+                    content += 'Your web browser does not support local and session storage or is in private mode.';
                     
                 }
-                
-                content = '';
                 
             break;
             
@@ -1923,10 +1970,9 @@ var SBPLUS = SBPLUS || {
             
             this.hideWidgetContentIndicator();
             $( this.screenReader.hasNotes ).empty();
-            
             $( this.layout.widget ).addClass('noSegments');
             
-            if ( this.hasStorageItem( 'sbplus-' + self.uniqueTitle + '-logo-loaded', true ) === false ) {
+            if ( self.isEmpty( self.logo ) ) {
                 
                 var program = this.xml.setup.program;
                 
@@ -1942,32 +1988,41 @@ var SBPLUS = SBPLUS || {
                 
                 var logoUrl = this.manifest.sbplus_logo_directory + program + '.svg';
                 
-                $.get( logoUrl, function() {
+                $.ajax( {
                     
-                    self.setStorageItem( 'sbplus-' + self.uniqueTitle + '-logo-loaded', this.url, true );
+                    url: logoUrl,
+                    type: 'HEAD'
                     
-                    $( self.widget.content ).css( 'background-image', 'url(' +
-                        self.getStorageItem( 'sbplus-' + self.uniqueTitle + '-logo-loaded', true ) + ')' );
-                        
+                } ).done( function() {
+                    
+                    self.logo = this.url;
+                    $( self.widget.content ).css( 'background-image', 'url(' + self.logo + ')' );
+                    
                 } ).fail( function() {
                     
                     logoUrl = self.manifest.sbplus_logo_directory + self.manifest.sbplus_logo_default + '.svg';
                     
-                    $.get( logoUrl, function() {
+                    $.ajax( {
                         
-                        self.setStorageItem( 'sbplus-' + self.uniqueTitle + '-logo-loaded', this.url, true );
+                        url: logoUrl,
+                        type: 'HEAD'
                         
-                        $( self.widget.content ).css( 'background-image', 'url(' +
-                            self.getStorageItem( 'sbplus-' + self.uniqueTitle + '-logo-loaded', true ) + ')' );
-                            
+                    } ).done( function() {
+                        
+                        self.logo = this.url;
+                        $( self.widget.content ).css( 'background-image', 'url(' + self.logo + ')' );
+                        
+                    } ).fail( function() {
+                        
+                        self.logo = self.manifest.sbplus_root_directory + 'images/default_logo.svg';
+                        
                     } );
                     
                 } );
                 
             } else {
                 
-                $( self.widget.content ).css( 'background-image', 'url(' +
-                    self.getStorageItem( 'sbplus-' + self.uniqueTitle + '-logo-loaded', true ) + ')' );
+                $( self.widget.content ).css( 'background-image', 'url(' + self.logo + ')' );
                 
             }
             
@@ -2325,13 +2380,17 @@ var SBPLUS = SBPLUS || {
     
     setStorageItem: function( key, value, toSession ) {
         
-        if ( toSession ) {
+        if ( Modernizr.localstorage || Modernizr.sessionstorage ) {
             
-            sessionStorage.setItem( key, value );
+            if ( toSession ) {
             
-        } else {
-            
-            localStorage.setItem( key, value );
+                sessionStorage.setItem( key, value );
+                
+            } else {
+                
+                localStorage.setItem( key, value );
+                
+            }
             
         }
         
@@ -2339,13 +2398,17 @@ var SBPLUS = SBPLUS || {
     
     getStorageItem: function( key, fromSession ) {
         
-        if ( fromSession ) {
+        if ( Modernizr.localstorage || Modernizr.sessionstorage ) {
             
-            return sessionStorage.getItem( key );
+            if ( fromSession ) {
             
-        } else {
-            
-            return localStorage.getItem( key );
+                return sessionStorage.getItem( key );
+                
+            } else {
+                
+                return localStorage.getItem( key );
+                
+            }
             
         }
         
@@ -2353,13 +2416,17 @@ var SBPLUS = SBPLUS || {
     
     deleteStorageItem: function( key, fromSession ) {
         
-        if ( fromSession ) {
+        if ( Modernizr.localstorage || Modernizr.sessionstorage ) {
             
-            return sessionStorage.removeItem( key );
+            if ( fromSession ) {
             
-        } else {
-            
-            return localStorage.removeItem( key );
+                return sessionStorage.removeItem( key );
+                
+            } else {
+                
+                return localStorage.removeItem( key );
+                
+            }
             
         }
         
@@ -2367,21 +2434,25 @@ var SBPLUS = SBPLUS || {
     
     hasStorageItem: function( key, fromSession ) {
         
-        if ( fromSession ) {
+        if ( Modernizr.localstorage || Modernizr.sessionstorage ) {
             
-            if ( this.isEmpty( sessionStorage.getItem( key ) ) ) {
-                return false;
+            if ( fromSession ) {
+            
+                if ( this.isEmpty( sessionStorage.getItem( key ) ) ) {
+                    return false;
+                }
+                
+                return true;
+                
+            } else {
+                
+                if ( this.isEmpty( localStorage.getItem( key ) ) ) {
+                    return false;
+                }
+                
+                return true;
+                
             }
-            
-            return true;
-            
-        } else {
-            
-            if ( this.isEmpty( localStorage.getItem( key ) ) ) {
-                return false;
-            }
-            
-            return true;
             
         }
         
@@ -2389,7 +2460,11 @@ var SBPLUS = SBPLUS || {
     
     removeAllSessionStorage: function() {
         
-        return sessionStorage.clear();
+        if ( Modernizr.sessionstorage ) {
+            
+            return sessionStorage.clear();
+            
+        }
         
     },
     
@@ -2454,7 +2529,7 @@ var SBPLUS = SBPLUS || {
             
             self.syncSettings();
             
-            $( '.settings input, .settings select' ).on( 'click', function() {
+            $( '.settings input, .settings select' ).on( 'change', function() {
                 
                 // show msg
                 $( self.menu.menuSavingMsg ).fadeIn().html( 'Saving...' );

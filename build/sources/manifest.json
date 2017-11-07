@@ -8,7 +8,7 @@
     "orientation": "portrait",
     
     "sbplus_google_tracking_id": "UA-90095180-1",
-    "sbplus_root_directory": "sources/",
+    "sbplus_root_directory": "",
     "sbplus_splash_directory": "https://media.uwex.edu/content/media/storybook_support/splash/",
     "sbplus_author_directory": "https://media.uwex.edu/content/media/storybook_support/author/",
     "sbplus_logo_directory": "https://media.uwex.edu/content/media/storybook_support/logo/",
