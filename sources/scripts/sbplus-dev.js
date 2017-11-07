@@ -1101,6 +1101,11 @@ var SBPLUS = SBPLUS || {
             // add main menu button
             self.layout.mainMenu = new MenuBar( $( self.button.menu )[0].id, false );
             
+            // hide general info under main menu if empty
+            if (self.isEmpty(self.xml.setup.generalInfo)) {
+                $(".sbplus_general_info").hide();
+            }
+            
             // add download button if downloads object is not empty
             if ( !$.isEmptyObject(self.downloads) ) {
                 
@@ -1644,6 +1649,14 @@ var SBPLUS = SBPLUS || {
         
     openMenuItem: function( id ) {
         
+        if (this.currentPage.mediaPlayer != null) {
+            
+            if (!this.currentPage.mediaPlayer.paused()) {
+                this.currentPage.mediaPlayer.pause();
+            }
+            
+        }
+        
         var self = this;
         var itemId = id;
         var content = "";
@@ -1794,6 +1807,14 @@ var SBPLUS = SBPLUS || {
     },
     
     closeMenuContent: function() {
+        
+        if (this.currentPage.mediaPlayer != null) {
+            
+            if (this.currentPage.mediaPlayer.paused()) {
+                this.currentPage.mediaPlayer.play();
+            }
+            
+        }
         
         var menuContentWrapper = $( this.menu.menuContentWrapper );
         var menuContent = $( this.menu.menuContent );
