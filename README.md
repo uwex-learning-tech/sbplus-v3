@@ -1,5 +1,5 @@
 # Storybook Plus (SB+)  
-**version 3.1.1**
+**version 3.1.2**
 
 ---
 ### Requirements
@@ -44,6 +44,12 @@ SB+ may not function properly with beta or pre-released version of web browsers.
 ### Version Change Log
 
 #### Pending
+_none at the moment_
+
+#### 3.1.2 (11/07/2017)
+* Author profile is now aligned right to avoid text wrapping alignment issues
+* Hide General Info under Menu when no general info is provided in the XML
+* Video/audio automatically paused when opening a menu item under menu
 * Removed centralized author profile request when there is no author specified
 * SBPLUS root directory defaults to `sources/` when not specified in the manifest
 * Removed duplicate logo requests when page has no widget contents
