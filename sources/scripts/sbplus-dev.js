@@ -1808,14 +1808,6 @@ var SBPLUS = SBPLUS || {
     
     closeMenuContent: function() {
         
-        if (this.currentPage.mediaPlayer != null) {
-            
-            if (this.currentPage.mediaPlayer.paused()) {
-                this.currentPage.mediaPlayer.play();
-            }
-            
-        }
-        
         var menuContentWrapper = $( this.menu.menuContentWrapper );
         var menuContent = $( this.menu.menuContent );
         
