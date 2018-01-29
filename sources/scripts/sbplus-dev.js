@@ -70,6 +70,7 @@ var SBPLUS = SBPLUS || {
     presentationStarted: false,
     hasError: false,
     kalturaLoaded: false,
+    alreadyResized: false,
     
     // videojs
     playbackrate: 1,
@@ -1152,10 +1153,14 @@ var SBPLUS = SBPLUS || {
             // easter egg event listener
             $( "#sbplus_menu_btn .menu-parent" ).on( 'click', self.burgerBurger.bind( self ) );
             
-            // resize elements after everything is put in place
-            self.resize();
+            if ( window.innerWidth < 900 || window.screen.width <= 414 ) {
+                this.hideWidget();
+            }
             
             this.presentationRendered = true;
+            
+            // resize elements after everything is put in place
+            self.resize();
             
             return $( self.layout.sbplus );
             
@@ -1854,12 +1859,12 @@ var SBPLUS = SBPLUS || {
     toggleWidget: function() {
         
         if ( $( this.layout.widget ).is( ':visible' ) ) {
+            
             this.hideWidget();
         } else {
             this.showWidget();
+            
         }
-        
-        this.resize();
         
     },
     
@@ -1870,17 +1875,8 @@ var SBPLUS = SBPLUS || {
         $( this.layout.widget ).hide();
         $( this.button.widget ).find( '.icon-widget-open' ).show();
         $( this.button.widget ).find( '.icon-widget-close' ).hide();
-        
-/*
-        if ( this.layout.isMobile ) {
-            media.addClass( 'aspect_ratio' );
-        } else {
-            media.removeClass( 'aspect_ratio' )
-                    .addClass( 'non_aspect_ratio' ).css( 'height', '100%');
-        }
-*/      
+              
         media.css( 'height', '100%');
-        
         media.removeClass( 'widget_on' ).addClass( 'widget_off' );
         
         this.showWidgetContentIndicator();
@@ -1895,12 +1891,7 @@ var SBPLUS = SBPLUS || {
         $( this.button.widget ).find( '.icon-widget-close' ).show();
         $( this.button.widget ).find( '.icon-widget-open' ).hide();
         
-/*
-        media.removeClass( 'non_aspect_ratio' )
-                .addClass( 'aspect_ratio' ).css( 'height', '' );
-*/
         media.css( 'height', '' );
- 
         media.removeClass( 'widget_off' ).addClass( 'widget_on' );
         
         this.hideWidgetContentIndicator()
@@ -2135,25 +2126,27 @@ var SBPLUS = SBPLUS || {
     
     calcLayout: function() { 
         
-        var media = $( this.layout.media );
+//         var media = $( this.layout.media );
         var widget = $( this.layout.widget );
         var sidebar = $( this.layout.sidebar );
         var tocWrapper = $( this.tableOfContents.container );
         var widgetBtnTip = $( this.button.widgetTip );
         
+/*
         if ( widget.is( ':visible' ) || sidebar.is( ':visible' ) ) {
             media.removeClass( 'aspect_ratio' ).addClass( 'non_aspect_ratio' );
         } else {
             media.removeClass( 'non_aspect_ratio' ).addClass( 'aspect_ratio' );
         }
+*/
         
         if ( window.innerWidth < 900 || window.screen.width <= 414 ) {
             
-            if ( $( this.layout.wrapper ).hasClass( 'loaded-in-iframe' ) === false ) {
+            //if ( $( this.layout.wrapper ).hasClass( 'loaded-in-iframe' ) === false ) {
 
                 this.layout.isMobile = true;
                 
-                media.addClass( 'aspect_ratio' );
+//                 media.addClass( 'aspect_ratio' );
                 
                 widgetBtnTip.show();
                 
@@ -2163,7 +2156,15 @@ var SBPLUS = SBPLUS || {
                 widget.css( 'height', sidebar.height() );
                 tocWrapper.css( 'height', sidebar.height() - 30 );
                 
+            //}
+            
+            if ( this.alreadyResized === false ) {
+                this.hideWidget();
             }
+            
+            this.alreadyResized = true;
+            
+            $( this.layout.wrapper ).removeClass( 'sbplus_boxed' );
             
         } else {
             
@@ -2171,14 +2172,20 @@ var SBPLUS = SBPLUS || {
             
             sidebar.css( 'height', '' );
             
+/*
             if ( !widget.is( ':visible' ) ) {
                 widget.css( 'height', '100%' );
             } else {
                 widget.css( 'height', '' );
             }
+*/
+            
+            widget.css( 'height', '' );
             
             tocWrapper.css( 'height', '' );
             widgetBtnTip.hide();
+            
+            $( this.layout.wrapper ).addClass( 'sbplus_boxed' );
 
         }
         

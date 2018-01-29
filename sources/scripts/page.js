@@ -1,4 +1,4 @@
-var transcriptInterval = null;
+// var transcriptInterval = null;
 var Page = function ( obj, data ) {
     
     this.pageData = data;
@@ -32,7 +32,7 @@ var Page = function ( obj, data ) {
         
         this.transcript = null;
         this.transcriptLoaded = false;
-        this.transcriptIntervalStarted = false;
+//         this.transcriptIntervalStarted = false;
         
         this.hasImage = false;
         this.delayStorage = null;
@@ -88,7 +88,8 @@ Page.prototype.getPageMedia = function() {
         
     }
     
-    clearInterval( transcriptInterval );
+    // clearInterval( transcriptInterval );
+    
     // end reset
     
     switch ( self.type ) {
@@ -894,6 +895,7 @@ Page.prototype.getWidgetContent = function( id ) {
     
 }
 
+/*
 Page.prototype.startInteractiveTranscript = function() {
     
     var self = this;
@@ -949,6 +951,7 @@ Page.prototype.startInteractiveTranscript = function() {
     } );
     
 }
+*/
 
 // display page error
 Page.prototype.showPageError = function( type, src ) {

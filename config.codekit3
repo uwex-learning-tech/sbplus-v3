@@ -7,7 +7,7 @@
 		"uuidString": "A55265B6-3CAC-4E30-9611-2EA711C82108"
 		}
 	],
-"creatorBuild": "26097",
+"creatorBuild": "26261",
 "files": {
 	"\/.gitignore": {
 		"cB": 0,
@@ -753,7 +753,7 @@
 		},
 	"\/sources\/scripts\/sbplus-dev.js": {
 		"ft": 64,
-		"ma": 0,
+		"ma": 1,
 		"mi": 1,
 		"oA": 0,
 		"oAP": "\/build\/sources\/scripts\/sbplus.js",
@@ -1435,6 +1435,10 @@
 		"id-match": {
 			"active": 0,
 			"optionString": "'^[a-z]+([A-Z][a-z]+)*$', {'properties': false, 'onlyDeclarations': true}"
+			},
+		"implicit-arrow-linebreak": {
+			"active": 0,
+			"optionString": "'beside'"
 			},
 		"indent": {
 			"active": 0,
