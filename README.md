@@ -44,7 +44,8 @@ SB+ may not function properly with beta or pre-released version of web browsers.
 ### Version Change Log
 
 #### Pending
-* Fixed issue with responsiveness inside an iFrame.
+* Fixed issue with responsiveness inside an iFrame
+* Fixed issue where the page jumps when presentation started
 
 #### 3.1.2 (11/07/2017)
 * Author profile is now aligned to the right to avoid alignment issues with text wrapping

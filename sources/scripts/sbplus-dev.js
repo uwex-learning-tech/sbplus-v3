@@ -1640,8 +1640,14 @@ var SBPLUS = SBPLUS || {
         var targetHeight = $( target ).outerHeight();
         
         // get/set target's position
+        
+        var sectionHeaders = $( this.tableOfContents.header );
         var targetTop = $( target ).offset().top - targetHeight;
         
+        if ( sectionHeaders.length <= 0 ) {
+            targetTop += 40;
+        }
+    
         // if target's position is greater than scrollable height
         if ( targetTop > scrollHeight ) {
             
@@ -1652,10 +1658,11 @@ var SBPLUS = SBPLUS || {
         
         // if target's position is less than target's height
         // i.e., scroll to the top of the list when on the last item
+        
         if ( targetTop < targetHeight ) {
             
             // smoothly scroll to target and do align to top
-            target.scrollIntoView( { behavior: 'smooth', block: 'start' } );
+            target.scrollIntoView( /* { behavior: 'smooth', block: 'start' } */ );
             
         }
         
