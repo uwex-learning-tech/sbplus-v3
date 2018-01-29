@@ -736,7 +736,15 @@ var SBPLUS = SBPLUS || {
                         // display the image
                         self.setSplashImage( this.url );
                         
-                    });
+                    } ).fail( function() {
+                        
+                        self.setSplashImage( self.manifest.sbplus_root_directory + 'images/default_splash.svg' );
+                        
+                    } );
+                    
+                } else {
+                    
+                    self.setSplashImage( self.manifest.sbplus_root_directory + 'images/default_splash.svg' );
                     
                 }
                 
