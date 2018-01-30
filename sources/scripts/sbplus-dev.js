@@ -855,7 +855,13 @@ var SBPLUS = SBPLUS || {
             self.splashScreenRendered = true;
             
             if ( window.self !== window.top ) {
-                $( self.layout.wrapper ).addClass( 'loaded-in-iframe' );
+                
+                if ( document.referrer.indexOf('uwli.courses') >= 0 ) {
+                    
+                   $( self.layout.wrapper ).addClass( 'loaded-in-iframe' );
+                   
+                }
+                
             }
             
             self.resize();

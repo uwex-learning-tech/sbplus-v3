@@ -1394,6 +1394,237 @@ body {
 
   .sbplus_autoplay_on #sbplus_media_wrapper .sbplus_media_content .video-js.vjs-default-skin .vjs-big-play-button {
     display: none; } }
+.loaded-in-iframe {
+  width: 900px;
+  height: 586px;
+  margin: 0 auto; }
+  .loaded-in-iframe #sbplus_error_screen {
+    width: 900px;
+    height: 586px; }
+  .loaded-in-iframe #sbplus {
+    width: 900px;
+    height: 586px; }
+    .loaded-in-iframe #sbplus #sbplus_splash_screen {
+      width: 900px;
+      height: 586px; }
+    .loaded-in-iframe #sbplus #sbplus_content_wrapper #sbplus_left_col {
+      border-left: 1px solid #ccc; }
+      .loaded-in-iframe #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_widget {
+        border-left: none;
+        border-right: none; }
+    .loaded-in-iframe #sbplus #sbplus_content_wrapper #sbplus_right_col {
+      border-right: 1px solid #ccc; }
+      .loaded-in-iframe #sbplus #sbplus_content_wrapper #sbplus_right_col #sbplus_table_of_contents_wrapper {
+        border-left: none; }
+    .loaded-in-iframe #sbplus #sbplus_control_bar {
+      border-left: 1px solid #ccc;
+      border-right: 1px solid #ccc;
+      border-bottom: 1px solid #ccc; }
+  .loaded-in-iframe #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_cta {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-flow: row nowrap;
+    flex-flow: row nowrap;
+    -webkit-justify-content: space-between;
+    justify-content: space-between; }
+    .loaded-in-iframe #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_cta button:first-child {
+      margin-right: 2%; }
+    .loaded-in-iframe #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_cta button {
+      -webkit-flex: 1 0 49%;
+      flex: 1 0 49%;
+      margin-bottom: 0; }
+  .loaded-in-iframe #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_downloads {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-flow: row nowrap;
+    flex-flow: row nowrap;
+    margin: 10px 0 5px; }
+    .loaded-in-iframe #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_downloads a {
+      -webkit-flex: 1 0 25%;
+      flex: 1 0 25%;
+      display: block;
+      font-size: 120%;
+      margin-bottom: 0;
+      -moz-border-radius: 0;
+      -webkit-border-radius: 0;
+      border-radius: 0;
+      border: none; }
+  .loaded-in-iframe #sbplus #sbplus_banner_bar {
+    height: 30px;
+    font-size: 120%; }
+    .loaded-in-iframe #sbplus #sbplus_banner_bar #sbplus_lession_title {
+      display: block;
+      width: 60%;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      -webkit-align-self: center;
+      align-self: center; }
+    .loaded-in-iframe #sbplus #sbplus_banner_bar #sbplus_menu_area {
+      width: 258px; }
+      .loaded-in-iframe #sbplus #sbplus_banner_bar #sbplus_menu_area #sbplus_author_name {
+        display: -webkit-flex;
+        display: flex;
+        -ms-flex: 2 0 75%;
+        height: 100%;
+        text-align: left;
+        font-weight: bold;
+        min-height: 0;
+        -webkit-align-self: center;
+        align-self: center;
+        -webkit-align-items: center;
+        align-items: center;
+        padding: 0 10px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        background-color: transparent; }
+      .loaded-in-iframe #sbplus #sbplus_banner_bar #sbplus_menu_area #sbplus_menu_btn_wrapper {
+        -ms-flex: 1 0 15%; }
+        .loaded-in-iframe #sbplus #sbplus_banner_bar #sbplus_menu_area #sbplus_menu_btn_wrapper #sbplus_menu_btn,
+        .loaded-in-iframe #sbplus #sbplus_banner_bar #sbplus_menu_area #sbplus_menu_btn_wrapper .root-level {
+          min-width: 30px;
+          margin: 0;
+          padding: 0;
+          color: inherit;
+          font-size: 28px;
+          list-style: none;
+          height: 100%;
+          line-height: 1; }
+          .loaded-in-iframe #sbplus #sbplus_banner_bar #sbplus_menu_area #sbplus_menu_btn_wrapper #sbplus_menu_btn .menu-parent,
+          .loaded-in-iframe #sbplus #sbplus_banner_bar #sbplus_menu_area #sbplus_menu_btn_wrapper .root-level .menu-parent {
+            display: -webkit-flex;
+            display: flex;
+            -webkit-align-items: center;
+            align-items: center;
+            position: relative;
+            height: 100%;
+            cursor: pointer; }
+            .loaded-in-iframe #sbplus #sbplus_banner_bar #sbplus_menu_area #sbplus_menu_btn_wrapper #sbplus_menu_btn .menu-parent .menu,
+            .loaded-in-iframe #sbplus #sbplus_banner_bar #sbplus_menu_area #sbplus_menu_btn_wrapper .root-level .menu-parent .menu {
+              position: absolute;
+              width: 260px;
+              right: -9px;
+              top: 29px;
+              list-style: none;
+              margin: 0;
+              padding: 0;
+              border-top: none;
+              background-color: #5f5d5d;
+              -moz-box-shadow: 0 6px 4px 2px #fff;
+              -webkit-box-shadow: 0 6px 4px 2px #fff;
+              box-shadow: 0 6px 4px 2px #fff;
+              z-index: 11; }
+              .loaded-in-iframe #sbplus #sbplus_banner_bar #sbplus_menu_area #sbplus_menu_btn_wrapper #sbplus_menu_btn .menu-parent .menu .menu-item a,
+              .loaded-in-iframe #sbplus #sbplus_banner_bar #sbplus_menu_area #sbplus_menu_btn_wrapper .root-level .menu-parent .menu .menu-item a {
+                display: -webkit-flex;
+                display: flex;
+                -webkit-flex-flow: row nowrap;
+                flex-flow: row nowrap;
+                -webkit-align-items: center;
+                align-items: center;
+                width: 100%;
+                height: 35px;
+                padding: 0 15px;
+                font-size: 14px;
+                font-weight: normal;
+                color: #fff;
+                text-decoration: none; }
+                .loaded-in-iframe #sbplus #sbplus_banner_bar #sbplus_menu_area #sbplus_menu_btn_wrapper #sbplus_menu_btn .menu-parent .menu .menu-item a span,
+                .loaded-in-iframe #sbplus #sbplus_banner_bar #sbplus_menu_area #sbplus_menu_btn_wrapper .root-level .menu-parent .menu .menu-item a span {
+                  display: inline-block;
+                  margin-right: 5px; }
+              .loaded-in-iframe #sbplus #sbplus_banner_bar #sbplus_menu_area #sbplus_menu_btn_wrapper #sbplus_menu_btn .menu-parent .menu .menu-item:hover,
+              .loaded-in-iframe #sbplus #sbplus_banner_bar #sbplus_menu_area #sbplus_menu_btn_wrapper .root-level .menu-parent .menu .menu-item:hover {
+                background-color: #06498d; }
+                .loaded-in-iframe #sbplus #sbplus_banner_bar #sbplus_menu_area #sbplus_menu_btn_wrapper #sbplus_menu_btn .menu-parent .menu .menu-item:hover a,
+                .loaded-in-iframe #sbplus #sbplus_banner_bar #sbplus_menu_area #sbplus_menu_btn_wrapper .root-level .menu-parent .menu .menu-item:hover a {
+                  color: #fff; }
+              .loaded-in-iframe #sbplus #sbplus_banner_bar #sbplus_menu_area #sbplus_menu_btn_wrapper #sbplus_menu_btn .menu-parent .menu .menu-item:focus,
+              .loaded-in-iframe #sbplus #sbplus_banner_bar #sbplus_menu_area #sbplus_menu_btn_wrapper .root-level .menu-parent .menu .menu-item:focus {
+                background-color: #0c3b6b; }
+                .loaded-in-iframe #sbplus #sbplus_banner_bar #sbplus_menu_area #sbplus_menu_btn_wrapper #sbplus_menu_btn .menu-parent .menu .menu-item:focus a,
+                .loaded-in-iframe #sbplus #sbplus_banner_bar #sbplus_menu_area #sbplus_menu_btn_wrapper .root-level .menu-parent .menu .menu-item:focus a {
+                  color: #fff; }
+          .loaded-in-iframe #sbplus #sbplus_banner_bar #sbplus_menu_area #sbplus_menu_btn_wrapper #sbplus_menu_btn .active,
+          .loaded-in-iframe #sbplus #sbplus_banner_bar #sbplus_menu_area #sbplus_menu_btn_wrapper .root-level .active {
+            color: #ff3c3c; }
+        .loaded-in-iframe #sbplus #sbplus_banner_bar #sbplus_menu_area #sbplus_menu_btn_wrapper ul[aria-hidden="true"] {
+          display: none; }
+  .loaded-in-iframe #sbplus #sbplus_content_wrapper {
+    -webkit-flex-flow: row nowrap;
+    flex-flow: row nowrap;
+    height: -moz-calc(100% - 80px);
+    height: -webkit-calc(100% - 80px);
+    height: calc(100% - 80px); }
+    .loaded-in-iframe #sbplus #sbplus_content_wrapper #sbplus_left_col {
+      width: 100%;
+      height: 100%;
+      border-right: 1px solid #ccc; }
+      .loaded-in-iframe #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper {
+        height: calc( 100% - 146px ); }
+        .loaded-in-iframe #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper .sbplus_media_content {
+          /* videoJS customization goes here if any */ }
+      .loaded-in-iframe #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_widget {
+        display: -webkit-flex;
+        display: flex;
+        -webkit-flex-flow: column nowrap;
+        flex-flow: column nowrap;
+        -webkit-flex: 1 0 auto;
+        flex: 1 0 auto;
+        position: relative;
+        height: 146px;
+        bottom: 0;
+        border-top: 1px solid #ccc; }
+    .loaded-in-iframe #sbplus #sbplus_content_wrapper #sbplus_right_col {
+      width: 258px;
+      height: 100%; }
+  .loaded-in-iframe #sbplus #sbplus_control_bar {
+    height: 50px;
+    font-size: 100%; }
+    .loaded-in-iframe #sbplus #sbplus_control_bar #sbplus_left_controls #sbplus_previous_btn {
+      max-width: 100px; }
+    .loaded-in-iframe #sbplus #sbplus_control_bar #sbplus_left_controls #sbplus_next_btn {
+      max-width: 100px; }
+    .loaded-in-iframe #sbplus #sbplus_control_bar #sbplus_left_controls #sbplus_page_status {
+      -webkit-justify-content: flex-start;
+      justify-content: flex-start; }
+    .loaded-in-iframe #sbplus #sbplus_control_bar #sbplus_right_controls {
+      width: 258px; }
+      .loaded-in-iframe #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper {
+        display: block;
+        height: 48px; }
+        .loaded-in-iframe #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn,
+        .loaded-in-iframe #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level {
+          width: 100%; }
+          .loaded-in-iframe #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent,
+          .loaded-in-iframe #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent {
+            display: -webkit-flex;
+            display: flex;
+            -webkit-align-items: center;
+            align-items: center; }
+            .loaded-in-iframe #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent span,
+            .loaded-in-iframe #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent span {
+              display: block;
+              margin: 0 auto; }
+            .loaded-in-iframe #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu .menu-item,
+            .loaded-in-iframe #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu .menu-item {
+              display: -webkit-flex;
+              display: flex;
+              -webkit-align-items: center;
+              align-items: center;
+              -webkit-justify-content: center;
+              justify-content: center; }
+          .loaded-in-iframe #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .active,
+          .loaded-in-iframe #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .active {
+            color: #06498d; }
+      .loaded-in-iframe #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_sidebar_btn {
+        display: block; }
+      .loaded-in-iframe #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_widget_btn .btnTip {
+        display: none; }
+  .loaded-in-iframe #sbplus #menu_item_content .sbplus_menu_title_bar {
+    height: 30px; }
+
 .sbplus_full #sbplus #sbplus_banner_bar #sbplus_menu_area #sbplus_author_name {
   width: auto;
   -webkit-flex: initial;
