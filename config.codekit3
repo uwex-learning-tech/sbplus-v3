@@ -796,12 +796,6 @@
 		"oA": 2,
 		"oAP": "\/build\/sources\/scripts\/templates\/xml_parse_error.tpl",
 		"oF": 2
-		},
-	"\/test": {
-		"ft": 65536,
-		"oA": 1,
-		"oAP": "\/build\/test",
-		"oF": 0
 		}
 	},
 "hooks": [
