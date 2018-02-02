@@ -336,7 +336,9 @@ body {
             color: #fff;
             padding: 10px;
             z-index: 2;
-            background-color: rgba(0, 0, 0, 0.5); }
+            background-color: rgba(0, 0, 0, 0.5);
+            top: 0;
+            left: 0; }
             .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper .sbplus_media_error p {
               margin-bottom: 10px; }
             .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper .sbplus_media_error ol, .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper .sbplus_media_error ul {

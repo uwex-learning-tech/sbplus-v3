@@ -2206,7 +2206,9 @@ var SBPLUS = SBPLUS || {
             tocWrapper.css( 'height', '' );
             widgetBtnTip.hide();
             
-            $( this.layout.wrapper ).addClass( 'sbplus_boxed' );
+            if ( this.getUrlParam( 'fullview' ) !== '1' ) {
+                $( this.layout.wrapper ).addClass( 'sbplus_boxed' );
+            }
 
         }
         
