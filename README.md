@@ -1,5 +1,5 @@
 # Storybook Plus (SB+)  
-**version 3.1.2**
+**version 3.1.3**
 
 ---
 ### Requirements
@@ -47,6 +47,9 @@ SB+ may not function properly with beta or pre-released version of web browsers.
 * Fixed issue with responsiveness inside an iFrame
 * Fixed issue where the page jumps when presentation started
 * Default splash image will be loaded last if no other splash image is found (#77) - preventing the distracting flash
+* Added a CSS hack for zooming on D2L on a Windows platform
+* Fixed an issue where Error Message screen was out of view (#78) and full view URL query is not functioning
+* Enhanced HTML page type to allow audio and to open a new tab/window instead of embed
 
 #### 3.1.2 (11/07/2017)
 * Author profile is now aligned to the right to avoid alignment issues with text wrapping
@@ -118,4 +121,4 @@ SB+ may not function properly with beta or pre-released version of web browsers.
 
 ---
 ### License & Copyright
-Storybook Plus (SB+) is licensed under [GNU v3](https://github.com/oel-mediateam/sbplus_v3/blob/master/LICENSE) license. (c) 2013 - 2017. Ethan Lin, [Media Services](https://media.uwex.edu), and [University of Wisconsin-Extension, Division of Continuing Education, Outreach & E-Learning](http://ce.uwex.edu/). All rights reserved.
+Storybook Plus (SB+) is licensed under [GNU v3](https://github.com/oel-mediateam/sbplus_v3/blob/master/LICENSE) license. (c) 2013 - 2018. Ethan Lin, [Media Services](https://media.uwex.edu), and [University of Wisconsin-Extension, Division of Continuing Education, Outreach & E-Learning](http://ce.uwex.edu/). All rights reserved.

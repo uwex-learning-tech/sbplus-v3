@@ -3,13 +3,13 @@
  *
  * @author: Ethan Lin
  * @url: https://github.com/oel-mediateam/sbplus
- * @version: 3.1.2
- * Released 11/07/2017
+ * @version: 3.1.3
+ * Released 02/xx/2018
  *
  * @license: GNU GENERAL PUBLIC LICENSE v3
  *
     Storybook Plus is an web application that serves multimedia contents.
-    Copyright (C) 2013-2017  Ethan S. Lin, UWEX CEOEL Media Services
+    Copyright (C) 2013-2018  Ethan S. Lin, UWEX CEOEL Media Services
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -1585,6 +1585,7 @@ var SBPLUS = SBPLUS || {
         
         // create a pageData object to hold page title and type
         var pageData = {
+            xml: target,
             title: target.attr( 'title' ).trim(),
             type: target.attr( 'type' ).trim().toLowerCase()
         };

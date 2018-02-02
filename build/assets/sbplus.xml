@@ -213,11 +213,11 @@
             <note />
         </page>
         
-        <page type="html" src="testing" title="HTML">
+        <page type="html" src="testing" title="HTML" embed="yes">
             <note />
         </page>
         
-        <page type="html" src="aframe" title="A-Frame">
+        <page type="html" src="aframe" title="A-Frame" embed="no">
             <note />
         </page>
         
@@ -460,6 +460,23 @@
             
         </page>
                 
+    </section>
+    
+    <!-- section 3 -->
+    <section title="New Feature (Shhh!)">
+        
+        <page type="html" src="https://media.uwex.edu/sandbox/ethan/hipaa/title45_vol1/CFR-2007-title45-vol1-sec160-202.xml
+" title="Section 160.202 - Definitions" embed="yes">
+            <audio src="slide02" />
+            <note />
+        </page>
+        
+        <page type="html" src="https://media.uwex.edu/sandbox/ethan/hipaa/title45_vol1/CFR-2007-title45-vol1-sec160-203.xml
+" title="Section 160.203 - General Rules and Exceptions" embed="no">
+            <audio src="slide03" />
+            <note />
+        </page>
+        
     </section>
     
 </storybook>

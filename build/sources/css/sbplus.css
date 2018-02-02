@@ -365,7 +365,30 @@ body {
               height: 100%; }
             .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper .sbplus_media_content .html {
               width: 100%;
-              height: 100%; }
+              height: 100%;
+              background-color: #fff; }
+            .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper .sbplus_media_content .exLink {
+              display: -webkit-flex;
+              display: flex;
+              -webkit-flex-flow: column nowrap;
+              flex-flow: column nowrap;
+              -webkit-align-items: center;
+              align-items: center;
+              -webkit-justify-content: center;
+              justify-content: center;
+              padding: 10px; }
+              .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper .sbplus_media_content .exLink a {
+                display: block;
+                font-size: 18px;
+                font-size: 1.125rem;
+                text-decoration: none; }
+              .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper .sbplus_media_content .exLink a:hover {
+                text-decoration: underline; }
+              .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper .sbplus_media_content .exLink small {
+                display: block;
+                color: #ccc;
+                font-size: 12px;
+                font-size: 0.75rem; }
             .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper .sbplus_media_content .img_only {
               width: 100%;
               height: 100%;
@@ -469,6 +492,36 @@ body {
                 left: -1.8em; }
             .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper .sbplus_media_content .video-js.vjs-youtube .vjs-control-bar .vjs-resolution-button .vjs-menu {
               left: -3em; }
+          .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper .iframeEmbed .video-js.vjs-audio {
+            /* Reset the height of the player to the height of the controller */
+            height: 3.2em;
+            /* Who needs this ? */
+            /* Make the controlbar visible by default */
+            /* The spinner is useless when there is just the controller only mode */
+            /* Add another way to indicate waiting by using the progress slider */ }
+            .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper .iframeEmbed .video-js.vjs-audio .vjs-big-play-button {
+              display: none; }
+            .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper .iframeEmbed .video-js.vjs-audio .vjs-control-bar {
+              display: -webkit-box;
+              display: -webkit-flex;
+              display: -ms-flexbox;
+              display: flex; }
+            .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper .iframeEmbed .video-js.vjs-audio .vjs-loading-spinner {
+              display: none; }
+            .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper .iframeEmbed .video-js.vjs-audio.vjs-waiting .vjs-progress-holder:not(.vjs-seeking) {
+              height: .5em;
+              background-image: repeating-linear-gradient(-45deg, #73859f, #73859f 11px, #eee 10px, #eee 20px);
+              border-radius: 3px;
+              background-size: 28px 28px;
+              transition: height .5s;
+              animation: vjs-slider-indeterminate .5s linear infinite; }
+              .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper .iframeEmbed .video-js.vjs-audio.vjs-waiting .vjs-progress-holder:not(.vjs-seeking) .vjs-play-progress {
+                display: none; }
+@keyframes vjs-slider-indeterminate {
+  0% {
+    background-position: 0 0; }
+  100% {
+    background-position: 28px 0; } }
           .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper .sbplus_media_content.compat-object-fit {
             background-size: contain;
             background-position: center center;

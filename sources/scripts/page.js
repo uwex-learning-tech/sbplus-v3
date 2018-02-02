@@ -1,6 +1,7 @@
 // var transcriptInterval = null;
 var Page = function ( obj, data ) {
     
+    this.pageXML = obj.xml[0];
     this.pageData = data;
     this.title = obj.title;
     this.type = obj.type;
@@ -75,6 +76,8 @@ Page.prototype.getPageMedia = function() {
     
     SBPLUS.clearWidget();
     SBPLUS.enableWidget();
+    $( self.mediaContent ).removeClass('iframeEmbed');
+    
     
     if ( SBPLUS.hasStorageItem( 'sbplus-' + SBPLUS.uniqueTitle + '-previously-widget-open', true ) ) {
         
@@ -254,16 +257,6 @@ Page.prototype.getPageMedia = function() {
             
         break;
         
-        case 'html':
-            
-            $( self.mediaContent ).html( '<iframe class="html" src="assets/html/' + self.src + '/index.html"></iframe>' ).promise().done( function() {
-                    
-                self.setWidgets();
-                
-            } );
-            
-        break;
-        
         case 'bundle':
             
             $( self.frames ).each( function() {
@@ -317,6 +310,56 @@ Page.prototype.getPageMedia = function() {
                     SBPLUS.disableWidget();
 
             } );
+            
+        break;
+        
+        case 'html':
+            
+            var embed = false;
+            var hasAudio = false;
+            var path = self.src;
+                
+            if ( !isUrl(path) ) {
+                path = 'assets/html/' + self.src;
+            }
+            
+            if ( $(self.pageXML).attr('embed') !== undefined ) {
+                embed = $(self.pageXML).attr('embed').toLowerCase();
+            }
+            
+            if ( $(self.pageXML).find('audio').length >= 1 ) {
+                hasAudio = $($(self.pageXML).find('audio')[0]).attr('src').toLowerCase();
+            }
+            
+            if ( embed === 'yes' ) {
+                
+                var content = '<iframe class="html" src="' + path + '"></iframe>';
+                
+                $( self.mediaContent ).addClass( 'iframeEmbed' ).html( content ).promise().done( function() {
+                    
+                    if ( hasAudio.length ) {
+                        
+                        self.isAudio = true;
+                        $( self.mediaContent ).append( '<audio id="mp" class="video-js vjs-default-skin"></audio>' );
+                        self.renderVideoJS( hasAudio );
+                        
+                    }
+                    
+                } );
+                
+            } else {
+                
+               var holder = '<div class="html exLink">';
+               holder += '<small>click the link to open it in a new tab/window</small>';
+               holder += '<a href="' + path + '" target="_blank">' + path + '</a>';
+               holder += '</div>'
+               
+               $( self.mediaContent ).addClass( 'html' ).html( holder );
+               window.open(path, '_blank');
+               
+            }
+            
+            self.setWidgets();
             
         break;
         
@@ -451,10 +494,12 @@ Page.prototype.loadKalturaVideoData = function () {
 };
 
 // render videojs
-Page.prototype.renderVideoJS = function() {
+Page.prototype.renderVideoJS = function( src ) {
     
     var self = this;
     
+    src = typeof src !== 'undefined' ? src : self.src;
+
     var isAutoplay = true;
     
     if ( SBPLUS.getStorageItem( 'sbplus-autoplay' ) === '0' ) {
@@ -492,7 +537,7 @@ Page.prototype.renderVideoJS = function() {
     } else if ( self.isYoutube ) {
         
         options.techOrder = ['youtube'];
-        options.sources = [{ type: "video/youtube", src: "https://www.youtube.com/watch?v=" + self.src }];
+        options.sources = [{ type: "video/youtube", src: "https://www.youtube.com/watch?v=" + src }];
         options.playbackRates = null;
         
         $.extend( options.plugins, { videoJsResolutionSwitcher: { 'default': 720 } } );
@@ -500,7 +545,7 @@ Page.prototype.renderVideoJS = function() {
     } else if ( self.isVimeo ) {
         
         options.techOrder = ["vimeo"];
-        options.sources = [{ type: "video/vimeo", src: "https://vimeo.com/" + self.src }];
+        options.sources = [{ type: "video/vimeo", src: "https://vimeo.com/" + src }];
         options.playbackRates = null;
         //options.controls = false;
         
@@ -525,7 +570,7 @@ Page.prototype.renderVideoJS = function() {
         if ( self.isAudio || self.isBundle ) {
             
             if ( self.isAudio && self.hasImage ) {
-                player.poster( 'assets/pages/' + self.src + '.' + self.imgType );
+                player.poster( 'assets/pages/' + src + '.' + self.imgType );
             }
             
             if ( self.isBundle ) {
@@ -542,11 +587,11 @@ Page.prototype.renderVideoJS = function() {
                 player.cuepoints();
                 player.addCuepoint( {
                     	
-                	namespace: self.src + '-1',
+                	namespace: src + '-1',
                 	start: 0,
                 	end: self.cuepoints[0],
                 	onStart: function() {
-                    	pageImage.src = 'assets/pages/' + self.src + '-1.' + self.imgType;
+                    	pageImage.src = 'assets/pages/' + src + '-1.' + self.imgType;
                     	player.poster( pageImage.src );
                 	},
                 	onEnd: function() {},
@@ -565,11 +610,11 @@ Page.prototype.renderVideoJS = function() {
                     }
                     
                     player.addCuepoint( {
-                        namespace: self.src + '-' + ( i + 2 ),
+                        namespace: src + '-' + ( i + 2 ),
                         start: self.cuepoints[i],
                         end: endCue,
                         onStart: function() {
-                            pageImage.src = 'assets/pages/' + self.src + '-' + ( i + 2 ) + '.' + self.imgType;
+                            pageImage.src = 'assets/pages/' + src + '-' + ( i + 2 ) + '.' + self.imgType;
                             $( pageImage ).on( 'error', function() {
                                 self.showPageError( 'NO_IMG', pageImage.src );
                             } );
@@ -577,15 +622,13 @@ Page.prototype.renderVideoJS = function() {
                         }
                     } );
                     
-                    
-                    
                 } );
                 
                 player.on('seeking', function() {
                     	
                 	if ( player.currentTime() <= self.cuepoints[0] ) {
                     	
-                    	player.poster( 'assets/pages/' + self.src + '-1.' + self.imgType );
+                    	player.poster( 'assets/pages/' + src + '-1.' + self.imgType );
                     	
                 	}
                 	
@@ -593,12 +636,12 @@ Page.prototype.renderVideoJS = function() {
                 
             }
             
-            player.src( { type: 'audio/mp3', src: 'assets/audio/' + self.src + '.mp3' } );
+            player.src( { type: 'audio/mp3', src: 'assets/audio/' + src + '.mp3' } );
             
         }
         
         if ( self.isVideo ) {
-            player.src( { type: 'video/mp4', src: 'assets/video/' + self.src + '.mp4' } );
+            player.src( { type: 'video/mp4', src: 'assets/video/' + src + '.mp4' } );
         }
         
         // add caption
@@ -1200,4 +1243,9 @@ function toSeconds( str ) {
         return Number( arr[0] * 60 ) + Number( arr[1] );
     }
     
+}
+
+function isUrl(s) {
+   var regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/
+   return regexp.test(s);
 }
