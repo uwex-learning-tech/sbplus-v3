@@ -53,6 +53,7 @@ var SBPLUS = SBPLUS || {
     // holds current and total pages in the presentation
     totalPages: 0,
     currentPage: null,
+    targetPage: null,
     
     // holds external data
     manifest: null,
@@ -74,6 +75,13 @@ var SBPLUS = SBPLUS || {
     
     // videojs
     playbackrate: 1,
+    
+    // google analytics variables
+    gaTimeouts: {
+        start: null,
+        halfway: null,
+        completed: null
+    },
     
     // easter egg variables
     clickCount: 0,
@@ -547,9 +555,8 @@ var SBPLUS = SBPLUS || {
                 m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
                 })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
                 
-                ga('create', self.manifest.sbplus_google_tracking_id, 'auto');
-                ga('send', 'pageview');
-                ga('send', 'event');
+                ga( 'create', self.manifest.sbplus_google_tracking_id, 'auto' );
+                
             }
             
             if ( xAuthor.length ) {
@@ -783,7 +790,7 @@ var SBPLUS = SBPLUS || {
             } ).done( function() {
                 self.downloads.transcript = this.url;
                 $( self.splash.downloadBar ).append(
-                    '<a href="' + self.downloads.transcript + '" tabindex="1" download aria-label="Download transcript file"><span class="icon-download"></span> Transcript</a>' );
+                    '<a href="' + self.downloads.transcript + '" tabindex="1" download="' + self.xml.setup.title + '" aria-label="Download transcript file" onclick="SBPLUS.sendToGA( \'transcriptLink\', \'click\', \'' + self.sanitize( self.xml.setup.title ) + '\', 4, 0 );"><span class="icon-download"></span> Transcript</a>' );
             } );
             
             // use AJAX to get video file
@@ -793,7 +800,7 @@ var SBPLUS = SBPLUS || {
             } ).done( function() {
                 self.downloads.video = this.url;
                 $( self.splash.downloadBar ).append(
-                    '<a href="' + self.downloads.video + '" tabindex="1" download aria-label="Download video file"><span class="icon-download"></span> Video</a>' );
+                    '<a href="' + self.downloads.video + '" tabindex="1" download="' + self.xml.setup.title + '" aria-label="Download video file" onclick="SBPLUS.sendToGA( \'videoLink\', \'click\', \'' + self.sanitize( self.xml.setup.title ) + '\', 4, 0 );"><span class="icon-download"></span> Video</a>' );
             } );
             
             // use AJAX to get audio file
@@ -803,7 +810,7 @@ var SBPLUS = SBPLUS || {
             } ).done( function() {
                 self.downloads.audio = this.url;
                 $( self.splash.downloadBar ).append(
-                    '<a href="' + self.downloads.audio + '" tabindex="1" download aria-label="Download audio file"><span class="icon-download"></span> Audio</a>' );
+                    '<a href="' + self.downloads.audio + '" tabindex="1" download="' + self.xml.setup.title + '" aria-label="Download audio file" onclick="SBPLUS.sendToGA( \'audioLink\', \'click\', \'' + self.sanitize( self.xml.setup.title ) + '\', 4, 0 );"><span class="icon-download"></span> Audio</a>' );
             } );
             
             // use AJAX to get zipped/packaged file
@@ -813,7 +820,7 @@ var SBPLUS = SBPLUS || {
             } ).done( function() {
                 self.downloads.supplement = this.url;
                 $( self.splash.downloadBar ).append(
-                    '<a href="' + self.downloads.supplement + '" tabindex="1" download aria-label="Download zipped supplement file"><span class="icon-download"></span> Supplement</a>' );
+                    '<a href="' + self.downloads.supplement + '" tabindex="1" download="' + self.xml.setup.title + '" aria-label="Download zipped supplement file" onclick="SBPLUS.sendToGA( \'supplementLink\', \'click\', \'' + self.sanitize( self.xml.setup.title ) + '\', 4, 0 );"><span class="icon-download"></span> Supplement</a>' );
             } );
             
             // if accent does not match the default accent
@@ -861,6 +868,16 @@ var SBPLUS = SBPLUS || {
                    $( self.layout.wrapper ).addClass( 'loaded-in-iframe' );
                    
                 }
+                
+            }
+            
+            if ( self.xml.settings.analytics === 'on' ) {
+                
+                ga('send', 'screenview', {
+                    'appName': 'SBPLUS',
+                    'screenName': 'Splash',
+                    'appVersion': self.xml.settings.version
+                } );
                 
             }
             
@@ -953,9 +970,20 @@ var SBPLUS = SBPLUS || {
                 // select the first page
                 self.selectPage( '0,0' );
                 
+                if ( self.xml.settings.analytics === 'on' ) {
+                
+                    ga('send', 'screenview', {
+                        'appName': 'SBPLUS',
+                        'screenName': 'Main',
+                        'appVersion': self.xml.settings.version
+                    } );
+                    
+                }
+                
             } );
             
             self.presentationStarted = true;
+            self.sendToGA( 'PresentationStartBtn', 'click', self.sanitize( self.xml.setup.title ), 0, 0 );
             
         }
         
@@ -991,6 +1019,7 @@ var SBPLUS = SBPLUS || {
             } );
             
             self.presentationStarted = true;
+            self.sendToGA( 'PresentationResumeBtn', 'click', self.sanitize( self.xml.setup.title ), 0, 0 );
             
         }
         
@@ -1144,9 +1173,9 @@ var SBPLUS = SBPLUS || {
                     
                     if ( !SBPLUS.isEmpty( self.downloads[key] ) ) {
                         $( self.button.downloadMenu ).append(
-                            '<li class="menu-item" tabindex="-1" role="menuitem" aria-live="polite"><a download href="'
+                            '<li class="menu-item" tabindex="-1" role="menuitem" aria-live="polite"><a download="' + self.xml.setup.title + '" href="'
                             + self.downloads[key] +
-                            '">' + self.capitalizeFirstLetter( key ) + '</a></li>'
+                            '" onclick="SBPLUS.sendToGA( \'' + key + 'Link\', \'click\', \'' + self.sanitize( self.xml.setup.title ) + '\', 4, 0 );">' + self.capitalizeFirstLetter( key ) + '</a></li>'
                         );
                     }
                     
@@ -1481,22 +1510,19 @@ var SBPLUS = SBPLUS || {
             
         }
         
-        // declare a variable to hold targetted page
-        var targetPage;
-        
         // if the argument is an click event object
         if ( e instanceof Object ) {
             
             // set target to current click event target
-            targetPage = $( e.currentTarget );
+            this.targetPage = $( e.currentTarget );
             
         } else {
             
             // set target to the passed in argument
-            targetPage = $( '.item[data-page="' + e + '"]' );
+            this.targetPage = $( '.item[data-page="' + e + '"]' );
             
             // if targe page does not exist
-            if ( targetPage.length === 0 ) {
+            if ( this.targetPage.length === 0 ) {
                 
                 // exit function; stop further execution
                 return false;
@@ -1505,7 +1531,7 @@ var SBPLUS = SBPLUS || {
         }
         
         // if target page does not have the sb_selected class
-        if ( !targetPage.hasClass( 'sb_selected' ) ) {
+        if ( !this.targetPage.hasClass( 'sb_selected' ) ) {
             
             // get jQuery set that contain pages
             var allPages = $( this.tableOfContents.page );
@@ -1517,7 +1543,7 @@ var SBPLUS = SBPLUS || {
             if ( sectionHeaders.length > 1 ) {
                 
                 // set the target header to targetted page's header
-                var targetHeader = targetPage.parent().siblings( '.header' );
+                var targetHeader = this.targetPage.parent().siblings( '.header' );
                 
                 // if targetted header does not have the current class
                 if ( !targetHeader.hasClass( 'current' ) ) {
@@ -1536,21 +1562,21 @@ var SBPLUS = SBPLUS || {
             allPages.removeClass( 'sb_selected' );
             
             // add sb_selected class to targetted page
-            targetPage.addClass( 'sb_selected' );
+            this.targetPage.addClass( 'sb_selected' );
             
             // call the getPage function with targetted page data as parameter
-            this.getPage( targetPage.data('page') );
+            this.getPage( this.targetPage.data('page') );
             
             // update the page status with the targetted page count data
-            this.updatePageStatus( targetPage.data( 'count' ) );
+            this.updatePageStatus( this.targetPage.data( 'count' ) );
             
             // update screen reader status
-            $( this.screenReader.currentPage ).html( targetPage.data( 'count' ) );
+            $( this.screenReader.currentPage ).html( this.targetPage.data( 'count' ) );
             
             // update the scroll bar to targeted page
             if ( $( this.layout.sidebar ).is( ':visible' ) ) {
                 
-                this.updateScroll( targetPage[0] );
+                this.updateScroll( this.targetPage[0] );
                 
             }
             
@@ -1840,6 +1866,16 @@ var SBPLUS = SBPLUS || {
         
         $( self.button.menuClose ).on( 'click', self.closeMenuContent.bind( self ) );
         
+        if ( self.xml.settings.analytics === 'on' ) {
+                
+            ga('send', 'screenview', {
+                'appName': 'SBPLUS',
+                'screenName': menuTitle.html(),
+                'appVersion': self.xml.settings.version
+            } );
+            
+        }
+        
         if ( self.xml.settings.mathjax === 'on' ) {
             MathJax.Hub.Queue( ['Typeset', MathJax.Hub] );
         }
@@ -1855,6 +1891,16 @@ var SBPLUS = SBPLUS || {
         menuContentWrapper.hide();
         
         $( this.button.menuClose ).off( 'click' );
+        
+        if ( this.xml.settings.analytics === 'on' ) {
+                
+            ga('send', 'screenview', {
+                'appName': 'SBPLUS',
+                'screenName': 'Main',
+                'appVersion': this.xml.settings.version
+            } );
+            
+        }
         
     },
     
@@ -2741,6 +2787,83 @@ var SBPLUS = SBPLUS || {
                 $( '#sbplus_va_subtitle' ).prop( 'checked', false );
             }
             
+        }
+        
+    },
+    
+    sendToGA: function( category, action, label, value, delayObj ) {
+        
+        if ( this.xml.settings.analytics === 'on' ) {
+            
+            var self = this;
+            var delay = 0;
+            var isObj = false;
+            
+            if ( typeof delayObj === 'object' ) {
+                delay = delayObj.start * 1000;
+                isObj = true;
+            } else {
+                delay = delayObj * 1000;
+            }
+            
+            if ( window.ga && ga.loaded ) {
+                
+                self.gaTimeouts.start = setTimeout( function() {
+                    
+                    ga( 'send', 'event', category, action, label, value );
+                    
+                }, delay );
+                
+                if ( isObj ) {
+                    
+                    if ( delayObj.halfway > 0 
+                         && delayObj.halfway > delayObj.start ) {
+                        
+                        self.gaTimeouts.halfway = setTimeout( function() {
+                    
+                            ga( 'send', 'event', category, 'halfway', label, 2 );
+                            
+                        }, delayObj.halfway * 1000 );
+                        
+                    }
+                    
+                    if ( delayObj.completed > 0 
+                         && delayObj.completed > delayObj.halfway ) {
+                        
+                        self.gaTimeouts.completed = setTimeout( function() {
+                    
+                            ga( 'send', 'event', category, 'completed', label, 3 );
+                            
+                        }, delayObj.completed * 1000 );
+                        
+                    }
+                    
+                }
+
+            }
+            
+        }
+        
+    },
+    
+    clearGATimeout: function() {
+        
+        if ( this.xml.settings.analytics === 'on' ) {
+            
+            var self = this;
+            
+            if ( self.gaTimeouts.start !== null ) {
+                clearTimeout( self.gaTimeouts.start );
+            }
+            
+            if ( self.gaTimeouts.halfway !== null ) {
+                clearTimeout( self.gaTimeouts.halfway );
+            }
+            
+            if ( self.gaTimeouts.completed !== null ) {
+                clearTimeout( self.gaTimeouts.completed );
+            }
+        
         }
         
     }

@@ -8,6 +8,18 @@ var Page = function ( obj, data ) {
     this.transition = obj.transition;
     this.pageNumber = obj.number;
     
+    // google analytic variables
+    this.gaEventCate = '';
+    this.gaEventLabel = '';
+    this.gaEventAction = '';
+    this.gaEventValue = -1;
+    this.gaEventHalfway = false;
+    this.gaDelays = {
+        start: 0,
+        halfway: 0,
+        completed: 0
+    }; 
+    
     if ( obj.type !== 'quiz' ) {
         
         this.src = obj.src;
@@ -76,6 +88,7 @@ Page.prototype.getPageMedia = function() {
     
     SBPLUS.clearWidget();
     SBPLUS.enableWidget();
+    
     $( self.mediaContent ).removeClass('iframeEmbed');
     
     
@@ -90,6 +103,9 @@ Page.prototype.getPageMedia = function() {
         SBPLUS.deleteStorageItem( 'sbplus-' + SBPLUS.uniqueTitle + '-previously-widget-open', true );
         
     }
+    
+    self.gaEventHalfway = false;
+    SBPLUS.clearGATimeout();
     
     // clearInterval( transcriptInterval );
     
@@ -117,6 +133,12 @@ Page.prototype.getPageMedia = function() {
                 self.loadKalturaVideoData();
                 
             }
+
+            self.gaEventCate = 'Video';
+            self.gaEventLabel = SBPLUS.sanitize(SBPLUS.xml.setup.title) + ':kaltura:page' + SBPLUS.targetPage.data('count');
+            self.gaEventAction = 'start';
+            self.gaEventValue = 3;
+            self.gaDelays.start = 6;
             
         break;
         
@@ -164,6 +186,12 @@ Page.prototype.getPageMedia = function() {
                 
             } );
             
+            self.gaEventCate = 'Audio';
+            self.gaEventLabel = SBPLUS.sanitize(SBPLUS.xml.setup.title) + ':audio:page' + SBPLUS.targetPage.data('count');
+            self.gaEventAction = 'start';
+            self.gaEventValue = 2;
+            self.gaDelays.start = 6;
+            
         break;
         
         case 'image':
@@ -199,6 +227,14 @@ Page.prototype.getPageMedia = function() {
             $( self.mediaContent ).html( '<img src="' + img.src + '" class="img_only" alt="' + img.alt + '" />' ).promise().done( function() {
                 self.setWidgets();
             } );
+            
+            self.gaEventCate = 'Image';
+            self.gaEventLabel = SBPLUS.sanitize(SBPLUS.xml.setup.title) + ':image:page' + SBPLUS.targetPage.data('count');
+            self.gaEventAction = 'start';
+            self.gaEventValue = 4;
+            self.gaDelays.start = 10;
+            self.gaDelays.halfway = 30;
+            self.gaDelays.completed = 60;
                         
         break;
         
@@ -228,6 +264,12 @@ Page.prototype.getPageMedia = function() {
                 } );
                 
             } );
+            
+            self.gaEventCate = 'Video';
+            self.gaEventLabel = SBPLUS.sanitize(SBPLUS.xml.setup.title) + ':video:page' + SBPLUS.targetPage.data('count');
+            self.gaEventAction = 'start';
+            self.gaEventValue = 3;
+            self.gaDelays.start = 6;
         
         break;
         
@@ -242,6 +284,12 @@ Page.prototype.getPageMedia = function() {
                 
             } );
             
+            self.gaEventCate = 'Video';
+            self.gaEventLabel = SBPLUS.sanitize(SBPLUS.xml.setup.title) + ':youtube:page' + SBPLUS.targetPage.data('count');
+            self.gaEventAction = 'start';
+            self.gaEventValue = 3;
+            self.gaDelays.start = 6;
+            
         break;
         
         case 'vimeo':
@@ -254,6 +302,12 @@ Page.prototype.getPageMedia = function() {
                 self.setWidgets();
                 
             } );
+            
+            self.gaEventCate = 'Video';
+            self.gaEventLabel = SBPLUS.sanitize(SBPLUS.xml.setup.title) + ':vimeo:page' + SBPLUS.targetPage.data('count');
+            self.gaEventAction = 'start';
+            self.gaEventValue = 3;
+            self.gaDelays.start = 6;
             
         break;
         
@@ -288,6 +342,12 @@ Page.prototype.getPageMedia = function() {
                 
             } );
             
+            self.gaEventCate = 'Audio';
+            self.gaEventLabel = SBPLUS.sanitize(SBPLUS.xml.setup.title) + ':bundle:page' + SBPLUS.targetPage.data('count');
+            self.gaEventAction = 'start';
+            self.gaEventValue = 2;
+            self.gaDelays.start = 6;
+            
         break;
         
         case 'quiz':
@@ -310,6 +370,14 @@ Page.prototype.getPageMedia = function() {
                     SBPLUS.disableWidget();
 
             } );
+            
+            self.gaEventCate = 'Quiz';
+            self.gaEventLabel = SBPLUS.sanitize(SBPLUS.xml.setup.title) + ':quiz:page' + SBPLUS.targetPage.data('count');
+            self.gaEventAction = 'start';
+            self.gaEventValue = 5;
+            self.gaDelays.start = 10;
+            self.gaDelays.halfway = 30;
+            self.gaDelays.completed = 60;
             
         break;
         
@@ -361,6 +429,14 @@ Page.prototype.getPageMedia = function() {
             
             self.setWidgets();
             
+            self.gaEventCate = 'HTML';
+            self.gaEventLabel = SBPLUS.sanitize(SBPLUS.xml.setup.title) + ':html:page' + SBPLUS.targetPage.data('count');
+            self.gaEventAction = 'start';
+            self.gaEventValue = 6;
+            self.gaDelays.start = 10;
+            self.gaDelays.halfway = 30;
+            self.gaDelays.completed = 60;
+            
         break;
         
         default:
@@ -381,6 +457,8 @@ Page.prototype.getPageMedia = function() {
         
     }
     
+    // add current page index to local storage
+    
     window.clearTimeout( self.delayStorage );
     
     self.delayStorage = window.setTimeout( function() {
@@ -396,6 +474,15 @@ Page.prototype.getPageMedia = function() {
         }
         
     }, 3000 );
+    
+    // send event to Google Analytics
+    if ( self.gaEventCate !== '' ) {
+        
+        SBPLUS.sendToGA( self.gaEventCate, self.gaEventAction,
+                         self.gaEventLabel, self.gaEventValue,
+                         self.gaDelays );
+        
+    }
     
 };
 
@@ -688,9 +775,20 @@ Page.prototype.renderVideoJS = function( src ) {
               self.transcriptIntervalStarted = false;
               
           }
+          
 */
+
+            // send event to Google Analytics
+            if ( self.gaEventCate !== '' ) {
+                
+                SBPLUS.sendToGA( self.gaEventCate, "completed",
+                                 self.gaEventLabel, 3, 0 );
+                
+            }
           
         });
+        
+        
         
         player.on('playing', function() {
             
@@ -706,6 +804,25 @@ Page.prototype.renderVideoJS = function( src ) {
 */
           
         });
+        
+        if ( SBPLUS.xml.settings.analytics === 'on' ) {
+            
+            player.on( 'timeupdate', function() {
+                
+                var percent = player.currentTime() / player.duration() * 100;
+                
+                if ( self.gaEventCate !== '' && percent >= 50
+                     && self.gaEventHalfway === false ) {
+                    
+                    SBPLUS.sendToGA( self.gaEventCate, "halfway",
+                                 self.gaEventLabel, 2, 0 );
+                    self.gaEventHalfway = true;
+                                 
+                }
+              
+            });
+        
+        }
         
         player.on( 'error', function() {
             
