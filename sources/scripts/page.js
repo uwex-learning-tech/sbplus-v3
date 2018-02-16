@@ -45,9 +45,9 @@ var Page = function ( obj, data ) {
         
         this.transcript = null;
         this.transcriptLoaded = false;
-//         this.transcriptIntervalStarted = false;
         
         this.hasImage = false;
+        this.missingImgUrl = '';
         this.delayStorage = null;
         
     }
@@ -152,9 +152,14 @@ Page.prototype.getPageMedia = function() {
                 type: 'HEAD'
                 
             } ).done( function() {
+                
                 self.hasImage = true;
+                
             } ).fail( function() {
+                
                 self.showPageError( 'NO_IMG', this.url );
+                self.missingImgUrl = this.url;
+                
             } ).always( function() {
                 
                 $.ajax( {
@@ -1147,7 +1152,18 @@ Page.prototype.showPageError = function( type, src ) {
         break;
         
         case 'NO_MEDIA':
-            msg = '<p><strong>The content for this Storybook Page could not be loaded.</strong></p><p><strong>Expected media:</strong> ' + src + '</p><p>Please try refreshing your browser, or coming back later.</p><p>If this problem continues, please <a href="javascript:void(0);" onclick="SBPLUS.openMenuItem(\'sbplus_help\');">contact tech support</a>.</p>';
+        
+            msg = '<p><strong>The content for this Storybook Page could not be loaded.</strong></p>';
+            
+            if ( self.hasImage === false ) {
+                msg += '<p><strong>Expected audio:</strong> ' + src + '<br>';
+                msg += '<strong>Expected image:</strong> ' + self.missingImgUrl + '</p>';
+            } else {
+                msg += '<p><strong>Expected media:</strong> ' + src + '</p>';
+            }
+            
+            msg += '<p>Please try refreshing your browser, or coming back later.</p><p>If this problem continues, please <a href="javascript:void(0);" onclick="SBPLUS.openMenuItem(\'sbplus_help\');">contact tech support</a>.</p>';
+            
         break;
         
         case 'UNKNOWN_TYPE':

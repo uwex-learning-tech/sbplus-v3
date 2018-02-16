@@ -44,6 +44,7 @@ SB+ may not function properly with beta or pre-released version of web browsers.
 ### Version Change Log
 
 #### Pending
+* If both image and audio are missing for image-audio page type, both errors will be displayed in the error message
 * Fixed issue with responsiveness inside an iFrame
 * Fixed issue where the page jumps when presentation started
 * Default splash image will be loaded last if no other splash image is found (#77) - preventing the distracting flash
