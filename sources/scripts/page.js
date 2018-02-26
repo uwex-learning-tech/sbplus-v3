@@ -135,7 +135,7 @@ Page.prototype.getPageMedia = function() {
             }
 
             self.gaEventCate = 'Video';
-            self.gaEventLabel = SBPLUS.sanitize(SBPLUS.xml.setup.title) + ':kaltura:page' + SBPLUS.targetPage.data('count');
+            self.gaEventLabel = SBPLUS.getCourseDirectory() + ':kaltura:page' + SBPLUS.targetPage.data('count');
             self.gaEventAction = 'start';
             self.gaEventValue = 3;
             self.gaDelays.start = 6;
@@ -192,7 +192,7 @@ Page.prototype.getPageMedia = function() {
             } );
             
             self.gaEventCate = 'Audio';
-            self.gaEventLabel = SBPLUS.sanitize(SBPLUS.xml.setup.title) + ':audio:page' + SBPLUS.targetPage.data('count');
+            self.gaEventLabel = SBPLUS.getCourseDirectory() + ':audio:page' + SBPLUS.targetPage.data('count');
             self.gaEventAction = 'start';
             self.gaEventValue = 2;
             self.gaDelays.start = 6;
@@ -234,7 +234,7 @@ Page.prototype.getPageMedia = function() {
             } );
             
             self.gaEventCate = 'Image';
-            self.gaEventLabel = SBPLUS.sanitize(SBPLUS.xml.setup.title) + ':image:page' + SBPLUS.targetPage.data('count');
+            self.gaEventLabel = SBPLUS.getCourseDirectory() + ':image:page' + SBPLUS.targetPage.data('count');
             self.gaEventAction = 'start';
             self.gaEventValue = 4;
             self.gaDelays.start = 10;
@@ -271,7 +271,7 @@ Page.prototype.getPageMedia = function() {
             } );
             
             self.gaEventCate = 'Video';
-            self.gaEventLabel = SBPLUS.sanitize(SBPLUS.xml.setup.title) + ':video:page' + SBPLUS.targetPage.data('count');
+            self.gaEventLabel = SBPLUS.getCourseDirectory() + ':video:page' + SBPLUS.targetPage.data('count');
             self.gaEventAction = 'start';
             self.gaEventValue = 3;
             self.gaDelays.start = 6;
@@ -290,7 +290,7 @@ Page.prototype.getPageMedia = function() {
             } );
             
             self.gaEventCate = 'Video';
-            self.gaEventLabel = SBPLUS.sanitize(SBPLUS.xml.setup.title) + ':youtube:page' + SBPLUS.targetPage.data('count');
+            self.gaEventLabel = SBPLUS.getCourseDirectory() + ':youtube:page' + SBPLUS.targetPage.data('count');
             self.gaEventAction = 'start';
             self.gaEventValue = 3;
             self.gaDelays.start = 6;
@@ -309,7 +309,7 @@ Page.prototype.getPageMedia = function() {
             } );
             
             self.gaEventCate = 'Video';
-            self.gaEventLabel = SBPLUS.sanitize(SBPLUS.xml.setup.title) + ':vimeo:page' + SBPLUS.targetPage.data('count');
+            self.gaEventLabel = SBPLUS.getCourseDirectory() + ':vimeo:page' + SBPLUS.targetPage.data('count');
             self.gaEventAction = 'start';
             self.gaEventValue = 3;
             self.gaDelays.start = 6;
@@ -348,7 +348,7 @@ Page.prototype.getPageMedia = function() {
             } );
             
             self.gaEventCate = 'Audio';
-            self.gaEventLabel = SBPLUS.sanitize(SBPLUS.xml.setup.title) + ':bundle:page' + SBPLUS.targetPage.data('count');
+            self.gaEventLabel = SBPLUS.getCourseDirectory() + ':bundle:page' + SBPLUS.targetPage.data('count');
             self.gaEventAction = 'start';
             self.gaEventValue = 2;
             self.gaDelays.start = 6;
@@ -377,7 +377,7 @@ Page.prototype.getPageMedia = function() {
             } );
             
             self.gaEventCate = 'Quiz';
-            self.gaEventLabel = SBPLUS.sanitize(SBPLUS.xml.setup.title) + ':quiz:page' + SBPLUS.targetPage.data('count');
+            self.gaEventLabel = SBPLUS.getCourseDirectory() + ':quiz:page' + SBPLUS.targetPage.data('count');
             self.gaEventAction = 'start';
             self.gaEventValue = 5;
             self.gaDelays.start = 10;
@@ -435,7 +435,7 @@ Page.prototype.getPageMedia = function() {
             self.setWidgets();
             
             self.gaEventCate = 'HTML';
-            self.gaEventLabel = SBPLUS.sanitize(SBPLUS.xml.setup.title) + ':html:page' + SBPLUS.targetPage.data('count');
+            self.gaEventLabel = SBPLUS.getCourseDirectory() + ':html:page' + SBPLUS.targetPage.data('count');
             self.gaEventAction = 'start';
             self.gaEventValue = 6;
             self.gaDelays.start = 10;

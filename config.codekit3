@@ -233,7 +233,7 @@
 		"dP": 10,
 		"dS": 0,
 		"ft": 4,
-		"ma": 1,
+		"ma": 0,
 		"oA": 0,
 		"oAP": "\/build\/sources\/css\/sbplus.css",
 		"oF": 1,
@@ -753,7 +753,7 @@
 		},
 	"\/sources\/scripts\/sbplus-dev.js": {
 		"ft": 64,
-		"ma": 1,
+		"ma": 0,
 		"mi": 1,
 		"oA": 0,
 		"oAP": "\/build\/sources\/scripts\/sbplus.js",
