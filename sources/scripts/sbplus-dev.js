@@ -556,6 +556,7 @@ var SBPLUS = SBPLUS || {
                 })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
                 
                 ga( 'create', self.manifest.sbplus_google_tracking_id, 'auto' );
+                ga( 'set', { 'appName': 'SBPLUS', 'appVersion': self.xml.settings.version } );
                 
             }
             
@@ -873,11 +874,7 @@ var SBPLUS = SBPLUS || {
             
             if ( self.xml.settings.analytics === 'on' ) {
                 
-                ga('send', 'screenview', {
-                    'appName': 'SBPLUS',
-                    'screenName': 'Splash',
-                    'appVersion': self.xml.settings.version
-                } );
+                ga( 'send', 'screenview', { screenName: 'Splash' } );
                 
             }
             
@@ -971,12 +968,8 @@ var SBPLUS = SBPLUS || {
                 self.selectPage( '0,0' );
                 
                 if ( self.xml.settings.analytics === 'on' ) {
-                
-                    ga('send', 'screenview', {
-                        'appName': 'SBPLUS',
-                        'screenName': 'Main',
-                        'appVersion': self.xml.settings.version
-                    } );
+                    
+                    ga( 'send', 'screenview', { screenName: 'Main' } );
                     
                 }
                 
@@ -1867,12 +1860,8 @@ var SBPLUS = SBPLUS || {
         $( self.button.menuClose ).on( 'click', self.closeMenuContent.bind( self ) );
         
         if ( self.xml.settings.analytics === 'on' ) {
-                
-            ga('send', 'screenview', {
-                'appName': 'SBPLUS',
-                'screenName': menuTitle.html(),
-                'appVersion': self.xml.settings.version
-            } );
+            
+            ga( 'send', 'screenview', { screenName: menuTitle.html() } );
             
         }
         
@@ -1891,16 +1880,6 @@ var SBPLUS = SBPLUS || {
         menuContentWrapper.hide();
         
         $( this.button.menuClose ).off( 'click' );
-        
-        if ( this.xml.settings.analytics === 'on' ) {
-                
-            ga('send', 'screenview', {
-                'appName': 'SBPLUS',
-                'screenName': 'Main',
-                'appVersion': this.xml.settings.version
-            } );
-            
-        }
         
     },
     
@@ -2810,7 +2789,7 @@ var SBPLUS = SBPLUS || {
                 
                 self.gaTimeouts.start = setTimeout( function() {
                     
-                    ga( 'send', 'event', category, action, label, value );
+                    ga( 'send', 'event', category, action, label, value, {screenName: self.getCourseDirectory()} );
                     
                 }, delay );
                 
@@ -2821,7 +2800,7 @@ var SBPLUS = SBPLUS || {
                         
                         self.gaTimeouts.halfway = setTimeout( function() {
                     
-                            ga( 'send', 'event', category, 'halfway', label, 2 );
+                            ga( 'send', 'event', category, 'halfway', label, 2, {screenName: self.getCourseDirectory()} );
                             
                         }, delayObj.halfway * 1000 );
                         
@@ -2832,7 +2811,7 @@ var SBPLUS = SBPLUS || {
                         
                         self.gaTimeouts.completed = setTimeout( function() {
                     
-                            ga( 'send', 'event', category, 'completed', label, 3 );
+                            ga( 'send', 'event', category, 'completed', label, 3, {screenName: self.getCourseDirectory()} );
                             
                         }, delayObj.completed * 1000 );
                         
