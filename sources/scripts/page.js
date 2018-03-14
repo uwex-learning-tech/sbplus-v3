@@ -382,7 +382,6 @@ Page.prototype.getPageMedia = function() {
             self.gaEventValue = 5;
             self.gaDelays.start = 10;
             self.gaDelays.halfway = 30;
-            self.gaDelays.completed = 60;
             
         break;
         

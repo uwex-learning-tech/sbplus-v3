@@ -1671,8 +1671,6 @@ var SBPLUS = SBPLUS || {
                 
         } else {
             
-            // create new page object using the pageData and set to SBPLUS's
-            // currentPage property
             this.currentPage = new Page( pageData, target );
             
         }
@@ -2422,7 +2420,7 @@ var SBPLUS = SBPLUS || {
     
     getProgramDirectory: function() {
         
-        var urlArray = this.getUrlArray( urlArray );
+        var urlArray = this.getUrlArray();
         
         if ( urlArray.length >= 3 ) {
             return urlArray[urlArray.length - 3];
@@ -2436,19 +2434,26 @@ var SBPLUS = SBPLUS || {
     
     getCourseDirectory: function() {
         
-        var urlArray = this.getUrlArray( urlArray );
+        var urlArray = this.getUrlArray();
         
         if ( urlArray.length >= 2 ) {
             return urlArray[urlArray.length - 1];
         }
         
-        return '';
+        return 'default';
         
     },
     
     getUrlArray: function() {
         
-        var url = window.location.href;
+        var href = window.location.href;
+        var url = href;
+        
+        if ( href.indexOf('?') ) {
+            href = href.split( '?' );
+            url = href[0];
+        }
+        
         var urlArray = url.split( '/' );
         
         urlArray.splice(0, 1);
