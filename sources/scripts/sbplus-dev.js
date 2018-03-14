@@ -1411,7 +1411,7 @@ var SBPLUS = SBPLUS || {
      *
      * @since 3.1.0
      * @author(s) Ethan Lin
-     * @updated on 5/19/2017
+     * @updated on 3/14/2018
      *
      * @param string or object
      * @return none
@@ -1448,34 +1448,74 @@ var SBPLUS = SBPLUS || {
                 
             }
             
-            // set the target to the list element under the section
-            var target = $( targetSectionHeader.siblings( '.list' ) );
-            
-            // the open/collapse icon on the section title bar
-            var icon = targetSectionHeader.find( '.icon' );
-            
             // if target is visible...
-            if ( target.is( ':visible' ) ) {
+            if ( $( targetSectionHeader.siblings( '.list' ) ).is( ':visible' ) ) {
                 
-                // slide up (hide) the list
-                target.slideUp();
-                
-                // update the icon to open icon
-                icon.html( '<span class="icon-open"></span>' );
+                this.closeSection( targetSectionHeader );
                 
             } else {
                 
-                // slide down (show) the list
-                target.slideDown();
-                
-                // update the icon to collapse icon
-                icon.html( '<span class="icon-collapse"></span>' );
+                this.openSection( targetSectionHeader );
                 
             }
             
         }
         
     }, // end toggleSection function
+    
+    /**
+     * Close specified table of content section
+     *
+     * @since 3.1.3
+     * @author(s) Ethan Lin
+     * @updated on 3/14/2018
+     *
+     * @param DOM object
+     * @return none
+     **/
+     
+     closeSection: function( obj ) {
+        
+        // set the target to the list element under the section
+        var target = $( obj.siblings( '.list' ) );
+        
+        // the open/collapse icon on the section title bar
+        var icon = obj.find( '.icon' );
+        
+        // slide up (hide) the list
+        target.slideUp();
+            
+        // update the icon to open icon
+        icon.html( '<span class="icon-open"></span>' );
+         
+     },
+     
+     /**
+     * Open specified table of content section
+     *
+     * @since 3.1.3
+     * @author(s) Ethan Lin
+     * @updated on 3/14/2018
+     *
+     * @param DOM object
+     * @return none
+     **/
+     
+     openSection: function( obj ) {
+        
+        // set the target to the list element under the section
+        var target = $( obj.siblings( '.list' ) );
+        
+        // the open/collapse icon on the section title bar
+        var icon = obj.find( '.icon' );
+        
+        // slide down (show) the list
+        target.slideDown();
+        
+        // update the icon to collapse icon
+        icon.html( '<span class="icon-collapse"></span>' );
+         
+     },
     
     /**
      * Selecting page on the table of contents
@@ -1549,6 +1589,8 @@ var SBPLUS = SBPLUS || {
                     
                 }
                 
+                this.openSection( targetHeader );
+                
             }
             
             // remove sb_selected class from all pages
@@ -1572,7 +1614,6 @@ var SBPLUS = SBPLUS || {
                 this.updateScroll( this.targetPage[0] );
                 
             }
-            
             
         }
         

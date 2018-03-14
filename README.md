@@ -52,7 +52,8 @@ SB+ may not function properly with beta or pre-released version of web browsers.
 * Fixed an issue where Error Message screen was out of view (#78) and full view URL query is not functioning
 * Enhanced HTML page type to allow audio and to open a new tab/window instead of embed
 * Enhanced/improved Google Analytic tracking
-* Fixed table of content collapsible icon alignment
+* Fixed table of content collapsible icon alignment (#79)
+* Collapsed section will now open if the current selected page is under it
 
 #### 3.1.2 (11/07/2017)
 * Author profile is now aligned to the right to avoid alignment issues with text wrapping
