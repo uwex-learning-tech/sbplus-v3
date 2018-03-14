@@ -802,6 +802,7 @@ body {
             .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col #sbplus_table_of_contents_wrapper .section .header .icon {
               -webkit-flex: 1 0 10.5%;
               flex: 1 0 10.5%;
+              padding: 0 10px 0 0;
               text-align: right; }
           .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col #sbplus_table_of_contents_wrapper .section .current {
             border-left: 5px solid #0c3b6b; }

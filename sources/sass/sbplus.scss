@@ -1233,6 +1233,7 @@ body {
                             
                             .icon {
                                 @include flex( 1 0 10.5% );
+                                padding: 0 10px 0 0;
                                 text-align: right;
                             }
                             
