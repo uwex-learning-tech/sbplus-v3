@@ -789,9 +789,10 @@ var SBPLUS = SBPLUS || {
                 url: fileName + '.pdf',
                 type: 'HEAD'
             } ).done( function() {
+                
                 self.downloads.transcript = this.url;
                 $( self.splash.downloadBar ).append(
-                    '<a href="' + self.downloads.transcript + '" tabindex="1" download="' + self.xml.setup.title + '" aria-label="Download transcript file" onclick="SBPLUS.sendToGA( \'transcriptLink\', \'click\', \'' + fileName + '\', 4, 0 );"><span class="icon-download"></span> Transcript</a>' );
+                    '<a href="' + self.downloads.transcript + '" tabindex="1" download="' + fileName + '" aria-label="Download transcript file" onclick="SBPLUS.sendToGA( \'transcriptLink\', \'click\', \'' + fileName + '\', 4, 0 );"><span class="icon-download"></span> Transcript</a>' );
             } );
             
             // use AJAX to get video file
@@ -801,7 +802,7 @@ var SBPLUS = SBPLUS || {
             } ).done( function() {
                 self.downloads.video = this.url;
                 $( self.splash.downloadBar ).append(
-                    '<a href="' + self.downloads.video + '" tabindex="1" download="' + self.xml.setup.title + '" aria-label="Download video file" onclick="SBPLUS.sendToGA( \'videoLink\', \'click\', \'' + fileName + '\', 4, 0 );"><span class="icon-download"></span> Video</a>' );
+                    '<a href="' + self.downloads.video + '" tabindex="1" download="' + fileName + '" aria-label="Download video file" onclick="SBPLUS.sendToGA( \'videoLink\', \'click\', \'' + fileName + '\', 4, 0 );"><span class="icon-download"></span> Video</a>' );
             } );
             
             // use AJAX to get audio file
@@ -811,7 +812,7 @@ var SBPLUS = SBPLUS || {
             } ).done( function() {
                 self.downloads.audio = this.url;
                 $( self.splash.downloadBar ).append(
-                    '<a href="' + self.downloads.audio + '" tabindex="1" download="' + self.xml.setup.title + '" aria-label="Download audio file" onclick="SBPLUS.sendToGA( \'audioLink\', \'click\', \'' + fileName + '\', 4, 0 );"><span class="icon-download"></span> Audio</a>' );
+                    '<a href="' + self.downloads.audio + '" tabindex="1" download="' + fileName + '" aria-label="Download audio file" onclick="SBPLUS.sendToGA( \'audioLink\', \'click\', \'' + fileName + '\', 4, 0 );"><span class="icon-download"></span> Audio</a>' );
             } );
             
             // use AJAX to get zipped/packaged file
@@ -821,7 +822,7 @@ var SBPLUS = SBPLUS || {
             } ).done( function() {
                 self.downloads.supplement = this.url;
                 $( self.splash.downloadBar ).append(
-                    '<a href="' + self.downloads.supplement + '" tabindex="1" download="' + self.xml.setup.title + '" aria-label="Download zipped supplement file" onclick="SBPLUS.sendToGA( \'supplementLink\', \'click\', \'' + fileName + '\', 4, 0 );"><span class="icon-download"></span> Supplement</a>' );
+                    '<a href="' + self.downloads.supplement + '" tabindex="1" download="' + fileName + '" aria-label="Download zipped supplement file" onclick="SBPLUS.sendToGA( \'supplementLink\', \'click\', \'' + fileName + '\', 4, 0 );"><span class="icon-download"></span> Supplement</a>' );
             } );
             
             // if accent does not match the default accent

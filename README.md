@@ -54,6 +54,7 @@ SB+ may not function properly with beta or pre-released version of web browsers.
 * Enhanced/improved Google Analytic tracking
 * Fixed table of content collapsible icon alignment (#79)
 * Collapsed section will now open if the current selected page is under it
+* Quiz GA completion event is now fired when it is answered
 
 #### 3.1.2 (11/07/2017)
 * Author profile is now aligned to the right to avoid alignment issues with text wrapping

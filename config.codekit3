@@ -7,7 +7,7 @@
 		"uuidString": "A55265B6-3CAC-4E30-9611-2EA711C82108"
 		}
 	],
-"creatorBuild": "26330",
+"creatorBuild": "26680",
 "files": {
 	"\/.gitignore": {
 		"cB": 0,
@@ -858,6 +858,7 @@
 	"displayValue": "sbplus_v3",
 	"displayValueWasSetByUser": 0,
 	"iconImageName": "meme-soon",
+	"iconImageWasSetByUser": 0,
 	"lastBuiltDate": 518717791
 	},
 "projectSettings": {
@@ -2661,6 +2662,7 @@
 		"autoOutputPathReplace1": "",
 		"autoOutputPathReplace2": "",
 		"autoOutputPathStyle": 0,
+		"outputFormat": 0,
 		"quality": 100
 		},
 	"languageDefaultsJS": {
