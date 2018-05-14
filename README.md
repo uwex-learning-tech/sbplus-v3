@@ -55,6 +55,9 @@ SB+ may not function properly with beta or pre-released version of web browsers.
 * Fixed table of content collapsible icon alignment (#79)
 * Collapsed section will now open if the current selected page is under it
 * Quiz GA completion event is now fired when it is answered
+* Fixed issue #81
+* Set all downloadable file name to its directory name
+* Changed the outer left border to have transparency color (#82)
 
 #### 3.1.2 (11/07/2017)
 * Author profile is now aligned to the right to avoid alignment issues with text wrapping
