@@ -89,8 +89,7 @@ Page.prototype.getPageMedia = function() {
     SBPLUS.clearWidget();
     SBPLUS.enableWidget();
     
-    $( self.mediaContent ).removeClass('iframeEmbed');
-    
+    $( self.mediaContent ).removeClass('iframeEmbed').empty();
     
     if ( SBPLUS.hasStorageItem( 'sbplus-' + SBPLUS.uniqueTitle + '-previously-widget-open', true ) ) {
         
