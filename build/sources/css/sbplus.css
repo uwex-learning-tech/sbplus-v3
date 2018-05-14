@@ -30,8 +30,7 @@ body {
 
 /* sbplus */
 .sbplus_wrapper {
-  height: 100%;
-  background-color: #fff; }
+  height: 100%; }
   .sbplus_wrapper * {
     margin: 0;
     padding: 0;
@@ -781,7 +780,8 @@ body {
           height: -moz-calc(100% - 30px);
           height: -webkit-calc(100% - 30px);
           height: calc(100% - 30px);
-          overflow-y: auto; }
+          overflow-y: auto;
+          background-color: #fff; }
           .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col #sbplus_table_of_contents_wrapper .section .header {
             display: -webkit-flex;
             display: flex;
@@ -842,7 +842,8 @@ body {
       order: 3;
       height: 50px;
       font-size: 120%;
-      border-top: 1px solid #ccc; }
+      border-top: 1px solid #ccc;
+      background-color: #fff; }
       .sbplus_wrapper #sbplus #sbplus_control_bar .common, .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_splash_screen #sbplus_presentation_info .sb_title, .sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info #sbplus_control_bar .sb_title, .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_splash_screen #sbplus_presentation_info .sb_subtitle, .sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info #sbplus_control_bar .sb_subtitle, .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_splash_screen #sbplus_presentation_info .sb_author, .sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info #sbplus_control_bar .sb_author,
       .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_splash_screen #sbplus_presentation_info .sb_duration,
       .sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info #sbplus_control_bar .sb_duration, .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_splash_screen #sbplus_presentation_info .sb_downloads, .sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info #sbplus_control_bar .sb_downloads, .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_left_controls, .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls {
@@ -1216,7 +1217,7 @@ body {
         width: 900px;
         height: 586px; }
       .sbplus_boxed #sbplus #sbplus_content_wrapper #sbplus_left_col {
-        border-left: 1px solid #ccc; }
+        border-left: 1px solid rgba(0, 0, 0, 0.25); }
         .sbplus_boxed #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_widget {
           border-left: none;
           border-right: none; }

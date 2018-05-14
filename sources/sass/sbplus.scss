@@ -90,7 +90,7 @@ body {
 .sbplus_wrapper {
     
     height: 100%;
-    background-color: #fff;
+//     background-color: #fff;
     
     * {
         @include reset-box-model();
@@ -1211,6 +1211,7 @@ body {
 */
                     @include calc( height, '100% - ' + 30px );
                     overflow-y: auto;
+                    background-color: #fff;
                     
                     .section {
                         
@@ -1326,6 +1327,7 @@ body {
             height: $cntrlBarHeight;
             font-size: 120%;
             border-top: 1px solid $border-color;
+            background-color: #fff;
             
             .common {
                 @include display-flex();
@@ -1900,7 +1902,7 @@ $titleBarHeight: 30px;
             
                 #sbplus_left_col {
                                 
-                    border-left: 1px solid $border-color;
+                    border-left: 1px solid rgba( 0,0,0,0.25 );
                         
                     #sbplus_widget {
                         border-left: none;
