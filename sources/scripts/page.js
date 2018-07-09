@@ -116,9 +116,9 @@ Page.prototype.getPageMedia = function() {
             
             if ( SBPLUS.kalturaLoaded === false ) {
                 
-                $.getScript( self.root + '/scripts/libs/kaltura/mwembedloader.js', function() {
+                $.getScript( self.root + 'scripts/libs/kaltura/mwembedloader.js', function() {
                     
-                    $.getScript( self.root +  '/scripts/libs/kaltura/kwidgetgetsources.js', function() {
+                    $.getScript( self.root +  'scripts/libs/kaltura/kwidgetgetsources.js', function() {
                         
                         SBPLUS.kalturaLoaded = true;
                         self.loadKalturaVideoData();
