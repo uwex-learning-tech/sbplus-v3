@@ -566,6 +566,8 @@ var SBPLUS = SBPLUS || {
                 var sanitizedAuthor = self.sanitize( xAuthor.attr( 'name' ).trim() );
                 var profileUrl = self.manifest.sbplus_author_directory + sanitizedAuthor + '.json';
                 
+                self.xml.setup.author = xAuthor.attr( 'name' ).trim();
+                
                 // if author data in XML is empty
                 if ( self.isEmpty( xAuthor.text() ) && !self.isEmpty( sanitizedAuthor ) ) {
                     
@@ -580,17 +582,14 @@ var SBPLUS = SBPLUS || {
                         
                     } ).done( function( res ) { // when done, set author and profile
                         
-                        self.xml.setup.author = res.name;
-                        self.xml.setup.profile = self.noScript( res.profile );
+                        self.xml.setup.profile = res;
                         
                         self.xmlParsed = true;
                         self.renderSplashscreen();
                         
                     } ).fail( function() { // when fail, default to the values in XML
                         
-                        self.xml.setup.author = xAuthor.attr( 'name' ).trim();
                         self.xml.setup.profile = self.getTextContent( xAuthor );
-                        
                         self.xmlParsed = true;
                         self.renderSplashscreen();
                         
@@ -599,9 +598,7 @@ var SBPLUS = SBPLUS || {
                 } else { // if not
                     
                     // get the values in the XML
-                    self.xml.setup.author = xAuthor.attr( 'name' ).trim();
                     self.xml.setup.profile = self.getTextContent( xAuthor );
-                    
                     self.xmlParsed = true;
                     self.renderSplashscreen();
                     
@@ -1827,8 +1824,19 @@ var SBPLUS = SBPLUS || {
                     
                 }
                 
-                content = '<p class="name">' + self.xml.setup.author + '</p>';
-                content += self.xml.setup.profile;
+                if ( typeof self.xml.setup.profile !== "object" ) {
+                    
+                    content = '<p class="name">' + self.xml.setup.author + '</p>';
+                    content += self.noScript( self.xml.setup.profile );
+                    
+                } else {
+                    
+                    content = '<p class="name">' + self.xml.setup.profile.name + '</p>';
+                    content += self.noScript( self.xml.setup.profile.profile );
+                    
+                }
+                
+                
                 
             } else {
                 content = 'No author profile available.';

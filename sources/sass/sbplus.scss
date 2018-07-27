@@ -1601,19 +1601,14 @@ body {
                     .profileImg {
                         
                         display: inline-block;
-                        min-width: 250px;
+                        width: 250px;
                         margin: 0;
                         height: auto;
-                        min-height: 250px;
-                        background-image: url('../images/default_photo.png');
-                        background-size: contain;
-                        background-repeat: no-repeat;
-                        background-position: center left;
                         margin-left: $gutter * 1.5;
                         float: right;
                         
                         img {
-                            width: 250px;
+                            width: 100%;
                             height: auto;
                         }
                         

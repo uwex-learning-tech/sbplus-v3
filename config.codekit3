@@ -189,17 +189,6 @@
 		"plM": 3758088159,
 		"prP": 0
 		},
-	"\/sources\/images\/default_photo.png": {
-		"ft": 32768,
-		"iS": 4668,
-		"oA": 0,
-		"oAP": "\/build\/sources\/images\/default_photo.png",
-		"oF": 2,
-		"oIPL": 0,
-		"opt": 1,
-		"oT": 1,
-		"q": 100
-		},
 	"\/sources\/images\/default_splash.svg": {
 		"ft": 2097152,
 		"miP": 0,
