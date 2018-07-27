@@ -1,5 +1,5 @@
 # Storybook Plus (SB+)  
-**version 3.1.3**
+**version 3.1.4**
 
 ---
 ### Requirements
@@ -44,6 +44,13 @@ SB+ may not function properly with beta or pre-released version of web browsers.
 ### Version Change Log
 
 #### Pending
+_none at the moment_
+
+#### 3.1.4
+* Fixed an issue where author photo is not loaded from server.
+* Author placeholder image has been removed to give more space for text when there is not author photo.
+
+#### 3.1.3
 * If both image and audio are missing for image-audio page type, both errors will be displayed in the error message
 * Fixed issue with responsiveness inside an iFrame
 * Fixed issue where the page jumps when presentation started
