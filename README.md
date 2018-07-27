@@ -4,7 +4,7 @@
 ---
 ### Requirements
 
-Storybook Plus is a web application that uses HTML5, JavaScript, CSS3, and web storage to delivery multimedia presentations. As with any other web applications, the choice of web browsers is the most critical rather than the operation systems. JavaScript must be enabled no matter which web browser is utilized. SB+ does not use cookies; however, it does use both local and session web storages.
+Storybook Plus is a web application that uses HTML5, JavaScript, CSS3, and web storage to deliver multimedia presentations. As with any other web applications, the choice of web browsers is the most critical rather than the operating systems. JavaScript must be enabled no matter which web browser is utilized. SB+ does not use cookies; however, it does use both local and session web storages.
 
 **Minimum web browser requirements for desktop/laptop:**
 * Internet Explorer 11 (in non-Compatibility View mode)
@@ -36,9 +36,9 @@ Storybook Plus is a web application that uses HTML5, JavaScript, CSS3, and web s
 * Windows Eyes (version 8+)
 * VoiceOver on iOS (iPhone/iPad)
 
-Notes: most visually impaired users started out using screen reader with Internet Explorer prepackaged. However, and unfortunately, Microsoft stops supporting accessibilities as newer versions of Internet Explorer were released. Storybook Plus will cause additional restrictions for screen reader due to Microsoft’s non-existent accessibility supports for HTML5 on Internet Explorer including their latest web browser application, Microsoft Edge. Based on our user testing results, visually impaired users are moving toward Mozilla Firefox or Google Chrome.
+Notes: most visually impaired users started out using screenreader with Internet Explorer prepackaged. However, and unfortunately, Microsoft stops supporting accessibilities as newer versions of Internet Explorer were released. Storybook Plus will cause additional restrictions for screen reader due to Microsoft’s non-existent accessibility supports for HTML5 on Internet Explorer including their latest web browser application, Microsoft Edge. Based on our user testing results, visually impaired users are moving toward Mozilla Firefox or Google Chrome.
 
-SB+ may not function properly with beta or pre-released version of web browsers. Please use the latest stable version for the best experience.
+SB+ may not function properly with beta or pre-release versions of web browsers. Please use the latest stable version for the best experience.
 
 ---
 ### Version Change Log
@@ -47,10 +47,10 @@ SB+ may not function properly with beta or pre-released version of web browsers.
 _none at the moment_
 
 #### 3.1.4 (07/27/2018)
-* Fixed an issue where author photo is not loaded from server.
-* Author placeholder image has been removed to give more space for text when there is not author photo.
+* Fixed an issue where author photo is not loaded from the server.
+* Author placeholder image has been removed to give more space for text when there is no author photo.
 
-#### 3.1.3 (02/02/20158)
+#### 3.1.3 (02/02/2018)
 * If both image and audio are missing for image-audio page type, both errors will be displayed in the error message
 * Fixed issue with responsiveness inside an iFrame
 * Fixed issue where the page jumps when presentation started
@@ -60,7 +60,7 @@ _none at the moment_
 * Enhanced HTML page type to allow audio and to open a new tab/window instead of embed
 * Enhanced/improved Google Analytic tracking
 * Fixed table of content collapsible icon alignment (#79)
-* Collapsed section will now open if the current selected page is under it
+* Collapsed section will now open if the currently selected page is under it
 * Quiz GA completion event is now fired when it is answered
 * Fixed issue #81
 * Set all downloadable file name to its directory name
@@ -72,34 +72,34 @@ _none at the moment_
 * Video/audio automatically paused when opening a menu item
 * Removed centralized author profile request when there is no author specified
 * SBPLUS root directory defaults to `sources/` when not specified in the manifest
-* Removed duplicate logo requests when page has no widget contents
+* Removed duplicate logo requests when a page has no widget contents
 * Allow SB+ presentation to be loaded on Safari's private mode or any private mode that does not support local and session storages
 * Display unknown page type error message when the page type is not supported
 * Changed a few jQuery $.get methods to $.ajax methods for HEAD request
-* Updated SBPLUS SVG logo and css
+* Updated SBPLUS SVG logo and CSS
 
 #### 3.1.1 (06/22/2017)
 * Fixed the issue where bundle page type is not working properly
 * Fixed the issue where local author info is not overriding centralized info
 * `<![CDATA[ ]]>` is now optional in SB+'s XML
-* Fixed the issue where large (hi-res) image in quiz is not scaled down
+* Fixed the issue where large (hi-res) image in a quiz is not scaled down
 * `correct` attribute for multiple choice question will now only recognized "yes" (case in-sensitive) value; all other value will be considered "no"
 * Adjusted the color to be lighter for active selected menu item under menu panel
-* Fixed the issue where session data conflicting with each other when loading more than one SB+ on a same page
-* Fixed the issue with IE not loading presentation
-* Removed body margin on HTML page
+* Fixed the issue where session data conflicting with each other when loading more than one SB+ on the same page
+* Fixed the issue with IE not loading the presentation
+* Removed body margin on the HTML page
 * Fixed the issue where IE does not understand that an undefined variable is undefined
 * Left aligned table of contents label
 * Fixed the issue where IE does not understand jQuery's .html() method
-* Ignored missing tags for quiz in SB+ XML
+* Ignored missing tags for quiz pages in SB+ XML
 * Fixed layout issues on iOS Safari and other browsers for mobile
 * Removed mobile responsiveness when SB+ is loaded inside an iframe
-* Fixed the issue where videojs poster image is not properly size for Microsoft Edge
-* Fixed the issue where the widget area got pushed down after view a quiz
-* Table of contents autoscroll is disabled when table of contents is not visible
-* Updated setting labels and button tool tips
-* Disabled author profile button when author is not specified
-* Interactive transcript is completely switch off and removed from settings (will revisit in future version)
+* Fixed the issue where videoJS poster image is not properly sized for Microsoft Edge
+* Fixed the issue where the widget area got pushed down after viewing a quiz
+* Table of contents auto scroll is disabled when the table of contents is not visible
+* Updated setting labels and button tooltips
+* Disabled author profile button when an author is not specified
+* Interactive transcript is completely switched off and removed from settings (will revisit in a future version)
 * Fixed the issue where unordered and ordered HTML list is not properly formatted
 * Updated CSS indexing for page error message
 
@@ -116,13 +116,13 @@ _none at the moment_
 * Restructured menu and its layouts
 * Added the ability to open author's profile by clicking the author's name on the top black bar
 * Changed subtitles/captions chat bubble like button to tradition captions button
-* Changed download button icon to a cloud with an down arrow
+* Changed download button icon to a cloud with a down arrow
 * Added better error message support
 * Removed expand/contract button
 * Added toggle Widget and toggle table of contents buttons
 * Presentation no longer takes up the whole web browser's viewport
-* Menu settings are now auto save when changes are made
-* Author's profile is now loaded from the server first. XML data will override data from server.
+* Menu settings are now automatically saved when changes are made
+* Author's profile is now loaded from the server first. XML data will override data from the server.
 * Added more properties to manifest JSON file
 
 #### 3.0.1 (10/06/2016)
