@@ -1,11 +1,24 @@
-var transcriptInterval = null;
+// var transcriptInterval = null;
 var Page = function ( obj, data ) {
     
+    this.pageXML = obj.xml[0];
     this.pageData = data;
     this.title = obj.title;
     this.type = obj.type;
     this.transition = obj.transition;
     this.pageNumber = obj.number;
+    
+    // google analytic variables
+    this.gaEventCate = '';
+    this.gaEventLabel = '';
+    this.gaEventAction = '';
+    this.gaEventValue = -1;
+    this.gaEventHalfway = false;
+    this.gaDelays = {
+        start: 0,
+        halfway: 0,
+        completed: 0
+    }; 
     
     if ( obj.type !== 'quiz' ) {
         
@@ -32,9 +45,9 @@ var Page = function ( obj, data ) {
         
         this.transcript = null;
         this.transcriptLoaded = false;
-        this.transcriptIntervalStarted = false;
         
         this.hasImage = false;
+        this.missingImgUrl = '';
         this.delayStorage = null;
         
     }
@@ -76,6 +89,8 @@ Page.prototype.getPageMedia = function() {
     SBPLUS.clearWidget();
     SBPLUS.enableWidget();
     
+    $( self.mediaContent ).removeClass('iframeEmbed').empty();
+    
     if ( SBPLUS.hasStorageItem( 'sbplus-' + SBPLUS.uniqueTitle + '-previously-widget-open', true ) ) {
         
         if ( SBPLUS.getStorageItem( 'sbplus-' + SBPLUS.uniqueTitle + '-previously-widget-open', true ) === '1' ) {
@@ -88,7 +103,11 @@ Page.prototype.getPageMedia = function() {
         
     }
     
-    clearInterval( transcriptInterval );
+    self.gaEventHalfway = false;
+    SBPLUS.clearGATimeout();
+    
+    // clearInterval( transcriptInterval );
+    
     // end reset
     
     switch ( self.type ) {
@@ -97,9 +116,9 @@ Page.prototype.getPageMedia = function() {
             
             if ( SBPLUS.kalturaLoaded === false ) {
                 
-                $.getScript( self.root + '/scripts/libs/kaltura/mwembedloader.js', function() {
+                $.getScript( self.root + 'scripts/libs/kaltura/mwembedloader.js', function() {
                     
-                    $.getScript( self.root +  '/scripts/libs/kaltura/kwidgetgetsources.js', function() {
+                    $.getScript( self.root +  'scripts/libs/kaltura/kwidgetgetsources.js', function() {
                         
                         SBPLUS.kalturaLoaded = true;
                         self.loadKalturaVideoData();
@@ -113,6 +132,12 @@ Page.prototype.getPageMedia = function() {
                 self.loadKalturaVideoData();
                 
             }
+
+            self.gaEventCate = 'Video';
+            self.gaEventLabel = SBPLUS.getCourseDirectory() + ':kaltura:page' + SBPLUS.targetPage.data('count');
+            self.gaEventAction = 'start';
+            self.gaEventValue = 3;
+            self.gaDelays.start = 6;
             
         break;
         
@@ -126,9 +151,14 @@ Page.prototype.getPageMedia = function() {
                 type: 'HEAD'
                 
             } ).done( function() {
+                
                 self.hasImage = true;
+                
             } ).fail( function() {
+                
                 self.showPageError( 'NO_IMG', this.url );
+                self.missingImgUrl = this.url;
+                
             } ).always( function() {
                 
                 $.ajax( {
@@ -159,6 +189,12 @@ Page.prototype.getPageMedia = function() {
                 } );
                 
             } );
+            
+            self.gaEventCate = 'Audio';
+            self.gaEventLabel = SBPLUS.getCourseDirectory() + ':audio:page' + SBPLUS.targetPage.data('count');
+            self.gaEventAction = 'start';
+            self.gaEventValue = 2;
+            self.gaDelays.start = 6;
             
         break;
         
@@ -195,6 +231,14 @@ Page.prototype.getPageMedia = function() {
             $( self.mediaContent ).html( '<img src="' + img.src + '" class="img_only" alt="' + img.alt + '" />' ).promise().done( function() {
                 self.setWidgets();
             } );
+            
+            self.gaEventCate = 'Image';
+            self.gaEventLabel = SBPLUS.getCourseDirectory() + ':image:page' + SBPLUS.targetPage.data('count');
+            self.gaEventAction = 'start';
+            self.gaEventValue = 4;
+            self.gaDelays.start = 10;
+            self.gaDelays.halfway = 30;
+            self.gaDelays.completed = 60;
                         
         break;
         
@@ -224,6 +268,12 @@ Page.prototype.getPageMedia = function() {
                 } );
                 
             } );
+            
+            self.gaEventCate = 'Video';
+            self.gaEventLabel = SBPLUS.getCourseDirectory() + ':video:page' + SBPLUS.targetPage.data('count');
+            self.gaEventAction = 'start';
+            self.gaEventValue = 3;
+            self.gaDelays.start = 6;
         
         break;
         
@@ -238,6 +288,12 @@ Page.prototype.getPageMedia = function() {
                 
             } );
             
+            self.gaEventCate = 'Video';
+            self.gaEventLabel = SBPLUS.getCourseDirectory() + ':youtube:page' + SBPLUS.targetPage.data('count');
+            self.gaEventAction = 'start';
+            self.gaEventValue = 3;
+            self.gaDelays.start = 6;
+            
         break;
         
         case 'vimeo':
@@ -251,15 +307,11 @@ Page.prototype.getPageMedia = function() {
                 
             } );
             
-        break;
-        
-        case 'html':
-            
-            $( self.mediaContent ).html( '<iframe class="html" src="assets/html/' + self.src + '/index.html"></iframe>' ).promise().done( function() {
-                    
-                self.setWidgets();
-                
-            } );
+            self.gaEventCate = 'Video';
+            self.gaEventLabel = SBPLUS.getCourseDirectory() + ':vimeo:page' + SBPLUS.targetPage.data('count');
+            self.gaEventAction = 'start';
+            self.gaEventValue = 3;
+            self.gaDelays.start = 6;
             
         break;
         
@@ -294,6 +346,12 @@ Page.prototype.getPageMedia = function() {
                 
             } );
             
+            self.gaEventCate = 'Audio';
+            self.gaEventLabel = SBPLUS.getCourseDirectory() + ':bundle:page' + SBPLUS.targetPage.data('count');
+            self.gaEventAction = 'start';
+            self.gaEventValue = 2;
+            self.gaDelays.start = 6;
+            
         break;
         
         case 'quiz':
@@ -317,6 +375,71 @@ Page.prototype.getPageMedia = function() {
 
             } );
             
+            self.gaEventCate = 'Quiz';
+            self.gaEventLabel = SBPLUS.getCourseDirectory() + ':quiz:page' + SBPLUS.targetPage.data('count');
+            self.gaEventAction = 'start';
+            self.gaEventValue = 5;
+            self.gaDelays.start = 10;
+            self.gaDelays.halfway = 30;
+            
+        break;
+        
+        case 'html':
+            
+            var embed = false;
+            var hasAudio = false;
+            var path = self.src;
+                
+            if ( !isUrl(path) ) {
+                path = 'assets/html/' + self.src;
+            }
+            
+            if ( $(self.pageXML).attr('embed') !== undefined ) {
+                embed = $(self.pageXML).attr('embed').toLowerCase();
+            }
+            
+            if ( $(self.pageXML).find('audio').length >= 1 ) {
+                hasAudio = $($(self.pageXML).find('audio')[0]).attr('src').toLowerCase();
+            }
+            
+            if ( embed === 'yes' ) {
+                
+                var content = '<iframe class="html" src="' + path + '"></iframe>';
+                
+                $( self.mediaContent ).addClass( 'iframeEmbed' ).html( content ).promise().done( function() {
+                    
+                    if ( hasAudio.length ) {
+                        
+                        self.isAudio = true;
+                        $( self.mediaContent ).append( '<audio id="mp" class="video-js vjs-default-skin"></audio>' );
+                        self.renderVideoJS( hasAudio );
+                        
+                    }
+                    
+                } );
+                
+            } else {
+                
+               var holder = '<div class="html exLink">';
+               holder += '<small>click the link to open it in a new tab/window</small>';
+               holder += '<a href="' + path + '" target="_blank">' + path + '</a>';
+               holder += '</div>'
+               
+               $( self.mediaContent ).addClass( 'html' ).html( holder );
+               window.open(path, '_blank');
+               
+            }
+            
+            self.setWidgets();
+            
+            self.gaEventCate = 'HTML';
+            self.gaEventLabel = SBPLUS.getCourseDirectory() + ':html:page' + SBPLUS.targetPage.data('count');
+            self.gaEventAction = 'start';
+            self.gaEventValue = 6;
+            self.gaDelays.start = 10;
+            self.gaDelays.halfway = 30;
+            self.gaDelays.completed = 60;
+            
         break;
         
         default:
@@ -337,6 +460,8 @@ Page.prototype.getPageMedia = function() {
         
     }
     
+    // add current page index to local storage
+    
     window.clearTimeout( self.delayStorage );
     
     self.delayStorage = window.setTimeout( function() {
@@ -352,6 +477,15 @@ Page.prototype.getPageMedia = function() {
         }
         
     }, 3000 );
+    
+    // send event to Google Analytics
+    if ( self.gaEventCate !== '' ) {
+        
+        SBPLUS.sendToGA( self.gaEventCate, self.gaEventAction,
+                         self.gaEventLabel, self.gaEventValue,
+                         self.gaDelays );
+        
+    }
     
 };
 
@@ -450,10 +584,12 @@ Page.prototype.loadKalturaVideoData = function () {
 };
 
 // render videojs
-Page.prototype.renderVideoJS = function() {
+Page.prototype.renderVideoJS = function( src ) {
     
     var self = this;
     
+    src = typeof src !== 'undefined' ? src : self.src;
+
     var isAutoplay = true;
     
     if ( SBPLUS.getStorageItem( 'sbplus-autoplay' ) === '0' ) {
@@ -491,7 +627,7 @@ Page.prototype.renderVideoJS = function() {
     } else if ( self.isYoutube ) {
         
         options.techOrder = ['youtube'];
-        options.sources = [{ type: "video/youtube", src: "https://www.youtube.com/watch?v=" + self.src }];
+        options.sources = [{ type: "video/youtube", src: "https://www.youtube.com/watch?v=" + src }];
         options.playbackRates = null;
         
         $.extend( options.plugins, { videoJsResolutionSwitcher: { 'default': 720 } } );
@@ -499,7 +635,7 @@ Page.prototype.renderVideoJS = function() {
     } else if ( self.isVimeo ) {
         
         options.techOrder = ["vimeo"];
-        options.sources = [{ type: "video/vimeo", src: "https://vimeo.com/" + self.src }];
+        options.sources = [{ type: "video/vimeo", src: "https://vimeo.com/" + src }];
         options.playbackRates = null;
         //options.controls = false;
         
@@ -524,7 +660,7 @@ Page.prototype.renderVideoJS = function() {
         if ( self.isAudio || self.isBundle ) {
             
             if ( self.isAudio && self.hasImage ) {
-                player.poster( 'assets/pages/' + self.src + '.' + self.imgType );
+                player.poster( 'assets/pages/' + src + '.' + self.imgType );
             }
             
             if ( self.isBundle ) {
@@ -541,11 +677,11 @@ Page.prototype.renderVideoJS = function() {
                 player.cuepoints();
                 player.addCuepoint( {
                     	
-                	namespace: self.src + '-1',
+                	namespace: src + '-1',
                 	start: 0,
                 	end: self.cuepoints[0],
                 	onStart: function() {
-                    	pageImage.src = 'assets/pages/' + self.src + '-1.' + self.imgType;
+                    	pageImage.src = 'assets/pages/' + src + '-1.' + self.imgType;
                     	player.poster( pageImage.src );
                 	},
                 	onEnd: function() {},
@@ -564,11 +700,11 @@ Page.prototype.renderVideoJS = function() {
                     }
                     
                     player.addCuepoint( {
-                        namespace: self.src + '-' + ( i + 2 ),
+                        namespace: src + '-' + ( i + 2 ),
                         start: self.cuepoints[i],
                         end: endCue,
                         onStart: function() {
-                            pageImage.src = 'assets/pages/' + self.src + '-' + ( i + 2 ) + '.' + self.imgType;
+                            pageImage.src = 'assets/pages/' + src + '-' + ( i + 2 ) + '.' + self.imgType;
                             $( pageImage ).on( 'error', function() {
                                 self.showPageError( 'NO_IMG', pageImage.src );
                             } );
@@ -576,15 +712,13 @@ Page.prototype.renderVideoJS = function() {
                         }
                     } );
                     
-                    
-                    
                 } );
                 
                 player.on('seeking', function() {
                     	
                 	if ( player.currentTime() <= self.cuepoints[0] ) {
                     	
-                    	player.poster( 'assets/pages/' + self.src + '-1.' + self.imgType );
+                    	player.poster( 'assets/pages/' + src + '-1.' + self.imgType );
                     	
                 	}
                 	
@@ -592,12 +726,12 @@ Page.prototype.renderVideoJS = function() {
                 
             }
             
-            player.src( { type: 'audio/mp3', src: 'assets/audio/' + self.src + '.mp3' } );
+            player.src( { type: 'audio/mp3', src: 'assets/audio/' + src + '.mp3' } );
             
         }
         
         if ( self.isVideo ) {
-            player.src( { type: 'video/mp4', src: 'assets/video/' + self.src + '.mp4' } );
+            player.src( { type: 'video/mp4', src: 'assets/video/' + src + '.mp4' } );
         }
         
         // add caption
@@ -644,9 +778,20 @@ Page.prototype.renderVideoJS = function() {
               self.transcriptIntervalStarted = false;
               
           }
+          
 */
+
+            // send event to Google Analytics
+            if ( self.gaEventCate !== '' ) {
+                
+                SBPLUS.sendToGA( self.gaEventCate, "completed",
+                                 self.gaEventLabel, 3, 0 );
+                
+            }
           
         });
+        
+        
         
         player.on('playing', function() {
             
@@ -662,6 +807,25 @@ Page.prototype.renderVideoJS = function() {
 */
           
         });
+        
+        if ( SBPLUS.xml.settings.analytics === 'on' ) {
+            
+            player.on( 'timeupdate', function() {
+                
+                var percent = player.currentTime() / player.duration() * 100;
+                
+                if ( self.gaEventCate !== '' && percent >= 50
+                     && self.gaEventHalfway === false ) {
+                    
+                    SBPLUS.sendToGA( self.gaEventCate, "halfway",
+                                 self.gaEventLabel, 2, 0 );
+                    self.gaEventHalfway = true;
+                                 
+                }
+              
+            });
+        
+        }
         
         player.on( 'error', function() {
             
@@ -894,6 +1058,7 @@ Page.prototype.getWidgetContent = function( id ) {
     
 }
 
+/*
 Page.prototype.startInteractiveTranscript = function() {
     
     var self = this;
@@ -949,6 +1114,7 @@ Page.prototype.startInteractiveTranscript = function() {
     } );
     
 }
+*/
 
 // display page error
 Page.prototype.showPageError = function( type, src ) {
@@ -984,7 +1150,18 @@ Page.prototype.showPageError = function( type, src ) {
         break;
         
         case 'NO_MEDIA':
-            msg = '<p><strong>The content for this Storybook Page could not be loaded.</strong></p><p><strong>Expected media:</strong> ' + src + '</p><p>Please try refreshing your browser, or coming back later.</p><p>If this problem continues, please <a href="javascript:void(0);" onclick="SBPLUS.openMenuItem(\'sbplus_help\');">contact tech support</a>.</p>';
+        
+            msg = '<p><strong>The content for this Storybook Page could not be loaded.</strong></p>';
+            
+            if ( self.hasImage === false ) {
+                msg += '<p><strong>Expected audio:</strong> ' + src + '<br>';
+                msg += '<strong>Expected image:</strong> ' + self.missingImgUrl + '</p>';
+            } else {
+                msg += '<p><strong>Expected media:</strong> ' + src + '</p>';
+            }
+            
+            msg += '<p>Please try refreshing your browser, or coming back later.</p><p>If this problem continues, please <a href="javascript:void(0);" onclick="SBPLUS.openMenuItem(\'sbplus_help\');">contact tech support</a>.</p>';
+            
         break;
         
         case 'UNKNOWN_TYPE':
@@ -1197,4 +1374,9 @@ function toSeconds( str ) {
         return Number( arr[0] * 60 ) + Number( arr[1] );
     }
     
+}
+
+function isUrl(s) {
+   var regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/
+   return regexp.test(s);
 }

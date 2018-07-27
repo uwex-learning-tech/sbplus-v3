@@ -86,7 +86,7 @@
     
         <div id="sbplus_left_col">
             
-            <div id="sbplus_media_wrapper" class="aspect_ratio">
+            <div id="sbplus_media_wrapper">
                 <div class="sbplus_media_error" tabindex="1"></div>
                 <div class="sbplus_media_content animated" tabindex="1"></div>
             </div>

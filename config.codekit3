@@ -7,7 +7,7 @@
 		"uuidString": "A55265B6-3CAC-4E30-9611-2EA711C82108"
 		}
 	],
-"creatorBuild": "26097",
+"creatorBuild": "26680",
 "files": {
 	"\/.gitignore": {
 		"cB": 0,
@@ -189,17 +189,6 @@
 		"plM": 3758088159,
 		"prP": 0
 		},
-	"\/sources\/images\/default_photo.png": {
-		"ft": 32768,
-		"iS": 4668,
-		"oA": 0,
-		"oAP": "\/build\/sources\/images\/default_photo.png",
-		"oF": 2,
-		"oIPL": 0,
-		"opt": 1,
-		"oT": 1,
-		"q": 100
-		},
 	"\/sources\/images\/default_splash.svg": {
 		"ft": 2097152,
 		"miP": 0,
@@ -234,7 +223,7 @@
 		"dP": 10,
 		"dS": 0,
 		"ft": 4,
-		"ma": 1,
+		"ma": 0,
 		"oA": 0,
 		"oAP": "\/build\/sources\/css\/sbplus.css",
 		"oF": 1,
@@ -796,12 +785,6 @@
 		"oA": 2,
 		"oAP": "\/build\/sources\/scripts\/templates\/xml_parse_error.tpl",
 		"oF": 2
-		},
-	"\/test": {
-		"ft": 65536,
-		"oA": 1,
-		"oAP": "\/build\/test",
-		"oF": 0
 		}
 	},
 "hooks": [
@@ -865,6 +848,7 @@
 	"displayValue": "sbplus_v3",
 	"displayValueWasSetByUser": 0,
 	"iconImageName": "meme-soon",
+	"iconImageWasSetByUser": 0,
 	"lastBuiltDate": 518717791
 	},
 "projectSettings": {
@@ -873,6 +857,7 @@
 	"animateCSSInjections": 1,
 	"autoBuildNewItems": 1,
 	"autoprefixerBrowserString": "> 1%, last 2 versions, Firefox ESR, Opera 12.1",
+	"autoprefixerEnableIEGrid": 0,
 	"babelAuxiliaryCommentAfter": "",
 	"babelAuxiliaryCommentBefore": "",
 	"babelConfigFileHandlingType": 0,
@@ -1436,6 +1421,10 @@
 		"id-match": {
 			"active": 0,
 			"optionString": "'^[a-z]+([A-Z][a-z]+)*$', {'properties': false, 'onlyDeclarations': true}"
+			},
+		"implicit-arrow-linebreak": {
+			"active": 0,
+			"optionString": "'beside'"
 			},
 		"indent": {
 			"active": 0,
@@ -2663,6 +2652,7 @@
 		"autoOutputPathReplace1": "",
 		"autoOutputPathReplace2": "",
 		"autoOutputPathStyle": 0,
+		"outputFormat": 0,
 		"quality": 100
 		},
 	"languageDefaultsJS": {

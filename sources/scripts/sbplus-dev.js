@@ -3,13 +3,13 @@
  *
  * @author: Ethan Lin
  * @url: https://github.com/oel-mediateam/sbplus
- * @version: 3.1.2
- * Released 11/07/2017
+ * @version: 3.1.4
+ * Released 07/27/2018
  *
  * @license: GNU GENERAL PUBLIC LICENSE v3
  *
     Storybook Plus is an web application that serves multimedia contents.
-    Copyright (C) 2013-2017  Ethan S. Lin, UWEX CEOEL Media Services
+    Copyright (C) 2013-2018  Ethan S. Lin, UWEX CEOEL Media Services
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -53,6 +53,7 @@ var SBPLUS = SBPLUS || {
     // holds current and total pages in the presentation
     totalPages: 0,
     currentPage: null,
+    targetPage: null,
     
     // holds external data
     manifest: null,
@@ -70,9 +71,17 @@ var SBPLUS = SBPLUS || {
     presentationStarted: false,
     hasError: false,
     kalturaLoaded: false,
+    alreadyResized: false,
     
     // videojs
     playbackrate: 1,
+    
+    // google analytics variables
+    gaTimeouts: {
+        start: null,
+        halfway: null,
+        completed: null
+    },
     
     // easter egg variables
     clickCount: 0,
@@ -525,6 +534,19 @@ var SBPLUS = SBPLUS || {
             // get/set the presenation title
             self.uniqueTitle = self.sanitize( self.xml.setup.title );
             
+            // if HotJar site id is set in manifest, get and set HotJar tracking code
+            if (self.manifest.sbplus_hotjar_site_id != "") {
+                var id = Number(self.manifest.sbplus_hotjar_site_id);
+                (function(h,o,t,j,a,r){
+                    h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+                    h._hjSettings={hjid:id,hjsv:6};
+                    a=o.getElementsByTagName('head')[0];
+                    r=o.createElement('script');r.async=1;
+                    r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+                    a.appendChild(r);
+                })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+            }
+            
             // if analytics is on, get and set Google analtyics tracking
             if ( self.xml.settings.analytics === 'on' ) {
                 
@@ -533,9 +555,9 @@ var SBPLUS = SBPLUS || {
                 m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
                 })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
                 
-                ga('create', self.manifest.sbplus_google_tracking_id, 'auto');
-                ga('send', 'pageview');
-                ga('send', 'event');
+                ga( 'create', self.manifest.sbplus_google_tracking_id, 'auto' );
+                ga( 'set', { 'appName': 'SBPLUS', 'appVersion': self.xml.settings.version } );
+                
             }
             
             if ( xAuthor.length ) {
@@ -543,6 +565,8 @@ var SBPLUS = SBPLUS || {
                 // set author name and path to the profile to respective variable
                 var sanitizedAuthor = self.sanitize( xAuthor.attr( 'name' ).trim() );
                 var profileUrl = self.manifest.sbplus_author_directory + sanitizedAuthor + '.json';
+                
+                self.xml.setup.author = xAuthor.attr( 'name' ).trim();
                 
                 // if author data in XML is empty
                 if ( self.isEmpty( xAuthor.text() ) && !self.isEmpty( sanitizedAuthor ) ) {
@@ -558,17 +582,14 @@ var SBPLUS = SBPLUS || {
                         
                     } ).done( function( res ) { // when done, set author and profile
                         
-                        self.xml.setup.author = res.name;
-                        self.xml.setup.profile = self.noScript( res.profile );
+                        self.xml.setup.profile = res;
                         
                         self.xmlParsed = true;
                         self.renderSplashscreen();
                         
                     } ).fail( function() { // when fail, default to the values in XML
                         
-                        self.xml.setup.author = xAuthor.attr( 'name' ).trim();
                         self.xml.setup.profile = self.getTextContent( xAuthor );
-                        
                         self.xmlParsed = true;
                         self.renderSplashscreen();
                         
@@ -577,9 +598,7 @@ var SBPLUS = SBPLUS || {
                 } else { // if not
                     
                     // get the values in the XML
-                    self.xml.setup.author = xAuthor.attr( 'name' ).trim();
                     self.xml.setup.profile = self.getTextContent( xAuthor );
-                    
                     self.xmlParsed = true;
                     self.renderSplashscreen();
                     
@@ -722,7 +741,15 @@ var SBPLUS = SBPLUS || {
                         // display the image
                         self.setSplashImage( this.url );
                         
-                    });
+                    } ).fail( function() {
+                        
+                        self.setSplashImage( self.manifest.sbplus_root_directory + 'images/default_splash.svg' );
+                        
+                    } );
+                    
+                } else {
+                    
+                    self.setSplashImage( self.manifest.sbplus_root_directory + 'images/default_splash.svg' );
                     
                 }
                 
@@ -759,9 +786,10 @@ var SBPLUS = SBPLUS || {
                 url: fileName + '.pdf',
                 type: 'HEAD'
             } ).done( function() {
+                
                 self.downloads.transcript = this.url;
                 $( self.splash.downloadBar ).append(
-                    '<a href="' + self.downloads.transcript + '" tabindex="1" download aria-label="Download transcript file"><span class="icon-download"></span> Transcript</a>' );
+                    '<a href="' + self.downloads.transcript + '" tabindex="1" download="' + fileName + '" aria-label="Download transcript file" onclick="SBPLUS.sendToGA( \'transcriptLink\', \'click\', \'' + fileName + '\', 4, 0 );"><span class="icon-download"></span> Transcript</a>' );
             } );
             
             // use AJAX to get video file
@@ -771,7 +799,7 @@ var SBPLUS = SBPLUS || {
             } ).done( function() {
                 self.downloads.video = this.url;
                 $( self.splash.downloadBar ).append(
-                    '<a href="' + self.downloads.video + '" tabindex="1" download aria-label="Download video file"><span class="icon-download"></span> Video</a>' );
+                    '<a href="' + self.downloads.video + '" tabindex="1" download="' + fileName + '" aria-label="Download video file" onclick="SBPLUS.sendToGA( \'videoLink\', \'click\', \'' + fileName + '\', 4, 0 );"><span class="icon-download"></span> Video</a>' );
             } );
             
             // use AJAX to get audio file
@@ -781,7 +809,7 @@ var SBPLUS = SBPLUS || {
             } ).done( function() {
                 self.downloads.audio = this.url;
                 $( self.splash.downloadBar ).append(
-                    '<a href="' + self.downloads.audio + '" tabindex="1" download aria-label="Download audio file"><span class="icon-download"></span> Audio</a>' );
+                    '<a href="' + self.downloads.audio + '" tabindex="1" download="' + fileName + '" aria-label="Download audio file" onclick="SBPLUS.sendToGA( \'audioLink\', \'click\', \'' + fileName + '\', 4, 0 );"><span class="icon-download"></span> Audio</a>' );
             } );
             
             // use AJAX to get zipped/packaged file
@@ -791,7 +819,7 @@ var SBPLUS = SBPLUS || {
             } ).done( function() {
                 self.downloads.supplement = this.url;
                 $( self.splash.downloadBar ).append(
-                    '<a href="' + self.downloads.supplement + '" tabindex="1" download aria-label="Download zipped supplement file"><span class="icon-download"></span> Supplement</a>' );
+                    '<a href="' + self.downloads.supplement + '" tabindex="1" download="' + fileName + '" aria-label="Download zipped supplement file" onclick="SBPLUS.sendToGA( \'supplementLink\', \'click\', \'' + fileName + '\', 4, 0 );"><span class="icon-download"></span> Supplement</a>' );
             } );
             
             // if accent does not match the default accent
@@ -833,7 +861,19 @@ var SBPLUS = SBPLUS || {
             self.splashScreenRendered = true;
             
             if ( window.self !== window.top ) {
-                $( self.layout.wrapper ).addClass( 'loaded-in-iframe' );
+                
+                if ( document.referrer.indexOf('uwli.courses') >= 0 ) {
+                    
+                   $( self.layout.wrapper ).addClass( 'loaded-in-iframe' );
+                   
+                }
+                
+            }
+            
+            if ( self.xml.settings.analytics === 'on' ) {
+                
+                ga( 'send', 'screenview', { screenName: 'Splash' } );
+                
             }
             
             self.resize();
@@ -925,9 +965,16 @@ var SBPLUS = SBPLUS || {
                 // select the first page
                 self.selectPage( '0,0' );
                 
+                if ( self.xml.settings.analytics === 'on' ) {
+                    
+                    ga( 'send', 'screenview', { screenName: 'Main' } );
+                    
+                }
+                
             } );
             
             self.presentationStarted = true;
+            self.sendToGA( 'PresentationStartBtn', 'click', self.getCourseDirectory(), 0, 0 );
             
         }
         
@@ -963,6 +1010,7 @@ var SBPLUS = SBPLUS || {
             } );
             
             self.presentationStarted = true;
+            self.sendToGA( 'PresentationResumeBtn', 'click', self.getCourseDirectory(), 0, 0 );
             
         }
         
@@ -1116,9 +1164,9 @@ var SBPLUS = SBPLUS || {
                     
                     if ( !SBPLUS.isEmpty( self.downloads[key] ) ) {
                         $( self.button.downloadMenu ).append(
-                            '<li class="menu-item" tabindex="-1" role="menuitem" aria-live="polite"><a download href="'
+                            '<li class="menu-item" tabindex="-1" role="menuitem" aria-live="polite"><a download="' + self.xml.setup.title + '" href="'
                             + self.downloads[key] +
-                            '">' + self.capitalizeFirstLetter( key ) + '</a></li>'
+                            '" onclick="SBPLUS.sendToGA( \'' + key + 'Link\', \'click\', \'' + self.getCourseDirectory() + '\', 4, 0 );">' + self.capitalizeFirstLetter( key ) + '</a></li>'
                         );
                     }
                     
@@ -1139,10 +1187,14 @@ var SBPLUS = SBPLUS || {
             // easter egg event listener
             $( "#sbplus_menu_btn .menu-parent" ).on( 'click', self.burgerBurger.bind( self ) );
             
-            // resize elements after everything is put in place
-            self.resize();
+            if ( window.innerWidth < 900 || window.screen.width <= 414 ) {
+                this.hideWidget();
+            }
             
             this.presentationRendered = true;
+            
+            // resize elements after everything is put in place
+            self.resize();
             
             return $( self.layout.sbplus );
             
@@ -1357,7 +1409,7 @@ var SBPLUS = SBPLUS || {
      *
      * @since 3.1.0
      * @author(s) Ethan Lin
-     * @updated on 5/19/2017
+     * @updated on 3/14/2018
      *
      * @param string or object
      * @return none
@@ -1394,34 +1446,74 @@ var SBPLUS = SBPLUS || {
                 
             }
             
-            // set the target to the list element under the section
-            var target = $( targetSectionHeader.siblings( '.list' ) );
-            
-            // the open/collapse icon on the section title bar
-            var icon = targetSectionHeader.find( '.icon' );
-            
             // if target is visible...
-            if ( target.is( ':visible' ) ) {
+            if ( $( targetSectionHeader.siblings( '.list' ) ).is( ':visible' ) ) {
                 
-                // slide up (hide) the list
-                target.slideUp();
-                
-                // update the icon to open icon
-                icon.html( '<span class="icon-open"></span>' );
+                this.closeSection( targetSectionHeader );
                 
             } else {
                 
-                // slide down (show) the list
-                target.slideDown();
-                
-                // update the icon to collapse icon
-                icon.html( '<span class="icon-collapse"></span>' );
+                this.openSection( targetSectionHeader );
                 
             }
             
         }
         
     }, // end toggleSection function
+    
+    /**
+     * Close specified table of content section
+     *
+     * @since 3.1.3
+     * @author(s) Ethan Lin
+     * @updated on 3/14/2018
+     *
+     * @param DOM object
+     * @return none
+     **/
+     
+     closeSection: function( obj ) {
+        
+        // set the target to the list element under the section
+        var target = $( obj.siblings( '.list' ) );
+        
+        // the open/collapse icon on the section title bar
+        var icon = obj.find( '.icon' );
+        
+        // slide up (hide) the list
+        target.slideUp();
+            
+        // update the icon to open icon
+        icon.html( '<span class="icon-open"></span>' );
+         
+     },
+     
+     /**
+     * Open specified table of content section
+     *
+     * @since 3.1.3
+     * @author(s) Ethan Lin
+     * @updated on 3/14/2018
+     *
+     * @param DOM object
+     * @return none
+     **/
+     
+     openSection: function( obj ) {
+        
+        // set the target to the list element under the section
+        var target = $( obj.siblings( '.list' ) );
+        
+        // the open/collapse icon on the section title bar
+        var icon = obj.find( '.icon' );
+        
+        // slide down (show) the list
+        target.slideDown();
+        
+        // update the icon to collapse icon
+        icon.html( '<span class="icon-collapse"></span>' );
+         
+     },
     
     /**
      * Selecting page on the table of contents
@@ -1449,22 +1541,19 @@ var SBPLUS = SBPLUS || {
             
         }
         
-        // declare a variable to hold targetted page
-        var targetPage;
-        
         // if the argument is an click event object
         if ( e instanceof Object ) {
             
             // set target to current click event target
-            targetPage = $( e.currentTarget );
+            this.targetPage = $( e.currentTarget );
             
         } else {
             
             // set target to the passed in argument
-            targetPage = $( '.item[data-page="' + e + '"]' );
+            this.targetPage = $( '.item[data-page="' + e + '"]' );
             
             // if targe page does not exist
-            if ( targetPage.length === 0 ) {
+            if ( this.targetPage.length === 0 ) {
                 
                 // exit function; stop further execution
                 return false;
@@ -1473,7 +1562,7 @@ var SBPLUS = SBPLUS || {
         }
         
         // if target page does not have the sb_selected class
-        if ( !targetPage.hasClass( 'sb_selected' ) ) {
+        if ( !this.targetPage.hasClass( 'sb_selected' ) ) {
             
             // get jQuery set that contain pages
             var allPages = $( this.tableOfContents.page );
@@ -1485,7 +1574,7 @@ var SBPLUS = SBPLUS || {
             if ( sectionHeaders.length > 1 ) {
                 
                 // set the target header to targetted page's header
-                var targetHeader = targetPage.parent().siblings( '.header' );
+                var targetHeader = this.targetPage.parent().siblings( '.header' );
                 
                 // if targetted header does not have the current class
                 if ( !targetHeader.hasClass( 'current' ) ) {
@@ -1498,30 +1587,31 @@ var SBPLUS = SBPLUS || {
                     
                 }
                 
+                this.openSection( targetHeader );
+                
             }
             
             // remove sb_selected class from all pages
             allPages.removeClass( 'sb_selected' );
             
             // add sb_selected class to targetted page
-            targetPage.addClass( 'sb_selected' );
+            this.targetPage.addClass( 'sb_selected' );
             
             // call the getPage function with targetted page data as parameter
-            this.getPage( targetPage.data('page') );
+            this.getPage( this.targetPage.data('page') );
             
             // update the page status with the targetted page count data
-            this.updatePageStatus( targetPage.data( 'count' ) );
+            this.updatePageStatus( this.targetPage.data( 'count' ) );
             
             // update screen reader status
-            $( this.screenReader.currentPage ).html( targetPage.data( 'count' ) );
+            $( this.screenReader.currentPage ).html( this.targetPage.data( 'count' ) );
             
             // update the scroll bar to targeted page
             if ( $( this.layout.sidebar ).is( ':visible' ) ) {
                 
-                this.updateScroll( targetPage[0] );
+                this.updateScroll( this.targetPage[0] );
                 
             }
-            
             
         }
         
@@ -1553,6 +1643,7 @@ var SBPLUS = SBPLUS || {
         
         // create a pageData object to hold page title and type
         var pageData = {
+            xml: target,
             title: target.attr( 'title' ).trim(),
             type: target.attr( 'type' ).trim().toLowerCase()
         };
@@ -1578,8 +1669,6 @@ var SBPLUS = SBPLUS || {
                 
         } else {
             
-            // create new page object using the pageData and set to SBPLUS's
-            // currentPage property
             this.currentPage = new Page( pageData, target );
             
         }
@@ -1622,8 +1711,14 @@ var SBPLUS = SBPLUS || {
         var targetHeight = $( target ).outerHeight();
         
         // get/set target's position
+        
+        var sectionHeaders = $( this.tableOfContents.header );
         var targetTop = $( target ).offset().top - targetHeight;
         
+        if ( sectionHeaders.length <= 0 ) {
+            targetTop += 40;
+        }
+    
         // if target's position is greater than scrollable height
         if ( targetTop > scrollHeight ) {
             
@@ -1634,10 +1729,11 @@ var SBPLUS = SBPLUS || {
         
         // if target's position is less than target's height
         // i.e., scroll to the top of the list when on the last item
+        
         if ( targetTop < targetHeight ) {
             
             // smoothly scroll to target and do align to top
-            target.scrollIntoView( { behavior: 'smooth', block: 'start' } );
+            target.scrollIntoView( /* { behavior: 'smooth', block: 'start' } */ );
             
         }
         
@@ -1728,8 +1824,19 @@ var SBPLUS = SBPLUS || {
                     
                 }
                 
-                content = '<p class="name">' + self.xml.setup.author + '</p>';
-                content += self.xml.setup.profile;
+                if ( typeof self.xml.setup.profile !== "object" ) {
+                    
+                    content = '<p class="name">' + self.xml.setup.author + '</p>';
+                    content += self.noScript( self.xml.setup.profile );
+                    
+                } else {
+                    
+                    content = '<p class="name">' + self.xml.setup.profile.name + '</p>';
+                    content += self.noScript( self.xml.setup.profile.profile );
+                    
+                }
+                
+                
                 
             } else {
                 content = 'No author profile available.';
@@ -1800,6 +1907,12 @@ var SBPLUS = SBPLUS || {
         
         $( self.button.menuClose ).on( 'click', self.closeMenuContent.bind( self ) );
         
+        if ( self.xml.settings.analytics === 'on' ) {
+            
+            ga( 'send', 'screenview', { screenName: menuTitle.html() } );
+            
+        }
+        
         if ( self.xml.settings.mathjax === 'on' ) {
             MathJax.Hub.Queue( ['Typeset', MathJax.Hub] );
         }
@@ -1841,12 +1954,12 @@ var SBPLUS = SBPLUS || {
     toggleWidget: function() {
         
         if ( $( this.layout.widget ).is( ':visible' ) ) {
+            
             this.hideWidget();
         } else {
             this.showWidget();
+            
         }
-        
-        this.resize();
         
     },
     
@@ -1857,17 +1970,8 @@ var SBPLUS = SBPLUS || {
         $( this.layout.widget ).hide();
         $( this.button.widget ).find( '.icon-widget-open' ).show();
         $( this.button.widget ).find( '.icon-widget-close' ).hide();
-        
-/*
-        if ( this.layout.isMobile ) {
-            media.addClass( 'aspect_ratio' );
-        } else {
-            media.removeClass( 'aspect_ratio' )
-                    .addClass( 'non_aspect_ratio' ).css( 'height', '100%');
-        }
-*/      
+              
         media.css( 'height', '100%');
-        
         media.removeClass( 'widget_on' ).addClass( 'widget_off' );
         
         this.showWidgetContentIndicator();
@@ -1882,12 +1986,7 @@ var SBPLUS = SBPLUS || {
         $( this.button.widget ).find( '.icon-widget-close' ).show();
         $( this.button.widget ).find( '.icon-widget-open' ).hide();
         
-/*
-        media.removeClass( 'non_aspect_ratio' )
-                .addClass( 'aspect_ratio' ).css( 'height', '' );
-*/
         media.css( 'height', '' );
- 
         media.removeClass( 'widget_off' ).addClass( 'widget_on' );
         
         this.hideWidgetContentIndicator()
@@ -2122,25 +2221,27 @@ var SBPLUS = SBPLUS || {
     
     calcLayout: function() { 
         
-        var media = $( this.layout.media );
+//         var media = $( this.layout.media );
         var widget = $( this.layout.widget );
         var sidebar = $( this.layout.sidebar );
         var tocWrapper = $( this.tableOfContents.container );
         var widgetBtnTip = $( this.button.widgetTip );
         
+/*
         if ( widget.is( ':visible' ) || sidebar.is( ':visible' ) ) {
             media.removeClass( 'aspect_ratio' ).addClass( 'non_aspect_ratio' );
         } else {
             media.removeClass( 'non_aspect_ratio' ).addClass( 'aspect_ratio' );
         }
+*/
         
         if ( window.innerWidth < 900 || window.screen.width <= 414 ) {
             
-            if ( $( this.layout.wrapper ).hasClass( 'loaded-in-iframe' ) === false ) {
+            //if ( $( this.layout.wrapper ).hasClass( 'loaded-in-iframe' ) === false ) {
 
                 this.layout.isMobile = true;
                 
-                media.addClass( 'aspect_ratio' );
+//                 media.addClass( 'aspect_ratio' );
                 
                 widgetBtnTip.show();
                 
@@ -2150,7 +2251,15 @@ var SBPLUS = SBPLUS || {
                 widget.css( 'height', sidebar.height() );
                 tocWrapper.css( 'height', sidebar.height() - 30 );
                 
+            //}
+            
+            if ( this.alreadyResized === false ) {
+                this.hideWidget();
             }
+            
+            this.alreadyResized = true;
+            
+            $( this.layout.wrapper ).removeClass( 'sbplus_boxed' );
             
         } else {
             
@@ -2158,14 +2267,22 @@ var SBPLUS = SBPLUS || {
             
             sidebar.css( 'height', '' );
             
+/*
             if ( !widget.is( ':visible' ) ) {
                 widget.css( 'height', '100%' );
             } else {
                 widget.css( 'height', '' );
             }
+*/
+            
+            widget.css( 'height', '' );
             
             tocWrapper.css( 'height', '' );
             widgetBtnTip.hide();
+            
+            if ( this.getUrlParam( 'fullview' ) !== '1' ) {
+                $( this.layout.wrapper ).addClass( 'sbplus_boxed' );
+            }
 
         }
         
@@ -2312,7 +2429,7 @@ var SBPLUS = SBPLUS || {
     
     getProgramDirectory: function() {
         
-        var urlArray = this.getUrlArray( urlArray );
+        var urlArray = this.getUrlArray();
         
         if ( urlArray.length >= 3 ) {
             return urlArray[urlArray.length - 3];
@@ -2326,19 +2443,26 @@ var SBPLUS = SBPLUS || {
     
     getCourseDirectory: function() {
         
-        var urlArray = this.getUrlArray( urlArray );
+        var urlArray = this.getUrlArray();
         
         if ( urlArray.length >= 2 ) {
             return urlArray[urlArray.length - 1];
         }
         
-        return '';
+        return 'default';
         
     },
     
     getUrlArray: function() {
         
-        var url = window.location.href;
+        var href = window.location.href;
+        var url = href;
+        
+        if ( href.indexOf('?') ) {
+            href = href.split( '?' );
+            url = href[0];
+        }
+        
         var urlArray = url.split( '/' );
         
         urlArray.splice(0, 1);
@@ -2697,6 +2821,83 @@ var SBPLUS = SBPLUS || {
                 $( '#sbplus_va_subtitle' ).prop( 'checked', false );
             }
             
+        }
+        
+    },
+    
+    sendToGA: function( category, action, label, value, delayObj ) {
+        
+        if ( this.xml.settings.analytics === 'on' ) {
+            
+            var self = this;
+            var delay = 0;
+            var isObj = false;
+            
+            if ( typeof delayObj === 'object' ) {
+                delay = delayObj.start * 1000;
+                isObj = true;
+            } else {
+                delay = delayObj * 1000;
+            }
+            
+            if ( window.ga && ga.loaded ) {
+                
+                self.gaTimeouts.start = setTimeout( function() {
+                    
+                    ga( 'send', 'event', category, action, label, value, {screenName: self.getCourseDirectory()} );
+                    
+                }, delay );
+                
+                if ( isObj ) {
+                    
+                    if ( delayObj.halfway > 0 
+                         && delayObj.halfway > delayObj.start ) {
+                        
+                        self.gaTimeouts.halfway = setTimeout( function() {
+                    
+                            ga( 'send', 'event', category, 'halfway', label, 2, {screenName: self.getCourseDirectory()} );
+                            
+                        }, delayObj.halfway * 1000 );
+                        
+                    }
+                    
+                    if ( delayObj.completed > 0 
+                         && delayObj.completed > delayObj.halfway ) {
+                        
+                        self.gaTimeouts.completed = setTimeout( function() {
+                    
+                            ga( 'send', 'event', category, 'completed', label, 3, {screenName: self.getCourseDirectory()} );
+                            
+                        }, delayObj.completed * 1000 );
+                        
+                    }
+                    
+                }
+
+            }
+            
+        }
+        
+    },
+    
+    clearGATimeout: function() {
+        
+        if ( this.xml.settings.analytics === 'on' ) {
+            
+            var self = this;
+            
+            if ( self.gaTimeouts.start !== null ) {
+                clearTimeout( self.gaTimeouts.start );
+            }
+            
+            if ( self.gaTimeouts.halfway !== null ) {
+                clearTimeout( self.gaTimeouts.halfway );
+            }
+            
+            if ( self.gaTimeouts.completed !== null ) {
+                clearTimeout( self.gaTimeouts.completed );
+            }
+        
         }
         
     }

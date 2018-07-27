@@ -1,5 +1,5 @@
 # Storybook Plus (SB+)  
-**version 3.1.2**
+**version 3.1.4**
 
 ---
 ### Requirements
@@ -45,6 +45,26 @@ SB+ may not function properly with beta or pre-released version of web browsers.
 
 #### Pending
 _none at the moment_
+
+#### 3.1.4 (07/27/2018)
+* Fixed an issue where author photo is not loaded from server.
+* Author placeholder image has been removed to give more space for text when there is not author photo.
+
+#### 3.1.3 (02/02/20158)
+* If both image and audio are missing for image-audio page type, both errors will be displayed in the error message
+* Fixed issue with responsiveness inside an iFrame
+* Fixed issue where the page jumps when presentation started
+* Default splash image will be loaded last if no other splash image is found (#77) - preventing the distracting flash
+* Added a CSS hack for zooming on D2L on a Windows platform
+* Fixed an issue where Error Message screen was out of view (#78) and full view URL query is not functioning
+* Enhanced HTML page type to allow audio and to open a new tab/window instead of embed
+* Enhanced/improved Google Analytic tracking
+* Fixed table of content collapsible icon alignment (#79)
+* Collapsed section will now open if the current selected page is under it
+* Quiz GA completion event is now fired when it is answered
+* Fixed issue #81
+* Set all downloadable file name to its directory name
+* Changed the outer left border to have transparency color (#82)
 
 #### 3.1.2 (11/07/2017)
 * Author profile is now aligned to the right to avoid alignment issues with text wrapping
@@ -116,4 +136,4 @@ _none at the moment_
 
 ---
 ### License & Copyright
-Storybook Plus (SB+) is licensed under [GNU v3](https://github.com/oel-mediateam/sbplus_v3/blob/master/LICENSE) license. (c) 2013 - 2017. Ethan Lin, [Media Services](https://media.uwex.edu), and [University of Wisconsin-Extension, Division of Continuing Education, Outreach & E-Learning](http://ce.uwex.edu/). All rights reserved.
+Storybook Plus (SB+) is licensed under [GNU v3](https://github.com/oel-mediateam/sbplus_v3/blob/master/LICENSE) license. (c) 2013 - 2018. Ethan Lin, [Media Services](https://media.uwex.edu), and [University of Wisconsin-Extension, Division of Continuing Education, Outreach & E-Learning](http://ce.uwex.edu/). All rights reserved.
