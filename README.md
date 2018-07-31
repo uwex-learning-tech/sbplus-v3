@@ -44,7 +44,7 @@ SB+ may not function properly with beta or pre-release versions of web browsers.
 ### Version Change Log
 
 #### Pending
-_none at the moment_
+* Added GET requests to Kaltura Analytics for play, impression, and reached 100% event
 
 #### 3.1.4 (07/27/2018)
 * Fixed an issue where author photo is not loaded from the server.
