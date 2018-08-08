@@ -147,7 +147,7 @@
             
             <shortAnswer>
                 
-                <question image="" audio="">What are your main take aways from this presentation?</question>
+                <question image="" audio=""><![CDATA[What are your main take aways from this presentation?<ol><li>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</li><li>World</li></ol>]]></question>
                 <feedback>I was hoping you would be surprised to hear how relatively young the Chocolate Chip cookie is. I am also hoping you noticed how important getting the ingredients right is to having good results.</feedback>
                 
             </shortAnswer>
