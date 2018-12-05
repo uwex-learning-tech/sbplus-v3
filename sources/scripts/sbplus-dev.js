@@ -2596,7 +2596,7 @@ var SBPLUS = SBPLUS || {
         
         var str = obj.html();
         
-        if ( str === undefined ) {
+        if ( str !== undefined ) {
             
             if ( !this.isEmpty( obj[0].textContent ) ) {
             

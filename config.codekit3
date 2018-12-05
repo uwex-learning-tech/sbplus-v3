@@ -1,5 +1,5 @@
 {
-"AAInfo": "This is a CodeKit 3 project config file. MODIFYING THE CONTENTS OF THIS FILE IS A POOR LIFE DECISION. Doing so will cause CodeKit to crash and\/or corrupt your project. I know it looks like JSON, but it is *not*. Many numbers in this file are 64-bit long long bitFlags, which JSON does not support. These numbers *cannot* be treated as discrete values and if you attempt to parse this file as standard JSON with any public JSON parser, these values will be corrupted. This file is not backwards-compatible with CodeKit 1 or 2. For more information, see https:\/\/codekitapp.com\/",
+"AAInfo": "This is a CodeKit 3 project config file. MODIFYING THE CONTENTS OF THIS FILE IS A POOR LIFE DECISION. Doing so will cause CodeKit to crash and/or corrupt your project. I know it looks like JSON, but it is *not*. Many numbers in this file are 64-bit long long bitFlags, which JSON does not support. These numbers *cannot* be treated as discrete values and if you attempt to parse this file as standard JSON with any public JSON parser, these values will be corrupted. This file is not backwards-compatible with CodeKit 1 or 2. For more information, see https://codekitapp.com/",
 "buildSteps": [
 	{
 		"name": "Process All Remaining Files and Folders",
@@ -7,22 +7,22 @@
 		"uuidString": "A55265B6-3CAC-4E30-9611-2EA711C82108"
 		}
 	],
-"creatorBuild": "26680",
+"creatorBuild": "28905",
 "files": {
-	"\/.gitignore": {
+	"/.gitignore": {
 		"cB": 0,
 		"ft": 8192,
 		"oA": 1,
-		"oAP": "\/build\/.gitignore",
+		"oAP": "/build/.gitignore",
 		"oF": 1
 		},
-	"\/build": {
+	"/build": {
 		"ft": 65536,
 		"oA": 1,
-		"oAP": "\/build\/build",
+		"oAP": "/build/build",
 		"oF": 0
 		},
-	"\/CODE_OF_CONDUCT.md": {
+	"/CODE_OF_CONDUCT.md": {
 		"cB": 0,
 		"cS": 0,
 		"eF": 1,
@@ -31,7 +31,7 @@
 		"eSQ": 1,
 		"ft": 4096,
 		"oA": 1,
-		"oAP": "\/build\/CODE_OF_CONDUCT.html",
+		"oAP": "/build/CODE_OF_CONDUCT.html",
 		"oF": 1,
 		"oFM": 0,
 		"oS": 0,
@@ -40,14 +40,13 @@
 		"rFN": 0,
 		"uCM": 0
 		},
-	"\/config.rb": {
-		"cB": 0,
-		"ft": 8192,
+	"/config.rb": {
+		"ft": 131072,
 		"oA": 0,
-		"oAP": "\/config.rb",
+		"oAP": "/config.rb",
 		"oF": 0
 		},
-	"\/CONTRIBUTING.md": {
+	"/CONTRIBUTING.md": {
 		"cB": 0,
 		"cS": 0,
 		"eF": 1,
@@ -56,7 +55,7 @@
 		"eSQ": 1,
 		"ft": 4096,
 		"oA": 1,
-		"oAP": "\/build\/CONTRIBUTING.html",
+		"oAP": "/build/CONTRIBUTING.html",
 		"oF": 1,
 		"oFM": 0,
 		"oS": 0,
@@ -65,14 +64,14 @@
 		"rFN": 0,
 		"uCM": 0
 		},
-	"\/LICENSE": {
+	"/LICENSE": {
 		"cB": 0,
 		"ft": 8192,
 		"oA": 1,
-		"oAP": "\/LICENSE.txt",
+		"oAP": "/LICENSE.txt",
 		"oF": 3
 		},
-	"\/README.md": {
+	"/README.md": {
 		"cB": 0,
 		"cS": 0,
 		"eF": 1,
@@ -81,7 +80,7 @@
 		"eSQ": 1,
 		"ft": 4096,
 		"oA": 1,
-		"oAP": "\/build\/README.html",
+		"oAP": "/build/README.html",
 		"oF": 1,
 		"oFM": 0,
 		"oS": 0,
@@ -90,134 +89,134 @@
 		"rFN": 0,
 		"uCM": 0
 		},
-	"\/sources\/fonts\/museo.css": {
+	"/sources/fonts/museo.css": {
 		"aP": 0,
 		"bl": 0,
 		"ft": 16,
 		"ma": 0,
 		"oA": 2,
-		"oAP": "\/build\/sources\/fonts\/museo.css",
+		"oAP": "/build/sources/fonts/museo.css",
 		"oF": 3,
 		"oS": 0
 		},
-	"\/sources\/fonts\/MuseoSans_500-webfont.eot": {
+	"/sources/fonts/MuseoSans_500-webfont.eot": {
 		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
-		"oAP": "\/build\/sources\/fonts\/MuseoSans_500-webfont.eot",
+		"oAP": "/build/sources/fonts/MuseoSans_500-webfont.eot",
 		"oF": 3
 		},
-	"\/sources\/fonts\/MuseoSans_500-webfont.svg": {
+	"/sources/fonts/MuseoSans_500-webfont.svg": {
 		"ft": 2097152,
 		"miP": 0,
 		"oA": 2,
-		"oAP": "\/build\/sources\/fonts\/MuseoSans_500-webfont.svg",
+		"oAP": "/build/sources/fonts/MuseoSans_500-webfont.svg",
 		"oF": 3,
 		"opt": 0,
 		"plM": 3758088159,
 		"prP": 0
 		},
-	"\/sources\/fonts\/MuseoSans_500-webfont.ttf": {
+	"/sources/fonts/MuseoSans_500-webfont.ttf": {
 		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
-		"oAP": "\/build\/sources\/fonts\/MuseoSans_500-webfont.ttf",
+		"oAP": "/build/sources/fonts/MuseoSans_500-webfont.ttf",
 		"oF": 3
 		},
-	"\/sources\/fonts\/MuseoSans_500-webfont.woff": {
+	"/sources/fonts/MuseoSans_500-webfont.woff": {
 		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
-		"oAP": "\/build\/sources\/fonts\/MuseoSans_500-webfont.woff",
+		"oAP": "/build/sources/fonts/MuseoSans_500-webfont.woff",
 		"oF": 3
 		},
-	"\/sources\/fonts\/MuseoSans_500-webfont.woff2": {
+	"/sources/fonts/MuseoSans_500-webfont.woff2": {
 		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
-		"oAP": "\/build\/sources\/fonts\/MuseoSans_500-webfont.woff2",
+		"oAP": "/build/sources/fonts/MuseoSans_500-webfont.woff2",
 		"oF": 3
 		},
-	"\/sources\/fonts\/sbplus.eot": {
+	"/sources/fonts/sbplus.eot": {
 		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
-		"oAP": "\/build\/sources\/fonts\/sbplus.eot",
+		"oAP": "/build/sources/fonts/sbplus.eot",
 		"oF": 3
 		},
-	"\/sources\/fonts\/sbplus.svg": {
+	"/sources/fonts/sbplus.svg": {
 		"ft": 2097152,
 		"miP": 0,
 		"oA": 2,
-		"oAP": "\/build\/sources\/fonts\/sbplus.svg",
+		"oAP": "/build/sources/fonts/sbplus.svg",
 		"oF": 3,
 		"opt": 0,
 		"plM": 3758088159,
 		"prP": 0
 		},
-	"\/sources\/fonts\/sbplus.ttf": {
+	"/sources/fonts/sbplus.ttf": {
 		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
-		"oAP": "\/build\/sources\/fonts\/sbplus.ttf",
+		"oAP": "/build/sources/fonts/sbplus.ttf",
 		"oF": 3
 		},
-	"\/sources\/fonts\/sbplus.woff": {
+	"/sources/fonts/sbplus.woff": {
 		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
-		"oAP": "\/build\/sources\/fonts\/sbplus.woff",
+		"oAP": "/build/sources/fonts/sbplus.woff",
 		"oF": 3
 		},
-	"\/sources\/fonts\/sbplus_fonts.css": {
+	"/sources/fonts/sbplus_fonts.css": {
 		"aP": 0,
 		"bl": 0,
 		"ft": 16,
 		"ma": 0,
 		"oA": 2,
-		"oAP": "\/build\/sources\/fonts\/sbplus_fonts.css",
+		"oAP": "/build/sources/fonts/sbplus_fonts.css",
 		"oF": 3,
 		"oS": 0
 		},
-	"\/sources\/images\/default_logo.svg": {
+	"/sources/images/default_logo.svg": {
 		"ft": 2097152,
 		"miP": 0,
 		"oA": 2,
-		"oAP": "\/build\/images\/default_logo.svg",
+		"oAP": "/build/images/default_logo.svg",
 		"oF": 0,
 		"opt": 0,
 		"plM": 3758088159,
 		"prP": 0
 		},
-	"\/sources\/images\/default_splash.svg": {
+	"/sources/images/default_splash.svg": {
 		"ft": 2097152,
 		"miP": 0,
 		"oA": 2,
-		"oAP": "\/build\/sources\/images\/default_splash.svg",
+		"oAP": "/build/sources/images/default_splash.svg",
 		"oF": 2,
 		"opt": 0,
 		"plM": 3758088159,
 		"prP": 0
 		},
-	"\/sources\/manifest.json": {
+	"/sources/manifest.json": {
 		"ft": 524288,
 		"oA": 2,
-		"oAP": "\/build\/sources\/manifest.json",
+		"oAP": "/build/sources/manifest.json",
 		"oF": 3,
 		"oO": 0,
 		"oS": 1
 		},
-	"\/sources\/sass\/animate.css": {
+	"/sources/sass/animate.css": {
 		"aP": 0,
 		"bl": 0,
 		"ft": 16,
 		"ma": 0,
 		"oA": 2,
-		"oAP": "\/build\/sources\/css\/animate.css",
+		"oAP": "/build/sources/css/animate.css",
 		"oF": 2,
 		"oS": 0
 		},
-	"\/sources\/sass\/sbplus.scss": {
+	"/sources/sass/sbplus.scss": {
 		"aP": 0,
 		"bl": 0,
 		"dP": 10,
@@ -225,619 +224,619 @@
 		"ft": 4,
 		"ma": 0,
 		"oA": 0,
-		"oAP": "\/build\/sources\/css\/sbplus.css",
+		"oAP": "/build/sources/css/sbplus.css",
 		"oF": 1,
 		"oS": 0,
 		"uL": 1
 		},
-	"\/sources\/scripts\/libs\/highlight\/default.css": {
+	"/sources/scripts/libs/highlight/default.css": {
 		"aP": 0,
 		"bl": 0,
 		"ft": 16,
 		"ma": 0,
 		"oA": 0,
-		"oAP": "\/build\/sources\/scripts\/libs\/highlight\/default.css",
+		"oAP": "/build/sources/scripts/libs/highlight/default.css",
 		"oF": 3,
 		"oS": 0
 		},
-	"\/sources\/scripts\/libs\/highlight\/highlight.pack.js": {
+	"/sources/scripts/libs/highlight/highlight.pack.js": {
 		"ft": 64,
 		"ma": 0,
 		"mi": 0,
 		"oA": 0,
-		"oAP": "\/build\/sources\/scripts\/libs\/highlight\/highlight.pack.js",
+		"oAP": "/build/sources/scripts/libs/highlight/highlight.pack.js",
 		"oF": 3,
 		"sC": 0,
 		"tS": 0
 		},
-	"\/sources\/scripts\/libs\/jquery.js": {
+	"/sources/scripts/libs/jquery.js": {
 		"ft": 64,
 		"ma": 0,
 		"mi": 0,
 		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/libs\/jquery.js",
+		"oAP": "/build/sources/scripts/libs/jquery.js",
 		"oF": 3,
 		"sC": 0,
 		"tS": 0
 		},
-	"\/sources\/scripts\/libs\/kaltura\/kwidgetgetsources.js": {
+	"/sources/scripts/libs/kaltura/kwidgetgetsources.js": {
 		"ft": 64,
 		"ma": 0,
 		"mi": 1,
 		"oA": 0,
-		"oAP": "\/build\/sources\/scripts\/libs\/kaltura\/kwidgetgetsources.js",
+		"oAP": "/build/sources/scripts/libs/kaltura/kwidgetgetsources.js",
 		"oF": 2,
 		"sC": 0,
 		"tS": 0
 		},
-	"\/sources\/scripts\/libs\/kaltura\/mwembedloader.js": {
+	"/sources/scripts/libs/kaltura/mwembedloader.js": {
 		"ft": 64,
 		"ma": 0,
 		"mi": 0,
 		"oA": 0,
-		"oAP": "\/build\/sources\/scripts\/libs\/kaltura\/mwembedloader.js",
+		"oAP": "/build/sources/scripts/libs/kaltura/mwembedloader.js",
 		"oF": 2,
 		"sC": 0,
 		"tS": 0
 		},
-	"\/sources\/scripts\/libs\/modernizr.js": {
+	"/sources/scripts/libs/modernizr.js": {
 		"ft": 64,
 		"ma": 0,
 		"mi": 0,
 		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/libs\/modernizr.js",
+		"oAP": "/build/sources/scripts/libs/modernizr.js",
 		"oF": 3,
 		"sC": 0,
 		"tS": 0
 		},
-	"\/sources\/scripts\/libs\/videojs\/font\/VideoJS.eot": {
+	"/sources/scripts/libs/videojs/font/VideoJS.eot": {
 		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/font\/VideoJS.eot",
+		"oAP": "/build/sources/scripts/libs/videojs/font/VideoJS.eot",
 		"oF": 3
 		},
-	"\/sources\/scripts\/libs\/videojs\/font\/VideoJS.svg": {
+	"/sources/scripts/libs/videojs/font/VideoJS.svg": {
 		"ft": 2097152,
 		"miP": 0,
 		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/font\/VideoJS.svg",
+		"oAP": "/build/sources/scripts/libs/videojs/font/VideoJS.svg",
 		"oF": 2,
 		"opt": 0,
 		"plM": 3758088159,
 		"prP": 0
 		},
-	"\/sources\/scripts\/libs\/videojs\/font\/VideoJS.ttf": {
+	"/sources/scripts/libs/videojs/font/VideoJS.ttf": {
 		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/font\/VideoJS.ttf",
+		"oAP": "/build/sources/scripts/libs/videojs/font/VideoJS.ttf",
 		"oF": 3
 		},
-	"\/sources\/scripts\/libs\/videojs\/font\/VideoJS.woff": {
+	"/sources/scripts/libs/videojs/font/VideoJS.woff": {
 		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/font\/VideoJS.woff",
+		"oAP": "/build/sources/scripts/libs/videojs/font/VideoJS.woff",
 		"oF": 3
 		},
-	"\/sources\/scripts\/libs\/videojs\/lang\/ar.js": {
+	"/sources/scripts/libs/videojs/lang/ar.js": {
 		"ft": 64,
 		"ma": 0,
 		"mi": 0,
 		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/lang\/ar.js",
+		"oAP": "/build/sources/scripts/libs/videojs/lang/ar.js",
 		"oF": 3,
 		"sC": 0,
 		"tS": 0
 		},
-	"\/sources\/scripts\/libs\/videojs\/lang\/ba.js": {
+	"/sources/scripts/libs/videojs/lang/ba.js": {
 		"ft": 64,
 		"ma": 0,
 		"mi": 0,
 		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/lang\/ba.js",
+		"oAP": "/build/sources/scripts/libs/videojs/lang/ba.js",
 		"oF": 3,
 		"sC": 0,
 		"tS": 0
 		},
-	"\/sources\/scripts\/libs\/videojs\/lang\/bg.js": {
+	"/sources/scripts/libs/videojs/lang/bg.js": {
 		"ft": 64,
 		"ma": 0,
 		"mi": 0,
 		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/lang\/bg.js",
+		"oAP": "/build/sources/scripts/libs/videojs/lang/bg.js",
 		"oF": 3,
 		"sC": 0,
 		"tS": 0
 		},
-	"\/sources\/scripts\/libs\/videojs\/lang\/ca.js": {
+	"/sources/scripts/libs/videojs/lang/ca.js": {
 		"ft": 64,
 		"ma": 0,
 		"mi": 0,
 		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/lang\/ca.js",
+		"oAP": "/build/sources/scripts/libs/videojs/lang/ca.js",
 		"oF": 3,
 		"sC": 0,
 		"tS": 0
 		},
-	"\/sources\/scripts\/libs\/videojs\/lang\/cs.js": {
+	"/sources/scripts/libs/videojs/lang/cs.js": {
 		"ft": 64,
 		"ma": 0,
 		"mi": 0,
 		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/lang\/cs.js",
+		"oAP": "/build/sources/scripts/libs/videojs/lang/cs.js",
 		"oF": 3,
 		"sC": 0,
 		"tS": 0
 		},
-	"\/sources\/scripts\/libs\/videojs\/lang\/da.js": {
+	"/sources/scripts/libs/videojs/lang/da.js": {
 		"ft": 64,
 		"ma": 0,
 		"mi": 0,
 		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/lang\/da.js",
+		"oAP": "/build/sources/scripts/libs/videojs/lang/da.js",
 		"oF": 3,
 		"sC": 0,
 		"tS": 0
 		},
-	"\/sources\/scripts\/libs\/videojs\/lang\/de.js": {
+	"/sources/scripts/libs/videojs/lang/de.js": {
 		"ft": 64,
 		"ma": 0,
 		"mi": 0,
 		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/lang\/de.js",
+		"oAP": "/build/sources/scripts/libs/videojs/lang/de.js",
 		"oF": 3,
 		"sC": 0,
 		"tS": 0
 		},
-	"\/sources\/scripts\/libs\/videojs\/lang\/el.js": {
+	"/sources/scripts/libs/videojs/lang/el.js": {
 		"ft": 64,
 		"ma": 0,
 		"mi": 0,
 		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/lang\/el.js",
+		"oAP": "/build/sources/scripts/libs/videojs/lang/el.js",
 		"oF": 3,
 		"sC": 0,
 		"tS": 0
 		},
-	"\/sources\/scripts\/libs\/videojs\/lang\/en.js": {
+	"/sources/scripts/libs/videojs/lang/en.js": {
 		"ft": 64,
 		"ma": 0,
 		"mi": 0,
 		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/lang\/en.js",
+		"oAP": "/build/sources/scripts/libs/videojs/lang/en.js",
 		"oF": 3,
 		"sC": 0,
 		"tS": 0
 		},
-	"\/sources\/scripts\/libs\/videojs\/lang\/es.js": {
+	"/sources/scripts/libs/videojs/lang/es.js": {
 		"ft": 64,
 		"ma": 0,
 		"mi": 0,
 		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/lang\/es.js",
+		"oAP": "/build/sources/scripts/libs/videojs/lang/es.js",
 		"oF": 3,
 		"sC": 0,
 		"tS": 0
 		},
-	"\/sources\/scripts\/libs\/videojs\/lang\/fa.js": {
+	"/sources/scripts/libs/videojs/lang/fa.js": {
 		"ft": 64,
 		"ma": 0,
 		"mi": 0,
 		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/lang\/fa.js",
+		"oAP": "/build/sources/scripts/libs/videojs/lang/fa.js",
 		"oF": 3,
 		"sC": 0,
 		"tS": 0
 		},
-	"\/sources\/scripts\/libs\/videojs\/lang\/fi.js": {
+	"/sources/scripts/libs/videojs/lang/fi.js": {
 		"ft": 64,
 		"ma": 0,
 		"mi": 0,
 		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/lang\/fi.js",
+		"oAP": "/build/sources/scripts/libs/videojs/lang/fi.js",
 		"oF": 3,
 		"sC": 0,
 		"tS": 0
 		},
-	"\/sources\/scripts\/libs\/videojs\/lang\/fr.js": {
+	"/sources/scripts/libs/videojs/lang/fr.js": {
 		"ft": 64,
 		"ma": 0,
 		"mi": 0,
 		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/lang\/fr.js",
+		"oAP": "/build/sources/scripts/libs/videojs/lang/fr.js",
 		"oF": 3,
 		"sC": 0,
 		"tS": 0
 		},
-	"\/sources\/scripts\/libs\/videojs\/lang\/hr.js": {
+	"/sources/scripts/libs/videojs/lang/hr.js": {
 		"ft": 64,
 		"ma": 0,
 		"mi": 0,
 		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/lang\/hr.js",
+		"oAP": "/build/sources/scripts/libs/videojs/lang/hr.js",
 		"oF": 3,
 		"sC": 0,
 		"tS": 0
 		},
-	"\/sources\/scripts\/libs\/videojs\/lang\/hu.js": {
+	"/sources/scripts/libs/videojs/lang/hu.js": {
 		"ft": 64,
 		"ma": 0,
 		"mi": 0,
 		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/lang\/hu.js",
+		"oAP": "/build/sources/scripts/libs/videojs/lang/hu.js",
 		"oF": 3,
 		"sC": 0,
 		"tS": 0
 		},
-	"\/sources\/scripts\/libs\/videojs\/lang\/it.js": {
+	"/sources/scripts/libs/videojs/lang/it.js": {
 		"ft": 64,
 		"ma": 0,
 		"mi": 0,
 		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/lang\/it.js",
+		"oAP": "/build/sources/scripts/libs/videojs/lang/it.js",
 		"oF": 3,
 		"sC": 0,
 		"tS": 0
 		},
-	"\/sources\/scripts\/libs\/videojs\/lang\/ja.js": {
+	"/sources/scripts/libs/videojs/lang/ja.js": {
 		"ft": 64,
 		"ma": 0,
 		"mi": 0,
 		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/lang\/ja.js",
+		"oAP": "/build/sources/scripts/libs/videojs/lang/ja.js",
 		"oF": 3,
 		"sC": 0,
 		"tS": 0
 		},
-	"\/sources\/scripts\/libs\/videojs\/lang\/ko.js": {
+	"/sources/scripts/libs/videojs/lang/ko.js": {
 		"ft": 64,
 		"ma": 0,
 		"mi": 0,
 		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/lang\/ko.js",
+		"oAP": "/build/sources/scripts/libs/videojs/lang/ko.js",
 		"oF": 3,
 		"sC": 0,
 		"tS": 0
 		},
-	"\/sources\/scripts\/libs\/videojs\/lang\/nb.js": {
+	"/sources/scripts/libs/videojs/lang/nb.js": {
 		"ft": 64,
 		"ma": 0,
 		"mi": 0,
 		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/lang\/nb.js",
+		"oAP": "/build/sources/scripts/libs/videojs/lang/nb.js",
 		"oF": 3,
 		"sC": 0,
 		"tS": 0
 		},
-	"\/sources\/scripts\/libs\/videojs\/lang\/nl.js": {
+	"/sources/scripts/libs/videojs/lang/nl.js": {
 		"ft": 64,
 		"ma": 0,
 		"mi": 0,
 		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/lang\/nl.js",
+		"oAP": "/build/sources/scripts/libs/videojs/lang/nl.js",
 		"oF": 3,
 		"sC": 0,
 		"tS": 0
 		},
-	"\/sources\/scripts\/libs\/videojs\/lang\/nn.js": {
+	"/sources/scripts/libs/videojs/lang/nn.js": {
 		"ft": 64,
 		"ma": 0,
 		"mi": 0,
 		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/lang\/nn.js",
+		"oAP": "/build/sources/scripts/libs/videojs/lang/nn.js",
 		"oF": 3,
 		"sC": 0,
 		"tS": 0
 		},
-	"\/sources\/scripts\/libs\/videojs\/lang\/pl.js": {
+	"/sources/scripts/libs/videojs/lang/pl.js": {
 		"ft": 64,
 		"ma": 0,
 		"mi": 0,
 		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/lang\/pl.js",
+		"oAP": "/build/sources/scripts/libs/videojs/lang/pl.js",
 		"oF": 3,
 		"sC": 0,
 		"tS": 0
 		},
-	"\/sources\/scripts\/libs\/videojs\/lang\/pt-BR.js": {
+	"/sources/scripts/libs/videojs/lang/pt-BR.js": {
 		"ft": 64,
 		"ma": 0,
 		"mi": 0,
 		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/lang\/pt-BR.js",
+		"oAP": "/build/sources/scripts/libs/videojs/lang/pt-BR.js",
 		"oF": 3,
 		"sC": 0,
 		"tS": 0
 		},
-	"\/sources\/scripts\/libs\/videojs\/lang\/pt-PT.js": {
+	"/sources/scripts/libs/videojs/lang/pt-PT.js": {
 		"ft": 64,
 		"ma": 0,
 		"mi": 0,
 		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/lang\/pt-PT.js",
+		"oAP": "/build/sources/scripts/libs/videojs/lang/pt-PT.js",
 		"oF": 3,
 		"sC": 0,
 		"tS": 0
 		},
-	"\/sources\/scripts\/libs\/videojs\/lang\/ru.js": {
+	"/sources/scripts/libs/videojs/lang/ru.js": {
 		"ft": 64,
 		"ma": 0,
 		"mi": 0,
 		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/lang\/ru.js",
+		"oAP": "/build/sources/scripts/libs/videojs/lang/ru.js",
 		"oF": 3,
 		"sC": 0,
 		"tS": 0
 		},
-	"\/sources\/scripts\/libs\/videojs\/lang\/sr.js": {
+	"/sources/scripts/libs/videojs/lang/sr.js": {
 		"ft": 64,
 		"ma": 0,
 		"mi": 0,
 		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/lang\/sr.js",
+		"oAP": "/build/sources/scripts/libs/videojs/lang/sr.js",
 		"oF": 3,
 		"sC": 0,
 		"tS": 0
 		},
-	"\/sources\/scripts\/libs\/videojs\/lang\/sv.js": {
+	"/sources/scripts/libs/videojs/lang/sv.js": {
 		"ft": 64,
 		"ma": 0,
 		"mi": 0,
 		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/lang\/sv.js",
+		"oAP": "/build/sources/scripts/libs/videojs/lang/sv.js",
 		"oF": 3,
 		"sC": 0,
 		"tS": 0
 		},
-	"\/sources\/scripts\/libs\/videojs\/lang\/tr.js": {
+	"/sources/scripts/libs/videojs/lang/tr.js": {
 		"ft": 64,
 		"ma": 0,
 		"mi": 0,
 		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/lang\/tr.js",
+		"oAP": "/build/sources/scripts/libs/videojs/lang/tr.js",
 		"oF": 3,
 		"sC": 0,
 		"tS": 0
 		},
-	"\/sources\/scripts\/libs\/videojs\/lang\/uk.js": {
+	"/sources/scripts/libs/videojs/lang/uk.js": {
 		"ft": 64,
 		"ma": 0,
 		"mi": 0,
 		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/lang\/uk.js",
+		"oAP": "/build/sources/scripts/libs/videojs/lang/uk.js",
 		"oF": 3,
 		"sC": 0,
 		"tS": 0
 		},
-	"\/sources\/scripts\/libs\/videojs\/lang\/vi.js": {
+	"/sources/scripts/libs/videojs/lang/vi.js": {
 		"ft": 64,
 		"ma": 0,
 		"mi": 0,
 		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/lang\/vi.js",
+		"oAP": "/build/sources/scripts/libs/videojs/lang/vi.js",
 		"oF": 3,
 		"sC": 0,
 		"tS": 0
 		},
-	"\/sources\/scripts\/libs\/videojs\/lang\/zh-CN.js": {
+	"/sources/scripts/libs/videojs/lang/zh-CN.js": {
 		"ft": 64,
 		"ma": 0,
 		"mi": 0,
 		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/lang\/zh-CN.js",
+		"oAP": "/build/sources/scripts/libs/videojs/lang/zh-CN.js",
 		"oF": 3,
 		"sC": 0,
 		"tS": 0
 		},
-	"\/sources\/scripts\/libs\/videojs\/lang\/zh-TW.js": {
+	"/sources/scripts/libs/videojs/lang/zh-TW.js": {
 		"ft": 64,
 		"ma": 0,
 		"mi": 0,
 		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/lang\/zh-TW.js",
+		"oAP": "/build/sources/scripts/libs/videojs/lang/zh-TW.js",
 		"oF": 3,
 		"sC": 0,
 		"tS": 0
 		},
-	"\/sources\/scripts\/libs\/videojs\/plugins\/cuepoint\/videojs.cuepoints.js": {
+	"/sources/scripts/libs/videojs/plugins/cuepoint/videojs.cuepoints.js": {
 		"ft": 64,
 		"ma": 0,
 		"mi": 0,
 		"oA": 1,
-		"oAP": "\/build\/scripts\/libs\/videojs\/plugins\/cuepoint\/videojs.cuepoints.js",
+		"oAP": "/build/scripts/libs/videojs/plugins/cuepoint/videojs.cuepoints.js",
 		"oF": 1,
 		"sC": 0,
 		"tS": 0
 		},
-	"\/sources\/scripts\/libs\/videojs\/plugins\/replay\/replay.js": {
+	"/sources/scripts/libs/videojs/plugins/replay/replay.js": {
 		"ft": 64,
 		"ma": 0,
 		"mi": 0,
 		"oA": 1,
-		"oAP": "\/build\/scripts\/libs\/videojs\/plugins\/replay\/replay.js",
+		"oAP": "/build/scripts/libs/videojs/plugins/replay/replay.js",
 		"oF": 1,
 		"sC": 0,
 		"tS": 0
 		},
-	"\/sources\/scripts\/libs\/videojs\/plugins\/resolution\/videojs-resolution-switcher.js": {
+	"/sources/scripts/libs/videojs/plugins/resolution/videojs-resolution-switcher.js": {
 		"ft": 64,
 		"ma": 0,
 		"mi": 0,
 		"oA": 1,
-		"oAP": "\/build\/scripts\/libs\/videojs\/plugins\/resolution\/videojs-resolution-switcher.js",
+		"oAP": "/build/scripts/libs/videojs/plugins/resolution/videojs-resolution-switcher.js",
 		"oF": 1,
 		"sC": 0,
 		"tS": 0
 		},
-	"\/sources\/scripts\/libs\/videojs\/plugins\/vimeo\/videojs-vimeo.min.js": {
+	"/sources/scripts/libs/videojs/plugins/vimeo/videojs-vimeo.min.js": {
 		"ft": 64,
 		"ma": 0,
 		"mi": 0,
 		"oA": 1,
-		"oAP": "\/build\/scripts\/libs\/videojs\/plugins\/vimeo\/videojs-vimeo.min.js",
+		"oAP": "/build/scripts/libs/videojs/plugins/vimeo/videojs-vimeo.min.js",
 		"oF": 1,
 		"sC": 0,
 		"tS": 0
 		},
-	"\/sources\/scripts\/libs\/videojs\/plugins\/youtube\/youtube.js": {
+	"/sources/scripts/libs/videojs/plugins/youtube/youtube.js": {
 		"ft": 64,
 		"ma": 0,
 		"mi": 0,
 		"oA": 1,
-		"oAP": "\/build\/scripts\/libs\/videojs\/plugins\/youtube\/youtube.js",
+		"oAP": "/build/scripts/libs/videojs/plugins/youtube/youtube.js",
 		"oF": 1,
 		"sC": 0,
 		"tS": 0
 		},
-	"\/sources\/scripts\/libs\/videojs\/video-dev.js": {
+	"/sources/scripts/libs/videojs/video-dev.js": {
 		"ft": 64,
 		"ma": 0,
 		"mi": 0,
 		"oA": 0,
-		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/video.js",
+		"oAP": "/build/sources/scripts/libs/videojs/video.js",
 		"oF": 3,
 		"sC": 0,
 		"tS": 0
 		},
-	"\/sources\/scripts\/libs\/videojs\/video-js.min.css": {
+	"/sources/scripts/libs/videojs/video-js.min.css": {
 		"aP": 0,
 		"bl": 0,
 		"ft": 16,
 		"ma": 0,
 		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/libs\/videojs\/video-js.min.css",
+		"oAP": "/build/sources/scripts/libs/videojs/video-js.min.css",
 		"oF": 2,
 		"oS": 0
 		},
-	"\/sources\/scripts\/menubar.js": {
+	"/sources/scripts/menubar.js": {
 		"ft": 64,
 		"ma": 0,
 		"mi": 1,
 		"oA": 1,
-		"oAP": "\/build\/scripts\/menubar.js",
+		"oAP": "/build/scripts/menubar.js",
 		"oF": 0,
 		"sC": 1,
 		"tS": 0
 		},
-	"\/sources\/scripts\/page.js": {
+	"/sources/scripts/page.js": {
 		"ft": 64,
 		"ma": 0,
 		"mi": 1,
 		"oA": 1,
-		"oAP": "\/build\/scripts\/page.js",
+		"oAP": "/build/scripts/page.js",
 		"oF": 0,
 		"sC": 1,
 		"tS": 0
 		},
-	"\/sources\/scripts\/quiz.js": {
+	"/sources/scripts/quiz.js": {
 		"ft": 64,
 		"ma": 0,
 		"mi": 1,
 		"oA": 1,
-		"oAP": "\/build\/scripts\/quiz.js",
+		"oAP": "/build/scripts/quiz.js",
 		"oF": 0,
 		"sC": 1,
 		"tS": 0
 		},
-	"\/sources\/scripts\/sbplus-dev.js": {
+	"/sources/scripts/sbplus-dev.js": {
 		"ft": 64,
 		"ma": 0,
 		"mi": 1,
 		"oA": 0,
-		"oAP": "\/build\/sources\/scripts\/sbplus.js",
+		"oAP": "/build/sources/scripts/sbplus.js",
 		"oF": 3,
 		"sC": 3,
 		"tS": 0
 		},
-	"\/sources\/scripts\/templates\/sbplus.tpl": {
+	"/sources/scripts/templates/sbplus.tpl": {
 		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/templates\/sbplus.tpl",
+		"oAP": "/build/sources/scripts/templates/sbplus.tpl",
 		"oF": 2
 		},
-	"\/sources\/scripts\/templates\/settings.tpl": {
+	"/sources/scripts/templates/settings.tpl": {
 		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/templates\/settings.tpl",
+		"oAP": "/build/sources/scripts/templates/settings.tpl",
 		"oF": 2
 		},
-	"\/sources\/scripts\/templates\/support_error.tpl": {
+	"/sources/scripts/templates/support_error.tpl": {
 		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/templates\/support_error.tpl",
+		"oAP": "/build/sources/scripts/templates/support_error.tpl",
 		"oF": 2
 		},
-	"\/sources\/scripts\/templates\/xml_error.tpl": {
+	"/sources/scripts/templates/xml_error.tpl": {
 		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/templates\/xml_error.tpl",
+		"oAP": "/build/sources/scripts/templates/xml_error.tpl",
 		"oF": 2
 		},
-	"\/sources\/scripts\/templates\/xml_parse_error.tpl": {
+	"/sources/scripts/templates/xml_parse_error.tpl": {
 		"cB": 0,
 		"ft": 8192,
 		"oA": 2,
-		"oAP": "\/build\/sources\/scripts\/templates\/xml_parse_error.tpl",
+		"oAP": "/build/sources/scripts/templates/xml_parse_error.tpl",
 		"oF": 2
 		}
 	},
 "hooks": [
 	],
 "manualImportLinks": {
-	"\/sources\/scripts\/libs\/videojs\/video-dev.js": [
+	"/sources/scripts/libs/videojs/video-dev.js": [
 		{
 			"followForSyntaxChecking": 1,
-			"linkedFileAbbreviatedPath": "\/sources\/scripts\/libs\/videojs\/plugins\/cuepoint\/videojs.cuepoints.js",
+			"linkedFileAbbreviatedPath": "/sources/scripts/libs/videojs/plugins/cuepoint/videojs.cuepoints.js",
 			"position": 0,
 			"type": 1
 			},
 		{
 			"followForSyntaxChecking": 1,
-			"linkedFileAbbreviatedPath": "\/sources\/scripts\/libs\/videojs\/plugins\/resolution\/videojs-resolution-switcher.js",
+			"linkedFileAbbreviatedPath": "/sources/scripts/libs/videojs/plugins/resolution/videojs-resolution-switcher.js",
 			"position": 1,
 			"type": 1
 			},
 		{
 			"followForSyntaxChecking": 1,
-			"linkedFileAbbreviatedPath": "\/sources\/scripts\/libs\/videojs\/plugins\/vimeo\/videojs-vimeo.min.js",
+			"linkedFileAbbreviatedPath": "/sources/scripts/libs/videojs/plugins/vimeo/videojs-vimeo.min.js",
 			"position": 2,
 			"type": 1
 			},
 		{
 			"followForSyntaxChecking": 1,
-			"linkedFileAbbreviatedPath": "\/sources\/scripts\/libs\/videojs\/plugins\/youtube\/youtube.js",
+			"linkedFileAbbreviatedPath": "/sources/scripts/libs/videojs/plugins/youtube/youtube.js",
 			"position": 3,
 			"type": 1
 			},
 		{
 			"followForSyntaxChecking": 1,
-			"linkedFileAbbreviatedPath": "\/sources\/scripts\/libs\/videojs\/plugins\/replay\/replay.js",
+			"linkedFileAbbreviatedPath": "/sources/scripts/libs/videojs/plugins/replay/replay.js",
 			"position": 4,
 			"type": 1
 			}
 		],
-	"\/sources\/scripts\/sbplus-dev.js": [
+	"/sources/scripts/sbplus-dev.js": [
 		{
 			"followForSyntaxChecking": 1,
-			"linkedFileAbbreviatedPath": "\/sources\/scripts\/page.js",
+			"linkedFileAbbreviatedPath": "/sources/scripts/page.js",
 			"position": 0,
 			"type": 1
 			},
 		{
 			"followForSyntaxChecking": 1,
-			"linkedFileAbbreviatedPath": "\/sources\/scripts\/quiz.js",
+			"linkedFileAbbreviatedPath": "/sources/scripts/quiz.js",
 			"position": 1,
 			"type": 1
 			},
 		{
 			"followForSyntaxChecking": 1,
-			"linkedFileAbbreviatedPath": "\/sources\/scripts\/menubar.js",
+			"linkedFileAbbreviatedPath": "/sources/scripts/menubar.js",
 			"position": 2,
 			"type": 1
 			}
@@ -856,141 +855,94 @@
 	"alwaysUseExternalServer": 0,
 	"animateCSSInjections": 1,
 	"autoBuildNewItems": 1,
-	"autoprefixerBrowserString": "> 1%, last 2 versions, Firefox ESR, Opera 12.1",
 	"autoprefixerEnableIEGrid": 0,
+	"babel7PresetType": 1,
+	"babelAllowRCFiles": 0,
 	"babelAuxiliaryCommentAfter": "",
 	"babelAuxiliaryCommentBefore": "",
-	"babelConfigFileHandlingType": 0,
+	"babelConfigType": 0,
 	"babelCustomPluginsList": "",
 	"babelCustomPresetsList": "",
 	"babelInsertModuleIDs": 0,
 	"babelModuleID": "",
 	"babelNoComments": 0,
 	"babelPlugins": {
+		"arrow-functions": {
+			"active": 0
+			},
 		"async-generator-functions": {
 			"active": 0
 			},
 		"async-to-generator": {
 			"active": 0
 			},
-		"async-to-module-method": {
+		"block-scoped-functions": {
+			"active": 0
+			},
+		"block-scoping": {
 			"active": 0
 			},
 		"class-properties": {
 			"active": 0
 			},
+		"classes": {
+			"active": 0
+			},
+		"computed-properties": {
+			"active": 0
+			},
 		"decorators": {
 			"active": 0
 			},
-		"decorators-legacy": {
+		"destructuring": {
 			"active": 0
 			},
 		"do-expressions": {
 			"active": 0
 			},
-		"es2015-arrow-functions": {
+		"dotall-regex": {
 			"active": 0
 			},
-		"es2015-block-scoped-functions": {
-			"active": 0
-			},
-		"es2015-block-scoping": {
-			"active": 0
-			},
-		"es2015-classes": {
-			"active": 0
-			},
-		"es2015-computed-properties": {
-			"active": 0
-			},
-		"es2015-constants": {
-			"active": 0
-			},
-		"es2015-destructuring": {
-			"active": 0
-			},
-		"es2015-duplicate-keys": {
-			"active": 0
-			},
-		"es2015-for-of": {
-			"active": 0
-			},
-		"es2015-function-name": {
-			"active": 0
-			},
-		"es2015-literals": {
-			"active": 0
-			},
-		"es2015-modules-amd": {
-			"active": 0
-			},
-		"es2015-modules-commonjs": {
-			"active": 0
-			},
-		"es2015-modules-systemjs": {
-			"active": 0
-			},
-		"es2015-modules-umd": {
-			"active": 0
-			},
-		"es2015-object-super": {
-			"active": 0
-			},
-		"es2015-parameters": {
-			"active": 0
-			},
-		"es2015-shorthand-properties": {
-			"active": 0
-			},
-		"es2015-spread": {
-			"active": 0
-			},
-		"es2015-sticky-regex": {
-			"active": 0
-			},
-		"es2015-template-literals": {
-			"active": 0
-			},
-		"es2015-typeof-symbol": {
-			"active": 0
-			},
-		"es2015-unicode-regex": {
-			"active": 0
-			},
-		"es3-member-expression-literals": {
-			"active": 0
-			},
-		"es3-property-literals": {
-			"active": 0
-			},
-		"es5-property-mutators": {
-			"active": 0
-			},
-		"eval": {
+		"duplicate-keys": {
 			"active": 0
 			},
 		"exponentiation-operator": {
 			"active": 0
 			},
-		"export-extensions": {
+		"export-default-from": {
+			"active": 0
+			},
+		"export-namespace-from": {
 			"active": 0
 			},
 		"external-helpers": {
 			"active": 0
 			},
-		"flow-comments": {
+		"flow-strip-types": {
 			"active": 0
 			},
-		"flow-strip-types": {
+		"for-of": {
 			"active": 0
 			},
 		"function-bind": {
 			"active": 0
 			},
-		"inline-environment-variables": {
+		"function-name": {
+			"active": 0
+			},
+		"function-sent": {
+			"active": 0
+			},
+		"instanceof": {
 			"active": 0
 			},
 		"jscript": {
+			"active": 0
+			},
+		"literals": {
+			"active": 0
+			},
+		"logical-assignment-operators": {
 			"active": 0
 			},
 		"member-expression-literals": {
@@ -1002,7 +954,28 @@
 		"minify-booleans": {
 			"active": 0
 			},
+		"modules-amd": {
+			"active": 0
+			},
+		"modules-commonjs": {
+			"active": 0
+			},
+		"modules-systemjs": {
+			"active": 0
+			},
+		"modules-umd": {
+			"active": 0
+			},
+		"new-target": {
+			"active": 0
+			},
 		"node-env-inline": {
+			"active": 0
+			},
+		"nullish-coalescing-operator": {
+			"active": 0
+			},
+		"numeric-separator": {
 			"active": 0
 			},
 		"object-assign": {
@@ -1014,7 +987,25 @@
 		"object-set-prototype-of-to-assign": {
 			"active": 0
 			},
+		"object-super": {
+			"active": 0
+			},
+		"optional-catch-binding": {
+			"active": 0
+			},
+		"optional-chaining": {
+			"active": 0
+			},
+		"parameters": {
+			"active": 0
+			},
+		"pipeline-operator": {
+			"active": 0
+			},
 		"property-literals": {
+			"active": 0
+			},
+		"property-mutators": {
 			"active": 0
 			},
 		"proto-to-assign": {
@@ -1050,53 +1041,46 @@
 		"remove-debugger": {
 			"active": 0
 			},
+		"reserved-words": {
+			"active": 0
+			},
 		"runtime": {
+			"active": 0
+			},
+		"shorthand-properties": {
 			"active": 0
 			},
 		"simplify-comparison-operators": {
 			"active": 0
 			},
+		"spread": {
+			"active": 0
+			},
+		"sticky-regex": {
+			"active": 0
+			},
 		"strict-mode": {
 			"active": 0
 			},
-		"syntax-async-generators": {
+		"template-literals": {
 			"active": 0
 			},
-		"syntax-class-properties": {
+		"throw-expressions": {
 			"active": 0
 			},
-		"syntax-decorators": {
-			"active": 0
-			},
-		"syntax-do-expressions": {
-			"active": 0
-			},
-		"syntax-export-extensions": {
-			"active": 0
-			},
-		"syntax-flow": {
-			"active": 0
-			},
-		"syntax-function-bind": {
-			"active": 0
-			},
-		"syntax-function-sent": {
-			"active": 0
-			},
-		"syntax-jsx": {
-			"active": 0
-			},
-		"syntax-object-rest-spread": {
-			"active": 0
-			},
-		"undeclared-variables-check": {
+		"typeof-symbol": {
 			"active": 0
 			},
 		"undefined-to-void": {
 			"active": 0
+			},
+		"unicode-property-regex": {
+			"active": 0
+			},
+		"unicode-regex": {
+			"active": 0
 			}
 		},
-	"babelPresetType": 193,
 	"babelRetainLines": 0,
 	"bowerAbbreviatedPath": "bower_components",
 	"bowerAutoCreateInfoFile": 1,
@@ -1105,6 +1089,7 @@
 	"bowerSaveDevDependencies": 0,
 	"bowerUseExactVersion": 0,
 	"browserRefreshDelay": 0,
+	"browserslistString": ">0.2%, last 2 versions, Firefox ESR, not dead",
 	"buildFolderActive": 1,
 	"buildFolderName": "build",
 	"cleanBuild": 0,
@@ -1462,6 +1447,10 @@
 			"active": 0,
 			"optionString": "'always', {exceptAfterSingleLine: false}"
 			},
+		"max-classes-per-file": {
+			"active": 0,
+			"optionString": "1"
+			},
 		"max-depth": {
 			"active": 0,
 			"optionString": "{'max': 4}"
@@ -1473,6 +1462,10 @@
 		"max-lines": {
 			"active": 0,
 			"optionString": "{'max': 300, 'skipBlankLines': true, 'skipComments': true}"
+			},
+		"max-lines-per-function": {
+			"active": 0,
+			"optionString": "{'max': 50, 'skipBlankLines': true, 'skipComments': true, 'IIFEs': false}"
 			},
 		"max-nested-callbacks": {
 			"active": 0,
@@ -1518,6 +1511,10 @@
 			"active": 0,
 			"optionString": ""
 			},
+		"no-async-promise-executor": {
+			"active": 0,
+			"optionString": ""
+			},
 		"no-await-in-loop": {
 			"active": 0,
 			"optionString": ""
@@ -1536,10 +1533,6 @@
 			},
 		"no-case-declarations": {
 			"active": 1,
-			"optionString": ""
-			},
-		"no-catch-shadow": {
-			"active": 0,
 			"optionString": ""
 			},
 		"no-class-assign": {
@@ -1738,9 +1731,13 @@
 			"active": 0,
 			"optionString": "{'ignore': [], 'ignoreArrayIndexes': true, 'enforceConst': false, 'detectObjects': false}"
 			},
+		"no-misleading-character-class": {
+			"active": 0,
+			"optionString": ""
+			},
 		"no-mixed-operators": {
 			"active": 0,
-			"optionString": "{'groups': [['+', '-', '*', '\/', '%', '**'], ['&', '|', '^', '~', '<<', '>>', '>>>'], ['==', '!=', '===', '!==', '>', '>=', '<', '<='], ['&&', '||'], ['in', 'instanceof']], 'allowSamePrecedence': true}"
+			"optionString": "{'groups': [['+', '-', '*', '/', '%', '**'], ['&', '|', '^', '~', '<<', '>>', '>>>'], ['==', '!=', '===', '!==', '>', '>=', '<', '<='], ['&&', '||'], ['in', 'instanceof']], 'allowSamePrecedence': true}"
 			},
 		"no-mixed-requires": {
 			"active": 0,
@@ -2094,6 +2091,10 @@
 			"active": 0,
 			"optionString": ""
 			},
+		"prefer-object-spread": {
+			"active": 0,
+			"optionString": ""
+			},
 		"prefer-promise-reject-errors": {
 			"active": 0,
 			"optionString": "{'allowEmptyReject': false}"
@@ -2122,6 +2123,10 @@
 			"active": 0,
 			"optionString": "'always'"
 			},
+		"require-atomic-updates": {
+			"active": 0,
+			"optionString": ""
+			},
 		"require-await": {
 			"active": 0,
 			"optionString": ""
@@ -2129,6 +2134,10 @@
 		"require-jsdoc": {
 			"active": 0,
 			"optionString": "{'require': {'FunctionDeclaration': true, 'MethodDefinition': false, 'ClassDeclaration': false}}"
+			},
+		"require-unicode-regexp": {
+			"active": 0,
+			"optionString": ""
 			},
 		"require-yield": {
 			"active": 0,
@@ -2184,7 +2193,7 @@
 			},
 		"spaced-comment": {
 			"active": 0,
-			"optionString": "'always', {'line': {'markers': ['\/'], 'exceptions': ['-', '+']}, 'block': {'markers': ['!'], 'exceptions': ['*'], 'balanced': false}}"
+			"optionString": "'always', {'line': {'markers': ['/'], 'exceptions': ['-', '+']}, 'block': {'markers': ['!'], 'exceptions': ['*'], 'balanced': false}}"
 			},
 		"strict": {
 			"active": 0,
@@ -2244,7 +2253,7 @@
 			}
 		},
 	"esLintSourceType": 0,
-	"externalServerAddress": "http:\/\/localhost\/",
+	"externalServerAddress": "http://localhost/",
 	"gitIgnoreBuildFolder": 0,
 	"hideConfigFile": 0,
 	"jsCheckerReservedNamesString": "ga,MathJax,MenuBar,Page,Modernizr,kWidget,videojs,makeVideoPlayableInline",
@@ -2639,7 +2648,6 @@
 		"escapeHTMLCharacters": 0,
 		"noEscapeInAttributes": 0,
 		"outputFormat": 2,
-		"outputStyle": 0,
 		"shouldRunCacheBuster": 0,
 		"useCDATA": 0,
 		"useDoubleQuotes": 0,
@@ -2658,7 +2666,7 @@
 	"languageDefaultsJS": {
 		"autoOutputAction": 0,
 		"autoOutputPathFilenamePattern": "*.js",
-		"autoOutputPathRelativePath": "\/min",
+		"autoOutputPathRelativePath": "/min",
 		"autoOutputPathReplace1": "",
 		"autoOutputPathReplace2": "",
 		"autoOutputPathStyle": 0,
@@ -2690,19 +2698,19 @@
 		"allowInsecureImports": 0,
 		"autoOutputAction": 0,
 		"autoOutputPathFilenamePattern": "*.css",
-		"autoOutputPathRelativePath": "..\/css",
+		"autoOutputPathRelativePath": "../css",
 		"autoOutputPathReplace1": "less",
 		"autoOutputPathReplace2": "css",
 		"autoOutputPathStyle": 2,
 		"createSourceMap": 0,
-		"disableJavascript": 0,
+		"enableJavascript": 0,
 		"ieCompatibility": 1,
+		"mathStyle": 0,
 		"outputStyle": 0,
-		"relativeURLS": 0,
+		"rewriteURLStyle": 0,
 		"shouldRunAutoprefixer": 0,
 		"shouldRunBless": 0,
 		"strictImports": 0,
-		"strictMath": 0,
 		"strictUnits": 0
 		},
 	"languageDefaultsMARKDOWN": {
@@ -2758,7 +2766,7 @@
 	"languageDefaultsSASS": {
 		"autoOutputAction": 0,
 		"autoOutputPathFilenamePattern": "*.css",
-		"autoOutputPathRelativePath": "..\/css",
+		"autoOutputPathRelativePath": "../css",
 		"autoOutputPathReplace1": "sass",
 		"autoOutputPathReplace2": "css",
 		"autoOutputPathStyle": 2,
@@ -2787,7 +2795,7 @@
 	"languageDefaultsSTYLUS": {
 		"autoOutputAction": 0,
 		"autoOutputPathFilenamePattern": "*.css",
-		"autoOutputPathRelativePath": "..\/css",
+		"autoOutputPathRelativePath": "../css",
 		"autoOutputPathReplace1": "stylus",
 		"autoOutputPathReplace2": "css",
 		"autoOutputPathStyle": 2,
@@ -2811,36 +2819,70 @@
 	"languageDefaultsTS": {
 		"autoOutputAction": 0,
 		"autoOutputPathFilenamePattern": "*.js",
-		"autoOutputPathRelativePath": "\/js",
+		"autoOutputPathRelativePath": "/js",
 		"autoOutputPathReplace1": "",
 		"autoOutputPathReplace2": "",
 		"autoOutputPathStyle": 2,
 		"createDeclarationFile": 0,
 		"createSourceMap": 0,
-		"jsxMode": 0,
 		"minifyOutput": 0,
 		"moduleResolutionType": 0,
 		"moduleType": 0,
-		"noImplicitAny": 0,
-		"preserveConstEnums": 0,
 		"removeComments": 0,
-		"suppressImplicitAnyIndexErrors": 0,
 		"targetECMAVersion": 0
 		},
 	"languageDefaultsUserDefined": [
 		],
 	"overrideExternalServerCSS": 0,
 	"previewPathAddition": "",
-	"skippedFoldersString": "log, _logs, logs, _cache, cache, \/storage\/framework\/sessions, node_modules, \/test",
+	"skippedFoldersString": "log, _logs, logs, _cache, cache, /storage/framework/sessions, node_modules, /test",
 	"sourceFolderName": "sources",
 	"susyVersion": 3,
+	"tsAllowSyntheticDefaultImports": 0,
+	"tsAllowUnreachableCode": 0,
+	"tsAllowUnusedLabels": 0,
+	"tsAlwaysStrict": 0,
+	"tsDownlevelIteration": 0,
+	"tsEmitBOM": 0,
+	"tsEmitDecoratorMetadata": 0,
+	"tsESModuleInterop": 0,
+	"tsForceConsistentCasingInFileNames": 0,
+	"tsImportHelpers": 0,
+	"tsIsolatedModules": 0,
+	"tsJSXFactory": "React.createElement",
+	"tsKeyofStringsOnly": 0,
+	"tsNoEmitHelpers": 0,
+	"tsNoFallthroughCasesInSwitch": 0,
+	"tsNoImplicitAny": 0,
+	"tsNoImplicitReturns": 0,
+	"tsNoImplicitThis": 0,
+	"tsNoImplicitUseStrict": 0,
+	"tsNoLib": 0,
+	"tsNoResolve": 0,
+	"tsNoStrictGenericChecks": 0,
+	"tsNoUnusedLocals": 0,
+	"tsNoUnusedParameters": 0,
+	"tsPreserveConstEnums": 0,
+	"tsPreserveSymlinks": 0,
+	"tsResolveJsonModule": 0,
+	"tsSkipLibCheck": 0,
+	"tsStrictFunctionTypes": 0,
+	"tsStrictNullChecks": 0,
+	"tsStrictPropertyInitialization": 0,
+	"tsStripInternal": 0,
+	"tsSuppressExcessPropertyErrors": 0,
+	"tsSuppressImplicitAnyIndexErrors": 0,
 	"uglifyDefinesString": "",
 	"uglifyFlags2": {
-		"ascii-only": {
+		"arguments": {
+			"active": 1,
+			"flagValue": -1
+			},
+		"ascii_only": {
 			"active": 0,
 			"flagValue": -1
 			},
-		"bare-returns": {
+		"bare_returns": {
 			"active": 0,
 			"flagValue": -1
 			},
@@ -2848,11 +2890,11 @@
 			"active": 1,
 			"flagValue": -1
 			},
-		"bracketize": {
+		"braces": {
 			"active": 0,
 			"flagValue": -1
 			},
-		"cascade": {
+		"collapse_vars": {
 			"active": 1,
 			"flagValue": -1
 			},
@@ -2876,6 +2918,10 @@
 			"active": 0,
 			"flagValue": -1
 			},
+		"directives": {
+			"active": 1,
+			"flagValue": -1
+			},
 		"drop_console": {
 			"active": 0,
 			"flagValue": -1
@@ -2892,7 +2938,15 @@
 			"active": 1,
 			"flagValue": -1
 			},
+		"expression": {
+			"active": 0,
+			"flagValue": -1
+			},
 		"hoist_funs": {
+			"active": 1,
+			"flagValue": -1
+			},
+		"hoist_props": {
 			"active": 1,
 			"flagValue": -1
 			},
@@ -2900,20 +2954,32 @@
 			"active": 0,
 			"flagValue": -1
 			},
-		"if_return": {
+		"html5_comments": {
 			"active": 1,
 			"flagValue": -1
 			},
-		"indent-level": {
+		"ie8": {
 			"active": 0,
-			"flagValue": 4
+			"flagValue": -1
+			},
+		"if_return": {
+			"active": 1,
+			"flagValue": -1
 			},
 		"indent-start": {
 			"active": 0,
 			"flagValue": 0
 			},
-		"inline-script": {
+		"indent_level": {
 			"active": 0,
+			"flagValue": 4
+			},
+		"inline": {
+			"active": 1,
+			"flagValue": 3
+			},
+		"inline_script": {
+			"active": 1,
 			"flagValue": -1
 			},
 		"join_vars": {
@@ -2928,6 +2994,14 @@
 			"active": 0,
 			"flagValue": -1
 			},
+		"keep_infinity": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"keep_quoted_props": {
+			"active": 0,
+			"flagValue": -1
+			},
 		"loops": {
 			"active": 1,
 			"flagValue": -1
@@ -2936,12 +3010,20 @@
 			"active": 1,
 			"flagValue": -1
 			},
-		"max-line-len": {
+		"max_line_len": {
 			"active": 1,
 			"flagValue": 32000
 			},
 		"negate_iife": {
 			"active": 1,
+			"flagValue": -1
+			},
+		"passes": {
+			"active": 1,
+			"flagValue": 1
+			},
+		"preserve_line": {
+			"active": 0,
 			"flagValue": -1
 			},
 		"properties": {
@@ -2952,11 +3034,19 @@
 			"active": 0,
 			"flagValue": -1
 			},
-		"quote-keys": {
+		"quote_keys": {
 			"active": 0,
 			"flagValue": -1
 			},
-		"screw-ie8": {
+		"quote_style": {
+			"active": 1,
+			"flagValue": 0
+			},
+		"reduce_funcs": {
+			"active": 1,
+			"flagValue": -1
+			},
+		"reduce_vars": {
 			"active": 1,
 			"flagValue": -1
 			},
@@ -2968,23 +3058,51 @@
 			"active": 1,
 			"flagValue": -1
 			},
-		"sort": {
-			"active": 0,
-			"flagValue": -1
-			},
-		"space-colon": {
+		"shebang": {
 			"active": 1,
 			"flagValue": -1
 			},
-		"support-ie8": {
-			"active": 0,
+		"side_effects": {
+			"active": 1,
+			"flagValue": -1
+			},
+		"switches": {
+			"active": 1,
 			"flagValue": -1
 			},
 		"toplevel": {
 			"active": 0,
 			"flagValue": -1
 			},
+		"typeofs": {
+			"active": 1,
+			"flagValue": -1
+			},
 		"unsafe": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"unsafe_comps": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"unsafe_Function": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"unsafe_math": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"unsafe_proto": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"unsafe_regexp": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"unsafe_undefined": {
 			"active": 0,
 			"flagValue": -1
 			},
@@ -2996,13 +3114,21 @@
 			"active": 0,
 			"flagValue": -1
 			},
+		"webkit": {
+			"active": 0,
+			"flagValue": -1
+			},
 		"width": {
 			"active": 1,
 			"flagValue": 80
+			},
+		"wrap_iife": {
+			"active": 0,
+			"flagValue": -1
 			}
 		},
 	"uglifyReservedNamesString": "$",
-	"websiteRelativeRoot": "\/build"
+	"websiteRelativeRoot": "/build"
 	},
 "settingsFileVersion": "3"
 }

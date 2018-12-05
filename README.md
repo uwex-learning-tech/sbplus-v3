@@ -45,6 +45,7 @@ SB+ may not function properly with beta or pre-release versions of web browsers.
 
 #### Pending
 * Added GET requests to Kaltura Analytics for play, impression, and reached 100% event
+* Fixed an error caused by missing `note` element in the XML
 
 #### 3.1.4 (07/27/2018)
 * Fixed an issue where author photo is not loaded from the server.
