@@ -1,5 +1,5 @@
 # Storybook Plus (SB+)  
-**version 3.1.4**
+**version 3.1.5**
 
 ---
 ### Requirements
@@ -44,8 +44,15 @@ SB+ may not function properly with beta or pre-release versions of web browsers.
 ### Version Change Log
 
 #### Pending
+_none at the moment_
+
+#### 3.1.5 (01/23/2019)
+* Fixed an issue where author photo is not loaded from the server.
+* Author placeholder image has been removed to give more space for text when there is no author photo.
 * Added GET requests to Kaltura Analytics for play, impression, and reached 100% event
 * Fixed an error caused by missing `note` element in the XML
+* Fixed notes section not showing after returning (#90)
+* Updated presentation's directory name instead of presentation's title (#87) 
 
 #### 3.1.4 (07/27/2018)
 * Fixed an issue where author photo is not loaded from the server.
@@ -137,4 +144,4 @@ SB+ may not function properly with beta or pre-release versions of web browsers.
 
 ---
 ### License & Copyright
-Storybook Plus (SB+) is licensed under [GNU v3](https://github.com/oel-mediateam/sbplus_v3/blob/master/LICENSE) license. (c) 2013 - 2018. Ethan Lin, [Media Services](https://media.uwex.edu), and [University of Wisconsin-Extension, Division of Continuing Education, Outreach & E-Learning](http://ce.uwex.edu/). All rights reserved.
+Storybook Plus (SB+) is licensed under [GNU v3](https://github.com/oel-mediateam/sbplus_v3/blob/master/LICENSE) license. (c) 2013 - 2019. Ethan Lin, [Creative Media Services](https://media.uwex.edu), and [University of Wisconsin Extended Campus](http://ce.uwex.edu/). All rights reserved.
