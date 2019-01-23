@@ -91,15 +91,15 @@ Page.prototype.getPageMedia = function() {
     
     $( self.mediaContent ).removeClass('iframeEmbed').empty();
     
-    if ( SBPLUS.hasStorageItem( 'sbplus-' + SBPLUS.uniqueTitle + '-previously-widget-open', true ) ) {
+    if ( SBPLUS.hasStorageItem( 'sbplus-' + SBPLUS.presentationLoc + '-previously-widget-open', true ) ) {
         
-        if ( SBPLUS.getStorageItem( 'sbplus-' + SBPLUS.uniqueTitle + '-previously-widget-open', true ) === '1' ) {
+        if ( SBPLUS.getStorageItem( 'sbplus-' + SBPLUS.presentationLoc + '-previously-widget-open', true ) === '1' ) {
             
             SBPLUS.showWidget();
             
         }
         
-        SBPLUS.deleteStorageItem( 'sbplus-' + SBPLUS.uniqueTitle + '-previously-widget-open', true );
+        SBPLUS.deleteStorageItem( 'sbplus-' + SBPLUS.presentationLoc + '-previously-widget-open', true );
         
     }
     
@@ -367,7 +367,7 @@ Page.prototype.getPageMedia = function() {
                     quizItem.getQuiz();
                     
                     if ( $( '#sbplus_widget' ).is( ':visible' ) ) {
-                        SBPLUS.setStorageItem( 'sbplus-' + SBPLUS.uniqueTitle + '-previously-widget-open', 1, true );
+                        SBPLUS.setStorageItem( 'sbplus-' + SBPLUS.presentationLoc + '-previously-widget-open', 1, true );
                     }
                     
                     SBPLUS.hideWidget();
@@ -466,7 +466,7 @@ Page.prototype.getPageMedia = function() {
     
     self.delayStorage = window.setTimeout( function() {
         
-        var presentation = SBPLUS.sanitize( $( SBPLUS.banner.title ).text() );
+        var presentation = SBPLUS.sanitize( SBPLUS.getCourseDirectory() );
         
         var pSectionNumber = self.pageNumber[0] + ',' + self.pageNumber[1];
         
@@ -890,8 +890,8 @@ Page.prototype.renderVideoJS = function( src ) {
         
         // volume
         
-        if ( SBPLUS.hasStorageItem( 'sbplus-' + SBPLUS.uniqueTitle + '-volume-temp', true ) ) {
-            player.volume( Number( SBPLUS.getStorageItem( 'sbplus-' + SBPLUS.uniqueTitle + '-volume-temp', true ) ) );
+        if ( SBPLUS.hasStorageItem( 'sbplus-' + SBPLUS.presentationLoc + '-volume-temp', true ) ) {
+            player.volume( Number( SBPLUS.getStorageItem( 'sbplus-' + SBPLUS.presentationLoc + '-volume-temp', true ) ) );
             
         } else {
             
@@ -901,16 +901,16 @@ Page.prototype.renderVideoJS = function( src ) {
         
         player.on( 'volumechange', function() {
             
-            SBPLUS.setStorageItem( 'sbplus-' + SBPLUS.uniqueTitle + '-volume-temp', this.volume(), true );
+            SBPLUS.setStorageItem( 'sbplus-' + SBPLUS.presentationLoc + '-volume-temp', this.volume(), true );
             
         } );
         
         // subtitle
         if ( self.isYoutube === false && self.isVimeo === false && player.textTracks().tracks_.length >= 1 ) {
             
-            if ( SBPLUS.hasStorageItem( 'sbplus-' + SBPLUS.uniqueTitle + '-subtitle-temp', true ) ) {
+            if ( SBPLUS.hasStorageItem( 'sbplus-' + SBPLUS.presentationLoc + '-subtitle-temp', true ) ) {
             
-                if ( SBPLUS.getStorageItem( 'sbplus-' + SBPLUS.uniqueTitle + '-subtitle-temp', true ) === '1' ) {
+                if ( SBPLUS.getStorageItem( 'sbplus-' + SBPLUS.presentationLoc + '-subtitle-temp', true ) === '1' ) {
                     player.textTracks().tracks_[0].mode = 'showing';
                 } else {
                     player.textTracks().tracks_[0].mode = 'disabled';
@@ -934,11 +934,11 @@ Page.prototype.renderVideoJS = function( src ) {
                     
                     if ( this.mode === 'showing' ) {
                         
-                        SBPLUS.setStorageItem( 'sbplus-' + SBPLUS.uniqueTitle + '-subtitle-temp', 1, true );
+                        SBPLUS.setStorageItem( 'sbplus-' + SBPLUS.presentationLoc + '-subtitle-temp', 1, true );
                         
                     } else {
                         
-                        SBPLUS.setStorageItem( 'sbplus-' + SBPLUS.uniqueTitle + '-subtitle-temp', 0, true );
+                        SBPLUS.setStorageItem( 'sbplus-' + SBPLUS.presentationLoc + '-subtitle-temp', 0, true );
                         
                     }
                     

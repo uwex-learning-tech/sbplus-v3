@@ -2,14 +2,15 @@
  * Storybook Plus
  *
  * @author: Ethan Lin
- * @url: https://github.com/oel-mediateam/sbplus
- * @version: 3.1.4
- * Released 07/27/2018
+ * @url: https://github.com/oel-mediateam/sbplus_v3
+ * @version: 3.1.5
+ * Released 01/23/2019
  *
  * @license: GNU GENERAL PUBLIC LICENSE v3
  *
     Storybook Plus is an web application that serves multimedia contents.
-    Copyright (C) 2013-2018  Ethan S. Lin, UWEX CEOEL Media Services
+    Copyright (C) 2013-2019  Ethan S. Lin, Creative Media Services, University
+    of Wisconsin Extended Campus
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -47,7 +48,7 @@ var SBPLUS = SBPLUS || {
     button: null,
     menu : null,
     screenReader: null,
-    uniqueTitle: '',
+    presentationLoc: '',
     logo: '',
     
     // holds current and total pages in the presentation
@@ -531,8 +532,8 @@ var SBPLUS = SBPLUS || {
                 sections: xSections
             };
             
-            // get/set the presenation title
-            self.uniqueTitle = self.sanitize( self.xml.setup.title );
+            // get/set the presenation storage id
+            self.presentationLoc = self.sanitize( self.getCourseDirectory() );            
             
             // if HotJar site id is set in manifest, get and set HotJar tracking code
             if (self.manifest.sbplus_hotjar_site_id != "") {
@@ -759,7 +760,7 @@ var SBPLUS = SBPLUS || {
             $( self.button.start ).on( 'click', self.startPresentation.bind( self ) );
             
             // if local storage has a value for the matching presentation title
-            if ( self.hasStorageItem( 'sbplus-' + self.uniqueTitle ) ) {
+            if ( self.hasStorageItem( 'sbplus-' + self.presentationLoc ) ) {
                 
                 // set event listener to the resume button
                 $( self.button.resume ).on( 'click', self.resumePresentation.bind( self ) );
@@ -1005,7 +1006,7 @@ var SBPLUS = SBPLUS || {
                 self.hideSplash();
                 
                 // select the page that was set in the local storage data
-                self.selectPage( self.getStorageItem( 'sbplus-' + self.uniqueTitle ) );
+                self.selectPage( self.getStorageItem( 'sbplus-' + self.presentationLoc ) );
                 
             } );
             
@@ -1656,7 +1657,14 @@ var SBPLUS = SBPLUS || {
             
             // add/set additional property to the pageData object
             pageData.src = target.attr( 'src' ).trim();
-            pageData.notes = this.getTextContent( target.find( 'note' ) );
+            
+            // if there is a note tag, set notes
+            if ( target.find( 'note' ).length ) {
+                
+                pageData.notes = this.getTextContent( target.find( 'note' ) );
+                
+            }
+            
             pageData.widget = target.find( 'widget' );
             pageData.frames = target.find( 'frame' );
             pageData.imageFormat = this.xml.settings.imgType;
@@ -1861,12 +1869,12 @@ var SBPLUS = SBPLUS || {
                 
                 if ( Modernizr.localstorage && Modernizr.sessionstorage ) {
                     
-                    if ( this.hasStorageItem( 'sbplus-' + self.uniqueTitle + '-settings-loaded', true ) === false ) {
+                    if ( this.hasStorageItem( 'sbplus-' + self.presentationLoc + '-settings-loaded', true ) === false ) {
                     
                         $.get( self.manifest.sbplus_root_directory + 'scripts/templates/settings.tpl', function( data ) {
                         
                             self.settings = data;
-                            self.setStorageItem( 'sbplus-' + self.uniqueTitle + '-settings-loaded', 1, true );
+                            self.setStorageItem( 'sbplus-' + self.presentationLoc + '-settings-loaded', 1, true );
                             menuContent.append( data );
                             self.afterSettingsLoaded();
                             
@@ -2596,7 +2604,7 @@ var SBPLUS = SBPLUS || {
         
         var str = obj.html();
         
-        if ( str !== undefined ) {
+        if ( str === undefined ) {
             
             if ( !this.isEmpty( obj[0].textContent ) ) {
             
@@ -2642,7 +2650,7 @@ var SBPLUS = SBPLUS || {
         
         var self = this;
         
-        if ( self.getStorageItem( 'sbplus-' + self.uniqueTitle + '-settings-loaded', true ) === '1' ) {
+        if ( self.getStorageItem( 'sbplus-' + self.presentationLoc + '-settings-loaded', true ) === '1' ) {
             
             if ( self.isIOSDevice() ) {
                     
@@ -2709,7 +2717,7 @@ var SBPLUS = SBPLUS || {
                 } else {
                     
                     self.setStorageItem( 'sbplus-volume', vol / 100 );
-                    self.setStorageItem( 'sbplus-' + self.uniqueTitle + '-volume-temp', vol / 100, true );
+                    self.setStorageItem( 'sbplus-' + self.presentationLoc + '-volume-temp', vol / 100, true );
                     
                 }
                 
@@ -2730,7 +2738,7 @@ var SBPLUS = SBPLUS || {
                 );
                 
                 self.setStorageItem(
-                    'sbplus-' + self.uniqueTitle + '-playbackrate-temp',
+                    'sbplus-' + self.presentationLoc + '-playbackrate-temp',
                     $( '#sbplus_va_playbackrate option:selected' ).val(),
                     true
                 );
@@ -2756,7 +2764,7 @@ var SBPLUS = SBPLUS || {
         
         var self = this;
         
-        if ( self.getStorageItem( 'sbplus-' + self.uniqueTitle + '-settings-loaded', true ) === '1' ) {
+        if ( self.getStorageItem( 'sbplus-' + self.presentationLoc + '-settings-loaded', true ) === '1' ) {
             
             // widget
             var widgetVal = self.getStorageItem( 'sbplus-hide-widget' );

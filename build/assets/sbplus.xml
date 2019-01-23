@@ -1,13 +1,8 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 
-<!-- GENERAL NOTES:
-    ☛ <![CDATA[ ]]> is now OPTIONAL for HTML inside XML.
-    ☛ Tag without value can be self closed. i.e., <note></note> = <note />
-    ☛ #7b3009 (blue) is the default hex color for the accent.
-    ☛ This XML is last updated on May 31, 2017.
--->
-
-<storybook accent="#7b3009" pageImgFormat="jpg" splashImgFormat="jpg" analytics="off" mathjax="off" xmlVersion="3.1">
+<storybook accent="#7b3009" pageImgFormat="jpg" splashImgFormat="jpg" analytics="off" mathjax="off" xmlVersion="3.1" xmlns="https://media.uwex.edu/app/storybook_plus_v3/"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="https://media.uwex.edu/app/storybook_plus_v3/ https://media.uwex.edu/app/storybook_plus_v3/sbplus.xsd">
     
     <setup program="" course="">
         
@@ -34,14 +29,6 @@
         </generalInfo>
         
     </setup>
-    
-    <!-- SECTION NOTES
-         ☛ Section's empty title defaults to "Section #" if there are more than one section.
-         ☛ Image defaults to jpg unless other file extension is specified above.
-         ☛ Transition attribute can be left empty or removed.
-    -->
-    
-    <!-- section 1 -->
     
     <section title="Chocolate Chip Cookies">
         
@@ -104,8 +91,6 @@
         </page>
         
     </section>
-    
-    <!-- section 2 -->
     
     <section title="Self Assessments">
         
@@ -189,8 +174,6 @@
         
     </section>
     
-    <!-- section 3 -->
-    
     <section title="Other Examples (Not Related to Chocolate Chip Cookies)">
         
         <page type="video" src="smgt370_course_intro" title="Video from Assets Directory">
@@ -198,7 +181,7 @@
         </page>
         
         <page type="youtube" src="Jt1h1MinlLI" title="Video from YouTube" transition="">
-            <note>Release on June <strong>20</strong>, 2017!</note>
+            <note><![CDATA[Release on June <strong>20</strong>, 2017!]]></note>
             <widget>
                 <segment name="New Jobs">Red Mage and Samurai!!!</segment>
                 <segment name="New Dungeons &amp; Raids">Many more of them!</segment>
@@ -222,9 +205,9 @@
         </page>
         
         <page type="bundle" src="slide13" title="Bundled" transition="">
-            <note />
             <frame start="00:18"></frame>
             <frame start="00:26"></frame>
+            <note />
         </page>
         
         <page type="quiz" src="slide13" title="Fill in the Blank">
@@ -462,7 +445,6 @@
                 
     </section>
     
-    <!-- section 3 -->
     <section title="New Feature (Shhh!)">
         
         <page type="html" src="https://media.uwex.edu/sandbox/ethan/hipaa/title45_vol1/CFR-2007-title45-vol1-sec160-202.xml
