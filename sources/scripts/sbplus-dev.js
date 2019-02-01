@@ -775,8 +775,7 @@ var SBPLUS = SBPLUS || {
             }
             
             // set downloadable file name from the course directory name in URL
-            var fileName = SBPLUS.getCourseDirectory();
-            
+            var fileName = SBPLUS.getCourseDirectory().replace(".sbproj", "");
             // if file name is empty, default to 'default'
             if ( self.isEmpty( fileName ) ) {
                 fileName = 'default';

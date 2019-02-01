@@ -44,7 +44,8 @@ SB+ may not function properly with beta or pre-release versions of web browsers.
 ### Version Change Log
 
 #### Pending
-_none at the moment_
+* Fixed issue #91
+* Fixed issue #92
 
 #### 3.1.5 (01/23/2019)
 * Fixed an issue where author photo is not loaded from the server.

@@ -311,7 +311,7 @@ $(s.button.resume).on("click",s.resumePresentation.bind(s)):
 // hide the resume button
 $(s.button.resume).hide(0,function(){$(s).attr("tabindex","-1")});
 // set downloadable file name from the course directory name in URL
-var e=SBPLUS.getCourseDirectory();
+var e=SBPLUS.getCourseDirectory().replace(".sbproj","");
 // if file name is empty, default to 'default'
 // if accent does not match the default accent
 if(s.isEmpty(e)&&(e="default"),
