@@ -3,8 +3,8 @@
  *
  * @author: Ethan Lin
  * @url: https://github.com/oel-mediateam/sbplus_v3
- * @version: 3.1.5
- * Released 01/23/2019
+ * @version: 3.1.6
+ * Released 02/26/2019
  *
  * @license: GNU GENERAL PUBLIC LICENSE v3
  *
@@ -388,7 +388,7 @@ var SBPLUS = SBPLUS || {
             var self = this;
             
             // set the path to the XML file
-            var xmlUrl = 'assets/sbplus.xml';
+            var xmlUrl = 'assets/sbplus.xml?_=' + new Date().getTime();
             
             // AJAX call to the XML file
             $.get( xmlUrl, function( data ) {

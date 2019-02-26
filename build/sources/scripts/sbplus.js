@@ -3,8 +3,8 @@
  *
  * @author: Ethan Lin
  * @url: https://github.com/oel-mediateam/sbplus_v3
- * @version: 3.1.5
- * Released 01/23/2019
+ * @version: 3.1.6
+ * Released 02/26/2019
  *
  * @license: GNU GENERAL PUBLIC LICENSE v3
  *
@@ -185,7 +185,7 @@ $(this.menu.menuContentList).html($(this.menu.menuList).html())}},// end setMani
      * @param none
      * @return none
      **/
-loadXML:function(){if(this.beforeXMLLoadingDone){var a=this,e="assets/sbplus.xml";
+loadXML:function(){if(this.beforeXMLLoadingDone){var a=this,e="assets/sbplus.xml?_="+(new Date).getTime();
 // set the path to the XML file
 // AJAX call to the XML file
 $.get(e,function(e){a.xmlLoaded=!0,
