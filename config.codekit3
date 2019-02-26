@@ -730,6 +730,16 @@
 		"sC": 1,
 		"tS": 0
 		},
+	"/sources/scripts/preload-dev.js": {
+		"ft": 64,
+		"ma": 0,
+		"mi": 1,
+		"oA": 0,
+		"oAP": "/build/sources/scripts/preload.js",
+		"oF": 2,
+		"sC": 1,
+		"tS": 0
+		},
 	"/sources/scripts/quiz.js": {
 		"ft": 64,
 		"ma": 0,
