@@ -767,20 +767,7 @@ var t=e;
 // if the target is not visible
 $(t).is(":visible")||(
 // target its parent's siblings
-t=$(t).parent().siblings(".header")[0]);
-// get/set the scrollable height
-var a=$(this.tableOfContents.container).height(),s=$(t).outerHeight(),i=$(this.tableOfContents.header),r=$(t).offset().top-s;
-// get/set target's height
-i.length<=0&&(r+=40),
-// if target's position is greater than scrollable height
-a<r&&
-// smoothly scroll to target but do not align to top
-t.scrollIntoView({behavior:"smooth",block:"end"}),
-// if target's position is less than target's height
-// i.e., scroll to the top of the list when on the last item
-r<s&&
-// smoothly scroll to target and do align to top
-t.scrollIntoView()},// end updateScroll function
+t=$(t).parent().siblings(".header")[0]),"0,0"!=$(t).data("page")?t.scrollIntoView({behavior:"smooth",block:"end"}):$($(t).parent().prev())[0].scrollIntoView({behavior:"smooth",block:"start"})},// end updateScroll function
 /**************************************************************************
         MENU FUNCTIONS
     **************************************************************************/
