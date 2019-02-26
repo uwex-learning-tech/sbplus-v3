@@ -4,6 +4,7 @@
 @import "compass/css3/border-radius";
 @import "compass/css3/box-shadow";
 @import "compass/css3/flexbox";
+@import "compass/css3/hyphenation";
 @import "compass/css3/opacity";
 @import "compass/css3/transform";
 
@@ -1089,7 +1090,7 @@ body {
                         height: 100%;
                         overflow-y: auto;
                         background-image: none;
-                        
+                        @include word-break( break-all );
                         @include animation-duration( 0.5s );
                         
                         h1, h2, h3, h4, h5, h6, p, blockquote {

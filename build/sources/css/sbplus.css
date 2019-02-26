@@ -703,6 +703,8 @@ body {
             height: 100%;
             overflow-y: auto;
             background-image: none;
+            word-break: break-all;
+            word-break: break-word;
             -moz-animation-duration: 0.5s;
             -webkit-animation-duration: 0.5s;
             animation-duration: 0.5s; }
