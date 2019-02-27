@@ -241,7 +241,7 @@
 		"bl": 0,
 		"ft": 16,
 		"ma": 0,
-		"oA": 0,
+		"oA": 2,
 		"oAP": "/build/sources/scripts/libs/highlight/default.css",
 		"oF": 3,
 		"oS": 0
@@ -250,7 +250,7 @@
 		"ft": 64,
 		"ma": 0,
 		"mi": 0,
-		"oA": 0,
+		"oA": 2,
 		"oAP": "/build/sources/scripts/libs/highlight/highlight.pack.js",
 		"oF": 3,
 		"sC": 0,
@@ -270,9 +270,9 @@
 		"ft": 64,
 		"ma": 0,
 		"mi": 1,
-		"oA": 0,
+		"oA": 2,
 		"oAP": "/build/sources/scripts/libs/kaltura/kwidgetgetsources.js",
-		"oF": 2,
+		"oF": 3,
 		"sC": 0,
 		"tS": 0
 		},
@@ -280,9 +280,9 @@
 		"ft": 64,
 		"ma": 0,
 		"mi": 0,
-		"oA": 0,
+		"oA": 2,
 		"oAP": "/build/sources/scripts/libs/kaltura/mwembedloader.js",
-		"oF": 2,
+		"oF": 3,
 		"sC": 0,
 		"tS": 0
 		},
@@ -714,7 +714,7 @@
 		"ma": 0,
 		"oA": 2,
 		"oAP": "/build/sources/scripts/libs/videojs/video-js.min.css",
-		"oF": 2,
+		"oF": 3,
 		"oS": 0
 		},
 	"/sources/scripts/menubar.js": {
@@ -746,6 +746,13 @@
 		"oF": 2,
 		"sC": 1,
 		"tS": 0
+		},
+	"/sources/scripts/preload.php": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "/build/sources/scripts/preload.php",
+		"oF": 2
 		},
 	"/sources/scripts/programs.php": {
 		"cB": 0,
@@ -872,11 +879,11 @@
 	"displayValueWasSetByUser": 0,
 	"iconImageName": "meme-soon",
 	"iconImageWasSetByUser": 0,
-	"lastBuiltDate": 518717791
+	"lastBuiltDate": 572992540.74452996
 	},
 "projectSettings": {
 	"abortBuildOnError": 1,
-	"alwaysUseExternalServer": 0,
+	"alwaysUseExternalServer": 1,
 	"animateCSSInjections": 1,
 	"autoBuildNewItems": 1,
 	"autoprefixerEnableIEGrid": 0,
@@ -2277,7 +2284,7 @@
 			}
 		},
 	"esLintSourceType": 0,
-	"externalServerAddress": "http://localhost/",
+	"externalServerAddress": "https://localhost/sbplus_v3/build/",
 	"gitIgnoreBuildFolder": 0,
 	"hideConfigFile": 0,
 	"jsCheckerReservedNamesString": "ga,MathJax,MenuBar,Page,Modernizr,kWidget,videojs,makeVideoPlayableInline,self",

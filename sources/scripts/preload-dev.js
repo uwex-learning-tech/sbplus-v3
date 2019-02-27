@@ -1,6 +1,8 @@
 self.addEventListener( "message", function( e ) {
     
-      var url = e.data + "assets/pages/", request = new XMLHttpRequest();
+      var url = e.data.php + "?uri=" + encodeURIComponent(e.data.pages),
+          fileUrl = e.data.url,
+          request = new XMLHttpRequest();
       
       request.open( "GET", url, true );
       request.send();
@@ -9,29 +11,15 @@ self.addEventListener( "message", function( e ) {
           
           if ( request.readyState === 4 ) {
               
-              var start = request.responseText.indexOf("<dd class='file'>");
-              var end = request.responseText.indexOf("</dl>");
-              
-              var files = request.responseText.substring(start, end);
-              
-              files = files.replaceAll( "</a></dd>", "," );
-              files = files.replaceAll( "<dd class=['|\"]file['|\"]><a href=['|\"].*['|\"]>", "" );
-              files = files.replaceAll( "\n|\r", "" );
-              files = files.split( "," );
-              
-              files.pop();
-              
-              files.forEach( function( file ) {
+              var files = JSON.parse(request.responseText);
+
+              files.forEach( function( name ) {
                   
-                  if ( file.trim() !== "" ) {
-                  
-                      var imgXhr = new XMLHttpRequest();
+                  var imgXhr = new XMLHttpRequest();
                       
-                      imgXhr.open( "GET", url + file, true );
+                      imgXhr.open( "GET", fileUrl + name, true );
                       imgXhr.setRequestHeader( "Cache-Control", "max-age=3600, stale-while-revalidate=7200, no-cache, no-store, must-revalidate" );
                       imgXhr.send();
-                      
-                  }
                   
               } );
               

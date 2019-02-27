@@ -295,21 +295,30 @@ var SBPLUS = SBPLUS || {
             
             // start a worker service thread to preload page images
             var worker = new Worker( self.manifest.sbplus_root_directory + 'scripts/preload.js' );
-            var url = window.location.href, index = url.indexOf( '?' );
+            var path = window.location.pathname,
+                location = window.location.href,
+                index = location.indexOf( '?' );
             
             if ( index != -1 ) {
-                url = url.substring( 0, index );
+                location = location.substring( 0, index );
             }
             
-            index = url.indexOf( '#' );
+            index = location.indexOf( '#' );
             
             if ( index != -1 ) {
-                url = url.substring( 0, index );
+                location = location.substring( 0, index );
             }
             
-            url = url.replace( 'index.html', '' );
+            path = path.replace( 'index.html', '' );
+            location = location.replace( 'index.html', '' );
+            
+            var paths = {
+                "php": 'preload.php',
+                "pages": path + "assets/pages/",
+                "url": location + "assets/pages/"
+            }
 
-            worker.postMessage( url );
+            worker.postMessage( paths );
             
         }
         

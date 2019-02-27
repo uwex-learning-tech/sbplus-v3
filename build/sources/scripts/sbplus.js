@@ -133,7 +133,7 @@ var e='<div class="error">';e+="<p><strong>Storybook Plus Error:</strong> ",e+="
 // display the error message to the HTML page
 $(t.layout.wrapper).html(e)});
 // start a worker service thread to preload page images
-var a=new Worker(t.manifest.sbplus_root_directory+"scripts/preload.js"),s=window.location.href,i=s.indexOf("?");-1!=i&&(s=s.substring(0,i)),-1!=(i=s.indexOf("#"))&&(s=s.substring(0,i)),s=s.replace("index.html",""),a.postMessage(s)}},// end loadTemplate function
+var a=new Worker(t.manifest.sbplus_root_directory+"scripts/preload.js"),s=window.location.pathname,i=window.location.href,r=i.indexOf("?");-1!=r&&(i=i.substring(0,r)),-1!=(r=i.indexOf("#"))&&(i=i.substring(0,r));var n={php:"preload.php",pages:(s=s.replace("index.html",""))+"assets/pages/",url:(i=i.replace("index.html",""))+"assets/pages/"};a.postMessage(n)}},// end loadTemplate function
 /**
      * Execute tasks before loading the external XML data
      *
