@@ -1739,11 +1739,29 @@ var SBPLUS = SBPLUS || {
         }
         
         if ( $( target ).data( "page" ) == "0,0" ) {
-            $($( target ).parent().prev())[0].scrollIntoView( { behavior: 'smooth', block: 'start' } );
+            $( $( target ).parent().prev())[0].scrollIntoView( { behavior: 'smooth', block: 'start' } );
             return;
         }
         
-        target.scrollIntoView( { behavior: 'smooth', block: 'end' } );
+        // get/set the scrollable height
+        var scrollHeight = $( this.tableOfContents.container ).height();
+        var targetHeight = $( target ).outerHeight();
+        var sectionHeaders = $( this.tableOfContents.header );
+        var targetTop = $( target ).offset().top - targetHeight;
+        
+        if ( sectionHeaders.length <= 0 ) {
+            targetTop += 40;
+        }
+        
+        if ( targetTop > scrollHeight ) {
+            target.scrollIntoView( { behavior: 'smooth', block: 'end' } );
+        }
+        
+        if ( targetTop < targetHeight ) {
+            
+            target.scrollIntoView( { behavior: 'smooth' } );
+            
+        }
         
     }, // end updateScroll function
     

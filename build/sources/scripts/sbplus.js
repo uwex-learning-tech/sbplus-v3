@@ -767,9 +767,11 @@ updateScroll:function(e){
 // set the obj from the parameter
 var t=e;
 // if the target is not visible
-$(t).is(":visible")||(
+if($(t).is(":visible")||(
 // target its parent's siblings
-t=$(t).parent().siblings(".header")[0]),"0,0"!=$(t).data("page")?t.scrollIntoView({behavior:"smooth",block:"end"}):$($(t).parent().prev())[0].scrollIntoView({behavior:"smooth",block:"start"})},// end updateScroll function
+t=$(t).parent().siblings(".header")[0]),"0,0"!=$(t).data("page")){
+// get/set the scrollable height
+var a=$(this.tableOfContents.container).height(),s=$(t).outerHeight(),i=$(this.tableOfContents.header),r=$(t).offset().top-s;i.length<=0&&(r+=40),a<r&&t.scrollIntoView({behavior:"smooth",block:"end"}),r<s&&t.scrollIntoView({behavior:"smooth"})}else $($(t).parent().prev())[0].scrollIntoView({behavior:"smooth",block:"start"})},// end updateScroll function
 /**************************************************************************
         MENU FUNCTIONS
     **************************************************************************/
