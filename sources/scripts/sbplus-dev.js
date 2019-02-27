@@ -1738,7 +1738,7 @@ var SBPLUS = SBPLUS || {
             
         }
         
-        if ( $( target ).data( "page" ) == "0,0" ) {
+        if ( $( target ).data( "page" ) == "0,0" && $( target ).hasClass( 'header' ) ) {
             $( $( target ).parent().prev())[0].scrollIntoView( { behavior: 'smooth', block: 'start' } );
             return;
         }
