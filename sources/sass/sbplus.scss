@@ -160,7 +160,12 @@ body {
             }
             
             a {
-                color: #799fff;
+                color: #CCD8FF;
+                text-decoration: none
+            }
+            
+            a:hover {
+                text-decoration: underline;
             }
             
         }

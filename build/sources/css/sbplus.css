@@ -83,7 +83,10 @@ body {
         list-style: disc outside;
         margin-left: 25px; }
       .sbplus_wrapper #sbplus_error_screen #sbplus_error_info a {
-        color: #799fff; }
+        color: #CCD8FF;
+        text-decoration: none; }
+      .sbplus_wrapper #sbplus_error_screen #sbplus_error_info a:hover {
+        text-decoration: underline; }
   .sbplus_wrapper .error {
     color: #f00; }
     .sbplus_wrapper .error strong {
