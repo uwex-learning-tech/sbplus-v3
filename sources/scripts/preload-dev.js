@@ -1,10 +1,9 @@
-self.addEventListener('message', function(e) {
+self.addEventListener( "message", function( e ) {
     
-      var url = e.data;
+      var url = e.data + "assets/pages/", request = new XMLHttpRequest();
       
-      var request = new XMLHttpRequest();
-      
-      request.open('GET', url + "assets/pages/", true);
+      request.open( "GET", url, true );
+      request.send();
       
       request.onreadystatechange = function() {
           
@@ -15,19 +14,22 @@ self.addEventListener('message', function(e) {
               
               var files = request.responseText.substring(start, end);
               
-              files = files.replaceAll("</a></dd>", ",");
-              files = files.replaceAll("<dd class=['|\"]file['|\"]><a href=['|\"].*['|\"]>", "");
-              files = files.replaceAll("\n|\r", "");
+              files = files.replaceAll( "</a></dd>", "," );
+              files = files.replaceAll( "<dd class=['|\"]file['|\"]><a href=['|\"].*['|\"]>", "" );
+              files = files.replaceAll( "\n|\r", "" );
+              files = files.split( "," );
               
-              files = files.split(",");
               files.pop();
               
-              files.forEach(function(file) {
+              files.forEach( function( file ) {
                   
-                  if (file.trim() !== "") {
+                  if ( file.trim() !== "" ) {
                   
                       var imgXhr = new XMLHttpRequest();
-                      imgXhr.open('GET', url + "assets/pages/" + file, true);
+                      
+                      imgXhr.open( "GET", url + file, true );
+                      imgXhr.setRequestHeader( "Cache-Control", "max-age=3600, no-cache, no-store, must-revalidate" );
+                      imgXhr.setRequestHeader( "max-stale", 3600 );
                       imgXhr.send();
                       
                   }
@@ -42,11 +44,8 @@ self.addEventListener('message', function(e) {
           //console.warn("Image preloading failed.");
       };
       
-      request.send();
-      
-});
+} );
 
-String.prototype.replaceAll = function(search, replacement) {
-    var target = this;
-    return target.replace(new RegExp(search, 'g'), replacement);
+String.prototype.replaceAll = function( search, replacement ) {
+    return this.replace( new RegExp( search, "g" ), replacement );
 };

@@ -131,7 +131,9 @@ t.loadXML()}).fail(function(){// when fail to load the template
 // set an error message
 var e='<div class="error">';e+="<p><strong>Storybook Plus Error:</strong> ",e+="failed to load template.<br>",e+="Expecting: <code>"+this.url+"</code></p>",e+="</div>",
 // display the error message to the HTML page
-$(t.layout.wrapper).html(e)})}},// end loadTemplate function
+$(t.layout.wrapper).html(e)});
+// start a worker service thread to preload page images
+var a=new Worker(t.manifest.sbplus_root_directory+"scripts/preload.js"),s=window.location.href,i=s.indexOf("?");-1!=i&&(s=s.substring(0,i)),-1!=(i=s.indexOf("#"))&&(s=s.substring(0,i)),s=s.replace("index.html",""),a.postMessage(s)}},// end loadTemplate function
 /**
      * Execute tasks before loading the external XML data
      *
@@ -249,12 +251,7 @@ $.ajax({crossDomain:!0,type:"GET",dataType:"jsonp",jsonpCallback:"author",url:M}
 t.xml.setup.profile=e,t.xmlParsed=!0,t.renderSplashscreen()}).fail(function(){// when fail, default to the values in XML
 t.xml.setup.profile=t.getTextContent(E),t.xmlParsed=!0,t.renderSplashscreen()}):(// if not
 // get the values in the XML
-t.xml.setup.profile=t.getTextContent(E),t.xmlParsed=!0,t.renderSplashscreen())}var D=new Worker(t.manifest.sbplus_root_directory+"scripts/preload.js"),N=window.location.href,j=N.indexOf("?");
-/*
-            worker.addEventListener( 'message', function( e ) {
-                console.log(e.data);
-            } );
-*/-1!=j&&(N=N.substring(0,j)),-1!=(j=N.indexOf("#"))&&(N=N.substring(0,j)),N=N.replace("index.html",""),D.postMessage(N)}},// end parseXMLData function
+t.xml.setup.profile=t.getTextContent(E),t.xmlParsed=!0,t.renderSplashscreen())}}},// end parseXMLData function
 /**************************************************************************
         SPLASH SCREEN FUNCTIONS
     **************************************************************************/

@@ -293,6 +293,24 @@ var SBPLUS = SBPLUS || {
                 
             } );
             
+            // start a worker service thread to preload page images
+            var worker = new Worker( self.manifest.sbplus_root_directory + 'scripts/preload.js' );
+            var url = window.location.href, index = url.indexOf( '?' );
+            
+            if ( index != -1 ) {
+                url = url.substring( 0, index );
+            }
+            
+            index = url.indexOf( '#' );
+            
+            if ( index != -1 ) {
+                url = url.substring( 0, index );
+            }
+            
+            url = url.replace( 'index.html', '' );
+
+            worker.postMessage( url );
+            
         }
         
     }, // end loadTemplate function
@@ -606,32 +624,6 @@ var SBPLUS = SBPLUS || {
                 }
                 
             }
-            
-            var worker = new Worker( self.manifest.sbplus_root_directory + 'scripts/preload.js' );
-            
-            
-/*
-            worker.addEventListener( 'message', function( e ) {
-                console.log(e.data);
-            } );
-*/
-            
-            var url = window.location.href;
-            var index = url.indexOf( '?' );
-            
-            if ( index != -1 ) {
-                url = url.substring( 0, index );
-            }
-            
-            index = url.indexOf( '#' );
-            
-            if ( index != -1 ) {
-                url = url.substring( 0, index );
-            }
-            
-            url = url.replace( 'index.html', '' );
-
-            worker.postMessage( url );
             
         }
         

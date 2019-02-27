@@ -229,6 +229,13 @@
 		"oS": 0,
 		"uL": 1
 		},
+	"/sources/scripts/authors.php": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "/build/sources/scripts/authors.php",
+		"oF": 3
+		},
 	"/sources/scripts/libs/highlight/default.css": {
 		"aP": 0,
 		"bl": 0,
@@ -739,6 +746,13 @@
 		"oF": 2,
 		"sC": 1,
 		"tS": 0
+		},
+	"/sources/scripts/programs.php": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "/build/sources/scripts/programs.php",
+		"oF": 3
 		},
 	"/sources/scripts/quiz.js": {
 		"ft": 64,
@@ -2266,7 +2280,7 @@
 	"externalServerAddress": "http://localhost/",
 	"gitIgnoreBuildFolder": 0,
 	"hideConfigFile": 0,
-	"jsCheckerReservedNamesString": "ga,MathJax,MenuBar,Page,Modernizr,kWidget,videojs,makeVideoPlayableInline",
+	"jsCheckerReservedNamesString": "ga,MathJax,MenuBar,Page,Modernizr,kWidget,videojs,makeVideoPlayableInline,self",
 	"jsHintFlags2": {
 		"asi": {
 			"active": 0,
