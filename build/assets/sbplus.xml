@@ -86,7 +86,9 @@
             <note />
         </page>
         
-        <page type="image-audio" src="slide13" title="Chocolate Chip Cookie Variants" transition="">
+        <page type="bundle" src="slide13" title="Chocolate Chip Cookie Variants" transition="">
+            <frame start="00:10" />
+            <frame start="00:20" />
             <note />
         </page>
         

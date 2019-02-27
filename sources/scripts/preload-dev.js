@@ -28,8 +28,7 @@ self.addEventListener( "message", function( e ) {
                       var imgXhr = new XMLHttpRequest();
                       
                       imgXhr.open( "GET", url + file, true );
-                      imgXhr.setRequestHeader( "Cache-Control", "max-age=3600, no-cache, no-store, must-revalidate" );
-                      imgXhr.setRequestHeader( "max-stale", 3600 );
+                      imgXhr.setRequestHeader( "Cache-Control", "max-age=3600, stale-while-revalidate=7200, no-cache, no-store, must-revalidate" );
                       imgXhr.send();
                       
                   }
