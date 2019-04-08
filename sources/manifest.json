@@ -9,6 +9,8 @@
     "sbplus_hotjar_site_id": "",
     "sbplus_google_tracking_id": "",
     "sbplus_root_directory": "sources/",
+    "sbplus_program_json": "https://media.uwex.edu/_programs.php",
+    "sbplus_author_json": "https://media.uwex.edu/_authors.php",
     "sbplus_splash_directory": "https://media.uwex.edu/content/media/storybook_support/splash/",
     "sbplus_author_directory": "https://media.uwex.edu/content/media/storybook_support/author/",
     "sbplus_logo_directory": "https://media.uwex.edu/content/media/storybook_support/logo/",

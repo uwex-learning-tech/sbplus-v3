@@ -1,10 +1,12 @@
 <?php
-
+    
+    $dirs = array_diff(scandir("content"),array(".","..","..."));
+    
     $jsonStr = "[";
     
-    foreach ($dirs = array_diff(scandir("."),array(".","..","...")) as $dir) {
+    foreach ($dirs as $dir) {
         
-        if (is_dir($dir)) {
+        if (is_dir("./content/" . $dir)) {
             
             $jsonStr .= '{"name":"' . $dir . '"}';
         

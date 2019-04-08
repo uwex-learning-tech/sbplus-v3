@@ -2,14 +2,9 @@
     
     $jsonStr = "[";
     
-    foreach ($dirFiles = glob("./*.json") as $file) {
+    foreach ($dirFiles = glob(__DIR__."/content/media/storybook_support/author/*.json") as $file) {
         
-        $fileName = $file;
-        
-        $fPattern = "(.\/)";
-        $sPattern = "(.json)";
-        $fileName = preg_replace($fPattern, "", $fileName);
-        $fileName = preg_replace($sPattern, "", $fileName);
+        $fileName = basename($file, ".json");
         
         $aPattern = "(author\()";
         $ePattern = "((\);))";
