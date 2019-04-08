@@ -10,7 +10,7 @@
             array_push($files, preg_replace("/\/.*\//", "", $file));
             
         }
-
+        
         echo json_encode($files);
         
     } else {

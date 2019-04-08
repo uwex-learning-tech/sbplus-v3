@@ -194,8 +194,8 @@
 		"ft": 2097152,
 		"miP": 0,
 		"oA": 2,
-		"oAP": "/build/images/default_logo.svg",
-		"oF": 0,
+		"oAP": "/build/sources/images/default_logo.svg",
+		"oF": 2,
 		"opt": 0,
 		"plM": 3758088159,
 		"prP": 0
@@ -795,16 +795,24 @@
 		"ft": 8192,
 		"hM": 0,
 		"oA": 2,
-		"oAP": "/build/scripts/php/authors.php",
-		"oF": 0
+		"oAP": "/build/sources/scripts/php/authors.php",
+		"oF": 2
+		},
+	"/sources/scripts/php/preload.php": {
+		"cB": 0,
+		"ft": 8192,
+		"hM": 0,
+		"oA": 2,
+		"oAP": "/build/sources/scripts/php/preload.php",
+		"oF": 2
 		},
 	"/sources/scripts/php/programs.php": {
 		"cB": 0,
 		"ft": 8192,
 		"hM": 0,
 		"oA": 2,
-		"oAP": "/build/scripts/php/programs.php",
-		"oF": 0
+		"oAP": "/build/sources/scripts/php/programs.php",
+		"oF": 2
 		},
 	"/sources/scripts/preload-dev.js": {
 		"bF": 0,
@@ -816,14 +824,6 @@
 		"oF": 2,
 		"sC": 1,
 		"tS": 0
-		},
-	"/sources/scripts/preload.php": {
-		"cB": 0,
-		"ft": 8192,
-		"hM": 0,
-		"oA": 2,
-		"oAP": "/build/sources/scripts/preload.php",
-		"oF": 2
 		},
 	"/sources/scripts/quiz.js": {
 		"bF": 0,
@@ -950,7 +950,7 @@
 	"displayValueWasSetByUser": 0,
 	"iconImageName": "meme-soon",
 	"iconImageWasSetByUser": 0,
-	"lastBuiltDate": 572993269.84565997
+	"lastBuiltDate": 576439043.52433395
 	},
 "projectSettings": {
 	"abortBuildOnError": 1,

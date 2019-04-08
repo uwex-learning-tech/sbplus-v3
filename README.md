@@ -1,5 +1,5 @@
 # Storybook Plus (SB+)  
-**version 3.1.6**
+**version 3.1.7**
 
 ---
 ### Requirements
@@ -44,8 +44,12 @@ SB+ may not function properly with beta or pre-release versions of web browsers.
 ### Version Change Log
 
 #### Pending
+
+
+#### 3.1.7 (04/08/2019)
 * Added `sbplus_program_json` and `sbplus_author_json` properties to `manifest.json` file to hold a URL to the respective JSON file, which returns author name or program name respectively.
-* Moved `programs.php` and `authors.php` files to the new `php` folder.
+* Moved `preload.php`, `programs.php` and `authors.php` files to the new `php` folder.
+* Kaltura video now tracks "play reach 25%", "play reach 50%", and "play reach 75%".
 
 #### 3.1.6 (02/27/2019)
 * Table of contents no longer hides the first section row when the first item in the first section has more than 2 lines ([#80](https://github.com/oel-mediateam/sbplus_v3/issues/80))

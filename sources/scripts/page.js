@@ -588,6 +588,13 @@ Page.prototype.renderVideoJS = function( src ) {
     
     var self = this;
     
+    var ka = {
+        play: false,
+        playReached25: false,
+        playReached50: false,
+        playReached75: false
+    }
+    
     src = typeof src !== 'undefined' ? src : self.src;
 
     var isAutoplay = true;
@@ -767,41 +774,77 @@ Page.prototype.renderVideoJS = function( src ) {
             
             if ( self.isKaltura ) {
                 
-                var timestamp = + new Date();
-                
-                $.get( 'https://www.kaltura.com/api_v3/index.php?service=stats&action=collect&event%3AsessionId=' + guid() + '&event%3AeventType=2&event%3ApartnerId=' + self.kaltura.id + '&event%3AentryId=' + self.src + '&event%3Areferrer=https%3A%2F%2Fmedia.uwex.edu&event%3Aseek=false&event%3Aduration=' + player.duration() + '&event%3AeventTimestamp=' + timestamp );
-                
-                if ( options.autoplay ) {
-        
-                     var autoplayTimestamp = + new Date();
-                        
-                    $.get( 'https://www.kaltura.com/api_v3/index.php?service=stats&action=collect&event%3AsessionId=' + guid() + '&event%3AeventType=3&event%3ApartnerId=' + self.kaltura.id + '&event%3AentryId=' + self.src + '&event%3Areferrer=https%3A%2F%2Fmedia.uwex.edu&event%3Aseek=0&event%3Aduration=' + player.duration() + '&event%3AeventTimestamp=' + autoplayTimestamp );
-                    
-                } else {
-                    
-                    $( '.vjs-big-play-button' ).one( "click", function() {
-                        
-                        var clickTimestamp = + new Date();
-                            
-                        $.get( 'https://www.kaltura.com/api_v3/index.php?service=stats&action=collect&event%3AsessionId=' + guid() + '&event%3AeventType=3&event%3ApartnerId=' + self.kaltura.id + '&event%3AentryId=' + self.src + '&event%3Areferrer=https%3A%2F%2Fmedia.uwex.edu&event%3Aseek=0&event%3Aduration=' + player.duration() + '&event%3AeventTimestamp=' + clickTimestamp );
-                        
-                    } );
-                    
-                }
+                $.get( 'https://www.kaltura.com/api_v3/index.php?service=stats&action=collect&event%3AsessionId=' + guid() + '&event%3AeventType=2&event%3ApartnerId=' + self.kaltura.id + '&event%3AentryId=' + self.src + '&event%3Areferrer=https%3A%2F%2Fmedia.uwex.edu&event%3Aseek=false&event%3Aduration=' + player.duration() + '&event%3AeventTimestamp=' + +new Date() );
                 
             }
             
         } );
+        
+        player.on('playing', function() {
+            
+          self.isPlaying = true;
+          
+          if ( self.isKaltura && ka.play === false ) {
+              
+              ka.play = true;
+              $.get( 'https://www.kaltura.com/api_v3/index.php?service=stats&action=collect&event%3AsessionId=' + guid() + '&event%3AeventType=3&event%3ApartnerId=' + self.kaltura.id + '&event%3AentryId=' + self.src + '&event%3Areferrer=https%3A%2F%2Fmedia.uwex.edu&event%3Aseek=0&event%3Aduration=' + player.duration() + '&event%3AeventTimestamp=' + +new Date() );
+              
+          }
+          
+/*
+          if ( SBPLUS.getStorageItem( 'sbplus-disable-it' ) === "0" ) {
+              if ( $( '#sbplus_interactivetranscript' ).hasClass( 'active' )
+              && self.transcriptIntervalStarted === false ) {
+                self.startInteractiveTranscript();
+              }
+          }
+*/
+          
+        });
+        
+        player.on('timeupdate', function() {
+          
+          if ( self.isKaltura && self.isPlaying ) {
+              
+              var progress = player.currentTime() / player.duration()
+              
+              if ( progress > 0.25 && ka.playReached25 === false ) {
+                  
+                  ka.playReached25 = true;
+                  $.get( 'https://www.kaltura.com/api_v3/index.php?service=stats&action=collect&event%3AsessionId=' + guid() + '&event%3AeventType=4&event%3ApartnerId=' + self.kaltura.id + '&event%3AentryId=' + self.src + '&event%3Areferrer=https%3A%2F%2Fmedia.uwex.edu&event%3Aseek=true&event%3Aduration=' + player.duration() + '&event%3AeventTimestamp=' + +new Date() );
+                  
+              }
+              
+              if ( progress > 0.50 && ka.playReached50 === false ) {
+                  
+                  ka.playReached50 = true;
+                  $.get( 'https://www.kaltura.com/api_v3/index.php?service=stats&action=collect&event%3AsessionId=' + guid() + '&event%3AeventType=5&event%3ApartnerId=' + self.kaltura.id + '&event%3AentryId=' + self.src + '&event%3Areferrer=https%3A%2F%2Fmedia.uwex.edu&event%3Aseek=true&event%3Aduration=' + player.duration() + '&event%3AeventTimestamp=' + +new Date() );
+                  
+              }
+              
+              if ( progress > 0.75 && ka.playReached75 === false ) {
+                  
+                  ka.playReached75 = true;
+                  $.get( 'https://www.kaltura.com/api_v3/index.php?service=stats&action=collect&event%3AsessionId=' + guid() + '&event%3AeventType=6&event%3ApartnerId=' + self.kaltura.id + '&event%3AentryId=' + self.src + '&event%3Areferrer=https%3A%2F%2Fmedia.uwex.edu&event%3Aseek=true&event%3Aduration=' + player.duration() + '&event%3AeventTimestamp=' + +new Date() );
+                  
+              }
+              
+          }
+          
+        });
         
         player.on( 'ended', function() {
             
             self.isPlaying = false;
             
             if ( self.isKaltura ) {
-            
-                var timestamp = + new Date();
                 
-                $.get( 'https://www.kaltura.com/api_v3/index.php?service=stats&action=collect&event%3AsessionId=' + guid() + '&event%3AeventType=7&event%3ApartnerId=' + self.kaltura.id + '&event%3AentryId=' + self.src + '&event%3Areferrer=https%3A%2F%2Fmedia.uwex.edu&event%3Aseek=false&event%3Aduration=' + player.duration() + '&event%3AeventTimestamp=' + timestamp );
+                $.get( 'https://www.kaltura.com/api_v3/index.php?service=stats&action=collect&event%3AsessionId=' + guid() + '&event%3AeventType=7&event%3ApartnerId=' + self.kaltura.id + '&event%3AentryId=' + self.src + '&event%3Areferrer=https%3A%2F%2Fmedia.uwex.edu&event%3Aseek=false&event%3Aduration=' + player.duration() + '&event%3AeventTimestamp=' + +new Date() );
+                
+                ka.play = false;
+                ka.playReached25 = false;
+                ka.playReached50 = false;
+                ka.playReached75 = false;
             
             }
           
@@ -826,21 +869,6 @@ Page.prototype.renderVideoJS = function( src ) {
                                  self.gaEventLabel, 3, 0 );
                 
             }
-          
-        });
-        
-        player.on('playing', function() {
-            
-          self.isPlaying = true;
-          
-/*
-          if ( SBPLUS.getStorageItem( 'sbplus-disable-it' ) === "0" ) {
-              if ( $( '#sbplus_interactivetranscript' ).hasClass( 'active' )
-              && self.transcriptIntervalStarted === false ) {
-                self.startInteractiveTranscript();
-              }
-          }
-*/
           
         });
         
