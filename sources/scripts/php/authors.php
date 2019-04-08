@@ -1,8 +1,9 @@
 <?php
     
+    $path = $_SERVER['DOCUMENT_ROOT']."/content/media/storybook_support/author/*.json";
     $jsonStr = "[";
     
-    foreach ($dirFiles = glob(__DIR__."/content/media/storybook_support/author/*.json") as $file) {
+    foreach ($dirFiles = glob($path) as $file) {
         
         $fileName = basename($file, ".json");
         
