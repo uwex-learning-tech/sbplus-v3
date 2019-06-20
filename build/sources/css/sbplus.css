@@ -13,7 +13,8 @@ body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   margin: 0;
   padding: 0;
-  height: 100%; }
+  height: 100%;
+  background-color: #EFEEE8; }
 
 .sbplus_pop_full {
   position: relative;
@@ -40,6 +41,8 @@ body {
     box-sizing: border-box; }
   .sbplus_wrapper *:focus {
     outline: 1px dotted #0c3b6b; }
+  .sbplus_wrapper #theme-decoration-bar {
+    display: none; }
   .sbplus_wrapper button {
     display: block;
     border: none;
@@ -1169,6 +1172,8 @@ body {
       cursor: default; }
     .sbplus_wrapper #sbplus .sb_disabled::before {
       display: none; }
+  .sbplus_wrapper #copyright-footer {
+    display: none; }
 
 .sbplus_full,
 .sbplus_boxed {
@@ -1209,32 +1214,56 @@ body {
   border-bottom: 1px solid #ccc; }
 
 @media only screen and (min-device-width: 768px) and (min-width: 900px) {
-  .sbplus_boxed {
+  .sbplus_boxed #theme-decoration-bar {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-flow: row nowrap;
+    flex-flow: row nowrap;
+    width: 100%;
+    height: 20px;
+    margin-bottom: 20px;
+    background-color: #0c3b6b; }
+    .sbplus_boxed #theme-decoration-bar span {
+      display: -webkit-flex;
+      display: flex;
+      -webkit-flex: 1 0 auto;
+      flex: 1 0 auto;
+      -moz-user-select: -moz-none;
+      -ms-user-select: none;
+      -webkit-user-select: none;
+      user-select: none;
+      background-color: #0c3b6b; }
+  .sbplus_boxed #sbplus_error_screen {
     width: 900px;
     height: 586px;
     margin: 0 auto; }
-    .sbplus_boxed #sbplus_error_screen {
+  .sbplus_boxed #sbplus {
+    width: 900px;
+    height: 586px;
+    margin: 0 auto; }
+    .sbplus_boxed #sbplus #sbplus_splash_screen {
       width: 900px;
       height: 586px; }
-    .sbplus_boxed #sbplus {
-      width: 900px;
-      height: 586px; }
-      .sbplus_boxed #sbplus #sbplus_splash_screen {
-        width: 900px;
-        height: 586px; }
-      .sbplus_boxed #sbplus #sbplus_content_wrapper #sbplus_left_col {
-        border-left: 1px solid rgba(0, 0, 0, 0.25); }
-        .sbplus_boxed #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_widget {
-          border-left: none;
-          border-right: none; }
-      .sbplus_boxed #sbplus #sbplus_content_wrapper #sbplus_right_col {
-        border-right: 1px solid #ccc; }
-        .sbplus_boxed #sbplus #sbplus_content_wrapper #sbplus_right_col #sbplus_table_of_contents_wrapper {
-          border-left: none; }
-      .sbplus_boxed #sbplus #sbplus_control_bar {
-        border-left: 1px solid #ccc;
-        border-right: 1px solid #ccc;
-        border-bottom: 1px solid #ccc; }
+    .sbplus_boxed #sbplus #sbplus_content_wrapper #sbplus_left_col {
+      border-left: 1px solid rgba(0, 0, 0, 0.25); }
+      .sbplus_boxed #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_widget {
+        border-left: none;
+        border-right: none; }
+    .sbplus_boxed #sbplus #sbplus_content_wrapper #sbplus_right_col {
+      border-right: 1px solid #ccc; }
+      .sbplus_boxed #sbplus #sbplus_content_wrapper #sbplus_right_col #sbplus_table_of_contents_wrapper {
+        border-left: none; }
+    .sbplus_boxed #sbplus #sbplus_control_bar {
+      border-left: 1px solid #ccc;
+      border-right: 1px solid #ccc;
+      border-bottom: 1px solid #ccc; }
+  .sbplus_boxed #copyright-footer {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    font-size: 12px;
+    font-size: 0.75rem;
+    color: #636266; }
 
   .sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_cta {
     display: -webkit-flex;
@@ -1461,6 +1490,8 @@ body {
   width: 900px;
   height: 586px;
   margin: 0 auto; }
+  .loaded-in-iframe #theme-decoration-bar {
+    display: none; }
   .loaded-in-iframe #sbplus_error_screen {
     width: 900px;
     height: 586px; }
@@ -1687,6 +1718,8 @@ body {
         display: none; }
   .loaded-in-iframe #sbplus #menu_item_content .sbplus_menu_title_bar {
     height: 30px; }
+  .loaded-in-iframe #copyright-footer {
+    display: none; }
 
 .sbplus_full #sbplus #sbplus_banner_bar #sbplus_menu_area #sbplus_author_name {
   width: auto;

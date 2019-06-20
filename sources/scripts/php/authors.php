@@ -1,6 +1,6 @@
 <?php
     
-    $path = $_SERVER['DOCUMENT_ROOT']."/content/media/storybook_support/author/*.json";
+    $path = $_SERVER['DOCUMENT_ROOT']."/content/media/player_support/author/*.json";
     $jsonStr = "[";
     
     foreach ($dirFiles = glob($path) as $file) {

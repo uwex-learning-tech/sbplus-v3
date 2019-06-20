@@ -1,8 +1,11 @@
+<!-- Program Theme Banner -->
+<div id="theme-decoration-bar"></div>
+
 <!-- Global error screen -->
-<div id="sbplus_error_screen" class="animated"></div> <!-- Global error screen END -->
+<div id="sbplus_error_screen" class="animated"></div>
+<!-- END Global error screen -->
 
-
-
+<!-- Main SB+ UI -->
 <div id="sbplus">
     
     <!-- Splash screen -->
@@ -180,5 +183,11 @@
         </div>
     </div>
     
+</div>
+<!-- END Main SB+ UI -->
+
+<!-- Copyright info -->
+<div id="copyright-footer">
+    <p>&copy; <span class="copyright-year"></span> <span class="notice"></span></p>
 </div>
 
