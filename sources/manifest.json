@@ -23,6 +23,28 @@
         "medium": 487061,
         "low": 487041
     },
+    "sbplus_download_files": [ 
+        
+        {
+            "label": "Video",
+            "format": "mp4"
+        },
+        
+        {
+            "label": "Audio",
+            "format": "mp3"
+        },
+        
+        {
+            "label": "Transcript",
+            "format": "pdf"
+        },
+        
+        {
+            "label": "Supplement",
+            "format": "zip"
+        }
+    ],
     "sbplus_custom_menu_items": [
         
         {

@@ -887,50 +887,30 @@ var SBPLUS = SBPLUS || {
             
             // set downloadable file name from the course directory name in URL
             var fileName = SBPLUS.getCourseDirectory().replace(".sbproj", "");
+            
             // if file name is empty, default to 'default'
             if ( self.isEmpty( fileName ) ) {
                 fileName = 'default';
             }
             
-            // use AJAX to get PDF file
-            $.ajax( {
-                url: fileName + '.pdf',
-                type: 'HEAD'
-            } ).done( function() {
+            // load each supported downloadable files specified in the manifest
+            self.manifest.sbplus_download_files.forEach( function( file ) {
                 
-                self.downloads.transcript = this.url;
-                $( self.splash.downloadBar ).append(
-                    '<a href="' + self.downloads.transcript + '" tabindex="1" download="' + fileName + '" aria-label="Download transcript file" onclick="SBPLUS.sendToGA( \'transcriptLink\', \'click\', \'' + fileName + '\', 4, 0 );"><span class="icon-download"></span> Transcript</a>' );
-            } );
-            
-            // use AJAX to get video file
-            $.ajax( {
-                url: fileName + '.mp4',
-                type: 'HEAD'
-            } ).done( function() {
-                self.downloads.video = this.url;
-                $( self.splash.downloadBar ).append(
-                    '<a href="' + self.downloads.video + '" tabindex="1" download="' + fileName + '" aria-label="Download video file" onclick="SBPLUS.sendToGA( \'videoLink\', \'click\', \'' + fileName + '\', 4, 0 );"><span class="icon-download"></span> Video</a>' );
-            } );
-            
-            // use AJAX to get audio file
-            $.ajax( {
-                url: fileName + '.mp3',
-                type: 'HEAD'
-            } ).done( function() {
-                self.downloads.audio = this.url;
-                $( self.splash.downloadBar ).append(
-                    '<a href="' + self.downloads.audio + '" tabindex="1" download="' + fileName + '" aria-label="Download audio file" onclick="SBPLUS.sendToGA( \'audioLink\', \'click\', \'' + fileName + '\', 4, 0 );"><span class="icon-download"></span> Audio</a>' );
-            } );
-            
-            // use AJAX to get zipped/packaged file
-            $.ajax( {
-                url: fileName + '.zip',
-                type: 'HEAD'
-            } ).done( function() {
-                self.downloads.supplement = this.url;
-                $( self.splash.downloadBar ).append(
-                    '<a href="' + self.downloads.supplement + '" tabindex="1" download="' + fileName + '" aria-label="Download zipped supplement file" onclick="SBPLUS.sendToGA( \'supplementLink\', \'click\', \'' + fileName + '\', 4, 0 );"><span class="icon-download"></span> Supplement</a>' );
+                $.ajax( {
+                    
+                    url: fileName + '.' + file.format,
+                    type: 'HEAD'
+                    
+                } ).done( function() {
+                    
+                    let fileLabel = file.label.toLowerCase();
+                    
+                    self.downloads[fileLabel] = this.url;
+                    
+                    $( self.splash.downloadBar ).append(
+                        '<a href="' + self.downloads[fileLabel] + '" tabindex="1" download="' + fileName + '" aria-label="Download ' + fileLabel + ' file" onclick="SBPLUS.sendToGA( \'' + fileLabel + 'Link\', \'click\', \'' + fileName + '\', 4, 0 );"><span class="icon-download"></span> ' + file.label + '</a>' );
+                } );
+                
             } );
             
             // if accent does not match the default accent
