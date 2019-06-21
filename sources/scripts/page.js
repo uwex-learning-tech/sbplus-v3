@@ -23,6 +23,7 @@ var Page = function ( obj, data ) {
     if ( obj.type !== 'quiz' ) {
         
         this.src = obj.src;
+        this.preventAutoplay = obj.preventAutoplay;
         this.notes = obj.notes;
         this.widget = obj.widget;
         this.widgetSegments = {};
@@ -603,6 +604,15 @@ Page.prototype.renderVideoJS = function( src ) {
     
     if ( SBPLUS.getStorageItem( 'sbplus-autoplay' ) === '0' ) {
         isAutoplay = false;
+    }
+    
+    if ( self.preventAutoplay === "true" ) {
+        
+        isAutoplay = false;
+        $( SBPLUS.layout.wrapper ).addClass( 'preventAutoplay' ); 
+        
+    } else {
+        $( SBPLUS.layout.wrapper ).removeClass( 'preventAutoplay' ); 
     }
     
     var options = {

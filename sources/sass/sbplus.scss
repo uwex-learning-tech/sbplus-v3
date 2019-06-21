@@ -2347,6 +2347,31 @@ $titleBarHeight: 30px;
         
     }
     
+    .sbplus_autoplay_on.preventAutoplay {
+        #sbplus_media_wrapper {
+            
+            .sbplus_media_content {
+                
+                .video-js.vjs-default-skin {
+                    
+                    .vjs-big-play-button {
+                        display: block;
+                    }
+                   
+                }
+                
+                .video-js.vjs-default-skin.vjs-has-started {
+                    
+                    .vjs-big-play-button {
+                        display: none;
+                    }
+                   
+                }
+            }
+            
+        }
+    }
+    
 }
 
 .loaded-in-iframe {

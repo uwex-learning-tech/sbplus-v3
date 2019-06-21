@@ -32,7 +32,7 @@
     
     <section title="Chocolate Chip Cookies">
         
-        <page type="kaltura" src="0_8fcgmc4i" title="Cooking Baking: Chocolate Chip Cookies" transition="">
+        <page type="kaltura" src="0_8fcgmc4i" title="Cooking Baking: Chocolate Chip Cookies" transition="" preventAutoplay="true">
             <note>
               <![CDATA[<h1>Heading Level 1 (and 2)</h1>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip <em>ex ea commodo consequat</em>. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<ol><li>Hello</li><li>World</li></ol><h3>Heading Level 3</h3><p><a href="#">Loremipsumdolorsitametconsectetuadipisicingelitseddoeiusmodtemporincididuntutlaboreetdoloremagnaaliqua.</a> Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p><ul><li>Hello</li><li>World</li></ul><script>onclick();</script>]]>
             </note>
@@ -54,7 +54,7 @@
             <note />
         </page>
         
-        <page type="image-audio" src="slide05" title="A Cookie Timeline" transition="">
+        <page type="image-audio" src="slide05" title="A Cookie Timeline" transition="" preventAutoplay="true">
             <note />
         </page>
         

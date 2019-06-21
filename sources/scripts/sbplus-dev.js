@@ -1752,6 +1752,14 @@ var SBPLUS = SBPLUS || {
             // add/set additional property to the pageData object
             pageData.src = target.attr( 'src' ).trim();
             
+            // check for preventAutoplay attribute
+            
+            if ( target.attr( 'preventAutoplay' ) != undefined ) {
+                pageData.preventAutoplay = target.attr( 'preventAutoplay' ).trim();
+            } else {
+                pageData.preventAutoplay = "false";
+            }
+            
             // if there is a note tag, set notes
             if ( target.find( 'note' ).length ) {
                 

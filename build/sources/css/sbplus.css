@@ -1485,6 +1485,11 @@ body {
     border-left: 1px solid #ccc; }
 
   .sbplus_autoplay_on #sbplus_media_wrapper .sbplus_media_content .video-js.vjs-default-skin .vjs-big-play-button {
+    display: none; }
+
+  .sbplus_autoplay_on.preventAutoplay #sbplus_media_wrapper .sbplus_media_content .video-js.vjs-default-skin .vjs-big-play-button {
+    display: block; }
+  .sbplus_autoplay_on.preventAutoplay #sbplus_media_wrapper .sbplus_media_content .video-js.vjs-default-skin.vjs-has-started .vjs-big-play-button {
     display: none; } }
 .loaded-in-iframe {
   width: 900px;
