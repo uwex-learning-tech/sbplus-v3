@@ -32,7 +32,7 @@
     
     <section title="Chocolate Chip Cookies">
         
-        <page type="kaltura" src="0_8fcgmc4i" title="Cooking Baking: Chocolate Chip Cookies" transition="" preventAutoplay="true">
+        <page type="kaltura" src="0_8fcgmc4i" title="Cooking Baking: Chocolate Chip Cookies" transition="">
             <note>
               <![CDATA[<h1>Heading Level 1 (and 2)</h1>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip <em>ex ea commodo consequat</em>. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<ol><li>Hello</li><li>World</li></ol><h3>Heading Level 3</h3><p><a href="#">Loremipsumdolorsitametconsectetuadipisicingelitseddoeiusmodtemporincididuntutlaboreetdoloremagnaaliqua.</a> Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p><ul><li>Hello</li><li>World</li></ul><script>onclick();</script>]]>
             </note>
@@ -54,7 +54,7 @@
             <note />
         </page>
         
-        <page type="image-audio" src="slide05" title="A Cookie Timeline" transition="" preventAutoplay="true">
+        <page type="image-audio" src="slide05" title="A Cookie Timeline" transition="">
             <note />
         </page>
         
@@ -182,11 +182,12 @@
             <note />
         </page>
         
-        <page type="youtube" src="Jt1h1MinlLI" title="Video from YouTube" transition="">
-            <note><![CDATA[Release on June <strong>20</strong>, 2017!]]></note>
+        <page type="youtube" src="4tyuIh12_HU" title="Video from YouTube" transition="" preventAutoplay="true">
+            <note><![CDATA[Release on July <strong>02</strong>, 2019!]]></note>
             <widget>
-                <segment name="New Jobs">Red Mage and Samurai!!!</segment>
-                <segment name="New Dungeons &amp; Raids">Many more of them!</segment>
+                <segment name="New Jobs">Dancer and Gunbreaker!!!</segment>
+                <segment name="New Races">The Hrothgar and the Viera!!!</segment>
+                <segment name="New Dungeons &amp; Raids">Many more of them!!!</segment>
             </widget>
         </page>
         

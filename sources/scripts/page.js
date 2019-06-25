@@ -994,6 +994,11 @@ Page.prototype.renderVideoJS = function( src ) {
             } );
             
         }
+        
+        // add forward and backward buttons
+
+        addForwardButton( player );
+        addBackwardButton( player ); 
             
     } );
     
@@ -1325,6 +1330,82 @@ function getEntryKalturaStatus( code ) {
 }
 
 // page class helper functions
+
+function addForwardButton( vjs ) {
+    
+    let secToSkip = 10;
+    let Button = videojs.getComponent( 'Button' );
+    let forwardBtn = videojs.extend( Button, {
+        constructor: function( player, options ) {
+            
+            Button.call( this, player, options );
+            this.el().setAttribute( 'aria-label','Skip Forward' );
+            this.controlText( 'Skip Forward' );
+
+        },
+        handleClick: function() {
+            
+            if ( vjs.seekable() ) {
+                
+                let seekTime = vjs.currentTime() + secToSkip;
+                
+                if ( seekTime >= vjs.duration() ) {
+                    seekTime = vjs.duration();
+                }
+                
+                vjs.currentTime( seekTime );
+                
+            }
+            
+        },
+        buildCSSClass: function() {
+            return 'vjs-forward-button vjs-control vjs-button';
+        } 
+    } );
+
+    videojs.registerComponent( 'ForwardBtn', forwardBtn );
+    vjs.getChild( 'controlBar' ).addChild( 'ForwardBtn', {}, 1 );
+    
+}
+
+function addBackwardButton( vjs ) {
+    
+    let secToSkip = 10;
+    let Button = videojs.getComponent( 'Button' );
+    let backwardBtn = videojs.extend( Button, {
+        constructor: function( player, options ) {
+            
+            Button.call( this, player, options );
+            this.el().setAttribute( 'aria-label','Skip Backward' );
+            this.controlText( 'Skip Backward' );
+
+        },
+        handleClick: function() {
+            
+            if ( vjs.seekable() ) {
+                
+                let seekTime = vjs.currentTime() - secToSkip;
+                
+                if ( seekTime <= 0 ) {
+                    seekTime = 0;
+                }
+                
+                vjs.currentTime( seekTime );
+                
+            }
+            
+        },
+        
+        buildCSSClass: function() {
+            return 'vjs-backward-button vjs-control vjs-button';
+        }
+        
+    } );
+
+    videojs.registerComponent( 'BackwardBtn', backwardBtn );
+    vjs.getChild( 'controlBar' ).addChild( 'BackwardBtn', {}, 1 );
+    
+}
 
 function sendKAnalytics(type, id, source, duration) {
     
