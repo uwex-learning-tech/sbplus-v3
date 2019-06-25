@@ -1180,12 +1180,47 @@ var SBPLUS = SBPLUS || {
                     // increment total page
                     ++self.totalPages;
                     
+                    let pageType = $( this ).attr( 'type' );
+                    let itemType = "";
+                    
+                    switch ( pageType ) {
+                        
+                        case "video":
+                        case "youtube":
+                        case "kaltura":
+                        case "vimeo":
+                        itemType = "video-item";
+                        break;
+                        
+                        case "image":
+                        itemType = "image-item";
+                        break;
+                        
+                        case "image-audio":
+                        case "bundle":
+                        itemType = "audio-item";
+                        break;
+                        
+                        case "html":
+                        itemType = "html-item";
+                        break;
+                        
+                        case "quiz":
+                        itemType = "quiz-item";
+                        break;
+                        
+                        default:
+                        itemType = "";
+                        break;
+                        
+                    }
+                    
                     // append opening list item tag to DOM
-                    sectionHTML += '<li class="item" data-count="';
+                    sectionHTML += '<li class="item ' + itemType + '" data-count="';
                     sectionHTML += self.totalPages + '" data-page="' + i + ',' + j + '">';
                     
                     // if page is quiz
-                    if ( $( this ).attr( 'type' ) === 'quiz' ) {
+                    if ( pageType === 'quiz' ) {
                         
                         // append an quiz icon
                         sectionHTML += '<span class="icon-assessment"></span>';

@@ -192,6 +192,17 @@
 		"oF": 3,
 		"oS": 0
 		},
+	"/sources/images/audio-item.png": {
+		"ft": 32768,
+		"iS": 415,
+		"oA": 0,
+		"oAP": "/build/sources/images/audio-item.png",
+		"oF": 2,
+		"oIPL": 0,
+		"opt": 1,
+		"oT": 1,
+		"q": 100
+		},
 	"/sources/images/default_logo.svg": {
 		"ft": 2097152,
 		"miP": 0,
@@ -211,6 +222,50 @@
 		"opt": 0,
 		"plM": 3758088159,
 		"prP": 0
+		},
+	"/sources/images/html-item.png": {
+		"ft": 32768,
+		"iS": 680,
+		"oA": 0,
+		"oAP": "/build/sources/images/html-item.png",
+		"oF": 2,
+		"oIPL": 0,
+		"opt": 1,
+		"oT": 1,
+		"q": 100
+		},
+	"/sources/images/no-audio-item.png": {
+		"ft": 32768,
+		"iS": 520,
+		"oA": 0,
+		"oAP": "/build/sources/images/no-audio-item.png",
+		"oF": 2,
+		"oIPL": 0,
+		"opt": 1,
+		"oT": 1,
+		"q": 100
+		},
+	"/sources/images/quiz-item.png": {
+		"ft": 32768,
+		"iS": 656,
+		"oA": 0,
+		"oAP": "/build/sources/images/quiz-item.png",
+		"oF": 2,
+		"oIPL": 0,
+		"opt": 1,
+		"oT": 1,
+		"q": 100
+		},
+	"/sources/images/video-item.png": {
+		"ft": 32768,
+		"iS": 298,
+		"oA": 0,
+		"oAP": "/build/sources/images/video-item.png",
+		"oF": 2,
+		"oIPL": 0,
+		"opt": 1,
+		"oT": 1,
+		"q": 100
 		},
 	"/sources/manifest.json": {
 		"ft": 524288,
@@ -952,7 +1007,7 @@
 	"displayValueWasSetByUser": 0,
 	"iconImageName": "meme-soon",
 	"iconImageWasSetByUser": 0,
-	"lastBuiltDate": 576439043.52433395
+	"lastBuiltDate": 583188826.55022299
 	},
 "projectSettings": {
 	"abortBuildOnError": 1,
