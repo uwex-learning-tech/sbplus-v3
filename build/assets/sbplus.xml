@@ -62,7 +62,7 @@
             <note />
         </page>
         
-        <page type="image-audio" src="slide07" title="Tools" transition="">
+        <page type="image-audio" src="slide07" title="Tools" transition="" preventAutoplay="true">
             <note />
         </page>
         

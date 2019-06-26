@@ -91,6 +91,7 @@
             
             <div id="sbplus_media_wrapper">
                 <div class="sbplus_media_error" tabindex="1"></div>
+                <div class="sbplus_media_msg hide" tabindex="1"></div>
                 <div class="sbplus_media_content animated" tabindex="1"></div>
             </div>
             

@@ -502,6 +502,29 @@ body {
 
                     }
                     
+                    .sbplus_media_msg {
+                        
+                        position: absolute;
+                        @include display-flex();
+                        @include align-items( center );
+                        @include justify-content( center );
+                        color: #fff;
+                        width: 352px;
+                        height: auto;
+                        padding: 5px;
+                        z-index: 2;
+                        background-color: rgba(240, 81, 0, 0.85);
+                        top: 20%;
+                        @include calc( left, '50% - ' + 176px );
+                        @include border-radius( 5px );
+                        overflow: hidden;
+                        
+                    }
+                    
+                    .sbplus_media_msg.hide {
+                        display: none;
+                    }
+                    
                     .sbplus_media_content {
                         
                         width: 100%;
@@ -2701,8 +2724,7 @@ $titleBarHeight: 30px;
                 
                 #sbplus_media_wrapper {
                     
-                    //height: calc( 100% - #{$widget-height} );
-                    @include calc( height, '100% - ' + #{$widget-height} );
+                    height: calc( '100%' - #{$widget-height} );
                     
                     .sbplus_media_content {
                         /* videoJS customization goes here if any */

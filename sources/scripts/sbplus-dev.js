@@ -116,6 +116,7 @@ var SBPLUS = SBPLUS || {
             media: '#sbplus_media_wrapper',
             mediaContent: '#sbplus_media_wrapper .sbplus_media_content',
             mediaError: '#sbplus_media_wrapper .sbplus_media_error',
+            mediaMsg: '#sbplus_media_wrapper .sbplus_media_msg',
             leftCol: '#sbplus_left_col',
             sidebar: '#sbplus_right_col',
             pageStatus: '#sbplus_page_status',

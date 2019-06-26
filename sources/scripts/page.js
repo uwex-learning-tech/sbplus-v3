@@ -107,6 +107,8 @@ Page.prototype.getPageMedia = function() {
     self.gaEventHalfway = false;
     SBPLUS.clearGATimeout();
     
+    $(SBPLUS.layout.mediaMsg).addClass( 'hide' ).html('');
+    
     // clearInterval( transcriptInterval );
     
     // end reset
@@ -790,7 +792,21 @@ Page.prototype.renderVideoJS = function( src ) {
                 
             }
             
+            if ( SBPLUS.getStorageItem( 'sbplus-autoplay' ) === "1" && self.preventAutoplay === "true" ) {
+        
+                $( SBPLUS.layout.mediaMsg ).html( 'This media is intentionally prevented from autoplaying. Please click the play button to view this media.' ).removeClass( 'hide' );
+                
+            }
+            
         } );
+        
+        player.on('play', function() {
+            
+            if ( $(SBPLUS.layout.mediaMsg).is( ':visible' ) ) {
+                $(SBPLUS.layout.mediaMsg).addClass( 'hide' ).html('');
+            }
+            
+        });
         
         player.on('playing', function() {
             
