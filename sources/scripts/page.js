@@ -792,11 +792,13 @@ Page.prototype.renderVideoJS = function( src ) {
                 
             }
             
+/*
             if ( SBPLUS.getStorageItem( 'sbplus-autoplay' ) === "1" && self.preventAutoplay === "true" ) {
         
                 $( SBPLUS.layout.mediaMsg ).html( 'This media is intentionally prevented from autoplaying. Please click the play button to view this media.' ).removeClass( 'hide' );
                 
             }
+*/
             
         } );
         

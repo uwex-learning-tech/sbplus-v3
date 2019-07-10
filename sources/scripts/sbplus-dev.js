@@ -1182,6 +1182,7 @@ var SBPLUS = SBPLUS || {
                     ++self.totalPages;
                     
                     let pageType = $( this ).attr( 'type' );
+/*
                     let itemType = "";
                     
                     switch ( pageType ) {
@@ -1215,9 +1216,11 @@ var SBPLUS = SBPLUS || {
                         break;
                         
                     }
+*/
                     
                     // append opening list item tag to DOM
-                    sectionHTML += '<li class="item ' + itemType + '" data-count="';
+                    //sectionHTML += '<li class="item ' + itemType + '" data-count="';
+                    sectionHTML += '<li class="item" data-count="';
                     sectionHTML += self.totalPages + '" data-page="' + i + ',' + j + '">';
                     
                     // if page is quiz
