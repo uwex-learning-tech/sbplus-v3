@@ -1,5 +1,5 @@
 # Storybook Plus (SB+)  
-**version 3.1.7**
+**version 3.2**
 
 ---
 ### Requirements
@@ -44,7 +44,16 @@ SB+ may not function properly with beta or pre-release versions of web browsers.
 ### Version Change Log
 
 #### Pending
+_none_  
 
+#### 3.2.0 (07/10/2019)
+* When viewing SB+ Presentation on standalone page (i.e., not embedded inside an iframe), program specific style will be applied, include copyright information. If program style is not available, accent color will be used instead.
+* `manifest.json` file is updated to allow downloadable file format specifications.
+* Added a new `sbplus_program_theme` property to the `manifest.json` file. This property contains the URL to the `themes.json` file.
+* SB+ will now look for downloadable file formats specified in the `manifest.json` file.
+* Added rewind and skip 10 seconds button to the media playback controls.
+* Added a new `preventAutoplay` attribute to the page tag in the SB+ XML. The attribute will force the media to stop autoplaying even when the autoplay setting is on.
+* Updated `animated.css` (the transition animations) to version 3.7.2.
 
 #### 3.1.7 (04/08/2019)
 * Added `sbplus_program_json` and `sbplus_author_json` properties to `manifest.json` file to hold a URL to the respective JSON file, which returns author name or program name respectively.
