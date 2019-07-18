@@ -1855,7 +1855,12 @@ var SBPLUS = SBPLUS || {
         
         if ( $( target ).data( "page" ) == "0,0" ) {
             
-            $( $( target ).parent().prev())[0].scrollIntoView( { behavior: 'smooth', block: 'start' } );
+            if ( $( target ).parent().prev().length ) {
+                $( $( target ).parent().prev() )[0].scrollIntoView( { behavior: 'smooth', block: 'start' } );
+            } else {
+                target.scrollIntoView( { behavior: 'smooth', block: 'start' } );
+            }
+            
             return;
         }
         
