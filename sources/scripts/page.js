@@ -520,6 +520,7 @@ Page.prototype.loadKalturaVideoData = function () {
             
             self.isKaltura.status.entry = data.status;
             self.isKaltura.duration = data.duration;
+            self.isKaltura.poster = data.poster;
             
             for( var i in data.sources ) {
 
@@ -667,6 +668,10 @@ Page.prototype.renderVideoJS = function( src ) {
         var player = this;
         
         if ( self.isKaltura ) {
+            
+            if ( isAutoplay === false ) {
+                player.poster( self.isKaltura.poster + '/width/900/quality/100' );
+            }
             
             player.updateSrc( [
 			
