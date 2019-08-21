@@ -1,6 +1,6 @@
-self.addEventListener( "message", function( e ) {
+onmessage = function( e ) {
     
-      var url = e.data.php + "?uri=" + encodeURIComponent(e.data.pages),
+    var url = e.data.php + "?uri=" + encodeURIComponent(e.data.pages),
           fileUrl = e.data.url,
           request = new XMLHttpRequest();
       
@@ -12,8 +12,13 @@ self.addEventListener( "message", function( e ) {
           if ( request.readyState === 4 ) {
               
               var files = JSON.parse(request.responseText);
-
+              var svgs = [];
+              
               files.forEach( function( name ) {
+                  
+                  if ( isSvg( name ) !== null ) {
+                      svgs.push( name );
+                  }
                   
                   var imgXhr = new XMLHttpRequest();
                       
@@ -23,6 +28,8 @@ self.addEventListener( "message", function( e ) {
                   
               } );
               
+              postMessage(svgs);
+              
           }
           
       };
@@ -31,8 +38,8 @@ self.addEventListener( "message", function( e ) {
           //console.warn("Image preloading failed.");
       };
       
-} );
-
-String.prototype.replaceAll = function( search, replacement ) {
-    return this.replace( new RegExp( search, "g" ), replacement );
 };
+
+function isSvg( file ) {
+    return file.match( new RegExp( /(.svg)$/, "ig") );
+}

@@ -321,6 +321,22 @@ var SBPLUS = SBPLUS || {
 
             worker.postMessage( paths );
             
+            worker.onmessage = function( e ) {
+                
+                e.data.forEach( function( svg ) {
+                    
+                    let svgObj = document.createElement( "object" );
+                    
+                    svgObj.data = paths.pages + svg;
+                    svgObj.style = "position: fixed; width: 0; height: 0;";
+                    svgObj.type = "image/svg+xml";
+                    
+                    document.getElementsByTagName( "body" )[0].appendChild( svgObj );
+                    
+                } );
+                
+            }
+            
         }
         
     }, // end loadTemplate function
