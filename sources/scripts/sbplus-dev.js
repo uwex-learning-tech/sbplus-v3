@@ -325,11 +325,12 @@ var SBPLUS = SBPLUS || {
                 
                 e.data.forEach( function( svg ) {
                     
-                    let svgObj = document.createElement( "object" );
+                    let svgObj = document.createElement( "img" );
                     
-                    svgObj.data = paths.pages + svg;
-                    svgObj.style = "position: fixed; width: 0; height: 0;";
-                    svgObj.type = "image/svg+xml";
+                    svgObj.src = paths.pages + svg;
+                    //svgObj.data = paths.pages + svg;
+                    svgObj.style = "position: fixed; width: 1px; height: 1px; opacity: 0;";
+                    //svgObj.type = "image/svg+xml";
                     
                     document.getElementsByTagName( "body" )[0].appendChild( svgObj );
                     
