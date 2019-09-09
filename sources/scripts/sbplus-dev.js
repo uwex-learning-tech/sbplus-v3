@@ -616,7 +616,7 @@ var SBPLUS = SBPLUS || {
             }
             
             // if analytic is not on, default to off
-            if ( xAnalytics !== 'on' ) {
+            if ( xAnalytics !== 'on' && xAnalytics !== 'true' ) {
                 xAnalytics = 'off';
             }
             
@@ -675,7 +675,8 @@ var SBPLUS = SBPLUS || {
             }
             
             // if analytics is on, get and set Google analtyics tracking
-            if ( self.xml.settings.analytics === 'on' ) {
+
+            if ( self.xml.settings.analytics === 'on' || self.xml.settings.analytics === 'true' ) {
                 
                 (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
                 (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -949,7 +950,7 @@ var SBPLUS = SBPLUS || {
             }
             
             // if mathjax if turned on
-            if ( self.xml.settings.mathjax === 'on' ) {
+            if ( self.xml.settings.mathjax === 'on' || self.xml.settings.mathjax === 'true' ) {
                 
                 // load the MathJAX script from a CDN
                 $.getScript( 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML', function() {
@@ -983,9 +984,9 @@ var SBPLUS = SBPLUS || {
                 
             }
             
-            if ( self.xml.settings.analytics === 'on' ) {
+            if ( self.xml.settings.analytics === 'on' || self.xml.settings.analytics === 'true' ) {
                 
-                ga( 'send', 'screenview', { screenName: 'Splash' } );
+                ga( 'send', 'screenview', { screenName: self.getCourseDirectory() +  ' - splash' } );
                 
             }
             
@@ -1078,16 +1079,17 @@ var SBPLUS = SBPLUS || {
                 // select the first page
                 self.selectPage( '0,0' );
                 
-                if ( self.xml.settings.analytics === 'on' ) {
+                if ( self.xml.settings.analytics === 'on' || self.xml.settings.analytics === 'true' ) {
                     
-                    ga( 'send', 'screenview', { screenName: 'Main' } );
+                    ga( 'send', 'screenview', { screenName: self.getCourseDirectory() } );
+                    self.sendToGA( 'PresentationStartBtn', 'click', self.getCourseDirectory(), 0, 0 );
                     
                 }
                 
             } );
             
             self.presentationStarted = true;
-            self.sendToGA( 'PresentationStartBtn', 'click', self.getCourseDirectory(), 0, 0 );
+            
             
         }
         
@@ -1123,7 +1125,12 @@ var SBPLUS = SBPLUS || {
             } );
             
             self.presentationStarted = true;
-            self.sendToGA( 'PresentationResumeBtn', 'click', self.getCourseDirectory(), 0, 0 );
+            
+            if ( self.xml.settings.analytics === 'on' || self.xml.settings.analytics === 'true' ) {
+                    
+                self.sendToGA( 'PresentationResumeBtn', 'click', self.getCourseDirectory(), 0, 0 );
+                
+            }
             
         }
         
@@ -1331,7 +1338,7 @@ var SBPLUS = SBPLUS || {
             }
             
             // queue MathJAX if turned on
-            if ( self.xml.settings.mathjax === 'on' ) {
+            if ( self.xml.settings.mathjax === 'on' || self.xml.settings.mathjax === 'true' ) {
                 MathJax.Hub.Queue( ['Typeset', MathJax.Hub] );
             }
             
@@ -2077,13 +2084,13 @@ var SBPLUS = SBPLUS || {
         
         $( self.button.menuClose ).on( 'click', self.closeMenuContent.bind( self ) );
         
-        if ( self.xml.settings.analytics === 'on' ) {
+        if ( self.xml.settings.analytics === 'on' || self.xml.settings.analytics === 'true' ) {
             
             ga( 'send', 'screenview', { screenName: menuTitle.html() } );
             
         }
         
-        if ( self.xml.settings.mathjax === 'on' ) {
+        if ( self.xml.settings.mathjax === 'on' || self.xml.settings.mathjax === 'true' ) {
             MathJax.Hub.Queue( ['Typeset', MathJax.Hub] );
         }
             
@@ -2231,7 +2238,7 @@ var SBPLUS = SBPLUS || {
                 target.addClass( 'active' );
             }
             
-            if ( this.xml.settings.mathjax === 'on' ) {
+            if ( this.xml.settings.mathjax === 'on' || this.xml.settings.mathjax === 'true' ) {
                 MathJax.Hub.Queue( ['Typeset', MathJax.Hub] );
             }
             
@@ -2642,7 +2649,7 @@ var SBPLUS = SBPLUS || {
         	urlArray.splice(urlArray.length - 1, 1);
         	
         }
-        
+
         return this.removeEmptyElements( urlArray );
         
     },
