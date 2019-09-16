@@ -42,7 +42,7 @@ var Quiz = function( obj, data ) {
                 
                 var random = SBPLUS.noScript( $( cntx ).find( 'choices' ).attr('random').trim().toLowerCase() );
                 
-                if ( random === 'yes' ) {
+                if ( random === 'yes' || random === 'true' ) {
                     self.quiz.random = true;
                 } else {
                     self.quiz.random = false;
@@ -70,7 +70,7 @@ var Quiz = function( obj, data ) {
                 
                 if ( !SBPLUS.isEmpty( $( this ).attr( 'correct' ) ) ) {
                     
-                    if ( $( this ).attr( 'correct' ).toLowerCase() === 'yes' ) {
+                    if ( $( this ).attr( 'correct' ).toLowerCase() === 'yes' || $( this ).attr( 'correct' ).toLowerCase() === 'true' ) {
                         answer.correct = SBPLUS.noScript( $( this ).attr( 'correct' ).trim().toLowerCase() );
                     }
                     
@@ -96,7 +96,7 @@ var Quiz = function( obj, data ) {
                 
                 var randomMM = SBPLUS.noScript( $( cntx ).find( 'choices' ).attr('random').trim().toLowerCase() );
                 
-                if ( randomMM === 'yes' ) {
+                if ( randomMM === 'yes' || randomMM === 'true' ) {
                     self.quiz.random = true;
                 } else {
                     self.quiz.random = false;
@@ -124,7 +124,7 @@ var Quiz = function( obj, data ) {
                 
                 if ( !SBPLUS.isEmpty( $( this ).attr( 'correct' ) ) ) {
                     
-                    if ( $( this ).attr( 'correct' ).toLowerCase() === 'yes' ) {
+                    if ( $( this ).attr( 'correct' ).toLowerCase() === 'yes' || $( this ).attr( 'correct' ).toLowerCase() === 'true' ) {
                         answer.correct = SBPLUS.noScript( $( this ).attr( 'correct' ).trim().toLowerCase() );
                     }
                     
@@ -211,7 +211,7 @@ Quiz.prototype.getQuiz = function() {
         self.renderQuiz();
     }
     
-    if ( SBPLUS.xml.settings.mathjax === 'on' ) {
+    if ( SBPLUS.xml.settings.mathjax === 'on' || SBPLUS.xml.settings.mathjax === 'true' ) {
         MathJax.Hub.Queue( ['Typeset', MathJax.Hub] );
     }
     
@@ -337,7 +337,7 @@ Quiz.prototype.renderQuiz = function() {
                         
                         if ( this.correct !== undefined ) {
                             
-                            var sAnswer = SBPLUS.sanitize( self.quiz.answers[Number(self.quiz.stuAnswer)].value );
+                            var sAnswer = SBPLUS.sanitize( self.quiz.answers[Number(quizTracker[self.qIndex].stuAnswer)].value );
                             
                             if ( sAnswer === SBPLUS.sanitize( this.value ) ) {
                                 quizTracker[self.qIndex].correct = true;
@@ -459,7 +459,7 @@ Quiz.prototype.renderQuiz = function() {
                 
                 self.renderFeeback();
                 
-                if ( SBPLUS.xml.settings.mathjax === 'on' ) {
+                if ( SBPLUS.xml.settings.mathjax === 'on' || SBPLUS.xml.settings.mathjax === 'true' ) {
                     MathJax.Hub.Queue( ['Typeset', MathJax.Hub] );
                 }
                 
