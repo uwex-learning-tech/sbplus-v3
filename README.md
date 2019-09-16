@@ -44,11 +44,15 @@ SB+ may not function properly with beta or pre-release versions of web browsers.
 ### Version Change Log
 
 #### Pending
-_none_  
+* Fixed an issue where quiz engine is not displaying the correct feedback (#100).
+* Fixed an issue where presentations created with Storybook Packager are not being track by Google Analytics (#99).
+* Presentations that use SVG images will now preload all SVG images before presentation is ready (#95).
+* Kaltura video with autoplay turn off will now display the video thumbnail from Kaltura (#97).
+* Fixed an issue where presentation is not properly rendered when in a responsive iFrame embed.
 
 #### 3.2.1 (07/18/2019)
 * Updated skip forward and backward icons
-* Fixed an issue where table of content did not autoscroll back to the top
+* Fixed an issue where table of content did not autoscroll back to the top (#96)
 
 #### 3.2.0 (07/10/2019)
 * When viewing SB+ Presentation on standalone page (i.e., not embedded inside an iframe), program specific style will be applied, include copyright information. If program style is not available, accent color will be used instead.
