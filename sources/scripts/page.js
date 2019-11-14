@@ -405,7 +405,7 @@ Page.prototype.getPageMedia = function() {
                 hasAudio = $($(self.pageXML).find('audio')[0]).attr('src').toLowerCase();
             }
             
-            if ( embed === 'yes' ) {
+            if ( embed === 'yes' || embed === "true" ) {
                 
                 var content = '<iframe class="html" src="' + path + '"></iframe>';
                 

@@ -50,6 +50,7 @@ SB+ may not function properly with beta or pre-release versions of web browsers.
 * Kaltura video with autoplay turn off will now display the video thumbnail from Kaltura (#97).
 * Fixed an issue where presentation is not properly rendered when in a responsive iFrame embed.
 * Added loading screen with program theme and logo
+* HTML page type embed attribute now supports `false` value (#101).
 
 #### 3.2.1 (07/18/2019)
 * Updated skip forward and backward icons
