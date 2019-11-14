@@ -3,8 +3,8 @@
  *
  * @author: Ethan Lin
  * @url: https://github.com/oel-mediateam/sbplus_v3
- * @version: 3.2.1
- * Released 07/18/2019
+ * @version: 3.3.0
+ * Released xx/xx/2019
  *
  * @license: GNU GENERAL PUBLIC LICENSE v3
  *
@@ -32,7 +32,6 @@
 *******************************************************************************/
 'use strict';
 
-
 var SBPLUS = SBPLUS || {
     
     /***************************************************************************
@@ -40,6 +39,8 @@ var SBPLUS = SBPLUS || {
     ***************************************************************************/
     
     // holds the HTML structure classes and IDs
+    loadingScreen: null,
+    themeDecorationBar: null,
     layout: null,
     splash: null,
     banner: null,
@@ -193,7 +194,16 @@ var SBPLUS = SBPLUS || {
             pageTitle: '.sr-page-status .sr-page-title',
             hasNotes: '.sr-page-status .sr-has-notes'
         };
-        
+
+        // set theme decoration bar class
+        this.themeDecorationBar = '#theme-decoration-bar';
+
+        // set loading screen id
+        this.loadingScreen = {
+            wrapper: '#sbplus_loading_screen',
+            logo: '#sbplus_loading_screen .program_logo'
+        }
+
         // get manifest data if not set
         if ( this.manifest === null ) {
             
@@ -214,7 +224,7 @@ var SBPLUS = SBPLUS || {
                 if ( self.isEmpty( self.manifest.sbplus_root_directory ) ) {
                     self.manifest.sbplus_root_directory = 'sources/';
                 }
-                
+
                 // called the loadTemplate functiont load Storybook Plus's
                 // HTML structure
                 /* !! SHOULD BE THE LAST THING TO BE CALLED IN THIS BLOCK!! */
@@ -237,7 +247,7 @@ var SBPLUS = SBPLUS || {
         }
              
     }, // end go function
-    
+
     /**
      * Load Storybook Plus HTML templates from the templates directory
      *
@@ -347,7 +357,6 @@ var SBPLUS = SBPLUS || {
      *
      * @since 3.2.0
      * @author(s) Ethan Lin
-     * @updated on x/xx/2019
      *
      * @param none
      * @return none
@@ -382,7 +391,7 @@ var SBPLUS = SBPLUS || {
                 let themeColors = self.getProgramTheme(0, program, data);
                 
                 themeColors.forEach( function( color ) {
-                    $( '#theme-decoration-bar' ).append( '<span style="background-color:' + color +'"></span>' );
+                    $( self.themeDecorationBar ).append( '<span style="background-color:' + color +'"></span>' );
                 } );
                 
                 $( '#copyright-footer .notice' ).html( data.copyright );
@@ -397,6 +406,15 @@ var SBPLUS = SBPLUS || {
          
      }, // end set theme function
     
+     /**
+     * Set the program theme bar color
+     *
+     * @since 3.2.0
+     * @author(s) Ethan Lin
+     *
+     * @param none
+     * @return none
+     **/
     getProgramTheme: function( count, program, data ) {
         
         let self = this;
@@ -421,6 +439,71 @@ var SBPLUS = SBPLUS || {
         
         return colors;
         
+    },
+
+    /**
+     * Set the program logo
+     *
+     * @since 3.3.0
+     * @author(s) Ethan Lin
+     *
+     * @param none
+     * @return none
+     **/
+    getLogo: function() {
+
+        var self = this;
+
+        if ( self.isEmpty( self.logo ) ) {
+                
+            var program = this.xml.setup.program;
+            
+            if ( SBPLUS.isEmpty( program ) ) {
+                
+                program = SBPLUS.getProgramDirectory();
+                
+                if ( SBPLUS.isEmpty( program ) ) {
+                    program = this.manifest.sbplus_program_default;
+                }
+                
+            }
+            
+            var logoUrl = this.manifest.sbplus_logo_directory + program + '.svg';
+            
+            $.ajax( {
+                
+                url: logoUrl,
+                type: 'HEAD'
+                
+            } ).done( function() {
+                
+                self.logo = this.url;
+                $( self.loadingScreen.logo ).html( '<img src="' + self.logo + '" />' );
+                
+            } ).fail( function() {
+                
+                logoUrl = self.manifest.sbplus_logo_directory + self.manifest.sbplus_program_default + '.svg';
+                
+                $.ajax( {
+                    
+                    url: logoUrl,
+                    type: 'HEAD'
+                    
+                } ).done( function() {
+                    
+                    self.logo = this.url;
+                    $( self.loadingScreen.logo ).html( '<img src="' + self.logo + '" />' );
+                    
+                } ).fail( function() {
+                    
+                    self.logo = self.manifest.sbplus_root_directory + 'images/default_logo.svg';
+                    
+                } );
+                
+            } );
+            
+        }
+
     },
     
     /**
@@ -548,7 +631,7 @@ var SBPLUS = SBPLUS || {
      *
      * @since 3.1.0
      * @author(s) Ethan Lin
-     * @updated on 5/19/2017
+     * @updated on 11/14/2019
      *
      * @param string
      * @return none
@@ -657,6 +740,12 @@ var SBPLUS = SBPLUS || {
                 },
                 sections: xSections
             };
+
+            // get program logo
+            self.getLogo();
+
+            // set the program theme
+            self.setTheme();
             
             // get/set the presenation storage id
             self.presentationLoc = self.sanitize( self.getCourseDirectory() );            
@@ -733,9 +822,6 @@ var SBPLUS = SBPLUS || {
                 }
                 
             }
-            
-            // set the program theme
-            self.setTheme();
             
         }
         
@@ -1001,7 +1087,7 @@ var SBPLUS = SBPLUS || {
      *
      * @since 3.1.0
      * @author(s) Ethan Lin
-     * @updated on 5/19/2017
+     * @updated on 11/14/2019
      *
      * @param string
      * @return none
@@ -1010,8 +1096,36 @@ var SBPLUS = SBPLUS || {
         
         // if parameter is not empty, set the background image
         if ( str ) {
-            $( this.splash.background ).css( 'background-image', 
-            'url(' + str + ')' );
+
+            var self = this;
+
+            var img = new Image();
+            img.src = str;
+
+            img.addEventListener('load', function() {
+                
+                if ( img.complete ) {
+                    
+                    $( self.splash.background )
+                        .css( 'background-image', 'url(' + img.src + ')' );
+                    
+                    // hide the loading screen
+                    setTimeout( function() {
+
+                        $( self.loadingScreen.wrapper ).addClass( "fadeOut" )
+                            .one( 'webkitAnimationEnd mozAnimationEnd animationend', 
+                            function() {
+                                $( this ).removeClass( 'fadeOut' ).hide();
+                                $( this ).off();
+                            }
+                        );
+
+                    }, 1000 );
+    
+                }
+
+            } );
+            
         }
         
     },
@@ -2247,59 +2361,12 @@ var SBPLUS = SBPLUS || {
             this.hideWidgetContentIndicator();
             $( this.screenReader.hasNotes ).empty();
             $( this.layout.widget ).addClass('noSegments');
-            
-            if ( self.isEmpty( self.logo ) ) {
-                
-                var program = this.xml.setup.program;
-                
-                if ( SBPLUS.isEmpty( program ) ) {
-                    
-                    program = SBPLUS.getProgramDirectory();
-                    
-                    if ( SBPLUS.isEmpty( program ) ) {
-                        program = this.manifest.sbplus_program_default;
-                    }
-                    
-                }
-                
-                var logoUrl = this.manifest.sbplus_logo_directory + program + '.svg';
-                
-                $.ajax( {
-                    
-                    url: logoUrl,
-                    type: 'HEAD'
-                    
-                } ).done( function() {
-                    
-                    self.logo = this.url;
-                    $( self.widget.content ).css( 'background-image', 'url(' + self.logo + ')' );
-                    
-                } ).fail( function() {
-                    
-                    logoUrl = self.manifest.sbplus_logo_directory + self.manifest.sbplus_program_default + '.svg';
-                    
-                    $.ajax( {
-                        
-                        url: logoUrl,
-                        type: 'HEAD'
-                        
-                    } ).done( function() {
-                        
-                        self.logo = this.url;
-                        $( self.widget.content ).css( 'background-image', 'url(' + self.logo + ')' );
-                        
-                    } ).fail( function() {
-                        
-                        self.logo = self.manifest.sbplus_root_directory + 'images/default_logo.svg';
-                        
-                    } );
-                    
-                } );
-                
-            } else {
-                
+
+            // show logo
+            if ( !self.isEmpty( self.logo ) ) {
+
                 $( self.widget.content ).css( 'background-image', 'url(' + self.logo + ')' );
-                
+
             }
             
         }

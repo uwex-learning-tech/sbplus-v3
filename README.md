@@ -1,5 +1,5 @@
 # Storybook Plus (SB+)  
-**version 3.2.1**
+**version 3.3.0**
 
 ---
 ### Requirements
@@ -43,12 +43,13 @@ SB+ may not function properly with beta or pre-release versions of web browsers.
 ---
 ### Version Change Log
 
-#### Pending
+#### Pending 3.3.0
 * Fixed an issue where quiz engine is not displaying the correct feedback (#100).
 * Fixed an issue where presentations created with Storybook Packager are not being track by Google Analytics (#99).
 * Presentations that use SVG images will now preload all SVG images before presentation is ready (#95).
 * Kaltura video with autoplay turn off will now display the video thumbnail from Kaltura (#97).
 * Fixed an issue where presentation is not properly rendered when in a responsive iFrame embed.
+* Added loading screen with program theme and logo
 
 #### 3.2.1 (07/18/2019)
 * Updated skip forward and backward icons

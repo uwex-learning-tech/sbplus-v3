@@ -25,6 +25,7 @@ $border-color: #ccc;
 $box-height: 586px;
 $widget-height: 146px;
 $museo-font: "museo_sans500";
+$body-bg-color: #EFEEE8;
 
 @mixin calc( $property, $expression ) {
     #{$property}: -moz-calc(#{$expression});
@@ -70,7 +71,7 @@ body {
     margin: 0;
     padding: 0;
     height: 100%;
-    background-color: #EFEEE8;
+    background-color: $body-bg-color;
 }
 
 .sbplus_pop_full {
@@ -103,6 +104,24 @@ body {
         outline: 1px dotted $default-accent;
     }
     
+    #sbplus_loading_screen {
+
+        @include display-flex();
+        @include align-items( center );
+        @include justify-content( center );
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-color: $body-bg-color;
+        z-index: 999;
+
+        .program_logo {
+            width: 300px;
+            height: 57px;
+        }
+
+    }
+
     #theme-decoration-bar {
         display: none;
     }
@@ -1982,7 +2001,7 @@ $titleBarHeight: 30px;
     and ( min-width: 900px ) {
     
     .sbplus_boxed {
-        
+
         #theme-decoration-bar {
             
             @include display-flex();
@@ -1999,6 +2018,10 @@ $titleBarHeight: 30px;
                 background-color: $default-accent;
             }
             
+        }
+
+        #sbplus_loading_screen {
+            @include calc( height, '100% - 40px' );
         }
         
         #sbplus_error_screen {
