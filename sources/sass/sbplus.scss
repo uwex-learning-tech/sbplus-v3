@@ -312,7 +312,7 @@ body {
             @include display-flex();
             @include flex-flow( row nowrap );
             @include order(1);
-            @include justify-content(center);
+            @include justify-content( center );
             color: #fff;
             height: $titleBarHeight;
             background-color: #333;
@@ -323,7 +323,7 @@ body {
                 @include display-flex();
                 @include flex-flow( row nowrap );
                 @include flex( 2 1 auto );
-                @include align-items(center);
+                @include align-items( center );
                 font-family: $museo-font;
                 padding: 0 $gutter;
                 line-height: 1.25;
@@ -872,38 +872,23 @@ body {
                     
                 }
                 
-                #sbplus_media_wrapper.sidebar_on {
-                        
-                }
+                // #sbplus_media_wrapper.sidebar_on { }
                 
-                #sbplus_media_wrapper.sidebar_off {
-                    
-                }
+                // #sbplus_media_wrapper.sidebar_off { }
                 
-                #sbplus_media_wrapper.widget_on {
-                    
-                }
+                // #sbplus_media_wrapper.widget_on { }
                 
-                #sbplus_media_wrapper.widget_off {
-                    
-                    
-                }
+                // #sbplus_media_wrapper.widget_off { }
                 
-                #sbplus_media_wrapper.widget_off.sidebar_off {
-                    
-                    
-                    
-                }
+                // #sbplus_media_wrapper.widget_off.sidebar_off { }
                 
-/*
-                #sbplus_media_wrapper.non_aspect_ratio {
-                    height: calc( 100% - #{$widget-height} );
-                }
+                // #sbplus_media_wrapper.non_aspect_ratio {
+                //     height: calc( 100% - #{$widget-height} );
+                // }
                 
-                #sbplus_media_wrapper.aspect_ratio {
-                    @include aspect-ratio( 16, 9 );
-                }
-*/
+                // #sbplus_media_wrapper.aspect_ratio {
+                //     @include aspect-ratio( 16, 9 );
+                // }
                 
                 #sbplus_quiz_wrapper {
                     
@@ -1720,7 +1705,7 @@ body {
                     
                     .profileImg {
                         
-                        display: inline-block;
+                        display: block;
                         width: 250px;
                         margin: 0;
                         height: auto;
@@ -2142,13 +2127,13 @@ $titleBarHeight: 30px;
                     
                     #sbplus_author_name {
                         @include display-flex();
-                        -ms-flex: 2 0 75%;
+                        @include flex(2 0 75%);
+                        @include align-self( center );
+                        @include align-items( center );
                         height: 100%;
                         text-align: left;
                         font-weight: bold;
                         min-height: 0;
-                        @include align-self( center );
-                        @include align-items( center );
                         padding: 0 $gutter;
                         white-space: nowrap;
                         text-overflow: ellipsis;
@@ -2162,7 +2147,7 @@ $titleBarHeight: 30px;
                     
                     #sbplus_menu_btn_wrapper {
                     
-                        -ms-flex: 1 0 15%;
+                        @include flex(1 0 15%);
                         
                         #sbplus_menu_btn,
                         .root-level {
@@ -2277,9 +2262,9 @@ $titleBarHeight: 30px;
                         
                         height: calc( 100% - #{$widget-height} );
                         
-                        .sbplus_media_content {
+                        //.sbplus_media_content {
                             /* videoJS customization goes here if any */
-                        }
+                        //}
                         
                     }
                     

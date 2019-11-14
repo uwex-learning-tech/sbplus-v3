@@ -25,7 +25,7 @@
                 
         </div>
         
-        <div id="sb_splash_bg" class="animated fadeIn"></div>
+        <div id="sb_splash_bg" class="animated"></div>
         
     </div> <!-- Splash screen END -->
     
