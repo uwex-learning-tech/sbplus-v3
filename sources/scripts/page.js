@@ -90,7 +90,7 @@ Page.prototype.getPageMedia = function() {
     SBPLUS.clearWidget();
     SBPLUS.enableWidget();
     
-    $( self.mediaContent ).removeClass('iframeEmbed').empty();
+    $( self.mediaContent ).removeClass( 'iframeEmbed' ).empty();
     
     if ( SBPLUS.hasStorageItem( 'sbplus-' + SBPLUS.presentationLoc + '-previously-widget-open', true ) ) {
         
@@ -390,7 +390,7 @@ Page.prototype.getPageMedia = function() {
         case 'html':
             
             var embed = false;
-            var hasAudio = false;
+            var audioSrc = false;
             var path = self.src;
                 
             if ( !isUrl(path) ) {
@@ -402,24 +402,29 @@ Page.prototype.getPageMedia = function() {
             }
             
             if ( $(self.pageXML).find('audio').length >= 1 ) {
-                hasAudio = $($(self.pageXML).find('audio')[0]).attr('src').toLowerCase();
+                audioSrc = $($(self.pageXML).find('audio')[0]).attr('src').toLowerCase();
             }
             
             if ( embed === 'yes' || embed === "true" ) {
                 
-                var content = '<iframe class="html" src="' + path + '"></iframe>';
+                var iframe = '<iframe id="iframeWithAudio" class="html" src="' + path + '"></iframe>';
                 
-                $( self.mediaContent ).addClass( 'iframeEmbed' ).html( content ).promise().done( function() {
-                    
-                    if ( hasAudio.length ) {
-                        
-                        self.isAudio = true;
-                        $( self.mediaContent ).append( '<audio id="mp" class="video-js vjs-default-skin"></audio>' );
-                        self.renderVideoJS( hasAudio );
-                        
-                    }
-                    
-                } );
+                $( self.mediaContent ).addClass( 'iframeEmbed' );
+
+                if ( audioSrc.length ) {
+
+                    var audio = '<video id="mp" class="video-js vjs-default-skin"></video>';
+
+                    self.isAudio = true;
+                    $( self.mediaContent ).append( audio );
+                    self.renderVideoJS( audioSrc );
+                    $( '.video-js' ).prepend( iframe );
+
+                } else {
+
+                    $( self.mediaContent ).html( iframe );
+
+                }
                 
             } else {
                 

@@ -812,60 +812,6 @@ body {
                         
                     }
                     
-                    // audio in iframe/html page type
-                    .iframeEmbed {
-                        
-                        .video-js.vjs-audio {
-                            /* Reset the height of the player to the height of the controller */
-                            height: 3.2em;
-                        
-                            /* Who needs this ? */
-                            .vjs-big-play-button {
-                                display: none;
-                            }
-                            /* Make the controlbar visible by default */
-                            .vjs-control-bar {
-                                display: -webkit-box;
-                                display: -webkit-flex;
-                                display: -ms-flexbox;
-                                display: flex;
-                            }
-                            /* The spinner is useless when there is just the controller only mode */
-                            .vjs-loading-spinner {
-                                display: none;
-                            }
-                            /* Add another way to indicate waiting by using the progress slider */
-                            &.vjs-waiting .vjs-progress-holder:not( .vjs-seeking ) {
-                                height: .5em;
-                                background-image: repeating-linear-gradient(
-                                    -45deg,
-                                    #73859f,
-                                    #73859f 11px,
-                                    #eee 10px,
-                                    #eee 20px
-                                );
-                                border-radius: 3px;
-                                background-size: 28px 28px;
-                        
-                                transition: height .5s;
-                                animation: vjs-slider-indeterminate .5s linear infinite;
-                        
-                                .vjs-play-progress {
-                                    display: none;
-                                }
-                            }
-                        }
-                        @keyframes vjs-slider-indeterminate {
-                            0% {
-                                background-position: 0 0;
-                            }
-                            100% {
-                                background-position: 28px 0;
-                            }
-                        }
-                        
-                    }
-                    
                     // IE Hack for object fit
                     .sbplus_media_content.compat-object-fit {
                         background-size: contain;
@@ -891,6 +837,15 @@ body {
                     
                 }
                 
+                // audio in iframe/html page type
+                .iframeEmbed {
+                    
+                    #mp_html5_api {
+                        display: none;
+                    }
+                    
+                }
+
                 // #sbplus_media_wrapper.sidebar_on { }
                 
                 // #sbplus_media_wrapper.sidebar_off { }

@@ -51,6 +51,7 @@ SB+ may not function properly with beta or pre-release versions of web browsers.
 * Fixed an issue where presentation is not properly rendered when in a responsive iFrame embed.
 * Added loading screen with program theme and logo
 * HTML page type embed attribute now supports `false` value (#101).
+* Reworked HTML iframe embed for HTML page type that contains an audio.
 
 #### 3.2.1 (07/18/2019)
 * Updated skip forward and backward icons
