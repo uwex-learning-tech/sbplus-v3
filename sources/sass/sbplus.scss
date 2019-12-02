@@ -1563,16 +1563,19 @@ body {
                 
                 #sbplus_widget_btn.showDot::before {
                     position: absolute;
-                    content: '';
-                    top: 0;
-                    left: -5px;
-                    width: 0;
-                    height: 0;
-                    border-left: 10px solid transparent;
-                    border-right: 10px solid transparent;
-                    border-bottom: 10px solid #ff5d5d;
-                    @include rotate( -45deg );
-                    
+                    content: '!';
+                    color: #fff;
+                    text-align: center;
+                    font-family: $default-font-family;
+                    font-size: 14px;
+                    top: 2px;
+                    left: 2px;
+                    width: 18px;
+                    height: 18px;
+                    padding: 2px 0 0 0;
+                    box-sizing: border-box;
+                    background-color: #ff0000;
+                    @include border-radius(50%);
                 }
                 
                 #sbplus_sidebar_btn {
