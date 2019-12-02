@@ -1,3 +1,6 @@
+<!-- Global error screen -->
+<div id="sbplus_error_screen"></div>
+
 <!-- Program Theme Banner -->
 <div id="theme-decoration-bar"></div>
 
@@ -5,10 +8,6 @@
 <div id="sbplus_loading_screen" class="animated">
     <div class="program_logo"></div>
 </div>
-
-<!-- Global error screen -->
-<div id="sbplus_error_screen" class="animated"></div>
-<!-- END Global error screen -->
 
 <!-- Main SB+ UI -->
 <div id="sbplus">
