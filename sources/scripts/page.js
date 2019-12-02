@@ -24,6 +24,7 @@ var Page = function ( obj, data ) {
         
         this.src = obj.src;
         this.preventAutoplay = obj.preventAutoplay;
+        this.useDefaultPlayer = obj.useDefaultPlayer;
         this.notes = obj.notes;
         this.widget = obj.widget;
         this.widgetSegments = {};
@@ -282,15 +283,27 @@ Page.prototype.getPageMedia = function() {
         
         case 'youtube':
             
-            $( self.mediaContent ).html( '<video id="mp" class="video-js vjs-default-skin"></video>' ).promise().done( function() {
-                    
-                self.isYoutube = true;
-                
-                self.renderVideoJS();
-                self.setWidgets();
-                
-            } );
+            self.isYoutube = true;
             
+            if ( self.useDefaultPlayer === "true" || self.useDefaultPlayer === "yes"  ) {
+                
+                $( self.mediaContent ).html( '<video id="mp" class="video-js vjs-default-skin"></video>' ).promise().done( function() {
+
+                    self.renderVideoJS();
+                    
+                } );
+
+            } else {
+                
+                var autoplay = 
+                    self.preventAutoplay === "false" || self.preventAutoplay === "no" ? 1 : 0;
+
+                $( self.mediaContent ).html( '<iframe width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/' + self.src + '?autoplay=' + autoplay + '&playsinline=1&modestbranding=1&disablekb=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"></iframe>' );
+
+            }
+            
+            self.setWidgets();
+
             self.gaEventCate = 'Video';
             self.gaEventLabel = SBPLUS.getCourseDirectory() + ':youtube:page' + SBPLUS.targetPage.data('count');
             self.gaEventAction = 'start';
@@ -300,16 +313,15 @@ Page.prototype.getPageMedia = function() {
         break;
         
         case 'vimeo':
-            
+
             $( self.mediaContent ).html( '<video id="mp" class="video-js vjs-default-skin"></video>' ).promise().done( function() {
-                    
-                self.isVimeo = true;
                 
+                self.isVimeo = true;
                 self.renderVideoJS();
                 self.setWidgets();
                 
             } );
-            
+
             self.gaEventCate = 'Video';
             self.gaEventLabel = SBPLUS.getCourseDirectory() + ':vimeo:page' + SBPLUS.targetPage.data('count');
             self.gaEventAction = 'start';
@@ -654,7 +666,7 @@ Page.prototype.renderVideoJS = function( src ) {
     } else if ( self.isYoutube ) {
         
         options.techOrder = ['youtube'];
-        options.sources = [{ type: "video/youtube", src: "https://www.youtube.com/watch?v=" + src }];
+        options.sources = [{ type: "video/youtube", src: "https://www.youtube.com/watch?v=" + src + "&modestbranding=1" }];
         options.playbackRates = null;
         
         $.extend( options.plugins, { videoJsResolutionSwitcher: { 'default': 720 } } );

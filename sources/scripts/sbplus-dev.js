@@ -1936,6 +1936,13 @@ var SBPLUS = SBPLUS || {
             } else {
                 pageData.preventAutoplay = "false";
             }
+
+            // check for defaultPlayer attribute if it is youtube or vimeo
+            if ( target.attr( 'useDefaultPlayer' ) !== undefined ) {
+                pageData.useDefaultPlayer = target.attr( 'useDefaultPlayer' ).trim();
+            } else {
+                pageData.useDefaultPlayer = "true";
+            }
             
             // if there is a note tag, set notes
             if ( target.find( 'note' ).length ) {

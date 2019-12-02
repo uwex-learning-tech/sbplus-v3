@@ -182,7 +182,7 @@
             <note />
         </page>
         
-        <page type="youtube" src="4tyuIh12_HU" title="Video from YouTube" transition="" preventAutoplay="true">
+        <page type="youtube" src="4tyuIh12_HU" title="Video from YouTube" transition="" preventAutoplay="true" useDefaultPlayer="false">
             <note><![CDATA[Release on July <strong>02</strong>, 2019!]]></note>
             <widget>
                 <segment name="New Jobs">Dancer and Gunbreaker!!!</segment>
@@ -191,7 +191,7 @@
             </widget>
         </page>
         
-        <page type="vimeo" src="167409747" title="Video from Vimeo">
+        <page type="vimeo" src="167409747" title="Video from Vimeo" preventAutoplay="false">
             <note />
         </page>
         
