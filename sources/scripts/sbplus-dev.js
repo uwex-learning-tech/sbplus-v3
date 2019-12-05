@@ -4,7 +4,7 @@
  * @author: Ethan Lin
  * @url: https://github.com/oel-mediateam/sbplus_v3
  * @version: 3.3.0
- * Released xx/xx/2019
+ * Released 12/05/2019
  *
  * @license: GNU GENERAL PUBLIC LICENSE v3
  *

@@ -43,7 +43,10 @@ SB+ may not function properly with beta or pre-release versions of web browsers.
 ---
 ### Version Change Log
 
-#### Pending 3.3.0
+#### Pending
+_none_
+
+#### 3.3.0 (12/05/2019)
 * Fixed an issue where quiz engine is not displaying the correct feedback (#100).
 * Fixed an issue where presentations created with Storybook Packager are not being track by Google Analytics (#99).
 * Presentations that use SVG images will now preload all SVG images before presentation is ready (#95).
@@ -52,6 +55,8 @@ SB+ may not function properly with beta or pre-release versions of web browsers.
 * Added loading screen with program theme and logo
 * HTML page type embed attribute now supports `false` value (#101).
 * Reworked HTML iframe embed for HTML page type that contains an audio.
+* Has notes indicator is now a red dot with "!" instead of a triangle.
+* Added `useDefaultPlayer` attribtue to YouTube page type to revert YouTube video back to YouTube Player UI.
 
 #### 3.2.1 (07/18/2019)
 * Updated skip forward and backward icons
