@@ -28,6 +28,7 @@ var Page = function ( obj, data ) {
         this.notes = obj.notes;
         this.widget = obj.widget;
         this.widgetSegments = {};
+        this.copyableContent = obj.copyableContent;
         this.imgType = obj.imageFormat;
         
         if ( obj.frames.length ) {
@@ -80,7 +81,7 @@ Page.prototype.getPageMedia = function() {
         $( SBPLUS.layout.quizContainer ).remove();
     }
     
-    $( SBPLUS.layout.mediaContent ).css('backgroundImage', '').removeClass('compat-object-fit').removeClass( 'show-vjs-poster' );
+    $( self.mediaContent ).css('backgroundImage', '').removeClass('compat-object-fit').removeClass( 'show-vjs-poster' );
     
     $( this.mediaError ).empty().hide();
     
@@ -111,6 +112,13 @@ Page.prototype.getPageMedia = function() {
     $(SBPLUS.layout.mediaMsg).addClass( 'hide' ).html('');
     
     // clearInterval( transcriptInterval );
+    
+    // show/hide copy to clipboard button if applicable
+    if ( self.type !== 'quiz' ) {
+        self.showCopyBtn();
+    } else {
+        self.removeCopyBtn();
+    }
     
     // end reset
     
@@ -508,6 +516,73 @@ Page.prototype.getPageMedia = function() {
     }
     
 };
+
+// add Copy to clipboard button
+Page.prototype.showCopyBtn = function() {
+    
+    if ( this.copyableContent.length ) {
+
+        const copyBtn = document.createElement( 'button' );
+        copyBtn.id = 'copyToCbBtn';
+
+        const copyBtnTxt = document.createElement( 'span' );
+        copyBtnTxt.classList.add( 'btn-txt' );
+        copyBtnTxt.innerHTML = 'Copy to Clipboard';
+
+        copyBtn.append( copyBtnTxt );
+
+        const copyTxtArea = document.createElement( 'textarea' );
+        copyTxtArea.id = 'copyableTxt';
+        copyTxtArea.readOnly = true;
+        copyTxtArea.innerHTML = this.copyableContent;
+        copyTxtArea.setAttribute( 'aria-hidden', true );
+
+        $( SBPLUS.layout.media ).prepend( copyBtn );
+        $( SBPLUS.layout.media ).prepend( copyTxtArea );
+        $( SBPLUS.layout.media ).on( 'click', '#copyToCbBtn', copyToClipboard );
+
+    } else {
+
+        this.removeCopyBtn();
+
+    }
+
+};
+
+Page.prototype.removeCopyBtn = function() {
+
+    const copyBtn = document.getElementById( 'copyToCbBtn' );
+    const copyTxtArea = document.getElementById( 'copyableTxt' );
+
+    if ( copyBtn && copyTxtArea ) {
+        copyBtn.parentNode.removeChild( copyBtn );
+        copyTxtArea.parentNode.removeChild( copyTxtArea );
+        $( SBPLUS.layout.media ).off( 'click', '#copyToCbBtn', copyToClipboard );
+    }
+
+};
+
+function copyToClipboard() {
+
+    const copyBtn = document.getElementById( 'copyToCbBtn' );
+    const copyBtnTxt = copyBtn.querySelectorAll( '.btn-txt' )[0];
+    const copyTxtArea = document.getElementById( 'copyableTxt' );
+    
+    if ( copyBtn && copyTxtArea ) {
+
+        copyTxtArea.select();
+        document.execCommand( 'copy' );
+
+        copyBtn.focus();
+        copyBtnTxt.innerHTML = "Copied";
+
+        setTimeout( function() {
+            copyBtnTxt.innerHTML = 'Copy to Clipboard';
+        }, 5000 );
+
+    }
+
+}
 
 // kaltura api request
 Page.prototype.loadKalturaVideoData = function () {

@@ -1952,6 +1952,11 @@ var SBPLUS = SBPLUS || {
             }
             
             pageData.widget = target.find( 'widget' );
+
+            if ( target.find( 'copyableContent' ) ) {
+                pageData.copyableContent = target.find( 'copyableContent' ).text().trim();
+            }
+
             pageData.frames = target.find( 'frame' );
             pageData.imageFormat = this.xml.settings.imgType;
             pageData.transition = target[0].hasAttribute( 'transition' ) ? 

@@ -7,6 +7,7 @@
 @import "compass/css3/hyphenation";
 @import "compass/css3/opacity";
 @import "compass/css3/transform";
+@import "compass/css3/transition";
 @import "compass/css3/user-interface";
 
 @import "animate.css" screen, projection;
@@ -26,6 +27,11 @@ $box-height: 586px;
 $widget-height: 146px;
 $museo-font: "museo_sans500";
 $body-bg-color: #EFEEE8;
+$font-size: 16px;
+
+@function rem( $px, $base: $font-size ) {
+    @return ( $px / $base ) * 1rem;
+}
 
 @mixin calc( $property, $expression ) {
     #{$property}: -moz-calc(#{$expression});
@@ -61,7 +67,7 @@ $body-bg-color: #EFEEE8;
 
 /* general */
 html {
-    font-size: 16px;
+    font-size: $font-size;
     height: 100%;
 }
 
@@ -239,7 +245,7 @@ body {
                 min-width: 45%;
                 max-width: 55%;
                 padding: 5px $gutter;
-                padding: rem( 18px ) rem( 30px ) rem( 20px );
+                padding: rem( 5px ) rem( $gutter );
                 background-color: rgba( 255, 255, 255, 0.65 );
                 @include border-radius( 5px );
                 -webkit-backdrop-filter: blur( 8px );
@@ -488,6 +494,70 @@ body {
                     overflow: hidden;
                     @include aspect-ratio( 16, 9 );
                     
+                    &:hover {
+
+                        #copyToCbBtn {
+                            display: block;
+                        }
+
+                    }
+
+                    #copyToCbBtn {
+
+                        position: absolute;
+                        display: none;
+                        width: 32px;
+                        height: auto;
+                        padding: rem( 8px );
+                        min-height: 0;
+                        min-width: 0;
+                        top: rem( 10px );
+                        right: rem( 10px );
+                        color: #000;
+                        background-color: rgba( 255, 255, 255, 0.65 );
+                        z-index: 10;
+                        @include border-radius( rem( 16px ) );
+                        opacity: 0.25;
+                        @include single-transition( opacity, 0.25s );
+                        @include single-transition( width, 0.5s, ease-in-out );
+                        white-space: nowrap;
+                        overflow: hidden;
+
+                        .btn-txt {
+                            display: none;
+                            width: 115px;
+                            white-space: nowrap;
+                            text-align: center;
+                        }
+
+                        &:before {
+                            display: inline-block;
+                            font-family: 'sbplus';
+                            content: "\e903";
+                        }
+
+                        &:hover {
+
+                            width: 150px;
+                            opacity: 1;
+
+                            .btn-txt {
+                                display: inline-block;
+                                margin-left: 4px;
+                            }
+
+                        }
+
+                    }
+
+                    #copyableTxt {
+                        position: absolute;
+                        width: 1px;
+                        height: 1px;
+                        top: 0;
+                        resize: none;
+                    }
+
                     .sbplus_media_error {
                         
                         display: none;
