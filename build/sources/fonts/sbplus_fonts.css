@@ -89,4 +89,10 @@
 .icon-left:before {
   content: "\edc2";
 }
+.icon-link:before {
+  content: "\e902";
+}
+.icon-copy:before {
+  content: "\e903";
+}
 
