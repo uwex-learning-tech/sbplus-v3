@@ -493,41 +493,28 @@ body {
                     background-color: #000;
                     overflow: hidden;
                     @include aspect-ratio( 16, 9 );
-                    
-                    &:hover {
-
-                        #copyToCbBtn {
-                            display: block;
-                        }
-
-                    }
 
                     #copyToCbBtn {
 
                         position: absolute;
-                        display: none;
-                        width: 32px;
+                        display: block;
+                        width: auto;
                         height: auto;
-                        padding: rem( 8px );
+                        padding: rem( 8px ) rem( 10px );
                         min-height: 0;
                         min-width: 0;
                         top: rem( 10px );
                         right: rem( 10px );
-                        color: #000;
-                        background-color: rgba( 255, 255, 255, 0.65 );
+                        color: #fff;
+                        background-color: rgba( $default-accent, 0.65 );
                         z-index: 10;
                         @include border-radius( rem( 16px ) );
                         opacity: 0.25;
                         @include single-transition( opacity, 0.25s );
-                        @include single-transition( width, 0.5s, ease-in-out );
-                        white-space: nowrap;
-                        overflow: hidden;
 
                         .btn-txt {
-                            display: none;
-                            width: 115px;
-                            white-space: nowrap;
-                            text-align: center;
+                            display: inline-block;
+                            margin-left: 4px;
                         }
 
                         &:before {
@@ -537,15 +524,7 @@ body {
                         }
 
                         &:hover {
-
-                            width: 150px;
                             opacity: 1;
-
-                            .btn-txt {
-                                display: inline-block;
-                                margin-left: 4px;
-                            }
-
                         }
 
                     }

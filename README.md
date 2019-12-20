@@ -44,7 +44,7 @@ SB+ may not function properly with beta or pre-release versions of web browsers.
 ### Version Change Log
 
 #### Pending
-_none_
+* Added copy to clipboard button to applicable page(s)
 
 #### 3.3.0 (12/05/2019)
 * Fixed an issue where quiz engine is not displaying the correct feedback (#100).

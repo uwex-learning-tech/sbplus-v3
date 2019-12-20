@@ -111,14 +111,10 @@ Page.prototype.getPageMedia = function() {
     
     $(SBPLUS.layout.mediaMsg).addClass( 'hide' ).html('');
     
-    // clearInterval( transcriptInterval );
+    // show copy to clipboard button if applicable
+    self.showCopyBtn();
     
-    // show/hide copy to clipboard button if applicable
-    if ( self.type !== 'quiz' ) {
-        self.showCopyBtn();
-    } else {
-        self.removeCopyBtn();
-    }
+    // clearInterval( transcriptInterval );
     
     // end reset
     
@@ -520,30 +516,35 @@ Page.prototype.getPageMedia = function() {
 // add Copy to clipboard button
 Page.prototype.showCopyBtn = function() {
     
-    if ( this.copyableContent.length ) {
+    // clear it first
+    this.removeCopyBtn();
 
+    if ( this.copyableContent ) {
+
+        // build the button
         const copyBtn = document.createElement( 'button' );
         copyBtn.id = 'copyToCbBtn';
 
         const copyBtnTxt = document.createElement( 'span' );
         copyBtnTxt.classList.add( 'btn-txt' );
-        copyBtnTxt.innerHTML = 'Copy to Clipboard';
+        
+        if ( !SBPLUS.isEmpty( $(this.copyableContent).attr( 'name' ) ) ) {
+            copyBtnTxt.innerHTML = $(this.copyableContent).attr( 'name' );
+        } else {
+            copyBtnTxt.innerHTML = 'Copy to Clipboard';
+        }
 
         copyBtn.append( copyBtnTxt );
 
         const copyTxtArea = document.createElement( 'textarea' );
         copyTxtArea.id = 'copyableTxt';
         copyTxtArea.readOnly = true;
-        copyTxtArea.innerHTML = this.copyableContent;
+        copyTxtArea.innerHTML = this.copyableContent[0].textContent;
         copyTxtArea.setAttribute( 'aria-hidden', true );
 
         $( SBPLUS.layout.media ).prepend( copyBtn );
         $( SBPLUS.layout.media ).prepend( copyTxtArea );
         $( SBPLUS.layout.media ).on( 'click', '#copyToCbBtn', copyToClipboard );
-
-    } else {
-
-        this.removeCopyBtn();
 
     }
 
@@ -567,6 +568,7 @@ function copyToClipboard() {
     const copyBtn = document.getElementById( 'copyToCbBtn' );
     const copyBtnTxt = copyBtn.querySelectorAll( '.btn-txt' )[0];
     const copyTxtArea = document.getElementById( 'copyableTxt' );
+    const originalCopyBtnTxt = copyBtn.innerHTML;
     
     if ( copyBtn && copyTxtArea ) {
 
@@ -577,8 +579,8 @@ function copyToClipboard() {
         copyBtnTxt.innerHTML = "Copied";
 
         setTimeout( function() {
-            copyBtnTxt.innerHTML = 'Copy to Clipboard';
-        }, 5000 );
+            copyBtnTxt.innerHTML = originalCopyBtnTxt;
+        }, 3000 );
 
     }
 
