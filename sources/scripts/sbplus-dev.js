@@ -782,11 +782,12 @@ var SBPLUS = SBPLUS || {
                 // set author name and path to the profile to respective variable
                 var sanitizedAuthor = self.sanitize( xAuthor.attr( 'name' ).trim() );
                 var profileUrl = self.manifest.sbplus_author_directory + sanitizedAuthor + '.json';
+                var profileInXml = self.getTextContent( xAuthor );
                 
                 self.xml.setup.author = xAuthor.attr( 'name' ).trim();
                 
-                // if author data in XML is empty
-                if ( self.isEmpty( xAuthor.text() ) && !self.isEmpty( sanitizedAuthor ) ) {
+                // if author name in XML is not empty
+                if ( !self.isEmpty( sanitizedAuthor ) ) {
                     
                     // get centralized author name and profile via AJAX
                     $.ajax( {
@@ -799,14 +800,20 @@ var SBPLUS = SBPLUS || {
                         
                     } ).done( function( res ) { // when done, set author and profile
                         
-                        self.xml.setup.profile = res;
-                        
+                        self.xml.setup.profileName = res.name;
+
+                        if ( !self.isEmpty( profileInXml ) ) {
+                            self.xml.setup.profile = profileInXml;
+                        } else {
+                            self.xml.setup.profile = res.profile;
+                        }
+
                         self.xmlParsed = true;
                         self.renderSplashscreen();
                         
                     } ).fail( function() { // when fail, default to the values in XML
                         
-                        self.xml.setup.profile = self.getTextContent( xAuthor );
+                        self.xml.setup.profile = profileInXml;
                         self.xmlParsed = true;
                         self.renderSplashscreen();
                         
@@ -815,7 +822,7 @@ var SBPLUS = SBPLUS || {
                 } else { // if not
                     
                     // get the values in the XML
-                    self.xml.setup.profile = self.getTextContent( xAuthor );
+                    self.xml.setup.profile = profileInXml;
                     self.xmlParsed = true;
                     self.renderSplashscreen();
                     
@@ -836,7 +843,7 @@ var SBPLUS = SBPLUS || {
      *
      * @since 3.1.0
      * @author(s) Ethan Lin
-     * @updated on 5/19/2017
+     * @updated on 1/2/2020
      *
      * @param none
      * @return none
@@ -893,7 +900,13 @@ var SBPLUS = SBPLUS || {
             // display data to the splash screen
             $( self.splash.title ).html( self.xml.setup.title );
             $( self.splash.subtitle ).html( self.xml.setup.subtitle );
-            $( self.splash.author ).html( self.xml.setup.author );
+
+            if ( self.xml.setup.profileName ) {
+                $( self.splash.author ).html( self.xml.setup.profileName );
+            } else {
+                $( self.splash.author ).html( self.xml.setup.author );
+            }
+            
             $( self.splash.duration ).html( self.xml.setup.duration );
             
             // get splash image background via AJAX
@@ -1255,7 +1268,7 @@ var SBPLUS = SBPLUS || {
      *
      * @since 3.1.0
      * @author(s) Ethan Lin
-     * @updated on 5/19/2017
+     * @updated on 1/2/2020
      *
      * @param none
      * @return none
@@ -1280,7 +1293,12 @@ var SBPLUS = SBPLUS || {
             
             // display presentation title and author to the black banner bar
             $( self.banner.title ).html( self.xml.setup.title );
-            $( self.banner.author ).html( self.xml.setup.author );
+
+            if ( self.xml.setup.profileName ) {
+                $( self.banner.author ).html( self.xml.setup.profileName );
+            } else {
+                $( self.banner.author ).html( self.xml.setup.author );
+            }
             
             // display table of contents
             $( self.xml.sections ).each( function( i ) {
@@ -2130,14 +2148,14 @@ var SBPLUS = SBPLUS || {
                 if ( typeof self.xml.setup.profile !== "object" ) {
                     
                     content = '<p class="name">' + self.xml.setup.author + '</p>';
-                    content += self.noScript( self.xml.setup.profile );
                     
                 } else {
                     
                     content = '<p class="name">' + self.xml.setup.profile.name + '</p>';
-                    content += self.noScript( self.xml.setup.profile.profile );
                     
                 }
+
+                content += self.noScript( self.xml.setup.profile );
                 
                 
                 
