@@ -304,50 +304,6 @@ var SBPLUS = SBPLUS || {
                 
             } );
             
-            // start a worker service thread to preload page images
-            var worker = new Worker( self.manifest.sbplus_root_directory + 'scripts/preload.js' );
-            var path = window.location.pathname,
-                location = window.location.href,
-                index = location.indexOf( '?' );
-            
-            if ( index != -1 ) {
-                location = location.substring( 0, index );
-            }
-            
-            index = location.indexOf( '#' );
-            
-            if ( index != -1 ) {
-                location = location.substring( 0, index );
-            }
-            
-            path = path.replace( 'index.html', '' );
-            location = location.replace( 'index.html', '' );
-            
-            var paths = {
-                "php": 'php/preload.php',
-                "pages": path + "assets/pages/",
-                "url": location + "assets/pages/"
-            }
-
-            worker.postMessage( paths );
-            
-            worker.onmessage = function( e ) {
-                
-                e.data.forEach( function( svg ) {
-                    
-                    let svgObj = document.createElement( "img" );
-                    
-                    svgObj.src = paths.pages + svg;
-                    //svgObj.data = paths.pages + svg;
-                    svgObj.style = "position: fixed; width: 1px; height: 1px; opacity: 0;";
-                    //svgObj.type = "image/svg+xml";
-                    
-                    document.getElementsByTagName( "body" )[0].appendChild( svgObj );
-                    
-                } );
-                
-            }
-            
         }
         
     }, // end loadTemplate function
@@ -1122,22 +1078,19 @@ var SBPLUS = SBPLUS || {
                     $( self.splash.background )
                         .css( 'background-image', 'url(' + img.src + ')' );
                     
-                    // hide the loading screen
-                    setTimeout( function() {
-
-                        $( self.loadingScreen.wrapper ).addClass( "fadeOut" )
-                            .one( 'webkitAnimationEnd mozAnimationEnd animationend', 
-                            function() {
-                                $( this ).removeClass( 'fadeOut' ).hide();
-                                $( this ).off();
-                            }
-                        );
-
-                    }, 1000 );
+                    $( self.loadingScreen.wrapper ).addClass( "fadeOut" )
+                    .one( 'webkitAnimationEnd mozAnimationEnd animationend', 
+                    function() {
+                        $( this ).removeClass( 'fadeOut' ).hide();
+                        $( this ).off();
+                    }
+                );
     
                 }
 
             } );
+
+            self.preloadPresenationImages();
             
         }
         
@@ -1178,6 +1131,55 @@ var SBPLUS = SBPLUS || {
             
         }
         
+    },
+
+    preloadPresenationImages: function() {
+
+        var self = this;
+
+        // start a worker service thread to preload page images
+        var worker = new Worker( self.manifest.sbplus_root_directory + 'scripts/preload.js' );
+        var path = window.location.pathname,
+            location = window.location.href,
+            index = location.indexOf( '?' );
+        
+        if ( index != -1 ) {
+            location = location.substring( 0, index );
+        }
+        
+        index = location.indexOf( '#' );
+        
+        if ( index != -1 ) {
+            location = location.substring( 0, index );
+        }
+        
+        path = path.replace( 'index.html', '' );
+        location = location.replace( 'index.html', '' );
+        
+        var paths = {
+            "php": 'php/preload.php',
+            "pages": path + "assets/pages/",
+            "url": location + "assets/pages/"
+        }
+
+        worker.postMessage( paths );
+        
+        worker.onmessage = function( e ) {
+
+            e.data.forEach( function( svg ) {
+                
+                let svgObj = document.createElement( "img" );
+                
+                svgObj.src = paths.pages + svg;
+                svgObj.setAttribute( 'aria-hidden', true );
+                svgObj.style = "position: fixed; width: 1px; height: 1px; opacity: 0;";
+                
+                document.getElementsByTagName( "body" )[0].appendChild( svgObj );
+                
+            } );
+            
+        }
+
     },
     
     /**
