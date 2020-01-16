@@ -261,6 +261,11 @@ var SBPLUS = SBPLUS || {
     loadTemplate: function() {
         
         var self = this;
+
+        // add loaded-in-iframe class if loaded in an iframe
+        if ( window.self !== window.top ) {
+            $( self.layout.wrapper ).addClass( 'loaded-in-iframe' );
+        }
         
         if ( self.manifestLoaded ) {
             
@@ -1024,20 +1029,6 @@ var SBPLUS = SBPLUS || {
             
             // flag the splash screen as rendered
             self.splashScreenRendered = true;
-            
-            if ( window.self !== window.top ) {
-                
-                $( self.layout.wrapper ).addClass( 'loaded-in-iframe' );
-                
-/*
-                if ( document.referrer.indexOf('uwli.courses') >= 0 ) {
-                    
-                   $( self.layout.wrapper ).addClass( 'loaded-in-iframe' );
-                   
-                }
-*/
-                
-            }
             
             if ( self.xml.settings.analytics === 'on' || self.xml.settings.analytics === 'true' ) {
                 
