@@ -2483,9 +2483,13 @@ $titleBarHeight: 30px;
 }
 
 .loaded-in-iframe {
-    
+
     #theme-decoration-bar {
         display: none;
+    }
+
+    #sbplus_loading_screen {
+        height: 100%;
     }
     
     #copyright-footer {
