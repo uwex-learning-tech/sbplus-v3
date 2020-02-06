@@ -3094,7 +3094,7 @@ var SBPLUS = SBPLUS || {
     
     sendToGA: function( category, action, label, value, delayObj ) {
         
-        if ( this.xml.settings.analytics === 'on' ) {
+        if ( this.xml.settings.analytics === 'on' || this.xml.settings.analytics === 'true' ) {
             
             var self = this;
             var delay = 0;
