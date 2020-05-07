@@ -40,6 +40,10 @@ Notes: most visually impaired users started out using screenreader with Internet
 
 SB+ may not function properly with beta or pre-release versions of web browsers. Please use the latest stable version for the best experience.
 
+### Documentation
+
+Technical documentation for Storybook+ can be found on the [UW-Extended Campus Learning Technologies and Media site](https://media.uwex.edu/resources/documentation/storybook-plus-v3/).
+
 ---
 ### Version Change Log
 
