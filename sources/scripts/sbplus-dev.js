@@ -2894,8 +2894,9 @@ var SBPLUS = SBPLUS || {
     
     isIOSDevice: function() {
         
-        if ( navigator.userAgent.match(/iPhone/i) 
-        || navigator.userAgent.match(/iPod/i) ) {
+        if ( (/iPad|iPhone|iPod/.test(navigator.platform) ||
+        (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)) &&
+        !window.MSStream ) {
             
             return true;
             
