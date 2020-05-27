@@ -18,7 +18,7 @@
     "sbplus_program_default": "uwex",
     "sbplus_default_accent": "#0c3b6b",
     "sbplus_kaltura": {
-        "api": "https://wwwtest.dle.uwsa.edu/UWSALTI/API/V1/Kaltura/getSources.php",
+        "api": "https://dle.uwsa.edu/UWSALTI/API/V1/Kaltura/getSources.php",
         "auth": "",
         "normal": 487091,
         "medium": 487081,
