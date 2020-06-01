@@ -1082,6 +1082,7 @@ var SBPLUS = SBPLUS || {
             } );
 
             self.preloadPresenationImages();
+            self.preloadkalturaVideos();
             
         }
         
@@ -1168,6 +1169,42 @@ var SBPLUS = SBPLUS || {
                 document.getElementsByTagName( "body" )[0].appendChild( svgObj );
                 
             } );
+            
+        }
+
+    },
+
+    preloadkalturaVideos: function() {
+
+        var self = this;
+
+        // start a worker service thread to preload page images
+        var worker = new Worker( self.manifest.sbplus_root_directory + 'scripts/preload-kvid.js' );
+        var location = window.location.href,
+            index = location.indexOf( '?' );
+        
+        if ( index != -1 ) {
+            location = location.substring( 0, index );
+        }
+        
+        index = location.indexOf( '#' );
+        
+        if ( index != -1 ) {
+            location = location.substring( 0, index );
+        }
+        
+        location = location.replace( 'index.html', '' );
+        
+        var paths = {
+            "php": 'php/preload-kvid.php',
+            "url": location + "assets/sbplus.xml"
+        }
+
+        worker.postMessage( paths );
+        
+        worker.onmessage = function( e ) {
+
+            console.log(e.data);
             
         }
 
