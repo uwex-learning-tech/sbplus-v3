@@ -1,5 +1,5 @@
 # Storybook Plus (SB+)  
-**version 3.3.0**
+**version 3.3.1**
 
 ---
 ### Requirements
@@ -47,8 +47,11 @@ Technical documentation for Storybook+ can be found on the [UW-Extended Campus L
 ---
 ### Version Change Log
 
-#### Pending
+#### 3.3.1 (06/08/2020)
 * Added copy to clipboard button to applicable page(s)
+* Updated manifest configurations
+* Videos now play inline on mobile device
+* Implemented Kaltura video get source from UWSS API script
 
 #### 3.3.0 (12/05/2019)
 * Fixed an issue where quiz engine is not displaying the correct feedback (#100).
@@ -187,4 +190,4 @@ Technical documentation for Storybook+ can be found on the [UW-Extended Campus L
 
 ---
 ### License & Copyright
-Storybook Plus (SB+) is licensed under [GNU v3](https://github.com/oel-mediateam/sbplus_v3/blob/master/LICENSE) license. (c) 2013 - 2019. Ethan Lin, [Creative Media Services](https://media.uwex.edu), and [University of Wisconsin Extended Campus](http://ce.uwex.edu/). All rights reserved.
+Storybook Plus (SB+) is licensed under [GNU v3](https://github.com/oel-mediateam/sbplus_v3/blob/master/LICENSE) license. (c) 2013 - 2020. Ethan Lin, [Learning Technology & Media](https://media.uwex.edu), and [University of Wisconsin Extended Campus](http://ce.uwex.edu/). All rights reserved.

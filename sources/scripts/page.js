@@ -640,13 +640,13 @@ Page.prototype.loadKalturaVideoData = function () {
         }
 
         // entry video
-        if ( self.isKaltura.status.entry >= 1 && self.isKaltura.status.entry <= 2 ) {
+        // if ( self.isKaltura.status.entry >= 1 && self.isKaltura.status.entry <= 2 ) {
                 
-            // flavor videos
-            if ( self.isKaltura.status.low === 2 && self.isKaltura.status.normal === 2 
-            && self.isKaltura.status.medium === 2 ) {
+        //     // flavor videos
+        //     if ( self.isKaltura.status.low === 2 && (self.isKaltura.status.normal === 2 || self.isKaltura.status.normal === 4 )
+        //     && self.isKaltura.status.medium === 2 ) {
             
-                if ( self.kalturaSrc.captions[0].captionID !== null ) {
+                if ( self.kalturaSrc.captions && self.kalturaSrc.captions[0] && self.kalturaSrc.captions[0].captionID !== null ) {
                     self.captionUrl = self.kalturaSrc.captions[0].captionWebVTTURL;
                 }
                 
@@ -661,13 +661,13 @@ Page.prototype.loadKalturaVideoData = function () {
                 } );
                 
                 
-            } else {
-                self.showPageError( 'KAL_NOT_READY' );
-            }
+        //     } else {
+        //         self.showPageError( 'KAL_NOT_READY' );
+        //     }
                 
-        } else {
-            self.showPageError( 'KAL_ENTRY_NOT_READY' );
-        }
+        // } else {
+        //     self.showPageError( 'KAL_ENTRY_NOT_READY' );
+        // }
 
     }
     
