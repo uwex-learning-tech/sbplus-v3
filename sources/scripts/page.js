@@ -667,8 +667,9 @@ Page.prototype.loadKalturaVideoData = function () {
                 if ( self.isKaltura.status.entry >= 1 && self.isKaltura.status.entry <= 2 ) {
                         
                     // flavor videos
-                    if ( self.isKaltura.status.low === 2 && (self.isKaltura.status.normal === 2 || self.isKaltura.status.normal === 4 )
-                    && self.isKaltura.status.medium === 2 ) {
+                    // if ( self.isKaltura.status.low === 2 && (self.isKaltura.status.normal === 2 || self.isKaltura.status.normal === 4 )
+                    // && self.isKaltura.status.medium === 2 )
+                    if ( self.isKaltura.status.normal === 2 || self.isKaltura.status.normal === 4 ) {
                     
                         if ( captionId !== null ) {
                             self.captionUrl = 'https://www.kaltura.com/api_v3/?service=caption_captionasset&action=servewebvtt&captionAssetId=' + captionId + '&segmentDuration=' + self.isKaltura.duration + '&segmentIndex=1';
