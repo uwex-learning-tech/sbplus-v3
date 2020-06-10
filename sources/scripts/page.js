@@ -57,8 +57,7 @@ var Page = function ( obj, data ) {
     
     this.root = SBPLUS.manifest.sbplus_root_directory;
     this.kaltura = {
-        api: SBPLUS.manifest.sbplus_kaltura.api,
-        auth: SBPLUS.manifest.sbplus_kaltura.auth,
+        id: SBPLUS.manifest.sbplus_kaltura.id,
         flavors: {
             low: SBPLUS.manifest.sbplus_kaltura.low,
             normal: SBPLUS.manifest.sbplus_kaltura.normal,
@@ -124,23 +123,40 @@ Page.prototype.getPageMedia = function() {
         
         case 'kaltura':
 
-            var formData = new FormData();
-            formData.append( 'authorization', self.kaltura.auth );
-            formData.append( 'entryId', self.src );
+            if ( SBPLUS.kalturaLoaded === false ) {
 
-            var http = new XMLHttpRequest();
-            http.open('POST', self.kaltura.api, true);
+                $.getScript( self.root + 'scripts/libs/kaltura/mwembedloader.js', function() {
 
-            http.onreadystatechange = function() {
+                    $.getScript( self.root +  'scripts/libs/kaltura/kwidgetgetsources.js', function() {
 
-                if ( this.readyState === XMLHttpRequest.DONE && this.status === 200 ) {
-                    self.kalturaSrc = JSON.parse( this.response );
-                    self.loadKalturaVideoData();
-                }
+                        SBPLUS.kalturaLoaded = true;
+                        self.loadKalturaVideoData();
 
+                    });
+
+                });
+
+            } else {
+                self.loadKalturaVideoData();
             }
 
-            http.send(formData);
+            // var formData = new FormData();
+            // formData.append( 'authorization', self.kaltura.auth );
+            // formData.append( 'entryId', self.src );
+
+            // var http = new XMLHttpRequest();
+            // http.open('POST', self.kaltura.api, true);
+
+            // http.onreadystatechange = function() {
+
+            //     if ( this.readyState === XMLHttpRequest.DONE && this.status === 200 ) {
+            //         self.kalturaSrc = JSON.parse( this.response );
+            //         self.loadKalturaVideoData();
+            //     }
+
+            // }
+
+            // http.send(formData);
 
             self.gaEventCate = 'Video';
             self.gaEventLabel = SBPLUS.getCourseDirectory() + ':kaltura:page' + SBPLUS.targetPage.data('count');
@@ -591,7 +607,6 @@ function copyToClipboard() {
 Page.prototype.loadKalturaVideoData = function () {
     
     var self = this;
-    var html = '';
 
     self.isKaltura = {
         
@@ -606,70 +621,148 @@ Page.prototype.loadKalturaVideoData = function () {
         
     };
 
-    if ( self.kalturaSrc ) {
+    kWidget.getSources( {
 
-        self.isKaltura.duration = self.kalturaSrc.duration;
-        self.isKaltura.status.entry = self.kalturaSrc.status;
-        self.isKaltura.poster = self.kalturaSrc.thumbnail;
+        'partnerId': self.kaltura.id,
+        'entryId': self.src,
+        'callback': function( data ) {
 
-        for( var i in self.kalturaSrc.sources ) {
+            var captionId = data.captionId;
 
-            var source = self.kalturaSrc.sources[i];
+            self.isKaltura.status.entry = data.status;
+            self.isKaltura.duration = data.duration;
+            self.isKaltura.poster = data.poster;
 
-            if ( source.flavorParamsId === self.kaltura.flavors.low ) {
-                
-                self.isKaltura.flavors.low = source.src;
-                self.isKaltura.status.low = source.status;
+            for( var i in data.sources ) {
 
+                var source = data.sources[i];
+    
+                if ( source.flavorParamsId === self.kaltura.flavors.low ) {
+                    
+                    self.isKaltura.flavors.low = source.src;
+                    self.isKaltura.status.low = source.status;
+    
+                }
+    
+                if ( source.flavorParamsId === self.kaltura.flavors.normal ) {
+    
+                    self.isKaltura.flavors.normal = source.src;
+                    self.isKaltura.status.normal = source.status;
+    
+                }
+    
+                if ( source.flavorParamsId === self.kaltura.flavors.medium ) {
+    
+                    self.isKaltura.flavors.medium = source.src;
+                    self.isKaltura.status.medium = source.status;
+    
+                }
+    
             }
 
-            if ( source.flavorParamsId === self.kaltura.flavors.normal ) {
+            // entry video
+            if ( self.isKaltura.status.entry >= 1 && self.isKaltura.status.entry <= 2 ) {
 
-                self.isKaltura.flavors.normal = source.src;
-                self.isKaltura.status.normal = source.status;
+                // entry video
+                if ( self.isKaltura.status.entry >= 1 && self.isKaltura.status.entry <= 2 ) {
+                        
+                    // flavor videos
+                    if ( self.isKaltura.status.low === 2 && (self.isKaltura.status.normal === 2 || self.isKaltura.status.normal === 4 )
+                    && self.isKaltura.status.medium === 2 ) {
+                    
+                        if ( captionId !== null ) {
+                            self.captionUrl = 'https://www.kaltura.com/api_v3/?service=caption_captionasset&action=servewebvtt&captionAssetId=' + captionId + '&segmentDuration=' + self.isKaltura.duration + '&segmentIndex=1';
+                        }
+                        
+                        var html = '<video id="mp" class="video-js vjs-default-skin" crossorigin="anonymous" width="100%" height="100%"></video>';
+                    
+                        $( self.mediaContent ).html( html ).promise().done( function() {
+                            
+                            // call video js
+                            self.renderVideoJS();
+                            
+                        } );
+                        
+                        
+                    } else {
+                        self.showPageError( 'KAL_NOT_READY' );
+                    }
+                        
+                } else {
+                    self.showPageError( 'KAL_ENTRY_NOT_READY' );
+                }
 
-            }
-
-            if ( source.flavorParamsId === self.kaltura.flavors.medium ) {
-
-                self.isKaltura.flavors.medium = source.src;
-                self.isKaltura.status.medium = source.status;
+                self.setWidgets();
 
             }
 
         }
 
-        // entry video
-        // if ( self.isKaltura.status.entry >= 1 && self.isKaltura.status.entry <= 2 ) {
-                
-        //     // flavor videos
-        //     if ( self.isKaltura.status.low === 2 && (self.isKaltura.status.normal === 2 || self.isKaltura.status.normal === 4 )
-        //     && self.isKaltura.status.medium === 2 ) {
-            
-                if ( self.kalturaSrc.captions && self.kalturaSrc.captions[0] && self.kalturaSrc.captions[0].captionID !== null ) {
-                    self.captionUrl = self.kalturaSrc.captions[0].captionWebVTTURL;
-                }
-                
-                html = '<video id="mp" class="video-js vjs-default-skin" crossorigin="anonymous" width="100%" height="100%"></video>';
-            
-                $( self.mediaContent ).html( html ).promise().done( function() {
-                    
-                    // call video js
-                    self.renderVideoJS();
-                    self.setWidgets();
-                    
-                } );
-                
-                
-        //     } else {
-        //         self.showPageError( 'KAL_NOT_READY' );
-        //     }
-                
-        // } else {
-        //     self.showPageError( 'KAL_ENTRY_NOT_READY' );
-        // }
+    } );
+    // if ( self.kalturaSrc ) {
 
-    }
+    //     self.isKaltura.duration = self.kalturaSrc.duration;
+    //     self.isKaltura.status.entry = self.kalturaSrc.status;
+    //     self.isKaltura.poster = self.kalturaSrc.thumbnail;
+
+    //     for( var i in self.kalturaSrc.sources ) {
+
+    //         var source = self.kalturaSrc.sources[i];
+
+    //         if ( source.flavorParamsId === self.kaltura.flavors.low ) {
+                
+    //             self.isKaltura.flavors.low = source.src;
+    //             self.isKaltura.status.low = source.status;
+
+    //         }
+
+    //         if ( source.flavorParamsId === self.kaltura.flavors.normal ) {
+
+    //             self.isKaltura.flavors.normal = source.src;
+    //             self.isKaltura.status.normal = source.status;
+
+    //         }
+
+    //         if ( source.flavorParamsId === self.kaltura.flavors.medium ) {
+
+    //             self.isKaltura.flavors.medium = source.src;
+    //             self.isKaltura.status.medium = source.status;
+
+    //         }
+
+    //     }
+
+    //     // entry video
+    //     if ( self.isKaltura.status.entry >= 1 && self.isKaltura.status.entry <= 2 ) {
+                
+    //         // flavor videos
+    //         if ( self.isKaltura.status.low === 2 && (self.isKaltura.status.normal === 2 || self.isKaltura.status.normal === 4 )
+    //         && self.isKaltura.status.medium === 2 ) {
+            
+    //             if ( self.kalturaSrc.captions && self.kalturaSrc.captions[0] && self.kalturaSrc.captions[0].captionID !== null ) {
+    //                 self.captionUrl = self.kalturaSrc.captions[0].captionWebVTTURL;
+    //             }
+                
+    //             html = '<video id="mp" class="video-js vjs-default-skin" crossorigin="anonymous" width="100%" height="100%"></video>';
+            
+    //             $( self.mediaContent ).html( html ).promise().done( function() {
+                    
+    //                 // call video js
+    //                 self.renderVideoJS();
+    //                 self.setWidgets();
+                    
+    //             } );
+                
+                
+    //         } else {
+    //             self.showPageError( 'KAL_NOT_READY' );
+    //         }
+                
+    //     } else {
+    //         self.showPageError( 'KAL_ENTRY_NOT_READY' );
+    //     }
+
+    // }
     
 };
 

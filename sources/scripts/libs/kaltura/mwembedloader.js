@@ -5,12 +5,12 @@
 * This is free software released under the GPL2 see README more info 
 * http://html5video.org/kaltura-player/docs/readme
 *
-* http://cdnapi.kaltura.com/html5/html5lib/v2.36/mwEmbedLoader.php/p/1660872/uiconf_id/25820941
+* https://cdnapi.kaltura.com/html5/html5lib/v2.36/mwEmbedLoader.php/p/2370711
 * 
-* Copyright 2015 Kaltura Inc.
+* Copyright 2020 Kaltura Inc.
 */
 window['MWEMBED_VERSION'] = '2.36';
-window['SCRIPT_LOADER_URL'] = 'http://cdnapi.kaltura.com/html5/html5lib/v2.36/load.php';
+window['SCRIPT_LOADER_URL'] = 'https://cdnapisec.kaltura.com/html5/html5lib/v2.36/load.php';
 (function(){"use strict";if(window.kWidget){return;}var kWidget={startTime:{},loadTime:{},readyWidgets:{},readyCallbacks:[],destroyedWidgets:{},perWidgetCallback:{},readyCallbackPerWidget:{},listenerList:{},userAgentPlayerRules:{},alreadyAddedThumbRules:false,iframeAutoEmbedCache:{},iframeUrls:{},setup:function(){var _this=this;mw.setConfig('version',MWEMBED_VERSION);this.checkEnvironment();this.overrideFlashEmbedMethods();this.proxyJsCallbackready();this.domReady(function(){_this.domIsReady=true;_this.proxyJsCallbackready();});this.domReady(function(){_this.rewriteObjectTags();});},checkEnvironment:function(){if(document.URL.indexOf('forceMobileHTML5')!==-1&&!mw.getConfig('disableForceMobileHTML5')){mw.setConfig('forceMobileHTML5',true);}if(document.URL.indexOf('debugKalturaPlayer')!==-1){mw.setConfig('debug',true);}if(document.URL.indexOf('forceKPlayer')!==-1){mw.setConfig('EmbedPlayer.ForceKPlayer',true);}var ua=navigator.userAgent;var ieMatch=document.documentMode?['',document.
 documentMode]:ua.match(/MSIE\s([0-9]+)/);if((ieMatch&&parseInt(ieMatch[1])<9)||document.URL.indexOf('forceFlash')!==-1){mw.setConfig('Kaltura.ForceFlashOnDesktop',true);}if(ua.indexOf('BlackBerry')!=-1){mw.setConfig('EmbedPlayer.DisableVideoTagSupport',true);mw.setConfig('EmbedPlayer.NotPlayableDownloadLink',true);}if(ua.indexOf('kalturaNativeCordovaPlayer')!=-1){mw.setConfig('EmbedPlayer.ForceNativeComponent',true);if(!mw.getConfig('EmbedPlayer.IsIframeServer')){var cordovaPath;var cordovaKWidgetPath;if(this.isAndroid()){cordovaPath="/modules/EmbedPlayer/binPlayers/cordova/android/cordova.js";}else{cordovaPath="/modules/EmbedPlayer/binPlayers/cordova/ios/cordova.js";}cordovaKWidgetPath="/kWidget/cordova.kWidget.js";document.write('<script src="'+this.getPath()+cordovaPath+'"></scr'+'ipt>');document.write('<script src="'+this.getPath()+cordovaKWidgetPath+'"></scr'+'ipt>');}}if(/(iPhone|iPod|iPad)/i.test(ua)){if(/OS [2-4]_\d(_\d)? like Mac OS X/i.test(ua)||(/CPU like Mac OS X/i.test(ua)
 )){mw.setConfig('Kaltura.UseAppleAdaptive',false);}}if(!mw.getConfig('EmbedPlayer.IsIframeServer')){mw.setConfig('EmbedPlayer.IframeParentUrl',document.URL);mw.setConfig('EmbedPlayer.IframeParentTitle',document.title);mw.setConfig('EmbedPlayer.IframeParentReferrer',document.referrer);if(/(iPhone|iPod|iPad)/i.test(navigator.userAgent)){if(/OS [1-5](.*) like Mac OS X/i.test(navigator.userAgent)){window.onpageshow=function(evt){if(evt.persisted){document.body.style.display="none";location.reload();}};}}}if(!mw.getConfig("Kaltura.SupressNonProductionUrlsWarning",false)){if(mw.getConfig("Kaltura.ServiceUrl").indexOf('kaltura.com')!=-1&&this.getPath().indexOf('i.kaltura.com')==-1&&this.getPath().indexOf('isec.kaltura.com')==-1&&window.location.host!='kgit.html5video.org'&&window.location.host!='player.kaltura.com'&&window.location.host!='localhost'){if(console&&console.error){console.error(
@@ -91,14 +91,14 @@ requestURL+='&callback='+globalCBName;kWidget.appendScriptUrl(requestURL);}},xhr
 xmlhttp.open("GET",url+'&'+kWidget.param(param),true);xmlhttp.send();},xhrPost:function(url,param,callback){var _this=this;var xmlhttp=new XMLHttpRequest();xmlhttp.onreadystatechange=function(){if(xmlhttp.readyState==4&&xmlhttp.status==200){callback(_this.parseResponse(xmlhttp.responseText));}}
 xmlhttp.open("POST",url,true);xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");xmlhttp.send(kWidget.param(param));},handleKsServiceRequest:function(requestObject){var param={};if(requestObject['ks']){this.ks=requestObject['ks'];}if(!requestObject.length&&!this.getKs()){requestObject=[requestObject];}if(requestObject.length){param['service']='multirequest';param['action']='null';var mulitRequestIndex=1;if(!this.getKs()){param[mulitRequestIndex+':service']='session';param[mulitRequestIndex+':action']='startWidgetSession';param[mulitRequestIndex+':widgetId']=this.wid;mulitRequestIndex=2;}for(var i=0;i<requestObject.length;i++){var requestInx=mulitRequestIndex+i;param[requestInx+':ks']=(this.getKs())?this.getKs():'{1:result:ks}';for(var paramKey in requestObject[i]){if(typeof requestObject[i][paramKey]=='object'){for(var subParamKey in requestObject[i][paramKey]){param[requestInx+':'+paramKey+':'+subParamKey]=this.parseParam(requestObject[i][paramKey][
 subParamKey]);}}else{param[requestInx+':'+paramKey]=this.parseParam(requestObject[i][paramKey]);}}}}else{param=requestObject;param['ks']=this.getKs();}return param;},parseParam:function(data){var param=data;if(!this.getKs()&&(param!==undefined)){var paramParts=param.toString().match(/\{(\d+)(:result:.*)\}/);if(paramParts){var refObj=parseInt(paramParts[1])+1;param="{"+refObj+paramParts[2]+"}"}}return param;},getApiUrl:function(serviceType){var serviceUrl=mw.getConfig('Kaltura.ServiceUrl');if(serviceType&&serviceType=='stats'&&mw.getConfig('Kaltura.StatsServiceUrl')){serviceUrl=mw.getConfig('Kaltura.StatsServiceUrl');}if(serviceType&&serviceType=='liveStats'&&mw.getConfig('Kaltura.LiveStatsServiceUrl')){serviceUrl=mw.getConfig('Kaltura.LiveStatsServiceUrl');}return serviceUrl+mw.getConfig('Kaltura.ServiceBase')+serviceType;},hashCode:function(str){return md5(str);}}})(window.kWidget);mw.setConfig('debug', false );
-mw.setConfig('Mw.XmlProxyUrl', 'http://cdnapi.kaltura.com/html5/html5lib/v2.36/simplePhpXMLProxy.php' );
+mw.setConfig('Mw.XmlProxyUrl', 'https://cdnapi.kaltura.com/html5/html5lib/v2.36/simplePhpXMLProxy.php' );
 mw.setConfig('Kaltura.UseManifestUrls', true );
 mw.setConfig('Kaltura.Protocol', 'https' );
-mw.setConfig('Kaltura.ServiceUrl', 'https://www.kaltura.com' );
+mw.setConfig('Kaltura.ServiceUrl', 'https://cdnapisec.kaltura.com' );
 mw.setConfig('Kaltura.ServiceBase', '/api_v3/index.php?service=' );
-mw.setConfig('Kaltura.CdnUrl', 'https://cdnbakmi.kaltura.com' );
-mw.setConfig('Kaltura.StatsServiceUrl', 'http://stats.kaltura.com' );
-mw.setConfig('Kaltura.LiveStatsServiceUrl', 'http://livestats.kaltura.com' );
+mw.setConfig('Kaltura.CdnUrl', 'https://cdnsecakmi.kaltura.com' );
+mw.setConfig('Kaltura.StatsServiceUrl', 'https://stats.kaltura.com' );
+mw.setConfig('Kaltura.LiveStatsServiceUrl', 'https://livestats.kaltura.com' );
 mw.setConfig('Kaltura.IframeRewrite', true );
 mw.setConfig('EmbedPlayer.EnableIpadHTMLControls', true );
 mw.setConfig('EmbedPlayer.UseFlashOnAndroid', true );
@@ -109,8 +109,7 @@ mw.setConfig('Kaltura.EnableEmbedUiConfJs', false );
 mw.setConfig('Kaltura.PageGoogleAnalytics', false );
 mw.setConfig('Kaltura.SupressNonProductionUrlsWarning', false );
 mw.setConfig('Kaltura.APITimeout', '10000' );
-mw.setConfig('Kaltura.kWidgetPsUrl', 'http://cdnapi.kaltura.com/html5/html5lib/v2.36/../kwidget-ps/ps' );
-mw.setConfig('Kaltura.UserLanguage', {"en-US":1,"en":"0.8"} );
-kWidget.addUserAgentRule('25820941','/.*/','leadWithHTML5');kWidget.appendScriptUrls([],function(){window.kWidget.inLoaderUiConfJsCallback();})
-kWidget.uiConfScriptLoadList['25820941']=1;
+mw.setConfig('Kaltura.kWidgetPsUrl', 'https://cdnapi.kaltura.com/html5/html5lib/v2.36/../kwidget-ps/ps' );
+mw.setConfig('Kaltura.UserLanguage', {"en-US":1,"en":"0.5"} );
+kWidget.inLoaderUiConfJsCallback();
 kWidget.setup();

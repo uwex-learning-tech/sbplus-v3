@@ -43,7 +43,9 @@
 		"uCM": 0
 		},
 	"/config.rb": {
-		"ft": 131072,
+		"cB": 0,
+		"ft": 8192,
+		"hM": 0,
 		"oA": 0,
 		"oAP": "/config.rb",
 		"oF": 0
@@ -790,14 +792,6 @@
 		"oAP": "/build/sources/scripts/php/authors.php",
 		"oF": 2
 		},
-	"/sources/scripts/php/preload-kvid.php": {
-		"cB": 0,
-		"ft": 8192,
-		"hM": 0,
-		"oA": 2,
-		"oAP": "/build/sources/scripts/php/preload-kvid.php",
-		"oF": 2
-		},
 	"/sources/scripts/php/preload.php": {
 		"cB": 0,
 		"ft": 8192,
@@ -821,17 +815,6 @@
 		"mi": 1,
 		"oA": 0,
 		"oAP": "/build/sources/scripts/preload.js",
-		"oF": 2,
-		"sC": 3,
-		"tS": 0
-		},
-	"/sources/scripts/preload-kvid-dev.js": {
-		"bF": 0,
-		"ft": 64,
-		"ma": 0,
-		"mi": 1,
-		"oA": 0,
-		"oAP": "/build/sources/scripts/preload-kvid.js",
 		"oF": 2,
 		"sC": 3,
 		"tS": 0
