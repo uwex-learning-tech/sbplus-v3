@@ -84,13 +84,13 @@ Technical documentation for Storybook+ can be found on the [UW-Extended Campus L
 * Kaltura video now tracks "play reach 25%", "play reach 50%", and "play reach 75%".
 
 #### 3.1.6 (02/27/2019)
-* Table of contents no longer hides the first section row when the first item in the first section has more than 2 lines ([#80](https://github.com/oel-mediateam/sbplus_v3/issues/80))
-* Page/slide image are now preloaded and cached ([#86](https://github.com/oel-mediateam/sbplus_v3/issues/86))
-* Updated XML parse error message ([#89](https://github.com/oel-mediateam/sbplus_v3/issues/89))
-* Author profile now scrolls when it has a longer content ([#91](https://github.com/oel-mediateam/sbplus_v3/issues/91))
-* Updated file name manipulation to include presentation created by the Packager ([#92](https://github.com/oel-mediateam/sbplus_v3/issues/92))
-* Long link in notes or widgets content area now wraps to new/next line ([#93](https://github.com/oel-mediateam/sbplus_v3/issues/93))
-* The XML file is no longer cached. Always fresh! ([#94](https://github.com/oel-mediateam/sbplus_v3/issues/94))
+* Table of contents no longer hides the first section row when the first item in the first section has more than 2 lines ([#80](https://github.com/uwex-learning-tech/sbplus_v3/issues/80))
+* Page/slide image are now preloaded and cached ([#86](https://github.com/uwex-learning-tech/sbplus_v3/issues/86))
+* Updated XML parse error message ([#89](https://github.com/uwex-learning-tech/sbplus_v3/issues/89))
+* Author profile now scrolls when it has a longer content ([#91](https://github.com/uwex-learning-tech/sbplus_v3/issues/91))
+* Updated file name manipulation to include presentation created by the Packager ([#92](https://github.com/uwex-learning-tech/sbplus_v3/issues/92))
+* Long link in notes or widgets content area now wraps to new/next line ([#93](https://github.com/uwex-learning-tech/sbplus_v3/issues/93))
+* The XML file is no longer cached. Always fresh! ([#94](https://github.com/uwex-learning-tech/sbplus_v3/issues/94))
 
 #### 3.1.5 (01/23/2019)
 * Fixed an issue where author photo is not loaded from the server.
@@ -190,4 +190,4 @@ Technical documentation for Storybook+ can be found on the [UW-Extended Campus L
 
 ---
 ### License & Copyright
-Storybook Plus (SB+) is licensed under [GNU v3](https://github.com/oel-mediateam/sbplus_v3/blob/master/LICENSE) license. (c) 2013 - 2020. Ethan Lin, [Learning Technology & Media](https://media.uwex.edu), and [University of Wisconsin Extended Campus](http://ce.uwex.edu/). All rights reserved.
+Storybook Plus (SB+) is licensed under [GNU v3](https://github.com/uwex-learning-tech/sbplus_v3/blob/master/LICENSE) license. (c) 2013 - 2020. Ethan Lin, [Learning Technology & Media](https://media.uwex.edu), and [University of Wisconsin Extended Campus](http://ce.uwex.edu/). All rights reserved.
