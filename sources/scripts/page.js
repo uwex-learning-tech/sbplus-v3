@@ -371,6 +371,7 @@ Page.prototype.getPageMedia = function() {
             } ).always( function() {
                 
                 var html = '<video id="mp" class="video-js vjs-default-skin"></video>';
+                $( self.mediaContent ).addClass( 'show-vjs-poster' );
                 
                 $( self.mediaContent ).html( html ).promise().done( function() {
             
