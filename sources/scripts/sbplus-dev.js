@@ -673,7 +673,7 @@ var SBPLUS = SBPLUS || {
             } else {
                 
                 // value in mathjax attribute is on, set to on
-                if ( self.trimAndLower( xSb.attr( 'mathjax' ) ) === 'on' ) {
+                if ( self.trimAndLower( xSb.attr( 'mathjax' ) ) === 'on' || self.trimAndLower( xSb.attr( 'mathjax' ) ) === 'true' ) {
                     xMathjax = 'on';
                 }
                 
