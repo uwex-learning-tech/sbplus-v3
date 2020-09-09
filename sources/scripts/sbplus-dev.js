@@ -984,10 +984,11 @@ var SBPLUS = SBPLUS || {
                     
                     let fileLabel = file.label.toLowerCase();
                     
-                    self.downloads[fileLabel] = this.url;
+                    //self.downloads[fileLabel] = this.url;
+                    self.downloads[fileLabel] = { 'fileName': fileName, 'fileFormat': file.format, 'url': this.url };
                     
                     $( self.splash.downloadBar ).append(
-                        '<a href="' + self.downloads[fileLabel] + '" tabindex="1" download="' + fileName + '" aria-label="Download ' + fileLabel + ' file" onclick="SBPLUS.sendToGA( \'' + fileLabel + 'Link\', \'click\', \'' + fileName + '\', 4, 0 );"><span class="icon-download"></span> ' + file.label + '</a>' );
+                        '<a href="' + this.url + '" tabindex="1" download="' + fileName + '.' + file.format + '" aria-label="Download ' + fileLabel + ' file" onclick="SBPLUS.sendToGA( \'' + fileLabel + 'Link\', \'click\', \'' + fileName + '\', 4, 0 );"><span class="icon-download"></span> ' + file.label + '</a>' );
                 } );
                 
             } );
@@ -1445,10 +1446,10 @@ var SBPLUS = SBPLUS || {
                 // set download items
                 for ( var key in self.downloads ) {
                     
-                    if ( !SBPLUS.isEmpty( self.downloads[key] ) ) {
+                    if ( self.downloads[key] != undefined ) {
                         $( self.button.downloadMenu ).append(
-                            '<li class="menu-item" tabindex="-1" role="menuitem" aria-live="polite"><a download="' + self.xml.setup.title + '" href="'
-                            + self.downloads[key] +
+                            '<li class="menu-item" tabindex="-1" role="menuitem" aria-live="polite"><a download="' + self.downloads[key].fileName + '.' + self.downloads[key].fileFormat + '" href="'
+                            + self.downloads[key].url +
                             '" onclick="SBPLUS.sendToGA( \'' + key + 'Link\', \'click\', \'' + self.getCourseDirectory() + '\', 4, 0 );">' + self.capitalizeFirstLetter( key ) + '</a></li>'
                         );
                     }
