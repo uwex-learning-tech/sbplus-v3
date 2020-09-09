@@ -9,7 +9,7 @@ onmessage = function( e ) {
       
       request.onreadystatechange = function() {
           
-          if ( request.readyState === 4 ) {
+          if ( request.readyState === 4 && request.status === 200 ) {
               
               var files = JSON.parse(request.responseText);
               var svgs = [];
