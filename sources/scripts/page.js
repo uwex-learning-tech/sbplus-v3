@@ -950,6 +950,26 @@ Page.prototype.renderVideoJS = function( src ) {
         		src: self.captionUrl
     		}, true );
 		}
+
+        if ( self.isYoutube && self.useDefaultPlayer ) {
+
+            $.ajax( {
+                    
+                url: 'assets/video/yt-' + src + '.vtt',
+                type: 'HEAD'
+                
+            } ).done( function() {
+                
+                player.addRemoteTextTrack( {
+                    kind: 'captions',
+                    language: 'en',
+                    label: 'English',
+                    src: 'assets/video/yt-' + src + '.vtt'
+                }, true );
+                
+            } )
+
+        }
         
         // set playback rate
         if ( options.playbackRates !== null ) {
