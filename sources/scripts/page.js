@@ -888,10 +888,15 @@ Page.prototype.renderVideoJS = function( src ) {
                 	start: 0,
                 	end: self.cuepoints[0],
                 	onStart: function() {
+                    	
                     	pageImage.src = 'assets/pages/' + src + '-1.' + self.imgType;
+                    	$('.vjs-poster')[0].innerHTML = "<img src=" + pageImage.src + " />";
                     	player.poster( pageImage.src );
+                    	
                 	},
-                	onEnd: function() {},
+                	onEnd: function() {
+                    	
+                	},
                 	params: ''
                 	
             	} );
@@ -911,17 +916,33 @@ Page.prototype.renderVideoJS = function( src ) {
                         start: self.cuepoints[i],
                         end: endCue,
                         onStart: function() {
-                            pageImage.src = 'assets/pages/' + src + '-' + ( i + 2 ) + '.' + self.imgType;
+                            
+                            pageImage.src = 'assets/pages/' + src + '-' + ( i + 2 )  + '.' + self.imgType;
+                    	    
                             $( pageImage ).on( 'error', function() {
                                 self.showPageError( 'NO_IMG', pageImage.src );
                             } );
+                            
+                            var imageEl = $('.vjs-poster')[0];
+                            
+                            var img = document.createElement('img');
+                            
+                            img.src = pageImage.src;
+                            
+                            $( imageEl ).append( img );
+                            $( img ).hide().fadeIn(250);
+                            
                             player.poster( pageImage.src );
+                            
                         }
                     } );
                     
                 } );
                 
                 player.on('seeking', function() {
+                    
+                    $('.vjs-poster')[0].innerHTML = "";
+                    
                     	
                 	if ( player.currentTime() <= self.cuepoints[0] ) {
                     	
@@ -1633,7 +1654,29 @@ function addBackwardButton( vjs ) {
 
 function sendKAnalytics(type, id, source, duration) {
     
-    $.get( 'https://www.kaltura.com/api_v3/index.php?service=stats&action=collect&event%3AsessionId=' + guid() + '&event%3AeventType=' + type + '&event%3ApartnerId=' + id + '&event%3AentryId=' + source + '&event%3Areferrer=https%3A%2F%2Fmedia.uwex.edu&event%3Aseek=false&event%3Aduration=' + duration + '&event%3AeventTimestamp=' + +new Date() );
+    //$.get( 'https://www.kaltura.com/api_v3/index.php?service=stats&action=collect&event%3AsessionId=' + guid() + '&event%3AeventType=' + type + '&event%3ApartnerId=' + id + '&event%3AentryId=' + source + '&event%3Areferrer=https%3A%2F%2Fmedia.uwex.edu&event%3Aseek=false&event%3Aduration=' + duration + '&event%3AeventTimestamp=' + +new Date() );
+    
+    var settings = {
+      "url": "https://www.kaltura.com/api_v3/service/stats/action/collect",
+      "method": "POST",
+      "timeout": 0,
+      "headers": {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      "data": {
+        "event[entryId]": source,
+        "event[partnerId]": id,
+        "event[duration]": duration,
+        "event[eventType]": type,
+        "event[referrer]": "https://media.uwex.edu",
+        "event[seek]": "false",
+        "event[sessionId]": guid(),
+        "event[eventTimestamp]": +new Date(),
+        "event[objectType]": "KalturaStatsEvent"
+      }
+    };
+    
+    $.ajax(settings);
     
 }
 
