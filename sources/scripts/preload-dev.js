@@ -12,23 +12,23 @@ onmessage = function( e ) {
           if ( request.readyState === 4 && request.status === 200 ) {
               
               var files = JSON.parse(request.responseText);
-              var svgs = [];
+              var images = [];
               
               files.forEach( function( name ) {
                   
-                  if ( isSvg( name ) !== null ) {
-                      svgs.push( name );
+                  if ( isImg( name ) !== null ) {
+                      images.push( name );
                   }
                   
                   var imgXhr = new XMLHttpRequest();
                       
                       imgXhr.open( "GET", fileUrl + name, true );
-                      imgXhr.setRequestHeader( "Cache-Control", "max-age=3600, stale-while-revalidate=7200, no-cache, no-store, must-revalidate" );
+                      imgXhr.setRequestHeader( "Cache-Control", "public, max-age=604800, stale-while-revalidate=86400, must-revalidate" );
                       imgXhr.send();
                   
               } );
               
-              postMessage(svgs);
+              postMessage(images);
               
           }
           
@@ -40,6 +40,6 @@ onmessage = function( e ) {
       
 };
 
-function isSvg( file ) {
-    return file.match( new RegExp( /(.svg)$/, "ig") );
+function isImg( file ) {
+    return file.match( new RegExp( /.((svg)|(jpg)|(jpeg)|(png)|(gif))$/, "ig") );
 }

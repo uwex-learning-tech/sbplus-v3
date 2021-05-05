@@ -32,6 +32,7 @@
 *******************************************************************************/
 'use strict';
 
+var worker;
 var SBPLUS = SBPLUS || {
     
     /***************************************************************************
@@ -1130,7 +1131,7 @@ var SBPLUS = SBPLUS || {
         var self = this;
 
         // start a worker service thread to preload page images
-        var worker = new Worker( self.manifest.sbplus_root_directory + 'scripts/preload.js' );
+        worker = new Worker( self.manifest.sbplus_root_directory + 'scripts/preload.js' );
         var path = window.location.pathname,
             location = window.location.href,
             index = location.indexOf( '?' );
@@ -1158,15 +1159,25 @@ var SBPLUS = SBPLUS || {
         
         worker.onmessage = function( e ) {
 
-            e.data.forEach( function( svg ) {
+            e.data.forEach( function( image ) {
                 
-                let svgObj = document.createElement( "img" );
+/*
+                let imgObj = document.createElement( "img" );
                 
-                svgObj.src = paths.pages + svg;
-                svgObj.setAttribute( 'aria-hidden', true );
-                svgObj.style = "position: fixed; width: 1px; height: 1px; opacity: 0;";
+                imgObj.src = paths.pages + image;
+                imgObj.setAttribute( 'aria-hidden', true );
+                imgObj.style = "position: fixed; width: 1px; height: 1px; opacity: 0;";
                 
-                document.getElementsByTagName( "body" )[0].appendChild( svgObj );
+                document.getElementsByTagName( "body" )[0].appendChild( imgObj );
+*/
+
+                let linkObj = document.createElement( 'link' );
+                linkObj.rel = "prefetch";
+                linkObj.href = paths.pages + image;
+                linkObj.setAttribute( 'aria-hidden', true );
+                linkObj.style = "position: fixed; width: 1px; height: 1px; opacity: 0;";
+                document.getElementsByTagName( "body" )[0].appendChild( linkObj );
+                
                 
             } );
             

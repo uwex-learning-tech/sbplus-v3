@@ -675,6 +675,16 @@ body {
                                 color: #fff;
                             }
                             
+                            .vjs-poster {
+                                
+                                img {
+                                    position: absolute;
+                                    top: 0;
+                                    left: 0;
+                                }
+                                
+                            }
+                            
                             .vjs-control-bar {
                                 
                                 z-index: 3;
