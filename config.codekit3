@@ -948,7 +948,7 @@
   "projectSettings" : {
     "abortBuildOnError" : 1,
     "allowInjectionReloads" : 1,
-    "alwaysUseExternalServer" : 1,
+    "alwaysUseExternalServer" : 0,
     "animateCSSInjections" : 1,
     "autoBuildNewItems" : 1,
     "autoprefixerEnableIEGrid" : 0,
@@ -2623,7 +2623,7 @@
     "npmSaveExactVersion" : 0,
     "npmTargetDependencyListType" : 1,
     "overrideExternalServerCSS" : 0,
-    "previewPathAddition" : "",
+    "previewPathAddition" : "build\/",
     "purgeCSS" : {
       "blocklistEntries" : [
 

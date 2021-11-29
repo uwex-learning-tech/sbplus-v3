@@ -381,7 +381,7 @@ body {
                 
                 #sbplus_author_name {
                     display: none;
-                    flex: 2 0 85%;
+                    flex: 2 1 auto;
                     color: inherit;
                     font-family: $museo-font;
                 }
@@ -2108,7 +2108,7 @@ $titleBarHeight: 30px;
                     
                     #sbplus_author_name {
                         display: flex;
-                        flex: 2 0 75%;
+                        flex: 2 1 auto;
                         align-self: center;
                         align-items: center;
                         height: 100%;
@@ -2128,12 +2128,12 @@ $titleBarHeight: 30px;
                     
                     #sbplus_menu_btn_wrapper {
                     
-                        flex: 1 0 15%;
+                        flex: 1 0 auto;
                         
                         #sbplus_menu_btn,
                         .root-level {
                             
-                            min-width: 30px;
+                            min-width: 28px;
                             margin: 0;
                             padding: 0;
                             color: inherit;
