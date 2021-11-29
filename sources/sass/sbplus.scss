@@ -1,14 +1,33 @@
-@import "compass/reset/utilities";
-@import "compass/css3/animation";
-@import "compass/css3/box-sizing";
-@import "compass/css3/border-radius";
-@import "compass/css3/box-shadow";
-@import "compass/css3/flexbox";
-@import "compass/css3/hyphenation";
-@import "compass/css3/opacity";
-@import "compass/css3/transform";
-@import "compass/css3/transition";
-@import "compass/css3/user-interface";
+/*!
+ * Storybook Plus (SB+)
+ *
+ * @author: Ethan Lin
+ * @url: https://github.com/uwex-learning-tech/sbplus_v3
+ * @version: 3.3.3
+ * Released 11/29/2021
+ *
+ * @license: GNU GENERAL PUBLIC LICENSE v3
+ *
+    Storybook Plus is an web application that serves multimedia contents.
+    Copyright (C) 2013-2021  Ethan S. Lin, Learning Technology & Media, University
+    of Wisconsin Extended Campus
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
+
+@use 'sass:math';
 
 @import "animate.css" screen, projection;
 @import "../fonts/sbplus_fonts.css";
@@ -30,7 +49,7 @@ $body-bg-color: #EFEEE8;
 $font-size: 16px;
 
 @function rem( $px, $base: $font-size ) {
-    @return ( $px / $base ) * 1rem;
+    @return ( math.div($px , $base) ) * 1rem;
 }
 
 @mixin calc( $property, $expression ) {
@@ -47,7 +66,7 @@ $font-size: 16px;
         display: block;
         content: "";
         width: 100%;
-        padding-top: ( $height / $width ) * 100%;
+        padding-top: ( math.div($height, $width) ) * 100%;
     }
     
     > .sbplus_media_content {
@@ -62,7 +81,7 @@ $font-size: 16px;
 
 @mixin font-size( $px, $base: $font-size-base ) {
     font-size: $px;
-    font-size: ( $px / $base ) * 1rem;
+    font-size: ( math.div($px, $base) ) * 1rem;
 }
 
 /* general */
@@ -102,8 +121,10 @@ body {
     height: 100%;
     
     * {
-        @include reset-box-model();
-        @include box-sizing( border-box );
+        margin: 0;
+        padding: 0;
+        border: 0;
+        box-sizing: border-box;
     }
     
     *:focus {
@@ -112,9 +133,9 @@ body {
     
     #sbplus_loading_screen {
 
-        @include display-flex();
-        @include align-items( center );
-        @include justify-content( center );
+        display: flex;
+        align-items: center;
+        justify-content: center;
         position: absolute;
         width: 100%;
         height: 100%;
@@ -160,8 +181,8 @@ body {
         height: 100vh;
         background-color: #ac3030;
         
-        @include align-items( center );
-        @include justify-content( center );
+        align-items: center;
+        justify-content: center;
         
         #sbplus_error_info {
             
@@ -220,10 +241,6 @@ body {
     
     #sbplus {
         
-/*
-        @include display-flex();
-        @include flex-flow( column nowrap );
-*/
         position: relative;
         height: 100%;
         
@@ -234,11 +251,11 @@ body {
             height: 100%;
             z-index: 9;
             background-color: #fff;
-            @include animation-duration( 0.5s );
+            animation-duration: 0.5s;
             
-            @include display-flex( flex );
-            @include align-items( center );
-            @include justify-content( center );
+            display: flex;
+            align-items: center;
+            justify-content: center;
             
             #sbplus_presentation_info {
                 
@@ -247,7 +264,7 @@ body {
                 padding: 5px $gutter;
                 padding: rem( 5px ) rem( $gutter );
                 background-color: rgba( 255, 255, 255, 0.65 );
-                @include border-radius( 5px );
+                border-radius: 5px;
                 -webkit-backdrop-filter: blur( 8px );
                 backdrop-filter: blur( 8px );
                 
@@ -276,7 +293,7 @@ body {
                     button {
                         color: #fff;
                         padding: $gutter 0;
-                        @include border-radius( $gutter );
+                        border-radius: $gutter;
                         margin-bottom: $gutter;
                         font-weight: bold;
                         text-transform: uppercase;
@@ -328,7 +345,7 @@ body {
                 background-position: center;
                 background-repeat: no-repeat;
                 background-size: cover;
-                @include animation-duration( 1.5s );
+                animation-duration: 1.5s;
                 z-index: -1;
             }
             
@@ -336,10 +353,10 @@ body {
         
         #sbplus_banner_bar {
             
-            @include display-flex();
-            @include flex-flow( row nowrap );
-            @include order(1);
-            @include justify-content( center );
+            display: flex;
+            flex-flow: row nowrap;
+            order: 1;
+            justify-content: center;
             color: #fff;
             height: $titleBarHeight;
             background-color: #333;
@@ -347,10 +364,10 @@ body {
             font-weight: bold;
             
             #sbplus_lession_title {
-                @include display-flex();
-                @include flex-flow( row nowrap );
-                @include flex( 2 1 auto );
-                @include align-items( center );
+                display: flex;
+                flex-flow: row nowrap;
+                flex: 2 1 auto;
+                align-items: center;
                 font-family: $museo-font;
                 padding: 0 $gutter;
                 line-height: 1.25;
@@ -358,20 +375,19 @@ body {
             
             #sbplus_menu_area {
         
-                @include display-flex();
-                @include align-items( center );
-                @include justify-content( center );
+                display: flex;
+                align-items: center;
+                justify-content: center;
                 
                 #sbplus_author_name {
                     display: none;
-                    @include flex( 2 0 85% );
+                    flex: 2 0 85%;
                     color: inherit;
                     font-family: $museo-font;
                 }
                 
                 #sbplus_menu_btn_wrapper {
                     
-//                     @include flex( 1 0 15% );
                     margin: 0;
                     padding: 0 $gutter 0 0;
                     
@@ -389,8 +405,8 @@ body {
                     
                         .menu-parent {
                             
-                            @include display-flex();
-                            @include align-items( center );
+                            display: flex;
+                            align-items: center;
                             position: relative;
                             height: 100%;
                             cursor: pointer;
@@ -406,16 +422,16 @@ body {
                                 padding: 0;
                                 border-top: none;
                                 background-color: #5f5d5d;
-                                @include box-shadow( 0 6px 4px 2px #fff);
+                                box-shadow: 0 6px 4px 2px #fff;
                                 z-index: 11;
                                 
                                 .menu-item {
                                     
                                     a { 
                                         
-                                        @include display-flex();
-                                        @include flex-flow( row nowrap );
-                                        @include align-items( center );
+                                        display: flex;
+                                        flex-flow: row nowrap;
+                                        align-items: center;
                                         width: 100%;
                                         height: 35px;
                                         padding: 0 ($gutter + 5);
@@ -475,9 +491,9 @@ body {
         
         #sbplus_content_wrapper {
             
-            @include display-flex();
-            @include flex-flow( column nowrap );
-            @include order(2);
+            display: flex;
+            flex-flow: column nowrap;
+            order: 2;
             height: 88.8889%;
             @include calc( height, '100% - ' + $offset );
             
@@ -508,9 +524,9 @@ body {
                         color: #fff;
                         background-color: rgba( $default-accent, 0.65 );
                         z-index: 10;
-                        @include border-radius( rem( 16px ) );
+                        border-radius: 16px;
                         opacity: 0.25;
-                        @include single-transition( opacity, 0.25s );
+                        transition: opacity 0.25s;
 
                         .btn-txt {
                             display: inline-block;
@@ -575,9 +591,9 @@ body {
                     .sbplus_media_msg {
                         
                         position: absolute;
-                        @include display-flex();
-                        @include align-items( center );
-                        @include justify-content( center );
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
                         color: #fff;
                         width: 352px;
                         height: auto;
@@ -586,7 +602,7 @@ body {
                         background-color: rgba(240, 81, 0, 0.85);
                         top: 20%;
                         @include calc( left, '50% - ' + 176px );
-                        @include border-radius( 5px );
+                        border-radius: 5px;
                         overflow: hidden;
                         
                     }
@@ -601,9 +617,9 @@ body {
                         height: 100%;
                         color: #fff;
                         
-                        @include display-flex();
-                        @include flex-flow( column nowrap );
-                        @include animation-duration( 0.5s );
+                        display: flex;
+                        flex-flow: column nowrap;
+                        animation-duration: 0.5s;
                         
                         .animated {
                             width: 100%;
@@ -620,10 +636,10 @@ body {
                         // external link
                         .exLink {
                             
-                            @include display-flex();
-                            @include flex-flow( column nowrap );
-                            @include align-items( center );
-                            @include justify-content( center );
+                            display: flex;
+                            flex-flow: column nowrap;
+                            align-items: center;
+                            justify-content: center;
                             padding: $gutter;
                             
                             a {
@@ -646,22 +662,20 @@ body {
                         
                         // Image
                         .img_only {
-                            //display: block;
-                            //width: auto;
                             width: 100%;
                             height: 100%;
-                            //margin: 0 auto;
                             object-fit: contain;
                         }
                         
                         // VideoJS
                         
                         #mp_html5_api {
-                            @include animation-duration( 0.75s );
+                            animation-duration: 0.75;
+
                         }
                         
                         #mp_Youtube_api {
-                            @include animation-duration( 0.75s );
+                            animation-duration: 0.75;
                         }
                         
                         .video-js.vjs-default-skin {
@@ -679,8 +693,6 @@ body {
                                 
                                 img {
                                     position: absolute;
-                                    top: 0;
-                                    left: 0;
                                 }
                                 
                             }
@@ -821,7 +833,7 @@ body {
                             
                             // replay button
                             .vjs-replay:before {
-                                content:""
+                                content: "";
                             }
                             
                             // resolution plugin
@@ -831,8 +843,6 @@ body {
                                 content: '\f110';
                             }
                             
-                            
-
                             .vjs-resolution-button .vjs-resolution-button-label {
                                 font-size: 1.2em;
                                 line-height: 2.50em;
@@ -888,7 +898,9 @@ body {
                         .vjs-has-started {
                             
                             .vjs-poster {
-                                display: block;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
                                 z-index: 1;
                             }
                             
@@ -906,24 +918,6 @@ body {
                     }
                     
                 }
-
-                // #sbplus_media_wrapper.sidebar_on { }
-                
-                // #sbplus_media_wrapper.sidebar_off { }
-                
-                // #sbplus_media_wrapper.widget_on { }
-                
-                // #sbplus_media_wrapper.widget_off { }
-                
-                // #sbplus_media_wrapper.widget_off.sidebar_off { }
-                
-                // #sbplus_media_wrapper.non_aspect_ratio {
-                //     height: calc( 100% - #{$widget-height} );
-                // }
-                
-                // #sbplus_media_wrapper.aspect_ratio {
-                //     @include aspect-ratio( 16, 9 );
-                // }
                 
                 #sbplus_quiz_wrapper {
                     
@@ -938,7 +932,6 @@ body {
                     overflow-y: auto;
                     
                     .sbplus_quiz_header {
-                        
                         padding: 8px;
                         font-size: 12px;
                         background-color: $border-color;
@@ -1101,7 +1094,7 @@ body {
                         margin-left: 10px;
                         padding: 10px 0;
                         background-color: $default-accent;
-                        @include border-radius( 5px );
+                        border-radius: 5px;
                         color: #fff;
                         font-weight: bold;
                         font-size: 16px;
@@ -1133,9 +1126,9 @@ body {
                         
                         .tab_segment {
                         
-                            @include display-flex();
-                            @include flex-flow( row nowrap );
-                            @include justify-content( flex-start );
+                            display: flex;
+                            flex-flow: row nowrap;
+                            justify-content: flex-start;
                             width: 100%;
                             height: 100%;
                             padding: 0;
@@ -1179,8 +1172,8 @@ body {
                         height: 100%;
                         overflow-y: auto;
                         background-image: none;
-                        @include word-break( break-all );
-                        @include animation-duration( 0.5s );
+                        word-break: break-all;
+                        animation-duration: 0.5s;
                         
                         h1, h2, h3, h4, h5, h6, p, blockquote {
                             margin: 6px 0;
@@ -1253,10 +1246,7 @@ body {
             
             #sbplus_right_col {
                 
-                //@include flex-flow( column nowrap );
-                @include flex( 1 0 auto );
-//                 @include order(2);
-//                 position: relative;
+                flex: 1 0 auto;
                 overflow-x: hidden;
                 overflow-y: auto;
                 
@@ -1268,9 +1258,9 @@ body {
                     border-bottom: 2px solid $border-color;
                     
                     .title {
-                        @include display-flex();
-                        @include flex( 2 0 90% );
-                        @include align-items( center );
+                        display: flex;
+                        flex: 2 0 90%;
+                        align-items: center;
                         padding-left: $gutter;
                         font-weight: bold;
                         font-size: 12px;
@@ -1282,7 +1272,7 @@ body {
                 
                 .list {
                         
-                    @include animation-duration( 0.5s );
+                    animation-duration: 0.5s;
                     
                     .item {
                         min-height: 35px;
@@ -1305,11 +1295,6 @@ body {
                 
                 #sbplus_table_of_contents_wrapper {
                     
-/*
-                    @include display-flex();
-                    @include flex-flow( column nowrap );
-                    @include flex( 2 0 auto );
-*/
                     @include calc( height, '100% - ' + 30px );
                     overflow-y: auto;
                     background-color: #fff;
@@ -1318,9 +1303,9 @@ body {
                         
                         .header {
                             
-                            @include display-flex();
-                            @include flex-flow( row nowrap );
-                            @include align-items( center );
+                            display: flex;
+                            flex-flow: row nowrap;
+                            align-items: center;
                             height: 40px;
                             background-color: #ececed;
                             border-top: 1px solid $border-color;
@@ -1330,11 +1315,11 @@ body {
                                 font-weight: bold;
                                 padding: 5px 10px;
                                 line-height: 1;
-                                @include flex( 2 0 89.5% );
+                                flex: 2 0 89.5%;
                             }
                             
                             .icon {
-                                @include flex( 1 0 10.5% );
+                                flex: 1 0 10.5%;
                                 padding: 0 10px 0 0;
                                 text-align: right;
                             }
@@ -1383,43 +1368,6 @@ body {
                                 border-bottom: none;
                             }
                             
-/*
-                            .item::after {
-                                
-                                position: absolute;
-                                display: block;
-                                width: 28px;
-                                height: 28px;
-                                content: '';
-                                @include opacity(0.1);
-                                @include calc( top, '50% - ' + 14px );
-                                right: 5px;
-                                background-repeat: no-repeat;
-                                background-size: contain;
-                                
-                            }
-                            
-                            .item.audio-item::after {
-                                background-image: url("../images/audio-item.png");
-                            }
-                            
-                            .item.video-item::after {
-                                background-image: url("../images/video-item.png");
-                            }
-                            
-                            .item.image-item::after {
-                                background-image: url("../images/no-audio-item.png");
-                            }
-                            
-                            .item.html-item::after {
-                                background-image: url("../images/html-item.png");
-                            }
-                            
-                            .item.quiz-item::after {
-                                background-image: url("../images/quiz-item.png");
-                            }
-*/
-                            
                         }
                         
                     }
@@ -1460,45 +1408,45 @@ body {
         
         #sbplus_control_bar {
             
-            @include display-flex();
-            @include flex-flow( row nowrap );
-            @include order(3);
+            display: flex;
+            flex-flow: row nowrap;
+            order: 3;
             height: $cntrlBarHeight;
             font-size: 120%;
             border-top: 1px solid $border-color;
             background-color: #fff;
             
             .common {
-                @include display-flex();
-                @include flex-flow(row nowrap);
+                display: flex;
+                flex-flow: row nowrap;
             }
             
             #sbplus_left_controls {
                 
                 @extend .common;
-                @include flex( 1 0 auto );
+                flex: 1 0 auto;
                 
                 #sbplus_previous_btn {
-                    @include flex( 1 0 30% );
+                    flex: 1 0 30%;
                     border-right: 1px solid $border-color;
                     font-size: 145%;
                     line-height: 1;
                 }
                 
                 #sbplus_next_btn {
-                    @include flex( 1 0 30% );
+                    flex: 1 0 30%;
                     border-right: 1px solid $border-color;
                     font-size: 145%;
                     line-height: 1;
                 }
                 
                 #sbplus_page_status {
-                    @include display-flex();
-                    @include flex-flow(row nowrap);
-                    @include flex( 1 0 40% );
-                    @include align-items(center);
-                    @include justify-content(center);
-                    @include align-self(center);
+                    display: flex;
+                    flex-flow: row nowrap;
+                    flex: 1 0 40%;
+                    align-items: center;
+                    justify-content: center;
+                    align-self: center;
                     height: 100%;
                     padding: 0 $gutter;
                     font-weight: bold;
@@ -1509,8 +1457,7 @@ body {
             #sbplus_right_controls {
                 
                 @extend .common;
-                @include justify-content( flex-end );
-                //@include flex( 1 0 28.89% );
+                justify-content: flex-end;
                 width: 120px;
                 
                 #sbplus_download_btn_wrapper {
@@ -1634,7 +1581,7 @@ body {
                     padding: 2px 0 0 0;
                     box-sizing: border-box;
                     background-color: #ff0000;
-                    @include border-radius(50%);
+                    border-radius: 50%;
                 }
                 
                 #sbplus_sidebar_btn {
@@ -1657,18 +1604,18 @@ body {
             left: 0;
             overflow-x: hidden;
             overflow-y: auto;
-            @include animation-delay( 0.3s );
-            @include animation-duration( 0.5s );
+            animation-delay: 0.3s;
+            animation-duration: 0.5s;
             background: #f2f2f2;
             z-index: 11;
             
             .sbplus_menu_title_bar {
                 
-                @include display-flex();
-                @include flex-flow( row nowrap );
-                @include order(1);
-                @include justify-content(center);
-                @include align-items(center);
+                display: flex;
+                flex-flow: row nowrap;
+                order: 1;
+                justify-content: center;
+                align-items: center;
                 color: #fff;
                 height: $titleBarHeight;
                 background-color: #333;
@@ -1676,10 +1623,10 @@ body {
                 font-weight: bold;
                 
                 .title {
-                    @include display-flex();
-                    @include flex-flow( row nowrap );
-                    @include flex( 2 1 71.11% );
-                    @include align-items(center);
+                    display: flex;
+                    flex-flow: row nowrap;
+                    flex: 2 1 71.11%;
+                    align-items: center;
                     font-family: $museo-font;
                     padding: 0 $gutter;
                     line-height: 1.25;
@@ -1706,16 +1653,15 @@ body {
             
             .container {
                 
-                @include display-flex();
-                @include flex-flow(row wrap);
+                display: flex;
+                flex-flow: row wrap;
                 width: 100%;
                 @include calc( height, '100% - ' + 30px );
                 overflow: hidden;
                 
                 .content {
-                    
-                    @include flex(1);
-                    
+
+                    flex: 1;
                     overflow: auto;
                     padding: $gutter;
                     height: 100%;
@@ -1730,7 +1676,7 @@ body {
                         padding-left: $gutter * 3;
                         
                         li {
-                            margin: $gutter/2 0;
+                            margin: math.div($gutter, 2) 0;
                         }
                         
                     }
@@ -1769,26 +1715,26 @@ body {
                     
                     .grid {
                         
-                        @include display-flex();
-                        @include flex-flow( column nowrap );
+                        display: flex;
+                        flex-flow: column nowrap;
                         margin: 0;
                         
                         .row {
                             
-                             @include display-flex();
-                             @include flex-flow( row nowrap );
-                             @include align-items(center);
+                             display: flex;
+                             flex-flow: row nowrap;
+                             align-items: center;
                              margin: 0;
                              padding: 5px 0;
                              
                              .label {
                                  
-                                 @include flex( 2 0 80% );
+                                 flex: 2 0 80%;
                                  margin: 0;
                                  padding: 0 8px;
                                  
                                  .error {
-                                     @include flex( 1 0 20% );
+                                     flex: 1 0 20%;
                                      color: #f00;
                                      margin: 0;
                                      font-size: 12px;
@@ -1797,8 +1743,8 @@ body {
                              }
                              
                              .control {
-                                 
-                                 @include flex( 1 0 20% );
+
+                                 flex: 1 0 20%;
                                  margin: 0;
                                  padding: 0 5px;
                                  
@@ -1849,9 +1795,9 @@ body {
                             
                             a { 
                                 
-                                @include display-flex();
-                                @include flex-flow( row nowrap );
-                                @include align-items( center );
+                                display: flex;
+                                flex-flow: row nowrap;
+                                align-items: center;
                                 width: 100%;
                                 height: 35px;
                                 padding: 0 ($gutter + 5);
@@ -1921,7 +1867,7 @@ body {
 .sbplus_full,
 .sbplus_boxed {
     
-    @include flex( 1 0 100% );
+    flex: 1 0 100%;
     width: 100%;
     height: 100%;
 
@@ -1959,7 +1905,7 @@ body {
                     
                         .menu-parent {
                             padding-right: $gutter;
-                            @include justify-content( flex-end );
+                            justify-content: flex-end;
                         }
                         
                     }
@@ -1990,6 +1936,7 @@ body {
             }
             
             #sbplus_right_col {
+
                 border-right: 1px solid $border-color;
                 
                 #sbplus_table_of_contents_wrapper {
@@ -2001,11 +1948,9 @@ body {
         }
         
         #sbplus_control_bar {
-            
             border-left: 1px solid $border-color;
             border-top: 1px solid $border-color;
             border-bottom: 1px solid $border-color;
-            
         }
         
     }
@@ -2023,17 +1968,17 @@ $titleBarHeight: 30px;
 
         #theme-decoration-bar {
             
-            @include display-flex();
-            @include flex-flow(row nowrap);
+            display: flex;
+            flex-flow: row nowrap;
             width: 100%;
             height: 20px;
             margin-bottom: $gutter * 2;
             background-color: $default-accent;
             
             span {
-                @include display-flex();
-                @include flex(1 0 auto);
-                @include user-select(none);
+                display: flex;
+                flex: 1 0 auto;
+                user-select: none;
                 background-color: $default-accent;
             }
             
@@ -2107,16 +2052,16 @@ $titleBarHeight: 30px;
                     
                     .sb_cta {
                         
-                        @include display-flex();
-                        @include flex-flow(row nowrap);
-                        @include justify-content( space-between );
+                        display: flex;
+                        flex-flow: row nowrap;
+                        justify-content: space-between;
                         
                         button:first-child {
                             margin-right: 2%;
                         }
                         
                         button {
-                            @include flex(1 0 49%);
+                            flex: 1 0 49%;
                             margin-bottom: 0;
                         }
                         
@@ -2124,16 +2069,16 @@ $titleBarHeight: 30px;
                     
                     .sb_downloads {
                         
-                        @include display-flex();
-                        @include flex-flow(row nowrap);
+                        display: flex;
+                        flex-flow: row nowrap;
                         margin: $gutter 0 5px;
                         
                         a {
-                            @include flex(1 0 25%);
+                            flex: 1 0 25%;
                             display: block;
                             font-size: 120%;
                             margin-bottom: 0;
-                            @include border-radius( 0 );
+                            border-radius: 0;
                             border: none;
                         }
                         
@@ -2154,7 +2099,7 @@ $titleBarHeight: 30px;
                     white-space: nowrap;
                     text-overflow: ellipsis;
                     overflow: hidden;
-                    @include align-self( center );
+                    align-self: center;
                 }
                 
                 #sbplus_menu_area {
@@ -2162,10 +2107,10 @@ $titleBarHeight: 30px;
                     width: 258px;
                     
                     #sbplus_author_name {
-                        @include display-flex();
-                        @include flex(2 0 75%);
-                        @include align-self( center );
-                        @include align-items( center );
+                        display: flex;
+                        flex: 2 0 75%;
+                        align-self: center;
+                        align-items: center;
                         height: 100%;
                         text-align: left;
                         font-weight: bold;
@@ -2183,7 +2128,7 @@ $titleBarHeight: 30px;
                     
                     #sbplus_menu_btn_wrapper {
                     
-                        @include flex(1 0 15%);
+                        flex: 1 0 15%;
                         
                         #sbplus_menu_btn,
                         .root-level {
@@ -2199,8 +2144,8 @@ $titleBarHeight: 30px;
                         
                             .menu-parent {
                                 
-                                @include display-flex();
-                                @include align-items( center );
+                                display: flex;
+                                align-items: center;
                                 position: relative;
                                 height: 100%;
                                 cursor: pointer;
@@ -2216,16 +2161,16 @@ $titleBarHeight: 30px;
                                     padding: 0;
                                     border-top: none;
                                     background-color: #5f5d5d;
-                                    @include box-shadow( 0 6px 4px 2px #fff);
+                                    box-shadow: 0 6px 4px 2px #fff;
                                     z-index: 11;
                                     
                                     .menu-item {
                                         
                                         a { 
                                             
-                                            @include display-flex();
-                                            @include flex-flow( row nowrap );
-                                            @include align-items( center );
+                                            display: flex;
+                                            flex-flow: row nowrap;
+                                            align-items: center;
                                             width: 100%;
                                             height: 35px;
                                             padding: 0 ($gutter + 5);
@@ -2285,7 +2230,7 @@ $titleBarHeight: 30px;
             
             #sbplus_content_wrapper {
                 
-                @include flex-flow( row nowrap );
+                flex-flow: row nowrap;
                 @include calc( height, '100% - ' + 80px );
                 
                 #sbplus_left_col {
@@ -2295,19 +2240,13 @@ $titleBarHeight: 30px;
                     border-right: 1px solid $border-color;
                     
                     #sbplus_media_wrapper {
-                        
                         height: calc( 100% - #{$widget-height} );
-                        
-                        //.sbplus_media_content {
-                            /* videoJS customization goes here if any */
-                        //}
-                        
                     }
                     
                     #sbplus_widget {
-                        @include display-flex();
-                        @include flex-flow( column nowrap );
-                        @include flex( 1 0 auto );
+                        display: flex;
+                        flex-flow: column nowrap;
+                        flex: 1 0 auto;
                         position: relative;
                         height: $widget-height;
                         bottom: 0;
@@ -2339,7 +2278,7 @@ $titleBarHeight: 30px;
                     }
                     
                     #sbplus_page_status {
-                         @include justify-content(flex-start);
+                        justify-content: flex-start;
                     }
                     
                 }
@@ -2360,8 +2299,8 @@ $titleBarHeight: 30px;
                             
                             .menu-parent {
                                 
-                                @include display-flex();
-                                @include align-items( center );
+                                display: flex;
+                                align-items: center;
                                 
                                 span {
                                     display: block;
@@ -2371,9 +2310,9 @@ $titleBarHeight: 30px;
                                 .menu {
                                     
                                     .menu-item {
-                                        @include display-flex();
-                                        @include align-items( center );
-                                        @include justify-content( center );
+                                        display: flex;
+                                        align-items: center;
+                                        justify-content: center;
                                     }
                                     
                                 }
@@ -2418,12 +2357,12 @@ $titleBarHeight: 30px;
             
                     #sbplus_author_name {
                         width: auto;
-                        @include flex(initial);
-                        @include align-self(flex-end);
+                        flex: initial;
+                        align-self: flex-end;
                     }
                     
                     #sbplus_menu_btn_wrapper {
-                        @include flex(initial);
+                        flex: initial;
                     }
                     
                 }
@@ -2518,12 +2457,12 @@ $titleBarHeight: 30px;
         
                 #sbplus_author_name {
                     width: auto;
-                    @include flex(initial);
-                    @include align-self(flex-end);
+                    flex: initial;
+                    align-self: flex-end;
                 }
                 
                 #sbplus_menu_btn_wrapper {
-                    @include flex(initial);
+                    flex: initial;
                 }
                 
             }
