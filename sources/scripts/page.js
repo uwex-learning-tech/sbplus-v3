@@ -628,7 +628,7 @@ Page.prototype.loadKalturaVideoData = function () {
         'entryId': self.src,
         'callback': function( data ) {
 
-            var captionId = data.captionId;
+            var captions = data.caption;
 
             self.isKaltura.status.entry = data.status;
             self.isKaltura.duration = data.duration;
@@ -672,8 +672,25 @@ Page.prototype.loadKalturaVideoData = function () {
                     // && self.isKaltura.status.medium === 2 )
                     if ( self.isKaltura.status.normal === 2 || self.isKaltura.status.normal === 4 ) {
                     
-                        if ( captionId !== null ) {
-                            self.captionUrl = 'https://www.kaltura.com/api_v3/?service=caption_captionasset&action=servewebvtt&captionAssetId=' + captionId + '&segmentDuration=' + self.isKaltura.duration + '&segmentIndex=1';
+                        if ( captions !== null ) {
+
+                            self.captionUrl = [];
+
+                            captions.forEach( caption => {
+
+                                if ( caption.label.toLowerCase() != "English (autocaption)" ) {
+
+                                    self.captionUrl.push( {
+                                        kinds: 'captions',
+                                        language: caption.languageCode,
+                                        label: caption.language,
+                                        url: 'https://www.kaltura.com/api_v3/?service=caption_captionasset&action=servewebvtt&captionAssetId=' + caption.id + '&segmentDuration=' + self.isKaltura.duration + '&segmentIndex=1'
+                                    } );
+
+                                }
+                                
+                            } );
+
                         }
                         
                         var html = '<video id="mp" class="video-js vjs-default-skin" crossorigin="anonymous" width="100%" height="100%"></video>';
@@ -963,13 +980,19 @@ Page.prototype.renderVideoJS = function( src ) {
         }
         
         // add caption
-        if ( self.captionUrl ) {
-    		player.addRemoteTextTrack( {
-        		kind: 'captions',
-        		language: 'en',
-        		label: 'English',
-        		src: self.captionUrl
-    		}, true );
+        if ( self.captionUrl.length ) {
+
+            self.captionUrl.forEach( caption => {
+
+                player.addRemoteTextTrack( {
+                    kind: caption.kind,
+                    language: caption.language,
+                    label: caption.label,
+                    src: caption.url
+                }, true );
+
+            } );
+
 		}
 
         if ( self.isYoutube && self.useDefaultPlayer ) {
