@@ -2,7 +2,7 @@
  * Stand alone source grabber.
  */
 
-if( ! window.kWidget ){
+ if( ! window.kWidget ){
 	window.kWidget = {};
 }
 ( function( kWidget ) {
@@ -183,15 +183,17 @@ if( ! window.kWidget ){
 			// callback with device sources, poster
 			if( settings.callback ){
 				settings.callback({
-    				'status': result[1]['status'],
+					'status': result[1]['status'],
 					'poster': result[1]['thumbnailUrl'],
 					'duration': result[1]['duration'],
 					'name': result[1]['name'],
 					'entryId' :  result[1]['id'],
 					//'description': result[2]['description'],
-                    'captionId': ( ( result[2]['totalCount'] > 0 ) ? result[2]['objects'][0]['id'] : null ),
+                    //'captionId': ( ( result[2]['totalCount'] > 0 ) ? result[2]['objects'][0]['id'] : null ),
+					'caption': ( ( result[2]['totalCount'] > 0 ) ? result[2]['objects'] : null ),
 					'sources': deviceSources
 				});
+				
 			}
 
 		});
