@@ -704,10 +704,10 @@
       "ft" : 64,
       "ma" : 0,
       "mi" : 1,
-      "oA" : 0,
+      "oA" : 1,
       "oAP" : "\/build\/scripts\/libs\/videojs\/plugins\/replay\/replay.js",
-      "oF" : 0,
-      "sC" : 3,
+      "oF" : 1,
+      "sC" : 0,
       "tS" : 0
     },
     "\/sources\/scripts\/libs\/videojs\/plugins\/resolution\/videojs-resolution-switcher.js" : {
@@ -762,7 +762,7 @@
       "ft" : 16,
       "ma" : 0,
       "oA" : 2,
-      "oAP" : "\/build\/scripts\/libs\/videojs\/video-js.min-ck.css",
+      "oAP" : "\/build\/sources\/scripts\/libs\/videojs\/video-js.min.css",
       "oF" : 2,
       "pg" : 0
     },
@@ -892,25 +892,25 @@
   "manualImportLinks" : {
     "\/sources\/scripts\/libs\/videojs\/video-dev.js" : [
       {
-        "followForSyntaxChecking" : 1,
+        "followForSyntaxChecking" : 0,
         "linkedFileAbbreviatedPath" : "\/sources\/scripts\/libs\/videojs\/plugins\/cuepoint\/videojs.cuepoints.js",
         "position" : 0,
         "type" : 1
       },
       {
-        "followForSyntaxChecking" : 1,
+        "followForSyntaxChecking" : 0,
         "linkedFileAbbreviatedPath" : "\/sources\/scripts\/libs\/videojs\/plugins\/resolution\/videojs-resolution-switcher.js",
         "position" : 1,
         "type" : 1
       },
       {
-        "followForSyntaxChecking" : 1,
+        "followForSyntaxChecking" : 0,
         "linkedFileAbbreviatedPath" : "\/sources\/scripts\/libs\/videojs\/plugins\/vimeo\/videojs-vimeo.min.js",
         "position" : 2,
         "type" : 1
       },
       {
-        "followForSyntaxChecking" : 1,
+        "followForSyntaxChecking" : 0,
         "linkedFileAbbreviatedPath" : "\/sources\/scripts\/libs\/videojs\/plugins\/youtube\/youtube.js",
         "position" : 3,
         "type" : 1
@@ -943,7 +943,7 @@
     "displayValueWasSetByUser" : 0,
     "iconImageName" : "meme-soon",
     "iconImageWasSetByUser" : 0,
-    "lastBuiltDate" : 585162962.07164299
+    "lastBuiltDate" : 659908361.79525602
   },
   "projectSettings" : {
     "abortBuildOnError" : 1,
