@@ -1,5 +1,5 @@
 # Storybook Plus (SB+)  
-**version 3.3.1**
+**version 3.3.3**
 
 ---
 ### Requirements
@@ -46,6 +46,17 @@ Technical documentation for Storybook+ can be found on the [UW-Extended Campus L
 
 ---
 ### Version Change Log
+
+#### 3.3.3 (11/29/2021)
+* Updated Kaltura API to version 2.90
+* Fixed menu button position
+* Refactored SCSS to use Dart Sass instead of Compass Sass
+* Video from Kaltura now supports multiple caption tracks excluding auto-caption
+
+#### 3.3.2 (05/04/2021)
+* Updated bundle layering
+* Refactored preloading script to preload all image types
+* Fixed author image size
 
 #### 3.3.1 (06/08/2020)
 * Added copy to clipboard button to applicable page(s)
