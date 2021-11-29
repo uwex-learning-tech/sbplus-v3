@@ -980,20 +980,37 @@ Page.prototype.renderVideoJS = function( src ) {
         }
         
         // add caption
-        if ( self.captionUrl.length ) {
 
-            self.captionUrl.forEach( caption => {
+        if ( self.isKaltura ) {
+
+            if ( self.captionUrl.length ) {
+
+                self.captionUrl.forEach( caption => {
+    
+                    player.addRemoteTextTrack( {
+                        kind: caption.kind,
+                        language: caption.language,
+                        label: caption.label,
+                        src: caption.url
+                    }, true );
+    
+                } );
+    
+            }
+
+        } else {
+
+            if ( self.captionUrl ) {
 
                 player.addRemoteTextTrack( {
-                    kind: caption.kind,
-                    language: caption.language,
-                    label: caption.label,
-                    src: caption.url
+                    kind: 'captions',
+                    language: 'en',
+                    label: 'English',
+                    src: self.captionUrl
                 }, true );
-
-            } );
-
-		}
+                
+            }
+        }
 
         if ( self.isYoutube && self.useDefaultPlayer ) {
 

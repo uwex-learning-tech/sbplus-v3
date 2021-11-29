@@ -893,26 +893,32 @@
     "\/sources\/scripts\/libs\/videojs\/video-dev.js" : [
       {
         "followForSyntaxChecking" : 0,
-        "linkedFileAbbreviatedPath" : "\/sources\/scripts\/libs\/videojs\/plugins\/cuepoint\/videojs.cuepoints.js",
+        "linkedFileAbbreviatedPath" : "\/sources\/scripts\/libs\/videojs\/plugins\/replay\/replay.js",
         "position" : 0,
         "type" : 1
       },
       {
         "followForSyntaxChecking" : 0,
-        "linkedFileAbbreviatedPath" : "\/sources\/scripts\/libs\/videojs\/plugins\/resolution\/videojs-resolution-switcher.js",
+        "linkedFileAbbreviatedPath" : "\/sources\/scripts\/libs\/videojs\/plugins\/cuepoint\/videojs.cuepoints.js",
         "position" : 1,
         "type" : 1
       },
       {
         "followForSyntaxChecking" : 0,
-        "linkedFileAbbreviatedPath" : "\/sources\/scripts\/libs\/videojs\/plugins\/vimeo\/videojs-vimeo.min.js",
+        "linkedFileAbbreviatedPath" : "\/sources\/scripts\/libs\/videojs\/plugins\/resolution\/videojs-resolution-switcher.js",
         "position" : 2,
         "type" : 1
       },
       {
         "followForSyntaxChecking" : 0,
-        "linkedFileAbbreviatedPath" : "\/sources\/scripts\/libs\/videojs\/plugins\/youtube\/youtube.js",
+        "linkedFileAbbreviatedPath" : "\/sources\/scripts\/libs\/videojs\/plugins\/vimeo\/videojs-vimeo.min.js",
         "position" : 3,
+        "type" : 1
+      },
+      {
+        "followForSyntaxChecking" : 0,
+        "linkedFileAbbreviatedPath" : "\/sources\/scripts\/libs\/videojs\/plugins\/youtube\/youtube.js",
+        "position" : 4,
         "type" : 1
       }
     ],
@@ -943,7 +949,7 @@
     "displayValueWasSetByUser" : 0,
     "iconImageName" : "meme-soon",
     "iconImageWasSetByUser" : 0,
-    "lastBuiltDate" : 659908361.79525602
+    "lastBuiltDate" : 659908858.47166896
   },
   "projectSettings" : {
     "abortBuildOnError" : 1,
