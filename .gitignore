@@ -11,14 +11,13 @@ test/*
 !test/index.html
 !test/manifest.json
 
+default.mp4
+default.mp3
+default.pdf
+default.zip
+iframe.html
+assets/*
+!assets/sbplus.xml
+
 build/*
-!build/index.html
-!build/sources/*
-!build/assets/sbplus.xml
-build/sources/.DS_Store
-build/sources/*/.DS_Store
-build/sources/scripts/*/.DS_Store
-build/sources/scripts/libs/*/.DS_Store
-build/sources/css/*.map
-build/sources/scripts/*.map
-build/sources/manifest.json
+
