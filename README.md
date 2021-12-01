@@ -25,7 +25,7 @@ SB+ may not function properly with beta or pre-release versions of web browsers.
 
 ### Documentation
 
-Technical documentation for Storybook+ can be found on the [UW Extended Campus Learning Technologies and Media website](https://media.uwex.edu/resources/documentation/storybook-plus-v3/).
+Please visit the [Storybook Plus documentation](https://media.uwex.edu/resources/documentation/storybook-plus-v3/).
 
 ---
 ### Version Change Log
