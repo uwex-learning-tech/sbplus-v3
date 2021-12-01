@@ -11,6 +11,8 @@ test/*
 !test/index.html
 !test/manifest.json
 
+default.*
+iframe.html
 assets/*
 !assets/sbplus.xml
 

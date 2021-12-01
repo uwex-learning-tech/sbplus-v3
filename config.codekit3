@@ -709,6 +709,12 @@
       "oAP" : "\/build\/assets\/video\/yt-4tyuIh12_HU.vtt",
       "oF" : 0
     },
+    "\/build" : {
+      "ft" : 65536,
+      "oA" : 1,
+      "oAP" : "\/build\/build",
+      "oF" : 0
+    },
     "\/CODE_OF_CONDUCT.md" : {
       "cB" : 0,
       "cS" : 0,
@@ -746,46 +752,6 @@
       "pME" : 1,
       "rFN" : 0,
       "uCM" : 0
-    },
-    "\/default.mp3" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 2,
-      "oAP" : "\/build\/default.mp3",
-      "oF" : 2
-    },
-    "\/default.mp4" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 2,
-      "oAP" : "\/build\/default.mp4",
-      "oF" : 2
-    },
-    "\/default.pdf" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 2,
-      "oAP" : "\/build\/default.pdf",
-      "oF" : 2
-    },
-    "\/default.zip" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 2,
-      "oAP" : "\/build\/default.zip",
-      "oF" : 2
-    },
-    "\/iframe.html" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 2,
-      "oAP" : "\/build\/iframe.html",
-      "oF" : 2
     },
     "\/index.html" : {
       "cB" : 0,
