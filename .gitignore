@@ -11,5 +11,8 @@ test/*
 !test/index.html
 !test/manifest.json
 
+assets/*
+!assets/sbplus.xml
+
 build/*
-dist/*
+
