@@ -1,9 +1,6 @@
 <!-- Global error screen -->
 <div id="sbplus_error_screen"></div>
 
-<!-- Program Theme Banner -->
-<div id="theme-decoration-bar"></div>
-
 <!-- Program logo -->
 <div id="sbplus_loading_screen" class="animated">
     <div class="program_logo"></div>

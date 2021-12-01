@@ -3,13 +3,13 @@
  *
  * @author: Ethan Lin
  * @url: https://github.com/uwex-learning-tech/sbplus-v3
- * @version: 3.3.3
- * Released 11/29/2021
+ * @version: 3.4.0
+ * Released xx/xx/2022
  *
  * @license: GNU GENERAL PUBLIC LICENSE v3
  *
     Storybook Plus is an web application that serves multimedia contents.
-    Copyright (C) 2013-2021  Ethan S. Lin, Learning Technology & Media, University
+    Copyright (C) 2013-2022  Ethan Lin, Learning Technology & Media, University
     of Wisconsin Extended Campus
 
     This program is free software: you can redistribute it and/or modify
@@ -41,7 +41,6 @@ var SBPLUS = SBPLUS || {
     
     // holds the HTML structure classes and IDs
     loadingScreen: null,
-    themeDecorationBar: null,
     layout: null,
     splash: null,
     banner: null,
@@ -99,7 +98,7 @@ var SBPLUS = SBPLUS || {
      * variables. Also, getting data from the manifest file.
      *
      * @since 3.1.0
-     * @author(s) Ethan Lin
+     * @author Ethan Lin
      * @updated on 5/19/2017
      *
      * @param none
@@ -196,9 +195,6 @@ var SBPLUS = SBPLUS || {
             hasNotes: '.sr-page-status .sr-has-notes'
         };
 
-        // set theme decoration bar class
-        this.themeDecorationBar = '#theme-decoration-bar';
-
         // set loading screen id
         this.loadingScreen = {
             wrapper: '#sbplus_loading_screen',
@@ -253,7 +249,7 @@ var SBPLUS = SBPLUS || {
      * Load Storybook Plus HTML templates from the templates directory
      *
      * @since 3.1.0
-     * @author(s) Ethan Lin
+     * @author Ethan Lin
      * @updated on 5/19/2017
      *
      * @param none
@@ -318,7 +314,8 @@ var SBPLUS = SBPLUS || {
      * Set the program theme
      *
      * @since 3.2.0
-     * @author(s) Ethan Lin
+     * @updated 12/01/2021
+     * @author Ethan Lin
      *
      * @param none
      * @return none
@@ -350,64 +347,19 @@ var SBPLUS = SBPLUS || {
             
             $.getJSON( self.manifest.sbplus_program_themes, function( data ) {
                 
-                let themeColors = self.getProgramTheme(0, program, data);
-                
-                themeColors.forEach( function( color ) {
-                    $( self.themeDecorationBar ).append( '<span style="background-color:' + color +'"></span>' );
-                } );
-                
                 $( '#copyright-footer .notice' ).html( data.copyright );
-                
-            } ).fail( function() { // when themes fail to load...
-                
-                // do nothing
                 
             } );
             
         }
          
      }, // end set theme function
-    
-     /**
-     * Set the program theme bar color
-     *
-     * @since 3.2.0
-     * @author(s) Ethan Lin
-     *
-     * @param none
-     * @return none
-     **/
-    getProgramTheme: function( count, program, data ) {
-        
-        let self = this;
-        let theme = data.program_themes.filter( theme => theme.name === program );
-        let colors = []
-        
-        if ( theme.length ) {
-            
-            colors = theme[0].colors;
-            
-        } else {
-            
-            if ( count < 3 ) {
-                
-                if ( !self.isEmpty( self.manifest.sbplus_program_default ) ) {
-                    colors = self.getProgramTheme( count + 1, self.manifest.sbplus_program_default, data );
-                }
-            
-            }
-            
-        }
-        
-        return colors;
-        
-    },
 
     /**
      * Set the program logo
      *
      * @since 3.3.0
-     * @author(s) Ethan Lin
+     * @author Ethan Lin
      *
      * @param none
      * @return none
@@ -444,23 +396,14 @@ var SBPLUS = SBPLUS || {
                 
             } ).fail( function() {
                 
-                logoUrl = self.manifest.sbplus_logo_directory + self.manifest.sbplus_program_default + '.svg';
-                
-                $.ajax( {
-                    
-                    url: logoUrl,
-                    type: 'HEAD'
-                    
-                } ).done( function() {
-                    
-                    self.logo = this.url;
-                    $( self.loadingScreen.logo ).html( '<img src="' + self.logo + '" />' );
-                    
-                } ).fail( function() {
-                    
-                    self.logo = self.manifest.sbplus_root_directory + 'images/default_logo.svg';
-                    
-                } );
+                if ( self.manifest.sbplus_program_default ) {
+                    logoUrl = self.manifest.sbplus_logo_directory + self.manifest.sbplus_program_default + '.svg';
+                } else {
+                    logoUrl = self.manifest.sbplus_root_directory + 'images/default_logo.svg';
+                }
+
+                self.logo = logoUrl;
+                $( self.loadingScreen.logo ).html( '<img src="' + self.logo + '" />' );
                 
             } );
             
@@ -472,7 +415,7 @@ var SBPLUS = SBPLUS || {
      * Execute tasks before loading the external XML data
      *
      * @since 3.1.0
-     * @author(s) Ethan Lin
+     * @author Ethan Lin
      * @updated on 5/19/2017
      *
      * @param none
@@ -500,7 +443,7 @@ var SBPLUS = SBPLUS || {
      * Setting up the custom menu items specified in the manifest file
      *
      * @since 3.1.0
-     * @author(s) Ethan Lin
+     * @author Ethan Lin
      * @updated on 5/19/2017
      *
      * @param none
@@ -546,7 +489,7 @@ var SBPLUS = SBPLUS || {
      * Load presentation data from an external XML file
      *
      * @since 3.1.0
-     * @author(s) Ethan Lin
+     * @author Ethan Lin
      * @updated on 5/19/2017
      *
      * @param none
@@ -592,7 +535,7 @@ var SBPLUS = SBPLUS || {
      * Parse presentation data from an external XML file
      *
      * @since 3.1.0
-     * @author(s) Ethan Lin
+     * @author Ethan Lin
      * @updated on 11/14/2019
      *
      * @param string
@@ -804,7 +747,7 @@ var SBPLUS = SBPLUS || {
      * Render presentation splash screen
      *
      * @since 3.1.0
-     * @author(s) Ethan Lin
+     * @author Ethan Lin
      * @updated on 1/2/2020
      *
      * @param none
@@ -1004,7 +947,7 @@ var SBPLUS = SBPLUS || {
                 var textColor = self.colorContrast( self.xml.settings.accent );
                 
                 // construct the CSS
-                var style = '.sbplus_wrapper button:hover{color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_cta button{color:' + textColor  + ';background-color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_cta button:hover{background-color:' + hover + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col .list .item:hover{color:' + textColor + ';background-color:' + hover + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col .list .sb_selected{color:' + textColor + ';background-color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col #sbplus_table_of_contents_wrapper .section .current{border-left-color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu .menu-item:hover,.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu .menu-item:hover{background-color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu .menu-item:hover a,.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu .menu-item:hover a{color:' + textColor + '}.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .active, .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .active{color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu .menu-item:focus,.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu .menu-item:focus{background-color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu .menu-item:focus a,.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu .menu-item:focus a{color:' + textColor + '}.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent:hover,.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent:hover{color:' + self.xml.settings.accent + '}.sbplus_boxed #theme-decoration-bar{background-color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper #copyToCbBtn{color:' + textColor  + ';background-color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper #copyToCbBtn:hover{background-color:' + hover + '}';
+                var style = '.sbplus_wrapper button:hover{color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_cta button{color:' + textColor  + ';background-color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_cta button:hover{background-color:' + hover + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col .list .item:hover{color:' + textColor + ';background-color:' + hover + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col .list .sb_selected{color:' + textColor + ';background-color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col #sbplus_table_of_contents_wrapper .section .current{border-left-color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu .menu-item:hover,.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu .menu-item:hover{background-color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu .menu-item:hover a,.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu .menu-item:hover a{color:' + textColor + '}.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .active, .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .active{color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu .menu-item:focus,.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu .menu-item:focus{background-color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu .menu-item:focus a,.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu .menu-item:focus a{color:' + textColor + '}.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent:hover,.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent:hover{color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper #copyToCbBtn{color:' + textColor  + ';background-color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper #copyToCbBtn:hover{background-color:' + hover + '}';
                 
                 // append the style/css to the HTML head
                 $( 'head' ).append( '<style type="text/css">' + style + '</style>' );
@@ -1048,8 +991,8 @@ var SBPLUS = SBPLUS || {
      * Set the splash screen image to the DOM
      *
      * @since 3.1.0
-     * @author(s) Ethan Lin
-     * @updated on 11/14/2019
+     * @author Ethan Lin
+     * @updated on 12/01/2021
      *
      * @param string
      * @return none
@@ -1070,14 +1013,20 @@ var SBPLUS = SBPLUS || {
                     
                     $( self.splash.background )
                         .css( 'background-image', 'url(' + img.src + ')' );
-                    
-                    $( self.loadingScreen.wrapper ).addClass( "fadeOut" )
-                    .one( 'webkitAnimationEnd mozAnimationEnd animationend', 
-                    function() {
-                        $( this ).removeClass( 'fadeOut' ).hide();
-                        $( this ).off();
-                    }
-                );
+
+                    setTimeout( () => {
+
+                        $( self.loadingScreen.wrapper ).addClass( "fadeOut" )
+                        .one( 'webkitAnimationEnd mozAnimationEnd animationend', 
+                        function() {
+                            
+                            $( this ).off();
+                            $( this ).removeClass( 'fadeOut' ).hide();
+
+                            }
+                        );
+                        
+                    }, 1500 );
     
                 }
 
@@ -1093,7 +1042,7 @@ var SBPLUS = SBPLUS || {
      * Hide the splash screen. Should be used when starting or resuming.
      *
      * @since 3.1.0
-     * @author(s) Ethan Lin
+     * @author Ethan Lin
      * @updated on 5/19/2017
      *
      * @param none
@@ -1189,7 +1138,7 @@ var SBPLUS = SBPLUS || {
      * Start presentation function for the start button
      *
      * @since 3.1.0
-     * @author(s) Ethan Lin
+     * @author Ethan Lin
      * @updated on 5/19/2017
      *
      * @param none
@@ -1231,7 +1180,7 @@ var SBPLUS = SBPLUS || {
      * Resume presentation function for the start button
      *
      * @since 3.1.0
-     * @author(s) Ethan Lin
+     * @author Ethan Lin
      * @updated on 5/19/2017
      *
      * @param none
@@ -1272,7 +1221,7 @@ var SBPLUS = SBPLUS || {
      * Render the presentation (after the hiding the splash screen)
      *
      * @since 3.1.0
-     * @author(s) Ethan Lin
+     * @author Ethan Lin
      * @updated on 1/2/2020
      *
      * @param none
@@ -1505,7 +1454,7 @@ var SBPLUS = SBPLUS || {
      * Go to next page in the table of contents
      *
      * @since 3.1.0
-     * @author(s) Ethan Lin
+     * @author Ethan Lin
      * @updated on 5/19/2017
      *
      * @param none
@@ -1560,7 +1509,7 @@ var SBPLUS = SBPLUS || {
      * Go to previous page in the table of contents
      *
      * @since 3.1.0
-     * @author(s) Ethan Lin
+     * @author Ethan Lin
      * @updated on 5/19/2017
      *
      * @param none
@@ -1609,7 +1558,7 @@ var SBPLUS = SBPLUS || {
      * Update Page Status (or the status bar) next to the page controls
      *
      * @since 3.1.0
-     * @author(s) Ethan Lin
+     * @author Ethan Lin
      * @updated on 5/19/2017
      *
      * @param none
@@ -1631,7 +1580,7 @@ var SBPLUS = SBPLUS || {
      * showSidebar function
      *
      * @since 3.1.0
-     * @author(s) Ethan Lin
+     * @author Ethan Lin
      * @updated on 5/19/2017
      *
      * @param none
@@ -1651,7 +1600,7 @@ var SBPLUS = SBPLUS || {
      * Hide sidebar (table of contents)
      *
      * @since 3.1.0
-     * @author(s) Ethan Lin
+     * @author Ethan Lin
      * @updated on 5/19/2017
      *
      * @param none
@@ -1677,7 +1626,7 @@ var SBPLUS = SBPLUS || {
      * Show sidebar (table of contents)
      *
      * @since 3.1.0
-     * @author(s) Ethan Lin
+     * @author Ethan Lin
      * @updated on 5/19/2017
      *
      * @param none
@@ -1703,7 +1652,7 @@ var SBPLUS = SBPLUS || {
      * Toggling table of content sections
      *
      * @since 3.1.0
-     * @author(s) Ethan Lin
+     * @author Ethan Lin
      * @updated on 3/14/2018
      *
      * @param string or object
@@ -1760,7 +1709,7 @@ var SBPLUS = SBPLUS || {
      * Close specified table of content section
      *
      * @since 3.1.3
-     * @author(s) Ethan Lin
+     * @author Ethan Lin
      * @updated on 3/14/2018
      *
      * @param DOM object
@@ -1787,7 +1736,7 @@ var SBPLUS = SBPLUS || {
      * Open specified table of content section
      *
      * @since 3.1.3
-     * @author(s) Ethan Lin
+     * @author Ethan Lin
      * @updated on 3/14/2018
      *
      * @param DOM object
@@ -1814,7 +1763,7 @@ var SBPLUS = SBPLUS || {
      * Selecting page on the table of contents
      *
      * @since 3.1.0
-     * @author(s) Ethan Lin
+     * @author Ethan Lin
      * @updated on 5/19/2017
      *
      * @param string or object
@@ -1916,7 +1865,7 @@ var SBPLUS = SBPLUS || {
      * Getting page after selected a page
      *
      * @since 3.1.0
-     * @author(s) Ethan Lin
+     * @author Ethan Lin
      * @updated on 5/19/2017
      *
      * @param string
@@ -2007,7 +1956,7 @@ var SBPLUS = SBPLUS || {
      * Updating the table of content's scroll bar position
      *
      * @since 3.1.0
-     * @author(s) Ethan Lin
+     * @author Ethan Lin
      * @updated on 5/19/2017
      *
      * @param object
