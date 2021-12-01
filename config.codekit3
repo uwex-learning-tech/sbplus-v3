@@ -238,9 +238,9 @@
       "ft" : 64,
       "ma" : 0,
       "mi" : 1,
-      "oA" : 0,
+      "oA" : 2,
       "oAP" : "\/build\/assets\/html\/aframe\/aframe.min.js",
-      "oF" : 0,
+      "oF" : 1,
       "sC" : 3,
       "tS" : 0
     },
@@ -250,7 +250,7 @@
       "hM" : 0,
       "oA" : 2,
       "oAP" : "\/build\/assets\/html\/aframe\/assets\/models\/basic_graph.dae",
-      "oF" : 0
+      "oF" : 1
     },
     "\/assets\/html\/aframe\/assets\/models\/table.dae" : {
       "cB" : 0,
@@ -258,14 +258,14 @@
       "hM" : 0,
       "oA" : 2,
       "oAP" : "\/build\/assets\/html\/aframe\/assets\/models\/table.dae",
-      "oF" : 0
+      "oF" : 1
     },
     "\/assets\/html\/aframe\/assets\/textures\/blue_tile-1024-12u_12u.png" : {
       "ft" : 32768,
       "iS" : 5735,
-      "oA" : 0,
+      "oA" : 2,
       "oAP" : "\/build\/assets\/html\/aframe\/assets\/textures\/blue_tile-1024-12u_12u.png",
-      "oF" : 0,
+      "oF" : 1,
       "oIPL" : 0,
       "opt" : 0,
       "oT" : 1,
@@ -276,9 +276,9 @@
     "\/assets\/html\/aframe\/assets\/textures\/dev_tex-6u.png" : {
       "ft" : 32768,
       "iS" : 7273,
-      "oA" : 0,
+      "oA" : 2,
       "oAP" : "\/build\/assets\/html\/aframe\/assets\/textures\/dev_tex-6u.png",
-      "oF" : 0,
+      "oF" : 1,
       "oIPL" : 0,
       "opt" : 0,
       "oT" : 1,
@@ -289,9 +289,9 @@
     "\/assets\/html\/aframe\/assets\/textures\/grain01.png" : {
       "ft" : 32768,
       "iS" : 837452,
-      "oA" : 0,
+      "oA" : 2,
       "oAP" : "\/build\/assets\/html\/aframe\/assets\/textures\/grain01.png",
-      "oF" : 0,
+      "oF" : 1,
       "oIPL" : 0,
       "opt" : 0,
       "oT" : 1,
@@ -302,9 +302,9 @@
     "\/assets\/html\/aframe\/assets\/textures\/skysphere.png" : {
       "ft" : 32768,
       "iS" : 1780329,
-      "oA" : 0,
+      "oA" : 2,
       "oAP" : "\/build\/assets\/html\/aframe\/assets\/textures\/skysphere.png",
-      "oF" : 0,
+      "oF" : 1,
       "oIPL" : 0,
       "opt" : 1,
       "oT" : 1,
@@ -328,7 +328,7 @@
       "oAP" : "\/build\/assets\/html\/testing\/cat.jpg",
       "oF" : 0,
       "oIPL" : 0,
-      "opt" : 0,
+      "opt" : 1,
       "ou" : "lpckwebp-none",
       "q" : 100,
       "rq" : 75
@@ -347,7 +347,7 @@
       "oA" : 0,
       "oAP" : "\/build\/assets\/images\/krabby.gif",
       "oF" : 0,
-      "opt" : 0,
+      "opt" : 1,
       "ou" : "lpckwebp-none",
       "rq" : 75
     },
@@ -358,7 +358,7 @@
       "oAP" : "\/build\/assets\/images\/lugia.png",
       "oF" : 0,
       "oIPL" : 0,
-      "opt" : 0,
+      "opt" : 1,
       "oT" : 1,
       "ou" : "lpckwebp-none",
       "q" : 100,
@@ -370,7 +370,7 @@
       "oA" : 0,
       "oAP" : "\/build\/assets\/images\/mew.gif",
       "oF" : 0,
-      "opt" : 0,
+      "opt" : 1,
       "ou" : "lpckwebp-none",
       "rq" : 75
     },
@@ -380,7 +380,7 @@
       "oA" : 0,
       "oAP" : "\/build\/assets\/images\/mewtwo.gif",
       "oF" : 0,
-      "opt" : 0,
+      "opt" : 1,
       "ou" : "lpckwebp-none",
       "rq" : 75
     },
@@ -391,7 +391,7 @@
       "oAP" : "\/build\/assets\/images\/mrmime.png",
       "oF" : 0,
       "oIPL" : 0,
-      "opt" : 0,
+      "opt" : 1,
       "oT" : 1,
       "ou" : "lpckwebp-none",
       "q" : 100,
@@ -403,7 +403,7 @@
       "oA" : 0,
       "oAP" : "\/build\/assets\/images\/pikachu.gif",
       "oF" : 0,
-      "opt" : 0,
+      "opt" : 1,
       "ou" : "lpckwebp-none",
       "rq" : 75
     },
@@ -413,7 +413,7 @@
       "oA" : 0,
       "oAP" : "\/build\/assets\/images\/rattata.gif",
       "oF" : 0,
-      "opt" : 0,
+      "opt" : 1,
       "ou" : "lpckwebp-none",
       "rq" : 75
     },
@@ -423,7 +423,7 @@
       "oA" : 0,
       "oAP" : "\/build\/assets\/images\/rayquaza.gif",
       "oF" : 0,
-      "opt" : 0,
+      "opt" : 1,
       "ou" : "lpckwebp-none",
       "rq" : 75
     },
@@ -435,7 +435,7 @@
       "oAP" : "\/build\/assets\/pages\/slide01.jpg",
       "oF" : 0,
       "oIPL" : 0,
-      "opt" : 0,
+      "opt" : 1,
       "ou" : "lpckwebp-none",
       "q" : 100,
       "rq" : 75
@@ -448,7 +448,7 @@
       "oAP" : "\/build\/assets\/pages\/slide2.jpg",
       "oF" : 0,
       "oIPL" : 0,
-      "opt" : 0,
+      "opt" : 1,
       "ou" : "lpckwebp-none",
       "q" : 100,
       "rq" : 75
@@ -461,7 +461,7 @@
       "oAP" : "\/build\/assets\/pages\/slide03.jpg",
       "oF" : 0,
       "oIPL" : 0,
-      "opt" : 0,
+      "opt" : 1,
       "ou" : "lpckwebp-none",
       "q" : 100,
       "rq" : 75
@@ -474,7 +474,7 @@
       "oAP" : "\/build\/assets\/pages\/slide04.jpg",
       "oF" : 0,
       "oIPL" : 0,
-      "opt" : 0,
+      "opt" : 1,
       "ou" : "lpckwebp-none",
       "q" : 100,
       "rq" : 75
@@ -487,7 +487,7 @@
       "oAP" : "\/build\/assets\/pages\/slide05.jpg",
       "oF" : 0,
       "oIPL" : 0,
-      "opt" : 0,
+      "opt" : 1,
       "ou" : "lpckwebp-none",
       "q" : 100,
       "rq" : 75
@@ -500,7 +500,7 @@
       "oAP" : "\/build\/assets\/pages\/slide06.jpg",
       "oF" : 0,
       "oIPL" : 0,
-      "opt" : 0,
+      "opt" : 1,
       "ou" : "lpckwebp-none",
       "q" : 100,
       "rq" : 75
@@ -513,7 +513,7 @@
       "oAP" : "\/build\/assets\/pages\/slide07.jpg",
       "oF" : 0,
       "oIPL" : 0,
-      "opt" : 0,
+      "opt" : 1,
       "ou" : "lpckwebp-none",
       "q" : 100,
       "rq" : 75
@@ -526,7 +526,7 @@
       "oAP" : "\/build\/assets\/pages\/slide08.jpg",
       "oF" : 0,
       "oIPL" : 0,
-      "opt" : 0,
+      "opt" : 1,
       "ou" : "lpckwebp-none",
       "q" : 100,
       "rq" : 75
@@ -539,7 +539,7 @@
       "oAP" : "\/build\/assets\/pages\/slide09.jpg",
       "oF" : 0,
       "oIPL" : 0,
-      "opt" : 0,
+      "opt" : 1,
       "ou" : "lpckwebp-none",
       "q" : 100,
       "rq" : 75
@@ -552,7 +552,7 @@
       "oAP" : "\/build\/assets\/pages\/slide10.jpg",
       "oF" : 0,
       "oIPL" : 0,
-      "opt" : 0,
+      "opt" : 1,
       "ou" : "lpckwebp-none",
       "q" : 100,
       "rq" : 75
@@ -565,7 +565,7 @@
       "oAP" : "\/build\/assets\/pages\/slide11.jpg",
       "oF" : 0,
       "oIPL" : 0,
-      "opt" : 0,
+      "opt" : 1,
       "ou" : "lpckwebp-none",
       "q" : 100,
       "rq" : 75
@@ -578,7 +578,7 @@
       "oAP" : "\/build\/assets\/pages\/slide12.jpg",
       "oF" : 0,
       "oIPL" : 0,
-      "opt" : 0,
+      "opt" : 1,
       "ou" : "lpckwebp-none",
       "q" : 100,
       "rq" : 75
@@ -591,7 +591,7 @@
       "oAP" : "\/build\/assets\/pages\/slide13-1.jpg",
       "oF" : 0,
       "oIPL" : 0,
-      "opt" : 0,
+      "opt" : 1,
       "ou" : "lpckwebp-none",
       "q" : 100,
       "rq" : 75
@@ -604,7 +604,7 @@
       "oAP" : "\/build\/assets\/pages\/slide13-2.jpg",
       "oF" : 0,
       "oIPL" : 0,
-      "opt" : 0,
+      "opt" : 1,
       "ou" : "lpckwebp-none",
       "q" : 100,
       "rq" : 75
@@ -617,7 +617,7 @@
       "oAP" : "\/build\/assets\/pages\/slide13-3.jpg",
       "oF" : 0,
       "oIPL" : 0,
-      "opt" : 0,
+      "opt" : 1,
       "ou" : "lpckwebp-none",
       "q" : 100,
       "rq" : 75
@@ -630,7 +630,7 @@
       "oAP" : "\/build\/assets\/pages\/slide13.jpg",
       "oF" : 0,
       "oIPL" : 0,
-      "opt" : 0,
+      "opt" : 1,
       "ou" : "lpckwebp-none",
       "q" : 100,
       "rq" : 75
@@ -643,7 +643,7 @@
       "oAP" : "\/build\/assets\/pages\/slide14.jpg",
       "oF" : 0,
       "oIPL" : 0,
-      "opt" : 0,
+      "opt" : 1,
       "ou" : "lpckwebp-none",
       "q" : 100,
       "rq" : 75
@@ -707,12 +707,6 @@
       "hM" : 0,
       "oA" : 2,
       "oAP" : "\/build\/assets\/video\/yt-4tyuIh12_HU.vtt",
-      "oF" : 0
-    },
-    "\/build" : {
-      "ft" : 65536,
-      "oA" : 1,
-      "oAP" : "\/build\/build",
       "oF" : 0
     },
     "\/CODE_OF_CONDUCT.md" : {
@@ -1689,7 +1683,7 @@
     "displayValueWasSetByUser" : 0,
     "iconImageName" : "meme-soon",
     "iconImageWasSetByUser" : 0,
-    "lastBuiltDate" : 660074290.91149998
+    "lastBuiltDate" : 660075122.60479701
   },
   "projectSettings" : {
     "abortBuildOnError" : 1,
