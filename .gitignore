@@ -11,7 +11,10 @@ test/*
 !test/index.html
 !test/manifest.json
 
-default.*
+default.mp4
+default.mp3
+default.pdf
+default.zip
 iframe.html
 assets/*
 !assets/sbplus.xml
