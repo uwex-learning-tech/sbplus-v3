@@ -12,13 +12,4 @@ test/*
 !test/manifest.json
 
 build/*
-!build/index.html
-!build/sources/*
-!build/assets/sbplus.xml
-build/sources/.DS_Store
-build/sources/*/.DS_Store
-build/sources/scripts/*/.DS_Store
-build/sources/scripts/libs/*/.DS_Store
-build/sources/css/*.map
-build/sources/scripts/*.map
-build/sources/manifest.json
+dist/*
