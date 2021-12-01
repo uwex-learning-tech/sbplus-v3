@@ -226,6 +226,7 @@ var SBPLUS = SBPLUS || {
                 // HTML structure
                 /* !! SHOULD BE THE LAST THING TO BE CALLED IN THIS BLOCK!! */
                 self.loadTemplate();
+                self.preloadPresenationImages();
                 
             } ).fail( function() { // when manifest fail to load...
                 
@@ -1031,8 +1032,6 @@ var SBPLUS = SBPLUS || {
                 }
 
             } );
-
-            self.preloadPresenationImages();
             
         }
         
@@ -1109,16 +1108,6 @@ var SBPLUS = SBPLUS || {
         worker.onmessage = function( e ) {
 
             e.data.forEach( function( image ) {
-                
-/*
-                let imgObj = document.createElement( "img" );
-                
-                imgObj.src = paths.pages + image;
-                imgObj.setAttribute( 'aria-hidden', true );
-                imgObj.style = "position: fixed; width: 1px; height: 1px; opacity: 0;";
-                
-                document.getElementsByTagName( "body" )[0].appendChild( imgObj );
-*/
 
                 let linkObj = document.createElement( 'link' );
                 linkObj.rel = "prefetch";
@@ -1126,7 +1115,6 @@ var SBPLUS = SBPLUS || {
                 linkObj.setAttribute( 'aria-hidden', true );
                 linkObj.style = "position: fixed; width: 1px; height: 1px; opacity: 0;";
                 document.getElementsByTagName( "body" )[0].appendChild( linkObj );
-                
                 
             } );
             
@@ -3140,7 +3128,7 @@ var SBPLUS = SBPLUS || {
 $( function() {
     
     SBPLUS.go();
-    
+
 } );
 
 
