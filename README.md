@@ -5,7 +5,7 @@
 
 Storybook Plus is a web application that uses HTML5, JavaScript, CSS3, and web storage to deliver multimedia presentations. As with any other web applications, the choice of web browsers is the most critical rather than the operating systems. JavaScript must be enabled no matter which web browser is utilized. SB+ does not use cookies; however, it does use both local and session web storages.
 
-**Recommended web browser:**
+**Recommended web browsers (lastest stable version):**
 * Google Chrome
 * Microsoft Edge
 * Mozilla Firefox

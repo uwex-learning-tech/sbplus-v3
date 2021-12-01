@@ -2,7 +2,7 @@
  * Storybook Plus
  *
  * @author: Ethan Lin
- * @url: https://github.com/uwex-learning-tech/sbplus_v3
+ * @url: https://github.com/uwex-learning-tech/sbplus-v3
  * @version: 3.3.3
  * Released 11/29/2021
  *
