@@ -250,7 +250,7 @@
       "hM" : 0,
       "oA" : 2,
       "oAP" : "\/build\/assets\/html\/aframe\/assets\/models\/basic_graph.dae",
-      "oF" : 1
+      "oF" : 0
     },
     "\/assets\/html\/aframe\/assets\/models\/table.dae" : {
       "cB" : 0,
@@ -258,16 +258,16 @@
       "hM" : 0,
       "oA" : 2,
       "oAP" : "\/build\/assets\/html\/aframe\/assets\/models\/table.dae",
-      "oF" : 1
+      "oF" : 0
     },
     "\/assets\/html\/aframe\/assets\/textures\/blue_tile-1024-12u_12u.png" : {
       "ft" : 32768,
-      "iS" : 5735,
-      "oA" : 2,
+      "iS" : 3096,
+      "oA" : 0,
       "oAP" : "\/build\/assets\/html\/aframe\/assets\/textures\/blue_tile-1024-12u_12u.png",
-      "oF" : 1,
+      "oF" : 0,
       "oIPL" : 0,
-      "opt" : 0,
+      "opt" : 1,
       "oT" : 1,
       "ou" : "lpckwebp-none",
       "q" : 100,
@@ -276,11 +276,11 @@
     "\/assets\/html\/aframe\/assets\/textures\/dev_tex-6u.png" : {
       "ft" : 32768,
       "iS" : 7273,
-      "oA" : 2,
+      "oA" : 0,
       "oAP" : "\/build\/assets\/html\/aframe\/assets\/textures\/dev_tex-6u.png",
-      "oF" : 1,
+      "oF" : 0,
       "oIPL" : 0,
-      "opt" : 0,
+      "opt" : 1,
       "oT" : 1,
       "ou" : "lpckwebp-none",
       "q" : 100,
@@ -288,12 +288,12 @@
     },
     "\/assets\/html\/aframe\/assets\/textures\/grain01.png" : {
       "ft" : 32768,
-      "iS" : 837452,
-      "oA" : 2,
+      "iS" : 30000,
+      "oA" : 0,
       "oAP" : "\/build\/assets\/html\/aframe\/assets\/textures\/grain01.png",
-      "oF" : 1,
+      "oF" : 0,
       "oIPL" : 0,
-      "opt" : 0,
+      "opt" : 1,
       "oT" : 1,
       "ou" : "lpckwebp-none",
       "q" : 100,
@@ -301,10 +301,10 @@
     },
     "\/assets\/html\/aframe\/assets\/textures\/skysphere.png" : {
       "ft" : 32768,
-      "iS" : 1780329,
-      "oA" : 2,
+      "iS" : 30000,
+      "oA" : 0,
       "oAP" : "\/build\/assets\/html\/aframe\/assets\/textures\/skysphere.png",
-      "oF" : 1,
+      "oF" : 0,
       "oIPL" : 0,
       "opt" : 1,
       "oT" : 1,
@@ -654,17 +654,17 @@
       "hM" : 0,
       "oA" : 2,
       "oAP" : "\/build\/assets\/sbplus.xml",
-      "oF" : 3
+      "oF" : 0
     },
     "\/assets\/splash.jpg" : {
       "ft" : 16384,
-      "iS" : 294503,
+      "iS" : 120000,
       "jF" : 0,
-      "oA" : 2,
+      "oA" : 0,
       "oAP" : "\/build\/assets\/splash.jpg",
-      "oF" : 3,
+      "oF" : 0,
       "oIPL" : 0,
-      "opt" : 0,
+      "opt" : 1,
       "ou" : "lpckwebp-none",
       "q" : 100,
       "rq" : 75
@@ -714,6 +714,25 @@
       "oA" : 1,
       "oAP" : "\/build\/build",
       "oF" : 0
+    },
+    "\/CHANGELOG.md" : {
+      "cB" : 0,
+      "cS" : 0,
+      "eF" : 1,
+      "eL" : 1,
+      "ema" : 1,
+      "eSQ" : 1,
+      "ft" : 4096,
+      "hM" : 0,
+      "oA" : 1,
+      "oAP" : "\/build\/CHANGELOG.html",
+      "oF" : 1,
+      "oFM" : 0,
+      "oS" : 0,
+      "pHT" : 0,
+      "pME" : 1,
+      "rFN" : 0,
+      "uCM" : 0
     },
     "\/CODE_OF_CONDUCT.md" : {
       "cB" : 0,
@@ -791,7 +810,7 @@
       "hM" : 0,
       "oA" : 2,
       "oAP" : "\/build\/iframe.html",
-      "oF" : 0
+      "oF" : 1
     },
     "\/index.html" : {
       "cB" : 0,
@@ -1685,11 +1704,11 @@
   },
   "projectAttributes" : {
     "creationDate" : 499371907,
-    "displayValue" : "sbplus_v3",
+    "displayValue" : "sbplus-v3",
     "displayValueWasSetByUser" : 0,
     "iconImageName" : "meme-soon",
     "iconImageWasSetByUser" : 0,
-    "lastBuiltDate" : 660075122.60479701
+    "lastBuiltDate" : 660076313.64033306
   },
   "projectSettings" : {
     "abortBuildOnError" : 1,
