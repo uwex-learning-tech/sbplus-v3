@@ -770,9 +770,9 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 2,
+      "oA" : 1,
       "oAP" : "\/build\/default.mp3",
-      "oF" : 0
+      "oF" : 1
     },
     "\/default.mp4" : {
       "cB" : 0,
@@ -788,7 +788,7 @@
       "hM" : 0,
       "oA" : 2,
       "oAP" : "\/build\/default.pdf",
-      "oF" : 0
+      "oF" : 1
     },
     "\/default.zip" : {
       "cB" : 0,
@@ -2122,7 +2122,7 @@
     "displayValueWasSetByUser" : 0,
     "iconImageName" : "meme-soon",
     "iconImageWasSetByUser" : 0,
-    "lastBuiltDate" : 660172447.57982302
+    "lastBuiltDate" : 660179238.15206206
   },
   "projectSettings" : {
     "abortBuildOnError" : 1,

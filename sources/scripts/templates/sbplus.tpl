@@ -17,15 +17,21 @@
             <p class="sb_title" tabindex="1"></p>
             <p class="sb_subtitle" tabindex="1"></p>
             <p class="sb_author" tabindex="1"></p>
-            <p class="sb_duration" tabindex="1"></p>
-            <p class="sb_cta">
-                <button id="sbplus_start_btn" tabindex="1" aria-label="Start presentation">Start</button>
-                <button id="sbplus_resume_btn" tabindex="1" aria-label="Resume presentation">Resume</button>
-            </p>
-            <p class="sb_downloads"></p>
-                
+
+            <div class="sb_context">
+
+                <p class="sb_duration" tabindex="1"></p>
+                <p class="sb_cta">
+                    <button id="sbplus_start_btn" tabindex="1" aria-label="Start presentation">Start</button>
+                    <button id="sbplus_resume_btn" tabindex="1" aria-label="Resume presentation">Resume</button>
+                </p>
+                <p class="sb_downloads"></p>
+
+            </div>
+ 
         </div>
         
+        <div id="sb_splash_logo"></div>
         <div id="sb_splash_bg" class="animated"></div>
         
     </div> <!-- Splash screen END -->
