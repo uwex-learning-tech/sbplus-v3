@@ -1,7 +1,8 @@
 ### Version Change Logs
 
-#### 3.4.0
-_pending_
+#### 3.4.0 (_pending_)
+* Updated VideoJs to version 7.17.0
+* Removed program theme bar on top of page (not embedded in an iFrame)
 
 #### 3.3.3 (11/29/2021)
 * Updated Kaltura API to version 2.90
