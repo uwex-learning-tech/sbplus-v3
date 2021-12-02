@@ -88,8 +88,8 @@
         </page>
         
         <page type="bundle" src="slide13" title="Chocolate Chip Cookie Variants" transition="">
-            <frame start="00:10" />
-            <frame start="00:20" />
+            <frame start="00:18" />
+            <frame start="00:26" />
             <note />
         </page>
         
@@ -207,13 +207,7 @@
         <page type="html" src="aframe" title="A-Frame" embed="yes">
             <note />
         </page>
-        
-        <page type="bundle" src="slide13" title="Bundled" transition="">
-            <frame start="00:18"></frame>
-            <frame start="00:26"></frame>
-            <note />
-        </page>
-        
+    
         <page type="quiz" src="slide13" title="Fill in the Blank">
             <fillInTheBlank>
                 <question>256, 128, 64, 32, 16, ... what comes next?</question>
