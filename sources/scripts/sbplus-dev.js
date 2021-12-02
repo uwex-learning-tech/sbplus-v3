@@ -1280,44 +1280,8 @@ var SBPLUS = SBPLUS || {
                     ++self.totalPages;
                     
                     let pageType = $( this ).attr( 'type' );
-/*
-                    let itemType = "";
-                    
-                    switch ( pageType ) {
-                        
-                        case "video":
-                        case "youtube":
-                        case "kaltura":
-                        case "vimeo":
-                        itemType = "video-item";
-                        break;
-                        
-                        case "image":
-                        itemType = "image-item";
-                        break;
-                        
-                        case "image-audio":
-                        case "bundle":
-                        itemType = "audio-item";
-                        break;
-                        
-                        case "html":
-                        itemType = "html-item";
-                        break;
-                        
-                        case "quiz":
-                        itemType = "quiz-item";
-                        break;
-                        
-                        default:
-                        itemType = "";
-                        break;
-                        
-                    }
-*/
-                    
+
                     // append opening list item tag to DOM
-                    //sectionHTML += '<li class="item ' + itemType + '" data-count="';
                     sectionHTML += '<li class="item" data-count="';
                     sectionHTML += self.totalPages + '" data-page="' + i + ',' + j + '">';
                     
@@ -2437,37 +2401,23 @@ var SBPLUS = SBPLUS || {
     
     calcLayout: function() { 
         
-//         var media = $( this.layout.media );
         var widget = $( this.layout.widget );
         var sidebar = $( this.layout.sidebar );
         var tocWrapper = $( this.tableOfContents.container );
         var widgetBtnTip = $( this.button.widgetTip );
         
-/*
-        if ( widget.is( ':visible' ) || sidebar.is( ':visible' ) ) {
-            media.removeClass( 'aspect_ratio' ).addClass( 'non_aspect_ratio' );
-        } else {
-            media.removeClass( 'non_aspect_ratio' ).addClass( 'aspect_ratio' );
-        }
-*/
-        
         if ( window.innerWidth < 900 || window.screen.width <= 414 ) {
-            
-            //if ( $( this.layout.wrapper ).hasClass( 'loaded-in-iframe' ) === false ) {
 
-                this.layout.isMobile = true;
-                
-//                 media.addClass( 'aspect_ratio' );
-                
-                widgetBtnTip.show();
-                
-                var adjustedHeight = $( this.layout.leftCol ).height() + $( this.layout.mainControl ).height();
-                
-                sidebar.css( 'height', 'calc( 100% - ' + adjustedHeight + 'px )'  );
-                widget.css( 'height', sidebar.height() );
-                tocWrapper.css( 'height', sidebar.height() - 30 );
-                
-            //}
+            this.layout.isMobile = true;
+
+            widgetBtnTip.show();
+            
+            var adjustedHeight = $( this.layout.leftCol ).height() + $( this.layout.mainControl ).height();
+            
+            sidebar.css( 'height', 'calc( 100% - ' + adjustedHeight + 'px )'  );
+            widget.css( 'height', sidebar.height() );
+            tocWrapper.css( 'height', sidebar.height() - 30 );
+
             
             if ( this.alreadyResized === false ) {
                 this.hideWidget();
@@ -2482,17 +2432,7 @@ var SBPLUS = SBPLUS || {
             this.layout.isMobile = false;
             
             sidebar.css( 'height', '' );
-            
-/*
-            if ( !widget.is( ':visible' ) ) {
-                widget.css( 'height', '100%' );
-            } else {
-                widget.css( 'height', '' );
-            }
-*/
-            
             widget.css( 'height', '' );
-            
             tocWrapper.css( 'height', '' );
             widgetBtnTip.hide();
             
@@ -2889,15 +2829,6 @@ var SBPLUS = SBPLUS || {
                     self.setStorageItem( 'sbplus-hide-sidebar', 0 );
                 }
                 
-                // interactive transcript
-/*
-                if ( $( '#sbplus_gs_it' ).is( ':checked' ) ) {
-                    self.setStorageItem( 'sbplus-disable-it', 1 );
-                } else {
-                    self.setStorageItem( 'sbplus-disable-it', 0 );
-                }
-*/
-                
                 // autoplay
                 if ( $( '#sbplus_va_autoplay' ).is( ':checked' ) ) {
                     self.setStorageItem( 'sbplus-autoplay', 1 );
@@ -2991,15 +2922,6 @@ var SBPLUS = SBPLUS || {
                 $( '#sbplus_gs_sidebar' ).prop( 'checked', true );
             } else {
                 $( '#sbplus_gs_sidebar' ).prop( 'checked', false );
-            }
-            
-            // interactive transcript
-            var itVal = self.getStorageItem( 'sbplus-disable-it' );
-            
-            if ( itVal === '1') {
-                $( '#sbplus_gs_it' ).prop( 'checked', true );
-            } else {
-                $( '#sbplus_gs_it' ).prop( 'checked', false );
             }
             
             // autoplay

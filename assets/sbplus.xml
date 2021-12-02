@@ -64,7 +64,7 @@
         </page>
         
         <page type="image-audio" src="slide07" title="Tools" transition="" preventAutoplay="true">
-            <note />
+            <note>Audio is intentionally forced to prevent autoplay</note>
         </page>
         
         <page type="image-audio" src="slide08" title="Part 1 - Preheating and Melting" transition="">
