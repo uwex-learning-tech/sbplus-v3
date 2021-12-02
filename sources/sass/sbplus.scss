@@ -31,7 +31,7 @@
 
 @import "animate.css" screen, projection;
 @import "../fonts/sbplus_fonts.css";
-@import "../fonts/museo.css";
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
 $cntrlBarHeight: 50px;
 $titleBarHeight: 30px;
@@ -40,11 +40,10 @@ $gutter: 10px;
 $font-size-base: 16px;
 $default-accent: #0c3b6b;
 $default-accent-hover: #06498d;
-$default-font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+$default-font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 $border-color: #ccc;
 $box-height: 586px;
 $widget-height: 146px;
-$museo-font: "museo_sans500";
 $body-bg-color: #EFEEE8;
 $font-size: 16px;
 
@@ -272,7 +271,6 @@ body {
                 
                 .sb_title {
                     @extend .common;
-                    font-family: $museo-font;
                     font-size: 140%;
                     font-weight: bold;
                     margin-bottom: 0;
@@ -364,7 +362,6 @@ body {
                 flex-flow: row nowrap;
                 flex: 2 1 auto;
                 align-items: center;
-                font-family: $museo-font;
                 padding: 0 $gutter;
                 line-height: 1.25;
             }
@@ -379,7 +376,6 @@ body {
                     display: none;
                     flex: 2 1 auto;
                     color: inherit;
-                    font-family: $museo-font;
                 }
                 
                 #sbplus_menu_btn_wrapper {
@@ -1594,7 +1590,6 @@ body {
                     flex-flow: row nowrap;
                     flex: 2 1 71.11%;
                     align-items: center;
-                    font-family: $museo-font;
                     padding: 0 $gutter;
                     line-height: 1.25;
                 }
