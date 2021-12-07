@@ -117,63 +117,50 @@
         <div id="sbplus_right_col">
             
             <div id="sbplus_sub_bar">
-                <div class="title" tabindex="-1">Table of Contents</div>
+                <div class="title" tabindex="-1">Contents</div>
             </div>
             
             <div id="sbplus_table_of_contents_wrapper" tabindex="1"></div>
-            
-        </div>
-    
-    </div>
-    
-    <div id="sbplus_control_bar">
+
+            <!-- control bar -->
+            <div id="sbplus_control_bar">
         
-        <div id="sbplus_left_controls">
-            
-            <button id="sbplus_previous_btn" title="Previous" tabindex="1" aria-label="Previous">
-                <span class="icon-left"></span>
-            </button>
-            
-            <button id="sbplus_next_btn" title="Next" tabindex="1" aria-label="Next">
-                <span class="icon-right"></span>
-            </button>
-            
-            <div id="sbplus_page_status">
-                <div tabindex="1">
-                    Page <span class="current">#</span> of 
-                    <span class="total">#</span>
+                <div id="sbplus_page_status">
+                    <div tabindex="1">
+                        Page <span class="current">#</span> of 
+                        <span class="total">#</span>
+                    </div>
                 </div>
+
+                <div class="controls">
+
+                    <button id="sbplus_previous_btn" title="Previous" tabindex="1" aria-label="Previous">
+                    <span class="icon-left"></span>
+                    </button>
+                    
+                    <button id="sbplus_next_btn" title="Next" tabindex="1" aria-label="Next">
+                        <span class="icon-right"></span>
+                    </button>
+                    
+                    <div id="sbplus_download_btn_wrapper">
+                        
+                        <div id="sbplus_download_btn" class="root-level" role="menubar" title="Downloads">
+                            
+                            <div class="menu-parent" role="menuitem" aria-label="Downloads Menu" tabindex="1" aria-haspopup="true" aria-expanded="false">
+                                <span class="icon-download"></span>
+                                <ul class="downloadFiles menu" role="menu" aria-hidden="true" aria-expanded="false"></ul>
+                            </div>
+                            
+                        </div>
+                        
+                    </div>
+
+                </div>
+                
             </div>
             
         </div>
-        
-        <div id="sbplus_right_controls">
-            
-            <div id="sbplus_download_btn_wrapper">
-                
-                <ul id="sbplus_download_btn" class="root-level" role="menubar" title="Downloads">
-                    
-                    <li class="menu-parent" role="menuitem" aria-label="Downloads Menu" tabindex="1" aria-haspopup="true" aria-expanded="false">
-                        <span class="icon-download"></span>
-                        <ul class="downloadFiles menu" role="menu" aria-hidden="true" aria-expanded="false"></ul>
-                    </li>
-                    
-                </ul>
-                
-            </div>
-            
-            <button id="sbplus_widget_btn" title="Toggle Notes/Widgets" tabindex="1" aria-label="Toggle Notes/Widgets">
-                <span class="icon-widget-close"></span>
-                <span class="icon-widget-open"></span>
-                <div class="btnTip">Toggle Widget</div>
-            </button>
-            
-            <button id="sbplus_sidebar_btn" title="Toggle Table of Contents" tabindex="1" aria-label="Toggle Table of Contents">
-                <span class="icon-sidebar-close"></span>
-            </button>
-            
-        </div>
-        
+    
     </div>
     
     <div id="menu_item_content" class="animated" tabindex="-1">

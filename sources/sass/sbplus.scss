@@ -35,7 +35,6 @@
 
 $cntrlBarHeight: 50px;
 $titleBarHeight: 30px;
-$offset: $cntrlBarHeight + $titleBarHeight;
 $gutter: 10px;
 $font-size-base: 16px;
 $default-accent: #0c3b6b;
@@ -43,8 +42,8 @@ $default-accent-hover: #06498d;
 $default-font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 $border-color: #ccc;
 $box-height: 586px;
-$widget-height: 146px;
 $body-bg-color: #EFEEE8;
+$control-bg-color: rgba(#f2f2f2, 0.95);
 $font-size: 16px;
 
 @function rem( $px, $base: $font-size ) {
@@ -137,9 +136,10 @@ body {
         justify-content: center;
         position: absolute;
         width: 100%;
-        height: 100%;
+        top: 0;
+        bottom: 0;
         background-color: $body-bg-color;
-        z-index: 998;
+        z-index: 999;
 
         .program_logo {
             width: 300px;
@@ -237,6 +237,8 @@ body {
     
     #sbplus {
         
+        display: flex;
+        flex-flow: column nowrap;
         position: relative;
         height: 100%;
         
@@ -369,11 +371,10 @@ body {
             
             display: flex;
             flex-flow: row nowrap;
-            order: 1;
             justify-content: center;
             color: #fff;
             height: $titleBarHeight;
-            background-color: #333;
+            background-color: $default-accent;
             font-size: 120%;
             font-weight: bold;
             
@@ -505,22 +506,20 @@ body {
             
             display: flex;
             flex-flow: column nowrap;
-            order: 2;
-            height: 88.8889%;
-            @include calc( height, '100% - ' + $offset );
-            
+            flex: 2 0 auto;
+
             #sbplus_left_col {
-                
-                position: relative;
-                
+
+                display: flex;
+                flex-flow: column nowrap;
+                flex: 2 0 auto;
+
                 #sbplus_media_wrapper {
-                    
+
                     position: relative;
                     width: 100%;
-                    height: 100%;
                     background-color: #000;
                     overflow: hidden;
-                    @include aspect-ratio( 16, 9 );
 
                     #copyToCbBtn {
 
@@ -626,7 +625,7 @@ body {
                     .sbplus_media_content {
                         
                         width: 100%;
-                        height: 100%;
+                        height: auto;
                         color: #fff;
                         
                         display: flex;
@@ -682,12 +681,12 @@ body {
                         // VideoJS
                         
                         #mp_html5_api {
-                            animation-duration: 0.75;
-
+                            animation-duration: 0.75s;
+                            position: relative;
                         }
                         
                         #mp_Youtube_api {
-                            animation-duration: 0.75;
+                            animation-duration: 0.75s;
                         }
                         
                         .video-js.vjs-default-skin {
@@ -714,6 +713,8 @@ body {
                             
                             .vjs-control-bar {
                                 
+                                position: relative;
+                                background-color: $default-accent;
                                 z-index: 3;
                                 
                                 button {
@@ -843,24 +844,7 @@ body {
                             }
                             
                             // resolution plugin
-                            
                             .vjs-quality-selector .vjs-menu-button{margin:0;padding:0;height:100%;width:100%}.vjs-quality-selector .vjs-icon-placeholder{font-family:'VideoJS';font-weight:normal;font-style:normal}.vjs-quality-selector .vjs-icon-placeholder::before{content:'\f110'}.vjs-quality-changing .vjs-big-play-button{display:none}.vjs-quality-changing .vjs-control-bar{display:-webkit-box;display:-webkit-flex;display:flex;visibility:visible;opacity:1}
-                            
-                        }
-                        
-                        .video-js.vjs-youtube {
-                            
-                            .vjs-control-bar {
-                                
-                                .vjs-resolution-button {
-                                    
-                                    .vjs-menu {
-                                        left: -3em;
-                                    }
-                                    
-                                }
-                                
-                            }
                             
                         }
                         
@@ -868,27 +852,15 @@ body {
                     
                     // IE Hack for object fit
                     .sbplus_media_content.compat-object-fit {
+
                         background-size: contain;
                         background-position: center center;
                         background-repeat: no-repeat;
+
                         .img_only {
                             display: none;
                         }
-                    }
-                    
-                    .sbplus_media_content.show-vjs-poster {
-                        
-                        .vjs-has-started {
-                            
-                            .vjs-poster {
-                                display: flex;
-                                align-items: center;
-                                justify-content: center;
-                                z-index: 1;
-                            }
-                            
-                        }
-                        
+
                     }
                     
                 }
@@ -1087,25 +1059,19 @@ body {
                 
                 #sbplus_widget {
                     
-                    position: absolute;
                     width: 100%;
-                    height: $widget-height;
-                    z-index: 1;
                     background-color: #fff;
+                    flex: 2 0 auto;
                     overflow: hidden;
                     
                     .widget_controls_bar {
                         
-                        position: absolute;
-                        top: 0;
-                        left: 0;
                         width: 100%;
                         height: 25px;
                         border-bottom: 1px solid $border-color;
-                        background-color: rgba(#f2f2f2, 0.95);
+                        background-color: $control-bg-color;
                         -webkit-backdrop-filter: blur( 8px );
                         backdrop-filter: blur( 8px );
-                        z-index: 80;
                         
                         .tab_segment {
                         
@@ -1150,7 +1116,7 @@ body {
                     
                     .segment_content {
                         
-                        padding: 30px 10px 0;
+                        padding: 10px 10px 0;
                         width: 100%;
                         height: 100%;
                         overflow-y: auto;
@@ -1226,28 +1192,23 @@ body {
                 }
                 
             }
-            
+
             #sbplus_right_col {
-                
-                flex: 1 0 auto;
-                overflow-x: hidden;
-                overflow-y: auto;
                 
                 #sbplus_sub_bar {
 
-                    height: 30px;
-                    max-height: 30px;
-                    background-color: #ececed;
+                    display: none;
+                    height: 20px;
+                    background-color: $control-bg-color;
                     border-bottom: 2px solid $border-color;
                     
                     .title {
                         display: flex;
-                        flex: 2 0 90%;
                         align-items: center;
-                        padding-left: $gutter;
+                        justify-content: center;
                         font-weight: bold;
-                        font-size: 12px;
-                        line-height: 12px;
+                        @include font-size( 12px );
+                        line-height: normal;
                         height: 100%;
                     }
                     
@@ -1278,7 +1239,8 @@ body {
                 
                 #sbplus_table_of_contents_wrapper {
                     
-                    @include calc( height, '100% - ' + 30px );
+                    display: none;
+                    @include calc( height, '100% - ' + 100px );
                     overflow-y: auto;
                     background-color: #fff;
                     
@@ -1392,77 +1354,65 @@ body {
         #sbplus_control_bar {
             
             display: flex;
-            flex-flow: row nowrap;
-            order: 3;
-            height: $cntrlBarHeight;
+            flex-flow: column nowrap;
             font-size: 120%;
-            border-top: 1px solid $border-color;
-            background-color: #fff;
+            background-color: $control-bg-color;
             
-            .common {
+            #sbplus_page_status {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 100%;
+                padding: 5px $gutter;
+                border-top: 1px solid $border-color;
+                border-bottom: 1px solid $border-color;
+            }
+
+            .controls {
+
                 display: flex;
                 flex-flow: row nowrap;
-            }
-            
-            #sbplus_left_controls {
-                
-                @extend .common;
-                flex: 1 0 auto;
-                
-                #sbplus_previous_btn {
-                    flex: 1 0 30%;
-                    border-right: 1px solid $border-color;
+                height: $cntrlBarHeight;
+
+                .button-commons {
+                    display: flex;
+                    flex-flow: column nowrap;
+                    align-items: center;
+                    justify-content: center;
+                    width: 100%;
                     font-size: 145%;
                     line-height: 1;
+                }
+
+                #sbplus_previous_btn {
+                    border-right: 1px solid $border-color;
+                    @extend .button-commons;
                 }
                 
                 #sbplus_next_btn {
-                    flex: 1 0 30%;
                     border-right: 1px solid $border-color;
-                    font-size: 145%;
-                    line-height: 1;
+                    @extend .button-commons;
                 }
-                
-                #sbplus_page_status {
-                    display: flex;
-                    flex-flow: row nowrap;
-                    flex: 1 0 40%;
-                    align-items: center;
-                    justify-content: center;
-                    align-self: center;
-                    height: 100%;
-                    padding: 0 $gutter;
-                    font-weight: bold;
-                }
-                
-            }
-            
-            #sbplus_right_controls {
-                
-                @extend .common;
-                justify-content: flex-end;
-                width: 120px;
                 
                 #sbplus_download_btn_wrapper {
-                    
-                    display: none;
-                    width: 100%;
-                    min-width: 60px;
-                    border-left: 1px solid $border-color;
-                    margin: 0;
-                    padding: 0;
+                        
+                    @extend .button-commons;
                     
                     #sbplus_download_btn,
                     .root-level {
-                        
-                        list-style: none;
+
+                        width: 100%;
                         height: 100%;
                         text-align: center;
                         font-size: 145%;
                         line-height: 1;
+                        list-style: none;
                     
                         .menu-parent {
                             
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
                             position: relative;
                             height: 100%;
                             cursor: pointer;
@@ -1470,20 +1420,24 @@ body {
                             .menu {
                             
                                 position: absolute;
-                                width: 140%;
-                                left: -20%;
+                                width: 90%;
+                                left: 5%;
                                 bottom: 100%;
                                 list-style: none;
                                 margin: 0;
                                 padding: 0;
                                 border: 1px solid $border-color;
-                                background-color: #fff;
-                                z-index: 11;
+                                border-radius: 8px 8px 0 0;
+                                background-color: $control-bg-color;
+                                overflow: hidden;
+                                box-shadow: 0 -3px 6px $border-color;
                                 
                                 .menu-item {
                                     
-                                    margin: 0;
-                                    padding: rem( 5px ) 0;
+                                    display: flex;
+                                    flex-flow: column nowrap;
+                                    align-items: center;
+                                    justify-content: center;
                                     height: 30px;
                                     
                                     a {
@@ -1518,6 +1472,10 @@ body {
                             }
                             
                         }
+
+                        .active {
+                            color: $default-accent-hover;
+                        }
                         
                         .menu-parent:hover {
                             color: $default-accent-hover;
@@ -1530,49 +1488,7 @@ body {
                     }
                                             
                 }
-                
-                #sbplus_widget_btn {
-                    
-                    position: relative;
-                    border-left: 1px solid $border-color;
-                    border-right: 1px solid $border-color;
-                    font-size: 145%;
-                    line-height: 1;
-                    
-                    .icon-widget-open {
-                        display: none;
-                    }
-                    
-                    .btnTip {
-                        display: none;
-                        font-size: 40%;
-                    }
-                    
-                }
-                
-                #sbplus_widget_btn.showDot::before {
-                    position: absolute;
-                    content: '!';
-                    color: #fff;
-                    text-align: center;
-                    font-family: $default-font-family;
-                    font-size: 14px;
-                    top: 2px;
-                    left: 2px;
-                    width: 18px;
-                    height: 18px;
-                    padding: 2px 0 0 0;
-                    box-sizing: border-box;
-                    background-color: #ff0000;
-                    border-radius: 50%;
-                }
-                
-                #sbplus_sidebar_btn {
-                    display: none;
-                    font-size: 145%;
-                    line-height: 1;
-                }
-                
+
             }
             
         }
@@ -1846,98 +1762,44 @@ body {
     
 } // end main wrapper
 
-.sbplus_full,
-.sbplus_boxed {
-    
-    flex: 1 0 100%;
-    width: 100%;
-    height: 100%;
+// .sbplus_boxed {
 
-    #sbplus {
+//     #sbplus {
         
-        width: 100%;
-        height: 100%;
-        
-        #sbplus_splash_screen {
-            width: 100%;
-            height: 100%;
-        }
-        
-    }
-    
-}
+//         #sbplus_content_wrapper {
+            
+//             #sbplus_left_col {
+                
+//                 #sbplus_widget {
+//                     border-left: 1px solid $border-color;
+//                     border-right: 1px solid $border-color;
+//                 }
+                
+//             }
+            
+//             #sbplus_right_col {
 
-.sbplus_full {
+//                 overflow-x: hidden;
+//                 overflow-y: auto;
+//                 border-right: 1px solid $border-color;
+                
+//                 #sbplus_table_of_contents_wrapper {
+//                     border-left: 1px solid $border-color;
+//                 }
+                
+//             }
+            
+//         }
+        
+//         #sbplus_control_bar {
+//             border-left: 1px solid $border-color;
+//             border-top: 1px solid $border-color;
+//             border-bottom: 1px solid $border-color;
+//         }
+        
+//     }
     
-    position: absolute;
-    z-index: 99;
-    top: 0;
-    left: 0;
-    
-    #sbplus {
-        
-        #sbplus_banner_bar {
-            
-            #sbplus_menu_area {
-                
-                #sbplus_menu_btn_wrapper {
-                    
-                    #sbplus_menu_btn,
-                    .root-level {
-                    
-                        .menu-parent {
-                            padding-right: $gutter;
-                            justify-content: flex-end;
-                        }
-                        
-                    }
-                    
-                }
-                
-            }
-            
-        }
-        
-    }
-    
-}
-
-.sbplus_boxed {
-
-    #sbplus {
-        
-        #sbplus_content_wrapper {
-            
-            #sbplus_left_col {
-                
-                #sbplus_widget {
-                    border-left: 1px solid $border-color;
-                    border-right: 1px solid $border-color;
-                }
-                
-            }
-            
-            #sbplus_right_col {
-
-                border-right: 1px solid $border-color;
-                
-                #sbplus_table_of_contents_wrapper {
-                    border-left: 1px solid $border-color;
-                }
-                
-            }
-            
-        }
-        
-        #sbplus_control_bar {
-            border-left: 1px solid $border-color;
-            border-top: 1px solid $border-color;
-            border-bottom: 1px solid $border-color;
-        }
-        
-    }
-    
-}
+// }
 
 $cntrlBarHeight: 50px;
 $titleBarHeight: 30px;
@@ -1946,70 +1808,34 @@ $titleBarHeight: 30px;
     and ( min-device-width: 768px )
     and ( min-width: 900px ) {
     
+    html {
+
+        height: unset;
+
+        body {
+            height: auto;
+        }
+
+    }
+
     .sbplus_boxed {
 
-        #sbplus_loading_screen {
-            @include calc( height, '100% - 40px' );
+        position: relative;
+        width: 900px;
+        height: $box-height;
+        margin: 30px auto 0;
+
+        #sbplus_error_screen {
+            height: 100%;
         }
         
         #sbplus {
             
-            width: 900px;
-            height: $box-height;
-            margin: 30px auto 0;
-            
-            #sbplus_splash_screen {
-                width: 900px;
-                height: $box-height;
-            }
-            
-            #sbplus_content_wrapper {
-            
-                #sbplus_left_col {
-                                
-                    border-left: 1px solid rgba( 0,0,0,0.25 );
-                        
-                    #sbplus_widget {
-                        border-left: none;
-                        border-right: none;
-                    }
-                        
-                }
-                    
-                #sbplus_right_col {
-                    
-                    border-right: 1px solid $border-color;
-                    
-                    #sbplus_table_of_contents_wrapper {
-                        border-left: none;
-                    }
-                    
-                }
-                
-            }
-            
-            #sbplus_control_bar {
-                border-left: 1px solid $border-color;
-                border-right: 1px solid $border-color;
-                border-bottom: 1px solid $border-color;
-            }
-            
-        }
-        
-        #copyright-footer {
             display: block;
-            text-align: center;
-            margin-top: $gutter * 2;
-            @include font-size( 12px );
-            color: #636266;
-        }
-        
-    }
-    
-    .sbplus_wrapper {
-        
-        #sbplus {
-        
+            flex-flow: unset;
+            width: 100%;
+            height: 100%;
+
             #sbplus_splash_screen {
                 
                 #sbplus_presentation_info {
@@ -2029,7 +1855,7 @@ $titleBarHeight: 30px;
                         
                             display: flex;
                             flex-flow: column;
-                            flex: 2 0 45%;
+                            flex: 2 0 35%;
                             padding: 0 ($gutter * 4);
                             border-left: 1px solid $border-color;
                             border-right: 1px solid $border-color;
@@ -2056,9 +1882,8 @@ $titleBarHeight: 30px;
                     
                 }
 
-                
             }
-            
+
             #sbplus_banner_bar {
                 
                 height: $titleBarHeight;
@@ -2198,70 +2023,78 @@ $titleBarHeight: 30px;
                 }
                 
             }
-            
+
             #sbplus_content_wrapper {
                 
                 flex-flow: row nowrap;
-                @include calc( height, '100% - ' + 80px );
+                @include calc( height, '100% - ' + $titleBarHeight );
                 
                 #sbplus_left_col {
                 
-                    width: 100%;
+                    width: 640px;
                     height: 100%;
-                    border-right: 1px solid $border-color;
-                    
-                    #sbplus_media_wrapper {
-                        height: calc( 100% - #{$widget-height} );
-                    }
+                    flex: unset;
                     
                     #sbplus_widget {
-                        display: flex;
-                        flex-flow: column nowrap;
-                        flex: 1 0 auto;
+
                         position: relative;
-                        height: $widget-height;
-                        bottom: 0;
-                        border-top: 1px solid $border-color;
+                        flex: unset;
+                        height: 158.17px;
+
+                        .widget_controls_bar {
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                        }
+
+                        .segment_content {
+                            padding-top: 30px;
+                        }
+
                     }
                     
                 }
                 
                 #sbplus_right_col {
+
                     width: 258px;
                     height: 100%;
+                    overflow-x: hidden;
+                    overflow-y: auto;
+
+                    #sbplus_sub_bar {
+                        display: block;
+                    }
+
+                    #sbplus_table_of_contents_wrapper {
+                        display: block;
+                    }
+
+                }
+                
+            }
+            
+            #menu_item_content {
+                
+                .sbplus_menu_title_bar {
+                    height: $titleBarHeight;
                 }
                 
             }
             
             #sbplus_control_bar {
                 
-                height: $cntrlBarHeight;
                 font-size: 100%;
                 
-                #sbplus_left_controls {
-                    
-                    #sbplus_previous_btn {
-                        max-width: 100px;
-                    }
-                    
-                    #sbplus_next_btn {
-                        max-width: 100px;
-                    }
-                    
-                    #sbplus_page_status {
-                        justify-content: flex-start;
-                    }
-                    
+                #sbplus_page_status {
+                    @include font-size( 12px );
+                    font-weight: bold;
+                    border-top-width: 2px;
                 }
-                
-                #sbplus_right_controls {
-                    
-                    width: 258px;
+
+                .controls {
                     
                     #sbplus_download_btn_wrapper {
-                        
-                        display: block;
-                        height: 48px;
                         
                         #sbplus_download_btn,
                         .root-level {
@@ -2279,7 +2112,10 @@ $titleBarHeight: 30px;
                                 }
                                 
                                 .menu {
-                                    
+
+                                    width: 140%;
+                                    left: -40%;
+
                                     .menu-item {
                                         display: flex;
                                         align-items: center;
@@ -2290,68 +2126,25 @@ $titleBarHeight: 30px;
                                 
                             }
                             
-                            .active {
-                                color: $default-accent-hover;
-                            }
                             
                         }
                         
                     }
                     
-                    #sbplus_sidebar_btn {
-                        display: block;
-                    }
-                    
                 }
                 
-            }
-            
-            #menu_item_content {
                 
-                .sbplus_menu_title_bar {
-                    height: $titleBarHeight;
-                }
                 
             }
             
         }
         
-    }
-    
-    .sbplus_full {
-        
-        #sbplus {
-            
-            #sbplus_banner_bar {
-                
-                #sbplus_menu_area {
-            
-                    #sbplus_author_name {
-                        width: auto;
-                        flex: initial;
-                        align-self: flex-end;
-                    }
-                    
-                    #sbplus_menu_btn_wrapper {
-                        flex: initial;
-                    }
-                    
-                }
-                
-            }
-            
-            #sbplus_content_wrapper {
-                
-                #sbplus_left_col {
-                    border-right: none;   
-                }
-                
-                #sbplus_right_col {
-                    border-left: 1px solid $border-color;
-                }
-                
-            }
-            
+        #copyright-footer {
+            display: block;
+            text-align: center;
+            margin-top: $gutter * 2;
+            @include font-size( 12px );
+            color: #636266;
         }
         
     }
@@ -2403,66 +2196,9 @@ $titleBarHeight: 30px;
 }
 
 .loaded-in-iframe {
-
-    #sbplus_loading_screen {
-        height: 100%;
-    }
     
     #copyright-footer {
         display: none;
-    }
-    
-}
-
-.sbplus_full {
-    
-    #sbplus {
-        
-        #sbplus_banner_bar {
-            
-            #sbplus_menu_area {
-        
-                #sbplus_author_name {
-                    width: auto;
-                    flex: initial;
-                    align-self: flex-end;
-                }
-                
-                #sbplus_menu_btn_wrapper {
-                    flex: initial;
-                }
-                
-            }
-            
-        }
-        
-        #sbplus_content_wrapper {
-            
-            #sbplus_left_col {
-                border-right: none;   
-            }
-            
-            #sbplus_right_col {
-                border-left: 1px solid $border-color;
-            }
-            
-        }
-        
-    }
-
-    #sbplus_media_wrapper {
-        
-        .sbplus_media_content {
-            
-            .video-js.vjs-default-skin {
-                
-                .vjs-big-play-button {
-                    display: none;
-               }
-               
-            }
-        }
-        
     }
     
 }

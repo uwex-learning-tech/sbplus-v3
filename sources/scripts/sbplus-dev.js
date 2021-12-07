@@ -167,9 +167,6 @@ var SBPLUS = SBPLUS || {
             downloadWrapper: '#sbplus_download_btn_wrapper',
             download: '#sbplus_download_btn',
             downloadMenu: '#sbplus_download_btn .menu-parent .downloadFiles',
-            widget: '#sbplus_widget_btn',
-            widgetTip: '#sbplus_widget_btn .btnTip',
-            sidebar: '#sbplus_sidebar_btn',
             author: '#sbplus_author_name',
             menu: '#sbplus_menu_btn',
             menuClose: '#sbplus_menu_close_btn',
@@ -443,9 +440,6 @@ var SBPLUS = SBPLUS || {
         // if manifest and template are loaded and XML was never loaded before
         if ( this.manifestLoaded === true && this.beforeXMLLoadingDone === false ) {
             
-            // setup the options specified in the URL string query
-            this.setURLOptions();
-            
             // setup custom menu items specified in the manifest file
             this.setManifestCustomMenu();
             
@@ -686,7 +680,6 @@ var SBPLUS = SBPLUS || {
             }
             
             // if analytics is on, get and set Google analtyics tracking
-
             if ( self.xml.settings.analytics === 'on' || self.xml.settings.analytics === 'true' ) {
                 
                 (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -776,19 +769,6 @@ var SBPLUS = SBPLUS || {
         
         if ( self.xmlParsed === true && self.splashScreenRendered === false ) {
             
-            // set inital local storage settings
-            if ( self.hasStorageItem( 'sbplus-hide-widget' ) === false ) {
-                self.setStorageItem( 'sbplus-hide-widget', 0 );
-            }
-            
-            if ( self.hasStorageItem( 'sbplus-hide-sidebar' ) === false ) {
-                self.setStorageItem( 'sbplus-hide-sidebar', 0 );
-            }
-            
-            if ( self.hasStorageItem( 'sbplus-disable-it' ) === false ) {
-                self.setStorageItem( 'sbplus-disable-it', 1 );
-            }
-            
             if ( self.hasStorageItem( 'sbplus-autoplay' ) === false ) {
                 self.setStorageItem( 'sbplus-autoplay', 1 );
             }
@@ -805,10 +785,6 @@ var SBPLUS = SBPLUS || {
             
             if ( self.hasStorageItem( 'sbplus-subtitle' ) === false ) {
                 self.setStorageItem( 'sbplus-subtitle', 0 );
-            }
-            
-            if ( self.hasStorageItem( 'sbplus-disable-it' ) ) {
-                self.deleteStorageItem( 'sbplus-disable-it' );
             }
             
             // if autoplay for videoJS is on, add a class to the body tag
@@ -945,7 +921,6 @@ var SBPLUS = SBPLUS || {
                     
                     let fileLabel = file.label.toLowerCase();
                     
-                    //self.downloads[fileLabel] = this.url;
                     self.downloads[fileLabel] = { 'fileName': fileName, 'fileFormat': file.format, 'url': this.url };
                     
                     $( self.splash.downloadBar ).append(
@@ -964,7 +939,7 @@ var SBPLUS = SBPLUS || {
                 var textColor = self.colorContrast( self.xml.settings.accent );
                 
                 // construct the CSS
-                var style = '.sbplus_wrapper button:hover{color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_context .sb_cta button{color:' + textColor  + ';background-color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_context .sb_cta button:hover{background-color:' + hover + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col .list .item:hover{color:' + textColor + ';background-color:' + hover + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col .list .sb_selected{color:' + textColor + ';background-color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col #sbplus_table_of_contents_wrapper .section .current{border-left-color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu .menu-item:hover,.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu .menu-item:hover{background-color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu .menu-item:hover a,.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu .menu-item:hover a{color:' + textColor + '}.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .active, .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .active{color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu .menu-item:focus,.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu .menu-item:focus{background-color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu .menu-item:focus a,.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu .menu-item:focus a{color:' + textColor + '}.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent:hover,.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent:hover{color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper #copyToCbBtn{color:' + textColor  + ';background-color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper #copyToCbBtn:hover{background-color:' + hover + '}';
+                var style = '.sbplus_wrapper button:hover{color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_context .sb_cta button{color:' + textColor  + ';background-color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_context .sb_cta button:hover{background-color:' + hover + '}.sbplus_wrapper #sbplus #sbplus_banner_bar{background-color:' + self.xml.settings.accent + ';color:' + textColor + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col .list .item:hover{color:' + textColor + ';background-color:' + hover + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col .list .sb_selected{color:' + textColor + ';background-color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col #sbplus_table_of_contents_wrapper .section .current{border-left-color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_control_bar .controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu .menu-item:hover,.sbplus_wrapper #sbplus #sbplus_control_bar .controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu .menu-item:hover{background-color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_control_bar .controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu .menu-item:hover a,.sbplus_wrapper #sbplus #sbplus_control_bar .controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu .menu-item:hover a{color:' + textColor + '}.sbplus_wrapper #sbplus #sbplus_control_bar .controls #sbplus_download_btn_wrapper #sbplus_download_btn .active, .sbplus_wrapper #sbplus #sbplus_control_bar .controls #sbplus_download_btn_wrapper .root-level .active{color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_control_bar .controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu .menu-item:focus,.sbplus_wrapper #sbplus #sbplus_control_bar .controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu .menu-item:focus{background-color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_control_bar .controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu .menu-item:focus a,.sbplus_wrapper #sbplus #sbplus_control_bar .controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu .menu-item:focus a{color:' + textColor + '}.sbplus_wrapper #sbplus #sbplus_control_bar .controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent:hover,.sbplus_wrapper #sbplus #sbplus_control_bar .controls #sbplus_download_btn_wrapper .root-level .menu-parent:hover{color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper #copyToCbBtn{color:' + textColor  + ';background-color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper #copyToCbBtn:hover{background-color:' + hover + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper .sbplus_media_content .video-js.vjs-default-skin .vjs-control-bar{background-color:'+ self.xml.settings.accent +'}';
                 
                 // append the style/css to the HTML head
                 $( 'head' ).append( '<style type="text/css">' + style + '</style>' );
@@ -1238,9 +1213,9 @@ var SBPLUS = SBPLUS || {
             var self = this;
         
             // before presenting; apply local storage settings
-            if ( self.getStorageItem( 'sbplus-hide-widget' ) === '1' ) {
-                self.hideWidget();
-            }
+            // if ( self.getStorageItem( 'sbplus-hide-widget' ) === '1' ) {
+            //     self.hideWidget();
+            // }
             
             if ( self.getStorageItem( 'sbplus-hide-sidebar' ) === '1' ) {
                 self.hideSidebar();
@@ -1331,10 +1306,6 @@ var SBPLUS = SBPLUS || {
             $( self.layout.pageStatus ).find( 'span.total' ).html( self.totalPages );
             $( self.screenReader.totalPages ).html( self.totalPages );
             
-            // set event listeners
-            $( self.button.sidebar ).on( 'click', self.toggleSidebar.bind( self ) );
-            $( self.button.widget ).on( 'click',  self.toggleWidget.bind( self ) );
-            
             // if author is missing hide author button and menu item
             if ( self.xml.setup.author.length ) {
                 
@@ -1399,9 +1370,9 @@ var SBPLUS = SBPLUS || {
             // easter egg event listener
             $( "#sbplus_menu_btn .menu-parent" ).on( 'click', self.burgerBurger.bind( self ) );
             
-            if ( window.innerWidth < 900 || window.screen.width <= 414 ) {
-                this.hideWidget();
-            }
+            // if ( window.innerWidth < 900 || window.screen.width <= 414 ) {
+            //     this.hideWidget();
+            // }
             
             this.presentationRendered = true;
             
@@ -1542,80 +1513,6 @@ var SBPLUS = SBPLUS || {
     /**************************************************************************
         TABLE OF CONTENT (SIDEBAR) FUNCTIONS
     **************************************************************************/
-    
-    /**
-     * Toggling sidebar (table of contents) panel by calling hideSidebar or 
-     * showSidebar function
-     *
-     * @since 3.1.0
-     * @author Ethan Lin
-     * @updated on 5/19/2017
-     *
-     * @param none
-     * @return none
-     **/
-    toggleSidebar: function() {
-        
-        if ( $( this.layout.sidebar ).is( ':visible' ) ) {
-            this.hideSidebar();
-        } else {
-           this.showSidebar();
-        }
-        
-    }, // end toggleSidebar function
-    
-    /**
-     * Hide sidebar (table of contents)
-     *
-     * @since 3.1.0
-     * @author Ethan Lin
-     * @updated on 5/19/2017
-     *
-     * @param none
-     * @return none
-     **/
-    hideSidebar: function() {
-        
-        // set media rea DOM jQuery set
-        var media = $( this.layout.media );
-        
-        // hide the sidebar
-        $( this.layout.sidebar ).hide();
-        
-        // update the icon on the toggle sidebar button
-        $( this.button.sidebar ).html( '<span class="icon-sidebar-open"></span>' );
-        
-        // remove sidebar_on and add sidebar_off
-        media.removeClass( 'sidebar_on' ).addClass( 'sidebar_off' );
-        
-    }, // end hideSidebar function
-    
-    /**
-     * Show sidebar (table of contents)
-     *
-     * @since 3.1.0
-     * @author Ethan Lin
-     * @updated on 5/19/2017
-     *
-     * @param none
-     * @return none
-     **/
-    showSidebar: function() {
-        
-        // set media rea DOM jQuery set
-        var media = $( this.layout.media );
-        
-        // hide the sidebar
-        $( this.layout.sidebar ).show();
-        
-        // update the icon on the toggle sidebar button
-        $( this.button.sidebar ).html( '<span class="icon-sidebar-close"></span>' );
-        
-        // remove sidebar_off and add sidebar_on
-        media.removeClass( 'sidebar_off' ).addClass( 'sidebar_on' );
-        
-    }, // end showSidebar function
-    
     /**
      * Toggling table of content sections
      *
@@ -2193,57 +2090,6 @@ var SBPLUS = SBPLUS || {
     /**************************************************************************
         WIDGET FUNCTIONS
     **************************************************************************/
-    
-    toggleWidget: function() {
-        
-        if ( $( this.layout.widget ).is( ':visible' ) ) {
-            
-            this.hideWidget();
-        } else {
-            this.showWidget();
-            
-        }
-        
-    },
-    
-    hideWidget: function() {
-        
-        var media = $( this.layout.media );
-        
-        $( this.layout.widget ).hide();
-        $( this.button.widget ).find( '.icon-widget-open' ).show();
-        $( this.button.widget ).find( '.icon-widget-close' ).hide();
-              
-        media.css( 'height', '100%');
-        media.removeClass( 'widget_on' ).addClass( 'widget_off' );
-        
-        this.showWidgetContentIndicator();
-        
-    },
-    
-    showWidget: function() {
-        
-        var media = $( this.layout.media );
-        
-        $( this.layout.widget ).show();
-        $( this.button.widget ).find( '.icon-widget-close' ).show();
-        $( this.button.widget ).find( '.icon-widget-open' ).hide();
-        
-        media.css( 'height', '' );
-        media.removeClass( 'widget_off' ).addClass( 'widget_on' );
-        
-        this.hideWidgetContentIndicator()
-        
-    },
-    
-    disableWidget: function() {
-        $( this.button.widget ).prop( 'disabled', true ).addClass( 'sb_disabled' );
-    },
-    
-    enableWidget: function() {
-        $( this.button.widget ).prop( 'disabled', false ).removeClass( 'sb_disabled' );
-    },
-    
     clearWidget: function() {
         $( this.widget.segment ).empty();
         $( this.widget.content ).empty();
@@ -2255,26 +2101,6 @@ var SBPLUS = SBPLUS || {
         
     },
     
-    showWidgetContentIndicator: function () {
-        
-        if ( this.hasWidgetContent() ) {
-            
-            if ( !$( this.layout.widget ).is( ':visible' ) ) {
-                
-                $( this.button.widget ).addClass( 'showDot' );
-                
-            }
-            
-        }
-        
-    },
-    
-    hideWidgetContentIndicator: function () {
-        
-        $( this.button.widget ).removeClass( 'showDot' );
-        
-    },
-    
     selectSegment: function( e ) {
         
         var self = this;
@@ -2282,7 +2108,7 @@ var SBPLUS = SBPLUS || {
         
         if ( self.hasWidgetContent() ) {
             
-            self.showWidgetContentIndicator();
+            //self.showWidgetContentIndicator();
             $( self.layout.widget ).removeClass('noSegments');
             $( self.widget.content ).css( 'background-image', '' );
             $( this.screenReader.hasNotes ).html( 'This page contains notes.' );
@@ -2310,7 +2136,7 @@ var SBPLUS = SBPLUS || {
             
         } else {
             
-            this.hideWidgetContentIndicator();
+            //this.hideWidgetContentIndicator();
             $( this.screenReader.hasNotes ).empty();
             $( this.layout.widget ).addClass('noSegments');
 
@@ -2417,44 +2243,16 @@ var SBPLUS = SBPLUS || {
     
     calcLayout: function() { 
         
-        var widget = $( this.layout.widget );
-        var sidebar = $( this.layout.sidebar );
-        var tocWrapper = $( this.tableOfContents.container );
-        var widgetBtnTip = $( this.button.widgetTip );
-        
         if ( window.innerWidth < 900 || window.screen.width <= 414 ) {
 
             this.layout.isMobile = true;
-
-            widgetBtnTip.show();
-            
-            var adjustedHeight = $( this.layout.leftCol ).height() + $( this.layout.mainControl ).height();
-            
-            sidebar.css( 'height', 'calc( 100% - ' + adjustedHeight + 'px )'  );
-            widget.css( 'height', sidebar.height() );
-            tocWrapper.css( 'height', sidebar.height() - 30 );
-
-            
-            if ( this.alreadyResized === false ) {
-                this.hideWidget();
-            }
-            
             this.alreadyResized = true;
-            
             $( this.layout.wrapper ).removeClass( 'sbplus_boxed' );
             
         } else {
             
             this.layout.isMobile = false;
-            
-            sidebar.css( 'height', '' );
-            widget.css( 'height', '' );
-            tocWrapper.css( 'height', '' );
-            widgetBtnTip.hide();
-            
-            if ( this.getUrlParam( 'fullview' ) !== '1' ) {
-                $( this.layout.wrapper ).addClass( 'sbplus_boxed' );
-            }
+            $( this.layout.wrapper ).addClass( 'sbplus_boxed' );
 
         }
         
@@ -2468,21 +2266,6 @@ var SBPLUS = SBPLUS || {
             this.showSidebar();
         }
         
-    },
-    
-    setURLOptions: function() {
-        
-        var html = $( this.layout.html );
-        var wrapper = $( this.layout.wrapper );
-        
-        if ( this.getUrlParam( 'fullview' ) === '1' ) {
-            html.addClass( 'sbplus_pop_full' );
-            wrapper.removeClass( 'sbplus_boxed' ).addClass( 'sbplus_full' );
-        } else {
-            html.removeClass( '.sbplus_pop_full' );
-            wrapper.addClass( 'sbplus_boxed' ).removeClass( 'sbplus_full' );
-        }  
-            
     },
     
     getUrlParam: function( name ) {

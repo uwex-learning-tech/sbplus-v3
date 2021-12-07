@@ -87,7 +87,6 @@ Page.prototype.getPageMedia = function() {
     }
     
     SBPLUS.clearWidget();
-    SBPLUS.enableWidget();
     
     $( self.mediaContent ).removeClass( 'iframeEmbed' ).empty();
     
@@ -377,9 +376,6 @@ Page.prototype.getPageMedia = function() {
                     if ( $( '#sbplus_widget' ).is( ':visible' ) ) {
                         SBPLUS.setStorageItem( 'sbplus-' + SBPLUS.presentationLoc + '-previously-widget-open', 1, true );
                     }
-                    
-                    SBPLUS.hideWidget();
-                    SBPLUS.disableWidget();
 
             } );
             
@@ -725,6 +721,7 @@ Page.prototype.renderVideoJS = function( src ) {
         
         techOrder: ['html5'],
         controls: true,
+        inactivityTimeout: 0,
         autoplay: isAutoplay,
         preload: "auto",
         playbackRates: [0.5, 1, 1.5, 2],

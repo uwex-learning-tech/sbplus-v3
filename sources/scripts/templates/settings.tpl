@@ -2,36 +2,6 @@
     
     <div id="save_settings"></div>
     
-    <p class="name">General</p>
-    
-    <div class="grid">
-        
-        <div class="row">
-            
-            <div class="label">
-                <label for="sbplus_gs_widget">Hide Notes/Widgets area by default</label>
-            </div>
-            
-            <div class="control">
-                <input type="checkbox" id="sbplus_gs_widget" value="0" />
-            </div>
-            
-        </div>
-        
-        <div class="row">
-            
-            <div class="label">
-                <label for="sbplus_gs_sidebar">Hide Table of Contents by default</label>
-            </div>
-            
-            <div class="control">
-                <input type="checkbox" id="sbplus_gs_sidebar" value="0" />
-            </div>
-            
-        </div>
-        
-    </div>
-    
     <p class="name">Video & Audio Player</p>
     
     <div class="grid">
