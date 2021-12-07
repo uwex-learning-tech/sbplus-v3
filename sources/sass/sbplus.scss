@@ -1762,45 +1762,6 @@ body {
     
 } // end main wrapper
 
-// .sbplus_boxed {
-
-//     #sbplus {
-        
-//         #sbplus_content_wrapper {
-            
-//             #sbplus_left_col {
-                
-//                 #sbplus_widget {
-//                     border-left: 1px solid $border-color;
-//                     border-right: 1px solid $border-color;
-//                 }
-                
-//             }
-            
-//             #sbplus_right_col {
-
-//                 overflow-x: hidden;
-//                 overflow-y: auto;
-//                 border-right: 1px solid $border-color;
-                
-//                 #sbplus_table_of_contents_wrapper {
-//                     border-left: 1px solid $border-color;
-//                 }
-                
-//             }
-            
-//         }
-        
-//         #sbplus_control_bar {
-//             border-left: 1px solid $border-color;
-//             border-top: 1px solid $border-color;
-//             border-bottom: 1px solid $border-color;
-//         }
-        
-//     }
-    
-// }
-
 $cntrlBarHeight: 50px;
 $titleBarHeight: 30px;
 
@@ -1885,9 +1846,6 @@ $titleBarHeight: 30px;
             }
 
             #sbplus_banner_bar {
-                
-                height: $titleBarHeight;
-                font-size: 120%;
                 
                 #sbplus_lession_title {
                     display: block;
@@ -2028,11 +1986,11 @@ $titleBarHeight: 30px;
                 
                 flex-flow: row nowrap;
                 @include calc( height, '100% - ' + $titleBarHeight );
+                flex: unset;
                 
                 #sbplus_left_col {
                 
                     width: 640px;
-                    height: 100%;
                     flex: unset;
                     
                     #sbplus_widget {
@@ -2058,9 +2016,7 @@ $titleBarHeight: 30px;
                 #sbplus_right_col {
 
                     width: 258px;
-                    height: 100%;
-                    overflow-x: hidden;
-                    overflow-y: auto;
+                    flex: 2 0 auto;
 
                     #sbplus_sub_bar {
                         display: block;
@@ -2197,6 +2153,8 @@ $titleBarHeight: 30px;
 
 .loaded-in-iframe {
     
+    margin: 0;
+
     #copyright-footer {
         display: none;
     }

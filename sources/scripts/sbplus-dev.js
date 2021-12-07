@@ -2259,13 +2259,7 @@ var SBPLUS = SBPLUS || {
     },
     
     resize: function() {
-        
         this.calcLayout();
-            
-        if ( this.layout.isMobile ) {
-            this.showSidebar();
-        }
-        
     },
     
     getUrlParam: function( name ) {
