@@ -29,18 +29,6 @@
 .icon-forward:before {
   content: "\e901";
 }
-.icon-sidebar-close:before {
-  content: "\e90a";
-}
-.icon-sidebar-open:before {
-  content: "\e90b";
-}
-.icon-widget-open:before {
-  content: "\e90c";
-}
-.icon-widget-close:before {
-  content: "\e90d";
-}
 .icon-profile:before {
   content: "\eb08";
 }
@@ -58,9 +46,6 @@
 }
 .icon-download:before {
   content: "\ec73";
-}
-.icon-swipe-left-right:before {
-  content: "\ed2f";
 }
 .icon-help:before {
   content: "\ed53";

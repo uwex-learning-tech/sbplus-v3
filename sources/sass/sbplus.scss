@@ -511,6 +511,7 @@ body {
             #sbplus_left_col {
 
                 display: flex;
+                position: relative;
                 flex-flow: column nowrap;
                 flex: 2 0 auto;
 
@@ -626,10 +627,9 @@ body {
                         
                         width: 100%;
                         height: auto;
-                        color: #fff;
-                        
-                        display: flex;
-                        flex-flow: column nowrap;
+                        color: #fff;                        
+                        // display: flex;
+                        // flex-flow: column nowrap;
                         animation-duration: 0.5s;
                         
                         .animated {
@@ -681,8 +681,9 @@ body {
                         // VideoJS
                         
                         #mp_html5_api {
-                            animation-duration: 0.75s;
+                            @include calc(height, '100% - ' + 33px );
                             position: relative;
+                            animation-duration: 0.75s;
                         }
                         
                         #mp_Youtube_api {
@@ -702,6 +703,8 @@ body {
                             
                             .vjs-poster {
                                 
+                                background-position: 50% 0;
+
                                 img {
                                     position: absolute;
                                     width: 100%;
@@ -713,7 +716,9 @@ body {
                             
                             .vjs-control-bar {
                                 
+                                display: flex;
                                 position: relative;
+                                top: -2px;
                                 background-color: $default-accent;
                                 z-index: 3;
                                 
@@ -887,9 +892,20 @@ body {
                     overflow-y: auto;
                     
                     .sbplus_quiz_header {
-                        padding: 8px;
-                        font-size: 12px;
+
+                        display: flex;
+                        align-items: center;
+                        height: 20px;
+                        padding: 0 8px;
+                        @include font-size( 12px );
+                        line-height: normal;
                         background-color: $border-color;
+
+                        span {
+                            display: inline-block;
+                            margin-right: 5px;
+                        }
+
                     }
                     
                     .quiz_error {
@@ -1762,9 +1778,6 @@ body {
     
 } // end main wrapper
 
-$cntrlBarHeight: 50px;
-$titleBarHeight: 30px;
-
 @media only screen
     and ( min-device-width: 768px )
     and ( min-width: 900px ) {
@@ -1986,18 +1999,26 @@ $titleBarHeight: 30px;
                 
                 flex-flow: row nowrap;
                 @include calc( height, '100% - ' + $titleBarHeight );
-                flex: unset;
+                border: 1px solid $border-color;
+                border-top: none;
                 
                 #sbplus_left_col {
                 
                     width: 640px;
                     flex: unset;
                     
+                    #sbplus_media_wrapper {
+
+                        .sbplus_media_content {
+                            height: 393px;
+                        }
+
+                    }
+
                     #sbplus_widget {
 
                         position: relative;
-                        flex: unset;
-                        height: 158.17px;
+                        @include calc( height, '100% - ' + 393px );
 
                         .widget_controls_bar {
                             position: absolute;
@@ -2016,6 +2037,7 @@ $titleBarHeight: 30px;
                 #sbplus_right_col {
 
                     width: 258px;
+                    border-left: 1px solid $border-color;
                     flex: 2 0 auto;
 
                     #sbplus_sub_bar {

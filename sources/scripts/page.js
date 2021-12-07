@@ -90,17 +90,17 @@ Page.prototype.getPageMedia = function() {
     
     $( self.mediaContent ).removeClass( 'iframeEmbed' ).empty();
     
-    if ( SBPLUS.hasStorageItem( 'sbplus-' + SBPLUS.presentationLoc + '-previously-widget-open', true ) ) {
+    // if ( SBPLUS.hasStorageItem( 'sbplus-' + SBPLUS.presentationLoc + '-previously-widget-open', true ) ) {
         
-        if ( SBPLUS.getStorageItem( 'sbplus-' + SBPLUS.presentationLoc + '-previously-widget-open', true ) === '1' ) {
+    //     if ( SBPLUS.getStorageItem( 'sbplus-' + SBPLUS.presentationLoc + '-previously-widget-open', true ) === '1' ) {
             
-            SBPLUS.showWidget();
+    //         SBPLUS.showWidget();
             
-        }
+    //     }
         
-        SBPLUS.deleteStorageItem( 'sbplus-' + SBPLUS.presentationLoc + '-previously-widget-open', true );
+    //     SBPLUS.deleteStorageItem( 'sbplus-' + SBPLUS.presentationLoc + '-previously-widget-open', true );
         
-    }
+    // }
     
     self.gaEventHalfway = false;
     SBPLUS.clearGATimeout();
