@@ -164,6 +164,7 @@ var SBPLUS = SBPLUS || {
         this.button = {
             start: '#sbplus_start_btn',
             resume: '#sbplus_resume_btn',
+            notes: '#sbplus_new_note_btn',
             downloadWrapper: '#sbplus_download_btn_wrapper',
             download: '#sbplus_download_btn',
             downloadMenu: '#sbplus_download_btn .menu-parent .downloadFiles',
@@ -924,7 +925,7 @@ var SBPLUS = SBPLUS || {
                     self.downloads[fileLabel] = { 'fileName': fileName, 'fileFormat': file.format, 'url': this.url };
                     
                     $( self.splash.downloadBar ).append(
-                        '<a href="' + this.url + '" tabindex="1" download="' + fileName + '.' + file.format + '" aria-label="Download ' + fileLabel + ' file" onclick="SBPLUS.sendToGA( \'' + fileLabel + 'Link\', \'click\', \'' + fileName + '\', 4, 0 );"><span class="icon-download"></span> ' + file.label + '</a>' );
+                        '<a href="' + this.url + '" tabindex="1" download="' + fileName + '.' + file.format + '" aria-label="Download ' + fileLabel + ' file" onclick="SBPLUS.sendToGA( \'' + fileLabel + 'Link\', \'click\', \'' + fileName + '\', 4, 0 );"><span class="icon-download"></span>' + file.label + '</a>' );
                 } );
                 
             } );
@@ -2108,10 +2109,10 @@ var SBPLUS = SBPLUS || {
         
         if ( self.hasWidgetContent() ) {
             
-            //self.showWidgetContentIndicator();
             $( self.layout.widget ).removeClass('noSegments');
             $( self.widget.content ).css( 'background-image', '' );
             $( this.screenReader.hasNotes ).html( 'This page contains notes.' );
+            $( self.button.notes ).prop( 'disabled', false ).addClass( 'hasNotes' );
             
             var target = '';
             var targetId = '';
@@ -2136,9 +2137,9 @@ var SBPLUS = SBPLUS || {
             
         } else {
             
-            //this.hideWidgetContentIndicator();
             $( this.screenReader.hasNotes ).empty();
             $( this.layout.widget ).addClass('noSegments');
+            $( self.button.notes ).prop( 'disabled', true ).removeClass( 'hasNotes' );
 
             // show logo
             if ( !self.isEmpty( self.logo ) ) {

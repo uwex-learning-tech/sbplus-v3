@@ -125,6 +125,10 @@
             <!-- control bar -->
             <div id="sbplus_control_bar">
         
+                <button id="sbplus_new_note_btn" title="View Notes" tabindex="1" aria-label="View Notes">
+                    <span class="icon-notes"></span> View Notes
+                </button>
+
                 <div id="sbplus_page_status">
                     <div tabindex="1">
                         Page <span class="current">#</span> of 

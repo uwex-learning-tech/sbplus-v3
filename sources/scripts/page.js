@@ -90,18 +90,6 @@ Page.prototype.getPageMedia = function() {
     
     $( self.mediaContent ).removeClass( 'iframeEmbed' ).empty();
     
-    // if ( SBPLUS.hasStorageItem( 'sbplus-' + SBPLUS.presentationLoc + '-previously-widget-open', true ) ) {
-        
-    //     if ( SBPLUS.getStorageItem( 'sbplus-' + SBPLUS.presentationLoc + '-previously-widget-open', true ) === '1' ) {
-            
-    //         SBPLUS.showWidget();
-            
-    //     }
-        
-    //     SBPLUS.deleteStorageItem( 'sbplus-' + SBPLUS.presentationLoc + '-previously-widget-open', true );
-        
-    // }
-    
     self.gaEventHalfway = false;
     SBPLUS.clearGATimeout();
     
@@ -1143,7 +1131,10 @@ Page.prototype.renderVideoJS = function( src ) {
         // add forward and backward buttons
 
         addForwardButton( player );
-        addBackwardButton( player ); 
+        addBackwardButton( player );
+
+        // add expand/contract button
+        addExpandContractButton( player );
             
     } );
     
@@ -1429,6 +1420,44 @@ function addBackwardButton( vjs ) {
     videojs.registerComponent( 'BackwardBtn', backwardBtn );
     vjs.getChild( 'controlBar' ).addChild( 'BackwardBtn', {}, 1 );
     
+}
+
+function addExpandContractButton( vjs ) {
+
+    let Button = videojs.getComponent( 'Button' );
+    let expandContractBtn = videojs.extend( Button, {
+        constructor: function( player, options ) {
+            
+            Button.call( this, player, options );
+            this.el().setAttribute( 'aria-label','Expand/Contract' );
+            this.controlText( 'Expand/Contract' );
+
+            if (document.querySelector( SBPLUS.layout.sbplus ).classList.contains( 'sbplus-vjs-expanded' )) {
+                vjs.addClass( 'sbplus-vjs-expanded' );
+            }
+
+        },
+        handleClick: function() {
+            
+            if ( vjs.hasClass( 'sbplus-vjs-expanded' ) ) {
+                vjs.removeClass( 'sbplus-vjs-expanded' );
+                document.querySelector( SBPLUS.layout.sbplus ).classList.remove( 'sbplus-vjs-expanded' );
+            } else {
+                vjs.addClass( 'sbplus-vjs-expanded' );
+                document.querySelector( SBPLUS.layout.sbplus ).classList.add( 'sbplus-vjs-expanded' );
+            }
+            
+        },
+        
+        buildCSSClass: function() {
+            return 'vjs-expand-contract-button vjs-control vjs-button';
+        }
+        
+    } );
+
+    videojs.registerComponent( 'ExpandContractBtn', expandContractBtn );
+    vjs.getChild( 'controlBar' ).addChild( 'ExpandContractBtn', {}, 10 );
+
 }
 
 function sendKAnalytics(type, id, source, duration) {
