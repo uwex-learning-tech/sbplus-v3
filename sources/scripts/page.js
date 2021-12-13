@@ -631,7 +631,7 @@ Page.prototype.loadKalturaVideoData = function () {
 
                             captions.forEach( caption => {
 
-                                if ( caption.label.toLowerCase() != "English (autocaption)" ) {
+                                if ( caption.label.toLowerCase() != "english (autocaption)" ) {
 
                                     self.captionUrl.push( {
                                         kind: 'captions',
