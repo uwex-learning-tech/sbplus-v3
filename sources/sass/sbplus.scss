@@ -51,9 +51,9 @@ $font-size: 16px;
 }
 
 @mixin calc( $property, $expression ) {
-    #{$property}: -moz-calc(#{$expression});
-    #{$property}: -webkit-calc(#{$expression});
-    #{$property}: calc(#{$expression});
+    #{$property}: -moz-calc(#{$expression}) !important;
+    #{$property}: -webkit-calc(#{$expression}) !important;
+    #{$property}: calc(#{$expression}) !important;
 }
 
 @mixin aspect-ratio( $width, $height ) {
@@ -65,14 +65,6 @@ $font-size: 16px;
         content: "";
         width: 100%;
         padding-top: ( math.div($height, $width) ) * 100%;
-    }
-    
-    > .sbplus_media_content {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
     }
     
 }
@@ -637,9 +629,7 @@ body {
                         
                         width: 100%;
                         height: auto;
-                        color: #fff;                        
-                        // display: flex;
-                        // flex-flow: column nowrap;
+                        color: #fff;
                         animation-duration: 0.5s;
                         
                         .animated {
@@ -696,8 +686,14 @@ body {
                             animation-duration: 0.75s;
                         }
                         
-                        #mp_Youtube_api {
+                        #mp_youtube_api {
                             animation-duration: 0.75s;
+                            @include calc(height, '100% - ' + 33px );
+                            position: relative;
+                        }
+
+                        .video-js.vjs-youtube {
+                            @include aspect-ratio( 16, 9 );
                         }
                         
                         .video-js.vjs-default-skin {
@@ -727,8 +723,8 @@ body {
                             .vjs-control-bar {
                                 
                                 display: flex;
-                                position: relative;
-                                top: -2px;
+                                position: absolute;
+                                bottom: 0;
                                 background-color: $default-accent;
                                 z-index: 3;
                                 

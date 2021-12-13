@@ -183,11 +183,11 @@
             <note />
         </page>
         
-        <page type="youtube" src="4tyuIh12_HU" title="Video from YouTube" transition="" preventAutoplay="false" useDefaultPlayer="true">
-            <note><![CDATA[Release on July <strong>02</strong>, 2019!]]></note>
+        <page type="youtube" src="zTTtd6bnhFs" title="Video from YouTube" transition="" preventAutoplay="false" useDefaultPlayer="true">
+            <note><![CDATA[Release on December <strong>7th</strong>, 2021!]]></note>
             <widget>
-                <segment name="New Jobs">Dancer and Gunbreaker!!!</segment>
-                <segment name="New Races">The Hrothgar and the Viera!!!</segment>
+                <segment name="New Jobs">Reaper and Sage!!!</segment>
+                <segment name="New Races">Male Viera!!!</segment>
                 <segment name="New Dungeons &amp; Raids">Many more of them!!!</segment>
             </widget>
         </page>
