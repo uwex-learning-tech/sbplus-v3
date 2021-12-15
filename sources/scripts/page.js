@@ -1188,8 +1188,8 @@ Page.prototype.setWidgets = function() {
                 SBPLUS.addSegment( name );
                 
             } );
-            
-        }
+ 
+        } 
         
         SBPLUS.selectFirstSegment();
         
@@ -1457,7 +1457,7 @@ function addExpandContractButton( vjs ) {
 
     videojs.registerComponent( 'ExpandContractBtn', expandContractBtn );
     vjs.getChild( 'controlBar' ).addChild( 'ExpandContractBtn', {}, 10 );
-
+    
 }
 
 function sendKAnalytics(type, id, source, duration) {

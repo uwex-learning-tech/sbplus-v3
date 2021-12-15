@@ -2120,7 +2120,16 @@ var SBPLUS = SBPLUS || {
             $( self.layout.widget ).removeClass('noSegments');
             $( self.widget.content ).css( 'background-image', '' );
             $( this.screenReader.hasNotes ).html( 'This page contains notes.' );
-            $( self.button.notes ).prop( 'disabled', false ).addClass( 'hasNotes' );
+            $( self.button.notes ).prop( 'disabled', false );
+
+            $( self.button.notes ).on( 'click', function() {
+                
+                if ( self.currentPage.mediaPlayer != null && self.currentPage.mediaPlayer.hasClass( 'sbplus-vjs-expanded' ) ) {
+                    self.currentPage.mediaPlayer.removeClass( 'sbplus-vjs-expanded' );
+                    document.querySelector( SBPLUS.layout.sbplus ).classList.remove( 'sbplus-vjs-expanded' );
+                }
+        
+            } );
             
             var target = '';
             var targetId = '';
@@ -2147,7 +2156,7 @@ var SBPLUS = SBPLUS || {
             
             $( this.screenReader.hasNotes ).empty();
             $( this.layout.widget ).addClass('noSegments');
-            $( self.button.notes ).prop( 'disabled', true ).removeClass( 'hasNotes' );
+            $( self.button.notes ).prop( 'disabled', true );
 
             // show logo
             if ( !self.isEmpty( self.logo ) ) {
