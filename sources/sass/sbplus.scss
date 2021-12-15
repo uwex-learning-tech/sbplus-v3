@@ -1315,7 +1315,7 @@ body {
                 #sbplus_table_of_contents_wrapper {
                     
                     display: none;
-                    @include calc( height, '100% - ' + 100px );
+                    @include calc( height, '100% - ' + 90px );
                     overflow-y: auto;
                     background-color: #fff;
                     
@@ -1465,6 +1465,7 @@ body {
                 padding: 5px $gutter;
                 border-top: 1px solid $border-color;
                 border-bottom: 1px solid $border-color;
+                font-weight: bold;
             }
 
             .controls {
@@ -2194,7 +2195,7 @@ body {
                 
                 #sbplus_page_status {
                     @include font-size( 12px );
-                    font-weight: bold;
+                    height: 20px;
                     border-top-width: 2px;
                 }
 
