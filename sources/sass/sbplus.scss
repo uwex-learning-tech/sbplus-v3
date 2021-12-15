@@ -249,7 +249,7 @@ body {
                 
                 width: 90%;
                 margin: ($gutter * 4) auto 0;
-                padding: ($gutter * 2);
+                padding: ($gutter * 3) ($gutter * 2);
                 text-align: center;
                 background-color: rgba( 255, 255, 255, 0.75 );
                 border-radius: 8px;
@@ -282,8 +282,10 @@ body {
                         margin-top: $gutter * 2;
 
                         button {
+                            display: block;
+                            margin: 0 auto;
                             color: #fff;
-                            width: 100%;
+                            width: 36%;
                             min-height: unset;
                             padding: $gutter 0;
                             border-radius: 25px;
@@ -343,11 +345,12 @@ body {
                 width: 100%;
                 flex: 1 0 auto;
                 display: flex;
-                align-items: center;
+                padding: ($gutter * 6) 0;
+                align-items: flex-start;
 
                 img {
                     display: block;
-                    width: 35%;
+                    width: 385px;
                     height: auto;
                     margin: 0 auto;
                     filter: invert(100%);
@@ -1193,7 +1196,7 @@ body {
                         height: 100%;
                         overflow-y: auto;
                         background-image: none;
-                        word-break: break-all;
+                        word-break: break-word;
                         animation-duration: 0.5s;
                         
                         h1, h2, h3, h4, h5, h6, p, blockquote {
@@ -1919,14 +1922,15 @@ body {
 
                         .sb_duration {
                             padding: 0 ($gutter * 4);
-                            flex: 1 0 auto;
+                            flex: 1 0 25%;
+                            text-align: right;
                         }
 
                         .sb_cta {
                         
                             display: flex;
                             flex-flow: column;
-                            flex: 2 0 35%;
+                            flex: 2 0 30%;
                             padding: 0 ($gutter * 4);
                             border-left: 1px solid $border-color;
                             border-right: 1px solid $border-color;
@@ -1934,18 +1938,25 @@ body {
 
                             button {
 
+                                width: 100%;
+
                                 &:last-child {
                                     margin: 0;
                                 }
                                 
+                            }
+
+                            &.no_downloads {
+                                border-right: none;
                             }
                             
                         }
 
                         .sb_downloads {
 
+
                             text-align: left;
-                            flex: 1 0 auto;
+                            flex: 1 0 25%;
                             padding: 0 ($gutter * 4);
                             margin: 0;
 
@@ -1953,6 +1964,11 @@ body {
 
                     }
                     
+                }
+
+                #sb_splash_logo {
+                    padding: 0;
+                    align-items: center;
                 }
 
             }

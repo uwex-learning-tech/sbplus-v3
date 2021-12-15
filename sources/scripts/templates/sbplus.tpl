@@ -21,7 +21,7 @@
             <div class="sb_context">
 
                 <p class="sb_duration" tabindex="1"></p>
-                <p class="sb_cta">
+                <p id="splash_cta" class="sb_cta">
                     <button id="sbplus_start_btn" tabindex="1" aria-label="Start presentation">Start</button>
                     <button id="sbplus_resume_btn" tabindex="1" aria-label="Resume presentation">Resume</button>
                 </p>

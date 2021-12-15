@@ -135,6 +135,7 @@ var SBPLUS = SBPLUS || {
         
         // set HTML splashscreen classes and IDs
         this.splash = {
+            cta: '#splash_cta',
             screen: '#sbplus_splash_screen',
             background: '#sb_splash_bg',
             title: '#sbplus_presentation_info .sb_title',
@@ -926,6 +927,13 @@ var SBPLUS = SBPLUS || {
                     
                     $( self.splash.downloadBar ).append(
                         '<a href="' + this.url + '" tabindex="1" download="' + fileName + '.' + file.format + '" aria-label="Download ' + fileLabel + ' file" onclick="SBPLUS.sendToGA( \'' + fileLabel + 'Link\', \'click\', \'' + fileName + '\', 4, 0 );"><span class="icon-download"></span>' + file.label + '</a>' );
+
+                } ).always( function() {
+
+                    if ( Object.keys(self.downloads).length <= 0 ) {
+                        $( self.splash.cta ).addClass( 'no_downloads' );
+                    }  
+
                 } );
                 
             } );
