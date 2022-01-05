@@ -2269,6 +2269,14 @@ body {
         
                     }
 
+                    #sbplus_left_col {
+
+                        #sbplus_quiz_wrapper {
+                            border-bottom: 1px solid $border-color;
+                        }
+
+                    }
+
                     #sbplus_right_col {
 
                         position: relative;
@@ -2297,6 +2305,7 @@ body {
                                 flex: 2 0 auto;
                                 @include font-size( 14px );
                                 background-color: #fff;
+                                height: unset;
                             }
 
                             .controls {
