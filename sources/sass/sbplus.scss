@@ -33,7 +33,7 @@
 @import "../fonts/sbplus_fonts.css";
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
-$cntrlBarHeight: 50px;
+$cntrlBarHeight: 46px;
 $titleBarHeight: 30px;
 $gutter: 10px;
 $font-size-base: 16px;
@@ -642,8 +642,9 @@ body {
                         
                         // html/iframe
                         .html {
+                            display: block;
                             width: 100%;
-                            height: 100%;
+                            height: 360px;
                             background-color: #fff;
                         }
                         
@@ -676,6 +677,7 @@ body {
                         
                         // Image
                         .img_only {
+                            display: block;
                             width: 100%;
                             height: auto;
                             object-fit: contain;
@@ -695,6 +697,10 @@ body {
                             position: relative;
                         }
 
+                        #mp_vimeo_api {
+                            animation-duration: 0.75s;
+                        }
+
                         .video-js.vjs-youtube {
                             @include aspect-ratio( 16, 9 );
                         }
@@ -706,6 +712,10 @@ body {
                             font-size: 11px;
                             color: #fff;
                             
+                            &.vjs-vimeo-tech {
+                                height: 360px;
+                            }
+
                             button:hover {
                                 color: #fff;
                             }
@@ -908,6 +918,53 @@ body {
                                     content: '\e014';
                                 }
                                 
+                            }
+
+                        }
+
+                        .sbplus_secondary_controls {
+
+                            display: flex;
+                            flex-flow: row nowrap;
+                            align-items: center;
+                            justify-content: flex-end;
+                            width: 100%;
+                            height: 33px;
+                            background-color: $default-accent;
+                            position: relative;
+                            z-index: 1;
+
+                            #expand_contract_btn {
+
+                                position: relative;
+                                width: 44px;
+                                height: 33px;
+                                min-width: unset;
+                                min-height: unset;
+
+                                &.expanded {
+                                    &:before {
+                                        content: '\e014';
+                                    }
+                                }
+
+                                &:before {
+                                    position: absolute;
+                                    top: 0;
+                                    left: 0;
+                                    width: 100%;
+                                    height: 100%;;
+                                    font-family: "sbplus";
+                                    font-size: 20px;
+                                    line-height: 1.67;
+                                    text-align: center;
+                                    content: '\e015';
+                                }
+
+                            }
+
+                            &.hidden {
+                                display: none;
                             }
 
                         }
@@ -1315,7 +1372,7 @@ body {
                 #sbplus_table_of_contents_wrapper {
                     
                     display: none;
-                    @include calc( height, '100% - ' + 90px );
+                    @include calc( height, '100% - ' + 86px );
                     overflow-y: auto;
                     background-color: #fff;
                     
@@ -2258,7 +2315,25 @@ body {
                         #sbplus_media_wrapper {
 
                             .sbplus_media_content {
+
                                 height: 539.25px;
+
+                                &.iframeEmbed {
+
+                                    overflow: hidden;
+
+                                    .html {
+                                        height: calc(100% - 33px);
+                                    }
+
+                                }
+                                
+                                .video-js.vjs-default-skin {
+                                    &.vjs-vimeo-tech {
+                                        height: calc(100% - 33px);
+                                    }
+                                }
+                                
                             }
 
                         }
@@ -2289,7 +2364,7 @@ body {
                             bottom: 0;
                             left: 0;
                             width: 100%;
-                            height: 46px;
+                            height: $cntrlBarHeight;
                             flex-flow: row nowrap;
                             z-index: 999;
 
@@ -2311,6 +2386,7 @@ body {
                             .controls {
                                 height: unset;
                                 flex: 1 0 15%;
+                                max-width: 257px;
                             }
 
                         }

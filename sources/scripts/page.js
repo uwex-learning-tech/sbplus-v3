@@ -95,6 +95,8 @@ Page.prototype.getPageMedia = function() {
     
     $(SBPLUS.layout.mediaMsg).addClass( 'hide' ).html('');
     
+    removeSecondaryControls();
+
     // show copy to clipboard button if applicable
     self.showCopyBtn();
     
@@ -215,6 +217,7 @@ Page.prototype.getPageMedia = function() {
             
             $( self.mediaContent ).html( '<img src="' + img.src + '" class="img_only" alt="' + img.alt + '" />' ).promise().done( function() {
                 self.setWidgets();
+                addSecondaryControls();
             } );
             
             self.gaEventCate = 'Image';
@@ -294,11 +297,12 @@ Page.prototype.getPageMedia = function() {
         
         case 'vimeo':
 
-            $( self.mediaContent ).html( '<video id="mp" class="video-js vjs-default-skin"></video>' ).promise().done( function() {
+            $( self.mediaContent ).html( '<video id="mp" class="video-js vjs-default-skin vjs-vimeo-tech"></video>' ).promise().done( function() {
                 
                 self.isVimeo = true;
                 self.renderVideoJS();
                 self.setWidgets();
+                addSecondaryControls();
                 
             } );
 
@@ -428,6 +432,7 @@ Page.prototype.getPageMedia = function() {
             }
             
             self.setWidgets();
+            addSecondaryControls();
             
             self.gaEventCate = 'HTML';
             self.gaEventLabel = SBPLUS.getCourseDirectory() + ':html:page' + SBPLUS.targetPage.data('count');
@@ -1458,6 +1463,49 @@ function addExpandContractButton( vjs ) {
     videojs.registerComponent( 'ExpandContractBtn', expandContractBtn );
     vjs.getChild( 'controlBar' ).addChild( 'ExpandContractBtn', {}, 10 );
     
+}
+
+function toggleExpandContractView(evt) {
+
+    const layout = document.querySelector( SBPLUS.layout.sbplus );
+
+    if ( layout.classList.contains( 'sbplus-vjs-expanded' ) ) {
+        evt.target.classList.remove( 'expanded' );
+        layout.classList.remove( 'sbplus-vjs-expanded' );
+    } else {
+        evt.target.classList.add( 'expanded' )
+        layout.classList.add( 'sbplus-vjs-expanded' );
+    }
+
+}
+
+function addSecondaryControls() {
+
+    const secondaryControlDiv = document.createElement( 'div' );
+    secondaryControlDiv.classList.add( 'sbplus_secondary_controls' );
+1
+    const expandContractBtn = document.createElement( 'button' );
+    expandContractBtn.setAttribute( 'id', 'expand_contract_btn' );
+    expandContractBtn.setAttribute( 'title', 'Expand/Contract' );
+    expandContractBtn.setAttribute( 'aria-label', 'Expand/Contract' );
+    expandContractBtn.setAttribute( 'tabindex', '1' );
+
+    secondaryControlDiv.appendChild(expandContractBtn);
+    secondaryControlDiv.addEventListener( 'click', toggleExpandContractView );
+
+    $( SBPLUS.layout.mediaContent ).append( secondaryControlDiv );
+
+}
+
+function removeSecondaryControls() {
+
+    const secondaryControlsDiv = document.querySelector( '.sbplus_secondary_controls' );
+
+    if ( secondaryControlsDiv ) {
+        const expandBtn = document.querySelector( '#expand_contract_btn' );
+        expandBtn.removeEventListener( 'click', toggleExpandContractView );
+    }
+
 }
 
 function sendKAnalytics(type, id, source, duration) {
