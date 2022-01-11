@@ -924,15 +924,16 @@ body {
 
                         .sbplus_secondary_controls {
 
-                            display: flex;
+                            display: none;
                             flex-flow: row nowrap;
                             align-items: center;
                             justify-content: flex-end;
                             width: 100%;
                             height: 33px;
                             background-color: $default-accent;
-                            position: relative;
+                            position: absolute;
                             z-index: 1;
+                            bottom: 0;
 
                             #expand_contract_btn {
 
@@ -2169,6 +2170,10 @@ body {
 
                             height: 393px;
 
+                            .sbplus_secondary_controls {
+                                display: flex;
+                            }
+
                             .video-js.vjs-default-skin {
 
                                 .vjs-control-bar {
@@ -2323,7 +2328,10 @@ body {
                                     overflow: hidden;
 
                                     .html {
-                                        height: calc(100% - 33px);
+                                        width: 640px;
+                                        height: 360px;
+                                        transform-origin: 0 0;
+                                        transform: scale(1.40625);
                                     }
 
                                 }
