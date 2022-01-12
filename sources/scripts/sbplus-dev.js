@@ -2307,7 +2307,7 @@ var SBPLUS = SBPLUS || {
     
     sanitize: function( str ) {
     
-        return str.replace(/[^\w]/gi, '').toLowerCase();
+        return str.replace(/[^\w.]/gi, '').toLowerCase();
     
     },
     
