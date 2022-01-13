@@ -1490,7 +1490,7 @@ function addSecondaryControls( noAudio = false ) {
 
         const noAudioLabelEl = document.createElement( 'div' );
         noAudioLabelEl.classList.add( 'no_audio_label' );
-        noAudioLabelEl.innerHTML = 'This page contains no audio.';
+        noAudioLabelEl.innerHTML = 'This slide is not narrated.';
         secondaryControlDiv.appendChild( noAudioLabelEl );
 
     }

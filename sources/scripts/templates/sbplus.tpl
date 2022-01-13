@@ -37,9 +37,9 @@
     </div> <!-- Splash screen END -->
     
     <div class="sr-page-status" tabindex="1">
-        You are currently on page 
+        You are currently on slide 
         <span class="sr-current-page" >#</span> of <span class="sr-total-pages">#</span>: 
-        <span class="sr-page-title">Page title</span>. <span class="sr-has-notes"></span>
+        <span class="sr-page-title">Slide title</span>. <span class="sr-has-notes"></span>
     </div>
     
     <!-- Banner (black title) bar -->
@@ -131,7 +131,7 @@
 
                 <div id="sbplus_page_status">
                     <div tabindex="1">
-                        Page <span class="current">#</span> of 
+                        Slide <span class="current">#</span> of 
                         <span class="total">#</span>
                     </div>
                 </div>

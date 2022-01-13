@@ -936,10 +936,15 @@ body {
                             bottom: 0;
 
                             .no_audio_label {
-                                text-align: center;
-                                flex: 2 0 auto;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                width: 100%;
+                                height: 100%;
+                                position: absolute;
                                 font-size: rem( 12px );
                                 font-style: italic;
+                                user-select: none;
                             }
 
                             #expand_contract_btn {
