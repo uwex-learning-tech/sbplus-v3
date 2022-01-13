@@ -217,7 +217,7 @@ Page.prototype.getPageMedia = function() {
             
             $( self.mediaContent ).html( '<img src="' + img.src + '" class="img_only" alt="' + img.alt + '" />' ).promise().done( function() {
                 self.setWidgets();
-                addSecondaryControls();
+                addSecondaryControls( true );
             } );
             
             self.gaEventCate = 'Image';
@@ -416,6 +416,7 @@ Page.prototype.getPageMedia = function() {
                 } else {
 
                     $( self.mediaContent ).html( iframe );
+                    addSecondaryControls( true );
 
                 }
                 
@@ -432,7 +433,6 @@ Page.prototype.getPageMedia = function() {
             }
             
             self.setWidgets();
-            addSecondaryControls();
             
             self.gaEventCate = 'HTML';
             self.gaEventLabel = SBPLUS.getCourseDirectory() + ':html:page' + SBPLUS.targetPage.data('count');
@@ -1479,11 +1479,22 @@ function toggleExpandContractView(evt) {
 
 }
 
-function addSecondaryControls() {
+function addSecondaryControls( noAudio = false ) {
+
+    noAudio = typeof noAudio !== 'undefined' ? noAudio : false;
 
     const secondaryControlDiv = document.createElement( 'div' );
     secondaryControlDiv.classList.add( 'sbplus_secondary_controls' );
-1
+
+    if ( noAudio ) {
+
+        const noAudioLabelEl = document.createElement( 'div' );
+        noAudioLabelEl.classList.add( 'no_audio_label' );
+        noAudioLabelEl.innerHTML = 'This page contains no audio.';
+        secondaryControlDiv.appendChild( noAudioLabelEl );
+
+    }
+
     const expandContractBtn = document.createElement( 'button' );
     expandContractBtn.setAttribute( 'id', 'expand_contract_btn' );
     expandContractBtn.setAttribute( 'title', 'Expand/Contract' );

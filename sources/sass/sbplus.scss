@@ -935,6 +935,13 @@ body {
                             z-index: 1;
                             bottom: 0;
 
+                            .no_audio_label {
+                                text-align: center;
+                                flex: 2 0 auto;
+                                font-size: rem( 12px );
+                                font-style: italic;
+                            }
+
                             #expand_contract_btn {
 
                                 position: relative;
