@@ -145,6 +145,10 @@
                     <button id="sbplus_next_btn" title="Next" tabindex="1" aria-label="Next">
                         <span class="icon-right"></span>
                     </button>
+
+                    <button id="mobile_toc_toggle_btn" title="Toggle Table of Contents" tabindex="1" aria-label="Toggle Table of Contents">
+                        <span class="icon-contents"></span>
+                    </button>
                     
                     <div id="sbplus_download_btn_wrapper">
                         

@@ -110,3 +110,7 @@
 .icon-notes:before {
   content: "\e013";
 }
+
+.icon-contents:before {
+  content: "\e016";
+}

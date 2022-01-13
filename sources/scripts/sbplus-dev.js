@@ -129,6 +129,7 @@ var SBPLUS = SBPLUS || {
         
         // set HTML banner classes and IDs
         this.banner = {
+            bar: '#sbplus_banner_bar',
             title: '#sbplus_lession_title',
             author: '#sbplus_author_name'
         };
@@ -173,7 +174,8 @@ var SBPLUS = SBPLUS || {
             menu: '#sbplus_menu_btn',
             menuClose: '#sbplus_menu_close_btn',
             next: '#sbplus_next_btn',
-            prev: '#sbplus_previous_btn'
+            prev: '#sbplus_previous_btn',
+            mobileTocToggle: '#mobile_toc_toggle_btn'
         };
         
         // set HTML menu classes and IDs
@@ -948,7 +950,7 @@ var SBPLUS = SBPLUS || {
                 var textColor = self.colorContrast( self.xml.settings.accent );
                 
                 // construct the CSS
-                var style = '.sbplus_wrapper button:hover{color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_context .sb_cta button{color:' + textColor  + ';background-color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_context .sb_cta button:hover{background-color:' + hover + '}.sbplus_wrapper #sbplus #sbplus_banner_bar{background-color:' + self.xml.settings.accent + ';color:' + textColor + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col .list .item:hover{color:' + textColor + ';background-color:' + hover + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col .list .sb_selected{color:' + textColor + ';background-color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col #sbplus_table_of_contents_wrapper .section .current{border-left-color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_control_bar .controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu .menu-item:hover,.sbplus_wrapper #sbplus #sbplus_control_bar .controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu .menu-item:hover{background-color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_control_bar .controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu .menu-item:hover a,.sbplus_wrapper #sbplus #sbplus_control_bar .controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu .menu-item:hover a{color:' + textColor + '}.sbplus_wrapper #sbplus #sbplus_control_bar .controls #sbplus_download_btn_wrapper #sbplus_download_btn .active, .sbplus_wrapper #sbplus #sbplus_control_bar .controls #sbplus_download_btn_wrapper .root-level .active{color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_control_bar .controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu .menu-item:focus,.sbplus_wrapper #sbplus #sbplus_control_bar .controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu .menu-item:focus{background-color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_control_bar .controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu .menu-item:focus a,.sbplus_wrapper #sbplus #sbplus_control_bar .controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu .menu-item:focus a{color:' + textColor + '}.sbplus_wrapper #sbplus #sbplus_control_bar .controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent:hover,.sbplus_wrapper #sbplus #sbplus_control_bar .controls #sbplus_download_btn_wrapper .root-level .menu-parent:hover{color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper #copyToCbBtn{color:' + textColor  + ';background-color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper #copyToCbBtn:hover{background-color:' + hover + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper .sbplus_media_content .video-js.vjs-default-skin .vjs-control-bar{background-color:'+ self.xml.settings.accent +'}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_quiz_wrapper .sbplus_quiz_submit_btn{color:' + textColor  + ';background-color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper .sbplus_media_content .sbplus_secondary_controls{background-color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper .sbplus_media_content .sbplus_secondary_controls #expand_contract_btn{color:' + textColor  + '}';
+                var style = '.sbplus_wrapper button:hover{color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_context .sb_cta button{color:' + textColor  + ';background-color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_context .sb_cta button:hover{background-color:' + hover + '}.sbplus_wrapper #sbplus #sbplus_banner_bar{background-color:' + self.xml.settings.accent + ';color:' + textColor + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col .list .item:hover{color:' + textColor + ';background-color:' + hover + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col .list .sb_selected{color:' + textColor + ';background-color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col #sbplus_table_of_contents_wrapper .section .current{border-left-color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_control_bar .controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu .menu-item:hover,.sbplus_wrapper #sbplus #sbplus_control_bar .controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu .menu-item:hover{background-color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_control_bar .controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu .menu-item:hover a,.sbplus_wrapper #sbplus #sbplus_control_bar .controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu .menu-item:hover a{color:' + textColor + '}.sbplus_wrapper #sbplus #sbplus_control_bar .controls #sbplus_download_btn_wrapper #sbplus_download_btn .active, .sbplus_wrapper #sbplus #sbplus_control_bar .controls #sbplus_download_btn_wrapper .root-level .active{color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_control_bar .controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu .menu-item:focus,.sbplus_wrapper #sbplus #sbplus_control_bar .controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu .menu-item:focus{background-color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_control_bar .controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu .menu-item:focus a,.sbplus_wrapper #sbplus #sbplus_control_bar .controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu .menu-item:focus a{color:' + textColor + '}.sbplus_wrapper #sbplus #sbplus_control_bar .controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent:hover,.sbplus_wrapper #sbplus #sbplus_control_bar .controls #sbplus_download_btn_wrapper .root-level .menu-parent:hover{color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper #copyToCbBtn{color:' + textColor  + ';background-color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper #copyToCbBtn:hover{background-color:' + hover + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper .sbplus_media_content .video-js.vjs-default-skin .vjs-control-bar{background-color:'+ self.xml.settings.accent +'}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_quiz_wrapper .sbplus_quiz_submit_btn{color:' + textColor  + ';background-color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper .sbplus_media_content .sbplus_secondary_controls{background-color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper .sbplus_media_content .sbplus_secondary_controls #expand_contract_btn{color:' + textColor  + '}.sbplus_wrapper.toc_displayed #sbplus #sbplus_control_bar #mobile_toc_toggle_btn{color:' + self.xml.settings.accent + '}';
                 
                 // append the style/css to the HTML head
                 $( 'head' ).append( '<style type="text/css">' + style + '</style>' );
@@ -1330,6 +1332,7 @@ var SBPLUS = SBPLUS || {
             
             $( self.button.next ).on( 'click', self.goToNextPage.bind( self ) );
             $( self.button.prev ).on( 'click', self.goToPreviousPage.bind( self ) );
+            $( self.button.mobileTocToggle).on( 'click', self.toggleToc.bind(self) );
             
             if ( $( self.xml.sections ).length >= 2 ) {
                 $( self.tableOfContents.header ).on( 'click', self.toggleSection.bind( self ) );
@@ -1501,6 +1504,40 @@ var SBPLUS = SBPLUS || {
         this.selectPage( tSection + ',' + tPage );
         
     }, // end goToPreviousPage function
+
+    /**
+     * Toggle table of contents in mobile view
+     *
+     * @since 3.4.0
+     * @author Ethan Lin
+     * @updated on 01/13/2022
+     *
+     * @param none
+     * @return none
+     **/
+    toggleToc: function () {
+
+        const sbplusWrapper = $( this.layout.wrapper );
+
+        if ( sbplusWrapper.hasClass( 'toc_displayed' ) ) {
+
+            $( this.tableOfContents.container ).css( 'height', '' );
+            sbplusWrapper.removeClass( 'toc_displayed' );
+            
+        } else {
+
+            $( this.tableOfContents.container ).height( this.calcTocHeight() );
+            sbplusWrapper.addClass( 'toc_displayed' );
+
+        }
+
+    },
+
+    calcTocHeight: function() {
+
+        return window.innerHeight - ( $( this.banner.bar ).height() + $( this.layout.media ).height() + $( this.layout.mainControl ).height() );
+
+    },
     
     /**
      * Update Page Status (or the status bar) next to the page controls
@@ -1729,6 +1766,11 @@ var SBPLUS = SBPLUS || {
                 
                 this.updateScroll( this.targetPage[0] );
                 
+            }
+
+            // hide table of content in mobile view
+            if ( $( this.layout.wrapper ).hasClass( 'toc_displayed' ) ) {
+                this.toggleToc();
             }
             
         }
@@ -2259,18 +2301,25 @@ var SBPLUS = SBPLUS || {
         
     },
     
-    calcLayout: function() { 
-        
+    calcLayout: function() {
+
+        if ($( this.layout.wrapper ).hasClass ( 'toc_displayed' )) {
+            $( this.tableOfContents.container ).height( this.calcTocHeight() );
+            console.log(this.calcTocHeight());
+        }
+
         if ( window.innerWidth < 900 || window.screen.width <= 414 ) {
 
             this.layout.isMobile = true;
             this.alreadyResized = true;
             $( this.layout.wrapper ).removeClass( 'sbplus_boxed' );
-            
+
         } else {
             
             this.layout.isMobile = false;
             $( this.layout.wrapper ).addClass( 'sbplus_boxed' );
+            $( this.layout.wrapper ).removeClass( 'toc_displayed');
+            $( this.tableOfContents.container ).css( 'height', '' );
 
         }
         
