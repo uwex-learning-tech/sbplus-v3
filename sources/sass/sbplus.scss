@@ -108,6 +108,7 @@ body {
 
 .sbplus_wrapper {
     
+    position: relative;
     height: 100%;
     
     * {
@@ -131,7 +132,7 @@ body {
         top: 0;
         bottom: 0;
         background-color: $body-bg-color;
-        z-index: 999;
+        z-index: 998;
 
         .program_logo {
             width: 300px;
