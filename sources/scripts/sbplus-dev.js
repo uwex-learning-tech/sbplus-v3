@@ -2290,7 +2290,7 @@ var SBPLUS = SBPLUS || {
                 
                 $.get( errorTemplateUrl, function( data ) {
                     
-                    $( self.layout.errorScreen ).html( data ).show().addClass( 'shake' )
+                    $( self.layout.errorScreen ).html( data ).show()
                         .css( 'display', 'flex' );
                     
                 } );
@@ -2305,7 +2305,6 @@ var SBPLUS = SBPLUS || {
 
         if ($( this.layout.wrapper ).hasClass ( 'toc_displayed' )) {
             $( this.tableOfContents.container ).height( this.calcTocHeight() );
-            console.log(this.calcTocHeight());
         }
 
         if ( window.innerWidth < 900 || window.screen.width <= 414 ) {
