@@ -245,6 +245,18 @@ var SBPLUS = SBPLUS || {
             } );
             
         }
+
+        // check online status every 1 minutes
+        setInterval( async () => {
+
+            const online = await checkOnlineStatus();
+            if ( online ) {
+                self.hideConnectionMessage();
+            } else {
+                self.showConnectionMessage();
+            }
+
+        }, 60000 );
              
     }, // end go function
 
@@ -1681,19 +1693,19 @@ var SBPLUS = SBPLUS || {
      * @return none
      **/
     selectPage: function( e ) {
-        
+
         // if splash screen is visible...
         if ( $( this.splash.screen ).is( ':visible' ) ) {
-            
+                
             // render the presentation
             this.renderPresentation();
-            
+
             // hide the splash
             this.hideSplash();
-            
+
             // flag the presentationStarted to true
             this.presentationStarted = true;
-            
+
         }
         
         // if the argument is an click event object
@@ -2898,6 +2910,32 @@ var SBPLUS = SBPLUS || {
         
         }
         
+    },
+    
+    showConnectionMessage: function() {
+
+        const sbplusEl = document.querySelector( this.layout.sbplus );
+
+        if ( !sbplusEl.contains( document.querySelector( '#connection_error_msg' ) ) ) {
+
+            const messageEl = document.createElement( 'div' );
+
+            messageEl.setAttribute( 'id', 'connection_error_msg' );
+            messageEl.innerHTML = '<strong>No Internet Connection.</strong> Please check your network connection.';
+            sbplusEl.appendChild( messageEl );
+
+        }
+
+    },
+
+    hideConnectionMessage: function() {
+
+        if ( document.querySelector( this.layout.sbplus ).contains( document.querySelector( '#connection_error_msg' ) ) ) {
+
+            document.querySelector( this.layout.sbplus ).removeChild( document.querySelector( '#connection_error_msg' ) );
+
+        }
+
     }
         
 };
@@ -2912,7 +2950,14 @@ $( function() {
 
 } );
 
+const checkOnlineStatus = async () => {
 
+    try {
+        const online = await fetch( 'index.html' );
+        return online.status >= 200 && online.status < 300;
+    } catch ( err ) {
+        return false;
+    }
 
-
+};
 

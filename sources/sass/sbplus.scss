@@ -141,6 +141,23 @@ body {
         }
 
     }
+
+    #connection_error_msg {
+        position: absolute;
+        top: 0;
+        left: 25%;
+        width: 50%;
+        padding: math.div($gutter, 2) $gutter;
+        font-size: rem( 12px );
+        font-weight: initial;
+        color: #000;
+        text-align: center;
+        background-color: rgb(224, 198, 49);
+        z-index: 999;
+        user-select: none;
+        border-radius: 0 0 3px 3px;
+        box-shadow: 0 4px 8px #333;
+    }
     
     button {
         display: block;

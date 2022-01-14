@@ -709,6 +709,12 @@
       "oAP" : "\/build\/assets\/video\/yt-4tyuIh12_HU.vtt",
       "oF" : 1
     },
+    "\/build" : {
+      "ft" : 65536,
+      "oA" : 1,
+      "oAP" : "\/build\/build",
+      "oF" : 0
+    },
     "\/CHANGELOG.md" : {
       "cB" : 0,
       "cS" : 0,
@@ -870,6 +876,14 @@
       "oA" : 2,
       "oAP" : "\/build\/sources\/fonts\/sbplus.ttf",
       "oF" : 2
+    },
+    "\/sources\/fonts\/sbplus.woff" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/build\/fonts\/sbplus.woff",
+      "oF" : 0
     },
     "\/sources\/images\/default_logo.svg" : {
       "ft" : 2097152,
@@ -2556,7 +2570,7 @@
       "NODE_ENV:::development"
     ],
     "esLintConfigFileHandlingType" : 1,
-    "esLintECMAVersion" : 7,
+    "esLintECMAVersion" : 8,
     "esLintEnvironmentsMask" : 8193,
     "esLintRules" : {
       "accessor-pairs" : {
@@ -2580,7 +2594,7 @@
         "optionString" : "'always'"
       },
       "arrow-body-style" : {
-        "active" : 0,
+        "active" : 1,
         "optionString" : "'as-needed', {'requireReturnForObjectLiteral': false}"
       },
       "arrow-parens" : {
