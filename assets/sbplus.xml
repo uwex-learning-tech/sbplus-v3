@@ -36,6 +36,10 @@
             <note>
               <![CDATA[<h1>Heading Level 1 (and 2)</h1>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip <em>ex ea commodo consequat</em>. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<ol><li>Hello</li><li>World</li></ol><h3>Heading Level 3</h3><p><a href="#">Loremipsumdolorsitametconsectetuadipisicingelitseddoeiusmodtemporincididuntutlaboreetdoloremagnaaliqua.</a> Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p><ul><li>Hello</li><li>World</li></ul><script>onclick();</script>]]>
             </note>
+            <markers>
+                <marker timecode="00:10" color="#f00">Marker 1</marker>
+                <marker timecode="00:20" color="#f00">Marker 2</marker>
+            </markers>
         </page>
         
         <page type="image-audio" src="slide02" title="Overview" transition="">
@@ -52,6 +56,10 @@
         
         <page type="image-audio" src="slide04" title="History" transition="">
             <note />
+            <markers>
+                <marker timecode="00:10" color="">Marker 1</marker>
+                <marker timecode="00:20" color="#f00">Marker 2</marker>
+            </markers>
         </page>
         
         <page type="image-audio" src="slide05" title="A Cookie Timeline" transition="">
@@ -88,9 +96,13 @@
         </page>
         
         <page type="bundle" src="slide13" title="Chocolate Chip Cookie Variants" transition="">
-            <frame start="00:18" />
-            <frame start="00:26" />
+            <frame start="00:17" />
+            <frame start="00:25" />
             <note />
+            <markers>
+                <marker timecode="00:18" color="">MM Cookies</marker>
+                <marker timecode="00:26" color="#f00">White Chocolate Chip Cookies</marker>
+            </markers>
         </page>
         
     </section>
@@ -445,10 +457,13 @@
     
     <section title="New Feature (Shhh!)">
         
-        <page type="html" src="https://media.uwex.edu/sandbox/ethan/hipaa/title45_vol1/CFR-2007-title45-vol1-sec160-202.xml
-" title="Section 160.202 - Definitions" embed="true">
+        <page type="html" src="https://media.uwex.edu" title="Section 160.202 - Definitions" embed="true">
             <audio src="slide02" />
             <note />
+            <markers>
+                <marker timecode="00:05" color="#f00">Marker 1</marker>
+                <marker timecode="00:07" color="#f00">Marker 2</marker>
+            </markers>
         </page>
         
         <page type="html" src="https://media.uwex.edu/sandbox/ethan/hipaa/title45_vol1/CFR-2007-title45-vol1-sec160-203.xml

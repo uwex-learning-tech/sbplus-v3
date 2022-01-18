@@ -29,6 +29,11 @@ var Page = function ( obj, data ) {
         this.widgetSegments = {};
         this.copyableContent = obj.copyableContent;
         this.imgType = obj.imageFormat;
+
+        if ( obj.type !== 'image' && obj.markers.length ) {
+            this.markersNode = obj.markers[0];
+            this.markers = [];
+        }
         
         if ( obj.frames.length ) {
             this.frames = obj.frames;
@@ -113,6 +118,7 @@ Page.prototype.getPageMedia = function() {
                     $.getScript( self.root +  'scripts/libs/kaltura/kwidgetgetsources.js', function() {
 
                         SBPLUS.kalturaLoaded = true;
+                        self.addMarkers();
                         self.loadKalturaVideoData();
 
                     });
@@ -168,6 +174,7 @@ Page.prototype.getPageMedia = function() {
                     
                     $( self.mediaContent ).html( html ).promise().done( function() {
                 
+                        self.addMarkers();
                         self.renderVideoJS();
                         self.setWidgets();
                 
@@ -249,6 +256,7 @@ Page.prototype.getPageMedia = function() {
                     
                     // call video js
                     self.isVideo = true;
+                    self.addMarkers();
                     self.renderVideoJS();
                     self.setWidgets();
                     
@@ -272,6 +280,7 @@ Page.prototype.getPageMedia = function() {
                 
                 $( self.mediaContent ).html( '<video id="mp" class="video-js vjs-default-skin"></video>' ).promise().done( function() {
 
+                    self.addMarkers();
                     self.renderVideoJS();
                     
                 } );
@@ -338,6 +347,7 @@ Page.prototype.getPageMedia = function() {
                 $( self.mediaContent ).html( html ).promise().done( function() {
             
                     self.isBundle = true;
+                    self.addMarkers();
                     self.renderVideoJS();
                     self.setWidgets();
             
@@ -400,25 +410,24 @@ Page.prototype.getPageMedia = function() {
             
             if ( embed === 'yes' || embed === "true" ) {
                 
-                var iframe = '<iframe id="iframeWithAudio" class="html" src="' + path + '"></iframe>';
+                let iframe = '<iframe class="html" src="' + path + '"></iframe>';
                 
-                $( self.mediaContent ).addClass( 'iframeEmbed' );
-
                 if ( audioSrc.length ) {
 
-                    var audio = '<video id="mp" class="video-js vjs-default-skin"></video>';
+                    let audio = '<video id="mp" class="video-js vjs-default-skin"></video>';
 
                     self.isAudio = true;
                     $( self.mediaContent ).append( audio );
+                    self.addMarkers();
                     self.renderVideoJS( audioSrc );
-                    $( '.video-js' ).prepend( iframe );
 
                 } else {
 
-                    $( self.mediaContent ).html( iframe );
                     addSecondaryControls( true );
 
                 }
+
+                $( self.mediaContent ).addClass( 'iframeEmbed' ).prepend( iframe );
                 
             } else {
                 
@@ -677,6 +686,26 @@ Page.prototype.loadKalturaVideoData = function () {
 
     } );
     
+};
+
+Page.prototype.addMarkers = function() {
+
+    if ( this.markersNode ) {
+
+        Array.from( this.markersNode.children ).forEach( ( marker ) => {
+
+            const m = {
+                time: toSeconds( marker.getAttribute( 'timecode' ) ),
+                text: marker.innerHTML.trim().length ? SBPLUS.noScript( marker.innerHTML.trim() ) : '',
+                color: marker.getAttribute( 'color' ) ? marker.getAttribute( 'color' ) : ''
+            };
+
+            this.markers.push( m );
+
+        } );
+
+    }
+
 };
 
 // render videojs
@@ -1140,6 +1169,9 @@ Page.prototype.renderVideoJS = function( src ) {
 
         // add expand/contract button
         addExpandContractButton( player );
+
+        // add markers
+        setupMarkers( player, self.markers );
             
     } );
     
@@ -1516,6 +1548,14 @@ function removeSecondaryControls() {
         const expandBtn = document.querySelector( '#expand_contract_btn' );
         expandBtn.removeEventListener( 'click', toggleExpandContractView );
     }
+
+}
+
+function setupMarkers ( player, markers ) {
+
+    player.markers( {
+        markers: markers
+    } );
 
 }
 

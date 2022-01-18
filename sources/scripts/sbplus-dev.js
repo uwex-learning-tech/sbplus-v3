@@ -139,6 +139,7 @@ var SBPLUS = SBPLUS || {
             cta: '#splash_cta',
             screen: '#sbplus_splash_screen',
             background: '#sb_splash_bg',
+            infoBox: '#sbplus_presentation_info',
             title: '#sbplus_presentation_info .sb_title',
             subtitle: '#sbplus_presentation_info .sb_subtitle',
             author: '#sbplus_presentation_info .sb_author',
@@ -1031,6 +1032,7 @@ var SBPLUS = SBPLUS || {
 
                     setTimeout( () => {
 
+                        $( self.splash.infoBox).show();
                         $( self.loadingScreen.wrapper ).addClass( "fadeOut" )
                         .one( 'webkitAnimationEnd mozAnimationEnd animationend', 
                         function() {
@@ -1041,7 +1043,7 @@ var SBPLUS = SBPLUS || {
                             }
                         );
                         
-                    }, 1000 );
+                    }, 1500 );
     
                 }
 
@@ -1861,7 +1863,11 @@ var SBPLUS = SBPLUS || {
             pageData.imageFormat = this.xml.settings.imgType;
             pageData.transition = target[0].hasAttribute( 'transition' ) ? 
                 target.attr( 'transition' ).trim() : '';
-                
+
+            if ( pageData.type !== 'image' ) {
+                pageData.markers = target.find( 'markers' );
+            }
+            
             // create new page object using the pageData and set to SBPLUS's
             // currentPage property
             this.currentPage = new Page( pageData );
