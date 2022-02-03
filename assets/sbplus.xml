@@ -195,7 +195,7 @@
             <note />
         </page>
         
-        <page type="youtube" src="zTTtd6bnhFs" title="Video from YouTube" transition="" preventAutoplay="false" useDefaultPlayer="true">
+        <page type="youtube" src="zTTtd6bnhFs" title="Video from YouTube" transition="" preventAutoplay="false" useDefaultPlayer="">
             <note><![CDATA[Release on December <strong>7th</strong>, 2021!]]></note>
             <widget>
                 <segment name="New Jobs">Reaper and Sage!!!</segment>

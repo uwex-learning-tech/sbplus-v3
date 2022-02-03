@@ -722,6 +722,16 @@ body {
                             position: relative;
                         }
 
+                        .yt-native {
+                            @include aspect-ratio( 16, 9 );
+                        }
+
+                        #youtube-ui {
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                        }
+
                         #mp_vimeo_api {
                             animation-duration: 0.75s;
                         }

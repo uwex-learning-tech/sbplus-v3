@@ -291,7 +291,11 @@ Page.prototype.getPageMedia = function() {
                 var autoplay = 
                     self.preventAutoplay === "false" || self.preventAutoplay === "no" ? 1 : 0;
 
-                $( self.mediaContent ).html( '<iframe width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/' + self.src + '?autoplay=' + autoplay + '&playsinline=1&modestbranding=1&disablekb=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"></iframe>' );
+                $( self.mediaContent ).html( '<div class="yt-native"><iframe id="youtube-ui" width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/' + self.src + '?autoplay=' + autoplay + '&playsinline=1&modestbranding=1&disablekb=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"></iframe></div>' ).promise().done( function() {
+                
+                    addSecondaryControls();
+                    
+                } );
 
             }
             
