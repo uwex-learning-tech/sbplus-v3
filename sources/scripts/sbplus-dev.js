@@ -1340,7 +1340,7 @@ var SBPLUS = SBPLUS || {
                 
             } else {
                 
-                $(self.button.author).prop( 'disabled', true );
+                $( self.button.author ).prop( 'disabled', true );
                 
             }
             
@@ -2181,6 +2181,8 @@ var SBPLUS = SBPLUS || {
             $( self.widget.content ).css( 'background-image', '' );
             $( this.screenReader.hasNotes ).html( 'This page contains notes.' );
             $( self.button.notes ).prop( 'disabled', false );
+            $( self.button.notes ).attr( 'title', 'View Notes' );
+            $( self.button.notes ).attr( 'aria-label', 'View Notes' );
 
             $( self.button.notes ).on( 'click', function() {
                 
@@ -2217,6 +2219,8 @@ var SBPLUS = SBPLUS || {
             $( this.screenReader.hasNotes ).empty();
             $( this.layout.widget ).addClass('noSegments');
             $( self.button.notes ).prop( 'disabled', true );
+            $( self.button.notes ).attr( 'title', '' );
+            $( self.button.notes ).attr( 'aria-label', '' );
 
             // show logo
             if ( !self.isEmpty( self.logo ) ) {
