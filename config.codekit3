@@ -853,6 +853,32 @@
       "oF" : 3,
       "pg" : 0
     },
+    "\/sources\/fonts\/sbplus.svg" : {
+      "ft" : 2097152,
+      "miP" : 0,
+      "oA" : 2,
+      "oAP" : "\/build\/sources\/fonts\/sbplus.svg",
+      "oF" : 2,
+      "opt" : 0,
+      "plM" : 3758088159,
+      "prP" : 0
+    },
+    "\/sources\/fonts\/sbplus.ttf" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/build\/sources\/fonts\/sbplus.ttf",
+      "oF" : 2
+    },
+    "\/sources\/fonts\/sbplus.woff" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/build\/sources\/fonts\/sbplus.woff",
+      "oF" : 2
+    },
     "\/sources\/images\/default_logo.svg" : {
       "ft" : 2097152,
       "miP" : 0,
@@ -2113,7 +2139,7 @@
     "displayValueWasSetByUser" : 0,
     "iconImageName" : "meme-soon",
     "iconImageWasSetByUser" : 0,
-    "lastBuiltDate" : 665616922.40835094
+    "lastBuiltDate" : 665617324.19445705
   },
   "projectSettings" : {
     "abortBuildOnError" : 1,
