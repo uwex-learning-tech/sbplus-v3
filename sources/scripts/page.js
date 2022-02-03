@@ -111,6 +111,8 @@ Page.prototype.getPageMedia = function() {
         
         case 'kaltura':
 
+            self.addMarkers();
+
             if ( SBPLUS.kalturaLoaded === false ) {
 
                 $.getScript( self.root + 'scripts/libs/kaltura/mwembedloader.js', function() {
@@ -118,7 +120,6 @@ Page.prototype.getPageMedia = function() {
                     $.getScript( self.root +  'scripts/libs/kaltura/kwidgetgetsources.js', function() {
 
                         SBPLUS.kalturaLoaded = true;
-                        self.addMarkers();
                         self.loadKalturaVideoData();
 
                     });
@@ -690,7 +691,7 @@ Page.prototype.loadKalturaVideoData = function () {
 
 Page.prototype.addMarkers = function() {
 
-    if ( this.markersNode ) {
+    if ( this.markersNode != undefined ) {
 
         Array.from( this.markersNode.children ).forEach( ( marker ) => {
 
@@ -1171,7 +1172,9 @@ Page.prototype.renderVideoJS = function( src ) {
         addExpandContractButton( player );
 
         // add markers
-        setupMarkers( player, self.markers );
+        if ( self.markers ) {
+            setupMarkers( player, self.markers );
+        }
             
     } );
     
@@ -1553,9 +1556,13 @@ function removeSecondaryControls() {
 
 function setupMarkers ( player, markers ) {
 
-    player.markers( {
-        markers: markers
-    } );
+    if ( markers ) {
+
+        player.markers( {
+            markers: markers
+        } );
+
+    }
 
 }
 
