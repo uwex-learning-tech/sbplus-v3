@@ -709,6 +709,12 @@
       "oAP" : "\/build\/assets\/video\/yt-4tyuIh12_HU.vtt",
       "oF" : 1
     },
+    "\/build" : {
+      "ft" : 65536,
+      "oA" : 1,
+      "oAP" : "\/build\/build",
+      "oF" : 0
+    },
     "\/CHANGELOG.md" : {
       "cB" : 0,
       "cS" : 0,
