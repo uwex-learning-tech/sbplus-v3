@@ -229,7 +229,7 @@
         
         <page type="quiz" title="Multiple Chioce with Multiple Answers">
             
-            <multipleChoiceMultiple>
+            <multipleChoiceMultiple retry="true">
                 
                 <question image="" audio="">What are the colors of the American's flag?</question>
                 <choices random="yes">

@@ -114,6 +114,25 @@ var Quiz = function( obj, data ) {
         
         case 'multiplechoicemultiple':
             
+            // see if the retry attribute is set to true or false
+            var mcs = $( cntx ).find( 'multipleChoiceMultiple' );
+
+            if ( !SBPLUS.isEmpty( mcs.attr( 'retry' ) ) ) {
+
+                var retry =  SBPLUS.noScript( mcs.attr('retry').trim().toLowerCase() );
+
+                if ( retry == 'yes' || retry == 'true' ) {
+                    self.quiz.retry = true;
+                } else {
+                    self.quiz.retry = false;
+                }
+
+            } else {
+
+                self.quiz.retry = false;
+
+            }
+
             var mmChoices = $( cntx ).find( 'choices' ).find( 'answer' );
             
             if ( !SBPLUS.isEmpty( $( cntx ).find( 'choices' ).attr('random') ) ) {
@@ -568,8 +587,6 @@ Quiz.prototype.renderFeeback = function() {
             var msAnswerImg = msAnswerNode.img;
             var msAnswerAudio = msAnswerNode.audio;
             var msAnswerType = 'text';
-
-            console.log(quizTracker[self.qIndex].retry);
             
             if ( !SBPLUS.isEmpty( msAnswerImg ) ) {
                 msAnswerType = 'img';
@@ -641,7 +658,7 @@ Quiz.prototype.renderFeeback = function() {
         break;
         
         case 'multiplechoicemultiple':
-        
+
             var stuAnswerAry = quizTracker[self.qIndex].stuAnswer;
             
             html += '<p><strong>Your answer:</strong><br>';
@@ -676,44 +693,18 @@ Quiz.prototype.renderFeeback = function() {
                 }
                 
             } );
-            
-            html += '</p><p><strong>Correct answer:</strong><br>';
-            
-            $.each( self.quiz.answers, function() {
-                
-                if ( this.correct !== undefined ) {
-                    
-                    var aType = 'text';
-                
-                    if ( !SBPLUS.isEmpty( this.img ) ) {
-                        aType = 'img';
-                    }
-                    
-                    if ( !SBPLUS.isEmpty( this.audio ) ) {
-                        aType = 'audio';
-                    }
-                    
-                    switch ( aType ) {
-                            
-                        case 'img':
-                            html += '<img src="assets/images/' + this.value + '" /><br>';
-                        break;
-                        
-                        case 'audio':
-                            html += '<audio controls><source src="assets/audio/' + this.value + '" type="audio/mpeg"/></audio><br>';
-                        break;
-                        
-                        case 'text':
-                            html += this.value + '<br>';
-                        break;
-                        
-                    }
-                    
+
+            if ( quizTracker[self.qIndex].correct ) {
+
+                html += displayCorrectMultipleAnswers( self.quiz.answers );
+
+            } else {
+
+                if ( !self.quiz.retry ) {
+                    html += displayCorrectMultipleAnswers( self.quiz.answers );
                 }
-                
-            } );
-            
-            html += '</p>';
+
+            }
             
             if ( quizTracker[self.qIndex].correct ) {
                 
@@ -727,7 +718,10 @@ Quiz.prototype.renderFeeback = function() {
                     html += '<p><strong>Feedback:</strong><br>' + self.quiz.incorrectFeedback + '</p>';
                 }
             }
-                
+            
+            if ( !quizTracker[self.qIndex].correct && self.quiz.retry ) {
+                html += '<p><button class="sbplus_quiz_tryagain_btn">Try Again</button></p>';
+            }
         
         break;
         
@@ -744,6 +738,50 @@ Quiz.prototype.renderFeeback = function() {
     } );
 
 };
+
+function displayCorrectMultipleAnswers( answers ) {
+
+    let result = '</p><p><strong>Correct answer:</strong><br>';
+            
+    $.each( answers, function() {
+        
+        if ( this.correct !== undefined ) {
+            
+            var aType = 'text';
+        
+            if ( !SBPLUS.isEmpty( this.img ) ) {
+                aType = 'img';
+            }
+            
+            if ( !SBPLUS.isEmpty( this.audio ) ) {
+                aType = 'audio';
+            }
+            
+            switch ( aType ) {
+                    
+                case 'img':
+                    result += '<img src="assets/images/' + this.value + '" /><br>';
+                break;
+                
+                case 'audio':
+                    result += '<audio controls><source src="assets/audio/' + this.value + '" type="audio/mpeg"/></audio><br>';
+                break;
+                
+                case 'text':
+                    result += this.value + '<br>';
+                break;
+                
+            }
+            
+        }
+        
+    } );
+    
+    result += '</p>';
+
+    return result;
+
+}
 
 function questionExists( id ) {
     
