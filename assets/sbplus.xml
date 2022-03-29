@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<storybook accent="#7b3009" pageImgFormat="jpg" splashImgFormat="jpg" analytics="off" mathjax="off" xmlVersion="3.1" xmlns="https://media.uwex.edu/app/storybook_plus_v3/"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="https://media.uwex.edu/app/storybook_plus_v3/ https://media.uwex.edu/app/storybook_plus_v3/sbplus.xsd">
+<storybook accent="#7b3009" pageImgFormat="jpg" splashImgFormat="jpg" analytics="off" mathjax="off" xmlVersion="3.4">
     
     <setup program="" course="">
         
@@ -111,7 +109,7 @@
         
         <page type="quiz" title="Question 1">
             
-            <multipleChoiceSingle>
+            <multipleChoiceSingle retry="true">
                 
                 <question image="" audio="">
                     <![CDATA[<p><strong>I'm not sure I was clear, should you burn the butter or not?</strong></p><p><small>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</small></p>]]>

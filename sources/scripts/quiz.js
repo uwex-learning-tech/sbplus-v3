@@ -36,6 +36,26 @@ var Quiz = function( obj, data ) {
         
         case 'multiplechoicesingle':
             
+            // see if the retry attribute is set to true or false
+            var mcs = $( cntx ).find( 'multipleChoiceSingle' );
+
+            if ( !SBPLUS.isEmpty( mcs.attr( 'retry' ) ) ) {
+
+                var retry =  SBPLUS.noScript( mcs.attr('retry').trim().toLowerCase() );
+
+                if ( retry == 'yes' || retry == 'true' ) {
+                    self.quiz.retry = true;
+                } else {
+                    self.quiz.retry = false;
+                }
+
+            } else {
+
+                self.quiz.retry = false;
+
+            }
+
+            // see if choices node has random set to true or false
             var msChoices = $( cntx ).find( 'choices' ).find( 'answer' );
             
             if ( !SBPLUS.isEmpty( $( cntx ).find( 'choices' ).attr('random') ) ) {
@@ -48,6 +68,10 @@ var Quiz = function( obj, data ) {
                     self.quiz.random = false;
                 }
                 
+            } else {
+
+                self.quiz.random = false;
+
             }
             
             self.quiz.answers = [];
@@ -544,6 +568,8 @@ Quiz.prototype.renderFeeback = function() {
             var msAnswerImg = msAnswerNode.img;
             var msAnswerAudio = msAnswerNode.audio;
             var msAnswerType = 'text';
+
+            console.log(quizTracker[self.qIndex].retry);
             
             if ( !SBPLUS.isEmpty( msAnswerImg ) ) {
                 msAnswerType = 'img';
@@ -587,7 +613,17 @@ Quiz.prototype.renderFeeback = function() {
                         
                     }
                     
-                    html += '<p><strong>Correct answer:</strong><br>' + output + '</p>';
+                    if ( quizTracker[self.qIndex].correct ) {
+
+                        html += '<p><strong>Correct answer:</strong><br>' + output + '</p>';
+
+                    } else {
+
+                        if ( !self.quiz.retry ) {
+                            html += '<p><strong>Correct answer:</strong><br>' + output + '</p>';
+                        }
+
+                    }
                     
                     return false;
                 }
@@ -596,6 +632,10 @@ Quiz.prototype.renderFeeback = function() {
             
             if ( !SBPLUS.isEmpty( msFeedback ) ) {
                 html += '<p><strong>Feedback:</strong><br>' + msFeedback + '</p>';
+            }
+
+            if ( !quizTracker[self.qIndex].correct && self.quiz.retry ) {
+                html += '<p><button class="sbplus_quiz_tryagain_btn">Try Again</button></p>';
             }
     
         break;
@@ -697,7 +737,12 @@ Quiz.prototype.renderFeeback = function() {
     
     // display the html
     $( self.quizContainer ).html( html );
-    
+
+    $( 'button.sbplus_quiz_tryagain_btn' ).on( 'click', function() {
+        quizTracker[self.qIndex].stuAnswer = '';
+        self.renderQuiz();
+    } );
+
 };
 
 function questionExists( id ) {

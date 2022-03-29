@@ -3,13 +3,13 @@
  *
  * @author: Ethan Lin
  * @url: https://github.com/uwex-learning-tech/sbplus-v3
- * @version: 3.3.3
- * Released 11/29/2021
+ * @version: 3.4.0
+ * Released xx/xx/2022
  *
  * @license: GNU GENERAL PUBLIC LICENSE v3
  *
     Storybook Plus is an web application that serves multimedia contents.
-    Copyright (C) 2013-2021  Ethan S. Lin, Learning Technology & Media, University
+    Copyright (C) 2013-2022  Ethan S. Lin, Learning Technology & Media, University
     of Wisconsin Extended Campus
 
     This program is free software: you can redistribute it and/or modify
@@ -1248,6 +1248,10 @@ body {
                             }
                             
                         }
+
+                        button {
+                            margin-left: 0;
+                        }
                         
                     }
                     
@@ -1321,7 +1325,8 @@ body {
                         
                     }
                     
-                    .sbplus_quiz_submit_btn {
+                    .sbplus_quiz_submit_btn,
+                    .sbplus_quiz_tryagain_btn  {
                         width: 100px;
                         min-height: 0;
                         margin-top: 10px;
