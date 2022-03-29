@@ -1107,6 +1107,23 @@ body {
                         }
 
                     }
+
+                    .sbplus_media_content.show-vjs-poster {
+                        
+                        .vjs-has-started {
+                            
+                            .vjs-poster {
+                                @include calc( height, '100% - ' + 33px );
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                z-index: 1;
+                                cursor: default;
+                            }
+                            
+                        }
+                        
+                    }
                     
                 }
                 
@@ -1502,7 +1519,7 @@ body {
                 #sbplus_table_of_contents_wrapper {
                     
                     display: none;
-                    height: calc( 100% - 86px );
+                    @include calc( height, '100% - ' + 86px );
                     overflow-y: auto;
                     background-color: #fff;
                     
@@ -2517,7 +2534,7 @@ body {
                                 
                                 .video-js.vjs-default-skin {
                                     &.vjs-vimeo-tech {
-                                        height: calc(100% - 33px);
+                                        @include calc( height, '100% - ' + 33px );
                                     }
                                 }
                                 
