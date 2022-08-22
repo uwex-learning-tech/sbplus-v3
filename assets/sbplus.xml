@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<storybook accent="#7b3009" pageImgFormat="jpg" splashImgFormat="jpg" analytics="off" mathjax="off" xmlVersion="3.1" xmlns="https://media.uwex.edu/app/storybook_plus_v3/"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="https://media.uwex.edu/app/storybook_plus_v3/ https://media.uwex.edu/app/storybook_plus_v3/sbplus.xsd">
+<storybook accent="#7b3009" pageImgFormat="jpg" splashImgFormat="jpg" analytics="off" mathjax="off" xmlVersion="3.4">
     
     <setup program="" course="">
         
@@ -10,7 +8,7 @@
         <subtitle>A Sample Storybook Plus Presentation</subtitle>
         <length>7 Minutes</length>
         <author name="Bryan Bortz"><![CDATA[
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat..
+            Lorem ipsum dolor sit #7b3009 amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat..
             <ul>
                 <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</li>
                 <li>Item 2</li>
@@ -36,6 +34,10 @@
             <note>
               <![CDATA[<h1>Heading Level 1 (and 2)</h1>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip <em>ex ea commodo consequat</em>. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<ol><li>Hello</li><li>World</li></ol><h3>Heading Level 3</h3><p><a href="#">Loremipsumdolorsitametconsectetuadipisicingelitseddoeiusmodtemporincididuntutlaboreetdoloremagnaaliqua.</a> Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p><ul><li>Hello</li><li>World</li></ul><script>onclick();</script>]]>
             </note>
+            <markers>
+                <marker timecode="00:10" color="">Marker 1</marker>
+                <marker timecode="00:20" color="">Marker 2</marker>
+            </markers>
         </page>
         
         <page type="image-audio" src="slide02" title="Overview" transition="">
@@ -52,6 +54,10 @@
         
         <page type="image-audio" src="slide04" title="History" transition="">
             <note />
+            <markers>
+                <marker timecode="00:10" color="">Marker 1</marker>
+                <marker timecode="00:20" color="#f00">Marker 2</marker>
+            </markers>
         </page>
         
         <page type="image-audio" src="slide05" title="A Cookie Timeline" transition="">
@@ -64,7 +70,7 @@
         </page>
         
         <page type="image-audio" src="slide07" title="Tools" transition="" preventAutoplay="true">
-            <note />
+            <note>Audio is intentionally forced to prevent autoplay</note>
         </page>
         
         <page type="image-audio" src="slide08" title="Part 1 - Preheating and Melting" transition="">
@@ -88,9 +94,13 @@
         </page>
         
         <page type="bundle" src="slide13" title="Chocolate Chip Cookie Variants" transition="">
-            <frame start="00:10" />
-            <frame start="00:20" />
+            <frame start="00:17" />
+            <frame start="00:25" />
             <note />
+            <markers>
+                <marker timecode="00:18" color="">MM Cookies</marker>
+                <marker timecode="00:26" color="#f00">White Chocolate Chip Cookies</marker>
+            </markers>
         </page>
         
     </section>
@@ -99,7 +109,7 @@
         
         <page type="quiz" title="Question 1">
             
-            <multipleChoiceSingle>
+            <multipleChoiceSingle retry="true">
                 
                 <question image="" audio="">
                     <![CDATA[<p><strong>I'm not sure I was clear, should you burn the butter or not?</strong></p><p><small>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</small></p>]]>
@@ -183,11 +193,11 @@
             <note />
         </page>
         
-        <page type="youtube" src="4tyuIh12_HU" title="Video from YouTube" transition="" preventAutoplay="false" useDefaultPlayer="true">
-            <note><![CDATA[Release on July <strong>02</strong>, 2019!]]></note>
+        <page type="youtube" src="zTTtd6bnhFs" title="Video from YouTube" transition="" preventAutoplay="false" useDefaultPlayer="">
+            <note><![CDATA[Release on December <strong>7th</strong>, 2021!]]></note>
             <widget>
-                <segment name="New Jobs">Dancer and Gunbreaker!!!</segment>
-                <segment name="New Races">The Hrothgar and the Viera!!!</segment>
+                <segment name="New Jobs">Reaper and Sage!!!</segment>
+                <segment name="New Races">Male Viera!!!</segment>
                 <segment name="New Dungeons &amp; Raids">Many more of them!!!</segment>
             </widget>
         </page>
@@ -207,13 +217,7 @@
         <page type="html" src="aframe" title="A-Frame" embed="yes">
             <note />
         </page>
-        
-        <page type="bundle" src="slide13" title="Bundled" transition="">
-            <frame start="00:18"></frame>
-            <frame start="00:26"></frame>
-            <note />
-        </page>
-        
+    
         <page type="quiz" src="slide13" title="Fill in the Blank">
             <fillInTheBlank>
                 <question>256, 128, 64, 32, 16, ... what comes next?</question>
@@ -225,7 +229,7 @@
         
         <page type="quiz" title="Multiple Chioce with Multiple Answers">
             
-            <multipleChoiceMultiple>
+            <multipleChoiceMultiple retry="true">
                 
                 <question image="" audio="">What are the colors of the American's flag?</question>
                 <choices random="yes">
@@ -451,10 +455,13 @@
     
     <section title="New Feature (Shhh!)">
         
-        <page type="html" src="https://media.uwex.edu/sandbox/ethan/hipaa/title45_vol1/CFR-2007-title45-vol1-sec160-202.xml
-" title="Section 160.202 - Definitions" embed="true">
+        <page type="html" src="https://media.uwex.edu" title="Section 160.202 - Definitions" embed="true">
             <audio src="slide02" />
             <note />
+            <markers>
+                <marker timecode="00:05" color="#f00">Marker 1</marker>
+                <marker timecode="00:07" color="#f00">Marker 2</marker>
+            </markers>
         </page>
         
         <page type="html" src="https://media.uwex.edu/sandbox/ethan/hipaa/title45_vol1/CFR-2007-title45-vol1-sec160-203.xml

@@ -1,4 +1,3 @@
-// var transcriptInterval = null;
 var Page = function ( obj, data ) {
     
     this.pageXML = obj.xml[0];
@@ -30,6 +29,11 @@ var Page = function ( obj, data ) {
         this.widgetSegments = {};
         this.copyableContent = obj.copyableContent;
         this.imgType = obj.imageFormat;
+
+        if ( obj.type !== 'image' && obj.markers.length ) {
+            this.markersNode = obj.markers[0];
+            this.markers = [];
+        }
         
         if ( obj.frames.length ) {
             this.frames = obj.frames;
@@ -45,9 +49,6 @@ var Page = function ( obj, data ) {
         this.isBundle = false;
         this.isPlaying = false;
         this.captionUrl = '';
-        
-        this.transcript = null;
-        this.transcriptLoaded = false;
         
         this.hasImage = false;
         this.missingImgUrl = '';
@@ -91,37 +92,26 @@ Page.prototype.getPageMedia = function() {
     }
     
     SBPLUS.clearWidget();
-    SBPLUS.enableWidget();
     
     $( self.mediaContent ).removeClass( 'iframeEmbed' ).empty();
-    
-    if ( SBPLUS.hasStorageItem( 'sbplus-' + SBPLUS.presentationLoc + '-previously-widget-open', true ) ) {
-        
-        if ( SBPLUS.getStorageItem( 'sbplus-' + SBPLUS.presentationLoc + '-previously-widget-open', true ) === '1' ) {
-            
-            SBPLUS.showWidget();
-            
-        }
-        
-        SBPLUS.deleteStorageItem( 'sbplus-' + SBPLUS.presentationLoc + '-previously-widget-open', true );
-        
-    }
     
     self.gaEventHalfway = false;
     SBPLUS.clearGATimeout();
     
     $(SBPLUS.layout.mediaMsg).addClass( 'hide' ).html('');
     
+    removeSecondaryControls();
+
     // show copy to clipboard button if applicable
     self.showCopyBtn();
-    
-    // clearInterval( transcriptInterval );
     
     // end reset
     
     switch ( self.type ) {
         
         case 'kaltura':
+
+            self.addMarkers();
 
             if ( SBPLUS.kalturaLoaded === false ) {
 
@@ -139,24 +129,6 @@ Page.prototype.getPageMedia = function() {
             } else {
                 self.loadKalturaVideoData();
             }
-
-            // var formData = new FormData();
-            // formData.append( 'authorization', self.kaltura.auth );
-            // formData.append( 'entryId', self.src );
-
-            // var http = new XMLHttpRequest();
-            // http.open('POST', self.kaltura.api, true);
-
-            // http.onreadystatechange = function() {
-
-            //     if ( this.readyState === XMLHttpRequest.DONE && this.status === 200 ) {
-            //         self.kalturaSrc = JSON.parse( this.response );
-            //         self.loadKalturaVideoData();
-            //     }
-
-            // }
-
-            // http.send(formData);
 
             self.gaEventCate = 'Video';
             self.gaEventLabel = SBPLUS.getCourseDirectory() + ':kaltura:page' + SBPLUS.targetPage.data('count');
@@ -191,21 +163,19 @@ Page.prototype.getPageMedia = function() {
                     url: 'assets/audio/' + self.src + '.vtt',
                     type: 'HEAD'
                     
-                } ).done( function( data ) {
+                } ).done( function() {
                     
                     self.captionUrl = this.url;
-                    self.transcript = SBPLUS.noScript( data );
                     
                 } ).always( function() {
                     
                     var html = '<video id="mp" class="video-js vjs-default-skin"></video>';
                     
-                    //if ( ! Modernizr.objectfit ) {
-                        $( self.mediaContent ).addClass( 'show-vjs-poster' );
-                    //}
+                    $( self.mediaContent ).addClass( 'show-vjs-poster' );
                     
                     $( self.mediaContent ).html( html ).promise().done( function() {
                 
+                        self.addMarkers();
                         self.renderVideoJS();
                         self.setWidgets();
                 
@@ -255,6 +225,7 @@ Page.prototype.getPageMedia = function() {
             
             $( self.mediaContent ).html( '<img src="' + img.src + '" class="img_only" alt="' + img.alt + '" />' ).promise().done( function() {
                 self.setWidgets();
+                addSecondaryControls( true );
             } );
             
             self.gaEventCate = 'Image';
@@ -274,10 +245,9 @@ Page.prototype.getPageMedia = function() {
                 url: 'assets/video/' + self.src + '.vtt',
                 type: 'HEAD'
                 
-            } ).done( function( data ) {
+            } ).done( function() {
                 
                 self.captionUrl = this.url;
-                self.transcript = SBPLUS.noScript( data );
                 
             } ).always( function() {
                 
@@ -287,6 +257,7 @@ Page.prototype.getPageMedia = function() {
                     
                     // call video js
                     self.isVideo = true;
+                    self.addMarkers();
                     self.renderVideoJS();
                     self.setWidgets();
                     
@@ -310,6 +281,7 @@ Page.prototype.getPageMedia = function() {
                 
                 $( self.mediaContent ).html( '<video id="mp" class="video-js vjs-default-skin"></video>' ).promise().done( function() {
 
+                    self.addMarkers();
                     self.renderVideoJS();
                     
                 } );
@@ -319,7 +291,11 @@ Page.prototype.getPageMedia = function() {
                 var autoplay = 
                     self.preventAutoplay === "false" || self.preventAutoplay === "no" ? 1 : 0;
 
-                $( self.mediaContent ).html( '<iframe width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/' + self.src + '?autoplay=' + autoplay + '&playsinline=1&modestbranding=1&disablekb=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"></iframe>' );
+                $( self.mediaContent ).html( '<div class="yt-native"><iframe id="youtube-ui" width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/' + self.src + '?autoplay=' + autoplay + '&playsinline=1&modestbranding=1&disablekb=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"></iframe></div>' ).promise().done( function() {
+                
+                    addSecondaryControls();
+                    
+                } );
 
             }
             
@@ -335,11 +311,12 @@ Page.prototype.getPageMedia = function() {
         
         case 'vimeo':
 
-            $( self.mediaContent ).html( '<video id="mp" class="video-js vjs-default-skin"></video>' ).promise().done( function() {
+            $( self.mediaContent ).html( '<video id="mp" class="video-js vjs-default-skin vjs-vimeo-tech"></video>' ).promise().done( function() {
                 
                 self.isVimeo = true;
                 self.renderVideoJS();
                 self.setWidgets();
+                addSecondaryControls();
                 
             } );
 
@@ -363,10 +340,9 @@ Page.prototype.getPageMedia = function() {
                 url: 'assets/audio/' + self.src + '.vtt',
                 type: 'HEAD'
                 
-            } ).done( function( data ) {
+            } ).done( function() {
                 
                 self.captionUrl = this.url;
-                self.transcript = SBPLUS.noScript( data );
                 
             } ).always( function() {
                 
@@ -376,6 +352,7 @@ Page.prototype.getPageMedia = function() {
                 $( self.mediaContent ).html( html ).promise().done( function() {
             
                     self.isBundle = true;
+                    self.addMarkers();
                     self.renderVideoJS();
                     self.setWidgets();
             
@@ -406,9 +383,6 @@ Page.prototype.getPageMedia = function() {
                     if ( $( '#sbplus_widget' ).is( ':visible' ) ) {
                         SBPLUS.setStorageItem( 'sbplus-' + SBPLUS.presentationLoc + '-previously-widget-open', 1, true );
                     }
-                    
-                    SBPLUS.hideWidget();
-                    SBPLUS.disableWidget();
 
             } );
             
@@ -441,24 +415,24 @@ Page.prototype.getPageMedia = function() {
             
             if ( embed === 'yes' || embed === "true" ) {
                 
-                var iframe = '<iframe id="iframeWithAudio" class="html" src="' + path + '"></iframe>';
+                let iframe = '<iframe class="html" src="' + path + '"></iframe>';
                 
-                $( self.mediaContent ).addClass( 'iframeEmbed' );
-
                 if ( audioSrc.length ) {
 
-                    var audio = '<video id="mp" class="video-js vjs-default-skin"></video>';
+                    let audio = '<video id="mp" class="video-js vjs-default-skin"></video>';
 
                     self.isAudio = true;
                     $( self.mediaContent ).append( audio );
+                    self.addMarkers();
                     self.renderVideoJS( audioSrc );
-                    $( '.video-js' ).prepend( iframe );
 
                 } else {
 
-                    $( self.mediaContent ).html( iframe );
+                    addSecondaryControls( false );
 
                 }
+
+                $( self.mediaContent ).addClass( 'iframeEmbed' ).prepend( iframe );
                 
             } else {
                 
@@ -668,8 +642,6 @@ Page.prototype.loadKalturaVideoData = function () {
                 if ( self.isKaltura.status.entry >= 1 && self.isKaltura.status.entry <= 2 ) {
                         
                     // flavor videos
-                    // if ( self.isKaltura.status.low === 2 && (self.isKaltura.status.normal === 2 || self.isKaltura.status.normal === 4 )
-                    // && self.isKaltura.status.medium === 2 )
                     if ( self.isKaltura.status.normal === 2 || self.isKaltura.status.normal === 4 ) {
                     
                         if ( captions !== null ) {
@@ -678,10 +650,10 @@ Page.prototype.loadKalturaVideoData = function () {
 
                             captions.forEach( caption => {
 
-                                if ( caption.label.toLowerCase() != "English (autocaption)" ) {
+                                if ( caption.label.toLowerCase() != "english (autocaption)" ) {
 
                                     self.captionUrl.push( {
-                                        kinds: 'captions',
+                                        kind: 'captions',
                                         language: caption.languageCode,
                                         label: caption.language,
                                         url: 'https://www.kaltura.com/api_v3/?service=caption_captionasset&action=servewebvtt&captionAssetId=' + caption.id + '&segmentDuration=' + self.isKaltura.duration + '&segmentIndex=1'
@@ -718,71 +690,27 @@ Page.prototype.loadKalturaVideoData = function () {
         }
 
     } );
-    // if ( self.kalturaSrc ) {
-
-    //     self.isKaltura.duration = self.kalturaSrc.duration;
-    //     self.isKaltura.status.entry = self.kalturaSrc.status;
-    //     self.isKaltura.poster = self.kalturaSrc.thumbnail;
-
-    //     for( var i in self.kalturaSrc.sources ) {
-
-    //         var source = self.kalturaSrc.sources[i];
-
-    //         if ( source.flavorParamsId === self.kaltura.flavors.low ) {
-                
-    //             self.isKaltura.flavors.low = source.src;
-    //             self.isKaltura.status.low = source.status;
-
-    //         }
-
-    //         if ( source.flavorParamsId === self.kaltura.flavors.normal ) {
-
-    //             self.isKaltura.flavors.normal = source.src;
-    //             self.isKaltura.status.normal = source.status;
-
-    //         }
-
-    //         if ( source.flavorParamsId === self.kaltura.flavors.medium ) {
-
-    //             self.isKaltura.flavors.medium = source.src;
-    //             self.isKaltura.status.medium = source.status;
-
-    //         }
-
-    //     }
-
-    //     // entry video
-    //     if ( self.isKaltura.status.entry >= 1 && self.isKaltura.status.entry <= 2 ) {
-                
-    //         // flavor videos
-    //         if ( self.isKaltura.status.low === 2 && (self.isKaltura.status.normal === 2 || self.isKaltura.status.normal === 4 )
-    //         && self.isKaltura.status.medium === 2 ) {
-            
-    //             if ( self.kalturaSrc.captions && self.kalturaSrc.captions[0] && self.kalturaSrc.captions[0].captionID !== null ) {
-    //                 self.captionUrl = self.kalturaSrc.captions[0].captionWebVTTURL;
-    //             }
-                
-    //             html = '<video id="mp" class="video-js vjs-default-skin" crossorigin="anonymous" width="100%" height="100%"></video>';
-            
-    //             $( self.mediaContent ).html( html ).promise().done( function() {
-                    
-    //                 // call video js
-    //                 self.renderVideoJS();
-    //                 self.setWidgets();
-                    
-    //             } );
-                
-                
-    //         } else {
-    //             self.showPageError( 'KAL_NOT_READY' );
-    //         }
-                
-    //     } else {
-    //         self.showPageError( 'KAL_ENTRY_NOT_READY' );
-    //     }
-
-    // }
     
+};
+
+Page.prototype.addMarkers = function() {
+
+    if ( this.markersNode != undefined ) {
+
+        Array.from( this.markersNode.children ).forEach( ( marker ) => {
+
+            const m = {
+                time: toSeconds( marker.getAttribute( 'timecode' ) ),
+                text: marker.innerHTML.trim().length ? SBPLUS.noScript( marker.innerHTML.trim() ) : '',
+                color: marker.getAttribute( 'color' ) ? marker.getAttribute( 'color' ) : ''
+            };
+
+            this.markers.push( m );
+
+        } );
+
+    }
+
 };
 
 // render videojs
@@ -820,14 +748,20 @@ Page.prototype.renderVideoJS = function( src ) {
         
         techOrder: ['html5'],
         controls: true,
+        inactivityTimeout: 0,
         autoplay: isAutoplay,
         preload: "auto",
         playbackRates: [0.5, 1, 1.5, 2],
         controlBar: {
-            fullscreenToggle: false
-        },
-        plugins: {
-            replayButton: true
+            fullscreenToggle: false,
+            children: [
+                'PlayToggle',
+                'VolumePanel',
+                'ProgressControl',
+                'RemainingTimeDisplay',
+                'PlaybackRateMenuButton',
+                'CaptionsButton'
+            ]
         }
 
     };
@@ -840,28 +774,21 @@ Page.prototype.renderVideoJS = function( src ) {
     }
     
     // set tech order and plugins
-    if ( self.isKaltura ) {
-        
-        $.extend( options.plugins, { videoJsResolutionSwitcher: { 'default': 720 } } );
-        
-    } else if ( self.isYoutube ) {
+    if ( self.isYoutube ) {
         
         options.techOrder = ['youtube'];
         options.sources = [{ type: "video/youtube", src: "https://www.youtube.com/watch?v=" + src + "&modestbranding=1" }];
         options.playbackRates = null;
-        
-        $.extend( options.plugins, { videoJsResolutionSwitcher: { 'default': 720 } } );
 
     } else if ( self.isVimeo ) {
         
         options.techOrder = ["vimeo"];
         options.sources = [{ type: "video/vimeo", src: "https://vimeo.com/" + src }];
         options.playbackRates = null;
-        //options.controls = false;
         
     }
     
-    self.mediaPlayer = videojs( 'mp', options, function() {
+    self.mediaPlayer = videojs( 'mp', options, function onPlayerReady() {
         
         var player = this;
         
@@ -871,13 +798,15 @@ Page.prototype.renderVideoJS = function( src ) {
                 player.poster( self.isKaltura.poster + '/width/900/quality/100' );
             }
             
-            player.updateSrc( [
+            player.src( [
 			
-    			{ src: self.isKaltura.flavors.low, type: "video/mp4", label: "low", res: 360 },
-    			{ src: self.isKaltura.flavors.normal, type: "video/mp4", label: "normal", res: 720 },
-    			{ src: self.isKaltura.flavors.medium, type: "video/mp4", label: "medium", res: 640 }
+    			{ src: self.isKaltura.flavors.low, type: "video/mp4", label: "low" },
+    			{ src: self.isKaltura.flavors.normal, type: "video/mp4", label: "normal", selected: true },
+    			{ src: self.isKaltura.flavors.medium, type: "video/mp4", label: "medium" }
     			
     		] );
+
+            player.controlBar.addChild('QualitySelector');
             
         }
         
@@ -1039,33 +968,14 @@ Page.prototype.renderVideoJS = function( src ) {
         
         // video events
         player.on(['waiting', 'pause' ], function() {
-            
           self.isPlaying = false;
-          
-/*
-          if ( SBPLUS.getStorageItem( 'sbplus-disable-it' ) === "0" ) {
-              clearInterval( transcriptInterval );
-              self.transcriptIntervalStarted = false;
-          }
-*/
-          
-        });
+        } );
         
         player.on( 'loadedmetadata', function() {
             
             if ( self.isKaltura ) {
-                
                 sendKAnalytics(2, self.kaltura.id, self.src, player.duration());
-                
             }
-            
-/*
-            if ( SBPLUS.getStorageItem( 'sbplus-autoplay' ) === "1" && self.preventAutoplay === "true" ) {
-        
-                $( SBPLUS.layout.mediaMsg ).html( 'This media is intentionally prevented from autoplaying. Please click the play button to view this media.' ).removeClass( 'hide' );
-                
-            }
-*/
             
         } );
         
@@ -1075,9 +985,9 @@ Page.prototype.renderVideoJS = function( src ) {
                 $(SBPLUS.layout.mediaMsg).addClass( 'hide' ).html('');
             }
             
-        });
+        } );
         
-        player.on('playing', function() {
+        player.on( 'playing', function() {
             
           self.isPlaying = true;
           
@@ -1095,18 +1005,9 @@ Page.prototype.renderVideoJS = function( src ) {
               
           }
           
-/*
-          if ( SBPLUS.getStorageItem( 'sbplus-disable-it' ) === "0" ) {
-              if ( $( '#sbplus_interactivetranscript' ).hasClass( 'active' )
-              && self.transcriptIntervalStarted === false ) {
-                self.startInteractiveTranscript();
-              }
-          }
-*/
-          
         });
         
-        player.on('timeupdate', function() {
+        player.on( 'timeupdate', function() {
           
           if ( self.isKaltura && self.isPlaying ) {
               
@@ -1151,20 +1052,6 @@ Page.prototype.renderVideoJS = function( src ) {
             if ( self.isKaltura && ka.replay === false ) {
                 ka.replay = true;
             }
-          
-/*
-          if ( SBPLUS.getStorageItem( 'sbplus-disable-it' ) === "0" ) {
-              
-              if ( $( '#sbplus_interactivetranscript' ).hasClass( 'active' ) ) {
-                  $( '.lt-wrapper .lt-line' ).removeClass( 'current' );
-              }
-              
-              clearInterval( transcriptInterval );
-              self.transcriptIntervalStarted = false;
-              
-          }
-          
-*/
 
             // send event to Google Analytics
             if ( self.gaEventCate !== '' ) {
@@ -1199,7 +1086,7 @@ Page.prototype.renderVideoJS = function( src ) {
             
           self.showPageError( 'NO_MEDIA', player.src() );
           
-        });
+        } );
         
         player.on( 'resolutionchange', function() {
                 
@@ -1283,7 +1170,15 @@ Page.prototype.renderVideoJS = function( src ) {
         // add forward and backward buttons
 
         addForwardButton( player );
-        addBackwardButton( player ); 
+        addBackwardButton( player );
+
+        // add expand/contract button
+        addExpandContractButton( player );
+
+        // add markers
+        if ( self.markers ) {
+            setupMarkers( player, self.markers );
+        }
             
     } );
     
@@ -1321,33 +1216,7 @@ Page.prototype.setWidgets = function() {
     if ( this.type != 'quiz' ) {
         
         if ( !SBPLUS.isEmpty( this.notes ) ) {
-            
             SBPLUS.addSegment( 'Notes' );
-            
-        }
-        
-        if ( SBPLUS.getStorageItem( 'sbplus-disable-it' ) === "0" ) {
-            
-            if ( self.isAudio || self.isVideo || self.isBundle ) {
-            
-                if ( !SBPLUS.isEmpty( self.transcript ) ) {
-                    
-                    SBPLUS.addSegment( 'Interactive Transcript (alpha)' );
-                    
-                }
-                
-            }
-            
-            if ( self.isKaltura ) {
-                
-                if ( !SBPLUS.isEmpty( self.captionUrl ) ) {
-                    
-                    SBPLUS.addSegment( 'Interactive Transcript (alpha)' );
-                    
-                }
-                
-            }
-            
         }
         
         if ( this.widget.length ) {
@@ -1363,8 +1232,8 @@ Page.prototype.setWidgets = function() {
                 SBPLUS.addSegment( name );
                 
             } );
-            
-        }
+ 
+        } 
         
         SBPLUS.selectFirstSegment();
         
@@ -1384,43 +1253,6 @@ Page.prototype.getWidgetContent = function( id ) {
             
         break;
         
-        case 'sbplus_interactivetranscriptalpha':
-            
-            if ( SBPLUS.getStorageItem( 'sbplus-disable-it' ) === "0" ) {
-                
-                if ( self.isAudio || self.isVideo ) {
-                
-                    displayWidgetContent( parseTranscript( self.transcript ) );
-                    self.startInteractiveTranscript();
-                    
-                } else {
-                    
-                    if ( self.transcriptLoaded === false ) {
-                        
-                        $.get( self.captionUrl, function( d ) {
-                        
-                            self.transcriptLoaded = true;
-                            self.transcript = parseTranscript( SBPLUS.noScript( d ) );
-                            
-                            displayWidgetContent( self.transcript );
-                            self.startInteractiveTranscript();
-                            
-                        } );
-                        
-                    } else {
-                         
-                         displayWidgetContent( self.transcript );
-                         self.startInteractiveTranscript();
-                        
-                    }
-                 
-                }
-                
-            }
-            
-              
-        break;
-        
         default:
             
             displayWidgetContent( self.widgetSegments[id] );
@@ -1430,64 +1262,6 @@ Page.prototype.getWidgetContent = function( id ) {
     }
     
 }
-
-/*
-Page.prototype.startInteractiveTranscript = function() {
-    
-    var self = this;
-    
-    if ( self.mediaPlayer ) {
-        
-        var ltArray = $( '.lt-wrapper .lt-line' );
-        
-        transcriptInterval = setInterval( function() {
-            
-            if ( self.isPlaying 
-            && $( SBPLUS.layout.widget ).is( ':visible' ) ) {
-                
-                ltArray.removeClass( 'current' );
-                
-                // TO DO: Refine loop to binary search
-                ltArray.each( function() {
-
-                    if ( self.mediaPlayer.currentTime() >= $( this ).data('start') 
-                    && self.mediaPlayer.currentTime() <= $( this ).data('end') ) {
-                        $( this ).addClass( 'current' );
-                        return;
-                    }
-                    
-                } );
-                
-                var target = $( '.lt-wrapper .lt-line.current' );
-            
-                if ( target.length ) {
-                    
-                    var scrollHeight = $( '#sbplus_widget' ).height();
-                    var targetTop = target[0].offsetTop;
-                    
-                    if ( targetTop > scrollHeight ) {
-                        target[0].scrollIntoView( false );
-                    }
-                    
-                }
-                
-            }
-            
-        }, 500 );
-        
-        self.transcriptIntervalStarted = true;
-    
-    }
-    
-    $( '.lt-wrapper .lt-line' ).on( 'click', function(e) {
-        
-        var currentTarget = $( e.currentTarget ).data('start');
-        self.mediaPlayer.currentTime(currentTarget);
-        
-    } );
-    
-}
-*/
 
 // display page error
 Page.prototype.showPageError = function( type, src ) {
@@ -1692,9 +1466,111 @@ function addBackwardButton( vjs ) {
     
 }
 
-function sendKAnalytics(type, id, source, duration) {
+function addExpandContractButton( vjs ) {
+
+    let Button = videojs.getComponent( 'Button' );
+    let expandContractBtn = videojs.extend( Button, {
+        constructor: function( player, options ) {
+            
+            Button.call( this, player, options );
+            this.el().setAttribute( 'aria-label','Expand/Contract' );
+            this.controlText( 'Expand/Contract' );
+
+            if (document.querySelector( SBPLUS.layout.sbplus ).classList.contains( 'sbplus-vjs-expanded' )) {
+                vjs.addClass( 'sbplus-vjs-expanded' );
+            }
+
+        },
+        handleClick: function() {
+            
+            if ( vjs.hasClass( 'sbplus-vjs-expanded' ) ) {
+                vjs.removeClass( 'sbplus-vjs-expanded' );
+                document.querySelector( SBPLUS.layout.sbplus ).classList.remove( 'sbplus-vjs-expanded' );
+            } else {
+                vjs.addClass( 'sbplus-vjs-expanded' );
+                document.querySelector( SBPLUS.layout.sbplus ).classList.add( 'sbplus-vjs-expanded' );
+            }
+            
+        },
+        
+        buildCSSClass: function() {
+            return 'vjs-expand-contract-button vjs-control vjs-button';
+        }
+        
+    } );
+
+    videojs.registerComponent( 'ExpandContractBtn', expandContractBtn );
+    vjs.getChild( 'controlBar' ).addChild( 'ExpandContractBtn', {}, 10 );
     
-    //$.get( 'https://www.kaltura.com/api_v3/index.php?service=stats&action=collect&event%3AsessionId=' + guid() + '&event%3AeventType=' + type + '&event%3ApartnerId=' + id + '&event%3AentryId=' + source + '&event%3Areferrer=https%3A%2F%2Fmedia.uwex.edu&event%3Aseek=false&event%3Aduration=' + duration + '&event%3AeventTimestamp=' + +new Date() );
+}
+
+function toggleExpandContractView(evt) {
+
+    const layout = document.querySelector( SBPLUS.layout.sbplus );
+
+    if ( layout.classList.contains( 'sbplus-vjs-expanded' ) ) {
+        evt.target.classList.remove( 'expanded' );
+        layout.classList.remove( 'sbplus-vjs-expanded' );
+    } else {
+        evt.target.classList.add( 'expanded' )
+        layout.classList.add( 'sbplus-vjs-expanded' );
+    }
+
+}
+
+function addSecondaryControls( noAudio = false ) {
+
+    noAudio = typeof noAudio !== 'undefined' ? noAudio : false;
+
+    const secondaryControlDiv = document.createElement( 'div' );
+    secondaryControlDiv.classList.add( 'sbplus_secondary_controls' );
+
+    if ( noAudio ) {
+
+        const noAudioLabelEl = document.createElement( 'div' );
+        noAudioLabelEl.classList.add( 'no_audio_label' );
+        noAudioLabelEl.innerHTML = 'This slide is not narrated.';
+        secondaryControlDiv.appendChild( noAudioLabelEl );
+
+    }
+
+    const expandContractBtn = document.createElement( 'button' );
+    expandContractBtn.setAttribute( 'id', 'expand_contract_btn' );
+    expandContractBtn.setAttribute( 'title', 'Expand/Contract' );
+    expandContractBtn.setAttribute( 'aria-label', 'Expand/Contract' );
+    expandContractBtn.setAttribute( 'tabindex', '1' );
+
+    secondaryControlDiv.appendChild(expandContractBtn);
+    secondaryControlDiv.addEventListener( 'click', toggleExpandContractView );
+
+    $( SBPLUS.layout.mediaContent ).append( secondaryControlDiv );
+
+}
+
+function removeSecondaryControls() {
+
+    const secondaryControlsDiv = document.querySelector( '.sbplus_secondary_controls' );
+
+    if ( secondaryControlsDiv ) {
+        const expandBtn = document.querySelector( '#expand_contract_btn' );
+        expandBtn.removeEventListener( 'click', toggleExpandContractView );
+    }
+
+}
+
+function setupMarkers ( player, markers ) {
+
+    if ( markers ) {
+
+        player.markers( {
+            markers: markers
+        } );
+
+    }
+
+}
+
+function sendKAnalytics(type, id, source, duration) {
     
     var settings = {
       "url": "https://www.kaltura.com/api_v3/service/stats/action/collect",
@@ -1745,91 +1621,6 @@ function displayWidgetContent( str ) {
     
 }
 
-function parseTranscript( str ) {
-    
-    try {
-        
-        var result = '<div class="lt-wrapper">';
-        var tAry = str.replace(/\n/g, '<br>').split('<br>');
-        var brCount = 0;
-        
-        tAry = cleanArray( SBPLUS.removeEmptyElements( tAry ) );
-    
-        if ( tAry[0].match(/\d{2}:\d{2}:\d{2}.\d{3}/g) 
-        && tAry[1].match(/\d{2}:\d{2}:\d{2}.\d{3}/g) ) {
-            tAry[0] = '';
-            tAry = SBPLUS.removeEmptyElements( tAry );
-        }
-        
-        for ( var i = 1; i < tAry.length; i += 2 ) {
-            
-            var cueParts = tAry[i-1].split( ' ' );
-            
-            result += '<span class="lt-line" data-start="' + toSeconds(cueParts[0]) + '" data-end="' + toSeconds(cueParts[2]) + '">' + tAry[i] + '</span> ';
-            brCount++;
-            
-            if( brCount >= 17 ) {
-                result += '<br><br>';
-                brCount = 0;
-            }
-            
-        }
-        
-        result += '</div>';
-        
-        return result;
-        
-    } catch(e) {
-        
-        return 'Oops, SB+ has some complications with the requested caption file.';
-        
-    }
-    
-} 
-
-function cleanArray( array ) {
-    
-    array = SBPLUS.removeEmptyElements( array );
-    
-    var index = array.findIndex( firstCueZero );
-    
-    if ( index === -1 ) {
-        index = array.indexOf( array.find( firstCue ) );
-    }
-    
-    array = array.splice( index );
-    
-    for ( var j = 0; j < array.length; j++ ) {
-        
-        if ( array[j].match(/\d{2}:\d{2}:\d{2}.\d{3}/g) ) {
-            
-            var innerSplit = array[j].split( ' ' );
-            
-            if ( innerSplit.length > 3 ) {
-                array[j] = innerSplit.splice( 0, 3 ).join(' ');
-            } else {
-                continue;
-            }
-            
-        } else {
-            
-            if ( array[j+1] !== undefined ) {
-                
-                if ( !array[j+1].match(/\d{2}:\d{2}:\d{2}.\d{3}/g) ) {
-                    array[j] = array[j] + ' ' + array[j+1];
-                    array[j+1] = '';
-                }
-                
-            }
-            
-        }
-        
-    }
-    
-    return SBPLUS.removeEmptyElements( array );
-    
-}
-
 function guid() {
     
     function s4() {
@@ -1837,18 +1628,6 @@ function guid() {
     }
     
     return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
-    
-}
-
-function firstCueZero( cue ) {
-    
-    return cue.match(/(00:00:00.000)/);
-    
-}
-
-function firstCue( cue ) {
-    
-    return cue.match(/\d{2}:\d{2}:\d{2}.\d{3}/g);
     
 }
 

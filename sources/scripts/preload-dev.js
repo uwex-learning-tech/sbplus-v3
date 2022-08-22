@@ -1,5 +1,5 @@
 onmessage = function( e ) {
-    
+
     var url = e.data.php + "?uri=" + encodeURIComponent(e.data.pages),
           fileUrl = e.data.url,
           request = new XMLHttpRequest();

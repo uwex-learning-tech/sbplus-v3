@@ -3,13 +3,13 @@
  *
  * @author: Ethan Lin
  * @url: https://github.com/uwex-learning-tech/sbplus-v3
- * @version: 3.3.3
- * Released 11/29/2021
+ * @version: 3.4.0
+ * Released xx/xx/2022
  *
  * @license: GNU GENERAL PUBLIC LICENSE v3
  *
     Storybook Plus is an web application that serves multimedia contents.
-    Copyright (C) 2013-2021  Ethan S. Lin, Learning Technology & Media, University
+    Copyright (C) 2013-2022  Ethan Lin, Learning Technology & Media, University
     of Wisconsin Extended Campus
 
     This program is free software: you can redistribute it and/or modify
@@ -41,7 +41,6 @@ var SBPLUS = SBPLUS || {
     
     // holds the HTML structure classes and IDs
     loadingScreen: null,
-    themeDecorationBar: null,
     layout: null,
     splash: null,
     banner: null,
@@ -99,7 +98,7 @@ var SBPLUS = SBPLUS || {
      * variables. Also, getting data from the manifest file.
      *
      * @since 3.1.0
-     * @author(s) Ethan Lin
+     * @author Ethan Lin
      * @updated on 5/19/2017
      *
      * @param none
@@ -130,19 +129,23 @@ var SBPLUS = SBPLUS || {
         
         // set HTML banner classes and IDs
         this.banner = {
+            bar: '#sbplus_banner_bar',
             title: '#sbplus_lession_title',
             author: '#sbplus_author_name'
         };
         
         // set HTML splashscreen classes and IDs
         this.splash = {
+            cta: '#splash_cta',
             screen: '#sbplus_splash_screen',
             background: '#sb_splash_bg',
+            infoBox: '#sbplus_presentation_info',
             title: '#sbplus_presentation_info .sb_title',
             subtitle: '#sbplus_presentation_info .sb_subtitle',
             author: '#sbplus_presentation_info .sb_author',
-            duration: '#sbplus_presentation_info .sb_duration',
-            downloadBar: '#sbplus_presentation_info .sb_downloads'
+            duration: '#sbplus_presentation_info .sb_context .sb_duration',
+            downloadBar: '#sbplus_presentation_info .sb_context .sb_downloads',
+            logo: '#sb_splash_logo'
         };
         
         // set HTML table of contents classes and IDs
@@ -164,17 +167,16 @@ var SBPLUS = SBPLUS || {
         this.button = {
             start: '#sbplus_start_btn',
             resume: '#sbplus_resume_btn',
+            notes: '#sbplus_new_note_btn',
             downloadWrapper: '#sbplus_download_btn_wrapper',
             download: '#sbplus_download_btn',
             downloadMenu: '#sbplus_download_btn .menu-parent .downloadFiles',
-            widget: '#sbplus_widget_btn',
-            widgetTip: '#sbplus_widget_btn .btnTip',
-            sidebar: '#sbplus_sidebar_btn',
             author: '#sbplus_author_name',
             menu: '#sbplus_menu_btn',
             menuClose: '#sbplus_menu_close_btn',
             next: '#sbplus_next_btn',
-            prev: '#sbplus_previous_btn'
+            prev: '#sbplus_previous_btn',
+            mobileTocToggle: '#mobile_toc_toggle_btn'
         };
         
         // set HTML menu classes and IDs
@@ -195,9 +197,6 @@ var SBPLUS = SBPLUS || {
             pageTitle: '.sr-page-status .sr-page-title',
             hasNotes: '.sr-page-status .sr-has-notes'
         };
-
-        // set theme decoration bar class
-        this.themeDecorationBar = '#theme-decoration-bar';
 
         // set loading screen id
         this.loadingScreen = {
@@ -230,6 +229,7 @@ var SBPLUS = SBPLUS || {
                 // HTML structure
                 /* !! SHOULD BE THE LAST THING TO BE CALLED IN THIS BLOCK!! */
                 self.loadTemplate();
+                self.preloadPresenationImages();
                 
             } ).fail( function() { // when manifest fail to load...
                 
@@ -246,6 +246,18 @@ var SBPLUS = SBPLUS || {
             } );
             
         }
+
+        // check online status every 1 minutes
+        setInterval( async () => {
+
+            const online = await checkOnlineStatus();
+            if ( online ) {
+                self.hideConnectionMessage();
+            } else {
+                self.showConnectionMessage();
+            }
+
+        }, 60000 );
              
     }, // end go function
 
@@ -253,7 +265,7 @@ var SBPLUS = SBPLUS || {
      * Load Storybook Plus HTML templates from the templates directory
      *
      * @since 3.1.0
-     * @author(s) Ethan Lin
+     * @author Ethan Lin
      * @updated on 5/19/2017
      *
      * @param none
@@ -318,7 +330,8 @@ var SBPLUS = SBPLUS || {
      * Set the program theme
      *
      * @since 3.2.0
-     * @author(s) Ethan Lin
+     * @updated 12/01/2021
+     * @author Ethan Lin
      *
      * @param none
      * @return none
@@ -350,64 +363,19 @@ var SBPLUS = SBPLUS || {
             
             $.getJSON( self.manifest.sbplus_program_themes, function( data ) {
                 
-                let themeColors = self.getProgramTheme(0, program, data);
-                
-                themeColors.forEach( function( color ) {
-                    $( self.themeDecorationBar ).append( '<span style="background-color:' + color +'"></span>' );
-                } );
-                
                 $( '#copyright-footer .notice' ).html( data.copyright );
-                
-            } ).fail( function() { // when themes fail to load...
-                
-                // do nothing
                 
             } );
             
         }
          
      }, // end set theme function
-    
-     /**
-     * Set the program theme bar color
-     *
-     * @since 3.2.0
-     * @author(s) Ethan Lin
-     *
-     * @param none
-     * @return none
-     **/
-    getProgramTheme: function( count, program, data ) {
-        
-        let self = this;
-        let theme = data.program_themes.filter( theme => theme.name === program );
-        let colors = []
-        
-        if ( theme.length ) {
-            
-            colors = theme[0].colors;
-            
-        } else {
-            
-            if ( count < 3 ) {
-                
-                if ( !self.isEmpty( self.manifest.sbplus_program_default ) ) {
-                    colors = self.getProgramTheme( count + 1, self.manifest.sbplus_program_default, data );
-                }
-            
-            }
-            
-        }
-        
-        return colors;
-        
-    },
 
     /**
      * Set the program logo
      *
      * @since 3.3.0
-     * @author(s) Ethan Lin
+     * @author Ethan Lin
      *
      * @param none
      * @return none
@@ -441,26 +409,32 @@ var SBPLUS = SBPLUS || {
                 
                 self.logo = this.url;
                 $( self.loadingScreen.logo ).html( '<img src="' + self.logo + '" />' );
+
+                // set logo on splash screen
+                const splashLogo = document.querySelector( self.splash.logo );
+                const logo = document.createElement( 'img' );
+
+                logo.src = self.logo;
+                splashLogo.appendChild(logo);
                 
             } ).fail( function() {
                 
-                logoUrl = self.manifest.sbplus_logo_directory + self.manifest.sbplus_program_default + '.svg';
+                if ( self.manifest.sbplus_program_default ) {
+                    logoUrl = self.manifest.sbplus_logo_directory + self.manifest.sbplus_program_default + '.svg';
+                } else {
+                    logoUrl = self.manifest.sbplus_root_directory + 'images/default_logo.svg';
+                }
+
+                self.logo = logoUrl;
+
+                $( self.loadingScreen.logo ).html( '<img src="' + self.logo + '" />' );
+
+                // set logo on splash screen
+                const splashLogo = document.querySelector( self.splash.logo );
+                const logo = document.createElement( 'img' );
                 
-                $.ajax( {
-                    
-                    url: logoUrl,
-                    type: 'HEAD'
-                    
-                } ).done( function() {
-                    
-                    self.logo = this.url;
-                    $( self.loadingScreen.logo ).html( '<img src="' + self.logo + '" />' );
-                    
-                } ).fail( function() {
-                    
-                    self.logo = self.manifest.sbplus_root_directory + 'images/default_logo.svg';
-                    
-                } );
+                logo.src = self.logo;
+                splashLogo.appendChild(logo);
                 
             } );
             
@@ -472,7 +446,7 @@ var SBPLUS = SBPLUS || {
      * Execute tasks before loading the external XML data
      *
      * @since 3.1.0
-     * @author(s) Ethan Lin
+     * @author Ethan Lin
      * @updated on 5/19/2017
      *
      * @param none
@@ -482,9 +456,6 @@ var SBPLUS = SBPLUS || {
         
         // if manifest and template are loaded and XML was never loaded before
         if ( this.manifestLoaded === true && this.beforeXMLLoadingDone === false ) {
-            
-            // setup the options specified in the URL string query
-            this.setURLOptions();
             
             // setup custom menu items specified in the manifest file
             this.setManifestCustomMenu();
@@ -500,7 +471,7 @@ var SBPLUS = SBPLUS || {
      * Setting up the custom menu items specified in the manifest file
      *
      * @since 3.1.0
-     * @author(s) Ethan Lin
+     * @author Ethan Lin
      * @updated on 5/19/2017
      *
      * @param none
@@ -546,7 +517,7 @@ var SBPLUS = SBPLUS || {
      * Load presentation data from an external XML file
      *
      * @since 3.1.0
-     * @author(s) Ethan Lin
+     * @author Ethan Lin
      * @updated on 5/19/2017
      *
      * @param none
@@ -592,7 +563,7 @@ var SBPLUS = SBPLUS || {
      * Parse presentation data from an external XML file
      *
      * @since 3.1.0
-     * @author(s) Ethan Lin
+     * @author Ethan Lin
      * @updated on 11/14/2019
      *
      * @param string
@@ -726,7 +697,6 @@ var SBPLUS = SBPLUS || {
             }
             
             // if analytics is on, get and set Google analtyics tracking
-
             if ( self.xml.settings.analytics === 'on' || self.xml.settings.analytics === 'true' ) {
                 
                 (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -804,7 +774,7 @@ var SBPLUS = SBPLUS || {
      * Render presentation splash screen
      *
      * @since 3.1.0
-     * @author(s) Ethan Lin
+     * @author Ethan Lin
      * @updated on 1/2/2020
      *
      * @param none
@@ -815,19 +785,6 @@ var SBPLUS = SBPLUS || {
         var self = this;
         
         if ( self.xmlParsed === true && self.splashScreenRendered === false ) {
-            
-            // set inital local storage settings
-            if ( self.hasStorageItem( 'sbplus-hide-widget' ) === false ) {
-                self.setStorageItem( 'sbplus-hide-widget', 0 );
-            }
-            
-            if ( self.hasStorageItem( 'sbplus-hide-sidebar' ) === false ) {
-                self.setStorageItem( 'sbplus-hide-sidebar', 0 );
-            }
-            
-            if ( self.hasStorageItem( 'sbplus-disable-it' ) === false ) {
-                self.setStorageItem( 'sbplus-disable-it', 1 );
-            }
             
             if ( self.hasStorageItem( 'sbplus-autoplay' ) === false ) {
                 self.setStorageItem( 'sbplus-autoplay', 1 );
@@ -845,10 +802,6 @@ var SBPLUS = SBPLUS || {
             
             if ( self.hasStorageItem( 'sbplus-subtitle' ) === false ) {
                 self.setStorageItem( 'sbplus-subtitle', 0 );
-            }
-            
-            if ( self.hasStorageItem( 'sbplus-disable-it' ) ) {
-                self.deleteStorageItem( 'sbplus-disable-it' );
             }
             
             // if autoplay for videoJS is on, add a class to the body tag
@@ -870,7 +823,7 @@ var SBPLUS = SBPLUS || {
             }
             
             $( self.splash.duration ).html( self.xml.setup.duration );
-            
+
             // get splash image background via AJAX
             $.ajax( { // get the splash image from the local first
                 
@@ -985,11 +938,17 @@ var SBPLUS = SBPLUS || {
                     
                     let fileLabel = file.label.toLowerCase();
                     
-                    //self.downloads[fileLabel] = this.url;
                     self.downloads[fileLabel] = { 'fileName': fileName, 'fileFormat': file.format, 'url': this.url };
                     
                     $( self.splash.downloadBar ).append(
-                        '<a href="' + this.url + '" tabindex="1" download="' + fileName + '.' + file.format + '" aria-label="Download ' + fileLabel + ' file" onclick="SBPLUS.sendToGA( \'' + fileLabel + 'Link\', \'click\', \'' + fileName + '\', 4, 0 );"><span class="icon-download"></span> ' + file.label + '</a>' );
+                        '<a href="' + this.url + '" tabindex="1" download="' + fileName + '.' + file.format + '" aria-label="Download ' + fileLabel + ' file" onclick="SBPLUS.sendToGA( \'' + fileLabel + 'Link\', \'click\', \'' + fileName + '\', 4, 0 );"><span class="icon-download"></span>' + file.label + '</a>' );
+
+                } ).always( function() {
+
+                    if ( Object.keys(self.downloads).length <= 0 ) {
+                        $( self.splash.cta ).addClass( 'no_downloads' );
+                    }  
+
                 } );
                 
             } );
@@ -998,13 +957,20 @@ var SBPLUS = SBPLUS || {
             if ( self.xml.settings.accent !== self.manifest.sbplus_default_accent ) {
                 
                 // set hover color hex value
-                var hover = self.colorLum( self.xml.settings.accent, 0.2 );
+                let hover = self.colorLum( self.xml.settings.accent, 0.2 );
                 
                 // set the text color hex value
-                var textColor = self.colorContrast( self.xml.settings.accent );
+                let textColor = self.colorContrast( self.xml.settings.accent );
+
+                // video marker color
+                let markerColor = self.colorLum(self.xml.settings.accent, 0.4);
+                
+                if ( textColor !== "#000" ) {
+                    markerColor = self.colorLum(self.xml.settings.accent, 0.8);
+                }
                 
                 // construct the CSS
-                var style = '.sbplus_wrapper button:hover{color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_cta button{color:' + textColor  + ';background-color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_cta button:hover{background-color:' + hover + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col .list .item:hover{color:' + textColor + ';background-color:' + hover + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col .list .sb_selected{color:' + textColor + ';background-color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col #sbplus_table_of_contents_wrapper .section .current{border-left-color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu .menu-item:hover,.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu .menu-item:hover{background-color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu .menu-item:hover a,.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu .menu-item:hover a{color:' + textColor + '}.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .active, .sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .active{color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu .menu-item:focus,.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu .menu-item:focus{background-color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu .menu-item:focus a,.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu .menu-item:focus a{color:' + textColor + '}.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent:hover,.sbplus_wrapper #sbplus #sbplus_control_bar #sbplus_right_controls #sbplus_download_btn_wrapper .root-level .menu-parent:hover{color:' + self.xml.settings.accent + '}.sbplus_boxed #theme-decoration-bar{background-color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper #copyToCbBtn{color:' + textColor  + ';background-color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper #copyToCbBtn:hover{background-color:' + hover + '}';
+                var style = '.sbplus_wrapper button:hover{color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_context .sb_cta button{color:' + textColor  + ';background-color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_context .sb_cta button:hover{background-color:' + hover + '}.sbplus_wrapper #sbplus #sbplus_banner_bar{background-color:' + self.xml.settings.accent + ';color:' + textColor + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col .list .item:hover{color:' + textColor + ';background-color:' + hover + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col .list .sb_selected{color:' + textColor + ';background-color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col #sbplus_table_of_contents_wrapper .section .current{border-left-color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_control_bar .controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu .menu-item:hover,.sbplus_wrapper #sbplus #sbplus_control_bar .controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu .menu-item:hover{background-color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_control_bar .controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu .menu-item:hover a,.sbplus_wrapper #sbplus #sbplus_control_bar .controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu .menu-item:hover a{color:' + textColor + '}.sbplus_wrapper #sbplus #sbplus_control_bar .controls #sbplus_download_btn_wrapper #sbplus_download_btn .active, .sbplus_wrapper #sbplus #sbplus_control_bar .controls #sbplus_download_btn_wrapper .root-level .active{color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_control_bar .controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu .menu-item:focus,.sbplus_wrapper #sbplus #sbplus_control_bar .controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu .menu-item:focus{background-color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_control_bar .controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu .menu-item:focus a,.sbplus_wrapper #sbplus #sbplus_control_bar .controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu .menu-item:focus a{color:' + textColor + '}.sbplus_wrapper #sbplus #sbplus_control_bar .controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent:hover,.sbplus_wrapper #sbplus #sbplus_control_bar .controls #sbplus_download_btn_wrapper .root-level .menu-parent:hover{color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper #copyToCbBtn{color:' + textColor  + ';background-color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper #copyToCbBtn:hover{background-color:' + hover + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper .sbplus_media_content .video-js.vjs-default-skin .vjs-control-bar{background-color:'+ self.xml.settings.accent +'}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper .sbplus_media_content .video-js.vjs-default-skin .vjs-control-bar .vjs-control,.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper .sbplus_media_content .video-js.vjs-default-skin button:hover{color:' + textColor  + '}.video-js .vjs-volume-level,.video-js .vjs-play-progress{background-color:' + textColor  + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_quiz_wrapper .sbplus_quiz_submit_btn, .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_quiz_wrapper .sbplus_quiz_tryagain_btn{color:' + textColor  + ';background-color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper .sbplus_media_content .sbplus_secondary_controls{background-color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper .sbplus_media_content .sbplus_secondary_controls #expand_contract_btn{color:' + textColor  + '}.sbplus_wrapper.toc_displayed #sbplus #sbplus_control_bar #mobile_toc_toggle_btn{color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper .sbplus_media_content .video-js.vjs-default-skin .vjs-control-bar .vjs-progress-control .vjs-marker{background-color:' + markerColor + '}';
                 
                 // append the style/css to the HTML head
                 $( 'head' ).append( '<style type="text/css">' + style + '</style>' );
@@ -1048,8 +1014,8 @@ var SBPLUS = SBPLUS || {
      * Set the splash screen image to the DOM
      *
      * @since 3.1.0
-     * @author(s) Ethan Lin
-     * @updated on 11/14/2019
+     * @author Ethan Lin
+     * @updated on 12/01/2021
      *
      * @param string
      * @return none
@@ -1070,20 +1036,25 @@ var SBPLUS = SBPLUS || {
                     
                     $( self.splash.background )
                         .css( 'background-image', 'url(' + img.src + ')' );
-                    
-                    $( self.loadingScreen.wrapper ).addClass( "fadeOut" )
-                    .one( 'webkitAnimationEnd mozAnimationEnd animationend', 
-                    function() {
-                        $( this ).removeClass( 'fadeOut' ).hide();
-                        $( this ).off();
-                    }
-                );
+
+                    setTimeout( () => {
+
+                        $( self.splash.infoBox).show();
+                        $( self.loadingScreen.wrapper ).addClass( "fadeOut" )
+                        .one( 'webkitAnimationEnd mozAnimationEnd animationend', 
+                        function() {
+                            
+                            $( this ).off();
+                            $( this ).removeClass( 'fadeOut' ).hide();
+
+                            }
+                        );
+                        
+                    }, 1500 );
     
                 }
 
             } );
-
-            self.preloadPresenationImages();
             
         }
         
@@ -1093,7 +1064,7 @@ var SBPLUS = SBPLUS || {
      * Hide the splash screen. Should be used when starting or resuming.
      *
      * @since 3.1.0
-     * @author(s) Ethan Lin
+     * @author Ethan Lin
      * @updated on 5/19/2017
      *
      * @param none
@@ -1160,16 +1131,6 @@ var SBPLUS = SBPLUS || {
         worker.onmessage = function( e ) {
 
             e.data.forEach( function( image ) {
-                
-/*
-                let imgObj = document.createElement( "img" );
-                
-                imgObj.src = paths.pages + image;
-                imgObj.setAttribute( 'aria-hidden', true );
-                imgObj.style = "position: fixed; width: 1px; height: 1px; opacity: 0;";
-                
-                document.getElementsByTagName( "body" )[0].appendChild( imgObj );
-*/
 
                 let linkObj = document.createElement( 'link' );
                 linkObj.rel = "prefetch";
@@ -1177,7 +1138,6 @@ var SBPLUS = SBPLUS || {
                 linkObj.setAttribute( 'aria-hidden', true );
                 linkObj.style = "position: fixed; width: 1px; height: 1px; opacity: 0;";
                 document.getElementsByTagName( "body" )[0].appendChild( linkObj );
-                
                 
             } );
             
@@ -1189,7 +1149,7 @@ var SBPLUS = SBPLUS || {
      * Start presentation function for the start button
      *
      * @since 3.1.0
-     * @author(s) Ethan Lin
+     * @author Ethan Lin
      * @updated on 5/19/2017
      *
      * @param none
@@ -1210,6 +1170,8 @@ var SBPLUS = SBPLUS || {
                 
                 // select the first page
                 self.selectPage( '0,0' );
+
+                self.presentationStarted = true;
                 
                 if ( self.xml.settings.analytics === 'on' || self.xml.settings.analytics === 'true' ) {
                     
@@ -1220,9 +1182,6 @@ var SBPLUS = SBPLUS || {
                 
             } );
             
-            self.presentationStarted = true;
-            
-            
         }
         
     },
@@ -1231,7 +1190,7 @@ var SBPLUS = SBPLUS || {
      * Resume presentation function for the start button
      *
      * @since 3.1.0
-     * @author(s) Ethan Lin
+     * @author Ethan Lin
      * @updated on 5/19/2017
      *
      * @param none
@@ -1272,7 +1231,7 @@ var SBPLUS = SBPLUS || {
      * Render the presentation (after the hiding the splash screen)
      *
      * @since 3.1.0
-     * @author(s) Ethan Lin
+     * @author Ethan Lin
      * @updated on 1/2/2020
      *
      * @param none
@@ -1285,9 +1244,9 @@ var SBPLUS = SBPLUS || {
             var self = this;
         
             // before presenting; apply local storage settings
-            if ( self.getStorageItem( 'sbplus-hide-widget' ) === '1' ) {
-                self.hideWidget();
-            }
+            // if ( self.getStorageItem( 'sbplus-hide-widget' ) === '1' ) {
+            //     self.hideWidget();
+            // }
             
             if ( self.getStorageItem( 'sbplus-hide-sidebar' ) === '1' ) {
                 self.hideSidebar();
@@ -1343,44 +1302,8 @@ var SBPLUS = SBPLUS || {
                     ++self.totalPages;
                     
                     let pageType = $( this ).attr( 'type' );
-/*
-                    let itemType = "";
-                    
-                    switch ( pageType ) {
-                        
-                        case "video":
-                        case "youtube":
-                        case "kaltura":
-                        case "vimeo":
-                        itemType = "video-item";
-                        break;
-                        
-                        case "image":
-                        itemType = "image-item";
-                        break;
-                        
-                        case "image-audio":
-                        case "bundle":
-                        itemType = "audio-item";
-                        break;
-                        
-                        case "html":
-                        itemType = "html-item";
-                        break;
-                        
-                        case "quiz":
-                        itemType = "quiz-item";
-                        break;
-                        
-                        default:
-                        itemType = "";
-                        break;
-                        
-                    }
-*/
-                    
+
                     // append opening list item tag to DOM
-                    //sectionHTML += '<li class="item ' + itemType + '" data-count="';
                     sectionHTML += '<li class="item" data-count="';
                     sectionHTML += self.totalPages + '" data-page="' + i + ',' + j + '">';
                     
@@ -1414,10 +1337,6 @@ var SBPLUS = SBPLUS || {
             $( self.layout.pageStatus ).find( 'span.total' ).html( self.totalPages );
             $( self.screenReader.totalPages ).html( self.totalPages );
             
-            // set event listeners
-            $( self.button.sidebar ).on( 'click', self.toggleSidebar.bind( self ) );
-            $( self.button.widget ).on( 'click',  self.toggleWidget.bind( self ) );
-            
             // if author is missing hide author button and menu item
             if ( self.xml.setup.author.length ) {
                 
@@ -1427,12 +1346,13 @@ var SBPLUS = SBPLUS || {
                 
             } else {
                 
-                $(self.button.author).prop( 'disabled', true );
+                $( self.button.author ).prop( 'disabled', true );
                 
             }
             
             $( self.button.next ).on( 'click', self.goToNextPage.bind( self ) );
             $( self.button.prev ).on( 'click', self.goToPreviousPage.bind( self ) );
+            $( self.button.mobileTocToggle).on( 'click', self.toggleToc.bind(self) );
             
             if ( $( self.xml.sections ).length >= 2 ) {
                 $( self.tableOfContents.header ).on( 'click', self.toggleSection.bind( self ) );
@@ -1482,9 +1402,9 @@ var SBPLUS = SBPLUS || {
             // easter egg event listener
             $( "#sbplus_menu_btn .menu-parent" ).on( 'click', self.burgerBurger.bind( self ) );
             
-            if ( window.innerWidth < 900 || window.screen.width <= 414 ) {
-                this.hideWidget();
-            }
+            // if ( window.innerWidth < 900 || window.screen.width <= 414 ) {
+            //     this.hideWidget();
+            // }
             
             this.presentationRendered = true;
             
@@ -1505,7 +1425,7 @@ var SBPLUS = SBPLUS || {
      * Go to next page in the table of contents
      *
      * @since 3.1.0
-     * @author(s) Ethan Lin
+     * @author Ethan Lin
      * @updated on 5/19/2017
      *
      * @param none
@@ -1560,7 +1480,7 @@ var SBPLUS = SBPLUS || {
      * Go to previous page in the table of contents
      *
      * @since 3.1.0
-     * @author(s) Ethan Lin
+     * @author Ethan Lin
      * @updated on 5/19/2017
      *
      * @param none
@@ -1604,12 +1524,46 @@ var SBPLUS = SBPLUS || {
         this.selectPage( tSection + ',' + tPage );
         
     }, // end goToPreviousPage function
+
+    /**
+     * Toggle table of contents in mobile view
+     *
+     * @since 3.4.0
+     * @author Ethan Lin
+     * @updated on 01/13/2022
+     *
+     * @param none
+     * @return none
+     **/
+    toggleToc: function () {
+
+        const sbplusWrapper = $( this.layout.wrapper );
+
+        if ( sbplusWrapper.hasClass( 'toc_displayed' ) ) {
+
+            $( this.tableOfContents.container ).css( 'height', '' );
+            sbplusWrapper.removeClass( 'toc_displayed' );
+            
+        } else {
+
+            $( this.tableOfContents.container ).height( this.calcTocHeight() );
+            sbplusWrapper.addClass( 'toc_displayed' );
+
+        }
+
+    },
+
+    calcTocHeight: function() {
+
+        return window.innerHeight - ( $( this.banner.bar ).height() + $( this.layout.media ).height() + $( this.layout.mainControl ).height() );
+
+    },
     
     /**
      * Update Page Status (or the status bar) next to the page controls
      *
      * @since 3.1.0
-     * @author(s) Ethan Lin
+     * @author Ethan Lin
      * @updated on 5/19/2017
      *
      * @param none
@@ -1625,85 +1579,11 @@ var SBPLUS = SBPLUS || {
     /**************************************************************************
         TABLE OF CONTENT (SIDEBAR) FUNCTIONS
     **************************************************************************/
-    
-    /**
-     * Toggling sidebar (table of contents) panel by calling hideSidebar or 
-     * showSidebar function
-     *
-     * @since 3.1.0
-     * @author(s) Ethan Lin
-     * @updated on 5/19/2017
-     *
-     * @param none
-     * @return none
-     **/
-    toggleSidebar: function() {
-        
-        if ( $( this.layout.sidebar ).is( ':visible' ) ) {
-            this.hideSidebar();
-        } else {
-           this.showSidebar();
-        }
-        
-    }, // end toggleSidebar function
-    
-    /**
-     * Hide sidebar (table of contents)
-     *
-     * @since 3.1.0
-     * @author(s) Ethan Lin
-     * @updated on 5/19/2017
-     *
-     * @param none
-     * @return none
-     **/
-    hideSidebar: function() {
-        
-        // set media rea DOM jQuery set
-        var media = $( this.layout.media );
-        
-        // hide the sidebar
-        $( this.layout.sidebar ).hide();
-        
-        // update the icon on the toggle sidebar button
-        $( this.button.sidebar ).html( '<span class="icon-sidebar-open"></span>' );
-        
-        // remove sidebar_on and add sidebar_off
-        media.removeClass( 'sidebar_on' ).addClass( 'sidebar_off' );
-        
-    }, // end hideSidebar function
-    
-    /**
-     * Show sidebar (table of contents)
-     *
-     * @since 3.1.0
-     * @author(s) Ethan Lin
-     * @updated on 5/19/2017
-     *
-     * @param none
-     * @return none
-     **/
-    showSidebar: function() {
-        
-        // set media rea DOM jQuery set
-        var media = $( this.layout.media );
-        
-        // hide the sidebar
-        $( this.layout.sidebar ).show();
-        
-        // update the icon on the toggle sidebar button
-        $( this.button.sidebar ).html( '<span class="icon-sidebar-close"></span>' );
-        
-        // remove sidebar_off and add sidebar_on
-        media.removeClass( 'sidebar_off' ).addClass( 'sidebar_on' );
-        
-    }, // end showSidebar function
-    
     /**
      * Toggling table of content sections
      *
      * @since 3.1.0
-     * @author(s) Ethan Lin
+     * @author Ethan Lin
      * @updated on 3/14/2018
      *
      * @param string or object
@@ -1760,7 +1640,7 @@ var SBPLUS = SBPLUS || {
      * Close specified table of content section
      *
      * @since 3.1.3
-     * @author(s) Ethan Lin
+     * @author Ethan Lin
      * @updated on 3/14/2018
      *
      * @param DOM object
@@ -1787,7 +1667,7 @@ var SBPLUS = SBPLUS || {
      * Open specified table of content section
      *
      * @since 3.1.3
-     * @author(s) Ethan Lin
+     * @author Ethan Lin
      * @updated on 3/14/2018
      *
      * @param DOM object
@@ -1814,27 +1694,13 @@ var SBPLUS = SBPLUS || {
      * Selecting page on the table of contents
      *
      * @since 3.1.0
-     * @author(s) Ethan Lin
+     * @author Ethan Lin
      * @updated on 5/19/2017
      *
      * @param string or object
      * @return none
      **/
     selectPage: function( e ) {
-        
-        // if splash screen is visible...
-        if ( $( this.splash.screen ).is( ':visible' ) ) {
-            
-            // render the presentation
-            this.renderPresentation();
-            
-            // hide the splash
-            this.hideSplash();
-            
-            // flag the presentationStarted to true
-            this.presentationStarted = true;
-            
-        }
         
         // if the argument is an click event object
         if ( e instanceof Object ) {
@@ -1907,6 +1773,11 @@ var SBPLUS = SBPLUS || {
                 this.updateScroll( this.targetPage[0] );
                 
             }
+
+            // hide table of content in mobile view
+            if ( $( this.layout.wrapper ).hasClass( 'toc_displayed' ) ) {
+                this.toggleToc();
+            }
             
         }
         
@@ -1916,7 +1787,7 @@ var SBPLUS = SBPLUS || {
      * Getting page after selected a page
      *
      * @since 3.1.0
-     * @author(s) Ethan Lin
+     * @author Ethan Lin
      * @updated on 5/19/2017
      *
      * @param string
@@ -1984,7 +1855,11 @@ var SBPLUS = SBPLUS || {
             pageData.imageFormat = this.xml.settings.imgType;
             pageData.transition = target[0].hasAttribute( 'transition' ) ? 
                 target.attr( 'transition' ).trim() : '';
-                
+
+            if ( pageData.type !== 'image' ) {
+                pageData.markers = target.find( 'markers' );
+            }
+            
             // create new page object using the pageData and set to SBPLUS's
             // currentPage property
             this.currentPage = new Page( pageData );
@@ -2007,7 +1882,7 @@ var SBPLUS = SBPLUS || {
      * Updating the table of content's scroll bar position
      *
      * @since 3.1.0
-     * @author(s) Ethan Lin
+     * @author Ethan Lin
      * @updated on 5/19/2017
      *
      * @param object
@@ -2276,57 +2151,6 @@ var SBPLUS = SBPLUS || {
     /**************************************************************************
         WIDGET FUNCTIONS
     **************************************************************************/
-    
-    toggleWidget: function() {
-        
-        if ( $( this.layout.widget ).is( ':visible' ) ) {
-            
-            this.hideWidget();
-        } else {
-            this.showWidget();
-            
-        }
-        
-    },
-    
-    hideWidget: function() {
-        
-        var media = $( this.layout.media );
-        
-        $( this.layout.widget ).hide();
-        $( this.button.widget ).find( '.icon-widget-open' ).show();
-        $( this.button.widget ).find( '.icon-widget-close' ).hide();
-              
-        media.css( 'height', '100%');
-        media.removeClass( 'widget_on' ).addClass( 'widget_off' );
-        
-        this.showWidgetContentIndicator();
-        
-    },
-    
-    showWidget: function() {
-        
-        var media = $( this.layout.media );
-        
-        $( this.layout.widget ).show();
-        $( this.button.widget ).find( '.icon-widget-close' ).show();
-        $( this.button.widget ).find( '.icon-widget-open' ).hide();
-        
-        media.css( 'height', '' );
-        media.removeClass( 'widget_off' ).addClass( 'widget_on' );
-        
-        this.hideWidgetContentIndicator()
-        
-    },
-    
-    disableWidget: function() {
-        $( this.button.widget ).prop( 'disabled', true ).addClass( 'sb_disabled' );
-    },
-    
-    enableWidget: function() {
-        $( this.button.widget ).prop( 'disabled', false ).removeClass( 'sb_disabled' );
-    },
-    
     clearWidget: function() {
         $( this.widget.segment ).empty();
         $( this.widget.content ).empty();
@@ -2338,26 +2162,6 @@ var SBPLUS = SBPLUS || {
         
     },
     
-    showWidgetContentIndicator: function () {
-        
-        if ( this.hasWidgetContent() ) {
-            
-            if ( !$( this.layout.widget ).is( ':visible' ) ) {
-                
-                $( this.button.widget ).addClass( 'showDot' );
-                
-            }
-            
-        }
-        
-    },
-    
-    hideWidgetContentIndicator: function () {
-        
-        $( this.button.widget ).removeClass( 'showDot' );
-        
-    },
-    
     selectSegment: function( e ) {
         
         var self = this;
@@ -2365,10 +2169,21 @@ var SBPLUS = SBPLUS || {
         
         if ( self.hasWidgetContent() ) {
             
-            self.showWidgetContentIndicator();
             $( self.layout.widget ).removeClass('noSegments');
             $( self.widget.content ).css( 'background-image', '' );
             $( this.screenReader.hasNotes ).html( 'This page contains notes.' );
+            $( self.button.notes ).prop( 'disabled', false );
+            $( self.button.notes ).attr( 'title', 'View Notes' );
+            $( self.button.notes ).attr( 'aria-label', 'View Notes' );
+
+            $( self.button.notes ).on( 'click', function() {
+                
+                if ( self.currentPage.mediaPlayer != null && self.currentPage.mediaPlayer.hasClass( 'sbplus-vjs-expanded' ) ) {
+                    self.currentPage.mediaPlayer.removeClass( 'sbplus-vjs-expanded' );
+                    document.querySelector( SBPLUS.layout.sbplus ).classList.remove( 'sbplus-vjs-expanded' );
+                }
+        
+            } );
             
             var target = '';
             var targetId = '';
@@ -2393,9 +2208,11 @@ var SBPLUS = SBPLUS || {
             
         } else {
             
-            this.hideWidgetContentIndicator();
             $( this.screenReader.hasNotes ).empty();
             $( this.layout.widget ).addClass('noSegments');
+            $( self.button.notes ).prop( 'disabled', true );
+            $( self.button.notes ).attr( 'title', '' );
+            $( self.button.notes ).attr( 'aria-label', '' );
 
             // show logo
             if ( !self.isEmpty( self.logo ) ) {
@@ -2487,7 +2304,7 @@ var SBPLUS = SBPLUS || {
                 
                 $.get( errorTemplateUrl, function( data ) {
                     
-                    $( self.layout.errorScreen ).html( data ).show().addClass( 'shake' )
+                    $( self.layout.errorScreen ).html( data ).show()
                         .css( 'display', 'flex' );
                     
                 } );
@@ -2498,98 +2315,31 @@ var SBPLUS = SBPLUS || {
         
     },
     
-    calcLayout: function() { 
-        
-//         var media = $( this.layout.media );
-        var widget = $( this.layout.widget );
-        var sidebar = $( this.layout.sidebar );
-        var tocWrapper = $( this.tableOfContents.container );
-        var widgetBtnTip = $( this.button.widgetTip );
-        
-/*
-        if ( widget.is( ':visible' ) || sidebar.is( ':visible' ) ) {
-            media.removeClass( 'aspect_ratio' ).addClass( 'non_aspect_ratio' );
-        } else {
-            media.removeClass( 'non_aspect_ratio' ).addClass( 'aspect_ratio' );
-        }
-*/
-        
-        if ( window.innerWidth < 900 || window.screen.width <= 414 ) {
-            
-            //if ( $( this.layout.wrapper ).hasClass( 'loaded-in-iframe' ) === false ) {
+    calcLayout: function() {
 
-                this.layout.isMobile = true;
-                
-//                 media.addClass( 'aspect_ratio' );
-                
-                widgetBtnTip.show();
-                
-                var adjustedHeight = $( this.layout.leftCol ).height() + $( this.layout.mainControl ).height();
-                
-                sidebar.css( 'height', 'calc( 100% - ' + adjustedHeight + 'px )'  );
-                widget.css( 'height', sidebar.height() );
-                tocWrapper.css( 'height', sidebar.height() - 30 );
-                
-            //}
-            
-            if ( this.alreadyResized === false ) {
-                this.hideWidget();
-            }
-            
+        if ($( this.layout.wrapper ).hasClass ( 'toc_displayed' )) {
+            $( this.tableOfContents.container ).height( this.calcTocHeight() );
+        }
+
+        if ( window.innerWidth < 900 || window.screen.width <= 414 ) {
+
+            this.layout.isMobile = true;
             this.alreadyResized = true;
-            
             $( this.layout.wrapper ).removeClass( 'sbplus_boxed' );
-            
+
         } else {
             
             this.layout.isMobile = false;
-            
-            sidebar.css( 'height', '' );
-            
-/*
-            if ( !widget.is( ':visible' ) ) {
-                widget.css( 'height', '100%' );
-            } else {
-                widget.css( 'height', '' );
-            }
-*/
-            
-            widget.css( 'height', '' );
-            
-            tocWrapper.css( 'height', '' );
-            widgetBtnTip.hide();
-            
-            if ( this.getUrlParam( 'fullview' ) !== '1' ) {
-                $( this.layout.wrapper ).addClass( 'sbplus_boxed' );
-            }
+            $( this.layout.wrapper ).addClass( 'sbplus_boxed' );
+            $( this.layout.wrapper ).removeClass( 'toc_displayed');
+            $( this.tableOfContents.container ).css( 'height', '' );
 
         }
         
     },
     
     resize: function() {
-        
         this.calcLayout();
-            
-        if ( this.layout.isMobile ) {
-            this.showSidebar();
-        }
-        
-    },
-    
-    setURLOptions: function() {
-        
-        var html = $( this.layout.html );
-        var wrapper = $( this.layout.wrapper );
-        
-        if ( this.getUrlParam( 'fullview' ) === '1' ) {
-            html.addClass( 'sbplus_pop_full' );
-            wrapper.removeClass( 'sbplus_boxed' ).addClass( 'sbplus_full' );
-        } else {
-            html.removeClass( '.sbplus_pop_full' );
-            wrapper.addClass( 'sbplus_boxed' ).removeClass( 'sbplus_full' );
-        }  
-            
     },
     
     getUrlParam: function( name ) {
@@ -2619,7 +2369,7 @@ var SBPLUS = SBPLUS || {
     
     sanitize: function( str ) {
     
-        return str.replace(/[^\w]/gi, '').toLowerCase();
+        return str.replace(/[^\w.]/gi, '').toLowerCase();
     
     },
     
@@ -2662,8 +2412,14 @@ var SBPLUS = SBPLUS || {
     
     colorContrast: function( hex ) {
 
-        hex = parseInt( hex.slice( 1 ), 15 );
-        return hex > 0xffffff / 2 ? '#000' : '#fff';
+        hex = hex.replace("#", "");
+
+        let r = parseInt(hex.substr(0,2),16);
+        let g = parseInt(hex.substr(2,2),16);
+        let b = parseInt(hex.substr(4,2),16);
+        let yiq = ((r*299)+(g*587)+(b*114))/1000;
+
+        return yiq >= 128 ? '#000' : '#fff';
         
     },
     
@@ -2952,15 +2708,6 @@ var SBPLUS = SBPLUS || {
                     self.setStorageItem( 'sbplus-hide-sidebar', 0 );
                 }
                 
-                // interactive transcript
-/*
-                if ( $( '#sbplus_gs_it' ).is( ':checked' ) ) {
-                    self.setStorageItem( 'sbplus-disable-it', 1 );
-                } else {
-                    self.setStorageItem( 'sbplus-disable-it', 0 );
-                }
-*/
-                
                 // autoplay
                 if ( $( '#sbplus_va_autoplay' ).is( ':checked' ) ) {
                     self.setStorageItem( 'sbplus-autoplay', 1 );
@@ -3054,15 +2801,6 @@ var SBPLUS = SBPLUS || {
                 $( '#sbplus_gs_sidebar' ).prop( 'checked', true );
             } else {
                 $( '#sbplus_gs_sidebar' ).prop( 'checked', false );
-            }
-            
-            // interactive transcript
-            var itVal = self.getStorageItem( 'sbplus-disable-it' );
-            
-            if ( itVal === '1') {
-                $( '#sbplus_gs_it' ).prop( 'checked', true );
-            } else {
-                $( '#sbplus_gs_it' ).prop( 'checked', false );
             }
             
             // autoplay
@@ -3180,6 +2918,32 @@ var SBPLUS = SBPLUS || {
         
         }
         
+    },
+    
+    showConnectionMessage: function() {
+
+        const sbplusEl = document.querySelector( this.layout.sbplus );
+
+        if ( !sbplusEl.contains( document.querySelector( '#connection_error_msg' ) ) ) {
+
+            const messageEl = document.createElement( 'div' );
+
+            messageEl.setAttribute( 'id', 'connection_error_msg' );
+            messageEl.innerHTML = '<strong>No Internet Connection.</strong> Please check your network connection.';
+            sbplusEl.appendChild( messageEl );
+
+        }
+
+    },
+
+    hideConnectionMessage: function() {
+
+        if ( document.querySelector( this.layout.sbplus ).contains( document.querySelector( '#connection_error_msg' ) ) ) {
+
+            document.querySelector( this.layout.sbplus ).removeChild( document.querySelector( '#connection_error_msg' ) );
+
+        }
+
     }
         
 };
@@ -3191,10 +2955,17 @@ var SBPLUS = SBPLUS || {
 $( function() {
     
     SBPLUS.go();
-    
+
 } );
 
+const checkOnlineStatus = async () => {
 
+    try {
+        const online = await fetch( 'index.html' );
+        return online.status >= 200 && online.status < 300;
+    } catch ( err ) {
+        return false;
+    }
 
-
+};
 

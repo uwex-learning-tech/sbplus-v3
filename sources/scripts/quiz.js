@@ -36,6 +36,26 @@ var Quiz = function( obj, data ) {
         
         case 'multiplechoicesingle':
             
+            // see if the retry attribute is set to true or false
+            var mcs = $( cntx ).find( 'multipleChoiceSingle' );
+
+            if ( !SBPLUS.isEmpty( mcs.attr( 'retry' ) ) ) {
+
+                var retry =  SBPLUS.noScript( mcs.attr('retry').trim().toLowerCase() );
+
+                if ( retry == 'yes' || retry == 'true' ) {
+                    self.quiz.retry = true;
+                } else {
+                    self.quiz.retry = false;
+                }
+
+            } else {
+
+                self.quiz.retry = false;
+
+            }
+
+            // see if choices node has random set to true or false
             var msChoices = $( cntx ).find( 'choices' ).find( 'answer' );
             
             if ( !SBPLUS.isEmpty( $( cntx ).find( 'choices' ).attr('random') ) ) {
@@ -48,6 +68,10 @@ var Quiz = function( obj, data ) {
                     self.quiz.random = false;
                 }
                 
+            } else {
+
+                self.quiz.random = false;
+
             }
             
             self.quiz.answers = [];
@@ -90,6 +114,25 @@ var Quiz = function( obj, data ) {
         
         case 'multiplechoicemultiple':
             
+            // see if the retry attribute is set to true or false
+            var mcm = $( cntx ).find( 'multipleChoiceMultiple' );
+
+            if ( !SBPLUS.isEmpty( mcm.attr( 'retry' ) ) ) {
+
+                var mcmRetry =  SBPLUS.noScript( mcm.attr('retry').trim().toLowerCase() );
+
+                if ( mcmRetry == 'yes' || mcmRetry == 'true' ) {
+                    self.quiz.retry = true;
+                } else {
+                    self.quiz.retry = false;
+                }
+
+            } else {
+
+                self.quiz.retry = false;
+
+            }
+
             var mmChoices = $( cntx ).find( 'choices' ).find( 'answer' );
             
             if ( !SBPLUS.isEmpty( $( cntx ).find( 'choices' ).attr('random') ) ) {
@@ -587,7 +630,17 @@ Quiz.prototype.renderFeeback = function() {
                         
                     }
                     
-                    html += '<p><strong>Correct answer:</strong><br>' + output + '</p>';
+                    if ( quizTracker[self.qIndex].correct ) {
+
+                        html += '<p><strong>Correct answer:</strong><br>' + output + '</p>';
+
+                    } else {
+
+                        if ( !self.quiz.retry ) {
+                            html += '<p><strong>Correct answer:</strong><br>' + output + '</p>';
+                        }
+
+                    }
                     
                     return false;
                 }
@@ -597,11 +650,15 @@ Quiz.prototype.renderFeeback = function() {
             if ( !SBPLUS.isEmpty( msFeedback ) ) {
                 html += '<p><strong>Feedback:</strong><br>' + msFeedback + '</p>';
             }
+
+            if ( !quizTracker[self.qIndex].correct && self.quiz.retry ) {
+                html += '<p><button class="sbplus_quiz_tryagain_btn">Try Again</button></p>';
+            }
     
         break;
         
         case 'multiplechoicemultiple':
-        
+
             var stuAnswerAry = quizTracker[self.qIndex].stuAnswer;
             
             html += '<p><strong>Your answer:</strong><br>';
@@ -636,44 +693,18 @@ Quiz.prototype.renderFeeback = function() {
                 }
                 
             } );
-            
-            html += '</p><p><strong>Correct answer:</strong><br>';
-            
-            $.each( self.quiz.answers, function() {
-                
-                if ( this.correct !== undefined ) {
-                    
-                    var aType = 'text';
-                
-                    if ( !SBPLUS.isEmpty( this.img ) ) {
-                        aType = 'img';
-                    }
-                    
-                    if ( !SBPLUS.isEmpty( this.audio ) ) {
-                        aType = 'audio';
-                    }
-                    
-                    switch ( aType ) {
-                            
-                        case 'img':
-                            html += '<img src="assets/images/' + this.value + '" /><br>';
-                        break;
-                        
-                        case 'audio':
-                            html += '<audio controls><source src="assets/audio/' + this.value + '" type="audio/mpeg"/></audio><br>';
-                        break;
-                        
-                        case 'text':
-                            html += this.value + '<br>';
-                        break;
-                        
-                    }
-                    
+
+            if ( quizTracker[self.qIndex].correct ) {
+
+                html += displayCorrectMultipleAnswers( self.quiz.answers );
+
+            } else {
+
+                if ( !self.quiz.retry ) {
+                    html += displayCorrectMultipleAnswers( self.quiz.answers );
                 }
-                
-            } );
-            
-            html += '</p>';
+
+            }
             
             if ( quizTracker[self.qIndex].correct ) {
                 
@@ -687,7 +718,10 @@ Quiz.prototype.renderFeeback = function() {
                     html += '<p><strong>Feedback:</strong><br>' + self.quiz.incorrectFeedback + '</p>';
                 }
             }
-                
+            
+            if ( !quizTracker[self.qIndex].correct && self.quiz.retry ) {
+                html += '<p><button class="sbplus_quiz_tryagain_btn">Try Again</button></p>';
+            }
         
         break;
         
@@ -697,8 +731,57 @@ Quiz.prototype.renderFeeback = function() {
     
     // display the html
     $( self.quizContainer ).html( html );
-    
+
+    $( 'button.sbplus_quiz_tryagain_btn' ).on( 'click', function() {
+        quizTracker[self.qIndex].stuAnswer = '';
+        self.renderQuiz();
+    } );
+
 };
+
+function displayCorrectMultipleAnswers( answers ) {
+
+    let result = '</p><p><strong>Correct answer:</strong><br>';
+            
+    $.each( answers, function() {
+        
+        if ( this.correct !== undefined ) {
+            
+            var aType = 'text';
+        
+            if ( !SBPLUS.isEmpty( this.img ) ) {
+                aType = 'img';
+            }
+            
+            if ( !SBPLUS.isEmpty( this.audio ) ) {
+                aType = 'audio';
+            }
+            
+            switch ( aType ) {
+                    
+                case 'img':
+                    result += '<img src="assets/images/' + this.value + '" /><br>';
+                break;
+                
+                case 'audio':
+                    result += '<audio controls><source src="assets/audio/' + this.value + '" type="audio/mpeg"/></audio><br>';
+                break;
+                
+                case 'text':
+                    result += this.value + '<br>';
+                break;
+                
+            }
+            
+        }
+        
+    } );
+    
+    result += '</p>';
+
+    return result;
+
+}
 
 function questionExists( id ) {
     

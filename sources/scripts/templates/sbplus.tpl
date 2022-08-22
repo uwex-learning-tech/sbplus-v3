@@ -1,9 +1,6 @@
 <!-- Global error screen -->
 <div id="sbplus_error_screen"></div>
 
-<!-- Program Theme Banner -->
-<div id="theme-decoration-bar"></div>
-
 <!-- Program logo -->
 <div id="sbplus_loading_screen" class="animated">
     <div class="program_logo"></div>
@@ -20,23 +17,29 @@
             <p class="sb_title" tabindex="1"></p>
             <p class="sb_subtitle" tabindex="1"></p>
             <p class="sb_author" tabindex="1"></p>
-            <p class="sb_duration" tabindex="1"></p>
-            <p class="sb_cta">
-                <button id="sbplus_start_btn" tabindex="1" aria-label="Start presentation">Start</button>
-                <button id="sbplus_resume_btn" tabindex="1" aria-label="Resume presentation">Resume</button>
-            </p>
-            <p class="sb_downloads"></p>
-                
+
+            <div class="sb_context">
+
+                <p class="sb_duration" tabindex="1"></p>
+                <p id="splash_cta" class="sb_cta">
+                    <button id="sbplus_start_btn" tabindex="1" aria-label="Start presentation">Start</button>
+                    <button id="sbplus_resume_btn" tabindex="1" aria-label="Resume presentation">Resume</button>
+                </p>
+                <p class="sb_downloads"></p>
+
+            </div>
+ 
         </div>
         
+        <div id="sb_splash_logo"></div>
         <div id="sb_splash_bg" class="animated"></div>
         
     </div> <!-- Splash screen END -->
     
     <div class="sr-page-status" tabindex="1">
-        You are currently on page 
+        You are currently on slide 
         <span class="sr-current-page" >#</span> of <span class="sr-total-pages">#</span>: 
-        <span class="sr-page-title">Page title</span>. <span class="sr-has-notes"></span>
+        <span class="sr-page-title">Slide title</span>. <span class="sr-has-notes"></span>
     </div>
     
     <!-- Banner (black title) bar -->
@@ -114,63 +117,58 @@
         <div id="sbplus_right_col">
             
             <div id="sbplus_sub_bar">
-                <div class="title" tabindex="-1">Table of Contents</div>
+                <div class="title" tabindex="-1">Contents</div>
             </div>
             
             <div id="sbplus_table_of_contents_wrapper" tabindex="1"></div>
-            
-        </div>
-    
-    </div>
-    
-    <div id="sbplus_control_bar">
+
+            <!-- control bar -->
+            <div id="sbplus_control_bar">
         
-        <div id="sbplus_left_controls">
-            
-            <button id="sbplus_previous_btn" title="Previous" tabindex="1" aria-label="Previous">
-                <span class="icon-left"></span>
-            </button>
-            
-            <button id="sbplus_next_btn" title="Next" tabindex="1" aria-label="Next">
-                <span class="icon-right"></span>
-            </button>
-            
-            <div id="sbplus_page_status">
-                <div tabindex="1">
-                    Page <span class="current">#</span> of 
-                    <span class="total">#</span>
+                <button id="sbplus_new_note_btn" title="View Notes" tabindex="1" aria-label="View Notes">
+                    <span class="icon-notes"></span> View Notes
+                </button>
+
+                <div id="sbplus_page_status">
+                    <div tabindex="1">
+                        Slide <span class="current">#</span> of 
+                        <span class="total">#</span>
+                    </div>
                 </div>
+
+                <div class="controls">
+
+                    <button id="sbplus_previous_btn" title="Previous" tabindex="1" aria-label="Previous">
+                    <span class="icon-left"></span>
+                    </button>
+                    
+                    <button id="sbplus_next_btn" title="Next" tabindex="1" aria-label="Next">
+                        <span class="icon-right"></span>
+                    </button>
+
+                    <button id="mobile_toc_toggle_btn" title="Toggle Table of Contents" tabindex="1" aria-label="Toggle Table of Contents">
+                        <span class="icon-contents"></span>
+                    </button>
+                    
+                    <div id="sbplus_download_btn_wrapper">
+                        
+                        <div id="sbplus_download_btn" class="root-level" role="menubar" title="Downloads">
+                            
+                            <div class="menu-parent" role="menuitem" aria-label="Downloads Menu" tabindex="1" aria-haspopup="true" aria-expanded="false">
+                                <span class="icon-download"></span>
+                                <ul class="downloadFiles menu" role="menu" aria-hidden="true" aria-expanded="false"></ul>
+                            </div>
+                            
+                        </div>
+                        
+                    </div>
+
+                </div>
+                
             </div>
             
         </div>
-        
-        <div id="sbplus_right_controls">
-            
-            <div id="sbplus_download_btn_wrapper">
-                
-                <ul id="sbplus_download_btn" class="root-level" role="menubar" title="Downloads">
-                    
-                    <li class="menu-parent" role="menuitem" aria-label="Downloads Menu" tabindex="1" aria-haspopup="true" aria-expanded="false">
-                        <span class="icon-download"></span>
-                        <ul class="downloadFiles menu" role="menu" aria-hidden="true" aria-expanded="false"></ul>
-                    </li>
-                    
-                </ul>
-                
-            </div>
-            
-            <button id="sbplus_widget_btn" title="Toggle Notes/Widgets" tabindex="1" aria-label="Toggle Notes/Widgets">
-                <span class="icon-widget-close"></span>
-                <span class="icon-widget-open"></span>
-                <div class="btnTip">Toggle Widget</div>
-            </button>
-            
-            <button id="sbplus_sidebar_btn" title="Toggle Table of Contents" tabindex="1" aria-label="Toggle Table of Contents">
-                <span class="icon-sidebar-close"></span>
-            </button>
-            
-        </div>
-        
+    
     </div>
     
     <div id="menu_item_content" class="animated" tabindex="-1">
