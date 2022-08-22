@@ -115,13 +115,13 @@ var Quiz = function( obj, data ) {
         case 'multiplechoicemultiple':
             
             // see if the retry attribute is set to true or false
-            var mcs = $( cntx ).find( 'multipleChoiceMultiple' );
+            var mcm = $( cntx ).find( 'multipleChoiceMultiple' );
 
-            if ( !SBPLUS.isEmpty( mcs.attr( 'retry' ) ) ) {
+            if ( !SBPLUS.isEmpty( mcm.attr( 'retry' ) ) ) {
 
-                var retry =  SBPLUS.noScript( mcs.attr('retry').trim().toLowerCase() );
+                var mcmRetry =  SBPLUS.noScript( mcm.attr('retry').trim().toLowerCase() );
 
-                if ( retry == 'yes' || retry == 'true' ) {
+                if ( mcmRetry == 'yes' || mcmRetry == 'true' ) {
                     self.quiz.retry = true;
                 } else {
                     self.quiz.retry = false;

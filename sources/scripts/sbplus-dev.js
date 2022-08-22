@@ -1170,6 +1170,8 @@ var SBPLUS = SBPLUS || {
                 
                 // select the first page
                 self.selectPage( '0,0' );
+
+                self.presentationStarted = true;
                 
                 if ( self.xml.settings.analytics === 'on' || self.xml.settings.analytics === 'true' ) {
                     
@@ -1179,9 +1181,6 @@ var SBPLUS = SBPLUS || {
                 }
                 
             } );
-            
-            self.presentationStarted = true;
-            
             
         }
         
@@ -1702,20 +1701,6 @@ var SBPLUS = SBPLUS || {
      * @return none
      **/
     selectPage: function( e ) {
-
-        // if splash screen is visible...
-        if ( $( this.splash.screen ).is( ':visible' ) ) {
-                
-            // render the presentation
-            this.renderPresentation();
-
-            // hide the splash
-            this.hideSplash();
-
-            // flag the presentationStarted to true
-            this.presentationStarted = true;
-
-        }
         
         // if the argument is an click event object
         if ( e instanceof Object ) {

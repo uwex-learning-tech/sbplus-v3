@@ -573,7 +573,7 @@ body {
                         &:before {
                             display: inline-block;
                             font-family: 'sbplus';
-                            content: "\e903";
+                            content: "\e001";
                         }
 
                         &:hover {
@@ -1108,7 +1108,7 @@ body {
 
                     }
 
-                    .sbplus_media_content.show-vjs-poster {
+                    .show-vjs-poster {
                         
                         .vjs-has-started {
                             
@@ -1755,10 +1755,14 @@ body {
                                     height: 30px;
                                     
                                     a {
-                                        display: block;
+                                        display: flex;
                                         font-size: 14px;
                                         color: #000;
                                         text-decoration: none;
+                                        width: 100%;
+                                        height: 100%;
+                                        align-items: center;
+                                        justify-content: center;
                                     }
                                     
                                 }

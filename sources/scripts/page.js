@@ -428,7 +428,7 @@ Page.prototype.getPageMedia = function() {
 
                 } else {
 
-                    addSecondaryControls( true );
+                    addSecondaryControls( false );
 
                 }
 
