@@ -1,8 +1,7 @@
 ### Version Change Logs
 
-#### 3.4.0 (_pending_)
-* Updated VideoJs to version 7.17.0
-* Removed program theme bar on top of page (not embedded in an iFrame)
+#### 3.4.0 (08/22/2022)
+* UI Refresh (see detailed changes at https://github.com/uwex-learning-tech/sbplus-v3/pull/110)
 
 #### 3.3.3 (11/29/2021)
 * Updated Kaltura API to version 2.90
