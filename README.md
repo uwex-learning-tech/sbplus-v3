@@ -1,5 +1,5 @@
 # Storybook Plus (SB+)  
-**version 3.4.0**
+**version 3.4.1**
 
 ---
 
@@ -25,7 +25,7 @@ SB+ may not function properly with beta or pre-release versions of web browsers.
 
 ### Documentation
 
-Please visit the [Storybook Plus documentation](https://media.uwex.edu/resources/documentation/storybook-plus-v3/).
+Please visit the [Storybook Plus documentation](https://media.uwex.edu/staff-documentation/media-services-documentation/storybook-plus-v3).
 
 ---
 ### Version Change Log
@@ -34,4 +34,4 @@ See [CHANGELOG](https://github.com/uwex-learning-tech/sbplus-v3/blob/master/CHAN
 
 ---
 ### License & Copyright
-Storybook Plus (SB+) is licensed under [GNU v3](https://github.com/uwex-learning-tech/sbplus-v3/blob/master/LICENSE) license. (c) 2013 - 2021. Ethan Lin, [Learning Technology & Media](https://media.uwex.edu), and [University of Wisconsin Extended Campus](https://ce.uwex.edu/). All rights reserved.
+Storybook Plus (SB+) is licensed under [GNU v3](https://github.com/uwex-learning-tech/sbplus-v3/blob/master/LICENSE) license. (c) 2013 - 2023. Ethan Lin, [Learning Technology & Media Services](https://media.uwex.edu), and [University of Wisconsin Extended Campus](https://uwex.wisconsin.edu). All rights reserved.
