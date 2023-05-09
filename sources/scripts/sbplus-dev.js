@@ -3,13 +3,13 @@
  *
  * @author: Ethan Lin
  * @url: https://github.com/uwex-learning-tech/sbplus-v3
- * @version: 3.4.0
- * Released 08/22/2022
+ * @version: 3.4.1
+ * Released 05/xx/2023
  *
  * @license: GNU GENERAL PUBLIC LICENSE v3
  *
     Storybook Plus is an web application that serves multimedia contents.
-    Copyright (C) 2013-2022  Ethan Lin, Learning Technology & Media, University
+    Copyright (C) 2013-2023  Ethan Lin, Learning Technology & Media, University
     of Wisconsin Extended Campus
 
     This program is free software: you can redistribute it and/or modify
@@ -699,13 +699,50 @@ var SBPLUS = SBPLUS || {
             // if analytics is on, get and set Google analtyics tracking
             if ( self.xml.settings.analytics === 'on' || self.xml.settings.analytics === 'true' ) {
                 
-                (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-                })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+                // (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                // (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                // m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                // })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
                 
-                ga( 'create', self.manifest.sbplus_google_tracking_id, 'auto' );
-                ga( 'set', { 'appName': 'SBPLUS', 'appVersion': self.xml.settings.version } );
+                // ga( 'create', self.manifest.sbplus_google_tracking_id, 'auto' );
+                // ga( 'set', { 'appName': 'SBPLUS', 'appVersion': self.xml.settings.version } );
+
+                /* Google Analytics gtag.js */
+                let head = document.getElementsByTagName( 'head' )[0];
+                let gtagScript = document.createElement( 'script' );
+
+                gtagScript.type = "text/javascript";
+                gtagScript.setAttribute( 'async', true );
+                gtagScript.src = 'https://www.googletagmanager.com/gtag/js?id=' + self.manifest.sbplus_google_tracking_id;
+
+                head.appendChild( gtagScript );
+
+                /* Google Tag Manager */
+                (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+                new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+                j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+                'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+                })(window,document,'script','dataLayer','GTM-NT3HHS5');
+                
+                let noscript = document.getElementsByTagName( 'noscript' )[0];
+                let gtagIframe = document.createElement( 'iframe' );
+
+                gtagIframe.src = 'https://www.googletagmanager.com/ns.html?id=GTM-NT3HHS5';
+                gtagIframe.width = 0;
+                gtagIframe.height = 0;
+                gtagIframe.style.display = 'none';
+                gtagIframe.style.visibility = 'hidden';
+
+                noscript.appendChild( gtagIframe );
+
+                /* Google Analytics */
+                function gtag(){
+                    const dataLayer = window.dataLayer = window.dataLayer || [];
+                    dataLayer.push(arguments);
+                }
+
+                gtag('js', new Date());
+                gtag('config', self.manifest.sbplus_google_tracking_id);
                 
             }
             
@@ -941,7 +978,7 @@ var SBPLUS = SBPLUS || {
                     self.downloads[fileLabel] = { 'fileName': fileName, 'fileFormat': file.format, 'url': this.url };
                     
                     $( self.splash.downloadBar ).append(
-                        '<a href="' + this.url + '" tabindex="1" download="' + fileName + '.' + file.format + '" aria-label="Download ' + fileLabel + ' file" onclick="SBPLUS.sendToGA( \'' + fileLabel + 'Link\', \'click\', \'' + fileName + '\', 4, 0 );"><span class="icon-download"></span>' + file.label + '</a>' );
+                        '<a href="' + this.url + '" tabindex="1" download="' + fileName + '.' + file.format + '" aria-label="Download ' + fileLabel + ' file" class="sbplus-download-link"><span class="icon-download"></span>' + file.label + '</a>' );
 
                 } ).always( function() {
 
@@ -1000,7 +1037,7 @@ var SBPLUS = SBPLUS || {
             
             if ( self.xml.settings.analytics === 'on' || self.xml.settings.analytics === 'true' ) {
                 
-                ga( 'send', 'screenview', { screenName: self.getCourseDirectory() +  ' - splash' } );
+                self.sendToGA( 'splash_screen_view', self.getCourseDirectory() +  ' - splash' );
                 
             }
             
@@ -1175,8 +1212,7 @@ var SBPLUS = SBPLUS || {
                 
                 if ( self.xml.settings.analytics === 'on' || self.xml.settings.analytics === 'true' ) {
                     
-                    ga( 'send', 'screenview', { screenName: self.getCourseDirectory() } );
-                    self.sendToGA( 'PresentationStartBtn', 'click', self.getCourseDirectory(), 0, 0 );
+                    self.sendToGA( 'presentation_screen_view', self.getCourseDirectory() );
                     
                 }
                 
@@ -1219,7 +1255,7 @@ var SBPLUS = SBPLUS || {
             
             if ( self.xml.settings.analytics === 'on' || self.xml.settings.analytics === 'true' ) {
                     
-                self.sendToGA( 'PresentationResumeBtn', 'click', self.getCourseDirectory(), 0, 0 );
+                self.sendToGA( 'presentation_screen_view', self.getCourseDirectory() );
                 
             }
             
@@ -1381,7 +1417,7 @@ var SBPLUS = SBPLUS || {
                         $( self.button.downloadMenu ).append(
                             '<li class="menu-item" tabindex="-1" role="menuitem" aria-live="polite"><a download="' + self.downloads[key].fileName + '.' + self.downloads[key].fileFormat + '" href="'
                             + self.downloads[key].url +
-                            '" onclick="SBPLUS.sendToGA( \'' + key + 'Link\', \'click\', \'' + self.getCourseDirectory() + '\', 4, 0 );">' + self.capitalizeFirstLetter( key ) + '</a></li>'
+                            '" class="sbplus-download-link">' + self.capitalizeFirstLetter( key ) + '</a></li>'
                         );
                     }
                     
@@ -2108,11 +2144,11 @@ var SBPLUS = SBPLUS || {
         
         $( self.button.menuClose ).on( 'click', self.closeMenuContent.bind( self ) );
         
-        if ( self.xml.settings.analytics === 'on' || self.xml.settings.analytics === 'true' ) {
+        // if ( self.xml.settings.analytics === 'on' || self.xml.settings.analytics === 'true' ) {
             
-            ga( 'send', 'screenview', { screenName: menuTitle.html() } );
+        //     ga( 'send', 'screenview', { screenName: menuTitle.html() } );
             
-        }
+        // }
         
         if ( self.xml.settings.mathjax === 'on' || self.xml.settings.mathjax === 'true' ) {
             MathJax.Hub.Queue( ['Typeset', MathJax.Hub] );
@@ -2843,56 +2879,79 @@ var SBPLUS = SBPLUS || {
         
     },
     
-    sendToGA: function( category, action, label, value, delayObj ) {
+    sendToGA: function( event, context ) {
         
         if ( this.xml.settings.analytics === 'on' || this.xml.settings.analytics === 'true' ) {
-            
-            var self = this;
-            var delay = 0;
-            var isObj = false;
-            
-            if ( typeof delayObj === 'object' ) {
-                delay = delayObj.start * 1000;
-                isObj = true;
-            } else {
-                delay = delayObj * 1000;
-            }
-            
-            if ( window.ga && ga.loaded ) {
-                
-                self.gaTimeouts.start = setTimeout( function() {
-                    
-                    ga( 'send', 'event', category, action, label, value, {screenName: self.getCourseDirectory()} );
-                    
-                }, delay );
-                
-                if ( isObj ) {
-                    
-                    if ( delayObj.halfway > 0 
-                         && delayObj.halfway > delayObj.start ) {
-                        
-                        self.gaTimeouts.halfway = setTimeout( function() {
-                    
-                            ga( 'send', 'event', category, 'halfway', label, 2, {screenName: self.getCourseDirectory()} );
-                            
-                        }, delayObj.halfway * 1000 );
-                        
-                    }
-                    
-                    if ( delayObj.completed > 0 
-                         && delayObj.completed > delayObj.halfway ) {
-                        
-                        self.gaTimeouts.completed = setTimeout( function() {
-                    
-                            ga( 'send', 'event', category, 'completed', label, 3, {screenName: self.getCourseDirectory()} );
-                            
-                        }, delayObj.completed * 1000 );
-                        
-                    }
-                    
-                }
 
+            window.dataLayer = window.dataLayer || [];
+
+            switch ( event ) {
+
+                case 'splash_screen_view':
+
+                    window.dataLayer.push( {
+                        'event': 'splash_screen_view',
+                        'screenName': context
+                    } );
+
+                break;
+
+                case 'presentation_screen_view':
+
+                    window.dataLayer.push( {
+                        'event': 'presentation_screen_view',
+                        'screenName': context
+                    } );
+
+                break;
             }
+            
+            // var self = this;
+            // var delay = 0;
+            // var isObj = false;
+            
+            // if ( typeof delayObj === 'object' ) {
+            //     delay = delayObj.start * 1000;
+            //     isObj = true;
+            // } else {
+            //     delay = delayObj * 1000;
+            // }
+            
+            // if ( window.ga && ga.loaded ) {
+                
+            //     self.gaTimeouts.start = setTimeout( function() {
+                    
+            //         ga( 'send', 'event', category, action, label, value, {screenName: self.getCourseDirectory()} );
+                    
+            //     }, delay );
+                
+            //     if ( isObj ) {
+                    
+            //         if ( delayObj.halfway > 0 
+            //              && delayObj.halfway > delayObj.start ) {
+                        
+            //             self.gaTimeouts.halfway = setTimeout( function() {
+                    
+            //                 ga( 'send', 'event', category, 'halfway', label, 2, {screenName: self.getCourseDirectory()} );
+                            
+            //             }, delayObj.halfway * 1000 );
+                        
+            //         }
+                    
+            //         if ( delayObj.completed > 0 
+            //              && delayObj.completed > delayObj.halfway ) {
+                        
+            //             self.gaTimeouts.completed = setTimeout( function() {
+                    
+            //                 ga( 'send', 'event', category, 'completed', label, 3, {screenName: self.getCourseDirectory()} );
+                            
+            //             }, delayObj.completed * 1000 );
+                        
+            //         }
+                    
+            //     }
+
+            // }
             
         }
         

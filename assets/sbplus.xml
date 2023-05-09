@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<storybook accent="#7b3009" pageImgFormat="jpg" splashImgFormat="jpg" analytics="off" mathjax="off" xmlVersion="3.4">
+<storybook accent="#7b3009" pageImgFormat="jpg" splashImgFormat="jpg" analytics="on" mathjax="off" xmlVersion="3.4">
     
     <setup program="" course="">
         

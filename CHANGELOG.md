@@ -1,5 +1,8 @@
 ### Version Change Logs
 
+#### 3.4.1 (pending)
+* Migrated to Google Analytics 4
+
 #### 3.4.0 (08/22/2022)
 * UI Refresh (see detailed changes at https://github.com/uwex-learning-tech/sbplus-v3/pull/110)
 
