@@ -1,7 +1,8 @@
 ### Version Change Logs
 
-#### 3.4.1 (pending)
+#### 3.4.1 (06/13/2014)
 * Migrated to Google Analytics 4
+* Updated jQuery to version 3.6.4
 
 #### 3.4.0 (08/22/2022)
 * UI Refresh (see detailed changes at https://github.com/uwex-learning-tech/sbplus-v3/pull/110)

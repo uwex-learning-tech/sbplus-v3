@@ -8,16 +8,16 @@ var Page = function ( obj, data ) {
     this.pageNumber = obj.number;
     
     // google analytic variables
-    this.gaEventCate = '';
-    this.gaEventLabel = '';
-    this.gaEventAction = '';
-    this.gaEventValue = -1;
-    this.gaEventHalfway = false;
-    this.gaDelays = {
-        start: 0,
-        halfway: 0,
-        completed: 0
-    }; 
+    // this.gaEventCate = '';
+    // this.gaEventLabel = '';
+    // this.gaEventAction = '';
+    // this.gaEventValue = -1;
+    // this.gaEventHalfway = false;
+    // this.gaDelays = {
+    //     start: 0,
+    //     halfway: 0,
+    //     completed: 0
+    // }; 
     
     if ( obj.type !== 'quiz' ) {
         
@@ -130,11 +130,11 @@ Page.prototype.getPageMedia = function() {
                 self.loadKalturaVideoData();
             }
 
-            self.gaEventCate = 'Video';
-            self.gaEventLabel = SBPLUS.getCourseDirectory() + ':kaltura:page' + SBPLUS.targetPage.data('count');
-            self.gaEventAction = 'start';
-            self.gaEventValue = 3;
-            self.gaDelays.start = 6;
+            // self.gaEventCate = 'Video';
+            // self.gaEventLabel = SBPLUS.getCourseDirectory() + ':kaltura:page' + SBPLUS.targetPage.data('count');
+            // self.gaEventAction = 'start';
+            // self.gaEventValue = 3;
+            // self.gaDelays.start = 6;
             
         break;
         
@@ -185,11 +185,11 @@ Page.prototype.getPageMedia = function() {
                 
             } );
             
-            self.gaEventCate = 'Audio';
-            self.gaEventLabel = SBPLUS.getCourseDirectory() + ':audio:page' + SBPLUS.targetPage.data('count');
-            self.gaEventAction = 'start';
-            self.gaEventValue = 2;
-            self.gaDelays.start = 6;
+            // self.gaEventCate = 'Audio';
+            // self.gaEventLabel = SBPLUS.getCourseDirectory() + ':audio:page' + SBPLUS.targetPage.data('count');
+            // self.gaEventAction = 'start';
+            // self.gaEventValue = 2;
+            // self.gaDelays.start = 6;
             
         break;
         
@@ -228,13 +228,13 @@ Page.prototype.getPageMedia = function() {
                 addSecondaryControls( true );
             } );
             
-            self.gaEventCate = 'Image';
-            self.gaEventLabel = SBPLUS.getCourseDirectory() + ':image:page' + SBPLUS.targetPage.data('count');
-            self.gaEventAction = 'start';
-            self.gaEventValue = 4;
-            self.gaDelays.start = 10;
-            self.gaDelays.halfway = 30;
-            self.gaDelays.completed = 60;
+            // self.gaEventCate = 'Image';
+            // self.gaEventLabel = SBPLUS.getCourseDirectory() + ':image:page' + SBPLUS.targetPage.data('count');
+            // self.gaEventAction = 'start';
+            // self.gaEventValue = 4;
+            // self.gaDelays.start = 10;
+            // self.gaDelays.halfway = 30;
+            // self.gaDelays.completed = 60;
                         
         break;
         
@@ -265,11 +265,11 @@ Page.prototype.getPageMedia = function() {
                 
             } );
             
-            self.gaEventCate = 'Video';
-            self.gaEventLabel = SBPLUS.getCourseDirectory() + ':video:page' + SBPLUS.targetPage.data('count');
-            self.gaEventAction = 'start';
-            self.gaEventValue = 3;
-            self.gaDelays.start = 6;
+            // self.gaEventCate = 'Video';
+            // self.gaEventLabel = SBPLUS.getCourseDirectory() + ':video:page' + SBPLUS.targetPage.data('count');
+            // self.gaEventAction = 'start';
+            // self.gaEventValue = 3;
+            // self.gaDelays.start = 6;
         
         break;
         
@@ -301,11 +301,11 @@ Page.prototype.getPageMedia = function() {
             
             self.setWidgets();
 
-            self.gaEventCate = 'Video';
-            self.gaEventLabel = SBPLUS.getCourseDirectory() + ':youtube:page' + SBPLUS.targetPage.data('count');
-            self.gaEventAction = 'start';
-            self.gaEventValue = 3;
-            self.gaDelays.start = 6;
+            // self.gaEventCate = 'Video';
+            // self.gaEventLabel = SBPLUS.getCourseDirectory() + ':youtube:page' + SBPLUS.targetPage.data('count');
+            // self.gaEventAction = 'start';
+            // self.gaEventValue = 3;
+            // self.gaDelays.start = 6;
             
         break;
         
@@ -320,11 +320,11 @@ Page.prototype.getPageMedia = function() {
                 
             } );
 
-            self.gaEventCate = 'Video';
-            self.gaEventLabel = SBPLUS.getCourseDirectory() + ':vimeo:page' + SBPLUS.targetPage.data('count');
-            self.gaEventAction = 'start';
-            self.gaEventValue = 3;
-            self.gaDelays.start = 6;
+            // self.gaEventCate = 'Video';
+            // self.gaEventLabel = SBPLUS.getCourseDirectory() + ':vimeo:page' + SBPLUS.targetPage.data('count');
+            // self.gaEventAction = 'start';
+            // self.gaEventValue = 3;
+            // self.gaDelays.start = 6;
             
         break;
         
@@ -360,11 +360,11 @@ Page.prototype.getPageMedia = function() {
                 
             } );
             
-            self.gaEventCate = 'Audio';
-            self.gaEventLabel = SBPLUS.getCourseDirectory() + ':bundle:page' + SBPLUS.targetPage.data('count');
-            self.gaEventAction = 'start';
-            self.gaEventValue = 2;
-            self.gaDelays.start = 6;
+            // self.gaEventCate = 'Audio';
+            // self.gaEventLabel = SBPLUS.getCourseDirectory() + ':bundle:page' + SBPLUS.targetPage.data('count');
+            // self.gaEventAction = 'start';
+            // self.gaEventValue = 2;
+            // self.gaDelays.start = 6;
             
         break;
         
@@ -386,12 +386,12 @@ Page.prototype.getPageMedia = function() {
 
             } );
             
-            self.gaEventCate = 'Quiz';
-            self.gaEventLabel = SBPLUS.getCourseDirectory() + ':quiz:page' + SBPLUS.targetPage.data('count');
-            self.gaEventAction = 'start';
-            self.gaEventValue = 5;
-            self.gaDelays.start = 10;
-            self.gaDelays.halfway = 30;
+            // self.gaEventCate = 'Quiz';
+            // self.gaEventLabel = SBPLUS.getCourseDirectory() + ':quiz:page' + SBPLUS.targetPage.data('count');
+            // self.gaEventAction = 'start';
+            // self.gaEventValue = 5;
+            // self.gaDelays.start = 10;
+            // self.gaDelays.halfway = 30;
             
         break;
         
@@ -448,13 +448,13 @@ Page.prototype.getPageMedia = function() {
             
             self.setWidgets();
             
-            self.gaEventCate = 'HTML';
-            self.gaEventLabel = SBPLUS.getCourseDirectory() + ':html:page' + SBPLUS.targetPage.data('count');
-            self.gaEventAction = 'start';
-            self.gaEventValue = 6;
-            self.gaDelays.start = 10;
-            self.gaDelays.halfway = 30;
-            self.gaDelays.completed = 60;
+            // self.gaEventCate = 'HTML';
+            // self.gaEventLabel = SBPLUS.getCourseDirectory() + ':html:page' + SBPLUS.targetPage.data('count');
+            // self.gaEventAction = 'start';
+            // self.gaEventValue = 6;
+            // self.gaDelays.start = 10;
+            // self.gaDelays.halfway = 30;
+            // self.gaDelays.completed = 60;
             
         break;
         
@@ -495,13 +495,13 @@ Page.prototype.getPageMedia = function() {
     }, 3000 );
     
     // send event to Google Analytics
-    if ( self.gaEventCate !== '' ) {
+    // if ( self.gaEventCate !== '' ) {
         
-        SBPLUS.sendToGA( self.gaEventCate, self.gaEventAction,
-                         self.gaEventLabel, self.gaEventValue,
-                         self.gaDelays );
+    //     SBPLUS.sendToGA( self.gaEventCate, self.gaEventAction,
+    //                      self.gaEventLabel, self.gaEventValue,
+    //                      self.gaDelays );
         
-    }
+    // }
     
 };
 
@@ -1054,33 +1054,33 @@ Page.prototype.renderVideoJS = function( src ) {
             }
 
             // send event to Google Analytics
-            if ( self.gaEventCate !== '' ) {
+            // if ( self.gaEventCate !== '' ) {
                 
-                SBPLUS.sendToGA( self.gaEventCate, "completed",
-                                 self.gaEventLabel, 3, 0 );
+            //     SBPLUS.sendToGA( self.gaEventCate, "completed",
+            //                      self.gaEventLabel, 3, 0 );
                 
-            }
+            // }
           
         });
         
-        if ( SBPLUS.xml.settings.analytics === 'on' ) {
+        // if ( SBPLUS.xml.settings.analytics === 'on' ) {
             
-            player.on( 'timeupdate', function() {
+        //     player.on( 'timeupdate', function() {
                 
-                var percent = player.currentTime() / player.duration() * 100;
+        //         var percent = player.currentTime() / player.duration() * 100;
                 
-                if ( self.gaEventCate !== '' && percent >= 50
-                     && self.gaEventHalfway === false ) {
+        //         if ( self.gaEventCate !== '' && percent >= 50
+        //              && self.gaEventHalfway === false ) {
                     
-                    SBPLUS.sendToGA( self.gaEventCate, "halfway",
-                                 self.gaEventLabel, 2, 0 );
-                    self.gaEventHalfway = true;
+        //             SBPLUS.sendToGA( self.gaEventCate, "halfway",
+        //                          self.gaEventLabel, 2, 0 );
+        //             self.gaEventHalfway = true;
                                  
-                }
+        //         }
               
-            });
+        //     });
         
-        }
+        // }
         
         player.on( 'error', function() {
             

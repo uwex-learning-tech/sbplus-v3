@@ -4,7 +4,7 @@
  * @author: Ethan Lin
  * @url: https://github.com/uwex-learning-tech/sbplus-v3
  * @version: 3.4.1
- * Released 05/xx/2023
+ * Released 06/13/2023
  *
  * @license: GNU GENERAL PUBLIC LICENSE v3
  *
