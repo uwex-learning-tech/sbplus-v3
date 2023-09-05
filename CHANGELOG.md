@@ -1,6 +1,9 @@
 ### Version Change Logs
 
-#### 3.4.1 (06/13/2014)
+#### 3.4.2 (09/05/2023)
+* Fixed an issue with table of content height
+
+#### 3.4.1 (06/13/2023)
 * Migrated to Google Analytics 4
 * Updated jQuery to version 3.6.4
 

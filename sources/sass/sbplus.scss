@@ -3,8 +3,8 @@
  *
  * @author: Ethan Lin
  * @url: https://github.com/uwex-learning-tech/sbplus-v3
- * @version: 3.4.1
- * Released 06/13/2023
+ * @version: 3.4.2
+ * Released 09/05/2023
  *
  * @license: GNU GENERAL PUBLIC LICENSE v3
  *
@@ -1524,7 +1524,8 @@ body {
                 #sbplus_table_of_contents_wrapper {
                     
                     display: none;
-                    @include calc( height, '100% - ' + 86px );
+                    height: calc( 100% - 86px );
+                    // @include calc( height, '100% - ' + 86px );
                     overflow-y: auto;
                     background-color: #fff;
                     
