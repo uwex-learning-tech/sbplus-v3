@@ -3,7 +3,7 @@
     https://www.w3.org/TR/wai-aria-practices-1.1/#menu
 ****************************************/
 
-function MenuBar( domID, isVerticalMenu ) {
+export function MenuBar( domID, isVerticalMenu ) {
         
     this.id = $( '#' + domID );
     
@@ -55,19 +55,15 @@ MenuBar.prototype.bindHandlers = function() {
     } );
     
     // mouseenter handler for the menu parents
-/*
-    self.parents.on( 'mouseenter', function( e ) {
-        return self.handleMouseEnter( $( this ), e );
-    } );
-*/
-    
+    // self.parents.on( 'mouseenter', function( e ) {
+    //     return self.handleMouseEnter( $( this ), e );
+    // } );
+
     // mouselease handler for the menu parents
-/*
-    self.parents.on( 'mouseleave', function( e ) {
-        return self.handleMouseLeave( $( this ), e );
-    } );
-*/
-    
+    // self.parents.on( 'mouseleave', function( e ) {
+    //     return self.handleMouseLeave( $( this ), e );
+    // } );
+
     // click handler for all items
     self.allItems.on( 'click', function( e ) {
         
@@ -115,69 +111,64 @@ MenuBar.prototype.bindHandlers = function() {
 };
 
 // Process mouse over events for the top menus
-
-/*
-MenuBar.prototype.handleMouseEnter = function( item ) {
+// MenuBar.prototype.handleMouseEnter = function( item ) {
     
-    // add hover style (if applicable)
-    item.addClass( 'menu-hover' ).attr( 'aria-expanded', 'true' );
+//     // add hover style (if applicable)
+//     item.addClass( 'menu-hover' ).attr( 'aria-expanded', 'true' );
     
-    // expand the first level submenu
-    if ( item.attr( 'aria-haspopup' ) === 'true' ) {
+//     // expand the first level submenu
+//     if ( item.attr( 'aria-haspopup' ) === 'true' ) {
         
-        item.children( 'ul' ).attr( {
-            'aria-hidden': 'false',
-            'aria-expanded': 'true'
-        } );
+//         item.children( 'ul' ).attr( {
+//             'aria-hidden': 'false',
+//             'aria-expanded': 'true'
+//         } );
         
-    }
+//     }
     
-    // stop propagation
-    return true;
+//     // stop propagation
+//     return true;
 
-};
-*/
+// };
+
 
 // process mouse leave events for the top menu
 
-/*
-MenuBar.prototype.handleMouseLeave = function( menu ) {
+// MenuBar.prototype.handleMouseLeave = function( menu ) {
     
-    var self = this;
-    var active = menu.find( '.menu-focus' );
+//     var self = this;
+//     var active = menu.find( '.menu-focus' );
     
-    // remove hover style
-    menu.removeClass( 'menu-hover' ).attr( 'aria-expanded', 'false' );
+//     // remove hover style
+//     menu.removeClass( 'menu-hover' ).attr( 'aria-expanded', 'false' );
     
-    // if any item in the child menu has focus, move focus to root item
-    if ( active.length > 0 ) {
+//     // if any item in the child menu has focus, move focus to root item
+//     if ( active.length > 0 ) {
         
-        self.bChildOpen = false;
+//         self.bChildOpen = false;
         
-        // remove the focus style from the active item
-        active.removeClass( 'menu-focus' ); 
+//         // remove the focus style from the active item
+//         active.removeClass( 'menu-focus' ); 
         
-        // store the active item
-        self.activeItem = $menu;
+//         // store the active item
+//         self.activeItem = $menu;
         
-        // cannot hide items with focus -- move focus to root item
-        menu.focus();
+//         // cannot hide items with focus -- move focus to root item
+//         menu.focus();
         
-    }
+//     }
     
-    // hide child menu
-    menu.children( 'ul' ).attr( {
-        'aria-hidden': 'true',
-        'aria-expanded': 'false'
-    } );
+//     // hide child menu
+//     menu.children( 'ul' ).attr( {
+//         'aria-hidden': 'true',
+//         'aria-expanded': 'false'
+//     } );
     
-    return true;
+//     return true;
 
-};
-*/
+// };
 
 // process click events for the top menus
-
 MenuBar.prototype.handleClick = function( item, e ) {
     
     var self = this;
@@ -255,7 +246,7 @@ MenuBar.prototype.handleFocus = function( item ) {
     // remove focus styling from all other menu items
     self.allItems.removeClass( 'menu-focus' );
     
-    // add foucus styling to the active item
+    // add focus styling to the active item
     self.activeItem.addClass( 'menu-focus' );
     
     // add focus styling to all parent items

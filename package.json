@@ -1,0 +1,45 @@
+{
+  "name": "sbplus",
+  "version": "3.4.2",
+  "description": "Storybook Plus is a web application that uses HTML5, JavaScript, CSS3, and web storage to deliver multimedia presentations.",
+  "private": true,
+  "scripts": {
+    "start": "webpack serve --open --config webpack.dev.js",
+    "build": "webpack --config webpack.prod.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/uwex-learning-tech/sbplus-v3.git"
+  },
+  "keywords": [
+    "multimedia",
+    "player",
+    "presentation",
+    "education"
+  ],
+  "author": "Ethan Lin",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/uwex-learning-tech/sbplus-v3/issues"
+  },
+  "homepage": "https://github.com/uwex-learning-tech/sbplus-v3#readme",
+  "devDependencies": {
+    "autoprefixer": "^10.4.16",
+    "copy-webpack-plugin": "^11.0.0",
+    "css-loader": "^6.8.1",
+    "css-minimizer-webpack-plugin": "^5.0.1",
+    "cssnano": "^6.0.1",
+    "html-webpack-plugin": "^5.5.3",
+    "mini-css-extract-plugin": "^2.7.6",
+    "postcss-loader": "^7.3.3",
+    "sass": "^1.69.5",
+    "sass-loader": "^13.3.2",
+    "terser": "^5.22.0",
+    "terser-webpack-plugin": "^5.3.9",
+    "webpack": "^5.89.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-concat-files-plugin": "^0.5.2",
+    "webpack-dev-server": "^4.15.1",
+    "webpack-merge": "^5.10.0"
+  }
+}

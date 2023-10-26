@@ -1,3 +1,5 @@
+import { SBPLUS } from "./sbplus-dev";
+
 var quizTracker = [];
 var Quiz = function( obj, data ) {
     
@@ -831,7 +833,7 @@ function getCurrentQuizItem( array, id ) {
     
 }
 
-
+export { Quiz };
 
 
 

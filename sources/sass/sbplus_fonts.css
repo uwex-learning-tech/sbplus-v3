@@ -1,9 +1,9 @@
 @font-face {
   font-family: 'sbplus';
   src:
-    url('sbplus.ttf?extq2h') format('truetype'),
-    url('sbplus.woff?extq2h') format('woff'),
-    url('sbplus.svg?extq2h#sbplus') format('svg');
+    url('../fonts/sbplus.ttf?extq2h') format('truetype'),
+    url('../fonts/sbplus.woff?extq2h') format('woff'),
+    url('../fonts/sbplus.svg?extq2h#sbplus') format('svg');
   font-weight: normal;
   font-style: normal;
 }

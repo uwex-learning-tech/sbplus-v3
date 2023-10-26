@@ -1,3 +1,6 @@
+import { SBPLUS } from "./sbplus-dev";
+import { Quiz } from "./quiz";
+
 var Page = function ( obj, data ) {
     
     this.pageXML = obj.xml[0];
@@ -1647,3 +1650,5 @@ function isUrl(s) {
    var regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/
    return regexp.test(s);
 }
+
+export { Page };

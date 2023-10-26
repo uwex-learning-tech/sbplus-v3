@@ -27,10 +27,15 @@
  *
  */
 
+import "../sass/sbplus.scss";
+
 /*******************************************************************************
     STORYBOOK PLUS MAIN OBJECT CLASS
 *******************************************************************************/
 'use strict';
+
+import { MenuBar } from "./menubar";
+import { Page } from "./page";
 
 var worker;
 var SBPLUS = SBPLUS || {
@@ -1402,7 +1407,9 @@ var SBPLUS = SBPLUS || {
             
             // hide general info under main menu if empty
             if (self.isEmpty(self.xml.setup.generalInfo)) {
+
                 $(".sbplus_general_info").hide();
+
             }
             
             // add download button if downloads object is not empty
@@ -2760,7 +2767,7 @@ var SBPLUS = SBPLUS || {
                     self.setStorageItem( 'sbplus-subtitle', 0 );
                 }
                 
-                // volumne
+                // volume
                 var vol = $( '#sbplus_va_volume' ).val();
                 var volError = false;
                 
@@ -3007,12 +3014,14 @@ var SBPLUS = SBPLUS || {
         
 };
 
+export { SBPLUS };
+
 /*******************************************************************************
         ON DOM READY
 *******************************************************************************/
-
 $( function() {
     
+    window.SBPLUS = SBPLUS;
     SBPLUS.go();
 
 } );
@@ -3027,4 +3036,3 @@ const checkOnlineStatus = async () => {
     }
 
 };
-
