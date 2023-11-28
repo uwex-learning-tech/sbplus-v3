@@ -422,8 +422,9 @@
         <page type="quiz" title="Multiple Chioce with Multiple Audio Answers">
             
             <multipleChoiceMultiple>
+
+            <question image="" audio="">Which one is not a pokémon?</question>
                 
-                 
                 <choices>
                     
                     <answer image="" audio="slide07.mp3" correct="yes">

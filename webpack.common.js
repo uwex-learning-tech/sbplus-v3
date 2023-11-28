@@ -96,15 +96,16 @@ module.exports = {
                 dest: './dist/sources/scripts/libs/videojs/video.js',
                 src: [
                     './sources/scripts/libs/videojs/video.js',
+                    './sources/scripts/libs/videojs/plugins/cuepoint/videojs.cuepoints.js',
                     './sources/scripts/libs/videojs/plugins/markers/videojs-markers.js',
                     './sources/scripts/libs/videojs/plugins/resolution/silvermine-videojs-quality-selector.min.js',
                     './sources/scripts/libs/videojs/plugins/youtube/youtube.js',
                     './sources/scripts/libs/videojs/plugins/vimeo/videojs-vimeo.min.js',
-                    './sources/scripts/libs/videojs/plugins/vimeo/videojs.cuepoints.js',
+                    
                 ],
                 transforms: {
                     after: async (code) => {
-                      const minifiedCode = await terser.minify(code);
+                      const minifiedCode = await terser.minify(code, {keep_fnames: true, keep_classnames: true});
                       return minifiedCode.code;
                     },
                 },

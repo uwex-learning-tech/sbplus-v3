@@ -9,6 +9,6 @@ module.exports = merge( common, {
         static: path.resolve( __dirname, 'dist' ),
         hot: true,
         liveReload: true,
-        watchFiles: [ './assets/sbplus.xml', './sources/manifest.json', './sources/scripts/libs/videojs/*', './sources/scripts/templates/*' ]
+        watchFiles: [ './assets/sbplus.xml', './sources/manifest.json', './sources/preload.js', './sources/scripts/libs/videojs/*', './sources/scripts/templates/*' ]
     }
 } );
