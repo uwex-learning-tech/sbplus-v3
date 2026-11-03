@@ -1,5 +1,9 @@
 ### Version Change Logs
 
+#### 3.4.3 (09/03/2026)
+* Updated VideoJS to version 7.21.7, resolving known security advisories
+* Fixed captions not displaying in Safari
+
 #### 3.4.2 (09/05/2023)
 * Fixed an issue with table of content height
 

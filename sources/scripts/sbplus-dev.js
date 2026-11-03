@@ -3,8 +3,8 @@
  *
  * @author: Ethan Lin
  * @url: https://github.com/uwex-learning-tech/sbplus-v3
- * @version: 3.4.2
- * Released 09/05/2023
+ * @version: 3.4.3
+ * Released 09/03/2026
  *
  * @license: GNU GENERAL PUBLIC LICENSE v3
  *
@@ -37,7 +37,6 @@ import "../sass/sbplus.scss";
 import { MenuBar } from "./menubar";
 import { Page } from "./page";
 
-var worker;
 var SBPLUS = SBPLUS || {
     
     /***************************************************************************
@@ -234,8 +233,7 @@ var SBPLUS = SBPLUS || {
                 // HTML structure
                 /* !! SHOULD BE THE LAST THING TO BE CALLED IN THIS BLOCK!! */
                 self.loadTemplate();
-                self.preloadPresenationImages();
-                
+
             } ).fail( function() { // when manifest fail to load...
                 
                 // set an error message
@@ -763,15 +761,20 @@ var SBPLUS = SBPLUS || {
                 // if author name in XML is not empty
                 if ( !self.isEmpty( sanitizedAuthor ) ) {
                     
-                    // get centralized author name and profile via AJAX
+                    // get centralized author name and profile via AJAX;
+                    // capped with a timeout so a slow/unresponsive endpoint
+                    // can't indefinitely stall the splash screen from
+                    // rendering — falls through to the existing XML-only
+                    // fallback below via the same .fail() handler
                     $.ajax( {
-                            
+
                         crossDomain: true,
                         type: 'GET',
                         dataType: 'jsonp',
                         jsonpCallback: 'author',
-                        url: profileUrl
-                        
+                        url: profileUrl,
+                        timeout: 2000
+
                     } ).done( function( res ) { // when done, set author and profile
                         
                         self.xml.setup.profileName = res.name;
@@ -941,7 +944,12 @@ var SBPLUS = SBPLUS || {
                 }
                 
             } );
-            
+
+            // now that the splash image request is already in flight, start
+            // progressively prefetching the rest of the presentation's page
+            // assets so they don't compete with it or delay this screen
+            self.prefetchPresentationAssets();
+
             // set event listener to the start button
             $( self.button.start ).on( 'click', self.startPresentation.bind( self ) );
             
@@ -970,29 +978,56 @@ var SBPLUS = SBPLUS || {
             
             // load each supported downloadable files specified in the manifest
             self.manifest.sbplus_download_files.forEach( function( file ) {
-                
-                $.ajax( {
-                    
-                    url: fileName + '.' + file.format,
-                    type: 'HEAD'
-                    
-                } ).done( function() {
-                    
-                    let fileLabel = file.label.toLowerCase();
-                    
-                    self.downloads[fileLabel] = { 'fileName': fileName, 'fileFormat': file.format, 'url': this.url };
-                    
-                    $( self.splash.downloadBar ).append(
-                        '<a href="' + this.url + '" tabindex="1" download="' + fileName + '.' + file.format + '" aria-label="Download ' + fileLabel + ' file" class="sbplus-download-link"><span class="icon-download"></span>' + file.label + '</a>' );
 
-                } ).always( function() {
+                // a file entry can declare multiple formats (e.g. an HTML transcript
+                // with a PDF fallback); they are tried in order and the first one
+                // found is used, the rest are skipped
+                let formats = Array.isArray( file.format ) ? file.format : [ file.format ];
 
-                    if ( Object.keys(self.downloads).length <= 0 ) {
-                        $( self.splash.cta ).addClass( 'no_downloads' );
-                    }  
+                let tryFormat = function( index ) {
 
-                } );
-                
+                    if ( index >= formats.length ) {
+                        return;
+                    }
+
+                    let format = formats[ index ];
+
+                    $.ajax( {
+
+                        url: fileName + '.' + format,
+                        type: 'HEAD'
+
+                    } ).done( function() {
+
+                        let fileLabel = file.label.toLowerCase();
+
+                        self.downloads[fileLabel] = { 'fileName': fileName, 'fileFormat': format, 'url': this.url };
+
+                        // html files are viewable in-browser, so open them in a new tab
+                        // instead of forcing a download like the other formats
+                        let linkAttr = format === 'html' ?
+                            'target="_blank" rel="noopener" aria-label="Open ' + fileLabel + ' in a new tab"' :
+                            'download="' + fileName + '.' + format + '" aria-label="Download ' + fileLabel + ' file"';
+
+                        $( self.splash.downloadBar ).append(
+                            '<a href="' + this.url + '" tabindex="1" ' + linkAttr + ' class="sbplus-download-link"><span class="icon-download"></span>' + file.label + '</a>' );
+
+                    } ).fail( function() {
+
+                        tryFormat( index + 1 );
+
+                    } ).always( function() {
+
+                        if ( Object.keys(self.downloads).length <= 0 ) {
+                            $( self.splash.cta ).addClass( 'no_downloads' );
+                        }
+
+                    } );
+
+                };
+
+                tryFormat( 0 );
+
             } );
             
             // if accent does not match the default accent
@@ -1139,50 +1174,126 @@ var SBPLUS = SBPLUS || {
         
     },
 
-    preloadPresenationImages: function() {
+    /**
+     * Build the list of page preview image URLs directly from the already
+     * parsed presentation XML (no server-side directory scan needed), and
+     * hand them off to be prefetched progressively.
+     *
+     * @since 3.4.3
+     * @param none
+     * @return none
+     **/
+    prefetchPresentationAssets: function() {
 
         var self = this;
 
-        // start a worker service thread to preload page images
-        worker = new Worker( self.manifest.sbplus_root_directory + 'scripts/preload.js' );
-        var path = window.location.pathname,
-            location = window.location.href,
-            index = location.indexOf( '?' );
-        
-        if ( index != -1 ) {
-            location = location.substring( 0, index );
-        }
-        
-        index = location.indexOf( '#' );
-        
-        if ( index != -1 ) {
-            location = location.substring( 0, index );
-        }
-        
-        path = path.replace( 'index.html', '' );
-        location = location.replace( 'index.html', '' );
-        
-        var paths = {
-            "php": 'php/preload.php',
-            "pages": path + "assets/pages/",
-            "url": location + "assets/pages/"
+        if ( self.assetsPrefetched || !self.xml || !self.xml.sections ) {
+            return;
         }
 
-        worker.postMessage( paths );
-        
-        worker.onmessage = function( e ) {
+        self.assetsPrefetched = true;
 
-            e.data.forEach( function( image ) {
+        var imgType = self.xml.settings.imgType;
+        var urls = [];
 
-                let linkObj = document.createElement( 'link' );
-                linkObj.rel = "prefetch";
-                linkObj.href = paths.pages + image;
-                linkObj.setAttribute( 'aria-hidden', true );
-                linkObj.style = "position: fixed; width: 1px; height: 1px; opacity: 0;";
-                document.getElementsByTagName( "body" )[0].appendChild( linkObj );
-                
+        $( self.xml.sections ).each( function() {
+
+            $( this ).find( 'page' ).each( function() {
+
+                var pageEl = $( this );
+                var type = ( pageEl.attr( 'type' ) || '' ).trim().toLowerCase();
+                var src = pageEl.attr( 'src' );
+
+                if ( self.isEmpty( src ) ) {
+                    return;
+                }
+
+                src = src.trim();
+
+                if ( type === 'image' || type === 'image-audio' ) {
+
+                    // single static page image
+                    urls.push( 'assets/pages/' + src + '.' + imgType );
+
+                } else if ( type === 'bundle' ) {
+
+                    // cuepoint-synced image sequence; one image per frame plus the initial one
+                    var frameCount = pageEl.find( 'frame' ).length + 1;
+
+                    for ( var i = 1; i <= frameCount; i++ ) {
+                        urls.push( 'assets/pages/' + src + '-' + i + '.' + imgType );
+                    }
+
+                }
+
             } );
-            
+
+        } );
+
+        self.queuePrefetch( urls );
+
+    },
+
+    /**
+     * Progressively inject native <link rel="prefetch"> tags for the given
+     * URLs, letting the browser's own scheduler handle the actual fetching
+     * so it never competes with the splash screen or presentation load.
+     * The first few pages are marked high priority since they are the most
+     * likely to be needed first; the rest trickle in during idle time.
+     *
+     * @since 3.4.3
+     * @param array urls
+     * @return none
+     **/
+    queuePrefetch: function( urls ) {
+
+        var highPriorityCount = 3;
+        var batchSize = 5;
+        var index = highPriorityCount;
+
+        var addLink = function( url, priority ) {
+
+            var link = document.createElement( 'link' );
+            link.rel = 'prefetch';
+            link.href = url;
+            link.setAttribute( 'fetchpriority', priority );
+            document.head.appendChild( link );
+
+        };
+
+        // prefetch the first few pages immediately at high priority
+        urls.slice( 0, highPriorityCount ).forEach( function( url ) {
+            addLink( url, 'high' );
+        } );
+
+        var processBatch = function() {
+
+            if ( index >= urls.length ) {
+                return;
+            }
+
+            urls.slice( index, index + batchSize ).forEach( function( url ) {
+                addLink( url, 'low' );
+            } );
+
+            index += batchSize;
+
+            scheduleNextBatch();
+
+        };
+
+        var scheduleNextBatch = function() {
+
+            if ( 'requestIdleCallback' in window ) {
+                requestIdleCallback( processBatch, { timeout: 2000 } );
+            } else {
+                setTimeout( processBatch, 300 );
+            }
+
+        };
+
+        if ( urls.length > highPriorityCount ) {
+            scheduleNextBatch();
         }
 
     },

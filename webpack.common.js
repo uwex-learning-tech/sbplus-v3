@@ -11,7 +11,6 @@ module.exports = {
         sbplus: [
             path.resolve(__dirname, './sources/scripts/sbplus-dev.js'),
         ],
-        preload: path.resolve(__dirname, './sources/scripts/preload-dev.js'),
     },
     output: {
         filename: 'sources/scripts/[name].js',

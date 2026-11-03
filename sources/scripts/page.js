@@ -750,6 +750,13 @@ Page.prototype.renderVideoJS = function( src ) {
     var options = {
         
         techOrder: ['html5'],
+        // Safari renders native text tracks inside the <video> shadow DOM, flush
+        // against the bottom of the element, where our always-on control bar hides
+        // them. Force VideoJS's emulated tracks so captions render in
+        // .vjs-text-track-display like they do in Blink/Gecko.
+        html5: {
+            nativeTextTracks: false
+        },
         controls: true,
         inactivityTimeout: 0,
         autoplay: isAutoplay,
