@@ -1,5 +1,17 @@
 ### Version Change Logs
 
+#### 3.4.5 (11/03/2026)
+* Fixed the control bar being cut off when a presentation is embedded in a short or narrow frame, such as a Canvas page
+* Embedded presentations now fit their frame for every slide type, including Vimeo, web page and image slides
+* Video controls now adapt to small players instead of overflowing
+* Narrow layouts now use a compact, centered navigation bar with a smaller slide counter
+* The splash screen now fits small and short frames
+* Error messages, menu screens and the author photo now fit narrow layouts
+* Notes and the splash screen can now be scrolled with the keyboard
+* Added the version number to the Settings screen
+* Added Apache caching rules so updates reach viewers right away
+* Updated organization names, author credits and copyright year
+
 #### 3.4.4 (11/03/2026)
 * Replaced Kaltura's discontinued v2 player library with direct Kaltura API requests
 * Video quality menu now lists every available Kaltura flavor, labeled by resolution
