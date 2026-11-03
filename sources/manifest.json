@@ -49,7 +49,7 @@
         {
             "name": "Help",
             "icon": "help",
-            "content": "<p class=\"name\">Technical Support</p><p>Toll-free: <a href=\"tel:18777247883\">1-877-724-7883</a><br>Email: <a href=\"mailto:techsupport@uwex.edu\">techsupport@uwex.edu</a><br>We are available 7 days per week between 7:00 a.m. and 11:00 p.m. Except legal holidays. All times are U.S. Central Time.</p>"
+            "content": "<p>For help with course materials or technology, contact Technical Support at <a href=\"tel:18777247883\">1-877-724-7883</a> or <a href=\"mailto:uwex-itservicedesk@support.wisconsin.edu\">uwex-itservicedesk@support.wisconsin.edu</a>, Monday through Friday, 8 a.m. to 10 p.m. Central Time (except holidays).</p><p>More help is available on the <a href=\"https://uwex.wisconsin.edu/technical-support/\" target=\"_blank\">Technical Support website</a>.</p>"
         }
         
     ]
