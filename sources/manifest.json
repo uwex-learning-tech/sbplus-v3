@@ -19,9 +19,8 @@
     "sbplus_default_accent": "#0c3b6b",
     "sbplus_kaltura": {
         "id": 2370711,
-        "normal": 487081,
-        "medium": 487061,
-        "low": 487041
+        "default_quality": 1080,
+        "flavors": [ 487091, 487081, 487061, 487041 ]
     },
     "sbplus_download_files": [ 
         

@@ -81,16 +81,25 @@ function getKalturaSources( partnerId, entryId ) {
         const captions = results[3];
         const baseUrl = SERVICE_URL + '/p/' + partnerId + '/sp/' + partnerId + '00/playManifest/entryId/' + entryId;
 
+        // Every flavor is returned with its status; the caller decides which
+        // to offer (see isPlayable) and reports on the ones that are not ready.
         const sources = ( context.flavorAssets || [] )
-            .filter( ( asset ) => asset.status === FLAVOR_READY )
-            .map( ( asset ) => ( {
-                flavorParamsId: asset.flavorParamsId,
-                flavorId: asset.id,
-                status: asset.status,
-                width: asset.width,
-                height: asset.height,
-                src: baseUrl + '/flavorId/' + asset.id + '/format/url/protocol/https/a.' + ( asset.fileExt || 'mp4' )
-            } ) );
+            .map( ( asset ) => {
+
+                const ext = ( asset.fileExt || '' ).toLowerCase();
+
+                return {
+                    flavorParamsId: Number( asset.flavorParamsId ),
+                    flavorId: asset.id,
+                    status: asset.status,
+                    width: asset.width,
+                    height: parseInt( asset.height, 10 ) || 0,
+                    type: ext === 'mp4' ? 'video/mp4' : '',
+                    isPlayable: asset.status === FLAVOR_READY && ext === 'mp4',
+                    src: baseUrl + '/flavorId/' + asset.id + '/format/url/protocol/https/a.' + ( ext || 'mp4' )
+                };
+
+            } );
 
         return {
             status: entry.status,

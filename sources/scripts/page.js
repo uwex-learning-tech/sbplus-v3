@@ -63,11 +63,8 @@ var Page = function ( obj, data ) {
     this.root = SBPLUS.manifest.sbplus_root_directory;
     this.kaltura = {
         id: SBPLUS.manifest.sbplus_kaltura.id,
-        flavors: {
-            low: SBPLUS.manifest.sbplus_kaltura.low,
-            normal: SBPLUS.manifest.sbplus_kaltura.normal,
-            medium: SBPLUS.manifest.sbplus_kaltura.medium
-        }
+        defaultQuality: parseInt( SBPLUS.manifest.sbplus_kaltura.default_quality, 10 ) || 1080,
+        flavors: getKalturaFlavorWhitelist( SBPLUS.manifest.sbplus_kaltura )
     };
     this.kalturaSrc = {};
     
@@ -573,12 +570,11 @@ Page.prototype.loadKalturaVideoData = function () {
 
     self.isKaltura = {
         
-        flavors: {},
+        flavors: [],
+        defaultFlavor: null,
+        configuredFlavors: [],
         status: {
-            entry: 0,
-            low: 0,
-            normal: 0,
-            medium: 0
+            entry: 0
         },
         duration: ''
         
@@ -592,22 +588,21 @@ Page.prototype.loadKalturaVideoData = function () {
         self.isKaltura.duration = data.duration;
         self.isKaltura.poster = data.poster;
 
-        data.sources.forEach( function( source ) {
+        // offer every configured flavor that is ready for this entry,
+        // labeled by its resolution
+        self.isKaltura.flavors = selectKalturaFlavors( data.sources, self.kaltura.flavors, self.src );
+        self.isKaltura.defaultFlavor = pickDefaultFlavor( self.isKaltura.flavors, self.kaltura.defaultQuality );
 
-            if ( source.flavorParamsId === self.kaltura.flavors.low ) {
-                self.isKaltura.flavors.low = source.src;
-                self.isKaltura.status.low = source.status;
-            }
+        // status of each configured flavor, for the "still processing" message
+        self.isKaltura.configuredFlavors = self.kaltura.flavors.map( function( id ) {
 
-            if ( source.flavorParamsId === self.kaltura.flavors.normal ) {
-                self.isKaltura.flavors.normal = source.src;
-                self.isKaltura.status.normal = source.status;
-            }
+            var source = data.sources.find( function( s ) { return s.flavorParamsId === id; } );
 
-            if ( source.flavorParamsId === self.kaltura.flavors.medium ) {
-                self.isKaltura.flavors.medium = source.src;
-                self.isKaltura.status.medium = source.status;
-            }
+            return {
+                id: id,
+                height: source ? source.height : 0,
+                status: source ? source.status : null
+            };
 
         } );
 
@@ -615,7 +610,7 @@ Page.prototype.loadKalturaVideoData = function () {
         if ( self.isKaltura.status.entry >= 1 && self.isKaltura.status.entry <= 2 ) {
 
             // flavor videos
-            if ( self.isKaltura.status.normal === 2 || self.isKaltura.status.normal === 4 ) {
+            if ( self.isKaltura.flavors.length ) {
             
                 if ( captions !== null ) {
 
@@ -779,13 +774,16 @@ Page.prototype.renderVideoJS = function( src ) {
                 player.poster( self.isKaltura.poster + '/width/900/quality/100' );
             }
             
-            player.src( [
-			
-    			{ src: self.isKaltura.flavors.low, type: "video/mp4", label: "low" },
-    			{ src: self.isKaltura.flavors.normal, type: "video/mp4", label: "normal", selected: true },
-    			{ src: self.isKaltura.flavors.medium, type: "video/mp4", label: "medium" }
-    			
-    		] );
+            player.src( self.isKaltura.flavors.map( function( flavor ) {
+
+                return {
+                    src: flavor.src,
+                    type: flavor.type,
+                    label: flavor.label,
+                    selected: flavor === self.isKaltura.defaultFlavor
+                };
+
+            } ) );
 
             player.controlBar.addChild('QualitySelector');
             
@@ -1264,9 +1262,14 @@ Page.prototype.showPageError = function( type, src ) {
         case 'KAL_NOT_READY':
             msg = '<p>The video for this Storybook Page is still processing and could not be loaded at the moment. Please try again later. Contact support if you continue to have issues.</p><p><strong>Expected video source</strong>: Kaltura video ID  ' + self.src + '<br><strong>Status</strong>:<br>';
             
-            msg += 'Low &mdash; ' + getKalturaStatus( self.isKaltura.status.low ) + '<br>';
-            msg += 'Normal &mdash; ' + getKalturaStatus( self.isKaltura.status.normal ) + '<br>';
-            msg += 'Medium &mdash; ' + getKalturaStatus( self.isKaltura.status.medium ) + '</p>';
+            msg += self.isKaltura.configuredFlavors.map( function( flavor ) {
+
+                var name = flavor.height ? flavor.height + 'p' : 'Flavor ' + flavor.id;
+                var status = flavor.status === null ? 'NOT AVAILABLE' : getKalturaStatus( flavor.status );
+
+                return name + ' &mdash; ' + status;
+
+            } ).join( '<br>' ) + '</p>';
             
         break;
         
@@ -1304,6 +1307,72 @@ Page.prototype.showPageError = function( type, src ) {
     
     $( self.mediaError ).html( msg ).show();
     
+}
+
+/*
+ * Returns the Kaltura flavor params IDs the player may offer, from the
+ * manifest's sbplus_kaltura settings.
+ *
+ * Preferred form:  "flavors": [ 487091, 487081, 487061, 487041 ]
+ * Legacy form:     "normal": 487081, "medium": 487061, "low": 487041
+ */
+function getKalturaFlavorWhitelist( config ) {
+
+    var ids = Array.isArray( config.flavors ) ? config.flavors : [ config.normal, config.medium, config.low ];
+
+    return ids.map( Number ).filter( function( id ) { return Number.isFinite( id ); } );
+
+}
+
+/*
+ * Builds the quality levels to offer from the flavors Kaltura returned.
+ * Only configured flavors that are ready for this entry are used, so a 720p
+ * upload with no 1080p flavor still plays. If none of the configured flavors
+ * exist, any ready MP4 flavor is used instead. Highest resolution first,
+ * one per resolution, labeled by height (e.g. "720p").
+ */
+function selectKalturaFlavors( sources, whitelist, entryId ) {
+
+    var playable = sources.filter( function( source ) { return source.isPlayable; } );
+
+    var flavors = playable.filter( function( source ) {
+        return whitelist.indexOf( source.flavorParamsId ) !== -1;
+    } );
+
+    if ( flavors.length === 0 && playable.length ) {
+        console.warn( 'SB+: none of the configured Kaltura flavors (' + whitelist.join( ', ' ) + ') exist for entry ' + entryId + '; using any available MP4 flavor.' );
+        flavors = playable;
+    }
+
+    return flavors.map( function( source ) {
+
+        return {
+            src: source.src,
+            type: source.type,
+            res: source.height,
+            label: source.height ? source.height + 'p' : 'default',
+            flavorParamsId: source.flavorParamsId
+        };
+
+    } )
+    .sort( function( a, b ) { return b.res - a.res; } )
+    .filter( function( flavor, index, list ) {
+        return index === 0 || flavor.res !== list[index - 1].res;
+    } );
+
+}
+
+/*
+ * Picks the quality to start playback with: the highest available
+ * resolution that does not exceed the preferred one, or the lowest
+ * available if every flavor is above it.
+ */
+function pickDefaultFlavor( flavors, preferredRes ) {
+
+    var match = flavors.find( function( flavor ) { return flavor.res <= preferredRes; } );
+
+    return match || flavors[flavors.length - 1] || null;
+
 }
 
 function getKalturaStatus( code ) {
