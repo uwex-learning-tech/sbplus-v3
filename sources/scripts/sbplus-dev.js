@@ -288,7 +288,7 @@ var SBPLUS = SBPLUS || {
             
             // set the template URL for the sbplus.tpl file
             var templateUrl = self.manifest.sbplus_root_directory;
-            templateUrl += 'scripts/templates/sbplus.tpl';
+            templateUrl += 'scripts/templates/sbplus.tpl?v=' + SBPLUS_VERSION;
             
             // AJAX call and load the sbplus.tpl template
             $.get( templateUrl, function( data ) {
@@ -2477,15 +2477,15 @@ var SBPLUS = SBPLUS || {
             switch ( type ) {
                 
                 case 'support':
-                    errorTemplateUrl += 'scripts/templates/support_error.tpl';
+                    errorTemplateUrl += 'scripts/templates/support_error.tpl?v=' + SBPLUS_VERSION;
                 break;
                 
                 case 'xml':
-                    errorTemplateUrl += 'scripts/templates/xml_error.tpl';
+                    errorTemplateUrl += 'scripts/templates/xml_error.tpl?v=' + SBPLUS_VERSION;
                 break;
                 
                 case 'parser':
-                    errorTemplateUrl += 'scripts/templates/xml_parse_error.tpl';
+                    errorTemplateUrl += 'scripts/templates/xml_parse_error.tpl?v=' + SBPLUS_VERSION;
                 break;
                 
                 default:

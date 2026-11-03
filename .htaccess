@@ -9,7 +9,7 @@
 
     # Player code and settings: browsers always check for a newer copy
     # before using a saved one, so updates reach everyone right away.
-    <FilesMatch "\.(js|css|json|html)$">
+    <FilesMatch "\.(js|css|json|html|tpl)$">
         Header set Cache-Control "no-cache"
     </FilesMatch>
 
