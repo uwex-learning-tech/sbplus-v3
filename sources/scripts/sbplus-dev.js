@@ -298,6 +298,13 @@ var SBPLUS = SBPLUS || {
                 
                 // set an event listener to resize elements on viewport resize
                 $( window ).on( 'resize', self.resize.bind( self ) );
+
+                // fonts can change the title and control bar heights
+                if ( document.fonts && document.fonts.ready ) {
+                    document.fonts.ready.then( function() {
+                        self.calcLayout();
+                    } );
+                }
                 
                 // show support error is any
                 if ( self.checkForSupport() === 0 ) {
@@ -2320,6 +2327,13 @@ var SBPLUS = SBPLUS || {
     selectSegment: function( e ) {
         
         var self = this;
+
+        // the notes space depends on this slide, so re-fit after it is set
+        setTimeout( function() {
+            if ( self.layout.isMobile ) {
+                self.calcLayout();
+            }
+        }, 0 );
         var button = $( this.widget.segment ).find( 'button' );
         
         if ( self.hasWidgetContent() ) {
@@ -2472,22 +2486,32 @@ var SBPLUS = SBPLUS || {
     
     calcLayout: function() {
 
-        if ($( this.layout.wrapper ).hasClass ( 'toc_displayed' )) {
-            $( this.tableOfContents.container ).height( this.calcTocHeight() );
-        }
+        // The wide boxed layout is a fixed 586px tall; an embed shorter than
+        // that uses the narrow layout, which fits its frame.
+        var isEmbedded = $( this.layout.wrapper ).hasClass( 'loaded-in-iframe' );
+        var isNarrow = window.innerWidth < 900
+                    || window.screen.width <= 414
+                    || ( isEmbedded && window.innerHeight < 586 );
 
-        if ( window.innerWidth < 900 || window.screen.width <= 414 ) {
+        document.documentElement.classList.toggle( 'sbplus-narrow', isNarrow );
+
+        if ( isNarrow ) {
 
             this.layout.isMobile = true;
             this.alreadyResized = true;
             $( this.layout.wrapper ).removeClass( 'sbplus_boxed' );
             this.fitMediaToFrame();
 
+            // after the slide is sized, so the panel fills what is left
+            if ( $( this.layout.wrapper ).hasClass( 'toc_displayed' ) ) {
+                $( this.tableOfContents.container ).height( this.calcTocHeight() );
+            }
+
         } else {
             
             this.layout.isMobile = false;
             $( this.layout.wrapper ).addClass( 'sbplus_boxed' );
-            $( this.layout.mediaContent ).css( 'max-width', '' );
+            this.clearMediaFit();
             $( this.layout.wrapper ).removeClass( 'toc_displayed');
             $( this.tableOfContents.container ).css( 'height', '' );
 
@@ -2500,17 +2524,28 @@ var SBPLUS = SBPLUS || {
     },
     
     /**
-     * Narrow layout: caps the slide's width so its 16:9 height leaves room
-     * for the title bar, the control bar, and some of the notes. Without
-     * this, a short frame (e.g. an embed in a Canvas page) pushes the
-     * control bar out of view.
+     * Narrow layout in an embed: caps the slide so the title bar, the slide,
+     * some of the notes and the control bar all fit in the frame. Without
+     * this, a short frame (e.g. an embed in a Canvas page) pushes the control
+     * bar out of view. Presentations opened directly scroll instead.
+     *
+     * Sets the inline max-width used by 16:9 slides, and exposes the limits as
+     * CSS variables (--sbplus-media-max-width / -height) for slides that size
+     * themselves differently (images, Vimeo, web pages).
+     *
+     * Runs on resize, on every slide change and once web fonts have loaded.
      **/
     fitMediaToFrame: function() {
 
-        // Room for the notes tab bar plus a few lines of notes. Always
-        // reserved: this runs on resize, not on every slide change, so it
-        // must not depend on whether the current slide has notes.
-        var notesHeight = 25 + 80;
+        if ( !$( this.layout.wrapper ).hasClass( 'loaded-in-iframe' )
+            || $( this.layout.wrapper ).hasClass( 'sbplus_boxed' ) ) {
+            this.clearMediaFit();
+            return;
+        }
+
+        // the notes tab bar plus a few lines of notes, when the slide has notes
+        var hasNotes = !$( this.layout.widget ).hasClass( 'noSegments' );
+        var notesHeight = hasNotes ? 25 + 80 : 0;
         var slack = 8;
 
         var reserved = $( this.banner.bar ).outerHeight()
@@ -2518,9 +2553,27 @@ var SBPLUS = SBPLUS || {
                      + notesHeight
                      + slack;
 
-        var maxWidth = Math.floor( ( window.innerHeight - reserved ) * 16 / 9 );
+        var maxHeight = Math.max( window.innerHeight - reserved, 135 );
+        var maxWidth = Math.floor( maxHeight * 16 / 9 );
 
-        $( this.layout.mediaContent ).css( 'max-width', Math.max( maxWidth, 240 ) + 'px' );
+        $( this.layout.mediaContent ).css( 'max-width', maxWidth + 'px' );
+
+        var media = document.querySelector( this.layout.media );
+        media.style.setProperty( '--sbplus-media-max-width', maxWidth + 'px' );
+        media.style.setProperty( '--sbplus-media-max-height', maxHeight + 'px' );
+
+    },
+
+    clearMediaFit: function() {
+
+        $( this.layout.mediaContent ).css( 'max-width', '' );
+
+        var media = document.querySelector( this.layout.media );
+
+        if ( media ) {
+            media.style.removeProperty( '--sbplus-media-max-width' );
+            media.style.removeProperty( '--sbplus-media-max-height' );
+        }
 
     },
     

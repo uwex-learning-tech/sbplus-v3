@@ -2154,10 +2154,11 @@ body {
     
 } // end main wrapper
 
-// Narrow layout: fit the player to its frame so the control bar stays in
-// view. The slide's width is capped in fitMediaToFrame(); the notes take the
-// remaining height and scroll.
-.sbplus_wrapper:not(.sbplus_boxed) {
+// Narrow layout in an embed (e.g. a Canvas page): fit the player to its
+// frame so the control bar stays in view. The slide's width is capped in
+// fitMediaToFrame(); the notes take the remaining height and scroll.
+// Presentations opened directly (e.g. on a phone) scroll the page instead.
+.sbplus_wrapper.loaded-in-iframe:not(.sbplus_boxed) {
 
     #sbplus #sbplus_content_wrapper,
     #sbplus #sbplus_content_wrapper #sbplus_left_col {
@@ -2172,7 +2173,39 @@ body {
             flex: 0 0 auto;
 
             .sbplus_media_content {
+
                 margin: 0 auto;
+
+                // images of any shape fit inside the slide area
+                .img_only {
+                    width: auto;
+                    max-width: 100%;
+                    max-height: var( --sbplus-media-max-height, none );
+                    margin: 0 auto;
+                }
+
+                // web pages: 16:9 from the slide's own width, not the frame's
+                &.iframeEmbed {
+                    height: auto;
+                    padding-top: 0;
+                    aspect-ratio: 16 / 9;
+                }
+
+                .html {
+                    height: 100%;
+                }
+
+                // Vimeo: 16:9 instead of a fixed 360px
+                .video-js.vjs-default-skin.vjs-vimeo-tech {
+                    height: auto;
+                    aspect-ratio: 16 / 9;
+                }
+
+            }
+
+            // keep the copy button on the slide, not on the side bars
+            #copyToCbBtn {
+                right: max( 10px, calc( ( 100% - var( --sbplus-media-max-width, 100% ) ) / 2 + 10px ) );
             }
 
         }
@@ -2198,6 +2231,10 @@ body {
 
     }
 
+}
+
+.sbplus_wrapper.loaded-in-iframe.toc_displayed:not(.sbplus_boxed) #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_widget {
+    display: none;
 }
 
 @media only screen
@@ -2755,4 +2792,21 @@ body {
         display: none;
     }
     
+}
+
+// The narrow layout fills the page even in wide windows (e.g. a wide but
+// short embed), overriding the wide layout's html/body height reset.
+html.sbplus-narrow {
+
+    height: 100%;
+
+    body {
+        height: 100%;
+    }
+
+}
+
+// The wide box stays centered when embedded in a wider frame.
+.loaded-in-iframe.sbplus_boxed {
+    margin: 0 auto;
 }
