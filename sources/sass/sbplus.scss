@@ -2949,7 +2949,8 @@ body {
                         position: absolute;
                         width: 100%;
                         flex: initial;
-                        top: 0px;
+                        // below the title bar, which stays visible
+                        top: $titleBarHeight;
                         left: 0;
                         z-index: 999;
                         
@@ -2957,7 +2958,10 @@ body {
 
                             .sbplus_media_content {
 
-                                height: 539.25px;
+                                // the box height minus the title bar and the
+                                // controls below (509.25px in the standard
+                                // 586px box; taller boxes grow)
+                                height: calc( var( --sbplus-box-height, #{$box-height} ) - #{$titleBarHeight} - 46.75px );
 
                                 &.iframeEmbed {
 

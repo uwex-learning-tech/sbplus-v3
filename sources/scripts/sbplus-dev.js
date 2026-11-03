@@ -2544,7 +2544,15 @@ var SBPLUS = SBPLUS || {
             
             this.layout.isMobile = false;
             $( this.layout.wrapper ).addClass( 'sbplus_boxed' );
-            this.scaleBox( boxScale );
+
+            // In an embed taller than the box's shape, the box grows taller
+            // (in its own unscaled pixels) to fill the frame: the slide keeps
+            // its 16:9 size and the notes and contents get the extra room.
+            var boxHeight = isEmbedded
+                ? Math.max( this.BOX_HEIGHT, Math.floor( window.innerHeight / boxScale ) )
+                : this.BOX_HEIGHT;
+
+            this.scaleBox( boxScale, boxHeight );
             this.clearMediaFit();
             $( this.layout.wrapper ).removeClass( 'toc_displayed');
             $( this.tableOfContents.container ).css( 'height', '' );
@@ -2570,7 +2578,7 @@ var SBPLUS = SBPLUS || {
      * so the margins give back the space it no longer uses and keep it
      * centered without a horizontal scrollbar.
      **/
-    scaleBox: function( scale ) {
+    scaleBox: function( scale, height ) {
 
         var wrapper = document.querySelector( this.layout.wrapper );
 
@@ -2594,7 +2602,7 @@ var SBPLUS = SBPLUS || {
         wrapper.style.transform = 'scale(' + scale + ')';
         wrapper.style.marginLeft = left + 'px';
         wrapper.style.marginRight = ( window.innerWidth - left - this.BOX_WIDTH ) + 'px';
-        wrapper.style.marginBottom = ( this.BOX_HEIGHT * ( scale - 1 ) ) + 'px';
+        wrapper.style.marginBottom = ( height * ( scale - 1 ) ) + 'px';
 
     },
     
@@ -2644,6 +2652,16 @@ var SBPLUS = SBPLUS || {
         $( this.layout.mediaContent ).css( 'max-width', '' );
 
         var media = document.querySelector( this.layout.media );
+        height = height || this.BOX_HEIGHT;
+        wrapper.style.height = height !== this.BOX_HEIGHT ? height + 'px' : '';
+
+        // lets fixed-height parts (the expanded video) follow a taller box
+        if ( height !== this.BOX_HEIGHT ) {
+            wrapper.style.setProperty( '--sbplus-box-height', height + 'px' );
+        } else {
+            wrapper.style.removeProperty( '--sbplus-box-height' );
+        }
+
 
         if ( media ) {
             media.style.removeProperty( '--sbplus-media-max-width' );
