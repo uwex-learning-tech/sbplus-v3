@@ -25,12 +25,11 @@ function getKalturaSources( partnerId, entryId ) {
         2: {
             ks: ks,
             service: 'baseentry',
-            action: 'getContextData',
+            action: 'getPlaybackContext',
             entryId: entryId,
             contextDataParams: {
-                objectType: 'KalturaEntryContextDataParams',
-                referrer: document.URL,
-                flavorTags: 'all'
+                objectType: 'KalturaPlaybackContextOptions',
+                referrer: document.URL
             }
         },
         3: {
