@@ -1,5 +1,14 @@
 ### Version Change Logs
 
+#### 3.4.4 (11/03/2026)
+* Replaced Kaltura's discontinued v2 player library with direct Kaltura API requests
+* Video quality menu now lists every available Kaltura flavor, labeled by resolution
+* Video quality now defaults to 1080p and falls back to the next available flavor when it is missing
+* Kaltura flavors are now configured as a list in manifest.json
+* Fixed a blank page when a Kaltura video is still processing; a status message is shown instead
+* Updated jQuery to version 3.7.1
+* Updated build tools to resolve security advisories; building now requires Node.js 22.15 or later
+
 #### 3.4.3 (09/03/2026)
 * Updated VideoJS to version 7.21.7, resolving known security advisories
 * Fixed captions not displaying in Safari
