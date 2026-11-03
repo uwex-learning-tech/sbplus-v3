@@ -2,8 +2,39 @@ const path = require( 'path' );
 const HtmlWebpackPlugin = require( 'html-webpack-plugin' );
 const CopyWebpackPlugin = require( 'copy-webpack-plugin' );
 const MiniCssExtractPlugin = require( 'mini-css-extract-plugin' );
-const WebpackConcatPlugin = require('webpack-concat-files-plugin');
-const terser = require('terser');
+const fs = require( 'fs' );
+const webpack = require( 'webpack' );
+const terser = require( 'terser' );
+
+// Bundles VideoJS and its plugins into a single minified video.js.
+class ConcatVideoJsPlugin {
+
+    constructor( { dest, src } ) {
+        this.dest = dest;
+        this.src = src.map( ( file ) => path.resolve( __dirname, file ) );
+    }
+
+    apply( compiler ) {
+        compiler.hooks.thisCompilation.tap( 'ConcatVideoJsPlugin', ( compilation ) => {
+            compilation.hooks.processAssets.tapPromise(
+                {
+                    name: 'ConcatVideoJsPlugin',
+                    stage: webpack.Compilation.PROCESS_ASSETS_STAGE_PRE_PROCESS,
+                },
+                async () => {
+                    // Rebuild in watch mode when any source file changes.
+                    this.src.forEach( ( file ) => compilation.fileDependencies.add( file ) );
+
+                    const code = this.src.map( ( file ) => fs.readFileSync( file, 'utf8' ) ).join( '\n' );
+                    const minified = await terser.minify( code, { keep_fnames: true, keep_classnames: true } );
+
+                    compilation.emitAsset( this.dest, new webpack.sources.RawSource( minified.code ), { minimized: true } );
+                }
+            );
+        } );
+    }
+
+}
 
 module.exports = {
 
@@ -76,7 +107,8 @@ module.exports = {
                     from: 'sources/scripts/libs',
                     to: 'sources/scripts/libs',
                     globOptions: {
-                        ignore: [ "**/videojs/plugins/**" ],
+                        // Built by ConcatVideoJsPlugin instead.
+                        ignore: [ "**/videojs/plugins/**", "**/videojs/video.js" ],
                     },
                 },
                 {
@@ -89,28 +121,17 @@ module.exports = {
                 },
             ],
         } ),
-        new WebpackConcatPlugin({
-            bundles: [
-              {
-                dest: './dist/sources/scripts/libs/videojs/video.js',
-                src: [
-                    './sources/scripts/libs/videojs/video.js',
-                    './sources/scripts/libs/videojs/plugins/cuepoint/videojs.cuepoints.js',
-                    './sources/scripts/libs/videojs/plugins/markers/videojs-markers.js',
-                    './sources/scripts/libs/videojs/plugins/resolution/silvermine-videojs-quality-selector.min.js',
-                    './sources/scripts/libs/videojs/plugins/youtube/youtube.js',
-                    './sources/scripts/libs/videojs/plugins/vimeo/videojs-vimeo.min.js',
-                    
-                ],
-                transforms: {
-                    after: async (code) => {
-                      const minifiedCode = await terser.minify(code, {keep_fnames: true, keep_classnames: true});
-                      return minifiedCode.code;
-                    },
-                },
-              },
+        new ConcatVideoJsPlugin( {
+            dest: 'sources/scripts/libs/videojs/video.js',
+            src: [
+                './sources/scripts/libs/videojs/video.js',
+                './sources/scripts/libs/videojs/plugins/cuepoint/videojs.cuepoints.js',
+                './sources/scripts/libs/videojs/plugins/markers/videojs-markers.js',
+                './sources/scripts/libs/videojs/plugins/resolution/silvermine-videojs-quality-selector.min.js',
+                './sources/scripts/libs/videojs/plugins/youtube/youtube.js',
+                './sources/scripts/libs/videojs/plugins/vimeo/videojs-vimeo.min.js',
             ],
-        }),
+        } ),
         new MiniCssExtractPlugin({
             filename: 'sources/css/[name].css',
         } ),
