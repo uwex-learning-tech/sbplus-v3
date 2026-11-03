@@ -5,6 +5,21 @@ const MiniCssExtractPlugin = require( 'mini-css-extract-plugin' );
 const fs = require( 'fs' );
 const webpack = require( 'webpack' );
 const terser = require( 'terser' );
+const pkg = require( './package.json' );
+
+// Build date in local time (toISOString() is UTC, which would stamp an
+// afternoon US Central build with tomorrow's date).
+const BUILD_DATE = ( () => {
+
+    const d = new Date();
+
+    return [
+        d.getFullYear(),
+        String( d.getMonth() + 1 ).padStart( 2, '0' ),
+        String( d.getDate() ).padStart( 2, '0' )
+    ].join( '-' );
+
+} )();
 
 // Bundles VideoJS and its plugins into a single minified video.js.
 class ConcatVideoJsPlugin {
@@ -78,6 +93,9 @@ module.exports = {
             template: 'index.html',
             filename: path.resolve( __dirname, 'dist', 'index.html' ),
             chunks: [ 'sbplus' ],
+            templateParameters: {
+                version: pkg.version,
+            },
         } ),
         new CopyWebpackPlugin( {
             patterns: [
@@ -138,6 +156,13 @@ module.exports = {
         } ),
         new MiniCssExtractPlugin({
             filename: 'sources/css/[name].css',
+        } ),
+        // Stamps the version from package.json onto sbplus.js and sbplus.css,
+        // so the version only needs to be changed in package.json.
+        new webpack.BannerPlugin( {
+            banner: `/*! Storybook Plus ${pkg.version} | built ${BUILD_DATE} | ${pkg.homepage} | ${pkg.license} */`,
+            raw: true,
+            entryOnly: true,
         } ),
     ],
 
