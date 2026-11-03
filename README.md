@@ -1,5 +1,5 @@
 # Storybook Plus (SB+)  
-**version 3.4.5**
+**version 3.4.6**
 
 ---
 

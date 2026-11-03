@@ -1,5 +1,10 @@
 ### Version Change Logs
 
+#### 3.4.6 (11/03/2026)
+* The full layout now scales to fit smaller windows and embeds instead of switching to the narrow layout just below its default size
+* Embedded presentations now scale up to fill large frames
+* The logo in the notes area of slides without notes now hides when there is not enough room for it
+
 #### 3.4.5 (11/03/2026)
 * Fixed the control bar being cut off when a presentation is embedded in a short or narrow frame, such as a Canvas page
 * Embedded presentations now fit their frame for every slide type, including Vimeo, web page and image slides
