@@ -187,7 +187,6 @@ var SBPLUS = SBPLUS || {
         // set HTML menu classes and IDs
         this.menu = {
             menuList: '#sbplus_menu_btn_wrapper .menu',
-            menuContentList: '#menu_item_content .menu',
             menuBarTitle: '#menu_item_content .sbplus_menu_title_bar .title',
             menuContentWrapper: '#menu_item_content',
             menuContent: '#menu_item_content .content',
@@ -519,8 +518,6 @@ var SBPLUS = SBPLUS || {
                 
             }
             
-            // append/display the menu list to inner menu list
-            $( this.menu.menuContentList ).html( $( this.menu.menuList ).html() );
             
         }
         
@@ -1062,6 +1059,17 @@ var SBPLUS = SBPLUS || {
                 var style = '.sbplus_wrapper button:hover{color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_context .sb_cta button{color:' + textColor  + ';background-color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_context .sb_cta button:hover{background-color:' + hover + '}.sbplus_wrapper #sbplus #sbplus_banner_bar{background-color:' + self.xml.settings.accent + ';color:' + textColor + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col .list .item:hover{color:' + textColor + ';background-color:' + hover + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col .list .sb_selected{color:' + textColor + ';background-color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_right_col #sbplus_table_of_contents_wrapper .section .current{border-left-color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_control_bar .controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu .menu-item:hover,.sbplus_wrapper #sbplus #sbplus_control_bar .controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu .menu-item:hover{background-color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_control_bar .controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu .menu-item:hover a,.sbplus_wrapper #sbplus #sbplus_control_bar .controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu .menu-item:hover a{color:' + textColor + '}.sbplus_wrapper #sbplus #sbplus_control_bar .controls #sbplus_download_btn_wrapper #sbplus_download_btn .active, .sbplus_wrapper #sbplus #sbplus_control_bar .controls #sbplus_download_btn_wrapper .root-level .active{color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_control_bar .controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu .menu-item:focus,.sbplus_wrapper #sbplus #sbplus_control_bar .controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu .menu-item:focus{background-color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_control_bar .controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu .menu-item:focus a,.sbplus_wrapper #sbplus #sbplus_control_bar .controls #sbplus_download_btn_wrapper .root-level .menu-parent .menu .menu-item:focus a{color:' + textColor + '}.sbplus_wrapper #sbplus #sbplus_control_bar .controls #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent:hover,.sbplus_wrapper #sbplus #sbplus_control_bar .controls #sbplus_download_btn_wrapper .root-level .menu-parent:hover{color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper #copyToCbBtn{color:' + textColor  + ';background-color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper #copyToCbBtn:hover{background-color:' + hover + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper .sbplus_media_content .video-js.vjs-default-skin .vjs-control-bar{background-color:'+ self.xml.settings.accent +'}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper .sbplus_media_content .video-js.vjs-default-skin .vjs-control-bar .vjs-control,.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper .sbplus_media_content .video-js.vjs-default-skin button:hover{color:' + textColor  + '}.video-js .vjs-volume-level,.video-js .vjs-play-progress{background-color:' + textColor  + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_quiz_wrapper .sbplus_quiz_submit_btn, .sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_quiz_wrapper .sbplus_quiz_tryagain_btn{color:' + textColor  + ';background-color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper .sbplus_media_content .sbplus_secondary_controls{background-color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper .sbplus_media_content .sbplus_secondary_controls #expand_contract_btn{color:' + textColor  + '}.sbplus_wrapper.toc_displayed #sbplus #sbplus_control_bar #mobile_toc_toggle_btn{color:' + self.xml.settings.accent + '}.sbplus_wrapper #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper .sbplus_media_content .video-js.vjs-default-skin .vjs-control-bar .vjs-progress-control .vjs-marker{background-color:' + markerColor + '}';
                 
                 // append the style/css to the HTML head
+                // menu screens (Settings, Help, ...) follow the accent too
+                style += '.sbplus_wrapper #sbplus #menu_item_content .sbplus_menu_title_bar{color:' + textColor + ';background-color:' + self.xml.settings.accent + '}'
+                       + '.sbplus_wrapper #sbplus #menu_item_content .container .settings .grid .row .control input[type=checkbox]{accent-color:' + self.xml.settings.accent + '}';
+
+                // on light accents the title text is dark, so the close box
+                // needs a dark tint to stay visible
+                if ( textColor === '#000' ) {
+                    style += '.sbplus_wrapper #sbplus #menu_item_content .sbplus_menu_title_bar #sbplus_menu_close_btn{background-color:rgba(0,0,0,0.12)}'
+                           + '.sbplus_wrapper #sbplus #menu_item_content .sbplus_menu_title_bar #sbplus_menu_close_btn:hover,.sbplus_wrapper #sbplus #menu_item_content .sbplus_menu_title_bar #sbplus_menu_close_btn:focus-visible{background-color:rgba(0,0,0,0.22)}';
+                }
+
                 $( 'head' ).append( '<style type="text/css">' + style + '</style>' );
                 
             }
@@ -2136,24 +2144,6 @@ var SBPLUS = SBPLUS || {
         
         menuContent.empty();
         
-        $( self.menu.menuContentList + ' li' ).removeClass( 'active' );
-        $( self.menu.menuContentList + ' .' + itemId ).addClass( 'active' );
-
-        // when the menu is a scrolling row of tabs (phone widths), bring the
-        // selected tab into view without scrolling the page around the player
-        // (after the menu screen is shown; a hidden element cannot scroll)
-        setTimeout( function() {
-
-            var menuList = document.querySelector( self.menu.menuContentList );
-            var activeItem = menuList ? menuList.querySelector( '.' + itemId ) : null;
-
-            if ( activeItem && menuList.scrollWidth > menuList.clientWidth ) {
-                var listLeft = menuList.getBoundingClientRect().left;
-                var itemBox = activeItem.getBoundingClientRect();
-                menuList.scrollLeft += ( itemBox.left - listLeft ) - ( menuList.clientWidth - itemBox.width ) / 2;
-            }
-
-        }, 0 );
         
         switch ( itemId ) {
                     
@@ -2251,15 +2241,34 @@ var SBPLUS = SBPLUS || {
                 
                 if ( Modernizr.localstorage && Modernizr.sessionstorage ) {
                     
-                    if ( this.hasStorageItem( 'sbplus-' + self.presentationLoc + '-settings-loaded', true ) === false ) {
-                    
-                        $.get( self.manifest.sbplus_root_directory + 'scripts/templates/settings.tpl', function( data ) {
+                    // fetch the template unless this page already has it (the
+                    // session flag outlives a reload, but self.settings does not)
+                    if ( !self.settings ) {
+
+                        // one request at a time; the form is only added if the
+                        // Settings screen is still the one showing when it arrives
+                        self.settingsRequest = self.settingsRequest || $.get( self.manifest.sbplus_root_directory + 'scripts/templates/settings.tpl?v=' + SBPLUS_VERSION, function( data ) {
                         
                             self.settings = data;
                             self.setStorageItem( 'sbplus-' + self.presentationLoc + '-settings-loaded', 1, true );
-                            menuContent.append( data );
-                            self.afterSettingsLoaded();
                             
+                        } ).always( function() {
+                            self.settingsRequest = null;
+                        } );
+
+                        self.settingsRequest.done( function() {
+
+                            if ( menuContentWrapper.is( ':visible' ) && menuTitle.text() === 'Settings' && menuContent.find( '.settings' ).length === 0 ) {
+                                menuContent.append( self.settings );
+                                self.afterSettingsLoaded();
+                            }
+
+                        } ).fail( function() {
+
+                            if ( menuContentWrapper.is( ':visible' ) && menuTitle.text() === 'Settings' && menuContent.find( '.settings' ).length === 0 ) {
+                                menuContent.html( '<p>Settings could not be loaded. Close this screen and try again.</p>' );
+                            }
+
                         } );
                         
                     } else {
@@ -2292,10 +2301,61 @@ var SBPLUS = SBPLUS || {
             
         }
         
-        menuContentWrapper.show();
+        menuContentWrapper.css( 'display', 'flex' );
         menuContent.append( content );
         
-        $( self.button.menuClose ).on( 'click', self.closeMenuContent.bind( self ) );
+        $( self.button.menuClose ).off( 'click' ).on( 'click', self.closeMenuContent.bind( self ) );
+
+        // modal behavior: Escape closes, Tab stays inside the dialog, a click
+        // on the dimmed backdrop closes, and focus starts on the close box
+        $( document ).off( 'keydown.sbplusMenu' ).on( 'keydown.sbplusMenu', function( e ) {
+
+            if ( e.key === 'Escape' ) {
+
+                // Escape in a select only closes its popup
+                if ( e.target && e.target.tagName === 'SELECT' ) {
+                    return;
+                }
+
+                e.preventDefault();
+                self.closeMenuContent();
+                return;
+
+            }
+
+            if ( e.key === 'Tab' ) {
+
+                var focusable = menuContentWrapper.find( 'a[href], button, input, select, textarea, [tabindex]:not([tabindex="-1"])' ).filter( ':visible' ).not( ':disabled' );
+
+                if ( focusable.length === 0 ) {
+                    return;
+                }
+
+                var first = focusable[0];
+                var last = focusable[focusable.length - 1];
+
+                if ( e.shiftKey && document.activeElement === first ) {
+                    e.preventDefault();
+                    last.focus();
+                } else if ( !e.shiftKey && ( document.activeElement === last || !menuContentWrapper[0].contains( document.activeElement ) ) ) {
+                    e.preventDefault();
+                    first.focus();
+                }
+
+            }
+
+        } );
+
+        menuContentWrapper.off( 'mousedown.sbplusMenu' ).on( 'mousedown.sbplusMenu', function( e ) {
+            if ( e.target === this ) {
+                self.closeMenuContent();
+            }
+        } );
+
+        // the player behind the dialog is out of reach (screen readers, clicks, focus)
+        $( self.layout.sbplus ).children().not( menuContentWrapper ).attr( 'inert', '' );
+
+        $( self.button.menuClose ).trigger( 'focus' );
         
         // if ( self.xml.settings.analytics === 'on' || self.xml.settings.analytics === 'true' ) {
             
@@ -2313,11 +2373,21 @@ var SBPLUS = SBPLUS || {
         
         var menuContentWrapper = $( this.menu.menuContentWrapper );
         var menuContent = $( this.menu.menuContent );
+
+        if ( !menuContentWrapper.is( ':visible' ) ) {
+            return;
+        }
         
         menuContent.empty();
         menuContentWrapper.hide();
         
         $( this.button.menuClose ).off( 'click' );
+        $( document ).off( 'keydown.sbplusMenu' );
+        menuContentWrapper.off( 'mousedown.sbplusMenu' );
+        $( this.layout.sbplus ).children().removeAttr( 'inert' );
+
+        // focus returns to the "•••" menu button the screen was opened from
+        $( this.button.menu ).find( '.menu-parent' ).first().trigger( 'focus' );
         
     },
     
@@ -2582,6 +2652,16 @@ var SBPLUS = SBPLUS || {
 
         var wrapper = document.querySelector( this.layout.wrapper );
 
+        height = height || this.BOX_HEIGHT;
+        wrapper.style.height = height !== this.BOX_HEIGHT ? height + 'px' : '';
+
+        // lets fixed-height parts (the expanded video) follow a taller box
+        if ( height !== this.BOX_HEIGHT ) {
+            wrapper.style.setProperty( '--sbplus-box-height', height + 'px' );
+        } else {
+            wrapper.style.removeProperty( '--sbplus-box-height' );
+        }
+
         // keeps the bottom margin inside the body (no margin collapsing), so
         // the page height follows the scaled box
         document.body.style.display = scale !== 1 ? 'flow-root' : '';
@@ -2652,16 +2732,6 @@ var SBPLUS = SBPLUS || {
         $( this.layout.mediaContent ).css( 'max-width', '' );
 
         var media = document.querySelector( this.layout.media );
-        height = height || this.BOX_HEIGHT;
-        wrapper.style.height = height !== this.BOX_HEIGHT ? height + 'px' : '';
-
-        // lets fixed-height parts (the expanded video) follow a taller box
-        if ( height !== this.BOX_HEIGHT ) {
-            wrapper.style.setProperty( '--sbplus-box-height', height + 'px' );
-        } else {
-            wrapper.style.removeProperty( '--sbplus-box-height' );
-        }
-
 
         if ( media ) {
             media.style.removeProperty( '--sbplus-media-max-width' );
@@ -3014,8 +3084,8 @@ var SBPLUS = SBPLUS || {
             
             if ( self.isIOSDevice() ) {
                     
-                $( '#autoplay_label' ).after( '<p class="error">Mobile devices do not support autoplay.</p>' );
-                $( '#sbplus_va_autoplay' ).prop( 'checked', false ).attr( 'disabled', true );
+                $( '#autoplay_label' ).after( '<p class="error" id="autoplay_note">Mobile devices do not support autoplay.</p>' );
+                $( '#sbplus_va_autoplay' ).prop( 'checked', false ).attr( 'disabled', true ).attr( 'aria-describedby', 'autoplay_note' );
                 
             }
             
@@ -3056,31 +3126,11 @@ var SBPLUS = SBPLUS || {
                     self.setStorageItem( 'sbplus-subtitle', 0 );
                 }
                 
-                // volume
-                var vol = $( '#sbplus_va_volume' ).val();
-                var volError = false;
+                // volume (the menu lists 10% to 100%)
+                var vol = Number( $( '#sbplus_va_volume' ).val() );
                 
-                if ( vol < 0 || vol > 100 || self.isEmpty( vol ) ) {
-                    
-                    volError = true;
-                    vol = Number( self.getStorageItem( 'sbplus-volume' ) ) * 100;
-                    
-                } else {
-                    
-                    self.setStorageItem( 'sbplus-volume', vol / 100 );
-                    self.setStorageItem( 'sbplus-' + self.presentationLoc + '-volume-temp', vol / 100, true );
-                    
-                }
-                
-                if ( volError ) {
-                    
-                    $( '#volume_label' ).after( '<p class="error">Value must be between 0 and 100.</p>' );
-                    
-                } else {
-                    
-                    $( '#volume_label' ).next( '.error' ).remove();
-                    
-                }
+                self.setStorageItem( 'sbplus-volume', vol / 100 );
+                self.setStorageItem( 'sbplus-' + self.presentationLoc + '-volume-temp', vol / 100, true );
                 
                 // playback rate
                 self.setStorageItem(
@@ -3096,6 +3146,13 @@ var SBPLUS = SBPLUS || {
                 
                 // show msg
                 $( self.menu.menuSavingMsg ).html( 'Settings saved!' );
+
+                // announce it; cleared first so a second save is announced too
+                var status = $( '#save_settings_status' ).empty();
+
+                setTimeout( function() {
+                    status.text( 'Settings saved' );
+                }, 100 );
                 
                 setTimeout( function() {
                     
@@ -3155,7 +3212,14 @@ var SBPLUS = SBPLUS || {
             // volume
             var volumeVal = self.getStorageItem( 'sbplus-volume' );
             
-            $( '#sbplus_va_volume' ).prop( 'value', volumeVal * 100 );
+            // nearest menu choice (older versions allowed any 0 to 100)
+            var volumePct = Math.round( Number( volumeVal ) * 10 ) * 10;
+            
+            if ( isNaN( volumePct ) ) {
+                volumePct = 80;
+            }
+            
+            $( '#sbplus_va_volume' ).val( String( Math.min( 100, Math.max( 10, volumePct ) ) ) );
             
             // playback rate
             var playbackRateVal = self.getStorageItem( 'sbplus-playbackrate' );

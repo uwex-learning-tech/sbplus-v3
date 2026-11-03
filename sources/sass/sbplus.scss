@@ -542,7 +542,9 @@ body {
                                 padding: 0;
                                 border-top: none;
                                 background-color: #5f5d5d;
-                                box-shadow: 0 6px 4px 2px #fff;
+                                box-shadow: 0 8px 20px rgba( 0, 0, 0, 0.3 );
+                                border-radius: 0 0 6px 6px;
+                                overflow: hidden;
                                 z-index: 1001;
                                 max-height: calc( 100vh - #{$titleBarHeight} );
                                 overflow-y: auto;
@@ -596,7 +598,9 @@ body {
                         }
                         
                         .active {
-                            color: #ff3c3c;
+                            color: inherit;
+                            background-color: rgba( 255, 255, 255, 0.18 );
+                            border-radius: 4px;
                         }
                         
                     }
@@ -1946,11 +1950,8 @@ body {
             height: 100%;
             top: 0;
             left: 0;
-            overflow-x: hidden;
-            overflow-y: auto;
             animation-delay: 0.3s;
             animation-duration: 0.5s;
-            background: #f2f2f2;
             z-index: 11;
             
             .sbplus_menu_title_bar {
@@ -1962,7 +1963,7 @@ body {
                 align-items: center;
                 color: #fff;
                 height: $titleBarHeight;
-                background-color: #333;
+                background-color: $default-accent;
                 font-size: 145%;
                 font-weight: bold;
                 
@@ -1975,22 +1976,6 @@ body {
                     line-height: 1.25;
                 }
                 
-                #sbplus_menu_close_btn {
-                    
-                    width: 100px;
-                    height: 30px;
-                    min-height: 25px;
-                    padding: 0 10px;
-                    color: #fff;
-                    background-color: #ff3c3c;
-                    font-size: 75%;
-                    text-transform: uppercase;
-                    
-                    .icon-close {
-                        font-size: 80%;
-                    }
-                    
-                }
                 
             }
             
@@ -2053,145 +2038,110 @@ body {
                     position: relative;
                     
                     .name {
-                        margin-bottom: 0;
+                        margin-bottom: $gutter;
+                        font-size: 115%;
                     }
                     
+                    // one grouped panel: label on the left, its control right
+                    // beside it, hairlines between rows
                     .grid {
                         
                         display: flex;
                         flex-flow: column nowrap;
                         margin: 0;
+                        background-color: #fff;
+                        border: 1px solid $border-color;
+                        border-radius: 8px;
+                        overflow: hidden;
                         
                         .row {
                             
-                             display: flex;
-                             flex-flow: row nowrap;
-                             align-items: center;
-                             margin: 0;
-                             padding: 5px 0;
-                             
-                             .label {
-                                 
-                                 flex: 2 0 80%;
-                                 margin: 0;
-                                 padding: 0 8px;
-                                 
-                                 .error {
-                                     flex: 1 0 20%;
-                                     color: #f00;
-                                     margin: 0;
-                                     font-size: 12px;
-                                 }
-                                 
-                             }
-                             
-                             .control {
+                            display: flex;
+                            flex-flow: row nowrap;
+                            align-items: center;
+                            justify-content: space-between;
+                            gap: $gutter * 2;
+                            min-height: 44px;
+                            margin: 0;
+                            padding: 8px 14px;
 
-                                 flex: 1 0 20%;
-                                 margin: 0;
-                                 padding: 0 5px;
-                                 
-                                 select,
-                                 input[type=number] {
-                                     width: 100%;
-                                     padding: 3px 2px;
-                                 }
-                                 
-                             }
+                            & + .row {
+                                border-top: 1px solid #e6e6e6;
+                            }
                             
-                        }
-                        
-                        .row:nth-child(even) {
-                             background-color: #dfdfdf;
-                        }
-                        
-                    }
-                    
-                    .sbplus_version {
-                        margin: $gutter 0 0;
-                        padding: 0 8px;
-                        font-size: 12px;
-                        color: #595959;
-                    }
-                    
-                    #save_settings {
-                        display: none;
-                        position: absolute;
-                        width: 100%;
-                        padding: 8px;
-                        background-color: rgba(#56f24e, 0.75);
-                        font-weight: bold;
-                        text-align: center;
-                        top: -20px;
-                        z-index: 1;
-                    }
-                    
-                }
-                
-                .side_menu {
-                    
-                    width: 260px;
-                    height: 100%;
-                    
-                    .menu {
-                        
-                        height: 100%;
-                        list-style: none;
-                        margin: 0;
-                        padding: 0;
-                        background-color: #444;
-                        
-                        .menu-item {
+                            .label {
+                                
+                                flex: 1 1 auto;
+                                margin: 0;
+                                padding: 0;
+                                
+                                .error {
+                                    color: #c62828;
+                                    margin: 4px 0 0;
+                                    font-size: 12px;
+                                }
+                                
+                            }
                             
-                            a { 
+                            .control {
                                 
-                                display: flex;
-                                flex-flow: row nowrap;
-                                align-items: center;
-                                width: 100%;
-                                height: 35px;
-                                padding: 0 ($gutter + 5);
-                                font-size: 14px;
-                                font-weight: normal;
-                                color: #fff;
-                                text-decoration: none;
+                                flex: 0 0 auto;
+                                margin: 0;
+                                padding: 0;
                                 
-                                span {
-                                    display: inline-block;
-                                    margin-right: 5px;
+                                select {
+                                    width: 110px;
+                                    padding: 4px 8px;
+                                    border: 1px solid $border-color;
+                                    border-radius: 6px;
+                                    background-color: #fff;
+                                    font: inherit;
+                                }
+
+                                // undo the wrapper's border reset so both
+                                // checkboxes render as native checkboxes
+                                input[type=checkbox] {
+                                    appearance: auto;
+                                    border: revert;
+                                    width: 18px;
+                                    height: 18px;
+                                    margin: 0;
+                                    accent-color: $default-accent;
                                 }
                                 
                             }
                             
                         }
                         
-                        .menu-item:hover {
-                            
-                            background-color: $default-accent-hover;
-                            
-                            a {
-                                color: #fff;
-                            }
-                            
-                        }
-                        
-                        .menu-item:focus {
-                            
-                            background-color: $default-accent;
-                            
-                            a {
-                                color: #fff;
-                            }
-                            
-                        }
-                        
-                        .active {
-                            background-color: $default-accent-hover;
-                        }
-                                                            
+                    }
+                    
+                    .sbplus_version {
+                        margin: $gutter 0 0;
+                        padding: 0 14px;
+                        font-size: 12px;
+                        color: #595959;
+                    }
+                    
+                    // small confirmation pill at the right end of the heading
+                    #save_settings {
+                        display: none;
+                        position: absolute;
+                        top: 2px;
+                        right: 0;
+                        margin: 0;
+                        padding: 3px 10px;
+                        font-size: 12px;
+                        color: #1d5e2e;
+                        background-color: #e4f3e7;
+                        border: 1px solid #b9dcc1;
+                        border-radius: 6px;
+                        font-weight: 600;
+                        text-align: center;
+                        z-index: 1;
                     }
                     
                 }
+                
                 
             }
             
@@ -2361,70 +2311,11 @@ body {
 
 }
 
-// Narrow layout: menu screens (Settings, Help, ...) give the content the room
-.sbplus_wrapper:not(.sbplus_boxed) #sbplus #menu_item_content .container {
-
-    .side_menu {
-
-        flex: 0 0 auto;
-        width: 180px;
-
-        .menu {
-            overflow-y: auto;
-        }
-
-    }
-
-    // phone widths: the menu becomes a row of tabs above the content
-    @media only screen and ( max-width: 599px ) {
-
-        flex-flow: column nowrap;
-
-        .side_menu {
-
-            order: -1;
-            width: 100%;
-            height: auto;
-
-            .menu {
-
-                display: flex;
-                flex-flow: row nowrap;
-                height: auto;
-                overflow-x: auto;
-                overflow-y: hidden;
-
-                .menu-item {
-
-                    flex: 0 0 auto;
-
-                    a {
-                        width: auto;
-                        padding: 0 8px;
-                        white-space: nowrap;
-                    }
-
-                }
-
-            }
-
-        }
-
-        .content {
-            flex: 1 1 auto;
-            min-height: 0;
-            height: auto;
-        }
-
-    }
-
-    // author photo: in proportion to the narrower content area
-    .content .profileImg {
-        width: min( 40%, 160px );
-        margin-left: $gutter;
-        margin-bottom: $gutter;
-    }
-
+// Narrow layout: the author photo in proportion to the narrower dialog
+.sbplus_wrapper:not(.sbplus_boxed) #sbplus #menu_item_content .container .content .profileImg {
+    width: min( 40%, 160px );
+    margin-left: $gutter;
+    margin-bottom: $gutter;
 }
 
 // Narrow layout: the error screen fits small frames and scrolls if needed
@@ -2717,7 +2608,9 @@ body {
                                     padding: 0;
                                     border-top: none;
                                     background-color: #5f5d5d;
-                                    box-shadow: 0 6px 4px 2px #fff;
+                                    box-shadow: 0 8px 20px rgba( 0, 0, 0, 0.3 );
+                                    border-radius: 0 0 6px 6px;
+                                    overflow: hidden;
                                     z-index: 11;
                                     
                                     .menu-item {
@@ -2769,7 +2662,9 @@ body {
                             }
                             
                             .active {
-                                color: #ff3c3c;
+                                color: inherit;
+                                background-color: rgba( 255, 255, 255, 0.18 );
+                                border-radius: 4px;
                             }
                             
                         }
@@ -3128,4 +3023,94 @@ html.sbplus-narrow {
 // The wide box stays centered when embedded in a wider frame.
 .loaded-in-iframe.sbplus_boxed {
     margin: 0 auto;
+}
+
+// Menu screens (Settings, Help, Author Profile, ...) open as a modal dialog
+// over the dimmed player, with their own close box. openMenuItem shows the
+// backdrop with display: flex so the dialog is centered.
+.sbplus_wrapper #sbplus #menu_item_content {
+
+    align-items: center;
+    justify-content: center;
+    padding: $gutter * 2;
+    background: rgba( 0, 0, 0, 0.45 );
+    overflow: hidden;
+
+    .sbplus_menu_dialog {
+        display: flex;
+        flex-flow: column nowrap;
+        width: 100%;
+        max-width: 640px;
+        max-height: 100%;
+        background-color: #f2f2f2;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 20px 50px rgba( 0, 0, 0, 0.35 );
+    }
+
+    .sbplus_menu_title_bar {
+
+        order: 0;
+        flex: 0 0 auto;
+        align-items: center;
+        height: 44px;
+        padding: 0 8px 0 16px;
+        font-size: 115%;
+
+        .title {
+            padding: 0;
+        }
+
+        #sbplus_menu_close_btn {
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex: 0 0 auto;
+            width: 30px;
+            min-width: 0;
+            height: 30px;
+            min-height: 0;
+            padding: 0;
+            border-radius: 50%;
+            font-size: 13px;
+            color: inherit;
+            background-color: rgba( 255, 255, 255, 0.15 );
+
+            .icon-close {
+                margin: 0;
+                font-size: inherit;
+            }
+
+            &:hover,
+            &:focus-visible {
+                color: inherit;
+                background-color: rgba( 255, 255, 255, 0.3 );
+            }
+
+        }
+
+    }
+
+    .container {
+
+        display: block;
+        flex: 1 1 auto;
+        min-height: 0;
+        height: auto;
+        overflow-y: auto;
+
+        .content {
+            height: auto;
+            overflow: visible;
+            padding: $gutter * 2;
+        }
+
+    }
+
+}
+
+// narrow layouts: the dialog uses almost the whole player
+.sbplus_wrapper:not(.sbplus_boxed) #sbplus #menu_item_content {
+    padding: 8px;
 }

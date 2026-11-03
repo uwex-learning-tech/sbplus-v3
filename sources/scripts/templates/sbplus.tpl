@@ -171,17 +171,15 @@
     
     </div>
     
+    <!-- Menu screens (Settings, Help, ...) open as a modal dialog -->
     <div id="menu_item_content" class="animated" tabindex="-1">
-        <div class="sbplus_menu_title_bar">
-            <div class="title"></div>
-            <button id="sbplus_menu_close_btn"><span class="icon-close"></span> Close</button>
-        </div>
-        <div class="container">
-            <div class="content"></div>
-            <div class="side_menu">
-                <ul class="menu" role="menu">
-                    
-                </div>
+        <div class="sbplus_menu_dialog" role="dialog" aria-modal="true" aria-labelledby="sbplus_menu_title">
+            <div class="sbplus_menu_title_bar">
+                <div class="title" id="sbplus_menu_title"></div>
+                <button id="sbplus_menu_close_btn" title="Close" aria-label="Close"><span class="icon-close" aria-hidden="true"></span></button>
+            </div>
+            <div class="container">
+                <div class="content"></div>
             </div>
         </div>
     </div>

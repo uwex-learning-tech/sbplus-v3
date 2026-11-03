@@ -1,10 +1,13 @@
 <form class="settings">
     
-    <div id="save_settings"></div>
+    <!-- the visible "saved" pill is for sighted users; screen readers hear
+         the always-present status line below it instead -->
+    <div id="save_settings" aria-hidden="true"></div>
+    <div id="save_settings_status" class="sr-only" role="status" aria-live="polite"></div>
     
-    <p class="name">Video & Audio Player</p>
+    <h2 class="name" id="sbplus_settings_player">Video &amp; Audio Player</h2>
     
-    <div class="grid">
+    <div class="grid" role="group" aria-labelledby="sbplus_settings_player">
         
         <div class="row">
             
@@ -21,11 +24,22 @@
         <div class="row">
             
             <div class="label">
-                <label for="sbplus_va_volume" id="volume_label">Default volume level (%)</label>
+                <label for="sbplus_va_volume" id="volume_label">Default volume level</label>
             </div>
             
             <div class="control">
-                <input type="number" id="sbplus_va_volume" min="0" max="100" value="80" />
+                <select id="sbplus_va_volume">
+                    <option value="10">10%</option>
+                    <option value="20">20%</option>
+                    <option value="30">30%</option>
+                    <option value="40">40%</option>
+                    <option value="50">50%</option>
+                    <option value="60">60%</option>
+                    <option value="70">70%</option>
+                    <option value="80" selected>80%</option>
+                    <option value="90">90%</option>
+                    <option value="100">100%</option>
+                </select>
             </div>
             
         </div>
