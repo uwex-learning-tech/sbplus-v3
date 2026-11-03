@@ -85,6 +85,10 @@ module.exports = {
                     from: 'iframe.html',
                 },
                 {
+                    // Apache caching rules for the player folder on the server
+                    from: '.htaccess',
+                },
+                {
                     from: 'default.*',
                 },
                 {

@@ -1,0 +1,21 @@
+# Storybook Plus caching
+# Install in the player folder on the server: /app/storybook_plus_v3/.htaccess
+
+<IfModule mod_headers.c>
+    # Drop ETags: Apache's "-gzip" ETags never match, so browsers
+    # re-download files instead of getting a quick "not modified".
+    # Last-Modified still works for that check.
+    Header unset ETag
+
+    # Player code and settings: browsers always check for a newer copy
+    # before using a saved one, so updates reach everyone right away.
+    <FilesMatch "\.(js|css|json|html)$">
+        Header set Cache-Control "no-cache"
+    </FilesMatch>
+
+    # Images and fonts: keep for a day without checking.
+    <FilesMatch "\.(png|jpe?g|gif|svg|webp|woff2?|ttf|otf|eot)$">
+        Header set Cache-Control "max-age=86400"
+    </FilesMatch>
+</IfModule>
+FileETag None
