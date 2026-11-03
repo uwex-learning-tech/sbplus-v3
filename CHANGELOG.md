@@ -1,5 +1,16 @@
 ### Version Change Logs
 
+#### 3.5.0 (11/03/2026)
+* Settings, Help and the other menu screens now open as dialogs with their own close box, in place of the second menu beside them
+* Refreshed the Settings screen, menus and close buttons, which now follow the presentation's accent color
+* Default volume level in Settings is now a menu of 10% steps
+* Improved screen reader and keyboard support in the menu screens: Escape closes them, focus stays inside while open, and saved settings are announced
+* Fixed opening menu items with the Return and Space keys
+* The title bar now stays visible when the video is expanded
+* The full layout now grows taller to fill tall embeds
+* Fixed the Settings screen sometimes showing empty after a reload
+* Updated templates now reach viewers right away
+
 #### 3.4.6 (11/03/2026)
 * The full layout now scales to fit smaller windows and embeds instead of switching to the narrow layout just below its default size
 * Embedded presentations now scale up to fill large frames

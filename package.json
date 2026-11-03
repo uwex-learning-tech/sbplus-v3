@@ -1,6 +1,6 @@
 {
   "name": "sbplus",
-  "version": "3.4.6",
+  "version": "3.5.0",
   "description": "Storybook Plus is a web application that uses HTML5, JavaScript, CSS3, and web storage to deliver multimedia presentations.",
   "private": true,
   "engines": {
