@@ -2513,12 +2513,17 @@ var SBPLUS = SBPLUS || {
     
     calcLayout: function() {
 
-        // The wide boxed layout is a fixed 586px tall; an embed shorter than
-        // that uses the narrow layout, which fits its frame.
+        // The wide boxed layout is a fixed 900x586 box, scaled to fit:
+        // - opened directly: scaled down to the window width when narrower
+        //   (a bigger window keeps the normal centered 900px box);
+        // - embedded: scaled to fill the frame, up or down, keeping its shape.
+        // Below BOX_MIN_SCALE it would be too small to read, so the narrow
+        // layout is used instead. Phones always use the narrow layout.
         var isEmbedded = $( this.layout.wrapper ).hasClass( 'loaded-in-iframe' );
-        var isNarrow = window.innerWidth < 900
-                    || window.screen.width <= 414
-                    || ( isEmbedded && window.innerHeight < 586 );
+        var boxScale = isEmbedded
+            ? Math.min( this.BOX_MAX_SCALE, window.innerWidth / this.BOX_WIDTH, window.innerHeight / this.BOX_HEIGHT )
+            : Math.min( 1, window.innerWidth / this.BOX_WIDTH );
+        var isNarrow = window.screen.width <= 414 || boxScale < this.BOX_MIN_SCALE;
 
         document.documentElement.classList.toggle( 'sbplus-narrow', isNarrow );
 
@@ -2526,6 +2531,7 @@ var SBPLUS = SBPLUS || {
 
             this.layout.isMobile = true;
             this.alreadyResized = true;
+            this.scaleBox( 1 );
             $( this.layout.wrapper ).removeClass( 'sbplus_boxed' );
             this.fitMediaToFrame();
 
@@ -2538,6 +2544,7 @@ var SBPLUS = SBPLUS || {
             
             this.layout.isMobile = false;
             $( this.layout.wrapper ).addClass( 'sbplus_boxed' );
+            this.scaleBox( boxScale );
             this.clearMediaFit();
             $( this.layout.wrapper ).removeClass( 'toc_displayed');
             $( this.tableOfContents.container ).css( 'height', '' );
@@ -2548,6 +2555,47 @@ var SBPLUS = SBPLUS || {
     
     resize: function() {
         this.calcLayout();
+    },
+
+    // size of the wide boxed layout, and the smallest it may be scaled to
+    BOX_WIDTH: 900,
+    BOX_HEIGHT: 586,
+    BOX_MIN_SCALE: 0.75,
+    BOX_MAX_SCALE: 2,
+
+    /**
+     * Scales the wide boxed layout to fit. A transform (not CSS zoom)
+     * keeps mouse positions and element measurements consistent, so the video
+     * seek bar and menus stay accurate. The box keeps its 900x586 layout size,
+     * so the margins give back the space it no longer uses and keep it
+     * centered without a horizontal scrollbar.
+     **/
+    scaleBox: function( scale ) {
+
+        var wrapper = document.querySelector( this.layout.wrapper );
+
+        // keeps the bottom margin inside the body (no margin collapsing), so
+        // the page height follows the scaled box
+        document.body.style.display = scale !== 1 ? 'flow-root' : '';
+
+        if ( scale === 1 ) {
+            wrapper.style.transform = '';
+            wrapper.style.transformOrigin = '';
+            wrapper.style.marginLeft = '';
+            wrapper.style.marginRight = '';
+            wrapper.style.marginBottom = '';
+            return;
+        }
+
+        var scaledWidth = this.BOX_WIDTH * scale;
+        var left = Math.max( 0, ( window.innerWidth - scaledWidth ) / 2 );
+
+        wrapper.style.transformOrigin = '0 0';
+        wrapper.style.transform = 'scale(' + scale + ')';
+        wrapper.style.marginLeft = left + 'px';
+        wrapper.style.marginRight = ( window.innerWidth - left - this.BOX_WIDTH ) + 'px';
+        wrapper.style.marginBottom = ( this.BOX_HEIGHT * ( scale - 1 ) ) + 'px';
+
     },
     
     /**

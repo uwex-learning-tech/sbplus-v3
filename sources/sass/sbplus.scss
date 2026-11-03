@@ -2598,7 +2598,9 @@ body {
 
 @media only screen
     and ( min-device-width: 768px )
-    and ( min-width: 900px ) {
+    and ( min-width: 600px ) {
+    // (the layout itself is chosen in calcLayout; below 900px wide the box is
+    // scaled down to fit, see scaleBox)
     
     html {
 
