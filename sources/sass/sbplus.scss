@@ -1701,6 +1701,8 @@ body {
                 border-top: 1px solid $border-color;
                 border-bottom: 1px solid $border-color;
                 font-weight: bold;
+                // same size as the full layout's slide counter
+                @include font-size( 12px );
             }
 
             .controls {
@@ -1760,6 +1762,9 @@ body {
                             .menu {
                             
                                 position: absolute;
+                                // above the video, its controls and its
+                                // dialogs (VideoJS uses up to 999)
+                                z-index: 1001;
                                 width: 90%;
                                 left: 5%;
                                 bottom: 100%;
@@ -2235,6 +2240,72 @@ body {
 
 .sbplus_wrapper.loaded-in-iframe.toc_displayed:not(.sbplus_boxed) #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_widget {
     display: none;
+}
+
+// Narrow layout: one compact, centered row of controls (slide counter, then
+// previous, next, contents and downloads) instead of a full-width counter row
+// above four stretched buttons. Wraps the counter onto its own line only when
+// the frame is too narrow for one row.
+.sbplus_wrapper:not(.sbplus_boxed) #sbplus #sbplus_control_bar {
+
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+    column-gap: $gutter;
+    border-top: 1px solid $border-color;
+
+    #sbplus_page_status {
+        height: auto;
+        min-height: 44px;
+        padding: 0 $gutter;
+        border: none;
+    }
+
+    .controls {
+
+        height: 44px;
+
+        // hairlines between and around the buttons, as in the full layout
+        #sbplus_previous_btn,
+        #sbplus_next_btn,
+        #mobile_toc_toggle_btn,
+        #sbplus_download_btn_wrapper {
+            // equal widths, with room either side of the icon
+            flex: 0 0 auto;
+            width: 60px;
+            min-width: 60px;
+            height: 44px;
+            padding: 0 12px;
+            border: none;
+            border-right: 1px solid $border-color;
+        }
+
+        #sbplus_previous_btn {
+            border-left: 1px solid $border-color;
+        }
+
+        // keep one row on the narrowest phones (320px)
+        @media only screen and ( max-width: 360px ) {
+
+            #sbplus_previous_btn,
+            #sbplus_next_btn,
+            #mobile_toc_toggle_btn,
+            #sbplus_download_btn_wrapper {
+                width: 52px;
+                min-width: 52px;
+                padding: 0 8px;
+            }
+
+        }
+
+        #sbplus_download_btn_wrapper #sbplus_download_btn .menu-parent .menu {
+            width: 200px;
+            left: auto;
+            right: 0;
+        }
+
+    }
+
 }
 
 @media only screen

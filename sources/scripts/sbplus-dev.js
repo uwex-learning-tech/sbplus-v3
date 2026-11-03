@@ -2107,6 +2107,13 @@ var SBPLUS = SBPLUS || {
     **************************************************************************/
         
     openMenuItem: function( id ) {
+
+        // close the Downloads popup so it cannot float above the menu screen
+        $( this.button.download ).find( 'ul' ).not( '.root-level' ).attr( {
+            'aria-hidden': 'true',
+            'aria-expanded': 'false'
+        } );
+        $( this.button.download ).find( '.menu-parent' ).attr( 'aria-expanded', 'false' );
         
         if (this.currentPage.mediaPlayer != null) {
             
