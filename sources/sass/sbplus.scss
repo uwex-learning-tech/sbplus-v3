@@ -543,7 +543,9 @@ body {
                                 border-top: none;
                                 background-color: #5f5d5d;
                                 box-shadow: 0 6px 4px 2px #fff;
-                                z-index: 11;
+                                z-index: 1001;
+                                max-height: calc( 100vh - #{$titleBarHeight} );
+                                overflow-y: auto;
                                 
                                 .menu-item {
                                     
@@ -2323,6 +2325,115 @@ body {
 
 .sbplus_wrapper.loaded-in-iframe.toc_displayed:not(.sbplus_boxed) #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_widget {
     display: none;
+}
+
+// Narrow layout: error and notice messages stay readable even when the
+// slide itself failed to load (the slide area would otherwise be 0px tall)
+.sbplus_wrapper:not(.sbplus_boxed) #sbplus #sbplus_content_wrapper #sbplus_left_col #sbplus_media_wrapper {
+
+    // the slide area gets room for the message while it is shown (jQuery's
+    // .show() sets display: block); the message overlays it and scrolls
+    &:has( > .sbplus_media_error[style*="display: block"] ) {
+        min-height: min( var( --sbplus-media-max-height, 240px ), 240px );
+    }
+
+    .sbplus_media_error {
+        overflow-y: auto;
+    }
+
+    .sbplus_media_msg {
+        width: auto;
+        max-width: calc( 100% - #{$gutter * 2} );
+        left: 50%;
+        transform: translateX( -50% );
+    }
+
+}
+
+// Narrow layout: menu screens (Settings, Help, ...) give the content the room
+.sbplus_wrapper:not(.sbplus_boxed) #sbplus #menu_item_content .container {
+
+    .side_menu {
+
+        flex: 0 0 auto;
+        width: 180px;
+
+        .menu {
+            overflow-y: auto;
+        }
+
+    }
+
+    // phone widths: the menu becomes a row of tabs above the content
+    @media only screen and ( max-width: 599px ) {
+
+        flex-flow: column nowrap;
+
+        .side_menu {
+
+            order: -1;
+            width: 100%;
+            height: auto;
+
+            .menu {
+
+                display: flex;
+                flex-flow: row nowrap;
+                height: auto;
+                overflow-x: auto;
+                overflow-y: hidden;
+
+                .menu-item {
+
+                    flex: 0 0 auto;
+
+                    a {
+                        width: auto;
+                        padding: 0 8px;
+                        white-space: nowrap;
+                    }
+
+                }
+
+            }
+
+        }
+
+        .content {
+            flex: 1 1 auto;
+            min-height: 0;
+            height: auto;
+        }
+
+    }
+
+    // author photo: in proportion to the narrower content area
+    .content .profileImg {
+        width: min( 40%, 160px );
+        margin-left: $gutter;
+        margin-bottom: $gutter;
+    }
+
+}
+
+// Narrow layout: the error screen fits small frames and scrolls if needed
+.sbplus_wrapper:not(.sbplus_boxed) #sbplus_error_screen {
+
+    height: 100%;
+    overflow-y: auto;
+
+    #sbplus_error_info {
+
+        min-width: 0;
+        max-width: 90%;
+        margin: auto;
+
+        .center_icon {
+            font-size: 500%;
+        }
+
+    }
+
 }
 
 // Narrow layout: one compact, centered row of controls (slide counter, then

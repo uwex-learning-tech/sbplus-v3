@@ -2138,6 +2138,22 @@ var SBPLUS = SBPLUS || {
         
         $( self.menu.menuContentList + ' li' ).removeClass( 'active' );
         $( self.menu.menuContentList + ' .' + itemId ).addClass( 'active' );
+
+        // when the menu is a scrolling row of tabs (phone widths), bring the
+        // selected tab into view without scrolling the page around the player
+        // (after the menu screen is shown; a hidden element cannot scroll)
+        setTimeout( function() {
+
+            var menuList = document.querySelector( self.menu.menuContentList );
+            var activeItem = menuList ? menuList.querySelector( '.' + itemId ) : null;
+
+            if ( activeItem && menuList.scrollWidth > menuList.clientWidth ) {
+                var listLeft = menuList.getBoundingClientRect().left;
+                var itemBox = activeItem.getBoundingClientRect();
+                menuList.scrollLeft += ( itemBox.left - listLeft ) - ( menuList.clientWidth - itemBox.width ) / 2;
+            }
+
+        }, 0 );
         
         switch ( itemId ) {
                     

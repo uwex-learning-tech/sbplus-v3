@@ -108,7 +108,7 @@
                     <div class="tab_segment"></div>
                 </div>
                 
-                <div class="segment_content animated"></div>
+                <div class="segment_content animated" tabindex="0" role="region" aria-label="Notes"></div>
                 
             </div>
             
