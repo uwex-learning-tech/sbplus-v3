@@ -157,6 +157,10 @@ module.exports = {
         new MiniCssExtractPlugin({
             filename: 'sources/css/[name].css',
         } ),
+        // Makes the version available to the player code (shown in Settings).
+        new webpack.DefinePlugin( {
+            __SBPLUS_VERSION__: JSON.stringify( pkg.version ),
+        } ),
         // Stamps the version from package.json onto sbplus.js and sbplus.css,
         // so the version only needs to be changed in package.json.
         new webpack.BannerPlugin( {

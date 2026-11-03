@@ -36,6 +36,9 @@ import "../sass/sbplus.scss";
 import { MenuBar } from "./menubar";
 import { Page } from "./page";
 
+// set from package.json at build time; 'dev' when running unbuilt sources
+const SBPLUS_VERSION = typeof __SBPLUS_VERSION__ !== 'undefined' ? __SBPLUS_VERSION__ : 'dev';
+
 var SBPLUS = SBPLUS || {
     
     /***************************************************************************
@@ -2829,6 +2832,10 @@ var SBPLUS = SBPLUS || {
     afterSettingsLoaded: function() {
         
         var self = this;
+        
+        if ( $( '.settings .sbplus_version' ).length === 0 ) {
+            $( '.settings' ).append( '<p class="sbplus_version">Storybook Plus version ' + SBPLUS_VERSION + '</p>' );
+        }
         
         if ( self.getStorageItem( 'sbplus-' + self.presentationLoc + '-settings-loaded', true ) === '1' ) {
             

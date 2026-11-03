@@ -1980,6 +1980,13 @@ body {
                         
                     }
                     
+                    .sbplus_version {
+                        margin: $gutter 0 0;
+                        padding: 0 8px;
+                        font-size: 12px;
+                        color: #595959;
+                    }
+                    
                     #save_settings {
                         display: none;
                         position: absolute;
