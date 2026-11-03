@@ -426,6 +426,7 @@ var SBPLUS = SBPLUS || {
                 const logo = document.createElement( 'img' );
 
                 logo.src = self.logo;
+                logo.alt = '';
                 splashLogo.appendChild(logo);
                 
             } ).fail( function() {
@@ -445,6 +446,7 @@ var SBPLUS = SBPLUS || {
                 const logo = document.createElement( 'img' );
                 
                 logo.src = self.logo;
+                logo.alt = '';
                 splashLogo.appendChild(logo);
                 
             } );
@@ -1016,6 +1018,8 @@ var SBPLUS = SBPLUS || {
                         let linkAttr = format === 'html' ?
                             'target="_blank" rel="noopener" aria-label="Open ' + fileLabel + ' in a new tab"' :
                             'download="' + fileName + '.' + format + '" aria-label="Download ' + fileLabel + ' file"';
+
+                        $( self.splash.cta ).removeClass( 'no_downloads' );
 
                         $( self.splash.downloadBar ).append(
                             '<a href="' + this.url + '" tabindex="1" ' + linkAttr + ' class="sbplus-download-link"><span class="icon-download"></span>' + file.label + '</a>' );

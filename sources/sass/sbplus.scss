@@ -68,6 +68,67 @@ $font-size: 16px;
     
 }
 
+// Splash screen: duration, Start/Resume and downloads side by side in one row.
+@mixin splash-context-row {
+
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+
+    .sb_duration {
+        padding: 0 ($gutter * 4);
+        flex: 1 0 25%;
+        text-align: right;
+    }
+
+    .sb_cta {
+
+        display: flex;
+        flex-flow: column;
+        flex: 2 0 30%;
+        padding: 0 ($gutter * 4);
+        border-left: 1px solid $border-color;
+        border-right: 1px solid $border-color;
+        margin: 0;
+
+        button {
+            width: 100%;
+        }
+
+        &.no_downloads {
+            border-right: none;
+        }
+
+    }
+
+    .sb_duration:empty,
+    .sb_downloads:empty {
+        display: none;
+    }
+
+    .sb_duration:empty + .sb_cta {
+        border-left: none;
+    }
+
+    .sb_cta:has( + .sb_downloads:empty ) {
+        border-right: none;
+    }
+
+    .sb_downloads {
+
+        text-align: left;
+        flex: 1 0 25%;
+        padding: 0 ($gutter * 4);
+        margin: 0;
+
+        a {
+            justify-content: flex-start;
+        }
+
+    }
+
+}
+
 @mixin font-size( $px, $base: $font-size-base ) {
     font-size: $px;
     font-size: ( math.div($px, $base) ) * 1rem;
@@ -265,6 +326,12 @@ body {
             #sbplus_presentation_info {
                 
                 display: none;
+                flex: 0 1 auto;
+                min-height: 0;
+                overflow-x: hidden;
+                overflow-y: auto;
+                // only breaks a word that cannot fit on a line by itself
+                overflow-wrap: break-word;
                 width: 90%;
                 margin: ($gutter * 4) auto 0;
                 padding: ($gutter * 3) ($gutter * 2);
@@ -307,13 +374,18 @@ body {
                             min-height: unset;
                             padding: $gutter 0;
                             border-radius: 25px;
-                            margin-bottom: $gutter;
                             font-size: 140%;
                             font-weight: bold;
                             text-transform: capitalize;
                             background-color: $default-accent;
                         }
                         
+                        // space between Start and Resume; a hidden Resume
+                        // leaves Start centered
+                        button + button {
+                            margin-top: $gutter;
+                        }
+
                         button:hover {
                             background-color: $default-accent-hover;
                         }
@@ -328,14 +400,19 @@ body {
                         
                         a {
 
+                            // icon stays beside its label; a long label
+                            // wraps under itself, not under the icon
                             position: relative;
-                            display: block;
+                            display: flex;
+                            justify-content: center;
+                            align-items: baseline;
                             text-decoration: none;
                             color: #000;
                             margin-bottom: $gutter;
 
                             .icon-download {
                                 display: inline-block;
+                                flex: 0 0 auto;
                                 margin-right: 10px;
                                 color: #666666;
                             }
@@ -361,15 +438,21 @@ body {
             #sb_splash_logo {
 
                 width: 100%;
-                flex: 1 0 auto;
+                // gives up its space first when the frame is short
+                flex: 1 1000 auto;
+                min-height: 0;
+                overflow: hidden;
                 display: flex;
                 padding: ($gutter * 6) 0;
                 align-items: flex-start;
+                justify-content: center;
 
                 img {
                     display: block;
                     width: 385px;
-                    height: auto;
+                    max-width: 80%;
+                    max-height: 100%;
+                    object-fit: contain;
                     margin: 0 auto;
                     filter: invert(100%);
                 }
@@ -2308,6 +2391,89 @@ body {
 
 }
 
+// Splash screen in the narrow layout: slightly smaller Start/Resume buttons.
+.sbplus_wrapper:not(.sbplus_boxed) #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_context .sb_cta {
+
+    button {
+        padding: 8px 0;
+        font-size: 120%;
+    }
+
+    button + button {
+        margin-top: 8px;
+    }
+
+}
+
+// Splash screen in the narrow layout: use the one-row layout when there is
+// room for it, and tighten spacing in short frames so nothing is out of view.
+@media only screen and ( min-width: 600px ), only screen and ( min-width: 480px ) and ( max-height: 480px ) {
+
+    .sbplus_wrapper:not(.sbplus_boxed) #sbplus #sbplus_splash_screen #sbplus_presentation_info .sb_context {
+
+        @include splash-context-row;
+
+        .sb_duration,
+        .sb_cta,
+        .sb_downloads {
+            padding: 0 ($gutter * 2);
+        }
+
+        .sb_duration,
+        .sb_cta {
+            flex-shrink: 1;
+            min-width: 0;
+        }
+
+        .sb_cta {
+            min-width: 120px;
+        }
+
+    }
+
+}
+
+// (also narrow, stacked splash screens up to 760px tall, e.g. phones)
+@media only screen and ( max-height: 480px ), only screen and ( max-width: 599px ) and ( max-height: 760px ) {
+
+    .sbplus_wrapper #sbplus #sbplus_splash_screen {
+
+        #sbplus_presentation_info {
+
+            margin-top: $gutter * 2;
+            padding: ($gutter * 1.5) ($gutter * 2);
+
+            .sb_title { font-size: 150%; }
+            .sb_subtitle { font-size: 130%; }
+
+            .sb_author {
+                margin-top: $gutter;
+                font-size: 130%;
+            }
+
+            .sb_context {
+
+                margin-top: $gutter;
+
+                .sb_duration,
+                .sb_downloads { font-size: 120%; }
+
+                .sb_cta { margin-top: $gutter; }
+
+                .sb_downloads a { margin-bottom: math.div( $gutter, 2 ); }
+
+            }
+
+        }
+
+        #sb_splash_logo {
+            padding: ($gutter * 2) 0;
+        }
+
+    }
+
+}
+
 @media only screen
     and ( min-device-width: 768px )
     and ( min-width: 900px ) {
@@ -2345,53 +2511,7 @@ body {
                 #sbplus_presentation_info {
 
                     .sb_context {
-
-                        display: flex;
-                        flex-flow: row nowrap;
-                        align-items: center;
-
-                        .sb_duration {
-                            padding: 0 ($gutter * 4);
-                            flex: 1 0 25%;
-                            text-align: right;
-                        }
-
-                        .sb_cta {
-                        
-                            display: flex;
-                            flex-flow: column;
-                            flex: 2 0 30%;
-                            padding: 0 ($gutter * 4);
-                            border-left: 1px solid $border-color;
-                            border-right: 1px solid $border-color;
-                            margin: 0;
-
-                            button {
-
-                                width: 100%;
-
-                                &:last-child {
-                                    margin: 0;
-                                }
-                                
-                            }
-
-                            &.no_downloads {
-                                border-right: none;
-                            }
-                            
-                        }
-
-                        .sb_downloads {
-
-
-                            text-align: left;
-                            flex: 1 0 25%;
-                            padding: 0 ($gutter * 4);
-                            margin: 0;
-
-                        }
-
+                        @include splash-context-row;
                     }
                     
                 }

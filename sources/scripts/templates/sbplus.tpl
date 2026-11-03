@@ -12,7 +12,7 @@
     <!-- Splash screen -->
     <div id="sbplus_splash_screen" class="animated">
         
-        <div id="sbplus_presentation_info">
+        <div id="sbplus_presentation_info" tabindex="0" role="region" aria-label="Presentation information">
             
             <p class="sb_title" tabindex="1"></p>
             <p class="sb_subtitle" tabindex="1"></p>
