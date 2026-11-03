@@ -1566,6 +1566,9 @@ body {
                 #sbplus_widget.noSegments {
                     
                     background-color: #ececed;
+
+                    // lets the watermark logo below react to the panel's size
+                    container-type: size;
                     
                     .widget_controls_bar {
                         display: none;
@@ -1581,6 +1584,14 @@ body {
                         padding: 0;
                         filter: invert(0.5) opacity(25%);
                         
+                    }
+
+                    // no logo when the panel is too short to show it comfortably
+                    // (!important: the logo is set inline by selectSegment)
+                    @container ( max-height: 80px ) or ( min-aspect-ratio: 8 / 1 ) {
+                        .segment_content {
+                            background-image: none !important;
+                        }
                     }
                     
                 }
