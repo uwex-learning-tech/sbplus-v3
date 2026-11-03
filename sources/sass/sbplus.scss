@@ -750,6 +750,32 @@ body {
                                 height: 360px;
                             }
 
+                            // Small players (e.g. a short embed): VideoJS's
+                            // responsive mode already hides the time, speed
+                            // and volume slider; also drop the skip and
+                            // quality buttons so the control bar fits.
+                            &.vjs-layout-x-small,
+                            &.vjs-layout-tiny {
+
+                                .vjs-control-bar {
+
+                                    .vjs-backward-button,
+                                    .vjs-forward-button,
+                                    .vjs-quality-selector {
+                                        display: none;
+                                    }
+
+                                }
+
+                            }
+
+                            // VideoJS also hides the progress bar below 320px;
+                            // with the controls above gone there is room for
+                            // it, so keep it until the tiny size.
+                            &.vjs-layout-x-small .vjs-control-bar .vjs-progress-control {
+                                display: flex;
+                            }
+
                             button:hover {
                                 color: #fff;
                             }
@@ -2127,6 +2153,52 @@ body {
     }
     
 } // end main wrapper
+
+// Narrow layout: fit the player to its frame so the control bar stays in
+// view. The slide's width is capped in fitMediaToFrame(); the notes take the
+// remaining height and scroll.
+.sbplus_wrapper:not(.sbplus_boxed) {
+
+    #sbplus #sbplus_content_wrapper,
+    #sbplus #sbplus_content_wrapper #sbplus_left_col {
+        flex: 1 1 auto;
+        min-height: 0;
+    }
+
+    #sbplus #sbplus_content_wrapper #sbplus_left_col {
+
+        #sbplus_media_wrapper {
+
+            flex: 0 0 auto;
+
+            .sbplus_media_content {
+                margin: 0 auto;
+            }
+
+        }
+
+        #sbplus_widget {
+
+            display: flex;
+            flex-flow: column nowrap;
+            flex: 1 1 auto;
+            min-height: 0;
+
+            .widget_controls_bar {
+                flex: 0 0 auto;
+            }
+
+            .segment_content {
+                flex: 1 1 auto;
+                min-height: 0;
+                height: auto;
+            }
+
+        }
+
+    }
+
+}
 
 @media only screen
     and ( min-device-width: 768px )

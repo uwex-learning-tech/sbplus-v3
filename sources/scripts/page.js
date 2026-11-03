@@ -724,6 +724,9 @@ Page.prototype.renderVideoJS = function( src ) {
             nativeTextTracks: false
         },
         controls: true,
+        // adds size classes (vjs-layout-small, -x-small, -tiny) so the
+        // control bar can drop secondary controls in small players
+        responsive: true,
         inactivityTimeout: 0,
         autoplay: isAutoplay,
         preload: "auto",

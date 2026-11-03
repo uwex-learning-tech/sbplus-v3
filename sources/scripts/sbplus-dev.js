@@ -2481,11 +2481,13 @@ var SBPLUS = SBPLUS || {
             this.layout.isMobile = true;
             this.alreadyResized = true;
             $( this.layout.wrapper ).removeClass( 'sbplus_boxed' );
+            this.fitMediaToFrame();
 
         } else {
             
             this.layout.isMobile = false;
             $( this.layout.wrapper ).addClass( 'sbplus_boxed' );
+            $( this.layout.mediaContent ).css( 'max-width', '' );
             $( this.layout.wrapper ).removeClass( 'toc_displayed');
             $( this.tableOfContents.container ).css( 'height', '' );
 
@@ -2495,6 +2497,31 @@ var SBPLUS = SBPLUS || {
     
     resize: function() {
         this.calcLayout();
+    },
+    
+    /**
+     * Narrow layout: caps the slide's width so its 16:9 height leaves room
+     * for the title bar, the control bar, and some of the notes. Without
+     * this, a short frame (e.g. an embed in a Canvas page) pushes the
+     * control bar out of view.
+     **/
+    fitMediaToFrame: function() {
+
+        // Room for the notes tab bar plus a few lines of notes. Always
+        // reserved: this runs on resize, not on every slide change, so it
+        // must not depend on whether the current slide has notes.
+        var notesHeight = 25 + 80;
+        var slack = 8;
+
+        var reserved = $( this.banner.bar ).outerHeight()
+                     + $( this.layout.mainControl ).outerHeight()
+                     + notesHeight
+                     + slack;
+
+        var maxWidth = Math.floor( ( window.innerHeight - reserved ) * 16 / 9 );
+
+        $( this.layout.mediaContent ).css( 'max-width', Math.max( maxWidth, 240 ) + 'px' );
+
     },
     
     getUrlParam: function( name ) {
