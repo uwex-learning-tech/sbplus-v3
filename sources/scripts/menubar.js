@@ -385,9 +385,13 @@ MenuBar.prototype.handleKeydown = function( item, e ) {
                     'aria-expanded': 'false'
                 } );
                 
-                // download/open the file
-                var id = self.activeItem.find( 'a' ).attr( 'id' );
-                document.getElementById( id ).click();
+                // open the item / download the file (the links have no ids,
+                // so click the link element itself)
+                var link = self.activeItem.find( 'a' )[0];
+
+                if ( link ) {
+                    link.click();
+                }
                 
                 // clear the active item
                 self.activeItem = null;
