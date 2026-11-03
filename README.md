@@ -32,4 +32,4 @@ See [CHANGELOG](https://github.com/uwex-learning-tech/sbplus-v3/blob/master/CHAN
 
 ---
 ### License & Copyright
-Storybook Plus (SB+) is licensed under [GNU v3](https://github.com/uwex-learning-tech/sbplus-v3/blob/master/LICENSE) license. (c) 2013 - 2026. Ethan Lin, [Learning Technology & Media Services](https://media.uwex.edu), and [University of Wisconsin Extended Campus](https://uwex.wisconsin.edu). All rights reserved.
+Storybook Plus (SB+) is licensed under [GNU v3](https://github.com/uwex-learning-tech/sbplus-v3/blob/master/LICENSE) license. (c) 2013 - 2026. Ethan Lin, [Media Services](https://media.uwex.edu), and [Universities of Wisconsin Office of Online & Professional Learning Resources](https://ce.uwex.edu/). All rights reserved.
