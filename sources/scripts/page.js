@@ -1,5 +1,6 @@
 import { SBPLUS } from "./sbplus-dev";
 import { Quiz } from "./quiz";
+import { getKalturaSources } from "./kaltura";
 
 var Page = function ( obj, data ) {
     
@@ -115,23 +116,7 @@ Page.prototype.getPageMedia = function() {
         case 'kaltura':
 
             self.addMarkers();
-
-            if ( SBPLUS.kalturaLoaded === false ) {
-
-                $.getScript( self.root + 'scripts/libs/kaltura/mwembedloader.js', function() {
-
-                    $.getScript( self.root +  'scripts/libs/kaltura/kwidgetgetsources.js', function() {
-
-                        SBPLUS.kalturaLoaded = true;
-                        self.loadKalturaVideoData();
-
-                    });
-
-                });
-
-            } else {
-                self.loadKalturaVideoData();
-            }
+            self.loadKalturaVideoData();
 
             // self.gaEventCate = 'Video';
             // self.gaEventLabel = SBPLUS.getCourseDirectory() + ':kaltura:page' + SBPLUS.targetPage.data('count');
@@ -599,98 +584,84 @@ Page.prototype.loadKalturaVideoData = function () {
         
     };
 
-    kWidget.getSources( {
+    getKalturaSources( self.kaltura.id, self.src ).then( function( data ) {
 
-        'partnerId': self.kaltura.id,
-        'entryId': self.src,
-        'callback': function( data ) {
+        var captions = data.caption;
 
-            var captions = data.caption;
+        self.isKaltura.status.entry = data.status;
+        self.isKaltura.duration = data.duration;
+        self.isKaltura.poster = data.poster;
 
-            self.isKaltura.status.entry = data.status;
-            self.isKaltura.duration = data.duration;
-            self.isKaltura.poster = data.poster;
+        data.sources.forEach( function( source ) {
 
-            for( var i in data.sources ) {
-
-                var source = data.sources[i];
-    
-                if ( source.flavorParamsId === self.kaltura.flavors.low ) {
-                    
-                    self.isKaltura.flavors.low = source.src;
-                    self.isKaltura.status.low = source.status;
-    
-                }
-    
-                if ( source.flavorParamsId === self.kaltura.flavors.normal ) {
-    
-                    self.isKaltura.flavors.normal = source.src;
-                    self.isKaltura.status.normal = source.status;
-    
-                }
-    
-                if ( source.flavorParamsId === self.kaltura.flavors.medium ) {
-    
-                    self.isKaltura.flavors.medium = source.src;
-                    self.isKaltura.status.medium = source.status;
-    
-                }
-    
+            if ( source.flavorParamsId === self.kaltura.flavors.low ) {
+                self.isKaltura.flavors.low = source.src;
+                self.isKaltura.status.low = source.status;
             }
 
-            // entry video
-            if ( self.isKaltura.status.entry >= 1 && self.isKaltura.status.entry <= 2 ) {
+            if ( source.flavorParamsId === self.kaltura.flavors.normal ) {
+                self.isKaltura.flavors.normal = source.src;
+                self.isKaltura.status.normal = source.status;
+            }
 
-                // entry video
-                if ( self.isKaltura.status.entry >= 1 && self.isKaltura.status.entry <= 2 ) {
-                        
-                    // flavor videos
-                    if ( self.isKaltura.status.normal === 2 || self.isKaltura.status.normal === 4 ) {
-                    
-                        if ( captions !== null ) {
+            if ( source.flavorParamsId === self.kaltura.flavors.medium ) {
+                self.isKaltura.flavors.medium = source.src;
+                self.isKaltura.status.medium = source.status;
+            }
 
-                            self.captionUrl = [];
+        } );
 
-                            captions.forEach( caption => {
+        // entry video
+        if ( self.isKaltura.status.entry >= 1 && self.isKaltura.status.entry <= 2 ) {
 
-                                if ( caption.label.toLowerCase() != "english (autocaption)" ) {
+            // flavor videos
+            if ( self.isKaltura.status.normal === 2 || self.isKaltura.status.normal === 4 ) {
+            
+                if ( captions !== null ) {
 
-                                    self.captionUrl.push( {
-                                        kind: 'captions',
-                                        language: caption.languageCode,
-                                        label: caption.language,
-                                        url: 'https://www.kaltura.com/api_v3/?service=caption_captionasset&action=servewebvtt&captionAssetId=' + caption.id + '&segmentDuration=' + self.isKaltura.duration + '&segmentIndex=1'
-                                    } );
+                    self.captionUrl = [];
 
-                                }
-                                
+                    captions.forEach( caption => {
+
+                        if ( caption.label.toLowerCase() != "english (autocaption)" ) {
+
+                            self.captionUrl.push( {
+                                kind: 'captions',
+                                language: caption.languageCode,
+                                label: caption.language,
+                                url: 'https://www.kaltura.com/api_v3/?service=caption_captionasset&action=servewebvtt&captionAssetId=' + caption.id + '&segmentDuration=' + self.isKaltura.duration + '&segmentIndex=1'
                             } );
 
                         }
                         
-                        var html = '<video id="mp" class="video-js vjs-default-skin" crossorigin="anonymous" width="100%" height="100%"></video>';
-                    
-                        $( self.mediaContent ).html( html ).promise().done( function() {
-                            
-                            // call video js
-                            self.renderVideoJS();
-                            
-                        } );
-                        
-                        
-                    } else {
-                        self.showPageError( 'KAL_NOT_READY' );
-                    }
-                        
-                } else {
-                    self.showPageError( 'KAL_ENTRY_NOT_READY' );
+                    } );
+
                 }
-
-                self.setWidgets();
-
+                
+                var html = '<video id="mp" class="video-js vjs-default-skin" crossorigin="anonymous" width="100%" height="100%"></video>';
+            
+                $( self.mediaContent ).html( html ).promise().done( function() {
+                    
+                    // call video js
+                    self.renderVideoJS();
+                    
+                } );
+                
+            } else {
+                self.showPageError( 'KAL_NOT_READY' );
             }
-
+                
+        } else {
+            self.showPageError( 'KAL_ENTRY_NOT_READY' );
         }
+
+        self.setWidgets();
+
+    }, function( error ) {
+
+        console.error( error );
+        self.showPageError( 'KAL_REQUEST_FAILED' );
+        self.setWidgets();
 
     } );
     
@@ -1303,7 +1274,11 @@ Page.prototype.showPageError = function( type, src ) {
             msg = '<p>The video for this Storybook Page is still processing and could not be loaded at the moment. Please try again later. Contact support if you continue to have issues.</p><p><strong>Expected video source</strong>: Kaltura video ID ' + self.src + '<br><strong>Status</strong>: ';
             
             msg += getEntryKalturaStatus( self.isKaltura.status.entry ) + '</p>';
-            
+
+        break;
+
+        case 'KAL_REQUEST_FAILED':
+            msg = '<p><strong>The video for this Storybook Page could not be loaded.</strong></p><p><strong>Expected video source</strong>: Kaltura video ID ' + self.src + '</p><p>Please try refreshing your browser, or coming back later.</p><p>If this problem continues, please <a href="javascript:void(0);" onclick="SBPLUS.openMenuItem(\'sbplus_help\');">contact tech support</a>.</p>';
         break;
         
         case 'NO_MEDIA':

@@ -76,7 +76,6 @@ var SBPLUS = SBPLUS || {
     xmlParsed: false,
     presentationStarted: false,
     hasError: false,
-    kalturaLoaded: false,
     alreadyResized: false,
     
     // videojs
